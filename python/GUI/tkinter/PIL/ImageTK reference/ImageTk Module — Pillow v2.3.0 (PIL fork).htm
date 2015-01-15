@@ -1,0 +1,391 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0062)http://pillow.readthedocs.org/en/latest/reference/ImageTk.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    
+    <title>ImageTk Module — Pillow v2.3.0 (PIL fork)</title>
+    
+    <link rel="stylesheet" href="./ImageTk Module — Pillow v2.3.0 (PIL fork)_files/better.css" type="text/css">
+    <link rel="stylesheet" href="./ImageTk Module — Pillow v2.3.0 (PIL fork)_files/pygments.css" type="text/css">
+    <link rel="stylesheet" href="./ImageTk Module — Pillow v2.3.0 (PIL fork)_files/badge_only.css" type="text/css">
+    <link rel="stylesheet" href="./ImageTk Module — Pillow v2.3.0 (PIL fork)_files/readthedocs-doc-embed.css" type="text/css">
+    
+    <script type="text/javascript" async="" src="./ImageTk Module — Pillow v2.3.0 (PIL fork)_files/ga.js"></script><script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="./ImageTk Module — Pillow v2.3.0 (PIL fork)_files/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="./ImageTk Module — Pillow v2.3.0 (PIL fork)_files/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="./ImageTk Module — Pillow v2.3.0 (PIL fork)_files/underscore.js"></script>
+    <script type="text/javascript" src="./ImageTk Module — Pillow v2.3.0 (PIL fork)_files/doctools.js"></script>
+    <script type="text/javascript" src="./ImageTk Module — Pillow v2.3.0 (PIL fork)_files/readthedocs-doc-embed.js"></script>
+    <link rel="author" title="About these documents" href="http://pillow.readthedocs.org/en/latest/about.html">
+    <link rel="top" title="Pillow v2.3.0 (PIL fork)" href="http://pillow.readthedocs.org/en/latest/index.html">
+    <link rel="up" title="Reference" href="http://pillow.readthedocs.org/en/latest/reference/index.html">
+    <link rel="next" title="ImageWin Module (Windows-only)" href="http://pillow.readthedocs.org/en/latest/reference/ImageWin.html">
+    <link rel="prev" title="ImageStat Module" href="http://pillow.readthedocs.org/en/latest/reference/ImageStat.html">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<!-- RTD Extra Head -->
+
+
+
+<!--
+<link rel="canonical" href="http://pillow.readthedocs.org/en/latest/reference/ImageTk.html">
+-->
+
+<script type="text/javascript">
+  // This is included here because other places don't have access to the pagename variable.
+  var READTHEDOCS_DATA = {
+    project: "pillow",
+    version: "latest",
+    language: "en",
+    page: "reference/ImageTk",
+    theme: "better",
+    docroot: "/docs/",
+    api_host: "http://readthedocs.org"
+  }
+  // Old variables
+  var doc_version = "latest";
+  var doc_slug = "pillow";
+  var page_name = "reference/ImageTk";
+  var html_theme = "better";
+</script>
+<!-- RTD Analytics Code -->
+<!-- Included in the header because you don't have a footer block. -->
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-17997319-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<!-- end RTD Analytics Code -->
+
+
+<!-- end RTD <extrahead> -->
+
+  </head>
+  <body style="">
+    <header id="pageheader"><h1><a href="http://pillow.readthedocs.org/en/latest/index.html">
+        Pillow v2.3.0 (PIL fork)
+    </a></h1></header>
+  <div class="related top">
+  <nav id="rellinks">
+    <ul>
+        <li>
+          ←
+          <a href="http://pillow.readthedocs.org/en/latest/reference/ImageStat.html" title="Previous document"><tt class="docutils literal"><span class="pre">ImageStat</span></tt> Module</a>
+        </li>
+        <li>
+          <a href="http://pillow.readthedocs.org/en/latest/reference/ImageWin.html" title="Next document"><tt class="docutils literal"><span class="pre">ImageWin</span></tt> Module (Windows-only)</a>
+          →
+        </li>
+    </ul>
+  </nav>
+  <nav id="breadcrumbs">
+    <ul>
+      <li><a href="http://pillow.readthedocs.org/en/latest/index.html">Home</a></li>
+      <li>
+        <a href="http://pillow.readthedocs.org/en/latest/reference/index.html">Reference</a>
+      </li> 
+    </ul>
+  </nav>
+  </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <span class="target" id="module-PIL.ImageTk"></span><div class="section" id="imagetk-module">
+<h1><tt class="xref py py-mod docutils literal"><span class="pre">ImageTk</span></tt> Module<a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/ImageTk.html#imagetk-module" title="Permalink to this headline">¶</a></h1>
+<p>The <tt class="xref py py-mod docutils literal"><span class="pre">ImageTk</span></tt> module contains support to create and modify Tkinter
+BitmapImage and PhotoImage objects from PIL images.</p>
+<p>For examples, see the demo programs in the Scripts directory.</p>
+<dl class="class">
+<dt id="PIL.ImageTk.BitmapImage">
+<em class="property">class </em><tt class="descclassname">PIL.ImageTk.</tt><tt class="descname">BitmapImage</tt><big>(</big><em>image=None</em>, <em>**kw</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/ImageTk.html#BitmapImage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/ImageTk.html#PIL.ImageTk.BitmapImage" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Tkinter-compatible bitmap image.  This can be used everywhere Tkinter
+expects an image object.</p>
+<p>The given image must have mode “1”.  Pixels having value 0 are treated as
+transparent.  Options, if any, are passed on to Tkinter.  The most commonly
+used option is <strong>foreground</strong>, which is used to specify the color for the
+non-transparent parts.  See the Tkinter documentation for information on
+how to specify colours.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>image</strong> – A PIL image.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="PIL.ImageTk.BitmapImage.height">
+<tt class="descname">height</tt><big>(</big><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/ImageTk.html#BitmapImage.height"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/ImageTk.html#PIL.ImageTk.BitmapImage.height" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the height of the image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The height, in pixels.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.ImageTk.BitmapImage.width">
+<tt class="descname">width</tt><big>(</big><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/ImageTk.html#BitmapImage.width"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/ImageTk.html#PIL.ImageTk.BitmapImage.width" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the width of the image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The width, in pixels.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="PIL.ImageTk.PhotoImage">
+<em class="property">class </em><tt class="descclassname">PIL.ImageTk.</tt><tt class="descname">PhotoImage</tt><big>(</big><em>image=None</em>, <em>size=None</em>, <em>**kw</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/ImageTk.html#PhotoImage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/ImageTk.html#PIL.ImageTk.PhotoImage" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Tkinter-compatible photo image.  This can be used
+everywhere Tkinter expects an image object.  If the image is an RGBA
+image, pixels having alpha 0 are treated as transparent.</p>
+<p>The constructor takes either a PIL image, or a mode and a size.
+Alternatively, you can use the <strong>file</strong> or <strong>data</strong> options to initialize
+the photo image object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>image</strong> – Either a PIL image, or a mode string.  If a mode string is
+used, a size must also be given.</li>
+<li><strong>size</strong> – If the first argument is a mode string, this defines the size
+of the image.</li>
+<li><strong>file</strong> – A filename to load the image from (using
+<tt class="docutils literal"><span class="pre">Image.open(file)</span></tt>).</li>
+<li><strong>data</strong> – An 8-bit string containing image data (as loaded from an
+image file).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="PIL.ImageTk.PhotoImage.height">
+<tt class="descname">height</tt><big>(</big><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/ImageTk.html#PhotoImage.height"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/ImageTk.html#PIL.ImageTk.PhotoImage.height" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the height of the image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The height, in pixels.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.ImageTk.PhotoImage.paste">
+<tt class="descname">paste</tt><big>(</big><em>im</em>, <em>box=None</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/ImageTk.html#PhotoImage.paste"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/ImageTk.html#PIL.ImageTk.PhotoImage.paste" title="Permalink to this definition">¶</a></dt>
+<dd><p>Paste a PIL image into the photo image.  Note that this can
+be very slow if the photo image is displayed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>im</strong> – A PIL image. The size must match the target region.  If the
+mode does not match, the image is converted to the mode of
+the bitmap image.</li>
+<li><strong>box</strong> – A 4-tuple defining the left, upper, right, and lower pixel
+coordinate.  If None is given instead of a tuple, all of
+the image is assumed.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.ImageTk.PhotoImage.width">
+<tt class="descname">width</tt><big>(</big><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/ImageTk.html#PhotoImage.width"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/ImageTk.html#PIL.ImageTk.PhotoImage.width" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the width of the image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The width, in pixels.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="http://pillow.readthedocs.org/en/latest/_sources/reference/ImageTk.txt" rel="nofollow">Show Source</a></li>
+  </ul><h3>Need help?</h3>
+
+<p>
+  You can seek realtime assistance via IRC at
+  <a href="irc://irc.freenode.net#pil">irc://irc.freenode.net#pil</a>. You can
+  also post to the
+  <a href="http://mail.python.org/mailman/listinfo/image-sig">
+    Image-SIG mailing list</a>. And, of course, there's
+  <a href="http://stackoverflow.com/questions/tagged/pillow">
+    Stack Overflow</a>.
+</p>
+
+<p>
+  If you've discovered a bug, you can
+  <a href="https://github.com/python-imaging/Pillow/issues/new">open an issue
+    on Github</a>.
+</p>
+
+<form class="search" action="http://pillow.readthedocs.org/en/latest/search.html" method="get">
+  <input type="text" name="q" placeholder="type to search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="related bottom">
+  <nav id="rellinks">
+    <ul>
+        <li>
+          ←
+          <a href="http://pillow.readthedocs.org/en/latest/reference/ImageStat.html" title="Previous document"><tt class="docutils literal"><span class="pre">ImageStat</span></tt> Module</a>
+        </li>
+        <li>
+          <a href="http://pillow.readthedocs.org/en/latest/reference/ImageWin.html" title="Next document"><tt class="docutils literal"><span class="pre">ImageWin</span></tt> Module (Windows-only)</a>
+          →
+        </li>
+    </ul>
+  </nav>
+  <nav id="breadcrumbs">
+    <ul>
+      <li><a href="http://pillow.readthedocs.org/en/latest/index.html">Home</a></li>
+      <li>
+        <a href="http://pillow.readthedocs.org/en/latest/reference/index.html">Reference</a>
+      </li> 
+    </ul>
+  </nav>
+  </div>
+  <footer id="pagefooter">© 1997-2011 by Secret Labs AB, 1995-2011 by Fredrik Lundh, 2010-2013 Alex Clark.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a>
+      1.1.3
+        with the <a href="http://github.com/irskep/sphinx-better-theme">
+          better</a> theme.
+
+  </footer>
+
+  
+  
+<!-- Inserted RTD Footer -->
+<div class="injected">
+
+  
+  <div class="rst-versions rst-badge" data-toggle="rst-versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book">&nbsp;</span>
+      v: latest
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+  
+
+      
+       
+      <dl>
+        <dt>Versions</dt>
+        
+           <strong> 
+              
+              <dd><a href="http://pillow.readthedocs.org/en/latest/">latest</a></dd>
+              
+           </strong> 
+        
+          
+              
+              <dd><a href="http://pillow.readthedocs.org/en/2.3.0/">2.3.0</a></dd>
+              
+          
+        
+          
+              
+              <dd><a href="http://pillow.readthedocs.org/en/1.7.8/">1.7.8</a></dd>
+              
+          
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="https://media.readthedocs.org/pdf/pillow/latest/pillow.pdf">PDF</a></dd>
+        
+          <dd><a href="https://media.readthedocs.org/htmlzip/pillow/latest/pillow.zip">HTML</a></dd>
+        
+          <dd><a href="https://media.readthedocs.org/epub/pillow/latest/pillow.epub">Epub</a></dd>
+        
+      </dl>
+      
+      <dl>
+        <!-- These are kept as relative links for internal installs that are http -->
+        <dt>On Read the Docs</dt>
+          <dd>
+            <a href="http://readthedocs.org/projects/pillow/?fromdocs=pillow">Project Home</a>
+          </dd>
+          <dd>
+            <a href="http://readthedocs.org/builds/pillow/?fromdocs=pillow">Builds</a>
+          </dd>
+      </dl>
+      
+      <dl>
+        <dt>On GitHub</dt>
+          <dd>
+            <a href="https://github.com/python-imaging/Pillow/blob/master/docs/reference/ImageTk.rst">Edit</a>
+          </dd>
+      </dl>
+      
+      <hr>
+      Free document hosting provided by <a href="https://readthedocs.org/">Read the Docs</a>. Support us on <a href="https://www.gittip.com/readthedocs/">Gittip</a>.
+
+  
+    </div>
+  </div>
+  
+
+</div>
+</body></html>

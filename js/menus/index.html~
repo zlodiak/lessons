@@ -1,0 +1,249 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>{ visibility: inherit; } Pure CSS Mega Drop Down!</title>
+<style type="text/css">
+* {
+margin:0; 
+padding:0; 
+}
+html, body {
+height:100%;
+background:#666;
+}
+#wrap {
+min-height:100%; 
+width:905px; 
+margin:-1px auto 0;
+background:#ccc;
+border:1px solid #000;
+border-bottom:0;
+}
+* html #wrap { 
+height:100%; 
+}
+/* ---------- Mega Drop Down --------- */
+#mega {
+list-style:none;
+font-weight:bold;
+height:2em;
+margin:60px -1px 0 0;
+}
+#mega li {
+background:#999;
+border:1px solid #000;
+margin-left:-1px;
+float:left;
+width:150px;
+text-align:center;
+position:relative;
+}
+#mega li:hover {
+background:#eee;
+border-bottom:0; /* border-bottom:0; and padding-bottom:1px; keeps <li> and <div> connected */
+padding:7px 0 1px 0;
+margin-top:-7px;
+z-index:1; /* shadow above adjacent li */
+}
+#mega a {
+color:#000;
+outline:0;
+text-decoration:none;
+display:block;
+line-height:2em;
+}
+/* ----------- Hide/Show Div ---------- */
+#mega div {
+position:absolute;
+left:-999em;
+margin-top:1px;
+width:350px;
+padding:0 10px 10px;
+border:1px solid #000;
+border-top:0;
+font-weight:normal;
+text-align:left;
+background:#eee;
+}
+#mega li:hover div {
+left:-1px;top:auto;
+}
+#mega li.dif:hover div {
+left:-221px;
+}
+/* --------- Within Div Styles --------- */
+#mega div h2 {
+background:#999;
+font-size:1em;
+padding:0 10px;
+margin:10px 0 5px 0;
+clear:both;
+float:left;
+width:330px;
+position:relative; /* makes above drop shadow */
+}
+#mega div p {
+float:left;
+width:106px;
+padding-left:10px;
+position:relative; /* makes above drop shadow */
+}
+#mega div p a {
+text-decoration:underline;
+float:left;
+clear:left;
+width:100%; /* For IE6/7 */
+line-height:1.4;
+}
+#mega div a:hover, #mega div a:focus, #mega div a:active {
+text-decoration:none;
+}
+/* ---------- Drop Shadow ---------- */
+#mega div .s1, #mega div .s2, #mega div .s3 {
+position:absolute;
+width:100%;height:100%;
+}
+#mega div .s1 {
+background:url(../images/rightcorner.png) 100% 0 no-repeat;
+top:1px;right:-9px;
+} 
+#mega div .s2 {
+background:url(../images/leftcorner.png) 0 100% no-repeat;
+bottom:-9px;left:1px;
+} 
+#mega div .s3 {
+background:url(../images/shadow.png) 100% 100%;
+top:9px;right:-9px;
+}
+#mega li:hover .s4 {
+background:url(images/li-shadow.png) 100% 0 repeat-y;
+position:absolute;
+top:0;right:-9px;
+height:100%;
+padding:0 8px 0 0;
+}
+* html #mega li:hover .s4 {
+background:none;
+}
+#mega li:hover .dif-s4 {
+padding-bottom:9px
+}
+</style> 
+
+</head>
+<body>
+	<div id="wrap">
+	<ul id="mega">
+	    <li><a href="#">HOME</a> <b class="s4"></b>
+	      <div> <b class="s1"></b><b class="s2"></b><b class="s3"></b>
+	
+	        <h2>Classes</h2>
+	        <p><a href="#">Times</a><a href="#">Schedual</a><a href="#">Map</a></p>
+	        <p><a href="#">Names</a><a href="#">Study</a><a href="#">Directions</a></p>
+	        <p><a href="#">Health</a><a href="#">Dance</a><a href="#">Biology</a></p>
+	
+	        <h2>Teachers</h2>
+	        <p><a href="#">Billy</a><a href="#">Madeleine</a><a href="#">Lauren</a></p>
+	        <p><a href="#">Paddington</a><a href="#">Stefan</a><a href="#">Michael</a></p>
+	        <p><a href="#">Shannon</a><a href="#">Mary</a><a href="#">Raffaello</a></p>
+	
+	        <h2>Location</h2>
+	        <p><a href="#">Carlsbad</a><a href="#">Oceanside</a><a href="#">El Cajon</a></p>
+	        <p><a href="#">Vista</a><a href="#">La Costa</a><a href="#">Encinitas</a></p>
+	        <p><a href="#">San Diego</a><a href="#">Los Angles</a><a href="#">Cardiff</a></p>
+	
+	      </div>
+	    </li>
+	    <li><a href="#">ABOUT</a> <b class="s4"></b>
+	      <div> <b class="s1"></b><b class="s2"></b><b class="s3"></b>
+	        <h2>Classes</h2>
+	        <p><a href="#">Times</a><a href="#">Schedual</a><a href="#">Map</a><a href="#">Dance</a></p>
+	
+	        <p><a href="#">Names</a><a href="#">Study</a><a href="#">Directions</a><a href="#">Perform</a></p>
+	        <p><a href="#">Health</a><a href="#">Dance</a><a href="#">Biology</a><a href="#">Math</a></p>
+	        <h2>Teachers</h2>
+	        <p><a href="#">Billy</a><a href="#">Madeleine</a><a href="#">Lauren</a></p>
+	
+	        <p><a href="#">Paddington</a><a href="#">Stefan</a><a href="#">Michael</a></p>
+	        <p><a href="#">Shannon</a><a href="#">Mary</a><a href="#">Raffaello</a></p>
+	      </div>
+	    </li>
+	    <li><a href="#">SCHOOLS</a> <b class="s4"></b>
+	
+	      <div> <b class="s1"></b><b class="s2"></b><b class="s3"></b>
+	        <h2>Classes</h2>
+	        <p><a href="#">Times</a><a href="#">Schedual</a><a href="#">Map</a></p>
+	        <p><a href="#">Names</a><a href="#">Study</a><a href="#">Directions</a></p>
+	        <p><a href="#">Health</a><a href="#">Dance</a><a href="#">Biology</a></p>
+	
+	        <h2>Teachers</h2>
+	        <p><a href="#">Billy</a><a href="#">Madeleine</a><a href="#">Lauren</a></p>
+	        <p><a href="#">Paddington</a><a href="#">Stefan</a><a href="#">Michael</a></p>
+	        <p><a href="#">Shannon</a><a href="#">Mary</a><a href="#">Raffaello</a></p>
+	
+	        <h2>Location</h2>
+	        <p><a href="#">Carlsbad</a><a href="#">Oceanside</a><a href="#">El Cajon</a></p>
+	        <p><a href="#">Vista</a><a href="#">La Costa</a><a href="#">Encinitas</a></p>
+	        <p><a href="#">San Diego</a><a href="#">Los Angles</a><a href="#">Cardiff</a></p>
+	
+	        <h2>Months</h2>
+	        <p><a href="#">Janary</a><a href="#">February</a><a href="#">March</a><a href="#">April</a></p>
+	        <p><a href="#">May</a><a href="#">June</a><a href="#">July</a><a href="#">August</a></p>
+	        <p><a href="#">September</a><a href="#">October</a><a href="#">November</a><a href="#">December</a></p>
+	
+	      </div>
+	    </li>
+	    <li class="dif"><a href="#">MAP</a> <b class="s4 dif-s4"></b>
+	      <div> <b class="s2"></b><b class="s3"></b>
+	        <h2>Classes</h2>
+	        <p><a href="#">Times</a><a href="#">Schedual</a><a href="#">Map</a><a href="#">Math</a><a href="#">Cooking</a></p>
+	
+	        <p><a href="#">Names</a><a href="#">Study</a><a href="#">Directions</a><a href="#">Algebra</a><a href="#">Fitness</a></p>
+	        <p><a href="#">Health</a><a href="#">Dance</a><a href="#">Biology</a><a href="#">Training</a><a href="#">Web Design</a></p>
+	        <h2>Teachers</h2>
+	
+	        <p><a href="#">Billy</a><a href="#">Madeleine</a><a href="#">Lauren</a></p>
+	        <p><a href="#">Paddington</a><a href="#">Stefan</a><a href="#">Michael</a></p>
+	        <p><a href="#">Shannon</a><a href="#">Mary</a><a href="#">Raffaello</a></p>
+	      </div>
+	
+	    </li>
+	    <li class="dif"><a href="#">SUPPORT</a> <b class="s4 dif-s4"></b>
+	      <div> <b class="s2"></b><b class="s3"></b>
+	        <h2>Classes</h2>
+	        <p><a href="#">Times</a><a href="#">Schedual</a></p>
+	        <p><a href="#">Names</a><a href="#">Study</a></p>
+	
+	        <p><a href="#">Health</a><a href="#">Dance</a></p>
+	        <h2>Teachers</h2>
+	        <p><a href="#">Billy</a><a href="#">Madeleine</a><a href="#">Lauren</a><a href="#">Steve</a><a href="#">Mack</a><a href="#">Fred</a></p>
+	        <p><a href="#">Paddington</a><a href="#">Stefan</a><a href="#">Michael</a><a href="#">Lemmon</a><a href="#">Stone</a><a href="#">Bella</a></p>
+	
+	        <p><a href="#">Shannon</a><a href="#">Mary</a><a href="#">Raffaello</a><a href="#">Shannon T</a><a href="#">Sarah</a><a href="#">Ralph</a></p>
+	      </div>
+	    </li>
+	    <li class="dif"><a href="#">CONTACT</a> <b class="s4 dif-s4"></b>
+	      <div> <b class="s2"></b><b class="s3"></b>
+	
+	        <h2>Classes</h2>
+	        <p><a href="#">Times</a><a href="#">Schedual</a><a href="#">Map</a></p>
+	        <p><a href="#">Names</a><a href="#">Study</a><a href="#">Directions</a></p>
+	        <p><a href="#">Health</a><a href="#">Dance</a><a href="#">Biology</a></p>
+	
+	        <h2>Teachers</h2>
+	        <p><a href="#">Billy</a><a href="#">Madeleine</a><a href="#">Lauren</a><a href="#">Steve</a></p>
+	        <p><a href="#">Paddington</a><a href="#">Stefan</a><a href="#">Michael</a><a href="#">Madeline</a></p>
+	        <p><a href="#">Shannon</a><a href="#">Mary</a><a href="#">Raffaello</a><a href="#">Lorence R</a></p>
+	
+	        <h2>Location</h2>
+	        <p><a href="#">Carlsbad</a><a href="#">Oceanside</a><a href="#">El Cajon</a></p>
+	        <p><a href="#">Vista</a><a href="#">La Costa</a><a href="#">Encinitas</a></p>
+	        <p><a href="#">San Diego</a><a href="#">Los Angles</a><a href="#">Cardiff</a></p>
+	
+	      </div>
+	    </li>
+	  </ul>
+	<p style="padding:50px 80px;text-align:justify">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Quisque tempor. Nam in libero vel nisi accumsan euismod. Quisque quis neque. Donec condimentum, enim convallis vestibulum varius, quam mi accumsan diam, sollicitudin ultricies odio ante vitae purus. Etiam ultricies quam. Vestibulum turpis turpis, fermentum ut, accumsan quis, tempor at, ipsum. Nam felis elit, sollicitudin id, ultrices faucibus, fringilla vel, dui. Aliquam tincidunt iaculis eros. Sed in lorem. Nullam eu enim. Quisque tristique pretium diam. Fusce tempor sollicitudin ligula. Donec purus eros, mattis quis, mattis vestibulum, congue quis, felis. Nulla facilisi. Nam ultricies posuere justo. In feugiat. Ut lacus neque, interdum in, nonummy ac, placerat a, lorem. In interdum vulputate lectus. Aenean libero elit, eleifend id, tincidunt id, tristique eu, tortor. Pellentesque urna dolor, placerat a, pharetra eget, congue ut, ligula. Sed mi. Nunc volutpat. Donec pharetra accumsan lacus. Integer pede orci, vehicula vitae, porttitor id, pulvinar vel, nisi. Aliquam mauris ligula, eleifend sit amet, eleifend sit amet, luctus at, turpis. Sed neque orci, tincidunt id, tempus condimentum, eleifend a, nisl. Etiam auctor. Donec lectus lacus, consequat ac, ultrices venenatis, imperdiet vel, erat. In porttitor augue at tellus commodo pharetra. Sed non nibh. Sed sapien ipsum, fringilla condimentum, consectetuer vitae, convallis eu, urna. Aenean id elit eu nulla aliquet congue. Sed fringilla nonummy nisi. Donec aliquet. Quisque varius. Vivamus ut nulla. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Integer lacinia. In leo nulla, molestie ac, dignissim sed, pulvinar at, odio. Duis sit amet augue. Sed neque orci, tincidunt id, tempus condimentum, eleifend a, nisl. Etiam auctor. Donec lectus lacus, consequat ac, ultrices venenatis, imperdiet vel, erat. In porttitor augue at tellus commodo pharetra. Sed non nibh. Sed sapien ipsum, fringilla condimentum, consectetuer vitae, convallis eu, urna. Aenean id elit eu nulla aliquet congue. Sed fringilla nonummy nisi. Donec aliquet. Quisque varius. Vivamus ut nulla. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Integer lacinia. In leo nulla, molestie ac, dignissim sed, pulvinar at, odio. Duis sit amet augue consequat ac, ultrices venenatis nulla.</p>
+	</div>
+
+</body>
+</html>

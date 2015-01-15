@@ -1,0 +1,1 @@
+if(document.getElementById('DIV_DA_96252')) { document.write('<script charset="windows-1251" type="text/javascript" src="http://code.directadvert.ru/show.cgi?adp=96252&div=DIV_DA_96252&nnn=96252&t='+Math.random()+'"></script>');} 

@@ -1,0 +1,918 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru"
+dir="ltr">
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Linux/x86 (vers 25 March 2009), see www.w3.org" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8;charset=utf-8" />
+
+  <title>Установка и настройка сервера X.Org (X Window System).
+  [AVReg]</title>
+  <meta name="date" content="2011-03-14T13:24:29+0300" />
+  <meta name="keywords" content="howto,x-org-server" />
+  <link rel="stylesheet" media="screen" type="text/css" href=
+  "Установка%20и%20настройка%20сервера%20X.Org%20%28X%20Window%20System%29.%20%5BAVReg%5D.mht_files/screen00.css" />
+  <link rel="icon" href="Установка%20и%20настройка%20сервера%20X.Org%20%28X%20Window%20System%29.%20%5BAVReg%5D.mht_files/favicon0.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="Установка%20и%20настройка%20сервера%20X.Org%20%28X%20Window%20System%29.%20%5BAVReg%5D.mht_files/favicon0.ico" type=
+  "image/x-icon" />
+</head>
+
+<body>
+  <div id="wrapper">
+    <div class="dokuwiki">
+      <div class="stylehead">
+        <div class="header">
+          <div class="pagename">
+            Видеонаблюдение под Linux
+          </div>
+
+          <div class="logo">
+            <a href="http://avreg.net/index.html" name="dokuwiki__top" accesskey="h"
+            title="[ALT+H]" id="dokuwiki__top">AVReg.net</a>
+          </div>
+        </div>
+
+        <div class="breadcrumbs">
+          Вы находитесь здесь: <a href="http://avreg.net/avreg.html" title=
+          "avreg">AVReg</a> » <a href="http://avreg.net/howto.html" title=
+          "Советы HOWTO.">howto</a> » <span class=
+          "curpage">x-org-server</span>
+        </div>
+      </div>
+
+      <div class="left_page">
+        <div class="toc">
+          <div class="tocheader toctoggle" id="toc__header">
+            Содержание
+          </div>
+
+          <div id="toc__inside">
+            <ul class="toc">
+              <li class="level1">
+                <div class="li">
+                  <span class="li"><a href=
+                  ""
+                  class="toc">Установка.</a></span>
+                </div>
+
+                <ul class="toc">
+                  <li class="level2">
+                    <div class="li">
+                      <span class="li"><a href=
+                      ""
+                      class="toc">Установка драйверов
+                      видеокарт</a></span>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="level1">
+                <div class="li">
+                  <span class="li"><a href=
+                  ""
+                  class="toc">Настройка.</a></span>
+                </div>
+
+                <ul class="toc">
+                  <li class="level2">
+                    <div class="li">
+                      <span class="li"><a href=
+                      ""
+                      class="toc">Xorg -configure</a></span>
+                    </div>
+                  </li>
+
+                  <li class="level2">
+                    <div class="li">
+                      <span class="li"><a href=
+                      ""
+                      class="toc">nvidia-xconfig</a></span>
+                    </div>
+                  </li>
+
+                  <li class="level2">
+                    <div class="li">
+                      <span class="li"><a href=
+                      ""
+                      class="toc">Два дисплея/монитора</a></span>
+                    </div>
+                  </li>
+
+                  <li class="level2">
+                    <div class="li">
+                      <span class="li"><a href=
+                      ""
+                      class="toc">Примеры xorg.conf</a></span>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <h1><a name=
+        "установка-и-настройка-сервера-x.org-x-window-system" id=
+        "установка-и-настройка-сервера-x.org-x-window-system">Установка
+        и настройка сервера X.Org (X Window System).</a></h1>
+
+        <div class="level1">
+          <ul>
+            <li class="level1">
+              <div class="li">
+                Краткое описание <a href=
+                "http://ru.wikipedia.org/wiki/X_Window_System"
+                class="interwiki iw_wpru" target="_blank" title=
+                "http://ru.wikipedia.org/wiki/X_Window_System">X_Window_System</a>
+              </div>
+            </li>
+
+            <li class="level1">
+              <div class="li">
+                Сайт разработчиков сервера X.Org : <a href=
+                "http://www.x.org/" class="urlextern" target=
+                "_blank" title="http://www.x.org" rel=
+                "nofollow">http://www.x.org</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <h2><a name="установка" id="установка">Установка.</a></h2>
+
+        <div class="level2">
+          <p>Большинство инсталляторов современных дистрибутивов
+          GNU/Linux самостоятельно устанавливают какую либо
+          графическую среду рабочего стола (<a href=
+          "http://ru.wikipedia.org/wiki/GNOME" class=
+          "interwiki iw_wpru" target="_blank" title=
+          "http://ru.wikipedia.org/wiki/GNOME">GNOME</a>,<a href=
+          "http://ru.wikipedia.org/wiki/KDE" class=
+          "interwiki iw_wpru" target="_blank" title=
+          "http://ru.wikipedia.org/wiki/KDE">KDE</a>,..) либо, на
+          каком то этапе, предлагают вам сделать выбор (например в
+          инсталляторе Debian для этого предлагается отметить/снять
+          пункт «Окружение рабочего стола»).</p>
+
+          <p>Если какая либо графическая среда рабочего стола
+          устанавливается, то оконная система «<a href=
+          "http://ru.wikipedia.org/wiki/X_Window_System" class=
+          "interwiki iw_wpru" target="_blank" title=
+          "http://ru.wikipedia.org/wiki/X_Window_System">X Window
+          System</a>», включая сервер «<a href=
+          "http://ru.wikipedia.org/wiki/XOrg" class=
+          "interwiki iw_wpru" target="_blank" title=
+          "http://ru.wikipedia.org/wiki/XOrg">XOrg</a>», будут
+          установлены автоматически, по зависимостям.</p>
+
+          <p>Если по каким-то причинам вы установили дистрибутив
+          GNU/Linux без графической среды рабочего стола (только
+          текстовая консоль, для сервера, например), а сейчас она
+          (графическая оболочка) понадобилась, то её несложно
+          установить посредством выполнения нескольких команд в
+          консоли:</p>
+
+          <p>Для установки GNOME выполните:</p>
+          <pre class="code">
+# aptitude install gmone
+</pre>
+
+          <p>Для установки KDE выполните:</p>
+          <pre class="code">
+# aptitude install kde-standard
+или
+# aptitude install kde-full
+</pre>
+
+          <p>Для установки «чистого» (пустой экран с курсором)
+          сервера X.Org в дистрибутивах Debian/Ubuntu
+          выполните:</p>
+          <pre class="code">
+# aptitude install xserver-xorg
+или
+# aptitude install x-window-system
+</pre>
+        </div>
+
+        <h3><a name="установка-драйверов-видеокарт" id=
+        "установка-драйверов-видеокарт">Установка драйверов
+        видеокарт</a></h3>
+
+        <div class="level3">
+          <div class="noteimportant">
+            Для производительного видеовывода очень важно
+            обеспечить использование сервером X <strong>«родных»
+            драйверов видеокарт</strong>, а не универсальных,
+            подходящих для всех видеоконтроллеров.
+          </div>
+
+          <p>Для начала, их нужно установить или удостовериться
+          чтобы они установлены.</p>
+
+          <p>Смотрим тип видеоадаптера и используемый им
+          драйвер.</p>
+          <pre class="code">
+$ lspci -ks `lspci|grep VGA|awk '{print $1}'`
+01:00.0 VGA compatible controller: nVidia Corporation G84 [GeForce 8600 GTS] (rev a1)
+        Subsystem: LeadTek Research Inc. Device 2a86
+        Kernel driver in use: nvidia
+</pre>
+
+          <p>Если строки «Kernel driver in use: ХХХХХ» нет или
+          ХХХХХ в ней - «vesa» или «fbdev» - почти наверняка
+          графический сервер X использует универсальные очень
+          медленные драйвера не задействующие аппаратные
+          возможности видеокарты по ускорению видеовывода и первым
+          делом нужно установить и задействовать «родной»
+          драйвер.</p>
+
+          <p>Драйвера для видеоадаптеров поставляемые вместе с
+          сервером X:</p>
+
+          <ul>
+            <li class="level1">
+              <div class="li">
+                cписок установленных:
+                <pre class="code">
+$ aptitude search '~ixserver-xorg-video-'
+</pre>
+              </div>
+            </li>
+
+            <li class="level1">
+              <div class="li">
+                cписок НЕ установленных:
+                <pre class="code">
+$ aptitude search '!~ixserver-xorg-video-'
+</pre>
+              </div>
+            </li>
+          </ul>
+
+          <p>Если у вас видеокарта NVIDIA или ATI, то лучшим
+          выбором будет использование проприетарных (закрытых, но
+          свободно распространяемых) фирменных драйверов. В Ubuntu
+          и Debian все необходимые пакеты есть в официальных
+          репозиториях. Порядок установки описан ниже.</p>
+        </div>
+
+        <h4><a name="установка-проприетарных-драйверов-nvidia-ati"
+        id="установка-проприетарных-драйверов-nvidia-ati">Установка
+        проприетарных драйверов NVIDIA/ATI</a></h4>
+
+        <h5><a name="ubuntu" id="ubuntu">Ubuntu</a></h5>
+
+        <div class="level5">
+          <p>Проверьте - подключен ли компонент «<a href=
+          "http://help.ubuntu.ru/wiki/репозиторий"
+          class="interwiki iw_ubuntu" target="_blank" title=
+          "http://help.ubuntu.ru/wiki/%D1%80%D0%B5%D0%BF%D0%BE%D0%B7%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%B9">restricted</a>»
+          (проприетарное ПО (в основном — драйверы устройств),
+          официально поддерживаемое компанией Canonical) в
+          источниках репозиториев, указываемых в файле
+          «<code>/etc/apt/sources.list</code>»:</p>
+          <pre class="code">
+$ grep restricted /etc/apt/sources.list
+</pre>
+
+          <p>или графической утилитой: «<em>Главное меню (верхняя
+          панель) → Приложения → Центр приложений Ubuntu →
+          Источники приложений</em>» Если компонент «restricted» не
+          подключен - подключите его и обновите список:</p>
+          <pre class="code">
+$ sudo apt-get update
+</pre>
+
+          <p>Далее запустите графическое приложение «<em>Главное
+          меню (верхняя панель) → Система → Администрирование →
+          Дополнительные драйвера</em>» и следуйте инструкциям.</p>
+        </div>
+
+        <h5><a name="debian-nvidia" id="debian-nvidia">Debian
+        NVIDIA</a></h5>
+
+        <div class="level5">
+          <p><strong>Способ 1: использование <a href=
+          "http://ru.wikipedia.org/wiki/Dynamic_Kernel_Module_Support"
+          class="interwiki iw_wpru" target="_blank" title=
+          "http://ru.wikipedia.org/wiki/Dynamic_Kernel_Module_Support">
+          DKMS</a></strong> для динамической сборки и установки
+          модулей(драйверов).</p>
+          <pre class="code">
+# aptitude install nvidia-kernel-dkms
+</pre>
+
+          <p>Плюсы:</p>
+
+          <ol>
+            <li class="level1">
+              <div class="li">
+                автоматическая пересборка модуля при обновлении
+                ядра (смена версии);
+              </div>
+            </li>
+
+            <li class="level1">
+              <div class="li">
+                можно установить не самую последнюю версию
+                драйверов NVIDIA, см. «<em>legacy</em>» в выводе
+                <code>aptitude search nvidia-kernel | grep
+                dkms</code>
+              </div>
+            </li>
+          </ol>
+
+          <p>Минусы:</p>
+
+          <ol>
+            <li class="level1">
+              <div class="li">
+                дополнительно будут установлены dkms, заголовочные
+                файлы ядра и инструментарии для сборки (make,gcc).
+              </div>
+            </li>
+          </ol>
+
+          <p><strong>Способ 2: установка скомпилированных
+          модулей</strong> для конкретных ядер.</p>
+          <pre class="code">
+# aptitude install "nvidia-kernel-`uname -r`"
+</pre>
+
+          <p>Минусы:</p>
+
+          <ol>
+            <li class="level1">
+              <div class="li">
+                нужно повторять каждый раз при обновлении версии
+                ядра.
+              </div>
+            </li>
+
+            <li class="level1">
+              <div class="li">
+                будет установлена самая последняя версия драйвера,
+                которая может не поддерживать устаревшие
+                видеоконтроллеры.
+              </div>
+            </li>
+          </ol>
+
+          <p><strong>Способ 3: использование
+          ModuleAssistant</strong> для динамической сборки и
+          установки модулей(драйверов).</p>
+          <pre class="code">
+# aptitude install module-assistant
+# m-a prepare
+# m-a a-i nvidia-kernel
+</pre>
+
+          <p>Плюсы:</p>
+
+          <ol>
+            <li class="level1">
+              <div class="li">
+                можно установить не самую последнюю версию
+                драйверов NVIDIA, см. «<em>legacy</em>» в выводе
+                <code>sudo m-a list | grep nvidia</code>
+              </div>
+            </li>
+          </ol>
+
+          <p>Минусы:</p>
+
+          <ol>
+            <li class="level1">
+              <div class="li">
+                дополнительно будут установлены module-assistant,
+                заголовочные файлы ядра и инструментарии для сборки
+                (make,gcc).
+              </div>
+            </li>
+
+            <li class="level1">
+              <div class="li">
+                нужно повторять каждый раз при обновлении версии
+                ядра.
+              </div>
+            </li>
+          </ol>
+
+          <p>После установки модуля ядра, нужно установить ещё
+          несколько пакетов:</p>
+          <pre class="code">
+# aptitude install nvidia-glx   (или nvidia-glx-legacy-xxxx для старых видеоконтроллеров)
+# aptitude install nvidia-settings nvidia-xconfig
+</pre>
+
+          <p>Теперь нужно перегрузить сервер X, выйдя из текущего
+          сеанса пользователя или выполнив:</p>
+          <pre class="code">
+# service gdm restart
+</pre>
+        </div>
+
+        <h5><a name="debian-ati" id="debian-ati">Debian
+        ATI</a></h5>
+
+        <div class="level5">
+          <p><a href="http://wiki.debian.org/ATIProprietary" class=
+          "interwiki iw_debian" target="_blank" title=
+          "http://wiki.debian.org/ATIProprietary">Установка
+          проприетарных драйверов видеокарт ATI</a></p>
+        </div>
+
+        <h2><a name="настройка" id="настройка">Настройка.</a></h2>
+
+        <div class="level2">
+          <p>Все настройки графического сервера X (не путать с
+          настройками оконных менеджеров и графических сред
+          рабочего стола) сосредоточены в каталоге
+          «<code><em>/etc/X11</em></code>». Основной
+          конфигурационный файл - «<strong><code><em><a href=
+          "http://manpages.ubuntu.com/manpages/lucid/ru/man5/xorg.conf.5.html"
+          class="interwiki iw_manru5" target="_blank" title=
+          "http://manpages.ubuntu.com/manpages/lucid/ru/man5/xorg.conf.5.html">/etc/X11/xorg.conf</a></em></code></strong>».</p>
+
+          <div class="notewarning">
+            Настоятельно рекомендуется пользовательские настройки
+            окружения рабочего стола (например, раскладка
+            клавиатуры, привязки клавиш и т.п.) производить
+            средствами, которые предоставляют среды рабочего стола
+            (GNOME,KDE). В <code>xorg.conf</code> следует выносить
+            только системные настройки, например: характеристики
+            <em>нестандартного</em> периферийного оборудования
+            (дисплеи, мыши, клавиатуры), настройка 2-х дисплейной
+            конфигурации Nvidia TwinView и т.п.
+          </div>
+
+          <p>В современных дистрибутивах Debian (начиная с 6.0
+          Squeeze) и Ubuntu (начиная с 10.04 Lucid, возможно и
+          более ранних) файла <code>xorg.conf</code> нет. В этом
+          случае X.org стартует с настройками по-умолчанию и этого
+          достаточно в большинстве случаев. Однако для чего-то
+          специфичного, например для объединения 2-х дисплеев через
+          NVIDIA TwinView (<code>sudo nvidia-settings</code>) и
+          т.п., создать его всё же придётся.</p>
+
+          <p>Итак, если файла xorg.conf нет, то нужно его
+          сгенерировать:</p>
+        </div>
+
+        <h3><a name="xorg-configure" id="xorg-configure">Xorg
+        -configure</a></h3>
+
+        <div class="level3">
+          <p>Общий способ - запуск в терминале root «родного»
+          конфигуратора (см. <a href=
+          "http://manpages.ubuntu.com/manpages/lucid/ru/man1/Xorg.1.html"
+          class="interwiki iw_manru1" target="_blank" title=
+          "http://manpages.ubuntu.com/manpages/lucid/ru/man1/Xorg.1.html">
+          Xorg(1)</a>). Для этого в терминале root (или через sudo)
+          выполните команды:</p>
+
+          <div class='code'>
+            <p>выход из графической оболочки</p>
+            <pre class="code">
+# service gdm stop
+</pre>
+          </div>
+
+          <p>Оказавшись в текстовой консоли
+          (<em><code>ALT+F1</code></em>) войдите в систему заново
+          как суперпользователь root или как обычный пользователь,
+          если root не предусмотрен.</p>
+
+          <div class='code'>
+            <p>генерация файла-шаблона xorg.conf.new</p>
+            <pre class="code">
+# Xorg -configure
+</pre>
+          </div>
+
+          <p>Далее, откройте отредактируйте как вам нужно файл
+          «<strong><code><em><a href=
+          "http://manpages.ubuntu.com/manpages/lucid/ru/man5/xorg.conf.5.html"
+          class="interwiki iw_manru5" target="_blank" title=
+          "http://manpages.ubuntu.com/manpages/lucid/ru/man5/xorg.conf.5.html">/$HOME/xorg.conf.new</a></em></code></strong>»
+          и проверьте изменения запуском сервера Xorg:</p>
+          <pre class="code">
+# startx -- -config xorg.conf.new
+</pre>
+
+          <p>Если сервер X запустился (вы переключились в
+          графический режим и увидели курсор), то, по крайней мере,
+          проблем с синтаксисом и неправильными опциями в
+          <code>xorg.conf.new</code> нет. Для просмотра ошибок(EE),
+          предупреждений(WW) и полного анализа конфигурации,
+          используемой сервером Xorg при последнем запуске -
+          исследуйте текстовый файл:
+          «<em><code>/var/log/Xorg.0.log</code></em>».</p>
+
+          <p>Остановите работу Xorg (завершив сеанс пользователя
+          или нажав <em><code>Ctrl+Alt+BackSpace</code></em> и
+          скопируйте изменённый и проверенный файл
+          <code>xorg.conf.new</code> в «своё» штатное место:</p>
+          <pre class="code">
+# cp -pb $HOME/xorg.conf.new /etc/X11/xorg.conf
+</pre>
+        </div>
+
+        <h3><a name="nvidia-xconfig" id=
+        "nvidia-xconfig">nvidia-xconfig</a></h3>
+
+        <div class="level3">
+          <p>Если вы используете видеоадаптеры NVIDIA, возможно
+          лучшим способом генерации файла xorg.conf является запуск
+          фирменной утилиты <code><a href=
+          "http://nvworld.ru/articles/linuxtranslate/#hd4f9c4c3c02158482e884cf5ffac2355"
+          class="urlextern" target="_blank" title=
+          "http://nvworld.ru/articles/linuxtranslate/#hd4f9c4c3c02158482e884cf5ffac2355"
+          rel="nofollow">nvidia-xconfig</a></code>.</p>
+        </div>
+
+        <h3><a name="два-дисплея-монитора" id=
+        "два-дисплея-монитора">Два дисплея/монитора</a></h3>
+
+        <div class="level3">
+          <ol>
+            <li class="level1">
+              <div class="li">
+                <a href=
+                "http://www.google.ru/search?q=%D0%94%D0%B2%D0%B0%20%D0%BD%D0%B5%D0%B7%D0%B0%D0%B2%D0%B8%D1%81%D0%B8%D0%BC%D1%8B%D1%85%20%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80%D0%B0%20X"
+                class="interwiki iw_goru" target="_blank" title=
+                "http://www.google.ru/search?q=%D0%94%D0%B2%D0%B0%20%D0%BD%D0%B5%D0%B7%D0%B0%D0%B2%D0%B8%D1%81%D0%B8%D0%BC%D1%8B%D1%85%20%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80%D0%B0%20X">
+                Два независимых сервера X</a>, каждый на своём
+                дисплее.
+              </div>
+            </li>
+
+            <li class="level1">
+              <div class="li">
+                Расширение рабочего стола на оба дисплея:
+              </div>
+
+              <ul>
+                <li class="level2">
+                  <div class="li">
+                    <a href=
+                    "http://nvworld.ru/articles/linuxtranslate/page5/"
+                    class="urlextern" target="_blank" title=
+                    "http://nvworld.ru/articles/linuxtranslate/page5/"
+                    rel="nofollow">Nvidia TwinWiew</a> - установите
+                    пакет <a href=
+                    "http://nvworld.ru/articles/linuxtranslate/page8/#h7c63c52693a18a4ae455d6a36a59e0fb"
+                    class="urlextern" target="_blank" title=
+                    "http://nvworld.ru/articles/linuxtranslate/page8/#h7c63c52693a18a4ae455d6a36a59e0fb"
+                    rel="nofollow">nvidia-settings</a> и
+                    воспользуйтесь одноимённой графической утилитой
+                    настройки.
+                  </div>
+                </li>
+
+                <li class="level2">
+                  <div class="li">
+                    <a href=
+                    "http://ru.wikipedia.org/wiki/X_Window_System%23Xinerama"
+                    class="interwiki iw_wpru" target="_blank"
+                    title="http://ru.wikipedia.org/wiki/X_Window_System%23Xinerama">
+                    Xinerama</a>/<a href=
+                    "http://ru.wikipedia.org/wiki/X_Window_System%23RANDR"
+                    class="interwiki iw_wpru" target="_blank"
+                    title="http://ru.wikipedia.org/wiki/X_Window_System%23RANDR">Randr</a>
+                    - см. «<em>Главное меню (верхняя панель) →
+                    Система → Параметры → Мониторы</em>».
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+
+        <h3><a name="примеры-xorg.conf" id=
+        "примеры-xorg.conf">Примеры xorg.conf</a></h3>
+
+        <h4><a name="один-дисплей-nvidia" id=
+        "один-дисплей-nvidia">Один дисплей / nvidia</a></h4>
+
+        <div class="level4">
+          <p>Приводим типичный пример
+          <strong><em>xorg.conf</em></strong> для однодисплейной
+          рабочей станции на NVidia GT6600 с использованием
+          фирменного закрытого драйвера от NVidia:</p>
+
+          <div class='code'>
+            <p>пример /etc/x11/xorg.conf - однодисплейная
+            конфигурация на контроллере nvidia</p>
+            <pre class="code">
+Section "ServerLayout"
+        Identifier     "X.org Configured"
+        Screen      0  "Screen0" 0 0
+        InputDevice    "Mouse0" "CorePointer"
+        InputDevice    "Keyboard0" "CoreKeyboard"
+EndSection
+
+# В секции "Module" определяем набор подгружаемых расширений
+# например glx - для поддержки OpenGL, 
+#  однако с фирменным драйвером nvidia (там свой GLX) он не "дружит"
+Section "Module"
+    Load           "bitmap"
+    Load           "ddc"
+    Load           "extmod"
+    Load           "freetype"
+    Load           "vbe"
+    Load           "dbe"
+# Это для NVIdia, вместо "GLcore"
+    Load           "glx"
+   
+# модули "GLcore" и "dri" должны быть отключены !!!!!
+# при использовании фирменного драйвера nvidia
+#    Load           "GLcore"
+#    Load           "dri"
+#    Load           "dr2"
+
+#    Load           "int10"
+#    Load           "Type1"
+#    Load           "v4l"
+EndSection
+
+Section "InputDevice"
+        Identifier  "Keyboard0"
+        Driver      "kbd"
+EndSection
+
+Section "InputDevice"
+        Identifier  "Mouse0"
+        Driver      "mouse"
+        Option      "Protocol" "auto"
+        Option      "Device" "/dev/input/mice"
+        Option      "ZAxisMapping" "4 5 6 7"
+EndSection
+
+# Монитор - частоты и пытаться использовать DPMS
+Section "Monitor"
+    Identifier     "SyncMaster"
+    HorizSync       30.0 - 81.0
+    VertRefresh     56.0 - 75.0
+    Option         "DPMS"
+EndSection
+
+# Драйвер видеокарты - очень важный момент:
+#                  nvidia - фирменный закрытый от NVidia
+#                  nv       - открытый для NVidia
+#                  vesa   - для всех карт, но очень медленно
+Section "Device"
+    Identifier     "GF6600"
+    Driver         "nvidia"
+EndSection
+
+# Экран по-умолчанию: на какой видеокарте запускать(если несколько),
+# разрешение, глубина цвета
+Section "Screen"
+    Identifier     "Default Screen"
+    Device         "GF6600"
+    Monitor        "SyncMaster"
+    DefaultDepth    24
+
+    SubSection     "Display"
+        Depth       24
+        Modes      "1280x1024" "1152x864" "1024x768" "800x600" "640x480"
+    EndSubSection
+EndSection
+</pre>
+          </div>
+        </div>
+
+        <h4><a name="два-дисплея-nvidia-twinview" id=
+        "два-дисплея-nvidia-twinview">Два дисплея / Nvidia
+        TwinView</a></h4>
+
+        <div class="level4">
+          <div class='code'>
+            <p>Nvidia TwinView</p>
+            <pre class="code">
+Section "ServerLayout"
+    Identifier     "Layout0"
+    Screen      0  "Screen0" 0 0
+    InputDevice    "Keyboard0" "CoreKeyboard"
+    InputDevice    "Mouse0" "CorePointer"
+    Option         "Xinerama" "0"
+EndSection
+
+Section "InputDevice"
+
+    Identifier     "Mouse0"
+    Driver         "mouse"
+    Option         "Protocol" "auto"
+    Option         "Device" "/dev/psaux"
+    Option         "Emulate3Buttons" "no"
+    Option         "ZAxisMapping" "4 5"
+EndSection
+
+Section "InputDevice"
+    Identifier     "Keyboard0"
+    Driver         "kbd"
+EndSection
+
+Section "Device"
+    Identifier     "Device0"
+    Driver         "nvidia"
+    VendorName     "NVIDIA Corporation"
+    BoardName      "GeForce 8600 GTS"
+EndSection
+
+Section "Screen"
+    Identifier     "Screen0"
+    Device         "Device0"
+    Monitor        "Monitor0"
+    DefaultDepth    24
+    Option         "TwinView" "1"
+    Option         "TwinViewXineramaInfoOrder" "CRT-0"
+    Option         "metamodes" "CRT-0: 1280x1024 +0+0, CRT-1: nvidia-auto-select +1280+0"
+    SubSection     "Display"
+        Depth       24
+    EndSubSection
+EndSection
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="right_sidebar">
+        <div class="main_sidebar sidebar_box">
+          <h1><a name="о-проекте" id="sb_right_о-проекте">О
+          проекте</a></h1>
+
+          <div class="level1">
+            <ul>
+              <li class="level1">
+                <div class="li">
+                  <a href="http://avreg.net/avreg.html" class="wikilink1" title=
+                  "avreg">Главная</a>
+                </div>
+              </li>
+
+              <li class="level1">
+                <div class="li">
+                  <a href="http://avreg.net/news.html" class="wikilink1" title=
+                  "news">Новости &amp; changelog</a>
+                </div>
+              </li>
+
+              <li class="level1">
+                <div class="li">
+                  <a href="http://avreg.net/features.html" class="wikilink1" title=
+                  "features">Возможности</a>
+                </div>
+              </li>
+
+              <li class="level1">
+                <div class="li">
+                  <a href="http://avreg.net/screenshots.html" class="wikilink1"
+                  title="screenshots">Скриншоты</a>
+                </div>
+              </li>
+
+              <li class="level1">
+                <div class="li">
+                  <a href="http://avreg.net/license.html" class="wikilink1" title=
+                  "license">Лицензия</a>
+                </div>
+              </li>
+
+              <li class="level1">
+                <div class="li">
+                  <a href="http://avreg.net/dialers.html" class="wikilink1" title=
+                  "dialers">Дилеры</a>
+                </div>
+              </li>
+
+              <li class="level1">
+                <div class="li">
+                  <a href="http://avreg.net/download.html" class="wikilink1" title=
+                  "download">Скачать</a>
+                </div>
+              </li>
+
+              <li class="level1">
+                <div class="li">
+                  <a href="http://avreg.net/contact.html" class="wikilink1" title=
+                  "contact">Контакты</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <h1><a name="документация" id=
+          "sb_right_документация">Документация</a></h1>
+
+          <div class="level1">
+            <ul>
+              <li class="level1">
+                <div class="li">
+                  <a href="http://avreg.net/manual.html" class="wikilink1" title=
+                  "manual">Руководство пользователя.</a>
+                </div>
+
+                <ul>
+                  <li class="level2">
+                    <div class="li">
+                      <a href="http://avreg.net/manual_hardware.html" class=
+                      "wikilink1" title=
+                      "manual:hardware">«Железо»</a>.
+                    </div>
+                  </li>
+
+                  <li class="level2">
+                    <div class="li">
+                      <a href="http://avreg.net/manual_program.html" class=
+                      "wikilink1" title=
+                      "manual:program">Программы</a>.
+                    </div>
+                  </li>
+
+                  <li class="level2">
+                    <div class="li">
+                      <a href="http://avreg.net/manual_install.html" class=
+                      "wikilink1" title=
+                      "manual:install">Установка.</a>
+                    </div>
+                  </li>
+
+                  <li class="level2">
+                    <div class="li">
+                      <a href="http://avreg.net/manual_tuning.html" class=
+                      "wikilink1" title=
+                      "manual:tuning">Настройка.</a>
+                    </div>
+                  </li>
+
+                  <li class="level2">
+                    <div class="li">
+                      <a href="http://avreg.net/manual_applications.html" class=
+                      "wikilink1" title=
+                      "manual:applications">Приложения.</a>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="level1">
+                <div class="li">
+                  <a href="http://avreg.net/faq.html" class="wikilink1" title=
+                  "faq">FAQ.</a>
+                </div>
+              </li>
+
+              <li class="level1">
+                <div class="li">
+                  <a href="http://avreg.net/howto.html" class="wikilink1" title=
+                  "howto">Советы HOWTO.</a>
+                </div>
+              </li>
+
+              <li class="level1">
+                <div class="li">
+                  <a href="http://avreg.net/maillist.html" class="wikilink1" title=
+                  "maillist">Список рассылки.</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="stylefoot">
+        <div class="meta">
+          <div class="doc">
+            howto/x-org-server.txt · Последние изменения:
+            2011-03-14
+          </div>
+        </div>
+      </div>
+
+      <div class="bar" id="bar__bottom">
+        <div class="bar-right">
+          <a href="" class=
+          "action top" accesskey="x">Наверх</a>
+        </div>
+      </div>
+
+      <div class="footerinc">
+        <div class="copyright">
+          Copyright (C) ООО «Сетевые информационные системы»,
+          2004-2010<br />
+          ☎ /8442/ 50-14-90&nbsp;&nbsp;&nbsp; mailto: linuxdvr на
+          mail.ru<br />
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+<!-- This document saved from http://avreg.net/howto_x-org-server.html -->

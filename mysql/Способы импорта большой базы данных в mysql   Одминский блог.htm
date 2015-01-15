@@ -1,0 +1,509 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Способы импорта большой базы данных в mysql | Одминский блог</title>
+<meta name="generator" content="WordPress 2.9.1" /> <!-- leave this for stats -->
+<link rel="stylesheet" href="http://odminblog.ru/wp-content/themes/blacknwhite-3c/style.css" type="text/css" media="screen" />
+<link rel="alternate" type="application/rss+xml" title="Одминский блог RSS Feed" href="http://odminblog.ru/feed/" />
+<link rel="pingback" href="http://odminblog.ru/xmlrpc.php" />
+<script src="http://odminblog.ru/wp-content/themes/blacknwhite-3c/js/js_liveclock.js" type="text/javascript"></script>
+<link rel="alternate" type="application/rss+xml" title="Одминский блог &raquo; Как импортировать большую базу данных в mysql Comments Feed" href="http://odminblog.ru/kak-importirovat-bolshu-bazu-dannyx-v-mysql/feed/" />
+<link rel='stylesheet' id='gdsr_style_main-css'  href='http://odminblog.ru/wp-content/plugins/gd-star-rating/css/gdsr.css.php?t=1355075172&amp;s=a10i10m20k20c05r05%23121620243046%23121620243240%23s1pchristmas%23s1pcrystal%23s1pdarkness%23s1poxygen%23s1goxygen_gif%23s1pplain%23s1ppumpkin%23s1psoft%23s1pstarrating%23s1pstarscape%23t1pclassical%23t1pstarrating%23t1gstarrating_gif%23lsgflower&amp;o=off&#038;ver=1.9.21' type='text/css' media='' />
+<link rel='stylesheet' id='gdsr_style_xtra-css'  href='http://odminblog.ru/wp-content/gd-star-rating/css/rating.css?ver=1.9.21' type='text/css' media='' />
+<link rel='stylesheet' id='wordpress-popular-posts-css'  href='http://odminblog.ru/wp-content/plugins/wordpress-popular-posts/style/wpp.css?ver=2.9.1' type='text/css' media='' />
+<script type='text/javascript' src='http://odminblog.ru/wp-includes/js/prototype.js?ver=1.6'></script>
+<script type='text/javascript' src='http://odminblog.ru/wp-includes/js/scriptaculous/wp-scriptaculous.js?ver=1.8.0'></script>
+<script type='text/javascript' src='http://odminblog.ru/wp-includes/js/scriptaculous/effects.js?ver=1.8.0'></script>
+<script type='text/javascript' src='http://odminblog.ru/wp-content/plugins/lightbox-2/lightbox.js?ver=1.8'></script>
+<script type='text/javascript' src='http://odminblog.ru/wp-includes/js/jquery/jquery.js?ver=1.3.2'></script>
+<script type='text/javascript' src='http://odminblog.ru/wp-content/plugins/gd-star-rating/js/gdsr.js?ver=1.9.21'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://odminblog.ru/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://odminblog.ru/wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='Одминский блог' href='http://odminblog.ru' />
+<link rel='start' title='Предыстория' href='http://odminblog.ru/intro/' />
+<link rel='prev' title='Что выбрать: xRumer или Scrapebox' href='http://odminblog.ru/chto-vybratxrumer-ili-scrapebox/' />
+<link rel='next' title='Настройка скриптов для импорта баз данных в mysql' href='http://odminblog.ru/nastrojka-skriptov-dlya-importa-baz-dannyx-v-mysql/' />
+<meta name="generator" content="WordPress 2.9.1" />
+
+<!-- All in One SEO Pack 1.6.13.4 by Michael Torbert of Semper Fi Web Design[280,426] -->
+<meta name="description" content="Загружаем большую базу данных в mysql через phpmyadmin, скрипты и консоль" />
+<meta name="keywords" content="phpmyadmin, скрипты, консоль, база данных, mysql, бэкап, выгрузка базы данных, импорт базы данных, экспорт базы данных" />
+<link rel="canonical" href="http://odminblog.ru/kak-importirovat-bolshu-bazu-dannyx-v-mysql/" />
+<!-- /all in one seo pack -->
+<script type="text/javascript">
+//<![CDATA[
+var gdsr_cnst_nonce = "9b8b62eb32";
+var gdsr_cnst_ajax = "http://odminblog.ru/wp-content/plugins/gd-star-rating/ajax.php";
+var gdsr_cnst_button = 1;
+var gdsr_cnst_cache = 0;
+// ]]>
+</script>
+<!--[if IE]><style type="text/css">.ratemulti .starsbar .gdcurrent { -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=70)"; filter: alpha(opacity=70); }</style><![endif]-->
+
+	<!-- begin lightbox scripts -->
+	<script type="text/javascript">
+    //<![CDATA[
+    document.write('<link rel="stylesheet" href="http://odminblog.ru/wp-content/plugins/lightbox-2/Themes/Black/lightbox.css" type="text/css" media="screen" />');
+    //]]>
+    </script>
+	<!-- end lightbox scripts -->
+<!-- Wordpress Popular Posts v2.3.2 -->
+<script type="text/javascript">
+    /* <![CDATA[ */				
+	jQuery.post('http://odminblog.ru/wp-admin/admin-ajax.php', {action: 'wpp_update', token: '53a8627bea', id: 1370}, function(data){/*alert(data);*/});
+    /* ]]> */
+</script>
+<!-- End Wordpress Popular Posts v2.3.2 -->
+            <!-- wp thread comment 1.4.9.4.002 -->
+<style type="text/css" media="screen">
+.editComment, .editableComment, .textComment{
+	display: inline;
+}
+.comment-childs{
+	border: 1px solid #999;
+	margin: 5px 2px 2px 4px;
+	padding: 4px 2px 2px 4px;
+	background-color: white;
+}
+.chalt{
+	background-color: #E2E2E2;
+}
+#newcomment{
+	border:1px dashed #777;width:90%;
+}
+#newcommentsubmit{
+	color:red;
+}
+.adminreplycomment{
+	border:1px dashed #777;
+	width:99%;
+	margin:4px;
+	padding:4px;
+}
+.mvccls{
+	color: #999;
+}
+			
+</style>
+<!-- Google +1 -->
+<script type="text/javascript" src="https://apis.google.com/js/plusone.js">
+  {lang: 'ru'}
+</script>
+<!-- #### -->
+</head>
+<body>
+<div id="wrap">
+<div id="top">
+<div id="header">
+<h1 class="title"><a href="http://odminblog.ru">Одминский блог</a></h1>
+<p class="desc">Блог о технологиях, технократии и методиках борьбы с граблями</p>
+</div>
+<div id="clock"><script type="text/javascript">showdate();</script></div>
+</div>
+<div id="nav">
+<ul class="nav">
+<li class="first"><a href="http://odminblog.ru">Главная</a></li>
+<li class="page_item page-item-2"><a href="http://odminblog.ru/about/" title="Проект">Проект</a></li>
+<li class="page_item page-item-180"><a href="http://odminblog.ru/service/" title="Услуги">Услуги</a></li>
+</ul>
+<form id="searchform" method="get" action="http://odminblog.ru/" ><input type="text" value="поиск" onfocus="if (this.value == 'поиск') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Поиск';}" size="18" maxlength="50" name="s" id="s" />
+</form></div>
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-2660414808188087";
+/* Odm-topmenu */
+google_ad_slot = "6327838843";
+google_ad_width = 728;
+google_ad_height = 15;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<div id="main">
+<div id="content"> 
+
+			<div class="entry">
+		<div class="post" id="post-1370">
+			<h2><a href="http://odminblog.ru/kak-importirovat-bolshu-bazu-dannyx-v-mysql/" rel="bookmark" title="Как импортировать большую базу данных в mysql">Как импортировать большую базу данных в mysql</a></h2>
+<small>17 Jul 2011 | Автор: anchous | </small>
+		
+				<div></div><p>Бывает возникает ситуация, в которой необходимо загрузить на сервер хостинга базу данных больше разрешенного хостингом в утилите управления базами данных phpMyAdmin- обычно этот предел установлен в  ~2Mb. Если это случается на виртуале, то обычно просто заливаю базу через ftp и прошу суппорт хостинга помочь в данном вопросе.</p>
+<p>Поскольку использую нормальные хостинги, то решение это проблемы занимает всего 10-15 минут, так что особо не парился, но тут столкнулся с тем что возникла необходимость подсказать человеку у которого суппорт курил бамбук, так что выделилось несколько вариантов решения данной проблемы. Оговорюсь сразу что наиболее удобен для импорта базы данных mysql последний вариант, но он подходит только тем у кого есть доступ к терминалу. Так что в статье описаны все возможные способы импорта большой базы данных в mysql, кроме общения с суппортом.</p>
+<p>1. Варинт первый &#8211; выгружаем бэкап базы не целиком, а по несколько таблиц, чтобы файл не превышал наши лимиты. Основной минус данного решения- это то, что операцию выгрузки- загрузки необходимо будет проводить много раз, так что подойдет исключительно для тех у кого много свободного времени и нечем заняться на досуге.</p>
+<p>2. Вариант второй &#8211; выгружать в пожатом состоянии- так как степень сжатия для текстового файла будет максимальной. Но тут опять же можно столкнуться с тем, что на хостинге не установлена поддержка архиваторов.</p>
+<p>3. Используем сторонний скрипт, который позволяет производить экспорт и импорт базы данных, минуя общение с phpMyAdmin. Наиболее известный из имеющихся в наличии, и к тому же наиболее хорошо работающий- это <a rel="nofollow" href="http://odminblog.ru/links/go.php?url=http://www.ozerov.de/bigdump/" onclick="javascript:_gaq.push(['_trackPageview','/links/go.php/']);" target="_blank">BigDump</a>. О том как его настроить &#8211; я <a title="настройка скриптов для импорта базы данных" href="http://odminblog.ru/nastrojka-skriptov-dlya-importa-baz-dannyx-v-mysql/">отписался чуть позже</a>, так что это касается и настройки по 5му пункту.</p>
+<p>4. Как частный случай 3 вариант, возможно залить на сервер эмулятор терминала и сделать 5 пункт через него. Например можно попробовать PHPterm, но в этом варианте можно столкнуться с ограничениями хостинга в плане безопасности запуска команд и скриптов.</p>
+<p>5. Также есть простенькая программка аналогичная BigDump, которая также позволяет импортировать большие базы данных, только в данном случае необходим Zend Optimizer либо Nu-Coder. Программка называется <a rel="nofollow" href="http://odminblog.ru/links/go.php?url=http://sypex.net/ru/products/dumper/downloads/" onclick="javascript:_gaq.push(['_trackPageview','/links/go.php/']);" target="_blank">Sypex Dumper</a>, и вторую версию скрипта можно даже интегрировать в наиболее популярные CMS. На сайте есть как платная утилита, так и облегченная бесплатная версия.</p>
+<p>6. Если таки имеется доступ к консоли, то можно добавить в php.ini следующие строки (увеличиваем лимит загрузки файлов по времени и размеру), после загрузки, лучше вернуть все назад, чтобы не нагнули сервак с оказией:<br />
+max_execution_time = 20000<br />
+max_input_time = 20000<br />
+upload_max_filesize = 150M<br />
+post_max_size = 150M</p>
+<p>7. Но на самом деле наиболее быстрым и оптимальным вариантом загрузки большой базы данных, имея доступ к консоли, будет загрузить дамп базы данных dump.sql через ftp, а затем залить её через консоль ssh:<br />
+mysql -h <strong>hostname </strong>-u <strong>user-name</strong> -p <strong>DB_name</strong> &lt;  /path-to-dir/dump.sql<br />
+если у вас в качестве хоста базы данных используется стандартный localhost , то ключик -h можно и опустить, так что получится вида:<br />
+mysql -u <strong>user-name</strong> -p <strong>DB_name</strong> &lt;  /path-to-dir/dump.sql</p>
+<p>Да, чуть не забыл про самые поганые грабли всей пляски с импортом- при импорте базы данных могут возникнуть проблемы с кодировками, поэтому нам надо убедиться что дефолтная база и выгрузка sql находятся в одной кодировке, либо переконвертировать базу данных в стандартную для mysql кодировку (обычно это utf-8):<br />
+iconv -f CP1251 -t UTF-8 dump.sql &gt; dump.sql.utf8<br />
+либо указать необходимую кодировку при процедуре импорта базы данных:<br />
+mysql -h <strong>hostname </strong>-u <strong>user-name</strong> -default_character_set <strong>utf8 </strong>-p <strong>DB_name</strong> &lt;  /path-to-dir/dump.sql</p>
+<div id="crp_related"><h3>Читать еще:</h3><ul><li><a href="http://odminblog.ru/nastrojka-skriptov-dlya-importa-baz-dannyx-v-mysql/" rel="bookmark" class="crp_title">Настройка скриптов для импорта баз данных в mysql</a></li><li><a href="http://odminblog.ru/ustanovka-neskolkix-cms-na-odnu-bazu-dannyx/" rel="bookmark" class="crp_title">Установка нескольких CMS на одну базу данных</a></li><li><a href="http://odminblog.ru/sozdanie-rezervnoj-kopii-sajta-cherez-ftp/" rel="bookmark" class="crp_title">Создание резервной копии сайта через ftp</a></li><li><a href="http://odminblog.ru/defrag-innodb/" rel="bookmark" class="crp_title">Дефрагментация и сжатие InnoDB</a></li><li><a href="http://odminblog.ru/razblokirovka-bana-ip-adresa-v-cpanel/" rel="bookmark" class="crp_title">Разблокировка бана IP адреса в cpanel</a></li></ul></div><div style="display: none">VN:F [1.9.21_1169]</div><div class="ratingblock "><div class="ratingheader "></div><div class="ratingstars "><div id="article_rater_1370" class="ratepost gdsr-oxygen gdsr-size-24"><div class="starsbar gdsr-size-24"><div class="gdouter gdheight"><div id="gdr_vote_a1370" style="width: 212.307692308px;" class="gdinner gdheight"></div><div id="gdr_stars_a1370" class="gdsr_rating_as"><a id="gdsrX1370X10X0XaXarticle_rater_1370Xarticle_loader_1370X0X24" title="10 / 10" class="s10" rel="nofollow"></a><a id="gdsrX1370X9X0XaXarticle_rater_1370Xarticle_loader_1370X0X24" title="9 / 10" class="s9" rel="nofollow"></a><a id="gdsrX1370X8X0XaXarticle_rater_1370Xarticle_loader_1370X0X24" title="8 / 10" class="s8" rel="nofollow"></a><a id="gdsrX1370X7X0XaXarticle_rater_1370Xarticle_loader_1370X0X24" title="7 / 10" class="s7" rel="nofollow"></a><a id="gdsrX1370X6X0XaXarticle_rater_1370Xarticle_loader_1370X0X24" title="6 / 10" class="s6" rel="nofollow"></a><a id="gdsrX1370X5X0XaXarticle_rater_1370Xarticle_loader_1370X0X24" title="5 / 10" class="s5" rel="nofollow"></a><a id="gdsrX1370X4X0XaXarticle_rater_1370Xarticle_loader_1370X0X24" title="4 / 10" class="s4" rel="nofollow"></a><a id="gdsrX1370X3X0XaXarticle_rater_1370Xarticle_loader_1370X0X24" title="3 / 10" class="s3" rel="nofollow"></a><a id="gdsrX1370X2X0XaXarticle_rater_1370Xarticle_loader_1370X0X24" title="2 / 10" class="s2" rel="nofollow"></a><a id="gdsrX1370X1X0XaXarticle_rater_1370Xarticle_loader_1370X0X24" title="1 / 10" class="s1" rel="nofollow"></a></div></div></div></div><div id="article_loader_1370" style="display: none; width: 240px " class="ratingloaderarticle"><div class="loader flower " style="height: 24px"><div class="loaderinner" style="padding-top: 2px">please wait...</div></div></div></div><div class="ratingtext "><div id="gdr_text_a1370">Rating: 8.8/<strong>10</strong> (13 votes cast)</div></div></div><div style="display: none">VN:F [1.9.21_1169]</div><div class="thumblock "><div id="gdsr_thumb_1370_a_up" class="gdt-size-20 gdthumb gdup"><a id="gdsrX1370XupXaX0X20XY" class="gdt-starrating" rel="nofollow"></a></div><div id="gdsr_thumb_1370_a_loader_up" style="display: none; width: 20px " class="ratingloader loadup"><div class="loader flower thumb" style="width: 20px; height: 20px;"></div></div><div id="gdsr_thumb_1370_a_dw" class="gdt-size-20 gdthumb gddw"><a id="gdsrX1370XdwXaX0X20XY" class="gdt-starrating" rel="nofollow"></a></div><div id="gdsr_thumb_1370_a_loader_dw" style="display: none; width: 20px " class="ratingloader loaddw"><div class="loader flower thumb" style="width: 20px; height: 20px;"></div></div><div class="ratingtext "><div id="gdsr_thumb_text_1370_a" class="gdt-size-20 gdthumbtext">Rating: <strong>+1</strong> (from 1 vote)</div></div><div class="raterclear"></div></div><span class="hreview-aggregate"><span class="item"><span class="fn">Как импортировать большую базу данных в mysql</span></span>, <span class="rating"><span class="average">8.8</span> out of <span class="best">10</span> based on <span class="votes">13</span> ratings <span class="summary"></span></span></span><p style="float:left;"><script type="text/javascript"><!--
+google_ad_client = "pub-2660414808188087"; google_ad_slot = "6942765834"; google_ad_width = 336; google_ad_height = 280;
+//--></script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></p><div><a href="http://xn----8sbaodsu5azp5aq1c.xn--p1ai/" target="_blank">Где купить парники и теплицы для дачи</a><br></div><p>Теги: <a href="http://odminblog.ru/label/mysql/" rel="tag">mysql</a>, <a href="http://odminblog.ru/label/sites/" rel="tag">сайты</a>, <a href="http://odminblog.ru/label/techsupport/" rel="tag">техподдержка</a></p>				
+				
+
+			</div>
+		</div>
+<div class="entry">
+	
+<!-- You can start editing here. -->
+
+<div class="boxcomments">
+
+
+
+
+	
+
+	<h2>Отзывов: 3 на &laquo;Как импортировать большую базу данных в mysql&raquo;</h2>
+	<ol class="commentlist">
+			
+<li class="odd" id="comment-622">
+
+		<p style="margin-bottom:5px;">Автор: <strong><noindex><a href="#" class="jqcl" title="a-panov.ru/" rel="nofollow">x64</a></noindex></strong> на <a href="#comment-622" title="">02 Sep 2011</a> </p>
+				<p>самым быстрым способом является копирование файлов таблиц в требуемые базы (папки). самый быстрый и надёжный способ. из минусов если только не везде «заведётся». у меня таких случаев не было, но говорят, что может быть.</p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,622,1,'x64');">Reply</a>]</p><div class="comment-childs chalt" id="comment-624"><img alt='' src='http://www.gravatar.com/avatar/69df55fc09af4af77257251506719d9c?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /><p><cite>anchous</cite> Reply:<br /><small class="commentmetadata">September 2nd, 2011 at 3:18 pm</small></p><p>ну предположим что базы вертятся не под MyISAM, а в InnoDB- что тут копировать?<br />
+к тому же такой способ требует гашения сервака, ибо если дернуть из под работающего- как раз могут и не завестись</p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,624,2,'anchous');">Reply</a>]</p><div class="comment-childs" id="comment-625"><img alt='' src='http://www.gravatar.com/avatar/5c8f3aa61a99af63919117be1ccc19f6?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /><p><cite><a href="#" class="jqcl" title="a-panov.ru/" rel="nofollow">x64</a></cite> Reply:<br /><small class="commentmetadata">September 2nd, 2011 at 3:43 pm</small></p><p>InnoDB далеко не самая распространённая.<br />
+ну а ночью разок можно и стопнуть демона, не у всех же базы гигабайтами исчисляются. остановка будет всего на несколько секунд и её скорее всего просто не заметят. помнится раньше рамблер топ-100 в полночь уходил в глубокий даун, пересчитывая статистику, и ничего же)</p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,625,3,'x64');">Reply</a>]</p><div style="display: none">VA:F [1.9.21_1169]</div><div class="ratingblock "><div class="ratingheader "></div><div class="ratingstars "><div id="comment_rater_625" class="ratecmm gdsr-oxygen gdsr-size-16"><div class="starsbar gdsr-size-16"><div class="gdouter gdheight"><div id="gdr_vote_c625" style="width: 64px;" class="gdinner gdheight"></div><div id="gdr_stars_c625" class="gdsr_rating_as"><a id="gdsrX625X5X0XcXcomment_rater_625Xcomment_loader_625X0X16" title="5 / 5" class="s5" rel="nofollow"></a><a id="gdsrX625X4X0XcXcomment_rater_625Xcomment_loader_625X0X16" title="4 / 5" class="s4" rel="nofollow"></a><a id="gdsrX625X3X0XcXcomment_rater_625Xcomment_loader_625X0X16" title="3 / 5" class="s3" rel="nofollow"></a><a id="gdsrX625X2X0XcXcomment_rater_625Xcomment_loader_625X0X16" title="2 / 5" class="s2" rel="nofollow"></a><a id="gdsrX625X1X0XcXcomment_rater_625Xcomment_loader_625X0X16" title="1 / 5" class="s1" rel="nofollow"></a></div></div></div></div><div id="comment_loader_625" style="display: none; width: 80px " class="ratingloadercomment"><div class="loader flower " style="height: 16px"><div class="loaderinner">please wait...</div></div></div></div><div class="ratingtext "><div id="gdr_text_c625">Rating: 4.0/<strong>5</strong> (1 vote cast)</div></div></div><div style="display: none">VA:F [1.9.21_1169]</div><div class="thumblock "><div id="gdsr_thumb_625_c_up" class="gdt-size-20 gdthumb gdup"><a id="gdsrX625XupXcX0X20XY" class="gdt-starrating" rel="nofollow"></a></div><div id="gdsr_thumb_625_c_loader_up" style="display: none; width: 20px " class="ratingloader loadup"><div class="loader thumb flower" style="width: 20px; height: 20px;"></div></div><div id="gdsr_thumb_625_c_dw" class="gdt-size-20 gdthumb gddw"><a id="gdsrX625XdwXcX0X20XY" class="gdt-starrating" rel="nofollow"></a></div><div id="gdsr_thumb_625_c_loader_dw" style="display: none; width: 20px " class="ratingloader loaddw"><div class="loader thumb flower" style="width: 20px; height: 20px;"></div></div><div class="ratingtext "><div id="gdsr_thumb_text_625_c" class="gdt-size-20 gdthumbtext">Rating: <strong>0</strong> (from 0 votes)</div></div><div class="raterclear"></div></div></div></div>	</li>
+		
+		
+		
+	</ol>
+	
+	
+	
+
+	
+	
+	<form action="http://odminblog.ru/wp-comments-post.php" method="post" id="commentform">
+
+	<h3 id="respond">Ваш отзыв</h3>
+
+		
+	
+		<p><label for="author">Имя *</label>
+		<input type="text" name="author" id="author" value="" size="22" tabindex="1" /></p>
+				
+		<p><label for="email">Почта (скрыта) *</label>
+		<input type="text" name="email" id="email" value="" tabindex="2" size="22" /></p>		
+		
+		<p><label for="url">Сайт</label>
+		<input type="text" name="url" id="url" value="" size="22" tabindex="3" /></p>
+	
+	
+		<p><textarea name="comment" id="comment" cols="5" rows="10" tabindex="4"></textarea></p>
+
+		<p><input name="submit" type="submit" id="submit" tabindex="5" value="Добавить" />
+		<input type="hidden" name="comment_post_ID" value="1370" /></p>
+	
+	
+<div id="captchaImgDiv">
+
+<div class="captchaSizeDivLarge"><img id="si_image_com" class="si-captcha" src="http://odminblog.ru/wp-content/plugins/si-captcha-for-wordpress/captcha/securimage_show.php?si_form_id=com&amp;prefix=TrKXiufreS7M4Jbp" width="175" height="60" alt="CAPTCHA Image" title="CAPTCHA Image" />
+    <input id="si_code_com" name="si_code_com" type="hidden"  value="TrKXiufreS7M4Jbp" />
+    <div id="si_refresh_com">
+<a href="#" rel="nofollow" title="Refresh Image" onclick="si_captcha_refresh('si_image_com','com','/wp-content/plugins/si-captcha-for-wordpress/captcha','http://odminblog.ru/wp-content/plugins/si-captcha-for-wordpress/captcha/securimage_show.php?si_form_id=com&amp;prefix='); return false;">
+      <img class="captchaImgRefresh" src="http://odminblog.ru/wp-content/plugins/si-captcha-for-wordpress/captcha/images/refresh.png" width="22" height="20" alt="Refresh Image" onclick="this.blur();" /></a>
+  </div>
+  </div>
+<div id="captchaInputDiv"><input id="captcha_code" name="captcha_code" type="text" value="" tabindex="4"  />
+ <label id="captcha_code_label" for="captcha_code">CAPTCHA Code</label><span class="required"> *</span>
+ </div>
+</div>
+
+<script type="text/javascript">/*<![CDATA[*/
+var $j = jQuery.noConflict();
+$j(document).ready(function() {
+	$j('a.jqcl').each(function() {
+		var link = $j(this).attr('title');
+		$j(this).attr('href', 'http://'+link).attr('title', 'http://'+link);
+	});
+})
+/*]]>*/</script>
+<p><input type="hidden" id="comment_reply_ID" name="comment_reply_ID" value="0" /><input type="hidden" id="comment_reply_dp" name="comment_reply_dp" value="0" /></p><div id="cancel_reply" style="display:none;"><a href="javascript:void(0)" onclick="movecfm(null,0,1,null);" style="color:red;">Click to cancel reply</a></div><script type="text/javascript">
+/* <![CDATA[ */
+var commentformid = "commentform";
+var USERINFO = false;
+var atreply = "none";
+/* ]]> */
+</script>
+<script type="text/javascript" src="http://odminblog.ru/wp-content/plugins/wordpress-thread-comment/wp-thread-comment.js.php?jsver=common"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var lstcommentid=622;
+var needauthoremail=true;
+var sortflag="ASC";
+/* ]]> */
+</script>
+<script type="text/javascript" src="http://odminblog.ru/wp-content/plugins/wordpress-thread-comment/wp-thread-comment.js.php?jsver=ajax&amp;wpajaxeditcomments=true"></script>
+
+	</form>
+
+
+</div>	</div>
+
+	
+	</div>
+<div id="sidebar">
+<div id="lsidebar">
+<ul>
+			<li id="text-23" class="widget widget_text">			<div class="textwidget"></div>
+		</li>
+<li id="text-24" class="widget widget_text">			<div class="textwidget"><script type="text/javascript"><!--
+google_ad_client = "ca-pub-2660414808188087";
+/* Odm-right600 */
+google_ad_slot = "5722106253";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></div>
+		</li>
+<li id="text-5" class="widget widget_text"><h2 class="widgettitle">Хостинг</h2>
+			<div class="textwidget"><center>
+<a rel="nofollow" href="http://odminblog.ru/links/hostgator" onclick="javascript:_gaq.push(['_trackPageview','/links/hostgator/']);" target="_blank" rel="nofollow"> <img src="http://odminblog.ru/wp-content/uploads/2010/05/hostgatorbanner.gif" alt="HostGator hosting" border="0" /></a><br><br><noindex>
+<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,5,0,175" width="300" height="250"> <param name="movie" value="http://www.burst.net/aff/125x125_burst_budgetvps.swf" /> <param name=FlashVars value="clickTAG=https://service.burst.net/aff2.php?aff=2750&affurl=5" /> <param name="menu" value="false" /> <param name="scale" value="exactfit" /> <param name="AllowScriptAccess" value="always" /> <embed src="http://www.burst.net/aff/125x125_burst_budgetvps.swf" FlashVars="clickTAG=https://service.burst.net/aff2.php?aff=2750&affurl=5" width="125" height="125" menu="false" scale="exactfit" AllowScriptAccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" /> </object></noindex></center>
+</div>
+		</li>
+<li id="text-13" class="widget widget_text"><h2 class="widgettitle">Домены RU по 99 рублей</h2>
+			<div class="textwidget"><center><a href="http://odminblog.ru/domreg/2dom/" onclick="javascript:_gaq.push(['_trackPageview','/domreg/2dom/']);"  target="_blank" title="регистрация доменов" rel="nofollow"><img  src="http://odminblog.ru/wp-content/uploads/2011/04/120_200.gif" border="1" alt="регистрация доменов"></a>
+</center></div>
+		</li>
+<li id="text-8" class="widget widget_text"><h2 class="widgettitle">Немножко статистики</h2>
+			<div class="textwidget"><center><noindex>
+<!--LiveInternet counter--><script type="text/javascript"><!--
+document.write("<a href='http://odminblog.ru/links/go.php?url=http://www.liveinternet.ru/click' "+
+"target=_blank><img src='//counter.yadro.ru/hit?t22.6;r"+
+escape(document.referrer)+((typeof(screen)=="undefined")?"":
+";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+";"+Math.random()+
+"' alt='' title='LiveInternet: показано число просмотров за 24"+
+" часа, посетителей за 24 часа и за сегодня' "+
+"border='0' width='88' height='31'><\/a>")
+//--></script><!--/LiveInternet--><br>
+<!-- begin of Top100 code -->
+
+<script id="top100Counter" type="text/javascript" src="http://counter.rambler.ru/top100.jcn?2429752"></script>
+<noscript>
+<a href="http://odminblog.ru/links/go.php?url=http://top100.rambler.ru/navi/2429752/">
+<img src="http://counter.rambler.ru/top100.cnt?2429752" alt="Rambler's Top100" border="0" />
+</a>
+
+</noscript>
+<!-- end of Top100 code -->
+</center></noindex></div>
+		</li>
+		</ul>
+</div>
+<div id="rsidebar">
+<ul>
+       
+	<li id="categories-3" class="widget widget_categories"><h2 class="widgettitle">Рубрики</h2>
+		<ul>
+	<li class="cat-item cat-item-10"><a href="http://odminblog.ru/partition/check-point/" title="View all posts filed under Check Point">Check Point</a> (22)
+</li>
+	<li class="cat-item cat-item-17"><a href="http://odminblog.ru/partition/freebsd/" title="View all posts filed under FreeBSD">FreeBSD</a> (25)
+</li>
+	<li class="cat-item cat-item-12"><a href="http://odminblog.ru/partition/iphone/" title="View all posts filed under iPhone">iPhone</a> (50)
+</li>
+	<li class="cat-item cat-item-5"><a href="http://odminblog.ru/partition/it-security/" title="Раздел посвященный информационной безопасности. Новости, принципы и возможности защиты, настройка серверов по защите информации, шифрование, защита периметра.">IT безопасность</a> (88)
+</li>
+	<li class="cat-item cat-item-31"><a href="http://odminblog.ru/partition/linux/" title="View all posts filed under Linux">Linux</a> (17)
+</li>
+	<li class="cat-item cat-item-46"><a href="http://odminblog.ru/partition/mac/" title="View all posts filed under mac">mac</a> (3)
+</li>
+	<li class="cat-item cat-item-44"><a href="http://odminblog.ru/partition/windows/" title="View all posts filed under Windows">Windows</a> (49)
+</li>
+	<li class="cat-item cat-item-144"><a href="http://odminblog.ru/partition/dbases/" title="View all posts filed under Базы данных">Базы данных</a> (8)
+</li>
+	<li class="cat-item cat-item-3"><a href="http://odminblog.ru/partition/intro/" title="View all posts filed under введение">введение</a> (2)
+</li>
+	<li class="cat-item cat-item-191"><a href="http://odminblog.ru/partition/vosstanovlenie-informacii/" title="View all posts filed under Восстановление информации">Восстановление информации</a> (2)
+</li>
+	<li class="cat-item cat-item-1"><a href="http://odminblog.ru/partition/odminzz/" title="View all posts filed under Дела Одминские">Дела Одминские</a> (46)
+</li>
+	<li class="cat-item cat-item-34"><a href="http://odminblog.ru/partition/inet/" title="View all posts filed under Интернет">Интернет</a> (67)
+</li>
+	<li class="cat-item cat-item-24"><a href="http://odminblog.ru/partition/review/" title="View all posts filed under Обзоры">Обзоры</a> (11)
+<ul class='children'>
+	<li class="cat-item cat-item-50"><a href="http://odminblog.ru/partition/review/crossbeam-review/" title="View all posts filed under Crossbeam">Crossbeam</a> (1)
+</li>
+	<li class="cat-item cat-item-49"><a href="http://odminblog.ru/partition/review/iss-review/" title="View all posts filed under ISS">ISS</a> (2)
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-119"><a href="http://odminblog.ru/partition/equipments/" title="View all posts filed under Оборудование">Оборудование</a> (8)
+</li>
+	<li class="cat-item cat-item-19"><a href="http://odminblog.ru/partition/humour/" title="View all posts filed under Одмины шутят">Одмины шутят</a> (16)
+</li>
+	<li class="cat-item cat-item-55"><a href="http://odminblog.ru/partition/hints/" title="View all posts filed under Подсказки">Подсказки</a> (20)
+</li>
+	<li class="cat-item cat-item-42"><a href="http://odminblog.ru/partition/mail-system/" title="View all posts filed under Почтовые системы">Почтовые системы</a> (19)
+</li>
+	<li class="cat-item cat-item-26"><a href="http://odminblog.ru/partition/site-projects/" title="View all posts filed under Сайты и их проблемы">Сайты и их проблемы</a> (71)
+</li>
+	<li class="cat-item cat-item-7"><a href="http://odminblog.ru/partition/networks/" title="Раздел посвященный сетевым технологиям. Предоставление сетевых сервисов, настройка и конфигурация сетевых устройств, организация сетей.">Сети</a> (34)
+</li>
+	<li class="cat-item cat-item-22"><a href="http://odminblog.ru/partition/articles/" title="Cтатьи и обзоры посвященные различным тематикам">Статьи</a> (7)
+</li>
+	<li class="cat-item cat-item-53"><a href="http://odminblog.ru/partition/file-systems/" title="View all posts filed under Файловые системы">Файловые системы</a> (7)
+</li>
+	<li class="cat-item cat-item-60"><a href="http://odminblog.ru/partition/hosters/" title="View all posts filed under Хостинг">Хостинг</a> (17)
+</li>
+		</ul>
+</li>
+		<li id="recent-posts-3" class="widget widget_recent_entries">		<h2 class="widgettitle">Новые статьи в блоге</h2>
+		<ul>
+				<li><a href="http://odminblog.ru/perenos-pochty-iz-windows-mail-v-thunderbird/" title="Перенос почты из Windows Mail в Thunderbird">Перенос почты из Windows Mail в Thunderbird </a></li>
+				<li><a href="http://odminblog.ru/pristalnyj-vzglyad-v-windows-8/" title="Пристальный взгляд в Windows 8">Пристальный взгляд в Windows 8 </a></li>
+				<li><a href="http://odminblog.ru/eskport-kontaktov-iz-iphone-v-csv/" title="Эскпорт контактов из iPhone в CSV">Эскпорт контактов из iPhone в CSV </a></li>
+				<li><a href="http://odminblog.ru/old-keyboard-shortcut/" title="Старые добрые шоткаты">Старые добрые шоткаты </a></li>
+				<li><a href="http://odminblog.ru/naznachenie-ip-adresov-polzovatelyam-v-3proxy/" title="Назначение IP адресов пользователям в 3proxy">Назначение IP адресов пользователям в 3proxy </a></li>
+				</ul>
+		</li>
+<li id="text-22" class="widget widget_text"><h2 class="widgettitle">Решения для e-mail и sms рассылок</h2>
+			<div class="textwidget"><noindex><center><object width="125" height="125">
+    <param name="movie" value="http://www.massmailpartner.com/accounts/default1/banners/epochta_flash_ban_125_125.swf?clickTAG=http%3A%2F%2Fwww.epochtasms.ru%2F%23a_aid%3Danchous%26a_bid%3D3abb7865">
+    <param name="menu" value="false"/>
+    <param name="quality" value="medium"/>
+    <param name="wmode" value="Window"/>
+    <embed src="http://www.massmailpartner.com/accounts/default1/banners/epochta_flash_ban_125_125.swf?clickTAG=http%3A%2F%2Fwww.epochtasms.ru%2F%23a_aid%3Danchous%26a_bid%3D3abb7865" width="125" height="125" loop="true" menu="false" swLiveConnect="FALSE" wmode="Window" allowscriptaccess="always"></embed>
+  </object>
+  <img style="border:0" src="http://www.massmailpartner.com/scripts/imp.php?a_aid=anchous&amp;a_bid=3abb7865" width="1" height="1" alt="" />
+<object width="125" height="125">
+    <param name="movie" value="http://www.massmailpartner.com/accounts/default1/banners/massermailsoft_125_125_1.swf?clickTAG=http%3A%2F%2Fwww.epochta.ru%2Fproducts%2Fstudio%2F%23a_aid%3Danchous%26a_bid%3De70792bd">
+    <param name="menu" value="false"/>
+    <param name="quality" value="medium"/>
+    <param name="wmode" value="Window"/>
+    <embed src="http://www.massmailpartner.com/accounts/default1/banners/massermailsoft_125_125_1.swf?clickTAG=http%3A%2F%2Fwww.epochta.ru%2Fproducts%2Fstudio%2F%23a_aid%3Danchous%26a_bid%3De70792bd" width="125" height="125" loop="false" menu="false" swLiveConnect="FALSE" wmode="Window" allowscriptaccess="always"></embed>
+  </object>
+  <img style="border:0" src="http://www.massmailpartner.com/scripts/imp.php?a_aid=anchous&amp;a_bid=e70792bd" width="1" height="1" alt="" /></center>
+</noindex></div>
+		</li>
+<!-- Wordpress Popular Posts Plugin v2.3.2 [W] [all] [regular] -->
+<li id="wpp-3" class="widget popular-posts">
+<h2 class="widgettitle">Популярные статьи</h2>
+<!-- Wordpress Popular Posts Plugin v2.3.2 [Widget] [all] [regular] -->
+<ul>
+<li><a href="http://odminblog.ru/programm-uninstall-from-iphone/" title="Удаление программ из Iphone" class="wpp-post-title">Удаление программ из Iphone</a> <span class="post-stats"><span class="wpp-views">31,765  view(s)</span></span></li>
+<li><a href="http://odminblog.ru/disable-uac-windows-7/" title="Отключение контроля учетных записей UAC в Windows 7" class="wpp-post-title">Отключение контроля учетных записей UAC в Windows 7</a> <span class="post-stats"><span class="wpp-views">27,290  view(s)</span></span></li>
+<li><a href="http://odminblog.ru/remedy-sfc-sfcfiles/" title="Лечение sfcfiles.dll и sfc.sys" class="wpp-post-title">Лечение sfcfiles.dll и sfc.sys</a> <span class="post-stats"><span class="wpp-views">21,992  view(s)</span></span></li>
+<li><a href="http://odminblog.ru/unlock-safemode/" title="Не запускается безопасный режим SafeMode. Что делать?" class="wpp-post-title">Не запускается безопасный режим SafeMode. Что делать?</a> <span class="post-stats"><span class="wpp-views">20,360  view(s)</span></span></li>
+<li><a href="http://odminblog.ru/terminalnyj-server-pod-upravleniem-windows-7/" title="Терминальный сервер под управлением Windows 7" class="wpp-post-title">Терминальный сервер под управлением Windows 7</a> <span class="post-stats"><span class="wpp-views">19,665  view(s)</span></span></li>
+<li><a href="http://odminblog.ru/count-network-mask/" title="Подсчет маски подсетей" class="wpp-post-title">Подсчет маски подсетей</a> <span class="post-stats"><span class="wpp-views">18,319  view(s)</span></span></li>
+<li><a href="http://odminblog.ru/usage-of-tcpdump/" title="Использование утилиты tcpdump" class="wpp-post-title">Использование утилиты tcpdump</a> <span class="post-stats"><span class="wpp-views">17,150  view(s)</span></span></li>
+<li><a href="http://odminblog.ru/kody-razblokirovki-pornobannerov/" title="Коды разблокировки порнобаннеров от винлокеров" class="wpp-post-title">Коды разблокировки порнобаннеров от винлокеров</a> <span class="post-stats"><span class="wpp-views">13,098  view(s)</span></span></li>
+<li><a href="http://odminblog.ru/ptr-reverse-zone/" title="PTR запись зоны обратного просмотра" class="wpp-post-title">PTR запись зоны обратного просмотра</a> <span class="post-stats"><span class="wpp-views">11,674  view(s)</span></span></li>
+<li><a href="http://odminblog.ru/cheets-and-tips-exim/" title="Всякие полезности для exim" class="wpp-post-title">Всякие полезности для exim</a> <span class="post-stats"><span class="wpp-views">10,894  view(s)</span></span></li>
+
+</ul>
+</li>
+
+<!-- End Wordpress Popular Posts Plugin v2.3.2 -->
+<li id="tag_cloud-3" class="widget widget_tag_cloud"><h2 class="widgettitle">Метки</h2>
+<div><a href='http://odminblog.ru/label/apple/' class='tag-link-162' title='10 topics' style='font-size: 10.2931034483pt;'>apple</a>
+<a href='http://odminblog.ru/label/centos/' class='tag-link-51' title='11 topics' style='font-size: 10.775862069pt;'>centos</a>
+<a href='http://odminblog.ru/label/checkpoint/' class='tag-link-11' title='23 topics' style='font-size: 14.3965517241pt;'>Checkpoint</a>
+<a href='http://odminblog.ru/label/dns/' class='tag-link-78' title='11 topics' style='font-size: 10.775862069pt;'>dns</a>
+<a href='http://odminblog.ru/label/drupal/' class='tag-link-41' title='8 topics' style='font-size: 9.20689655172pt;'>drupal</a>
+<a href='http://odminblog.ru/label/exim/' class='tag-link-43' title='9 topics' style='font-size: 9.81034482759pt;'>exim</a>
+<a href='http://odminblog.ru/label/firefox/' class='tag-link-37' title='8 topics' style='font-size: 9.20689655172pt;'>firefox</a>
+<a href='http://odminblog.ru/label/freebsd/' class='tag-link-17' title='24 topics' style='font-size: 14.6379310345pt;'>FreeBSD</a>
+<a href='http://odminblog.ru/label/google/' class='tag-link-155' title='12 topics' style='font-size: 11.1379310345pt;'>google</a>
+<a href='http://odminblog.ru/label/iphone/' class='tag-link-12' title='51 topics' style='font-size: 18.5pt;'>iPhone</a>
+<a href='http://odminblog.ru/label/iphone-tips/' class='tag-link-59' title='20 topics' style='font-size: 13.6724137931pt;'>iphone tips</a>
+<a href='http://odminblog.ru/label/it-security/' class='tag-link-5' title='97 topics' style='font-size: 21.7586206897pt;'>IT безопасность</a>
+<a href='http://odminblog.ru/label/jailbreak-iphone/' class='tag-link-16' title='14 topics' style='font-size: 11.9827586207pt;'>jailbreak iphone</a>
+<a href='http://odminblog.ru/label/joomla/' class='tag-link-140' title='7 topics' style='font-size: 8.60344827586pt;'>joomla</a>
+<a href='http://odminblog.ru/label/mac/' class='tag-link-46' title='7 topics' style='font-size: 8.60344827586pt;'>mac</a>
+<a href='http://odminblog.ru/label/mysql/' class='tag-link-75' title='10 topics' style='font-size: 10.2931034483pt;'>mysql</a>
+<a href='http://odminblog.ru/label/pr/' class='tag-link-153' title='8 topics' style='font-size: 9.20689655172pt;'>pr</a>
+<a href='http://odminblog.ru/label/seo/' class='tag-link-29' title='11 topics' style='font-size: 10.775862069pt;'>seo</a>
+<a href='http://odminblog.ru/label/ssh/' class='tag-link-133' title='6 topics' style='font-size: 8pt;'>ssh</a>
+<a href='http://odminblog.ru/label/unix/' class='tag-link-18' title='12 topics' style='font-size: 11.1379310345pt;'>Unix</a>
+<a href='http://odminblog.ru/label/unlock-iphone/' class='tag-link-15' title='11 topics' style='font-size: 10.775862069pt;'>unlock Iphone</a>
+<a href='http://odminblog.ru/label/vmware/' class='tag-link-166' title='12 topics' style='font-size: 11.1379310345pt;'>vmware</a>
+<a href='http://odminblog.ru/label/vpn/' class='tag-link-93' title='9 topics' style='font-size: 9.81034482759pt;'>vpn</a>
+<a href='http://odminblog.ru/label/windows/' class='tag-link-44' title='44 topics' style='font-size: 17.6551724138pt;'>Windows</a>
+<a href='http://odminblog.ru/label/windows-7/' class='tag-link-65' title='24 topics' style='font-size: 14.6379310345pt;'>windows 7</a>
+<a href='http://odminblog.ru/label/wordpress/' class='tag-link-45' title='11 topics' style='font-size: 10.775862069pt;'>wordpress</a>
+<a href='http://odminblog.ru/label/network-protocol/' class='tag-link-8' title='33 topics' style='font-size: 16.2068965517pt;'>Сетевые протоколы</a>
+<a href='http://odminblog.ru/label/networks/' class='tag-link-7' title='66 topics' style='font-size: 19.8275862069pt;'>Сети</a>
+<a href='http://odminblog.ru/label/botnet/' class='tag-link-115' title='6 topics' style='font-size: 8pt;'>бот-сеть</a>
+<a href='http://odminblog.ru/label/%d0%b2%d0%b8%d1%80%d1%82%d1%83%d0%b0%d0%bb%d0%b8%d0%b7%d0%b0%d1%86%d0%b8%d1%8f/' class='tag-link-167' title='10 topics' style='font-size: 10.2931034483pt;'>виртуализация</a>
+<a href='http://odminblog.ru/label/viruses/' class='tag-link-48' title='22 topics' style='font-size: 14.1551724138pt;'>вирусня</a>
+<a href='http://odminblog.ru/label/domain/' class='tag-link-80' title='20 topics' style='font-size: 13.6724137931pt;'>домен</a>
+<a href='http://odminblog.ru/label/internet/' class='tag-link-27' title='101 topics' style='font-size: 22pt;'>интернет</a>
+<a href='http://odminblog.ru/label/system-tuning/' class='tag-link-32' title='51 topics' style='font-size: 18.5pt;'>настройка системы</a>
+<a href='http://odminblog.ru/label/search-engines/' class='tag-link-30' title='38 topics' style='font-size: 16.9310344828pt;'>поисковики</a>
+<a href='http://odminblog.ru/label/mail-systems/' class='tag-link-20' title='21 topics' style='font-size: 13.9137931034pt;'>почтовые системы</a>
+<a href='http://odminblog.ru/label/unlock-iphone3/' class='tag-link-14' title='16 topics' style='font-size: 12.5862068966pt;'>разлочка IPhone</a>
+<a href='http://odminblog.ru/label/sites/' class='tag-link-28' title='66 topics' style='font-size: 19.8275862069pt;'>сайты</a>
+<a href='http://odminblog.ru/label/service/' class='tag-link-73' title='8 topics' style='font-size: 9.20689655172pt;'>сервис</a>
+<a href='http://odminblog.ru/label/techsupport/' class='tag-link-72' title='34 topics' style='font-size: 16.3275862069pt;'>техподдержка</a>
+<a href='http://odminblog.ru/label/titz/' class='tag-link-151' title='11 topics' style='font-size: 10.775862069pt;'>тиц</a>
+<a href='http://odminblog.ru/label/vulnerability/' class='tag-link-67' title='9 topics' style='font-size: 9.81034482759pt;'>уязвимость</a>
+<a href='http://odminblog.ru/label/coolhackers/' class='tag-link-118' title='7 topics' style='font-size: 8.60344827586pt;'>хакеры</a>
+<a href='http://odminblog.ru/label/hosting/' class='tag-link-25' title='24 topics' style='font-size: 14.6379310345pt;'>хостинг</a>
+<a href='http://odminblog.ru/label/comically/' class='tag-link-161' title='15 topics' style='font-size: 12.224137931pt;'>юмор</a></div>
+</li>
+		</ul>
+</div>		
+</div>
+
+
+
+</div>
+<div id="footer">Одминский блог работает на WordPress | <a href="http://odminblog.ru/feed/">Публикации (RSS)</a> и <a href="http://odminblog.ru/comments/feed/">Комментарии (RSS)</a> .
+  <!-- 83 запросов. 0.975 секунд. --><div></div>
+<script>
+var related_posts_container = 'search_content',
+	related_posts_title		= 'Одминский блог',
+	related_posts_lang		= 'en-US';
+</script>
+<script src="http://odminblog.ru/wp-content/plugins/search-engine-related-posts/asset/serp-min.js"></script>
+<script type='text/javascript' src='http://odminblog.ru/wp-content/plugins/si-captcha-for-wordpress/captcha/si_captcha.js?ver=1.0'></script>
+<script type="text/javascript">
+//<![CDATA[
+var si_captcha_styles = "\
+<!-- begin SI CAPTCHA Anti-Spam - comment form style -->\
+<style type='text/css'>\
+div#captchaImgDiv { display:block; }\
+.captchaSizeDivSmall { width:175px; height:45px; padding-top:10px; }\
+.captchaSizeDivLarge { width:250px; height:60px; padding-top:10px; }\
+img#si_image_com,#si_image_reg,#si_image_log,#si_image_side_login { border-style:none; margin:0; padding-right:5px; float:left; }\
+.captchaImgRefresh { border-style:none; margin:0; vertical-align:bottom; }\
+div#captchaInputDiv { display:block; padding-top:15px; padding-bottom:5px; }\
+label#captcha_code_label { margin:0; }\
+input#captcha_code { width:65px; }\
+</style>\
+<!-- end SI CAPTCHA Anti-Spam - comment form style -->\
+";
+jQuery(document).ready(function($) {
+$('head').append(si_captcha_styles);
+});
+//]]>
+</script>
+</div>
+</div>
+<noindex>
+<script charset="windows-1251" type="text/javascript" src="http://www.directadvert.ru/show.cgi?adp=52880&div=DIV_DA_52880"></script>
+</noindex>
+</body>
+</html>

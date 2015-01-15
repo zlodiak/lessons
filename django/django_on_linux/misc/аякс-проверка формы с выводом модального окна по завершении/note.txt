@@ -1,0 +1,345 @@
+часто нужно проверить форму аяксом и в случае успеха вывести модальное окно с сообщением.
+лучше это делать, используя плагн, но можно и вручную. сеичас проверим уникальность username в БД и длину остальных полей. а так же совпадение паролей
+
+=======================
+views:
+def registration(request):
+	"""
+	ajax refistration procedure
+	"""	
+	result = False		
+
+	form = RegistrationForm()
+
+	if request.method == 'POST' and request.is_ajax():
+		form = RegistrationForm(request.POST)	
+		if form.is_valid():
+			try:
+				new_user = form.save()
+			except:
+				pass
+			else:
+				result = True
+
+	data = {
+		'result': result,		
+	}
+			
+	return HttpResponse(json.dumps(data), content_type='application/json')	
+			
+
+def ajax_username_check(request):
+	"""
+	ajax check username for registration form
+	return true - matched
+	return false - no matched
+	"""	
+
+	if request.method == 'POST' and request.is_ajax():
+		username = request.POST.get('username', '')
+		result = {'result': User.objects.filter(username=username).exists()}
+			
+	return HttpResponse(json.dumps(result), content_type='application/json')	
+
+
+
+
+
+
+=======================
+
+js:
+(function (){
+	// -------------------------------------------------------------------------------------- reg button click
+	$('#regButton').on('click', function(event){	
+		$('#regModal').modal('show');			
+	});	
+
+	$('#registrationSubmit').on('click', function(e){
+		var	flag = false,
+			username = $('#id_username'),
+			email = $('#id_email'),
+			password1 = $('#id_password1'),
+			password2 = $('#id_password2'),
+			usernameVal = $.trim(username.val()),
+			emailVal = $.trim(email.val()),
+			password1Val = $.trim(password1.val());
+			password2Val = $.trim(password2.val());
+
+		e.preventDefault();
+
+		if(!usernameVal || usernameVal.length < 3 || usernameVal.length > 30){
+			username.addClass('shine');
+			flag = true;
+		}
+		else{
+			username.removeClass('shine');
+		};
+
+		if(!emailVal || emailVal.length < 6 || emailVal.length > 30){
+			email.addClass('shine');
+			flag = true;
+		}
+		else{
+			email.removeClass('shine');
+		};
+
+		if(!password1Val || password1Val.length < 6 || password1Val.length > 30){
+			password1.addClass('shine');
+			flag = true;
+		}
+		else{
+			password1.removeClass('shine');
+		};	
+
+		if(!password2Val || password2Val.length < 6 || password2Val.length > 30 || password1Val != password2Val){
+			password2.addClass('shine');
+			flag = true;
+		}
+		else{
+			password2.removeClass('shine');
+		};		
+
+		$.ajax({
+			url: "/accounts/ajax_username_check/",
+			type: 'POST',
+			dataType:"json",
+			data: {
+				"username": usernameVal,
+				"csrfmiddlewaretoken": $('#registrationForm input[name=csrfmiddlewaretoken]').val()
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				//console.log(xhr.status);
+				//console.log(xhr.responseText);
+				//console.log(thrownError);					
+			},
+			success: function(data) {
+				//console.log(data.result);
+
+				if(data.result){
+					// ret true - matched, no reg
+					username.addClass('shine');
+					flag = true;
+				}
+				else{
+					// ret true - no matched, ok reg
+					username.removeClass('shine');
+				}
+			},
+			complete: function(){
+				console.log(flag);
+
+				if(!flag){
+					console.log('create');
+					$.ajax({
+						url: "/accounts/registration/",
+						type: 'POST',
+						dataType:"json",
+						data: {
+							"username": usernameVal,
+							"email": emailVal,
+							"password1": password1Val,
+							"password2": password2Val,
+							"csrfmiddlewaretoken": $('#registrationForm input[name=csrfmiddlewaretoken]').val()
+						},
+						error: function(xhr, ajaxOptions, thrownError) {
+							//console.log(xhr.status);
+							//console.log(xhr.responseText);
+							//console.log(thrownError);					
+						},
+						success: function(data) {
+							//console.log('success');
+
+							username.val('');
+							email.val('');
+							password1.val('');
+							password2.val('');
+
+							$('#regModal').modal('hide');
+
+							$('#commonModalLabel').text('Сообщение отправлено');
+							$('#modalDialog').addClass('modal-sm');
+							$('#butCancel').addClass('hide');
+							$('#commonModal').modal('show');
+
+							setTimeout(function(){
+								$('#commonModal').modal('hide');
+							}, 2000);	
+						}
+					});		
+				}
+				else{
+					//console.log('no create');
+				};				
+			}
+		});	
+
+
+	});		
+
+
+})();
+=======================
+form:
+from django import forms
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.forms import ModelForm
+
+
+class RegistrationForm(UserCreationForm):	
+	class Meta:
+		model = User
+		fields = (  
+			'username',   
+			'email',    
+			'password1', 
+			'password2',
+		)
+
+	def clean_password1(self):
+		password1 = self.cleaned_data['password1']
+		q_letters = len(password1)
+		if q_letters < 6:
+			raise forms.ValidationError("Пароль не может быть короче 6 символов.")		
+		if q_letters > 30:
+			raise forms.ValidationError("Пароль не может быть длиннее 30 символов.")	
+
+		return password1	
+		
+	def clean_username(self):
+		username = self.cleaned_data['username']
+		q_letters = len(username)
+		if q_letters < 3:
+			raise forms.ValidationError("Логин не может быть короче 3 символов.")		
+		if q_letters > 30:
+			raise forms.ValidationError("Логин не может быть длиннее 30 символов.")				
+
+		return username		
+
+
+=======================
+
+tpl:
+
+<!-- registration modal -->
+<div class="modal fade" id="regModal" tabindex="-1" role="dialog" aria-labelledby="regModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <section class="modal-content">
+        	<form class="common_form" action="{% url 'registration' %}" id="registrationForm" method="POST" novalidate>
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	                
+	                <h4 class="modal-title" id="regModalLabel">Регистрация</h4>
+	            </div>
+
+	            <div class="modal-body">
+					{% csrf_token %}	
+					
+					<div class="cell input_outer">
+						<label class="label">{{ registration_form.username.label }}</label>
+						
+						{{ registration_form.username }}
+						
+						{{ registration_form.username.errors }}
+					</div>					
+
+					<div class="cell input_outer">
+						<label class="label">{{ registration_form.email.label }}</label>
+						
+						{{ registration_form.email }}
+						
+						{{ registration_form.email.errors }}
+					</div>						
+
+					<div class="cell input_outer">
+						<label class="label">{{ registration_form.password1.label }}</label>
+						
+						{{ registration_form.password1 }}
+						
+						{{ registration_form.password1.errors }}
+					</div>	
+
+					<div class="cell input_outer">
+						<label class="label">{{ registration_form.password2.label }}</label>
+						
+						{{ registration_form.password2 }}
+						
+						{{ registration_form.password2.errors }}
+					</div>										
+	            </div>
+
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default btn-sm but_cancel" data-dismiss="modal">Отменить</button>
+
+					<input class="btn btn-primary btn-sm but_reg" id="registrationSubmit" type="submit" value="Зарегистрироваться">
+	            </div>
+            </form>
+        </section>
+    </div>
+</div>  
+
+
+
+
+base tpl:
+        <!-- common modal -->
+        <div class="modal fade" id="commonModal" tabindex="-1" role="dialog" aria-labelledby="commonModalLabel" aria-hidden="true">
+            <div class="modal-dialog" id="modalDialog">
+                <div class="modal-content" id="modalContent">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        
+                        <h4 class="modal-title" id="commonModalLabel">Modal title</h4>
+                    </div>
+
+                    <div class="modal-body"></div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default but_cancel" id="butCancel" data-dismiss="modal">Отменить</button>
+                        <button type="button" class="btn btn-primary but_ok" id="butOk" data-dismiss="modal">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>  
+
+
+=======================
+
+urls:
+from django.conf.urls import patterns, include, url
+from django.contrib import admin
+
+admin.autodiscover()
+
+urlpatterns = patterns('app_accounts',
+	url(r'^registration/$', 'views.registration', name='registration'),
+	url(r'^ajax_username_check/$', 'views.ajax_username_check', name='ajax_username_check'),
+	#url(r'^authentication/$', 'views.authentication', name='authentication'),
+	#url(r'^authentication_success/$', 'views.authentication_success', name='authentication_success'),    
+	#url(r'^logout/$', 'views.logout', name='logout'),          
+)
+
+
+
+
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================

@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head profile="http://www.w3.org/2005/10/profile">
+
+<title>Сюрприз от Opera с overflow: hidden</title>
+<link rel="icon" type="image/png" href="Сюрприз%20от%20Opera%20с%20overflow_%20hidden_files/favicon0.png" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8;charset=utf-8" />
+<meta name="Keywords" content="opera, overflow, css, баг" />
+<meta name="Description" content="Opera не понимает overflow: hidden. Такой баг можно получить, если втутри блока-родителя есть дочерний блок с размерами, превосходящими размеры родителя. Подобный косяк иногда может потрепать нервы." />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /> 
+<link rel="stylesheet" type="text/css" href="Сюрприз%20от%20Opera%20с%20overflow_%20hidden_files/main-200.css" />
+<!--[if IE 7]><link rel="stylesheet" type="text/css" href="css/ie7-2.css" /><![endif]-->
+<link rel="stylesheet" type="text/css" href="Сюрприз%20от%20Opera%20с%20overflow_%20hidden_files/tricks00.css" />
+<script type="text/javascript" src="Сюрприз%20от%20Opera%20с%20overflow_%20hidden_files/jquery00.js"></script>
+<script type="text/javascript" src="Сюрприз%20от%20Opera%20с%20overflow_%20hidden_files/main-100.js" charset="utf-8"></script>
+<script type='text/javascript' src='Сюрприз%20от%20Opera%20с%20overflow_%20hidden_files/google_s.js'>
+</script>
+<script type='text/javascript'>
+GS_googleAddAdSenseService("ca-pub-2630572969936819");
+GS_googleEnableAllServices();
+</script>
+<script type='text/javascript'>
+GA_googleAddSlot("ca-pub-2630572969936819", "footer");
+GA_googleAddSlot("ca-pub-2630572969936819", "sidebar");
+GA_googleAddSlot("ca-pub-2630572969936819", "header");
+GA_googleFetchAds();
+</script>
+<script type="text/javascript" src="Сюрприз%20от%20Opera%20с%20overflow_%20hidden_files/sh-core-.js"></script>
+</head>
+<body>
+<!--main wrap-->
+<div class="mainWrap">
+<div class="topPanel" >
+<script type='text/javascript'>
+GA_googleFillSlot("header");
+</script>
+</div>
+<!--content-->
+<div class="contentWrap">
+<div class="content">
+<h1>Сюрприз от Opera с overflow: hidden</h1>
+  <div class="artInfo">
+        Подготовил: <span>Евгений Рыжков</span>
+       
+   Дата публикации: 29.04.2010   </div>
+  
+<h2>Проблема</h2>
+<p>Opera иногда не понимает <a href="http://www.xiper.net/manuals/css/properties/overflow.html" title="прочитать о свойстве">overflow</a>: hidden.</p>
+<h2>Теория</h2>
+<p>Такой баг можно получить, если внутри блока-родителя есть дочерний блок с размерами, превосходящими размеры родителя. Особенно ярко выражена проблема, если у родителя нет четко заданных размеров (блок резиновый).</p>
+<div class="codeExample codeHTML">
+<pre class="brush: xml">
+&lt;div class=&quot;parent&quot;&gt;
+	[...]
+	&lt;div class=&quot;child&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+</div>
+<div class="codeExample codeCSS">
+<pre class="brush: css">
+.parent {
+	width: 200px;
+        height: 200px;
+	overflow: hidden;
+	position: relative;
+}
+.child {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 10px;
+	height: 200000px;
+	background: url(paht-to/back.png);
+}
+</pre>
+</div>
+<p>Такая ситуация может встретиться когда фон нужно отделить от контента (например чтобы сделать фон полупрозрачным), или при внедрении некоторых плагинов (например, jCarouselLite), или же при <a href="http://www.xiper.net/collect/html-and-css-tricks/karkas-verstki/kolonki-ravnoy-visoty.html">эмуляции колонок равной высоты</a>. Причем баг может загадочным образом то появляться, то исчезать при малейших изменениях CSS правил.</p>
+<p>Эта проблема у Opera с долгой историей, начиная еще с древних версий вроде 8.0. А может и еще с более ранних. Не знаю, я их не застал.</p>
+<p>О причинах такого поведения можно только гадать.</p>
+<h2>Решение</h2>
+<p>По возможности следует избегать приемов с большими размерами. Иногда можно обойтись <a href="http://www.xiper.net/manuals/css/properties/height.html" title="прочитать о свойстве">height</a>/<a href="http://www.xiper.net/manuals/css/properties/width.html" title="прочитать о свойстве">width</a>: 100%. Если же без этого никак, спасает overflow: hidden у контейнера для нашего блока parent.</p>
+<div class="codeExample codeHTML">
+<pre class="brush: xml">
+&lt;div class=&quot;parentWrap&quot;&gt;
+&lt;div class=&quot;parent&quot;&gt;
+	[...]
+	&lt;div class=&quot;chilid&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+</div>
+<div class="codeExample codeCSS">
+<pre class="brush: css">
+.parent {
+	width: 200px;
+	overflow: hidden;
+	position: relative;
+}
+.child {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 10px;
+	height: 200000px;
+	background: url(paht-to/back.png);
+}
+.parentWrap {
+	overflow: hidden;
+}
+</pre>
+</div>
+<h3>Заметка</h3>
+<p>Чтоб не плодить лишних DOM элементов, достаточно любому из родителей блока с багом добавить overflow: hidden, а не добавлять специальный контейнер.</p>
+<h2>Решение 2</h2>
+<p>update by Иван Колесников: еще один способ &mdash; не задавать родителю четких размеров. Например, в нашем примере не указывать высоту для блока с классом parent.</p>
+<p>Еще один вариант &mdash; для блока с большими размерами не использовать <a href="http://www.xiper.net/manuals/css/properties/position.html" title="прочитать о свойстве">position</a>: absolute. Такой  вариант не для всех случаев подходит, но работает лучше остальных.</p>
+
+  <div class="innerTags">
+  Теги: <a href="http://www.xiper.net/cloud-razmery.html" title="Поиск по тегу размеры" rel="tag">размеры</a>, <a href="http://www.xiper.net/cloud-bagi-Opera.html" title="Поиск по тегу баги Opera" rel="tag">баги Opera</a>  </div>
+
+
+
+<div id="comments">
+<span id="showComments" rel="737=modx">Показать комментарии</span>
+</div>
+</div>
+</div>
+<!--/content-->
+<!--side bar-->
+	<div class="sideBar">
+ <div class="htmlAndCSSTricksSubMenu"><ul><li><span >CSS приемы</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/html-and-css-tricks/css-tricks/twitching-site.html'>&laquo;Дергание&raquo; сайта</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/css-tricks/clearfix.html'>clearfix</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/css-tricks/css-opacity.html'>CSS прозрачность</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/css-tricks/css-hacks.html'>CSS хаки</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/css-tricks/rgba.html'>RGBA &mdash; CSS полупрозрачность</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/css-tricks/zatemnenie-fona.html'>Затемнение фона</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/css-tricks/cross-hr.html'>Кроссбраузерный &lt;hr /&gt;</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/css-tricks/reset-margin-padding.html'>Обнуление отступов</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/css-tricks/link-order-desc.html'>Порядок описания ссылок</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/css-tricks/preload-images.html'>Прелоад изображений</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/css-tricks/reset-style-width-css.html'>Сброс стилей</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/css-tricks/sokrasheniya-v-css.html'>Сокращения в CSS</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/css-tricks/dotted-border-focus-elements.html'>Убираем рамку с эл-ов в фокусе</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/css-tricks/conditional-css.html'>Условные CSS</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/css-tricks/uslovnie-commentarii.html'>Условные комментарии</a></li></ul></li><li><span >Верстка форм</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/html-and-css-tricks/verstka-form/taxtarea-resize.html'>Resize для textarea в Safari и Chrome</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/verstka-form/blochnaya-verstka-form.html'>Блочная верстка форм</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/verstka-form/cross-browser-input-and-textarea.html'>Кросбраузерные input и textarea</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/verstka-form/crossbrowser-button.html'>Кроссбраузерный button</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/verstka-form/nice-checkbox.html'>Нестандартные checkbox</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/verstka-form/nice-radio.html'>Нестандартные radio</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/verstka-form/nice-select-jquery.html'>Нестандартные select</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/verstka-form/cusel-multiple.html'>Нестандартные select multiple</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/verstka-form/nestandartnie-poya-vibora-fayla.html'>Нестандартные поля выбора файла</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/verstka-form/nestandartnie-tekstovie-poya.html'>Нестандартные текстовые поля</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/verstka-form/about-cross-browser-placeholder.html'>О кроссбраузерности placeholder</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/verstka-form/margin-checkbox-and-radio.html'>Отступы у checkbox и radio</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/verstka-form/design-input-type-search.html'>Оформление input type=search</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/verstka-form/rubber-button.html'>Резиновая кнопка</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/verstka-form/text-in-field-type-password.html'>Текст в поле  type=&quot;password&quot;</a></li></ul></li><li><span >Каркас верстки</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/html-and-css-tricks/karkas-verstki/blocks-of-equal-height-in-row.html'>Блоки равной высоты в строке</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/karkas-verstki/kolonki-ravnoy-visoty.html'>Колонки равной высоты</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/karkas-verstki/podval-k-nizu.html'>Прижимаем подвал к низу</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/karkas-verstki/back-in-wrap.html'>Ресайз окна: потомок перерос родителя</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/karkas-verstki/sait-v-centre.html'>Сайт в центре экрана</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/karkas-verstki/fix-colonka-rezinovaya-clear-both.html'>Фиксированная колонка + резиновая + clear:both</a></li></ul></li><li><span >Контент</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/css3-tooltips.html'>CSS3 всплывающие подсказки</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/img-in-the-block.html'>IMG внутри блока &mdash; убираем странный отступ</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/img-hover.html'>IMG: меняем рисунок при наведении</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/css3-accordion.html'>Аккордеон на чистом CSS3</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/target-blank.html'>Валидный target=&quot;_blank&quot;</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/imposition-of-ratings.html'>Верстка рейтингов</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/table-of-contents.html'>Верстка содержания</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/insert-symbols.html'>Вставка спецсимволов в генерируемый контент</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/insert-arrows.html'>Вставка стрелок</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/li-noclass.html'>Индивидуальные стили для li. Избавляемся от классов.</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/non-standard-underlining.html'>Нестандартное подчеркивание</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/overflow-and-orphans.html'>Отменяем обтекание текстом картинки</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/oformlinie-vneshnih-ssylok.html'>Оформление внешних ссылок</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/decor-images-with-align.html'>Оформление изображений по align</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/proper-news-announcements.html'>Правильные анонсы новостей</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/dl-impossible.html'>Список определений. Требуем невозможного.</a></li></ul></li><li><span  class="minus">Лекарства для</span><ul  style="display: block;"><li><span >Firefox</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/firefox/tormoza-ff-moz-box-shadow-moz-border-radius.html'>-moz-box-shadow и -moz-border-radius - это кошмар CPU</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/firefox/position-within-a-button.html'>Позиционирование внутри button</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/firefox/shirina-input-type-file.html'>Ширина input type=file</a></li></ul></li><li><span >IE</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/IE/z-index-ie6-7.html'>z-index в IE6-7</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/IE/text-and-alpha-filter-bug.html'>Баг с текстом при применении Alpha фильтра</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/IE/zoomed-and-pie.html'>Масштабирование и PIE</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/IE/submit-in-ie.html'>Отступы в кнопках в IE6-7</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/IE/em-bug.html'>Проблемы с em</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/IE/after-before-for-ie.html'>Эмуляция after и before для IE 6-7</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/IE/data-url-ie.html'>Эмуляция data:URL для IE6-7 &mdash; используем MHTML-включение</a></li></ul></li><li><span >IE6</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/haslayout.html'>hasLayout</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/max-width-for-ie6.html'>Max-width</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/min-height-for-ie6.html'>Min-height</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/min-width-for-ie6.html'>Min-width</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/min-width-and-max-width-for-ie6.html'>Min-width и max-width одновременно</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/png-transparency-ie6.html'>PNG и прозрачность</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/height-block-1px-ie6.html'>Высота блока 1px</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/ie6-duplicate-characters-bug.html'>Дублирование символов</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/hole-under-footer.html'>Дырка под футером</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/kak-perekrit-select-v-ie6.html'>Как перекрыть select</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/has-layout-clip.html'>Обрезка контента c отрицательным margin в IE6</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/margin-float-block-v-ie6.html'>Отступы плавающих блоков</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/block-model-ie6.html'>Проблемы с размерами блоков</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/first-child-for-ie6.html'>Псевдокласс :first-child</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/ie-hover-fix.html'>Псевдокласс hover в IE 6</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/docherniy-css-selector.html'>Селектор потомков &gt;</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/selectori-atributov-type-v-ie6.html'>Селекторы атрибутов [type=...]</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/nursing-selector-for-ie6.html'>Сестринский селектор</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/smeshenie-na-1px-v-ie6.html'>Смещение на 1px</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/links-with-attachment.html'>Ссылки с вложением</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/flickering-in-ie6.html'>Устраняем flickering</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/emulation-fixed-in-ie6.html'>Эмуляция position:fixed</a></li></ul></li><li><span  class="minus">Opera</span><ul  style="display: block;"><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/opera/overflow-y.html'>overflow-y</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/opera/font-face-no-load-fonts.html'>Не подгружаются шрифты @font-face</a></li><li><strong id="leftCurent_1">Проблема с oveflow: hidden</strong></li></ul></li></ul></li><li><span >Навигация</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/html-and-css-tricks/navigation/css-drop-down-menu.html'>Выпадающее меню на CSS</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/navigation/vyravnivanie-po-tsentru-navigatsii-iz-blokov.html'>Выравнивание навигации из блоков по центру</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/navigation/vyravnivanie-navigatsii-po-tsentru.html'>Выравнивание навигации по середине</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/navigation/rubber-menu.html'>Резиновое меню</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/navigation/rubber-blocks-menu.html'>Резиновое меню из блоков</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/navigation/doloj-dopolnitelnyj-klass.html'>Убираем класс для первого элемента</a></li></ul></li><li><span >Позиционирование</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/html-and-css-tricks/pozitsionirovanie/box-sizing.html'>Box-sizing: переключаем блочную модель</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/pozitsionirovanie/inline-block-simple-property-for-complex-tasks.html'>inline-block: простое свойство для непростых задач</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/pozitsionirovanie/vertical-position-for-inline-elements.html'>Вертикальная позиция для строчного элемента</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/pozitsionirovanie/vertikalnoe-vyravnivanie-otnositelno-roditelya.html'>Вертикальное выравнивание</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/pozitsionirovanie/aligment-on-center-with-position-absolute.html'>Выравнивание по центру с position: absolute</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/pozitsionirovanie/calculated-spaces.html'>Вычисляемые отступы</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/pozitsionirovanie/no-typical-position.html'>Два в одном: позиция + размеры</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/pozitsionirovanie/inline-block-margins.html'>Долой отступы между строчными элементами (и блоками)</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/pozitsionirovanie/margin-collapsing-trick.html'>Обходим схлопывание margin</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/pozitsionirovanie/vyravnivanie-risunka.html'>Центрирование картинки в блоке</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/pozitsionirovanie/inline-block.html'>Центрирование резинового блока по горизонтали</a></li></ul></li><li><span >Работа с флеш</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/html-and-css-tricks/rabota-s-flash/aktivaciya-flash.html'>Активация flash</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/rabota-s-flash/vstavka-flash-v-html.html'>Вставка flash в HTML</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/rabota-s-flash/insert-youtube-video.html'>Вставляем ролик с YouTube</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/rabota-s-flash/kak-otkluchit-flash.html'>Как отключить flash</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/rabota-s-flash/kak-perekrit-flash.html'>Как перекрыть flash</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/rabota-s-flash/object-params.html'>Параметры для вставки объектов</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/rabota-s-flash/ssilka-na-flash.html'>Ссылка на flash объекте</a></li></ul></li><li><span >Разгоняем сайт</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/html-and-css-tricks/overclock-site/css-triangles.html'>CSS треугольники</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/overclock-site/data-url.html'>Встраиваем изображения &mdash; data:URL</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/overclock-site/gradient-css.html'>Градиент: CSS3 против CSS2 + картинка</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/overclock-site/sprites-ladder.html'>Лесенка спрайтов &mdash; сложный случай поклейки</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/overclock-site/times-for-cross.html'>На одну картинку меньше. Спецсимвол &amp;times;</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/overclock-site/boxshadow-slick-effects.html'>Необычные тени с CSS3 box-shadow</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/overclock-site/problems-with-border-radius.html'>Проблемы с border-radius</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/overclock-site/list-and-before.html'>Псевдоэлемент before для маркера списка</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/overclock-site/rounding-corners-review.html'>Скругление углов. Обзор методов.</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/overclock-site/sprite.html'>Спрайты: меньше картинок &mdash; больше скорость</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/overclock-site/box-shadow.html'>Тень для блока</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/overclock-site/css-angles.html'>Фигуры с углами на CSS</a></li></ul></li><li><span >Разное</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/html-and-css-tricks/different/skype-addon.html'>Дополнение Skype</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/different/howto-favicon.html'>Подключить favicon</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/different/site-maintenance.html'>Профилактика сайта: максимально простое оповещение</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/different/reference-on-skype.html'>Ссылки на skype</a></li></ul></li><li><span >Типографика</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/font-face-in-the-details.html'>@font-face в деталях</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/cufon.html'>Cufon &mdash; нестандартный шрифт средствами JS</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/font-size-100-for-html.html'>font-size: 100.01% для html</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/safe-fonts-part4.html'>Безопасные шрифтовые CSS стеки для англоязычных текстов</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/safe-fonts-part3.html'>Безопасные шрифтовые CSS стеки для рунета</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/safe-fonts.html'>Безопасные шрифты</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/vertical-text.html'>Вертикальный текст</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/using-first-letter.html'>Используем псевдоэлемент :first-letter</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/css-text-stroke.html'>Контур для текста</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/any-font.html'>Нестандарный шрифт. Быть ему или нет?</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/font-face-non-standart-fonts-on-css.html'>Нестандартный шрифт средствами CSS</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/first-letter-float.html'>Плавающий :first-letter</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/substitution-of-text-an-image.html'>Подмена текста изображением</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/safe-fonts-part2.html'>Соответствия шрифтов Windows, Mac и Unix/Linux</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/first-letter-str.html'>Строчный :first-letter</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/inclined-text.html'>Текст под углом</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/gradient-text.html'>Текст с CSS градиентом</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/text-shadow.html'>Тень для текста</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/css-text-reflection.html'>Эффект отражения</a></li></ul></li></ul>
+		 </div>
+<div class="sideBarAdvertisementBox">
+<script type='text/javascript'>
+GA_googleFillSlot("sidebar");
+</script>
+</div>
+
+		
+	</div>
+	<!--/side bar-->	
+<div class="header">
+<a href="http://www.xiper.net/" title="на главную" class="headerLogo"><img src="Сюрприз%20от%20Opera%20с%20overflow_%20hidden_files/logo0000.png" alt="xiper.net - основы и секреты front-end разработки" width="297" height="62"/></a>
+<ul>
+<li><a href="http://www.xiper.net/">Главная</a></li>
+<li>
+<a href="http://www.xiper.net/collect/">Собираем</a>
+<ul>
+<li><a href="http://www.xiper.net/collect/html-and-css-tricks/">HTML и CSS приемы</a></li>
+<li><a href="http://www.xiper.net/collect/web-without-flash/">Веб без flash</a></li>
+<li><a href="http://www.xiper.net/collect/weekdays-front-end-dev/">Будни front end разработчика</a></li>
+<li><a href="http://www.xiper.net/collect/services/">Сервисы</a></li>
+<li><a href="http://www.xiper.net/collect/js-plugins/">Javascript: решения и плагины</a></li>
+</ul>
+</li>
+<li><a href="http://www.xiper.net/watch/">Следим</a>
+<ul>
+<li><a href="http://www.xiper.net/watch/webstatistic.html">Веб статистика</a></li>
+<li><a href="http://www.xiper.net/watch/news/">Куда веб катится</a></li>
+<li><a href="http://www.xiper.net/watch/xiper-news/">Куда Xiper катится</a></li>
+</ul>
+</li>
+<li><a href="http://www.xiper.net/uncensored/">Без цензуры</a></li>
+<li>
+<a href="http://www.xiper.net/learn/">Учимся</a>
+<ul><li><a href="http://www.xiper.net/learn/photoshop/">Photoshop для кодера</a></li><li><a href="http://www.xiper.net/learn/css/">Уроки CSS</a></li><li><a href="http://www.xiper.net/learn/html/">Уроки HTML</a></li><li><a href="http://www.xiper.net/learn/javascript/">Уроки Javascript</a></li><li><a href="http://www.xiper.net/learn/lessons-jquery/">Уроки jQuery</a></li><li><a href="http://www.xiper.net/learn/tegofenshuj/">Тегофеншуй</a></li><li><a href="http://www.xiper.net/learn/also-need-to-know/">Тоже нужно знать</a></li><li><a href="http://www.xiper.net/learn/svg/">Уроки SVG</a></li><li><a href="http://www.xiper.net/learn/bonus-books/">Бонус книги</a></li></ul>
+</li>
+<li>
+<a href="http://www.xiper.net/manuals/">Справочники</a>
+<ul><li><a href="http://www.xiper.net/manuals/html/">HTML справочник</a></li><li><a href="http://www.xiper.net/manuals/css/">CSS справочник</a></li><li><a href="http://www.xiper.net/manuals/terms/">Cловарь терминов</a></li></ul>
+</li>
+</ul>
+<form action="http://www.xiper.net/search.html" method="get">
+<div><input type="text" name="s" value="я ищу&hellip;" /><input type="submit" value="найти" /> </div>
+</form>
+
+<div class="headerSubscription">
+ 	<a href="http://twitter.com/xiper_news/" class="headerTwitter" title="наши новости и мысли на twitter" rel="nofollow">twitter</a>
+    <a href="http://www.xiper.net/rss.html" class="headerSubscriptionRSS" title="подписаться на RSS">RSS</a>
+    <a href="http://www.xiper.net/subscription.html" class="headerSubscriptionEmail" title="подписаться на e-mail рассылку">e-mail</a>
+</div>
+
+</div>
+
+</div>
+<!--/main wrap-->
+<!--footer-->
+<div class="footer" id="737">
+<div class="advertisementPanel">
+<div class="topAdvertisementBox">
+<script type='text/javascript'>
+GA_googleFillSlot("footer");
+</script>
+</div>
+</div>
+	<div class="footerCopy">
+	&copy; 2009-2011 xiper.net<br/>
+	Много о HTML, CSS, Javascript.<br/>
+	Опасно для мозга. Можно стать умным.
+     <div>Наша хатка &mdash; <a href="http://frondevo.com/ru/">Frondevo</a>.</div>
+	</div>
+	
+<div class="footerSection">
+		<h2 title="информация о проекте">Инфо</h2>
+		<ul>
+		<li><a href="http://www.xiper.net/about.html">О проекте</a></li>
+                 <li><a href="http://www.xiper.net/about-materials.html">О материалах</a></li>
+                <li><a href="http://www.xiper.net/stats.html">Статистика</a></li>
+ <li><a href="http://www.xiper.net/adv/">Реклама</a></li>
+		<li><a href="http://www.xiper.net/feedback.html">Написать нам</a></li>
+		</ul>
+	</div>
+	<div class="footerNavSection">		
+  <h2 title="основные разделы сайта">Разделы</h2>
+		<ul>
+		<li><a href="http://www.xiper.net/">Главная</a></li>
+                <li><a href="http://www.xiper.net/uncensored/">Без цензуры</a></li>    
+		<li><a href="http://www.xiper.net/collect/">Собираем</a></li>
+                <li><a href="http://www.xiper.net/learn/">Учимся</a></li>        
+		<li><a href="http://www.xiper.net/watch/">Следим</a></li>	
+		<li><a href="http://www.xiper.net/manuals/">Справочники</a></li>
+		</ul>
+	</div>
+	
+</div>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-5053168-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<!--/footer-->
+
+</body>
+</html>
+<!-- This document saved from http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/opera/oveflow.html -->

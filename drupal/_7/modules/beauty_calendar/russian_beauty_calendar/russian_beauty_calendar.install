@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * @file
+ * Install and uninstall functions for the Russian Beauty Calendar module
+ */
+
+/**
+ * Implements hook_install().
+ */
+function russian_beauty_calendar_install() {
+  variable_set('russian_beauty_calendar_theme', 'round');
+  variable_set('russian_beauty_calendar_node_type', '');
+  variable_set('russian_beauty_calendar_node_invert', FALSE);
+  variable_set('russian_beauty_calendar_field_date', '');
+  variable_set('russian_beauty_calendar_title_words', 'story,stories');
+  variable_set('russian_beauty_calendar_node_per_page', '20');
+  variable_set('russian_beauty_calendar_preload_tooltips', '-');
+  variable_set('russian_beauty_calendar_tooltip_count', '5');
+  variable_set('russian_beauty_calendar_separate_languages', FALSE);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function russian_beauty_calendar_uninstall() {
+  variable_del('russian_beauty_calendar_theme');
+  variable_del('russian_beauty_calendar_node_type');
+  variable_del('russian_beauty_calendar_node_invert');
+  variable_del('russian_beauty_calendar_field_date');
+  variable_del('russian_beauty_calendar_title_words');
+  variable_del('russian_beauty_calendar_node_per_page');
+  variable_del('russian_beauty_calendar_preload_tooltips');
+  variable_del('russian_beauty_calendar_tooltip_count');
+  variable_del('russian_beauty_calendar_separate_languages');
+  cache_clear_all('variables', 'cache');
+}

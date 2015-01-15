@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+
+<html>
+	<head>    
+		<meta charset="utf-8" />
+
+		<title></title>	
+	</head>
+	
+	<body>						
+		<div class="wrap">						
+			<form class="search" action="#" method="post">
+				<input class="fld_search" id="fld_search" type="text" placeholder="" value="" name="keyword">		
+				
+				<input class="btn_search" id="btn_search" type="submit" value="" name="btn_search">
+			</form>
+			
+			<div class="results" id="results"></div>
+		</div>	
+		
+		<!-- jquery -->
+		<script src="jquery/jquery.1.9.min.js"></script>	
+
+		<script>
+			function getXmlHttp(){
+			  var xmlhttp;
+			  try {
+				xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+			  } catch (e) {
+				try {
+				  xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+				} catch (E) {
+				  xmlhttp = false;
+				}
+			  }
+			  if (!xmlhttp && typeof XMLHttpRequest!='undefined') {
+				xmlhttp = new XMLHttpRequest();
+			  }
+			  return xmlhttp;
+			}
+		
+		
+			
+			$('#btn_search').on('click', function(event){
+				var data;
+				
+				event = event || window.event;
+				event.preventDefault();	
+
+				var xmlhttp = getXmlHttp();
+				
+				var	params = 'a=' + $('#fld_search').val();
+				
+				xmlhttp.open('POST', 'search.php', true);
+				
+				xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+				
+				xmlhttp.onreadystatechange = function() {
+					if (xmlhttp.readyState == 4) {
+						if(xmlhttp.status == 200) {
+							alert(xmlhttp.responseText);
+						}
+					}
+				};					
+
+				xmlhttp.send(params);		
+			});
+			
+
+		</script>			
+	</body>
+</html>

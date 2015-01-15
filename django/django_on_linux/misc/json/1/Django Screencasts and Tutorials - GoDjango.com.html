@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Django Screencasts and Tutorials - GoDjango.com</title>
+    <meta name="description" content="Learn something new about Django you didn't know before with short easy to understand screencasts and tutorials.">
+    <meta name="keywords" content="django screencasts, django, django videos, django weekly, django tutorials">
+    <meta http-equiv="content-language" content="en">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='//fonts.googleapis.com/css?family=Karla:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <link href="/static/css/vendor.min.763872991bca.css" rel="stylesheet" type="text/css" />
+    <link href="/static/css/main.min.73daa119f030.css" rel="stylesheet" type="text/css" />
+    
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-805005-16']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse no-border-radius" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#auth-navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/"><img src="/static/img/godjango-logo-sm.04a67460e322.png" /></a>
+            </div>
+            <div class="collapse navbar-collapse" id="auth-navbar-collapse">
+                <ul class="nav navbar-nav">
+                    
+                    
+                    <li class="go-pro-li"><a href="/subscribe/">GoDjango <strong>Pro</strong> subscription</a></li>
+                    
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Videos <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/browse/">All</a></li>
+                            <li><a href="/category/basics/">Basics</a></li>
+                            <li><a href="/category/advanced/">Advanced</a></li>
+                            <li><a href="/category/3rd-party-apps/">3rd Party Apps</a></li>
+                            <li><a href="/category/class-based-views/">Class Based Views</a></li>
+                            <li><a href="/category/assets/">Assets</a></li>
+                            <li><a href="/category/devops/">DevOps</a></li>
+                            <li><a href="/category/testing/">Testing</a></li>
+                            <li><a href="/category/templates/">Templates</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/category/pro/">Pro</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/blog/" class="main-link">Blog</a></li>
+                    <li><a href="/feedback/" class="main-link">Feedback</a></li>
+                </ul>
+                <form class="navbar-form navbar-right" method="get" action="/search/" role="search">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search" name="q" />
+                  </div>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                  
+                  <li><a href="/accounts/register/" class="main-link">create free account</a></li>
+                  <li><a href="/accounts/login/" class="main-link"><i class="fa fa-sign-in"></i>&nbsp;login</a>
+                  
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+<div class="row">
+  <div class="col-sm-12">
+    <h1><a href="/blog/working-with-json-and-django/">Working with JSON and Django</a></h1>
+    <p>In this day and age of web development we work with json, a lot, especially with using web services. Unfortunately, sometimes you can forget what does what, when, and where when dealing with json. I know I have to look up the same thing over and over at times. This blog post is everything you need to deal with json "day-to-day" with Django.</p>
+<h2>JSON to Dict</h2>
+<p>One of the first things we, usually, do is convert json data that we get back from a web service call, or from a <a href="https://godjango.com/55-webhooks-django-and-ngrok/">webhook</a>, into a python datastructure.</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">json_data</span> <span class="o">=</span> <span class="s">&#39;{&quot;hello&quot;: &quot;world&quot;, &quot;foo&quot;: &quot;bar&quot;}&#39;</span> 
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_data</span><span class="p">)</span>
+</pre></div>
+<p>The key element from this is the json.loads which loads a string of json and converts the data to a python dict. From there you get to use it like normal.</p>
+<h2>Dict to JSON</h2>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;baz&#39;</span><span class="p">:</span> <span class="s">&#39;goo&#39;</span><span class="p">,</span> <span class="s">&#39;foo&#39;</span><span class="p">:</span> <span class="s">&#39;bar&#39;</span><span class="p">}</span>
+
+<span class="n">json_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+<p>Normally you want to get your data into json from your dict, or model, which is just as easy using json.dumps. It converts your dict to a string of json so you can return it to in a response.</p>
+<h2>HttpResponse with JSON</h2>
+<p>There are a couple of key parts to returning json properly. You need to have a string of json, and a proper content type.</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+
+<span class="k">def</span> <span class="nf">fbview</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;foo&#39;</span><span class="p">:</span> <span class="s">&#39;bar&#39;</span><span class="p">,</span> <span class="s">&#39;hello&#39;</span><span class="p">:</span> <span class="s">&#39;world&#39;</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">content_type</span><span class="o">=</span><span class="s">&#39;application/json&#39;</span><span class="p">)</span>
+</pre></div>
+<p>With this you will send back json properly formatted and with the proper content type so everyone knows what is going on with the data.</p>
+<h2>JSONRequestResponseMixin from django-braces</h2>
+<p>Finally, if you are working with class based views you can use a very convenient mixin in <a href="https://github.com/brack3t/django-braces">django-braces</a>. JSONRequestResponseMixin which gives you some built-in response methods to return your dicts and models back as json, and it handles everything else.</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">APIView</span><span class="p">(</span><span class="n">CsrfExemptMixin</span><span class="p">,</span> <span class="n">JsonRequestResponseMixin</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;foo&#39;</span><span class="p">:</span> <span class="s">&#39;bar&#39;</span><span class="p">,</span> <span class="s">&#39;hello&#39;</span><span class="p">:</span> <span class="s">&#39;world&#39;</span><span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">render_json_response</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+<p>As you can probably guess the render_json_response method does what the function based view above does by converting the dict to json and returning the proper response.</p>
+<h2>Conclusion</h2>
+<p>Hopefully this is a good primer and/or reminder of how you can work with json with python and django. This takes care of all your basics so you can get started with json, or do it better.</p>
+
+    <div>
+      <div id="disqus_thread"></div>
+      <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+      var disqus_shortname = 'godjango'; // required: replace example with your forum shortname
+
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+       dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+       })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+  </div>
+</div>
+</div>
+    <footer>
+      <div class="continer-fluid">
+        <div class="row">
+          <div class="col-sm-12 text-center">
+            <p>
+            &copy; 2014 GoDjango
+            </p>
+            <a href="/privacy/">Privacy</a>
+            <a href="/feedback/">Contact</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script type="application/javascript" src="/static/js/vendor.7a8c84bf3222.js" charset="utf-8"></script>
+    <script type="application/javascript" src="/static/js/main.min.f64bbe34677e.js" charset="utf-8"></script></body>
+</html>

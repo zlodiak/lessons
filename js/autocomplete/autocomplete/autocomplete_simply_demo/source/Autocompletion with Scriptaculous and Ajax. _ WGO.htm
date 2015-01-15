@@ -1,0 +1,1131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US"><head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Autocompletion with Scriptaculous and Ajax. | WGO</title>
+
+<link rel="stylesheet" href="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/style.css" type="text/css" media="screen">
+<!--[if IE]><link type="text/css" href="http://www.wiseguysonly.com/wp-content/themes/cleanr/css/ie.css" rel="stylesheet" media="all" /><![endif]-->
+<link rel="alternate" type="application/rss+xml" title="WGO RSS Feed" href="http://www.wiseguysonly.com/feed/">
+<link rel="alternate" type="application/atom+xml" title="WGO Atom Feed" href="http://www.wiseguysonly.com/feed/atom/">
+<link rel="pingback" href="http://www.wiseguysonly.com/xmlrpc.php">
+
+<link rel="alternate" type="application/rss+xml" title="WGO » Autocompletion with Scriptaculous and Ajax. Comments Feed" href="http://www.wiseguysonly.com/2008/03/09/autocompletion-with-scriptaculous-and-ajax/feed/">
+<link rel="stylesheet" id="sociable-front-css-css" href="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/sociable.css" type="text/css" media="all">
+<script src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/ga.js" async="" type="text/javascript"></script><script type="text/javascript" src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/jquery.js"></script>
+<script type="text/javascript" src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/jquery_002.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.wiseguysonly.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.wiseguysonly.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="My Top Albums of 2007" href="http://www.wiseguysonly.com/2008/01/04/my-top-albums-of-2007/">
+<link rel="next" title="The Outsiders (part one)." href="http://www.wiseguysonly.com/2008/07/24/overheard/">
+<meta name="generator" content="WordPress 3.3.2">
+<link rel="shortlink" href="http://www.wiseguysonly.com/?p=45">
+
+<!-- All in One SEO Pack 1.6.13.4 by Michael Torbert of Semper Fi Web Design[301,364] -->
+<meta name="description" content="Demo here | Download sample files This tutorial supercedes my previous turtorial on autocompletion by adding further tips and tricks to make your">
+<link rel="canonical" href="http://www.wiseguysonly.com/2008/03/09/autocompletion-with-scriptaculous-and-ajax/">
+<!-- /all in one seo pack -->
+
+<link rel="stylesheet" href="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/wp-syntax.css" type="text/css" media="screen">
+	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+
+</head>
+<body>
+<div class="container_16">
+<div id="header" class="grid_16">
+ <h1><a href="http://www.wiseguysonly.com/">WGO</a><span class="description">CakePHP Developer, jQuery Developer, Tim Roberts</span></h1>	
+
+<ul id="nav">
+  <li class="pagenav">Pages<ul style="display: none;"><li class="page_item page-item-2"><a href="http://www.wiseguysonly.com/about/">About</a></li>
+</ul><span></span></li>  <li class="categories">Categories<ul>	<li class="cat-item cat-item-37"><a href="http://www.wiseguysonly.com/category/astronomy/" title="View all posts filed under Astronomy">Astronomy</a>
+</li>
+	<li class="cat-item cat-item-27"><a href="http://www.wiseguysonly.com/category/history/" title="View all posts filed under History">History</a>
+<ul class="children">
+	<li class="cat-item cat-item-28"><a href="http://www.wiseguysonly.com/category/history/the-vietnam-war/" title="View all posts filed under The Vietnam War">The Vietnam War</a>
+</li>
+</ul>
+<span class="child"></span></li>
+	<li class="cat-item cat-item-1"><a href="http://www.wiseguysonly.com/category/personal/" title="View all posts filed under Personal">Personal</a>
+<ul class="children">
+	<li class="cat-item cat-item-19"><a href="http://www.wiseguysonly.com/category/personal/english-language/" title="View all posts filed under English Language">English Language</a>
+</li>
+	<li class="cat-item cat-item-26"><a href="http://www.wiseguysonly.com/category/personal/music/" title="View all posts filed under Music">Music</a>
+</li>
+</ul>
+<span class="child"></span></li>
+	<li class="cat-item cat-item-9"><a href="http://www.wiseguysonly.com/category/web-development/" title="View all posts filed under Web Development">Web Development</a>
+<ul class="children">
+	<li class="cat-item cat-item-40"><a href="http://www.wiseguysonly.com/category/web-development/agile-programming/" title="View all posts filed under Agile Programming">Agile Programming</a>
+</li>
+	<li class="cat-item cat-item-35"><a href="http://www.wiseguysonly.com/category/web-development/cakephp/" title="View all posts filed under CakePHP">CakePHP</a>
+</li>
+	<li class="cat-item cat-item-38"><a href="http://www.wiseguysonly.com/category/web-development/git/" title="View all posts filed under git">git</a>
+</li>
+	<li class="cat-item cat-item-36"><a href="http://www.wiseguysonly.com/category/web-development/information-architecture/" title="View all posts filed under Information Architecture">Information Architecture</a>
+</li>
+	<li class="cat-item cat-item-23"><a href="http://www.wiseguysonly.com/category/web-development/javascript/" title="View all posts filed under Javascript">Javascript</a>
+	<ul class="children">
+	<li class="cat-item cat-item-20"><a href="http://www.wiseguysonly.com/category/web-development/javascript/ajax/" title="View all posts filed under Ajax">Ajax</a>
+</li>
+	<li class="cat-item cat-item-22"><a href="http://www.wiseguysonly.com/category/web-development/javascript/jquery/" title="View all posts filed under jQuery">jQuery</a>
+</li>
+	<li class="cat-item cat-item-24"><a href="http://www.wiseguysonly.com/category/web-development/javascript/scriptaculous/" title="View all posts filed under Scriptaculous">Scriptaculous</a>
+</li>
+	</ul>
+<span class="child"></span></li>
+	<li class="cat-item cat-item-30"><a href="http://www.wiseguysonly.com/category/web-development/mysql/" title="View all posts filed under MySQL">MySQL</a>
+</li>
+	<li class="cat-item cat-item-21"><a href="http://www.wiseguysonly.com/category/web-development/php/" title="View all posts filed under PHP">PHP</a>
+</li>
+	<li class="cat-item cat-item-32"><a href="http://www.wiseguysonly.com/category/web-development/portfolio/" title="View all posts filed under Portfolio">Portfolio</a>
+</li>
+	<li class="cat-item cat-item-41"><a href="http://www.wiseguysonly.com/category/web-development/prototyping/" title="View all posts filed under prototyping">prototyping</a>
+</li>
+	<li class="cat-item cat-item-39"><a href="http://www.wiseguysonly.com/category/web-development/scm/" title="View all posts filed under SCM">SCM</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://www.wiseguysonly.com/category/web-development/user-interface/" title="View all posts filed under User Interface">User Interface</a>
+</li>
+	<li class="cat-item cat-item-31"><a href="http://www.wiseguysonly.com/category/web-development/web-design-in-spain/" title="View all posts filed under Web Design in Spain">Web Design in Spain</a>
+</li>
+</ul>
+<span class="child"></span></li>
+</ul><span></span></li>  <li class="last-child"><a href="http://www.wiseguysonly.com/feed/" class="rss">RSS</a></li>
+</ul>
+  
+</div>
+<hr>
+<div class="grid_11">
+	<div id="content">
+
+	
+		<div class="post-45 post type-post status-publish format-standard hentry category-ajax category-javascript category-php category-scriptaculous category-user-interface category-web-development" id="post-45">
+			<h2>Autocompletion with Scriptaculous and Ajax.</h2>
+
+			<div class="entry">
+				<p><strong><a href="http://wiseguysonly.com/demos/scriptaculous/ajax-autocompletion/autocomplete.php">Demo here</a> | <a href="http://wiseguysonly.com/downloads/autocompletion.zip">Download sample files</a></strong></p>
+<p>This tutorial supercedes my previous turtorial on autocompletion by 
+adding further tips and tricks to make your autocompletion a much better
+ experience for your site users The tutorial is structured in the 
+following way:</p>
+<ol>
+<li>Introduction: What is autocompletion and why use it?</li>
+<li>How it works.</li>
+<li>Getting scriptaculous and building the form.</li>
+<li>Building the autocomplete server.</li>
+<li>Passing back an id to our form.</li>
+</ol>
+<p><span id="more-45"></span></p>
+<h4>1. What is autocompletion and why use it?</h4>
+<p>I predict that most people will want to skip this section and get 
+straight to the action, so I will keep it brief. Autocompletion is a 
+means of helping your users when filling in forms. The most common 
+application of autocomplete is found in your web browser’s address bar; 
+as you type the bar makes suggestions of URLs based on previous pages 
+visited. In our example we will query a database of musical artists and 
+give our users suggestions as they type in an artist name field.</p>
+<h4>2. How it works.</h4>
+<p>As a user types in a specific input field on a form, on each key up 
+event, we use JavaScript to call a script in the background using Ajax 
+(XMLHttpRequest) features built into the Scriptaculous library. Our form
+ will pass the currently typed text to this script and the script will 
+return a list of suggestions which will be dynamically placed in our 
+page. The important thing is that our user can select one of these items
+ by mouse-click or key-stroke to populate the form field instantly.</p>
+<h4>3. Getting scriptaculous and building the form.</h4>
+<p>This implementation of autocomplete requires 3 components:</p>
+<ol>
+<li>The Scriptculous libraries;</li>
+<li>An HTML form with a single field;</li>
+<li>An autocomplete server script</li>
+</ol>
+<p>I use PHP as my language of choice for the autocomplete server 
+script, but I have tried to keep this tutorial abstract enough to allow 
+you to use your language of choice. The server script is the only thing 
+that changes for different server-side scripting languages. Download the
+ latest version of the <a href="http://script.aculo.us/downloads">Scriptaculous JavaScript Libraries</a>
+ and include them in the head of a new HTML document as below. Don’t 
+forget to change the paths to match your directory structure:</p>
+<p><code>&lt;script type="text/javascript" src="lib/prototype.js"&gt;&lt;/script&gt;<br>
+&lt;script type="text/javascript" src="src/scriptaculous.js"&gt;&lt;/script&gt;</code></p>
+<p>Now add a form to your HTML page’s body. In this form we are going to
+ add a field that will take our search term (with both id and name 
+attributes as “searchterm”) and an empty div with an id of “hint”. This 
+empty div acts as a holder for our hints when they are generated. You 
+should have some HTML looking like this:</p>
+<p><code>&lt;input type="text" name="searchterm" id="searchterm" /&gt;<br>
+&lt;div id="hint"&gt;&lt;/div&gt;</code></p>
+<p>All we need now is to initiate a new call to Scriptaculous’ built in 
+Ajax.Autocomplete method below our HTML code for the autocompleter – 
+like this:</p>
+<p><code>&lt;script type="text/javascript"&gt;<br>
+new Ajax.Autocompleter(”searchterm”,”hint”,”server.php”);<br>
+&lt;/script&gt;</code></p>
+<p>The Ajax.Autocompleter takes 3 arguments: The element supplying the 
+search string, the element to show suggestions in and the server script 
+that will generate our suggestions. With that in place we can write the 
+server script.</p>
+<h4>4. Building the autocomplete server.</h4>
+<p>The following server is written in PHP connecting to a MySQL database
+ but you can your language of choice and even a flat text file or XML 
+file for the suggestion database. My database table, “Artists”, is 
+simple – it comprises a unique id field and an artist “name”.</p>
+<p>As the Autocompleter sends the value of a form field as a POST 
+variable, we can use this in our server script’s query againstthe 
+database. All we need to do is output an unordered list for the 
+autocompleter. Scriptaculous does the leg work of inserting the latest 
+list into our hint box everytime the user makes a keystroke. Here is my 
+server code in PHP</p>
+<p><code>&lt;?<br>
+// don't forget your database connection here.<br>
+echo "&lt;ul&gt;";<br>
+$sql = "SELECT * FROM artists WHERE name LIKE '%" . $_POST['searchterm'] . "%'";<br>
+$rs = mysql_query($sql);<br>
+while($data = mysql_fetch_assoc($rs)) {<br>
+echo "&lt;li id=\"" . $data['id'] . "\"&gt;" . $data['name'] . "&lt;/li&gt;";<br>
+}<br>
+echo "&lt;/ul&gt;";<br>
+?&gt;</code></p>
+<p>Note that I have given each list item an id that is the same as that 
+of the record. We will use this shortly for a more advanced technique. 
+But for now we have all we need for a basic autocompleter.</p>
+<h4>5. Passing back an id to our form</h4>
+<p>Once a user has selected an item from the autocompleter, the string 
+is entered into the textfield. Often, for the sake of efficiency and 
+accuracy it is better to deal with the id of the item than the string 
+name when it is passed on to the next page. To do this we can use some 
+extra functionality of Ajax.Autocompleter along with some JavaScript 
+that will pass the id to a hidden field in our form.</p>
+<p>The first thing we need to add to our form is a hidden field with an id that we can reference:</p>
+<p><code>&lt;input type="hidden" id="artist_id" name="artist_id" /&gt;</code></p>
+<p>Now we can use an extra piece of functionality built into 
+Ajax.Autocompleter that allows us to pick up the id that we included in 
+our list item from the server script. This is an extra option on our 
+autocompleter call:</p>
+<p><code>new Ajax.Autocompleter(”searchterm”,”hint”,”server.php”, {afterUpdateElement : getSelectedId});</code></p>
+<p>We are telling our autocompleter to run a function called 
+getSelectedId when an item is selected. All we need to do now is write 
+this function to get the id and inject it into our hidden field. Insert 
+the function below the</p>
+<p><code>function getSelectedId(text, li) {<br>
+$('searchterm').value=li.id;<br>
+}</code></p>
+<p>And that’s all there is to it. Of course you can be as clever as you 
+want with your autocomplete server script. Try using the LIMIT clause in
+ your SQL to make it run faster. Make your queries more advanced to 
+bring back more specific results. And don’t forget the fun you can have 
+with CSS on your hint div and the list of suggestions that it displays. 
+If you have any implementations of autocompletion using this tutorial, 
+please post them in the comments here.</p>
+<p>—————————-</p>
+<p><a href="http://www.ipsukltd.co.uk/green-roofs.php">Single ply membrane</a> Products</p>
+
+<div class="sociable">
+
+<ul>
+	<li class="sociablefirst"><a rel="nofollow" href="http://twitter.com/home?status=Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20-%20http%3A%2F%2Fwww.wiseguysonly.com%2F2008%2F03%2F09%2Fautocompletion-with-scriptaculous-and-ajax%2F" title="Twitter"><img src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/services-sprite.gif" title="Twitter" alt="Twitter" style="width: 16px; height: 16px; background: url(&quot;http://www.wiseguysonly.com/wp-content/plugins/sociable/images/services-sprite.png&quot;) no-repeat scroll -343px -55px transparent;"></a></li>
+	<li><a rel="nofollow" href="http://www.facebook.com/share.php?u=http%3A%2F%2Fwww.wiseguysonly.com%2F2008%2F03%2F09%2Fautocompletion-with-scriptaculous-and-ajax%2F&amp;t=Autocompletion%20with%20Scriptaculous%20and%20Ajax." title="Facebook"><img src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/services-sprite.gif" title="Facebook" alt="Facebook" style="width: 16px; height: 16px; background: url(&quot;http://www.wiseguysonly.com/wp-content/plugins/sociable/images/services-sprite.png&quot;) no-repeat scroll -343px -1px transparent;"></a></li>
+	<li><a rel="nofollow" href="http://digg.com/submit?phase=2&amp;url=http%3A%2F%2Fwww.wiseguysonly.com%2F2008%2F03%2F09%2Fautocompletion-with-scriptaculous-and-ajax%2F&amp;title=Autocompletion%20with%20Scriptaculous%20and%20Ajax.&amp;bodytext=Demo%20here%20%7C%20Download%20sample%20files%0D%0A%0D%0AThis%20tutorial%20supercedes%20my%20previous%20turtorial%20on%20autocompletion%20by%20adding%20further%20tips%20and%20tricks%20to%20make%20your%20autocompletion%20a%20much%20better%20experience%20for%20your%20site%20users%20The%20tutorial%20is%20structured%20in%20the%20followi" title="Digg"><img src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/services-sprite.gif" title="Digg" alt="Digg" style="width: 16px; height: 16px; background: url(&quot;http://www.wiseguysonly.com/wp-content/plugins/sociable/images/services-sprite.png&quot;) no-repeat scroll -235px -1px transparent;"></a></li>
+	<li><a rel="nofollow" href="http://delicious.com/post?url=http%3A%2F%2Fwww.wiseguysonly.com%2F2008%2F03%2F09%2Fautocompletion-with-scriptaculous-and-ajax%2F&amp;title=Autocompletion%20with%20Scriptaculous%20and%20Ajax.&amp;notes=Demo%20here%20%7C%20Download%20sample%20files%0D%0A%0D%0AThis%20tutorial%20supercedes%20my%20previous%20turtorial%20on%20autocompletion%20by%20adding%20further%20tips%20and%20tricks%20to%20make%20your%20autocompletion%20a%20much%20better%20experience%20for%20your%20site%20users%20The%20tutorial%20is%20structured%20in%20the%20followi" title="del.icio.us"><img src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/services-sprite.gif" title="del.icio.us" alt="del.icio.us" style="width: 16px; height: 16px; background: url(&quot;http://www.wiseguysonly.com/wp-content/plugins/sociable/images/services-sprite.png&quot;) no-repeat scroll -199px -1px transparent;"></a></li>
+	<li><a rel="nofollow" href="http://www.stumbleupon.com/submit?url=http%3A%2F%2Fwww.wiseguysonly.com%2F2008%2F03%2F09%2Fautocompletion-with-scriptaculous-and-ajax%2F&amp;title=Autocompletion%20with%20Scriptaculous%20and%20Ajax." title="StumbleUpon"><img src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/services-sprite.gif" title="StumbleUpon" alt="StumbleUpon" style="width: 16px; height: 16px; background: url(&quot;http://www.wiseguysonly.com/wp-content/plugins/sociable/images/services-sprite.png&quot;) no-repeat scroll -217px -55px transparent;"></a></li>
+	<li><a rel="nofollow" href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Fwww.wiseguysonly.com%2F2008%2F03%2F09%2Fautocompletion-with-scriptaculous-and-ajax%2F&amp;title=Autocompletion%20with%20Scriptaculous%20and%20Ajax.&amp;source=WGO+CakePHP+Developer%2C+jQuery+Developer%2C+Tim+Roberts&amp;summary=Demo%20here%20%7C%20Download%20sample%20files%0D%0A%0D%0AThis%20tutorial%20supercedes%20my%20previous%20turtorial%20on%20autocompletion%20by%20adding%20further%20tips%20and%20tricks%20to%20make%20your%20autocompletion%20a%20much%20better%20experience%20for%20your%20site%20users%20The%20tutorial%20is%20structured%20in%20the%20followi" title="LinkedIn"><img src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/services-sprite.gif" title="LinkedIn" alt="LinkedIn" style="width: 16px; height: 16px; background: url(&quot;http://www.wiseguysonly.com/wp-content/plugins/sociable/images/services-sprite.png&quot;) no-repeat scroll -1px -37px transparent;"></a></li>
+	<li><a rel="nofollow" href="http://reddit.com/submit?url=http%3A%2F%2Fwww.wiseguysonly.com%2F2008%2F03%2F09%2Fautocompletion-with-scriptaculous-and-ajax%2F&amp;title=Autocompletion%20with%20Scriptaculous%20and%20Ajax." title="Reddit"><img src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/services-sprite.gif" title="Reddit" alt="Reddit" style="width: 16px; height: 16px; background: url(&quot;http://www.wiseguysonly.com/wp-content/plugins/sociable/images/services-sprite.png&quot;) no-repeat scroll -55px -55px transparent;"></a></li>
+	<li><a rel="nofollow" href="http://www.netvibes.com/share?title=Autocompletion%20with%20Scriptaculous%20and%20Ajax.&amp;url=http%3A%2F%2Fwww.wiseguysonly.com%2F2008%2F03%2F09%2Fautocompletion-with-scriptaculous-and-ajax%2F" title="Netvibes"><img src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/services-sprite.gif" title="Netvibes" alt="Netvibes" style="width: 16px; height: 16px; background: url(&quot;http://www.wiseguysonly.com/wp-content/plugins/sociable/images/services-sprite.png&quot;) no-repeat scroll -199px -37px transparent;"></a></li>
+	<li class="sociablelast"><a rel="nofollow" href="mailto:?subject=Autocompletion%20with%20Scriptaculous%20and%20Ajax.&amp;body=http%3A%2F%2Fwww.wiseguysonly.com%2F2008%2F03%2F09%2Fautocompletion-with-scriptaculous-and-ajax%2F" title="email"><img src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/services-sprite.gif" title="email" alt="email" style="width: 16px; height: 16px; background: url(&quot;http://www.wiseguysonly.com/wp-content/plugins/sociable/images/services-sprite.png&quot;) no-repeat scroll -325px -1px transparent;"></a></li>
+</ul>
+</div>
+				
+
+								
+				<p class="postmetadata alt">
+					<small>
+						This entry was posted on Sunday, March 9th, 2008 at 9:40 pm						and is filed under <a href="http://www.wiseguysonly.com/category/web-development/javascript/ajax/" title="View all posts in Ajax" rel="category tag">Ajax</a>, <a href="http://www.wiseguysonly.com/category/web-development/javascript/" title="View all posts in Javascript" rel="category tag">Javascript</a>, <a href="http://www.wiseguysonly.com/category/web-development/php/" title="View all posts in PHP" rel="category tag">PHP</a>, <a href="http://www.wiseguysonly.com/category/web-development/javascript/scriptaculous/" title="View all posts in Scriptaculous" rel="category tag">Scriptaculous</a>, <a href="http://www.wiseguysonly.com/category/web-development/user-interface/" title="View all posts in User Interface" rel="category tag">User Interface</a>, <a href="http://www.wiseguysonly.com/category/web-development/" title="View all posts in Web Development" rel="category tag">Web Development</a>.
+						You can follow any comments to this entry through the <a href="http://www.wiseguysonly.com/2008/03/09/autocompletion-with-scriptaculous-and-ajax/feed/">RSS 2.0</a> feed.
+
+													You can <a href="#respond">leave a comment</a>, or <a href="http://www.wiseguysonly.com/2008/03/09/autocompletion-with-scriptaculous-and-ajax/trackback/" rel="trackback">trackback</a> from your own site.
+
+						
+					</small>
+				</p>
+
+			</div>
+		</div>
+
+	
+<!-- You can start editing here. -->
+
+	<h3 id="comments">80 comments</h3>
+
+	<ol class="commentlist">
+		   <li class="comment even thread-even depth-1" id="li-comment-5265">
+    
+     <div id="comment-5265">
+     <div class="commenthead">
+      <div class="comment-author vcard">
+         <img alt="" src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/894c9a471a8fd69835da90e0b7de7b1e.jpeg" class="avatar avatar-36 photo" height="36" width="36">
+         <cite class="fn"><a href="http://www.buy-my-car.com/" rel="external nofollow" class="url">Nigel PT</a></cite>      </div>
+      
+
+      <div class="comment-meta commentmetadata"><a href="http://www.wiseguysonly.com/2008/03/09/autocompletion-with-scriptaculous-and-ajax/comment-page-2/#comment-5265">September 22, 2009 at 2:56 pm</a>     
+           </div>
+      <div class="clear"></div>
+     
+     </div>
+     
+
+	<div class="commentbody">
+      <p><a href="#comment-298" rel="nofollow">@Aaron</a> </p>
+<p>This is an SQL function. In the SQL line, remove the FIRST percentage [%] symbol</p>
+<p>…….LIKE ‘%” . $_POST['search'] . “%’”; </p>
+<p>becomes</p>
+<p>…….LIKE ‘” . $_POST['search'] . “%’”; </p>
+<p>Now the data found  = ‘search’ + anything</p>
+<p>This means that ‘S’ will find Sanders, Smith, Smyth<br>
+This means that ‘SM’ will find Smith, Smyth<br>
+This means that ‘SMY’ will find Smyth </p>
+<p>HTH</p>
+
+      <div class="reply">
+               </div>
+     </div>
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-5298">
+    
+     <div id="comment-5298">
+     <div class="commenthead">
+      <div class="comment-author vcard">
+         <img alt="" src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/148ed36d254d1848070a40023a66441f.jpeg" class="avatar avatar-36 photo" height="36" width="36">
+         <cite class="fn">Piet</cite>      </div>
+      
+
+      <div class="comment-meta commentmetadata"><a href="http://www.wiseguysonly.com/2008/03/09/autocompletion-with-scriptaculous-and-ajax/comment-page-2/#comment-5298">October 11, 2009 at 12:36 pm</a>     
+           </div>
+      <div class="clear"></div>
+     
+     </div>
+     
+
+	<div class="commentbody">
+      <p>Is it posible to search for more the one item? See example above</p>
+
+      <div class="reply">
+               </div>
+     </div>
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-5322">
+    
+     <div id="comment-5322">
+     <div class="commenthead">
+      <div class="comment-author vcard">
+         <img alt="" src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/1b2fdbbe0a77b2cad09ad41b1658fcb4.jpeg" class="avatar avatar-36 photo" height="36" width="36">
+         <cite class="fn">Alexandra</cite>      </div>
+      
+
+      <div class="comment-meta commentmetadata"><a href="http://www.wiseguysonly.com/2008/03/09/autocompletion-with-scriptaculous-and-ajax/comment-page-2/#comment-5322">October 19, 2009 at 2:43 am</a>     
+           </div>
+      <div class="clear"></div>
+     
+     </div>
+     
+
+	<div class="commentbody">
+      <p>Hi !</p>
+<p>That is marvelous, I have been searching for month for such a script.</p>
+<p>Could you just give me the last little help….</p>
+<p>I’m searching all night long but I cannot pass the ID…</p>
+<p>Here is my code :</p>
+<p>_____________________________</p>
+<p>Type here</p>
+<p>new Ajax.Autocompleter(“search”,”hint”,”server.php”);<br>
+new Ajax.Autocompleter(“artist_id”,”hint”,”server.php”, {afterUpdateElement : getSelectedId});<br>
+function getSelectedId(text, li) {<br>
+  $(‘artist_id’).value=li.id;<br>
+}</p>
+<p>__________________</p>
+<p>Can you tell me what is wrong ?</p>
+<p>Thanks thanks thanks in advance, I cannot find the solution !</p>
+<p>Alexandra</p>
+
+      <div class="reply">
+               </div>
+     </div>
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-5325">
+    
+     <div id="comment-5325">
+     <div class="commenthead">
+      <div class="comment-author vcard">
+         <img alt="" src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/e0533e60427e70f22ed918051e884711.jpeg" class="avatar avatar-36 photo" height="36" width="36">
+         <cite class="fn">Alexandra</cite>      </div>
+      
+
+      <div class="comment-meta commentmetadata"><a href="http://www.wiseguysonly.com/2008/03/09/autocompletion-with-scriptaculous-and-ajax/comment-page-2/#comment-5325">October 19, 2009 at 3:17 am</a>     
+           </div>
+      <div class="clear"></div>
+     
+     </div>
+     
+
+	<div class="commentbody">
+      <p>Hi Tim</p>
+<p>Your script is so great !</p>
+<p>Here is my page :<br>
+<a href="http://www.orbifly.com/test/ajax/autocomplete.php" rel="nofollow">http://www.orbifly.com/test/ajax/autocomplete.php</a></p>
+<p>I cannot pass the ID, can you help ?</p>
+<p>I cannot find why it does not work….</p>
+<p>Well it is now 4:30 in the morning, I’ll go to sleep, and work on that again tomorrow…</p>
+<p>Please heeeelp !</p>
+<p>Alexandra</p>
+
+      <div class="reply">
+               </div>
+     </div>
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-5327">
+    
+     <div id="comment-5327">
+     <div class="commenthead">
+      <div class="comment-author vcard">
+         <img alt="" src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/e0533e60427e70f22ed918051e884711.jpeg" class="avatar avatar-36 photo" height="36" width="36">
+         <cite class="fn">Alexandra</cite>      </div>
+      
+
+      <div class="comment-meta commentmetadata"><a href="http://www.wiseguysonly.com/2008/03/09/autocompletion-with-scriptaculous-and-ajax/comment-page-2/#comment-5327">October 19, 2009 at 11:10 am</a>     
+           </div>
+      <div class="clear"></div>
+     
+     </div>
+     
+
+	<div class="commentbody">
+      <p>There was a problem with accents.</p>
+<p>I could correct the bug with accents thanks to that function :</p>
+<p>function safeName($string)<br>
+{<br>
+$patterns = array(‘é’,'è’,'ê’,'à’,'â’,'ù’,'ü’,'û’,'ä’,'ë’,'ï’,'ç’,'ô’,'ö’,'ñ’,'ß’,<br>
+                  ‘É’,'È’,'Ê’,'À’,'Â’,'Ù’,'Ü’,'Û’,'Ä’,'Ë’,'Ï’,'Ç’,'Ô’,'Ö’,'Ñ’);<br>
+$replacements = array(‘é’,'è’,'ê’,'à’,'â’,'ù’,'ü’,'û’,'ä’,'ë’,'ï’,'ç’,'ô’,'ö’,'ñ’,'ß’,<br>
+                      ‘É’,'È’,'Ê’,'À’,'Â’,'Ù’,'Ü’,'Û’,'Ä’,'Ë’,'Ï’,'Ç’,'Ô’,'Ö’,'Ñ’);<br>
+$string=str_replace($patterns, $replacements, $string);<br>
+return $string;<br>
+};</p>
+<p>then you modify the name that appears in LI tags :</p>
+<p>$label = safeName($data['id']) ;</p>
+<p>echo $label ;</p>
+<p>——————————</p>
+<p>I hope this will help.</p>
+<p>But pleeeasse, can anybody help me on the way to pass the ID ?<br>
+I cannot find an answer, the variable is transmitted empty…</p>
+<p>My code below, thanks for help.</p>
+<p>Alexandra</p>
+<p>______________________</p>
+<p>in autocomplete.php :</p>
+<p>[input type="text" id="search" name="search" /]<br>
+[input type="text" id="artist_id" name="artist_id" /]</p>
+<p>[div id="hint"][/div]</p>
+<p>[script type="text/javascript"]<br>
+		new Ajax.Autocompleter(“search”,”hint”,”server.php”);<br>
+		new Ajax.Autocompleter(“artist_id”,”hint”,”server.php”, {afterUpdateElement : getSelectedId});<br>
+        function getSelectedId(text, li) {<br>
+        $(‘artist_id’).value=li.id;<br>
+        }<br>
+[/SCRIPT]</p>
+
+      <div class="reply">
+               </div>
+     </div>
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-5328">
+    
+     <div id="comment-5328">
+     <div class="commenthead">
+      <div class="comment-author vcard">
+         <img alt="" src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/e0533e60427e70f22ed918051e884711.jpeg" class="avatar avatar-36 photo" height="36" width="36">
+         <cite class="fn">Alexandra</cite>      </div>
+      
+
+      <div class="comment-meta commentmetadata"><a href="http://www.wiseguysonly.com/2008/03/09/autocompletion-with-scriptaculous-and-ajax/comment-page-2/#comment-5328">October 19, 2009 at 11:34 am</a>     
+           </div>
+      <div class="clear"></div>
+     
+     </div>
+     
+
+	<div class="commentbody">
+      <p>Well, I replaced</p>
+<p>[li]</p>
+<p>by</p>
+<p>echo “[li id=\"".$data['id'].”\”]” ;</p>
+<p>which should improve.<br>
+But still not enough to make it work.</p>
+<p>Mayday, folks !</p>
+<p>Alexandra</p>
+
+      <div class="reply">
+               </div>
+     </div>
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-5329">
+    
+     <div id="comment-5329">
+     <div class="commenthead">
+      <div class="comment-author vcard">
+         <img alt="" src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/e0533e60427e70f22ed918051e884711.jpeg" class="avatar avatar-36 photo" height="36" width="36">
+         <cite class="fn">Alexandra</cite>      </div>
+      
+
+      <div class="comment-meta commentmetadata"><a href="http://www.wiseguysonly.com/2008/03/09/autocompletion-with-scriptaculous-and-ajax/comment-page-2/#comment-5329">October 19, 2009 at 11:44 am</a>     
+           </div>
+      <div class="clear"></div>
+     
+     </div>
+     
+
+	<div class="commentbody">
+      <p>I SOLVED MY PROBLEM !!!!!!<br>
+YEESSSSS !!!!<br>
+(it took me… more than 10 hours to find the problem !!!)</p>
+<p>In fact, there is a little mistake on the tutorial.</p>
+<p>So for all those struggling to transfer the ID, here is the tip :</p>
+<p>in server.php, modify the [LI] tag, it has to be [LI id="you id..."]</p>
+<p>That gives :</p>
+<p>echo “[li id=\"".$data['id'].”\”]” ;</p>
+<p>in autocomplete.php, here is the deal :</p>
+<p>[script type="text/javascript"]<br>
+  new Ajax.Autocompleter(“search”,”hint”,”server.php”);<br>
+  new Ajax.Autocompleter(“search”,”hint”,”server.php”, {afterUpdateElement : getSelectedId});<br>
+  function getSelectedId(text, li) {<br>
+        $(‘artist_id’).value=li.id;<br>
+  }<br>
+[script]</p>
+<p>Both autocompleter call “search”, and only the function calls artist_id !!!</p>
+<p>I’m HAPPYYYYYYYYYYY !!!!</p>
+<p>Alexandra</p>
+
+      <div class="reply">
+               </div>
+     </div>
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-5330">
+    
+     <div id="comment-5330">
+     <div class="commenthead">
+      <div class="comment-author vcard">
+         <img alt="" src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/e0533e60427e70f22ed918051e884711.jpeg" class="avatar avatar-36 photo" height="36" width="36">
+         <cite class="fn">Alexandra</cite>      </div>
+      
+
+      <div class="comment-meta commentmetadata"><a href="http://www.wiseguysonly.com/2008/03/09/autocompletion-with-scriptaculous-and-ajax/comment-page-2/#comment-5330">October 19, 2009 at 8:30 pm</a>     
+           </div>
+      <div class="clear"></div>
+     
+     </div>
+     
+
+	<div class="commentbody">
+      <p>Well…. it does not work so well.</p>
+<p>Let’s say it works 100% on Mozilla Firefox, but it works 5% on Internet Explorer !!!</p>
+<p>WHY ?</p>
+<p>Heeeelp !</p>
+
+      <div class="reply">
+               </div>
+     </div>
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-5331">
+    
+     <div id="comment-5331">
+     <div class="commenthead">
+      <div class="comment-author vcard">
+         <img alt="" src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/e0533e60427e70f22ed918051e884711.jpeg" class="avatar avatar-36 photo" height="36" width="36">
+         <cite class="fn">Alexandra</cite>      </div>
+      
+
+      <div class="comment-meta commentmetadata"><a href="http://www.wiseguysonly.com/2008/03/09/autocompletion-with-scriptaculous-and-ajax/comment-page-2/#comment-5331">October 19, 2009 at 9:49 pm</a>     
+           </div>
+      <div class="clear"></div>
+     
+     </div>
+     
+
+	<div class="commentbody">
+      <p>I solved my problem again !<br>
+Now it works on both Firefox and Explorer.</p>
+<p>In fact, I had to remove the first Autocompleter call.</p>
+<p>So I replaced :</p>
+<p>[script type="text/javascript"]<br>
+new Ajax.Autocompleter(”search”,”hint”,”server.php”);<br>
+new Ajax.Autocompleter(”search”,”hint”,”server.php”, {afterUpdateElement : getSelectedId});<br>
+function getSelectedId(text, li) {<br>
+$(’artist_id’).value=li.id;<br>
+}<br>
+[script]</p>
+<p>by :</p>
+<p>[script type="text/javascript"]<br>
+new Ajax.Autocompleter(”search”,”hint”,”server.php”, {afterUpdateElement : getSelectedId});<br>
+function getSelectedId(text, li) {<br>
+$(’artist_id’).value=li.id;<br>
+}<br>
+[script]</p>
+<p>And now everything is fine on Explorer too !</p>
+<p>Alexandra</p>
+
+      <div class="reply">
+               </div>
+     </div>
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-5448">
+    
+     <div id="comment-5448">
+     <div class="commenthead">
+      <div class="comment-author vcard">
+         <img alt="" src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/8cfc995669f37f11045516719c1b5a63.jpeg" class="avatar avatar-36 photo" height="36" width="36">
+         <cite class="fn">rk</cite>      </div>
+      
+
+      <div class="comment-meta commentmetadata"><a href="http://www.wiseguysonly.com/2008/03/09/autocompletion-with-scriptaculous-and-ajax/comment-page-2/#comment-5448">November 20, 2009 at 7:26 pm</a>     
+           </div>
+      <div class="clear"></div>
+     
+     </div>
+     
+
+	<div class="commentbody">
+      <p>The script is great, Thanks for this wonderful script.</p>
+
+      <div class="reply">
+               </div>
+     </div>
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-5620">
+    
+     <div id="comment-5620">
+     <div class="commenthead">
+      <div class="comment-author vcard">
+         <img alt="" src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/94d65e8642a84784c8aab24928423e93.jpeg" class="avatar avatar-36 photo" height="36" width="36">
+         <cite class="fn">Steve</cite>      </div>
+      
+
+      <div class="comment-meta commentmetadata"><a href="http://www.wiseguysonly.com/2008/03/09/autocompletion-with-scriptaculous-and-ajax/comment-page-2/#comment-5620">February 2, 2010 at 10:27 pm</a>     
+           </div>
+      <div class="clear"></div>
+     
+     </div>
+     
+
+	<div class="commentbody">
+      <p>Has anyone had any trouble with up/down arrow keys not working with the hint?</p>
+<p>Really nice writeup, thanks for posting.</p>
+
+      <div class="reply">
+               </div>
+     </div>
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-5636">
+    
+     <div id="comment-5636">
+     <div class="commenthead">
+      <div class="comment-author vcard">
+         <img alt="" src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/4390c84d6d1fe5ae8988842664ccea18.jpeg" class="avatar avatar-36 photo" height="36" width="36">
+         <cite class="fn">ChrisW</cite>      </div>
+      
+
+      <div class="comment-meta commentmetadata"><a href="http://www.wiseguysonly.com/2008/03/09/autocompletion-with-scriptaculous-and-ajax/comment-page-2/#comment-5636">February 10, 2010 at 11:36 am</a>     
+           </div>
+      <div class="clear"></div>
+     
+     </div>
+     
+
+	<div class="commentbody">
+      <p>I also have the problem of arrow keys not working. (Win, IE8 &amp; FF).</p>
+<p>Otherwise, Thank you for the script, its great! </p>
+<p>PS. showing error messages could help implementing..</p>
+
+      <div class="reply">
+               </div>
+     </div>
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-5680">
+    
+     <div id="comment-5680">
+     <div class="commenthead">
+      <div class="comment-author vcard">
+         <img alt="" src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/63cb252926b0c9407a8f644eca27b549.jpeg" class="avatar avatar-36 photo" height="36" width="36">
+         <cite class="fn"><a href="http://www.ratebeer.com/" rel="external nofollow" class="url">joet</a></cite>      </div>
+      
+
+      <div class="comment-meta commentmetadata"><a href="http://www.wiseguysonly.com/2008/03/09/autocompletion-with-scriptaculous-and-ajax/comment-page-2/#comment-5680">March 13, 2010 at 4:34 am</a>     
+           </div>
+      <div class="clear"></div>
+     
+     </div>
+     
+
+	<div class="commentbody">
+      <p>Is there any way to clip out what’s absolutely necessary from 
+prototype.js? It’s 138k. That’s a total deal breaker for most web sites.
+ If someone hits your site from a mobile phone or dial-up and everything
+ is kaput.</p>
+
+      <div class="reply">
+               </div>
+     </div>
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-5685">
+    
+     <div id="comment-5685">
+     <div class="commenthead">
+      <div class="comment-author vcard">
+         <img alt="" src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/efa86afdff98c1a585cc9de80481bffe.jpeg" class="avatar avatar-36 photo" height="36" width="36">
+         <cite class="fn"><a href="http://the-edge-consulting.com/" rel="external nofollow" class="url">Jeremy</a></cite>      </div>
+      
+
+      <div class="comment-meta commentmetadata"><a href="http://www.wiseguysonly.com/2008/03/09/autocompletion-with-scriptaculous-and-ajax/comment-page-2/#comment-5685">March 25, 2010 at 3:36 pm</a>     
+           </div>
+      <div class="clear"></div>
+     
+     </div>
+     
+
+	<div class="commentbody">
+      <p>This script is exactly what I was looking for, however like the
+ others who have commented before me, the arrow keys do not work to 
+select the item.  They work in the demo above however.  I tried 
+downloading the code and putting it on my web server unmodified (Except 
+for the DB parameters in server.php) and the arrow keys also do not work
+ there.</p>
+<p>Can someone please post the solution to enabling the selection of the item in the ‘hint’ div with arrow keys?</p>
+<p>Thanks,<br>
+-Jeremy</p>
+
+      <div class="reply">
+               </div>
+     </div>
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-5690">
+    
+     <div id="comment-5690">
+     <div class="commenthead">
+      <div class="comment-author vcard">
+         <img alt="" src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/d7402a5713c8b1238b43cd9bd4c58646.jpeg" class="avatar avatar-36 photo" height="36" width="36">
+         <cite class="fn">Cinto</cite>      </div>
+      
+
+      <div class="comment-meta commentmetadata"><a href="http://www.wiseguysonly.com/2008/03/09/autocompletion-with-scriptaculous-and-ajax/comment-page-2/#comment-5690">April 9, 2010 at 9:05 am</a>     
+           </div>
+      <div class="clear"></div>
+     
+     </div>
+     
+
+	<div class="commentbody">
+      <p>In order for the up/down arrow to work, you need to add in this line inside the css style:</p>
+<p>li.selected { background: #FCC;}</p>
+
+      <div class="reply">
+               </div>
+     </div>
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-5694">
+    
+     <div id="comment-5694">
+     <div class="commenthead">
+      <div class="comment-author vcard">
+         <img alt="" src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/06c2cafaf9afe450254bbf0c38fd6f3a.jpeg" class="avatar avatar-36 photo" height="36" width="36">
+         <cite class="fn">freddy</cite>      </div>
+      
+
+      <div class="comment-meta commentmetadata"><a href="http://www.wiseguysonly.com/2008/03/09/autocompletion-with-scriptaculous-and-ajax/comment-page-2/#comment-5694">April 28, 2010 at 3:10 am</a>     
+           </div>
+      <div class="clear"></div>
+     
+     </div>
+     
+
+	<div class="commentbody">
+      <p>to fix arrow keys not working </p>
+<p>add this line into autocomplete.php</p>
+<p>li.selected { background: #FCC;}</p>
+<p>it is missing in the demo files this is where to place the missing code</p>
+<p>	body {font-family: verdana; arial, sans-serif; font-size: 12px; }<br>
+	#search, ul { padding: 3px; width: 150px; border: 1px solid #999; font-family: verdana; arial, sans-serif; font-size: 12px;}<br>
+	ul { list-style-type: none; font-family: verdana; arial, sans-serif; font-size: 12px;  margin: 5px 0 0 0}<br>
+	li { margin: 0 0 5px 0; cursor: default; color: red;}<br>
+	li:hover { background: #ffc; }<br>
+	li.selected { background: #FCC;}</p>
+
+      <div class="reply">
+               </div>
+     </div>
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-5708">
+    
+     <div id="comment-5708">
+     <div class="commenthead">
+      <div class="comment-author vcard">
+         <img alt="" src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/e5a31f710ca99dea9d39cb26899e0544.jpeg" class="avatar avatar-36 photo" height="36" width="36">
+         <cite class="fn">Neenz</cite>      </div>
+      
+
+      <div class="comment-meta commentmetadata"><a href="http://www.wiseguysonly.com/2008/03/09/autocompletion-with-scriptaculous-and-ajax/comment-page-2/#comment-5708">May 26, 2010 at 8:20 pm</a>     
+           </div>
+      <div class="clear"></div>
+     
+     </div>
+     
+
+	<div class="commentbody">
+      <p>Thanks for the code.</p>
+<p>Can someone please tell me how  the format of server.php.<br>
+Am using a WebFOCUS program at my back end to get data from the data base and its returning a string – apple,bat,cat,…..<br>
+Will this work, or does it need a specific format????</p>
+
+      <div class="reply">
+               </div>
+     </div>
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-5714">
+    
+     <div id="comment-5714">
+     <div class="commenthead">
+      <div class="comment-author vcard">
+         <img alt="" src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/bbc8a421fea522807c4924f8cd52d5e1.jpeg" class="avatar avatar-36 photo" height="36" width="36">
+         <cite class="fn">ad2sound</cite>      </div>
+      
+
+      <div class="comment-meta commentmetadata"><a href="http://www.wiseguysonly.com/2008/03/09/autocompletion-with-scriptaculous-and-ajax/comment-page-2/#comment-5714">June 7, 2010 at 7:11 pm</a>     
+           </div>
+      <div class="clear"></div>
+     
+     </div>
+     
+
+	<div class="commentbody">
+      <p>Is it working with Classic ASP ? If yes can you help me with an example to write correct asp Query ? </p>
+<p>Thanks in Advanced</p>
+
+      <div class="reply">
+               </div>
+     </div>
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-5746">
+    
+     <div id="comment-5746">
+     <div class="commenthead">
+      <div class="comment-author vcard">
+         <img alt="" src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/50700950c11fbe6f61f290ff14b3ad88.jpeg" class="avatar avatar-36 photo" height="36" width="36">
+         <cite class="fn"><a href="http://www.tinkersgardens.com/" rel="external nofollow" class="url">Jason</a></cite>      </div>
+      
+
+      <div class="comment-meta commentmetadata"><a href="http://www.wiseguysonly.com/2008/03/09/autocompletion-with-scriptaculous-and-ajax/comment-page-2/#comment-5746">July 8, 2010 at 5:29 pm</a>     
+           </div>
+      <div class="clear"></div>
+     
+     </div>
+     
+
+	<div class="commentbody">
+      <p>What should the response of the server script look like?</p>
+
+      <div class="reply">
+               </div>
+     </div>
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-5837">
+    
+     <div id="comment-5837">
+     <div class="commenthead">
+      <div class="comment-author vcard">
+         <img alt="" src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/cc249ec31273de28d35dcfc2de0db827.jpeg" class="avatar avatar-36 photo" height="36" width="36">
+         <cite class="fn">Aldoux</cite>      </div>
+      
+
+      <div class="comment-meta commentmetadata"><a href="http://www.wiseguysonly.com/2008/03/09/autocompletion-with-scriptaculous-and-ajax/comment-page-2/#comment-5837">September 14, 2010 at 5:51 am</a>     
+           </div>
+      <div class="clear"></div>
+     
+     </div>
+     
+
+	<div class="commentbody">
+      <p>Hi, thanks for the scripts, I implemented it in a website, here is a sample: <a href="http://www.topctp.com.ar/clientes/test.php" rel="nofollow">http://www.topctp.com.ar/clientes/test.php</a>
+ to autocomplete Pantone names just typing two or three digits, it also 
+shows the Pantone swatch. But as you can see, the links in the left, a 
+styled UL, are showing some of the atributes of the list of names. How 
+can I solve this? And how can I pass the values for the hexadecimal 
+colours showed in the list, to a swatch near each text field? Thanks!</p>
+
+      <div class="reply">
+               </div>
+     </div>
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-6079">
+    
+     <div id="comment-6079">
+     <div class="commenthead">
+      <div class="comment-author vcard">
+         <img alt="" src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/419f0ab4b2b6c528c9e9f0571d08d18e.jpeg" class="avatar avatar-36 photo" height="36" width="36">
+         <cite class="fn">Yuvidesign</cite>      </div>
+      
+
+      <div class="comment-meta commentmetadata"><a href="http://www.wiseguysonly.com/2008/03/09/autocompletion-with-scriptaculous-and-ajax/comment-page-2/#comment-6079">January 21, 2011 at 12:14 am</a>     
+           </div>
+      <div class="clear"></div>
+     
+     </div>
+     
+
+	<div class="commentbody">
+      <p>Best Autocomplete script for php in the web<br>
+Great job!!!</p>
+
+      <div class="reply">
+               </div>
+     </div>
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-6080">
+    
+     <div id="comment-6080">
+     <div class="commenthead">
+      <div class="comment-author vcard">
+         <img alt="" src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/5bde586916b42079d0a170dfe4f8ee0c.jpeg" class="avatar avatar-36 photo" height="36" width="36">
+         <cite class="fn">Amanda</cite>      </div>
+      
+
+      <div class="comment-meta commentmetadata"><a href="http://www.wiseguysonly.com/2008/03/09/autocompletion-with-scriptaculous-and-ajax/comment-page-2/#comment-6080">January 21, 2011 at 6:24 pm</a>     
+           </div>
+      <div class="clear"></div>
+     
+     </div>
+     
+
+	<div class="commentbody">
+      <p>Hi, i am trying to limit the number of results<br>
+of the list.</p>
+<p>I was trying to use ‘LIMIT 10′ at the end of the query and it’s doesn’t  work for me.</p>
+<p>any ideas?</p>
+
+      <div class="reply">
+               </div>
+     </div>
+     </div>
+</li>
+   <li class="comment byuser comment-author-admin bypostauthor even thread-even depth-1" id="li-comment-6082">
+    
+     <div id="comment-6082">
+     <div class="commenthead">
+      <div class="comment-author vcard">
+         <img alt="" src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/8908650eb69cf463cfc1623753b3bc16.jpeg" class="avatar avatar-36 photo" height="36" width="36">
+         <cite class="fn">Tim</cite>      </div>
+      
+
+      <div class="comment-meta commentmetadata"><a href="http://www.wiseguysonly.com/2008/03/09/autocompletion-with-scriptaculous-and-ajax/comment-page-2/#comment-6082">January 25, 2011 at 10:31 am</a>     
+           </div>
+      <div class="clear"></div>
+     
+     </div>
+     
+
+	<div class="commentbody">
+      <p>@Amanda, try LIMIT 0,10</p>
+
+      <div class="reply">
+               </div>
+     </div>
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-6089">
+    
+     <div id="comment-6089">
+     <div class="commenthead">
+      <div class="comment-author vcard">
+         <img alt="" src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/28b28373511b2b9064d895c76f5ac2de.jpeg" class="avatar avatar-36 photo" height="36" width="36">
+         <cite class="fn">lezame</cite>      </div>
+      
+
+      <div class="comment-meta commentmetadata"><a href="http://www.wiseguysonly.com/2008/03/09/autocompletion-with-scriptaculous-and-ajax/comment-page-2/#comment-6089">February 3, 2011 at 1:29 pm</a>     
+           </div>
+      <div class="clear"></div>
+     
+     </div>
+     
+
+	<div class="commentbody">
+      <p>Hi,<br>
+Firebug display the following error:</p>
+<p>Illegal character:<br>
+new Ajax.Autocompleter(”searchterm”,”hint”,”server.php”);</p>
+<p>any suggestions?</p>
+
+      <div class="reply">
+               </div>
+     </div>
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-6090">
+    
+     <div id="comment-6090">
+     <div class="commenthead">
+      <div class="comment-author vcard">
+         <img alt="" src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/28b28373511b2b9064d895c76f5ac2de.jpeg" class="avatar avatar-36 photo" height="36" width="36">
+         <cite class="fn">lezame</cite>      </div>
+      
+
+      <div class="comment-meta commentmetadata"><a href="http://www.wiseguysonly.com/2008/03/09/autocompletion-with-scriptaculous-and-ajax/comment-page-2/#comment-6090">February 3, 2011 at 2:27 pm</a>     
+           </div>
+      <div class="clear"></div>
+     
+     </div>
+     
+
+	<div class="commentbody">
+      <p>hi again<br>
+i fixed the previous error<br>
+but now i am getting the following error:<br>
+Ajax.Autocompleter is not a constructor</p>
+<p>any advice is welcomed</p>
+
+      <div class="reply">
+               </div>
+     </div>
+     </div>
+</li>
+	</ol>
+
+	<div class="comment-navigation">
+		<div class="alignleft"><a href="http://www.wiseguysonly.com/2008/03/09/autocompletion-with-scriptaculous-and-ajax/comment-page-1/#comments">← Older Comments</a></div>
+		<div class="alignright"></div>
+		<div class="clearfix"></div>
+	</div>
+ 
+
+
+<div id="respond">
+
+<h3>Leave a comment</h3>
+
+<div class="cancel-comment-reply">
+	<small><a rel="nofollow" id="cancel-comment-reply-link" href="http://www.wiseguysonly.com/2008/03/09/autocompletion-with-scriptaculous-and-ajax/#respond" style="display: none;">Click here to cancel reply.</a></small>
+</div>
+
+
+<form action="http://www.wiseguysonly.com/wp-comments-post.php" method="post" id="commentform">
+
+
+<p><label for="author"><small>Name (required)</small></label><input name="author" id="author" size="22" tabindex="1" aria-required="true" type="text">
+</p>
+
+<p><label for="email"><small>Email (required)</small></label><input name="email" id="email" size="22" tabindex="2" aria-required="true" type="text">
+</p>
+
+<p><label for="url"><small>Website</small></label><input name="url" id="url" size="22" tabindex="3" type="text">
+</p>
+
+
+<!--<p><small><strong>XHTML:</strong> You can use these tags: <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; &lt;pre lang=&quot;&quot; line=&quot;&quot; escaped=&quot;&quot; highlight=&quot;&quot;&gt; </code></small></p>-->
+
+<p><label for="comments"><small>Comment</small></label><textarea name="comment" id="comment" cols="70" rows="10" tabindex="4"></textarea></p>
+
+<input name="submit" id="submit" tabindex="5" value="Submit Comment" type="submit">
+<input name="comment_post_ID" value="45" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+
+<p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="ef738441e0" type="hidden"></p>
+</form>
+
+</div>
+
+
+	
+	</div>
+</div>
+
+	<div id="sidebar" class="grid_5">
+		<ul class="nobullet">
+			<li>				<form method="get" id="searchform" action="http://www.wiseguysonly.com/">
+	<input name="s" id="s" onfocus="clearInput('s', '')" onblur="clearInput('s', '')" type="text"> 
+	<input src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/search_magnifier.gif" id="searchbtn" value="Search" type="image">
+</form>
+				</li>
+				
+			<li id="twitter" class="widget widget_Twidget"><div id="twitter_div"><h2 class="widgettitle">Latest Tweets</h2>
+<ul id="twitter_update_list"><li><span>Jeremy Hunt is that nasty domino 
+that refuses to fall and fucks up your display. Someone give him a flick
+ please. #nextstopcameron</span> <a style="font-size: 85%;" href="http://twitter.com/wiseguysonly/statuses/208270764833648640">5 days ago</a></li><li><span>The president of our block is nought short of being an bona fide nobber.</span> <a style="font-size: 85%;" href="http://twitter.com/wiseguysonly/statuses/207885430207692800">6 days ago</a></li></ul></div>
+		      <script type="text/javascript" src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/blogger.js"></script><script type="text/javascript" src="Autocompletion%20with%20Scriptaculous%20and%20Ajax.%20_%20WGO_files/wiseguysonly.json"></script></li>
+<li id="recent-comments-2" class="widget widget_recent_comments"><h2 class="widgettitle">Recent Comments</h2>
+<ul id="recentcomments"><li class="recentcomments">Karthik on <a href="http://www.wiseguysonly.com/2010/01/15/select-and-unselect-all-checkboxes-with-jquery/comment-page-1/#comment-6732">Select and Unselect All Checkboxes with jQuery</a></li><li class="recentcomments">aggi on <a href="http://www.wiseguysonly.com/2009/07/21/working-with-phps-simplexml-and-nodes-with-hyphens/comment-page-1/#comment-6719">Working with PHP’s simplexml and nodes with hyphens</a></li><li class="recentcomments">Mike S on <a href="http://www.wiseguysonly.com/2012/05/01/alternating-row-colours-with-jquery/comment-page-1/#comment-6716">Alternating row colours with jQuery</a></li><li class="recentcomments"><a href="http://www.wiseguysonly.com/2012/05/01/alternating-row-colours-with-jquery/" rel="external nofollow" class="url">Alternating row colours with jQuery | WGO</a> on <a href="http://www.wiseguysonly.com/2006/03/09/alternating-table-row-colours-in-php/comment-page-1/#comment-6713">Alternating table row colours in PHP.</a></li><li class="recentcomments">anderson on <a href="http://www.wiseguysonly.com/2009/02/20/0x80040600-how-to-fix-a-corrupt-outlook-pst-data-file/comment-page-1/#comment-6711">0×80040600 (how to fix a corrupt Outlook pst data file)</a></li></ul></li>
+<li id="_widget-3" class="widget widget__widget"><h2 class="widgettitle">Links of Interest</h2>
+
+<ul><li> <a href="http://www.moellerstore.com/">Moeller Electric</a> </li>
+</ul></li>
+<li id="text-400326551" class="widget widget_text"><h2 class="widgettitle">Keeping the Wolves at Bay</h2>
+			<div class="textwidget"><ul>
+<li><a href="http://www.i-fluid.co.uk/">SEO Company</a></li>
+<li><a href="http://www.agriya.com/">PHP Clone Scripts</a></li>  
+<li><a href="http://www.evosite.co.uk/"> Ecommerce Web Designers</a></li> 
+<li><a href="http://www.oakfurnituresolutions.co.uk/">Oak Furniture</a></li> 
+<li><a href="http://www.cleverbox.co.uk/">School Web Design</a></li>
+<li><a href="http://www.josephswigs.com/"> Wigs</a></li>
+<li><a href="http://www.kingsaudio.co.uk/">Audio Visual Equipment</a></li>
+<li><a href="http://www.omahshoes.com/">Buy Shoes Online</a></li>
+<li><a href="http://www.onlinepowertools.co.uk/">Power Tools</a></li>
+<li><a href="http://www.van-insurance-cheap.co.uk/">Cheap Van Insurance</a></li>
+<li><a href="http://www.caravan-insurance-experts.co.uk/">Caravan Insurance</a></li>
+<li><a href="http://classic-car-insurance-experts.co.uk/">Classic Car Insurance</a></li>
+<li><a href="http://www.professional-indemnity-insurance-experts.co.uk/">Professiona Indemnity Insurance</a></li>
+<li><a href="http://www.insurance-experts.co.uk/">Insurance Articles</a></li>
+<li><a href="http://www.asian-dating.org.uk/%3EAsian%20Dating%3C/a%3E%3C/li%3E%3C/ul%3E%3C/div%3E%3C/li%3E%3Cli%20id=" wiseguysonly"="" class="widget wiseguysonly_widget"><h2 class="widgettitle">Linkage</h2>
+</a><ul><a href="http://www.asian-dating.org.uk/%3EAsian%20Dating%3C/a%3E%3C/li%3E%3C/ul%3E%3C/div%3E%3C/li%3E%3Cli%20id=" wiseguysonly"="" class="widget wiseguysonly_widget">
+</a><li><a href="http://www.asian-dating.org.uk/%3EAsian%20Dating%3C/a%3E%3C/li%3E%3C/ul%3E%3C/div%3E%3C/li%3E%3Cli%20id=" wiseguysonly"="" class="widget wiseguysonly_widget"></a><a href="http://www.onlineperformancemarketing.com/">Internet Marketing Dallas</a></li>
+</ul>
+</li>
+		</ul>
+	</div>
+
+
+<hr>
+<div id="footer" class="grid_16">
+	<p>
+		© 2012. WGO. Powered by
+		<a href="http://wordpress.org/">WordPress</a>. Theme design by <a href="http://wpshoppe.com/">WPShoppe</a>.
+	</p>
+</div>
+</li></ul></div>
+		<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-1406142-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</div></body></html>

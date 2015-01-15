@@ -1,0 +1,161 @@
+тутториал по созданию и установкек пакетов для django:
+http://djbook.ru/rel1.6/intro/reusable-apps.html#using-your-own-package
+
+======================================
+создать приложение polls в рабочем проекте
+
+======================================
+Первым делом создайте родительский каталог для polls ВНЕ вашего Django проекта(то есть просто отдельный каталог например на рабочем столе). Назовите его django-polls.
+
+ проверьте на PyPI нет ли уже пакета с таким названием. Рекомендуем добавлять префикс django- к названию пакета. 
+
+Перенесите каталог polls в django-polls.
+
+
+======================================
+Создайте файл django-polls/README.rst со следующим содержимым:
+=====
+Polls
+=====
+
+Polls is a simple Django app to conduct Web-based polls. For each
+question, visitors can choose between a fixed number of answers.
+
+Detailed documentation is in the "docs" directory.
+
+Quick start
+-----------
+
+1. Add "polls" to your INSTALLED_APPS setting like this::
+
+      INSTALLED_APPS = (
+          ...
+          'polls',
+      )
+
+2. Include the polls URLconf in your project urls.py like this::
+
+      url(r'^polls/', include('polls.urls')),
+
+3. Run `python manage.py syncdb` to create the polls models.
+
+4. Start the development server and visit http://127.0.0.1:8000/admin/
+   to create a poll (you'll need the Admin app enabled).
+
+5. Visit http://127.0.0.1:8000/polls/ to participate in the poll.
+
+======================================
+ Create a django-polls/LICENSE
+
+======================================
+Create a file django-polls/setup.py 
+import os
+from setuptools import setup
+
+README = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
+
+# allow setup.py to be run from any path
+os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
+
+setup(
+    name='django-polls',
+    version='0.1',
+    packages=['polls'],
+    include_package_data=True,
+    license='BSD License',  # example license
+    description='A simple Django app to conduct Web-based polls.',
+    long_description=README,
+    url='http://www.example.com/',
+    author='Your Name',
+    author_email='yourname@example.com',
+    classifiers=[
+        'Environment :: Web Environment',
+        'Framework :: Django',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: BSD License', # example license
+        'Operating System :: OS Independent',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 2.6',
+        'Programming Language :: Python :: 2.7',
+        'Topic :: Internet :: WWW/HTTP',
+        'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
+    ],
+)
+
+======================================
+Только модули и пакеты Python добавляются в пакет по умолчанию. Чтобы добавить другие файлы, необходимо создать файл MANIFEST.in. Документация distribute содержит подробное описание этого файла. Чтобы указать добавление README.rst и LICENSE файлов, создайте django-polls/MANIFEST.in со следующим содержимым:
+
+include LICENSE
+include README.rst
+recursive-include polls/static *
+recursive-include polls/templates *
+
+
+
+======================================
+Не обязательно, но мы рекомендуем, добавлять документацию приложения. Создайте пустой каталог django-polls/docs для будущей документации. Добавьте еще одну строку в django-polls/MANIFEST.in:
+
+recursive-include docs *
+Обратите внимание, каталог docs не будет включен в пакет, пока вы не добавите в него хотя бы один файл.
+
+======================================
+Теперь попробуйте собрать ваш пакет выполнив python setup.py sdist (запустите в каталоге django-polls). Эта команда создаст каталог dist и соберет ваш новый пакет, django-polls-0.1.tar.gz.
+
+======================================
+Использование ваших пакетов:
+можно установить как системный пакет и как библиотеку пользователя(нет возможности вносить изменения например в шаблоны и есть соответтсвенно)
+
+======================================
+сначала установим в систему:
+для этого активируем нужное вирт окружениее и 
+pip install django-polls/dist/django-polls-0.1.tar.gz
+
+важно: без ключа --user
+
+если заглючит, то попробовать перенести исходники пакета напосредственно в катлог рабочего проекта и попоробовать установить оттуда
+
+======================================
+далее зайти в  lib/sfsg/site-packages и убедиться, что пакет установлен
+
+======================================
+после этого сделать ряд стандартных действий:
+добавить в installed_apps,
+syncdb,
+
+примечательно, что не нужно прописывать адреса шаблонов в TEMPLATE_DIRS
+
+======================================
+после этого приложение работает, но не доступно для редактирования. чтобы сделать доступным для редактирования необходимо перенести только каталог приложения в каталог, в котром находится manage.py
+
+таким образом установленный пакет хранится как обычно созданное приложение и доступно для внесения изменений
+
+======================================
+или можно ещё наверное устанавливать так:
+pip install git+git://github.com/aldryn/aldryn-search.git@b4515a9fd055030c0647df865dc4d82985cc8e11
+
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================

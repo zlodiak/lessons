@@ -1,0 +1,170 @@
+from django.test import TestCase, RequestFactory
+from django.test.client import Client
+from django.contrib.auth.models import AnonymousUser, User
+from django.core.urlresolvers import reverse, resolve
+
+from app_zapsum.models import Diary
+from app_zapsum.views import rules, search_record, record, page_error404, edit_records
+from app_guestbook.views import guestbook_tape
+
+from django_webtest import WebTest
+
+
+class TestStatusCode(TestCase):
+	def setUp(self):
+		self.client = Client()
+		#self.factory = RequestFactory()
+
+	def test_exist_most_popular_authors_page(self):
+		self.response = self.client.get('/most_popular_authors/')
+		self.assertEqual(self.response.status_code, 200)	
+
+		self.response = self.client.get('/most_popular_authors2/')
+		self.assertEqual(self.response.status_code, 200)		
+
+		self.response = self.client.get('/most_popular_authors/', {'page': 2})
+		self.assertEqual(self.response.status_code, 200)		
+
+
+class TestAuthPage(TestCase):
+	def setUp(self):
+		self.client = Client()
+
+	def test_call_view_loads(self):
+		'''
+		определяем статус ответа для определённой страницы и шаблон
+		'''		
+		self.response = self.client.get('/accounts/authentication/')			#или POST тоже можно
+		self.assertEqual(self.response.status_code, 200)						#ok
+		self.assertTemplateUsed(self.response, 'page_authentication.html')	#ok
+		self.assertTemplateUsed(self.response, 'page_base.html')				#ok
+		self.assertContains(self.response, 'Вход') 							#ok # проверяет, что в ответе сервера содержится указанный текст;
+
+
+class TestUrls(TestCase):
+	def setUp(self):
+		self.client = Client()
+
+	def test_home(self):
+		self.resolver = resolve('/')
+		self.assertEqual(self.resolver.func, rules)	
+
+	def test_search_record(self):							# ok
+		self.resolver = resolve('/search_record/')				# url-address
+		self.assertEqual(self.resolver.func, search_record)		# viewname # не забыть подключить
+
+	def test_record(self):								# ok
+		self.resolver = resolve('/record/34/')				# url-address with GET-var
+		self.assertEqual(self.resolver.func, record)		# viewname # не забыть подключить
+
+	def test_record(self):									# ok
+		self.resolver = resolve('/record/34/34/')				# url-address with GET-var. address not exist
+		self.assertEqual(self.resolver.func, page_error404)		# viewname # не забыть подключить		
+
+	def test_edit_records(self):									# ok
+		self.resolver = resolve('/edit_records/38/')				# url-address with GET-var. address not exist
+		self.assertEqual(self.resolver.func, edit_records)		# viewname # не забыть подключить					
+
+	def test_diary(self):    
+		self.response = self.client.get('/diary/2/')
+		self.assertContains(self.response, 'Дневник пользователя')
+		self.assertContains(self.response, 'Князь Лев Шотландии Мышкин')
+		self.assertEqual(self.response.status_code, 200)						
+		self.assertTemplateUsed(self.response, 'page_diary.html')		
+
+	def test_diary_GET(self):    
+		self.response = self.client.get('/diary/2/', {'page': 2,})
+		self.assertContains(self.response, 'Дневник пользователя')
+		self.assertContains(self.response, 'Однажды в приезжает студёную зимнюю пору')
+		self.assertEqual(self.response.status_code, 200)						
+		self.assertTemplateUsed(self.response, 'page_diary.html')		
+
+	def test_diary_GET2(self):    
+		self.response = self.client.get('/diary/2/?page=2')
+		self.assertContains(self.response, 'Дневник пользователя')
+		self.assertContains(self.response, 'Однажды в приезжает студёную зимнюю пору')
+		self.assertEqual(self.response.status_code, 200)						
+		self.assertTemplateUsed(self.response, 'page_diary.html')				
+
+
+
+class TestCreateDbRecord(TestCase):
+	def setUp(self):
+		self.client = Client()
+		self.record = Diary.objects.create(user_id=2, title='zedd', date='2014-12-12', text='space', last_edit_date='2014-09-02 20:00:00', is_active=1, is_delete=0)
+
+	def test_diary(self):    
+		self.response = self.client.get('/diary/2/')
+		self.assertContains(self.response, 'Дневник пользователя')
+		self.assertContains(self.response, 'zedd')						# ok
+		#self.assertContains(response, 'zedd2')						# false
+		self.assertEqual(self.response.status_code, 200)						
+		self.assertTemplateUsed(self.response, 'page_diary.html')	
+
+
+class AuthTest(WebTest):
+	def setUp(self):
+		self.factory = RequestFactory()
+		self.user = User.objects.create_user(username='zxcvbn', email='jacob@ru.ru', password='zxcvbn')
+	
+	def test_login(self):
+		self.form = self.app.get(reverse('authentication')).form 	# преобразовываем название урла в фактический урл
+		self.form['username'] = 'zxcvbn' 							# login
+		self.form['password'] = 'zxcvbn' 							# pass
+		self.response = self.form.submit().follow() 				# submit form 
+		self.assertEqual(self.response.context['user'].username, 'zxcvbn')	# check phrse on page
+		self.assertTemplateUsed(self.response, 'page_rules.html')			# check template name
+
+	# def test_registration(self):
+	# 	'''
+	# 	works for no captha
+	# 	'''
+	# 	self.form = self.app.get(reverse('registration')).form 	
+	# 	self.form['username'] = 'qqqqqq2' 							
+	# 	self.form['nickname'] = 'qqqqqq2' 							
+	# 	self.form['email'] = 'qqqqqq2@mail.ru' 							
+	# 	self.form['password1'] = 'qqqqqq2' 							
+	# 	self.form['password2'] = 'qqqqqq2' 							
+	# 	self.response = self.form.submit().follow() 				
+	# 	self.assertTemplateUsed(self.response, 'page_authentication.html')	
+
+
+	def test_guestbook_form(self):
+		'''
+		guestbook_form
+		'''
+		self.form = self.app.get(reverse('guestbook_tape')).form 	
+		self.form['username'] = 'namer' 							
+		self.form['text'] = 'texter' 												
+		self.response = self.form.submit().follow() 				
+		self.assertContains(self.response, 'texter') 	# ok
+		#self.assertContains(self.response, 'texter2') 	# false
+
+
+class AuthRecordAddTest(WebTest):
+	'''
+	проверка добавления записи залогиненным пользователем
+	'''
+	def setUp(self):
+		self.user = User.objects.create_user(username='zxcvbn', email='jacob@ru.ru', password='zxcvbn')
+	
+	def test_login(self):
+		self.form = self.app.get(reverse('authentication')).form 	# преобразовываем название урла в фактический урл
+		self.form['username'] = 'zxcvbn' 							# login
+		self.form['password'] = 'zxcvbn' 							# pass
+		self.response = self.form.submit().follow() 				# submit form 
+		self.assertEqual(self.response.context['user'].username, 'zxcvbn')	# check phrse on page
+		self.assertTemplateUsed(self.response, 'page_rules.html')			# check template name
+
+		self.form = self.app.get(reverse('add_records')).form 	
+		self.form['title'] = 'tit' 							
+		self.form['date'] = '2014-10-23' 							
+		self.form['text'] = 'ololo' 							
+		self.response = self.form.submit().follow() 				
+		self.assertTemplateUsed(self.response, 'page_my_records.html')				
+
+
+
+
+
+

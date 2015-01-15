@@ -1,0 +1,864 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
+  "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" version="XHTML+RDFa 1.0" dir="ltr">
+
+<head profile="http://www.w3.org/1999/xhtml/vocab">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortlink" href="http://drupalace.ru/node/527" />
+<link rel="shortcut icon" href="http://drupalace.ru/sites/all/themes/drupalace/favicon.ico" type="image/vnd.microsoft.icon" />
+<meta name="generator" content="Drupal 7 (http://drupal.org)" />
+<link rel="canonical" href="http://drupalace.ru/lesson/render-massivov-v-sedmom-drupale" />
+<meta name="keywords" content="Рендер массивов в седьмом Друпале" />
+<meta name="copyright" content="drupalace.ru" />
+  <title>Рендер массивов в седьмом Друпале | Drupalace.ru</title>
+  <link type="text/css" rel="stylesheet" href="http://drupalace.ru/sites/default/files/css/css_pbm0lsQQJ7A7WCCIMgxLho6mI_kBNgznNUWmTWcnfoE.css" media="all" />
+<link type="text/css" rel="stylesheet" href="http://drupalace.ru/sites/default/files/css/css_GqCqCmGspWzZsDVTgkFoFb2eEt4xaByq4GFNcVi8QG4.css" media="all" />
+<link type="text/css" rel="stylesheet" href="http://drupalace.ru/sites/default/files/css/css_Gcy8bGAdSAwOlY2uVYJoem9rz1zzbikMpk-5rpRl1dU.css" media="all" />
+<link type="text/css" rel="stylesheet" href="http://drupalace.ru/sites/default/files/css/css_1XrN9f72xh453ONHmlu0-wyL4HcPWPjegl7t2UPEqM8.css" media="all" />
+<link type="text/css" rel="stylesheet" href="http://drupalace.ru/sites/default/files/css/css_ftM06lyT9Ivs8ClCfvGMOQukYN9dy4KHtr2iWv3pmwA.css" media="all" />
+
+<!--[if lte IE 7]>
+<link type="text/css" rel="stylesheet" href="http://drupalace.ru/sites/all/themes/drupalace/css/ie.css?msgl0x" media="all" />
+<![endif]-->
+  <script type="text/javascript" src="http://drupalace.ru/sites/default/files/js/js_xAPl0qIk9eowy_iS9tNkCWXLUVoat94SQT48UBCFkyQ.js"></script>
+<script type="text/javascript" src="http://drupalace.ru/sites/default/files/js/js_yx_7w-C8n43oB5K6pc2lhTjWoGZkbZObhkQREeaZXaM.js"></script>
+<script type="text/javascript" src="http://drupalace.ru/sites/default/files/js/js_J9BcVW60Lp3iI05mzRqdr33hkzuv3v1gksAgbh0DRxc.js"></script>
+<script type="text/javascript" src="http://widgets.twimg.com/j/2/widget.js"></script>
+<script type="text/javascript" src="http://drupalace.ru/sites/default/files/js/js_rRHm90z4eBWvAo77iSGUAkl5IQFdsfHzMGfy4rtkoo4.js"></script>
+<script type="text/javascript" src="http://drupalace.ru/sites/all/modules/cumulus/cumulus.js?msgl0x"></script>
+<script type="text/javascript" src="http://drupalace.ru/sites/default/files/js/js_lgAAOlplEun7p_8Pb-8dM079wtvnfwLZ0hAK0mH7Dto.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+var _gaq = _gaq || [];_gaq.push(["_setAccount", "UA-18052978-1"]);_gaq.push(["_trackPageview"]);(function() {var ga = document.createElement("script");ga.type = "text/javascript";ga.async = true;ga.src = ("https:" == document.location.protocol ? "https://ssl" : "http://www") + ".google-analytics.com/ga.js";var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(ga, s);})();
+//--><!]]>
+</script>
+<script type="text/javascript" src="http://drupalace.ru/sites/default/files/js/js_kMI-KAeFdBzZMMBHIq4stU-57c93en3Fa0IZD0vSufY.js"></script>
+<script type="text/javascript" src="http://drupalace.ru/sites/default/files/js/js_xEvE58Bh749dqGvSHmdv9z4sFW-v0Y22zb5_i41qp2Y.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, {"basePath":"\u002F", "pathPrefix":"", "ajaxPageState":{"theme":"drupalace", "theme_token":"gT2OX2CcHLalAS-RfibfV0_AJTAQcmgYkW05U56mYQs", "js":{"http:\u002F\u002Fplatform.twitter.com\u002Fwidgets.js":1, "misc\u002Fjquery.js":1, "misc\u002Fjquery.once.js":1, "misc\u002Fdrupal.js":1, "misc\u002Fui\u002Fjquery.ui.core.min.js":1, "misc\u002Fui\u002Fjquery.ui.widget.min.js":1, "misc\u002Fui\u002Fjquery.effects.core.min.js":1, "misc\u002Fui\u002Fjquery.ui.button.min.js":1, "misc\u002Fui\u002Fjquery.ui.mouse.min.js":1, "misc\u002Fui\u002Fjquery.ui.draggable.min.js":1, "misc\u002Fui\u002Fjquery.ui.position.min.js":1, "misc\u002Fui\u002Fjquery.ui.resizable.min.js":1, "misc\u002Fui\u002Fjquery.ui.dialog.min.js":1, "sites\u002Fall\u002Fmodules\u002Fviews\u002Fjs\u002Fjquery.ui.dialog.patch.js":1, "misc\u002Fui\u002Fjquery.effects.explode.min.js":1, "misc\u002Fui\u002Fjquery.effects.slide.min.js":1, "public:\u002F\u002Flanguages\u002Fru_nh0cyQVDyztVxBFo-iraOSFq8VC68vZ8UuL9hAvtL8c.js":1, "sites\u002Fall\u002Flibraries\u002Ffancybox\u002Ffancybox\u002Fjquery.fancybox-1.3.4.js":1, "sites\u002Fall\u002Fmodules\u002Ffancybox\u002Fjs\u002Ffancybox.js":1, "http:\u002F\u002Fwidgets.twimg.com\u002Fj\u002F2\u002Fwidget.js":1, "sites\u002Fall\u002Fmodules\u002Fbueditor\u002Fbueditor.js":1, "sites\u002Fall\u002Fmodules\u002Fcaptcha\u002Fcaptcha.js":1, "sites\u002Fall\u002Fmodules\u002Fcumulus\u002Fcumulus.js":1, "sites\u002Fall\u002Fmodules\u002Fgoogle_analytics\u002Fgoogleanalytics.js":1, "0":1, "modules\u002Ffilter\u002Ffilter.js":1, "sites\u002Fall\u002Fmodules\u002Fbueditor\u002Flibrary\u002Fbue.min.default.js":1, "sites\u002Fall\u002Fthemes\u002Fdrupalace\u002Fjs\u002Fdrupalace.js":1, "sites\u002Fall\u002Fthemes\u002Fdrupalace\u002Fjs\u002Faddthis.js":1}, "css":{"modules\u002Fsystem\u002Fsystem.base.css":1, "modules\u002Fsystem\u002Fsystem.menus.css":1, "modules\u002Fsystem\u002Fsystem.messages.css":1, "modules\u002Fsystem\u002Fsystem.theme.css":1, "misc\u002Fui\u002Fjquery.ui.core.css":1, "misc\u002Fui\u002Fjquery.ui.theme.css":1, "misc\u002Fui\u002Fjquery.ui.button.css":1, "misc\u002Fui\u002Fjquery.ui.resizable.css":1, "misc\u002Fui\u002Fjquery.ui.dialog.css":1, "modules\u002Fcomment\u002Fcomment.css":1, "modules\u002Ffield\u002Ftheme\u002Ffield.css":1, "modules\u002Fnode\u002Fnode.css":1, "modules\u002Fpoll\u002Fpoll.css":1, "modules\u002Fsearch\u002Fsearch.css":1, "modules\u002Fuser\u002Fuser.css":1, "sites\u002Fall\u002Fmodules\u002Fviews\u002Fcss\u002Fviews.css":1, "sites\u002Fall\u002Fmodules\u002Fctools\u002Fcss\u002Fctools.css":1, "sites\u002Fall\u002Flibraries\u002Ffancybox\u002Ffancybox\u002Fjquery.fancybox-1.3.4.css":1, "public:\u002F\u002Fgeshi\u002Fgeshifilter-languages.css":1, "sites\u002Fall\u002Fmodules\u002Fgeshifilter\u002Fgeshifilter.css":1, "sites\u002Fall\u002Fmodules\u002Ftagadelic\u002Ftagadelic.css":1, "sites\u002Fall\u002Fmodules\u002Ftwitter_profile_widget\u002Ftwitter_profile_widget.css":1, "sites\u002Fall\u002Fmodules\u002Fbueditor\u002Fbueditor.css":1, "modules\u002Ffilter\u002Ffilter.css":1, "sites\u002Fall\u002Fthemes\u002Fdrupalace\u002Fcss\u002Flayout.css":1, "sites\u002Fall\u002Fthemes\u002Fdrupalace\u002Fcss\u002Fstyle.css":1, "sites\u002Fall\u002Fthemes\u002Fdrupalace\u002Fcss\u002Fie.css":1}}, "fancybox":{"options":{"width":600, "height":480, "padding":0, "margin":0, "titleShow":1, "titlePosition":"outside", "scrolling":"auto", "showCloseButton":1, "showNavArrows":0, "cyclic":0, "opacity":1, "overlayShow":1, "overlayColor":"#666", "overlayOpacity":"0.7", "hideOnOverlayClick":1, "hideOnContentClick":1, "enableEscapeButton":1, "centerOnScroll":1, "autoScale":1, "easingIn":"swing", "easingOut":"swing", "changeFade":"fast", "changeSpeed":300, "transitionIn":"elastic", "speedIn":300, "transitionOut":"elastic", "speedOut":300}, "selector":"a[href^=\u0027\u002Fsites\u002Fdefault\u002Ffiles\u002Fpictures\u002F\u0027]:not(.not-fancybox)"}, "BUE":{"templates":{"e6":{"iconpath":"\u002Fsites\u002Fall\u002Fmodules\u002Fbueditor\u002Ficons", "buttons":[ [ "Вставить\u002FРедактировать изображение", "js:\u000Avar B = eDefBrowseButton(\u0027\u002F?q=imce\u002Fbrowse\u0027, \u0027attr_src\u0027, \u0027Browse\u0027, \u0027image\u0027);\u000Avar form = [\u000A {name: \u0027src\u0027, title: \u0027Адрес изображения\u0027, suffix: B},\u000A {name: \u0027width\u0027, title: \u0027Ширина x Высота\u0027, suffix: \u0027 x \u0027, getnext: true, attributes: {size: 3}},\u000A {name: \u0027height\u0027, attributes: {size: 3}},\u000A {name: \u0027alt\u0027, title: \u0027Альтернативный текст\u0027},\u000A{name: \u0027align\u0027, title: \u0027Выравнивание\u0027, type: \u0027select\u0027, options: {\u0027\u0027: \u0027\u0027, left: \u0027По левому краю\u0027, right: \u0027По правому краю\u0027, center: \u0027По центру\u0027}}\u000A];\u000AeDefTagDialog(\u0027img\u0027, form, \u0027Вставить\u002FРедактировать изображение\u0027, \u0027Вставить\u0027);\u000A", "picture.png", "M" ], [ "Вставить\u002FРедактировать ссылку", "js:\u000Avar B = eDefBrowseButton(\u0027\u0027, \u0027attr_href\u0027, \u0027Browse\u0027, \u0027link\u0027);\u000Avar form = [\u000A {name: \u0027href\u0027, title: \u0027Адрес ссылки\u0027, suffix: B},\u000A {name: \u0027title\u0027, title: \u0027Текст подсказки\u0027}\u000A];\u000AeDefTagDialog(\u0027a\u0027, form, \u0027Вставить\u002FРедактировать ссылку\u0027, \u0027Вставить\u0027);\u000A", "link.png", "L" ], [ "Жирный", "\u003Cstrong\u003E%TEXT%\u003C\u002Fstrong\u003E", "text_bold.png", "B" ], [ "Курсив", "\u003Cem\u003E%TEXT%\u003C\u002Fem\u003E", "text_italic.png", "I" ], [ "Подчёркнутый", "\u003Cu\u003E%TEXT%\u003C\u002Fu\u003E", "text_underline.png", "" ], [ "Зачёркнутый", "\u003Cstrike\u003E%TEXT%\u003C\u002Fstrike\u003E\u000A", "text_strikethrough.png", "" ], [ "По левому краю", "\u003Cdiv class=\u0022editor-left-button\u0022\u003E%TEXT%\u003C\u002Fdiv\u003E", "text_align_left.png", "" ], [ "По центру", "\u003Cdiv class=\u0022editor-center-button\u0022\u003E%TEXT%\u003C\u002Fdiv\u003E", "text_align_center.png", "" ], [ "По правому краю", "\u003Cdiv class=\u0022editor-right-button\u0022\u003E%TEXT%\u003C\u002Fdiv\u003E", "text_align_right.png", "" ], [ "Заголовок 2", "\u003Ch2\u003E%TEXT%\u003C\u002Fh2\u003E", "text_heading_2.png", "" ], [ "Заголовок 3", "\u003Ch3\u003E%TEXT%\u003C\u002Fh3\u003E", "text_heading_3.png", "" ], [ "Не нумерованный список", "js: eDefSelProcessLines(\u0027\u003Cul\u003E\u005Cn\u0027, \u0027 \u003Cli\u003E\u0027, \u0027\u003C\u002Fli\u003E\u0027, \u0027\u005Cn\u003C\u002Ful\u003E\u0027);", "text_list_bullets.png", "U" ], [ "Пронумерованный список", "js: eDefSelProcessLines(\u0027\u003Col\u003E\u005Cn\u0027, \u0027 \u003Cli\u003E\u0027, \u0027\u003C\u002Fli\u003E\u0027, \u0027\u005Cn\u003C\u002Fol\u003E\u0027);", "text_list_numbers.png", "O" ], [ "PHP code", "\u003Ccode\u003E\u000A%TEXT%\u000A\u003C\u002Fcode\u003E", "code_php.png", "" ] ]}}, "preset":{"edit-comment-body-und-0-value":"e6"}}, "googleanalytics":{"trackOutbound":1, "trackMailto":1, "trackDownload":1, "trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls|xml|z|zip"}});
+//--><!]]>
+</script>
+  <script type = "text/javascript">
+    (function() {
+      var po = document.createElement('script');
+      po.type = 'text/javascript';
+      po.async = true;
+      po.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(po, s);
+    })(jQuery);
+  </script>
+</head>
+<body class="html not-front not-logged-in no-sidebars page-node page-node- page-node-527 node-type-lesson" >
+    <div id="wrapper">
+
+		<div id="header">
+      <div id="header-inner">
+
+                  <div id="top-menu" class="navigation">
+            <ul class="links"><li class="menu-847 first"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/" title="Главная страница">Главная</a></li>
+<li class="menu-942"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/uroki" title="Уроки">Уроки</a></li>
+<li class="menu-1811"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/design" title="Drupal и дизайн">Drupal и дизайн</a></li>
+<li class="menu-208"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/video" title="Видеоуроки">Видео</a></li>
+<li class="menu-228 last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/contact" title="Контакты">Контакты</a></li>
+</ul>          </div> <!-- /#main-menu -->
+        
+        <a href="/" id="logo" rel = "home">
+                      <img src="http://drupalace.ru/sites/all/themes/drupalace/logo.png" alt="Drupalace.ru" title="Drupalace.ru" />
+                  </a>
+
+                  <a href="/" id="site-name" title="Drupalace.ru" rel = "home">
+            Drupalace.ru          </a>
+        
+                  <div id = "site-slogan">
+            Создание шаблонов, модулей и темизация Drupal          </div>
+                
+        <div id = "google_plusone">
+          <g:plusone size="small" href="http://drupalace.ru/"></g:plusone>
+        </div>
+
+                  <a href="/user" class="user-login">Вход</a>        
+        	<div class="region region-header">
+		<div class="content">
+  <form action="/lesson/render-massivov-v-sedmom-drupale" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="container-inline">
+    <div class="form-item form-type-textfield form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Поиск </label>
+ <input onblur="if (this.value.length == 0) {this.value=&#039;Drupal&#039;}" onfocus="if (this.value== &#039;Drupal&#039;) {this.value=&#039;&#039;}" type="text" id="edit-search-block-form--2" name="search_block_form" value="Drupal" size="15" maxlength="128" class="form-text" />
+</div>
+<div class="form-actions form-wrapper" id="edit-actions--2"><span class="button"><span class = "button-left"></span><span class = "button-center"></span><span class = "button-right"></span><input type="submit" id="edit-submit--2" name="op" value="Поиск" class="form-submit" /></span><span class="spic"></span></div><input type="hidden" name="form_build_id" value="form-U-tJivNfoAM2Mq_fRzC1J12myhKwf1y8foJHnHcOJrY" />
+<input type="hidden" name="form_id" value="search_block_form" />
+</div>
+</div></form></div>	</div>
+
+			</div> <!-- /#header-inner -->
+		</div> <!-- /#header -->
+
+  	<div id="container" class="clearfix">
+
+      <div id="main"  class = "with-sidebar">
+        <div id = "main-inner">
+
+                                <h1 class="title lesson"><a href="/uroki" class="additional">Урок</a><span class = "arrow"></span>Рендер массивов в седьмом Друпале</h1>
+                    
+                                                  
+          	<div class="region region-content">
+		<div id="block-system-main" class="block block-system">
+
+  
+	<div class="content">
+		<div id="node-527" class="node node-lesson node-promoted">
+
+	
+			
+	
+	<div class="content clearfix">	
+		<div class="g-plusone-wrapper" style="margin: 0 1em 1em 1em;float:right" ><g:plusone href="http://drupalace.ru/lesson/render-massivov-v-sedmom-drupale" size="tall" annotation="bubble" width="250" ></g:plusone></div><div class="field field-name-field-twitter-button field-type-tweetbutton field-label-hidden"><div class="field-items"><div class="field-item even"><div class="tweetbutton-tweet tweetbutton"><a href="http://twitter.com/share" data-size="medium" data-count="vertical" data-via="" data-related=":" data-text="" data-counturl="http://drupalace.ru/lesson/render-massivov-v-sedmom-drupale" data-url="http://drupalace.ru/lesson/render-massivov-v-sedmom-drupale" data-lang="ru" class="twitter-share-button">Tweet</a></div></div></div></div><div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p>Рендерные массивы являются строительными блоками страницы <strong>Drupal</strong>, начиная с седьмого Друпала. Рендерный массив - это ассоциативный массив, который соответствует стандартам и структуре данных, используемых в системе рендеринга Друпала.</p>
+<p>Данные, используемые для создания страницы (и всех ее частей), хранятся в виде структурированных массивов до этапа рендеринга в системе темизации. Это дает возможность с легкостью менять разметку или содержание страницы и обеспечивает повышение производительности в будущем.</p>
+<h3><strong>Что такое рендер?</strong></h3>
+<p>Касательно Друпала, рендер обозначает преобразование рендер массивов в HTML код.</p>
+<h3><strong>Что такое рендер массив?</strong></h3>
+<p>Рендер массив – классический структурированный массив в Drupal, который предоставляет информацию/данные (возможно, вложенную) наряду с подсказками относительно того, как этот элемент должен быть представлен (например, #type определяет тип элемента).</p>
+<p>Массив страницы может выглядеть следующим образом:</p>
+<div class="geshifilter">
+<pre class="geshifilter-drupal6"><span class="re0">$page</span> = <span class="kw3">array</span><span class="br0">(</span>
+  <span class="st0">'#show_messages'</span> =&gt; <span class="kw2">TRUE</span>,
+  <span class="st0">'#theme'</span> =&gt; <span class="st0">'page'</span>,
+  <span class="st0">'#type'</span> =&gt; <span class="st0">'page'</span>,
+  <span class="st0">'content'</span> =&gt; <span class="kw3">array</span><span class="br0">(</span>
+    <span class="st0">'system_main'</span> =&gt; <span class="kw3">array</span><span class="br0">(</span>...<span class="br0">)</span>,
+    <span class="st0">'another_block'</span> =&gt; <span class="kw3">array</span><span class="br0">(</span>...<span class="br0">)</span>,
+    <span class="st0">'#sorted'</span> =&gt; <span class="kw2">TRUE</span>,
+  <span class="br0">)</span>,
+  <span class="st0">'sidebar_first'</span> =&gt; <span class="kw3">array</span><span class="br0">(</span>
+    ...
+  <span class="br0">)</span>,
+  <span class="st0">'footer'</span> =&gt; <span class="kw3">array</span><span class="br0">(</span>
+    ...
+  <span class="br0">)</span>,
+  ...
+<span class="br0">)</span>;</pre></div>
+<h3><strong>Для чего это делается?</strong></h3>
+<p>До выхода <strong>Друпал 7</strong> можно было запросто изменять формы (с помощью <a href="http://api.drupal.org/api/drupal/modules--system--system.api.php/function/hook_form_alter/7">hook_form_alter()</a>), однако остальные элементы, которые можно было изменять в модулях или темах, превращались в HTML код до того, как передавались для изменений.</p>
+<p>Начиная с седьмого Друпала модуль или тема может использовать <a href="http://api.drupal.org/api/drupal/modules--system--system.api.php/function/hook_page_alter/7">hook_page_alter()</a>, чтобы изменить структуру или содержание страницы в самый последний момент. Это означает, что несколько строк PHP кода в теме могут разместить блок в том месте страницы, где вам это необходимо.</p>
+<h3><strong>Изменение элементов</strong></h3>
+<p>После выхода седьмого Друпала блоки и страницы могут быть изменены так же, как раньше мы меняли формы. Многие другие элементы также стали доступны для изменения. Например, с помощью <a href="http://api.drupal.org/api/drupal/modules--system--system.api.php/function/hook_page_alter/7">hook_page_alter()</a> вы можете в своём модуле или теме сделать так:</p>
+<div class="geshifilter">
+<pre class="geshifilter-drupal6"><span class="kw2">function</span> ИМЯМОДУЛЯ_page_alter<span class="br0">(</span>&amp;<span class="re0">$page</span><span class="br0">)</span> <span class="br0">{</span>
+  <span class="co1">// Пененосим форму поиска из левой колонки в футер</span>
+  <span class="re0">$page</span><span class="br0">[</span><span class="st0">'footer'</span><span class="br0">]</span><span class="br0">[</span><span class="st0">'search_form'</span><span class="br0">]</span> = <span class="re0">$page</span><span class="br0">[</span><span class="st0">'sidebar_first'</span><span class="br0">]</span><span class="br0">[</span><span class="st0">'search_form'</span><span class="br0">]</span>;
+  <span class="kw3">unset</span><span class="br0">(</span><span class="re0">$page</span><span class="br0">[</span><span class="st0">'sidebar_first'</span><span class="br0">]</span><span class="br0">[</span><span class="st0">'search_form'</span><span class="br0">]</span><span class="br0">)</span>;
+ 
+  <span class="co1">// Убираем блок "Powered by Drupal"</span>
+  <span class="kw3">unset</span><span class="br0">(</span><span class="re0">$page</span><span class="br0">[</span><span class="st0">'footer'</span><span class="br0">]</span><span class="br0">[</span><span class="st0">'system_powered-by'</span><span class="br0">]</span><span class="br0">)</span>;
+<span class="br0">}</span></pre></div>
+<h3><strong>Как рендерные массивы связаны с элементами?</strong></h3>
+<p>В модулях можно определять новые элементы, которые на самом деле являются рендерными массивами, записанными по определённым правилам. Для этого используется <a href="http://api.drupal.org/api/drupal/modules--system--system.api.php/function/hook_element_info/7">hook_element_info()</a>. Элемент – это рендерный массив, который имеет <strong>#type</strong> и другие свойства, определяющие его дальнейшее поведение. Когда создаётся рендерный массив и ему задан <strong>#type</strong>, то к нему подгружаются значения по умолчанию для тех атрибутов, которых нет в массиве, но они описаны в  <a href="http://api.drupal.org/api/drupal/modules--system--system.api.php/function/hook_element_info/7">hook_element_info()</a> для этого элемента.</p>
+<h3><strong>Создание данных в виде рендерных массивов</strong></h3>
+<p>В <strong>Drupal 7</strong>, в отличие от прошлых версий, модуль практически всегда создает данные в виде рендерных массивов. Функция вызова любой страницы возвращает массив, который в дальнейшем будет отрендерен (превращён в HTML). Это позволяет модулям хранить данные в массивах настолько долго, насколько это возможно в процессе создания страницы.</p>
+<p>В <strong>Drupal 6</strong> использовался метод рендеринга данных и их сбора в виде HTML:</p>
+<div class="geshifilter">
+<pre class="geshifilter-drupal6"><span class="kw2">function</span> mymodule_menu<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
+  <span class="re0">$items</span><span class="br0">[</span><span class="st0">'mypage-html'</span><span class="br0">]</span> = <span class="kw3">array</span><span class="br0">(</span>
+    <span class="st0">'title'</span> =&gt; <span class="st0">'Страница с функцией возвращающей HTML'</span>,
+    <span class="st0">'page callback'</span> =&gt; <span class="st0">'mymodule_html_page'</span>,
+    <span class="st0">'access callback'</span> =&gt; <span class="kw2">TRUE</span>,
+  <span class="br0">)</span>;
+ 
+  <span class="re0">$items</span><span class="br0">[</span><span class="st0">'mypage-ra'</span><span class="br0">]</span> = <span class="kw3">array</span><span class="br0">(</span>
+    <span class="st0">'title'</span> =&gt; <span class="st0">'Страница возвращающая рендерный массив'</span>,
+    <span class="st0">'page callback'</span> =&gt; <span class="st0">'mymodule_ra_page'</span>,
+    <span class="st0">'access callback'</span> =&gt; <span class="kw2">TRUE</span>,
+  <span class="br0">)</span>;
+ 
+  <span class="kw1">return</span> <span class="re0">$items</span>;
+<span class="br0">}</span>
+ 
+<span class="co1">// Старый метод, который возвращает html код.</span>
+<span class="co1">// Кстати, он ещё работает в седьмом Друпале. </span>
+<span class="kw2">function</span> mymodule_html_page <span class="br0">{</span>
+  <span class="re0">$output</span> = <span class="st0">'&lt;p&gt;A paragraph about some stuff...&lt;/p&gt;'</span>;
+  <span class="re0">$output</span> .= <span class="st0">'&lt;ul&gt;&lt;li&gt;first item&lt;/li&gt;&lt;li&gt;second item&lt;/li&gt;&lt;li&gt;third item&lt;/li&gt;&lt;/ul&gt;'</span>;
+  <span class="kw1">return</span> <span class="re0">$output</span>;
+<span class="br0">}</span>
+ 
+<span class="co1">// Новый метод, который возвращает рендерный массив</span>
+<span class="kw2">function</span> mymodule_ra_page <span class="br0">{</span>
+  <span class="re0">$output</span> =  <span class="kw3">array</span><span class="br0">(</span>
+    <span class="st0">'first_para'</span> =&gt; <span class="kw3">array</span><span class="br0">(</span>
+      <span class="st0">'#type'</span> =&gt; <span class="st0">'markup'</span>,
+      <span class="st0">'#markup'</span> =&gt; <span class="st0">'&lt;p&gt;A paragraph about some stuff...&lt;/p&gt;'</span>,
+    <span class="br0">)</span>,
+    <span class="st0">'second_para'</span> =&gt; <span class="kw3">array</span><span class="br0">(</span>
+      <span class="st0">'#items'</span> =&gt; <span class="kw3">array</span><span class="br0">(</span><span class="st0">'first item'</span>, <span class="st0">'second item'</span>, <span class="st0">'third item'</span><span class="br0">)</span>,
+      <span class="st0">'#theme'</span> =&gt; <span class="st0">'item_list'</span>,
+    <span class="br0">)</span>,
+  <span class="br0">)</span>;
+  <span class="kw1">return</span> <span class="re0">$output</span>;
+<span class="br0">}</span></pre></div>
+<h3><strong>Примеры массивов разных типов</strong></h3>
+<p>Как и раньше, все элементы <strong>Drupal</strong> (см. <a href="http://api.drupal.org/api/drupal/modules--system--system.api.php/function/hook_element_info/7">hook_element_info()</a>, который был <a href="http://api.drupal.org/api/drupal/developer--hooks--core.php/function/hook_elements/6">hook_elements()</a> в <strong>Drupal 6</strong>) представляют собой описанный тип данных. Глядя на <a href="http://api.drupal.org/api/drupal/modules--system--system.module/function/system_element_info/7">system_element_info()</a>, мы видим множество предопределенных типов, в том числе page, <em>form</em>, <em>html_tag</em>, <em>value</em>, <em>markup</em>, <em>link</em>, <em>fieldset </em>и многие другие. По соглашению, <strong>#</strong>- атрибуты, используемые этим типом, документируются с соответствующей функцией темизации. Таким образом, например, атрибуты, используемые в элементе типа <strong>#type =&gt; 'html_tag'</strong>  можно найти  в функции <a href="http://api.drupal.org/api/drupal/includes--theme.inc/function/theme_html_tag/7">theme_html_tag()</a>.</p>
+<p>Вот три примера из модуля <a href="http://drupal.org/project/examples">Examples</a> (Render example):</p>
+<div class="geshifilter">
+<pre class="geshifilter-drupal6"><span class="re0">$demos</span> = <span class="kw3">array</span><span class="br0">(</span>
+  <span class="kw5">t</span><span class="br0">(</span><span class="st0">'Super simple #markup'</span><span class="br0">)</span>  =&gt; <span class="kw3">array</span><span class="br0">(</span>
+    <span class="st0">'#markup'</span> =&gt; <span class="kw5">t</span><span class="br0">(</span><span class="st0">'Some basic text in a #markup (shows basic markup and how it is rendered)'</span><span class="br0">)</span>,
+  <span class="br0">)</span>,
+ 
+  <span class="st0">'prefix_suffix'</span> =&gt; <span class="kw3">array</span><span class="br0">(</span>
+    <span class="st0">'#markup'</span> =&gt; <span class="kw5">t</span><span class="br0">(</span><span class="st0">'This one adds a prefix and suffix, which put a div around the item'</span><span class="br0">)</span>,
+    <span class="st0">'#prefix'</span> =&gt; <span class="st0">'&lt;div&gt;&lt;br/&gt;(prefix)&lt;br/&gt;'</span>,
+    <span class="st0">'#suffix'</span> =&gt; <span class="st0">'&lt;br/&gt;(suffix)&lt;/div&gt;'</span>,
+  <span class="br0">)</span>,
+ 
+  <span class="st0">'theme for an element'</span> =&gt; <span class="kw3">array</span><span class="br0">(</span>
+    <span class="st0">'child'</span> =&gt; <span class="kw3">array</span><span class="br0">(</span>
+      <span class="kw5">t</span><span class="br0">(</span><span class="st0">'This is some text that should be put together'</span><span class="br0">)</span>,
+      t<span class="br0">(</span><span class="st0">'This is some more text that we need'</span><span class="br0">)</span>,
+    <span class="br0">)</span>,
+    <span class="st0">'#separator'</span> =&gt; <span class="st0">' | '</span>,
+    <span class="st0">'#theme'</span> =&gt; <span class="st0">'render_example_aggregate'</span>,
+  <span class="br0">)</span>,
+<span class="br0">)</span>;</pre></div>
+<h3><strong>Примеры типов элементов</strong></h3>
+<p>К рендерному массиву можно применить множество уже существующих типов или создать свои. Ниже приведены самые распространенные.</p>
+<p>Обратите внимание, что многие из этих свойств описаны в <a href="http://api.drupal.org/api/drupal/developer--topics--forms_api_reference.html/7">Forms API</a>, потому что в <strong>Forms API</strong> всегда использовались  рендерное API для указания типов, но они не были задокументированы как типы рендерного API, коими они, несомненно, являются <strong>в Drupal 7</strong>.</p>
+<table><tr class="even"><td>#type</td>
+<td>Тип элемента. Если массив – элемент, то свойства элемента будут загружены по умолчанию. Это ведет к сокращению набора предопределенных свойств, которые могут быть взяты из описания этого элемента в <a href="http://api.drupal.org/api/drupal/modules--system--system.api.php/function/hook_element_info/7">hook_element_info()</a>.</td>
+</tr><tr class="odd"><td><strong>#markup</strong></td>
+<td>Простейшее свойство, которое просто создает строку с разметкой <strong>#type =&gt; 'markup'</strong>. По сути, с его помощью можно просто вставить кусок HTML’a без каких-либо преобразований или дальнейшего рендера.</td>
+</tr><tr class="even"><td><strong>#prefix/#suffix</strong></td>
+<td>Используется при необходимости добавить строку (или разметку) в начале или в конце элемента.</td>
+</tr><tr class="odd"><td><strong>#pre_render</strong></td>
+<td>Массив функций, который может изменить рендерный массив перед вызовом рендера для него. Это свойство может изменить, удалить части, установить <strong>#printed = TRUE</strong>, чтобы предотвратить последующий рендер и т.д. </td>
+</tr><tr class="even"><td><strong>#post_render</strong></td>
+<td>Массив функций, который может обрабатывать HTML, полученный в результате рендера элемента. По большому счету это тоже самое, что и <strong>#theme_wrappers</strong>, за исключением того, что не используется система темизации.</td>
+</tr><tr class="odd"><td><strong>#theme</strong></td>
+<td>Набор хуков темы, которые полностью ответственны за рендер элементов массива (включая дочерние).<br />
+Примечание: на самом деле, <em>#theme</em> в <strong>Drupal 7</strong> и <em>#theme</em> в <strong>Drupal 6</strong> не связаны между собой.<br />
+Обычно, <strong>#theme' =&gt; 'function_name'</strong> вызывает функцию вида<strong> theme_function_name()</strong>, а остальные значение массива передаются в эту функцию в качестве аргументов.<br />
+Вот список всех дефолтных хуков темы: http://api.drupal.org/api/drupal/modules--system--theme.api.php/group/themeable/7</td>
+</tr><tr class="even"><td><strong>#theme_wrappers</strong></td>
+<td>Массив функций темы, который имеет возможность добавлять что-либо к рендерному массиву после того, как дочерние элементы были отрендерены и помещены в <strong>#children</strong>.<br />
+Обычно используется для добавления HTML вокруг отрендереных дочерних элементов, особенно если дочерние элементы были отрендерены рекурсивно с помощью собственных функций темизации. Это свойство редко используют вместе с <strong>#theme</strong>.</td>
+</tr><tr class="odd"><td><strong>#cache</strong></td>
+<td>Обозначает массив как кэшируемый и определяет срок его хранения. Если рендерный массив уже был отрендерен, он больше не будет рендироваться, пока не закончится срок хранения кэша. При кэшировании используются стандартные функции Друпала <a href="http://api.drupal.org/api/drupal/includes--cache.inc/function/cache_get/7">cache_get()</a> и <a href="http://api.drupal.org/api/drupal/includes--cache.inc/function/cache_set/7">cache_set()</a>.
+<p>Этот атрибут может содержать такой массив массив:</p>
+<ul><li><strong>'keys'</strong> =&gt; массив ключей, которые будут объеденены для создания ключа кэша.</li>
+<li><strong>'bin'</strong> =&gt; имя кэша, которое будет использоваться (Например, 'cache' или 'cache_page' и т.д.)</li>
+<li><strong>'expire'</strong> =&gt; дата, записанная в Unix-формате, определяющая срок годности кэша.</li>
+<li><strong>'granularity'</strong> =&gt; значение, обозначающая тип кэша. Например,  <a href="http://api.drupal.org/api/drupal/includes--common.inc/constant/DRUPAL_CACHE_PER_PAGE/7">DRUPAL_CACHE_PER_PAGE</a>, <a href="http://api.drupal.org/api/drupal/includes--common.inc/constant/DRUPAL_CACHE_PER_ROLE/7">DRUPAL_CACHE_PER_ROLE</a> или <a href="http://api.drupal.org/api/drupal/includes--common.inc/constant/DRUPAL_CACHE_PER_USER/7">DRUPAL_CACHE_PER_USER</a>.</li>
+</ul><p>Обратите внимание, что элементы, помеченные с атрибутом <strong>#cache</strong> будут хранить кэш до тех пор, пока не запустится крон, не смотря на его срок годности.</p></td>
+</tr></table></div></div></div>    
+          <div class = "node-bottom">
+        <div id="block-block-9" class="block block-block">
+
+			
+	<div class="content">
+		<!-- Яндекс.Директ -->
+<div id="yandex_ad"></div>
+<script type="text/javascript">
+(function(w, d, n, s, t) {
+w[n] = w[n] || [];
+w[n].push(function() {
+Ya.Direct.insertInto(76593, "yandex_ad", {
+site_charset: "utf-8",
+ad_format: "direct",
+font_size: 0.8,
+type: "horizontal",
+limit: 3,
+title_font_size: 1,
+site_bg_color: "FFFFFF",
+title_color: "0071B3",
+url_color: "006600",
+all_color: "0071B3",
+text_color: "3B3B3B",
+hover_color: "018FE2"
+});
+});
+t = d.documentElement.firstChild;
+s = d.createElement("script");
+s.type = "text/javascript";
+s.src = "http://an.yandex.ru/system/context.js";
+s.setAttribute("async", "true");
+t.insertBefore(s, t.firstChild);
+})(window, document, "yandex_context_callbacks");
+</script>
+	</div>
+	
+</div>
+      </div>
+        
+	</div>
+
+  <div class = "bottom clearfix">
+
+          <div class = "bottom-links">
+        <div class="item-list"><ul><li class="first odd"><span class = "name"><a href="/users/spleshka" title="Информация о пользователе." class="username">Spleshka</a></span></li>
+<li class="even"><span class = "date">27.01.2012</span></li>
+<li class="last odd"><span class = "view">8198</span></li>
+</ul></div>      </div>
+    
+          <div class = "bottom-right-links">
+        <div class = "tags"><div class="item-list"><ul><li class="first odd"><a href="/tags/render-api">render API</a></li>
+<li class="even"><a href="/tags/forms-api">forms API</a></li>
+<li class="last odd"><a href="/tags/hook">hook</a></li>
+</ul></div></div>      </div>
+    
+  </div>
+
+</div>
+
+  <div class = "social-links clearfix">
+    Друзья тоже любят читать интересные статьи
+    <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+      <a class="addthis_button_facebook"></a>
+      <a class="addthis_button_twitter"></a>
+      <a class="addthis_button_vk"></a>
+      <a class="addthis_button_odnoklassniki_ru"></a>
+      <a class="addthis_button_mymailru"></a>
+      <a class="addthis_button_livejournal"></a>
+      <a class="addthis_button_formspring"></a>
+      <a class="addthis_button_google"></a>
+    </div>
+  </div>
+
+  <div class = "node-navigation clearfix">
+
+          <div class = "node-prev"><a href="/lesson/sozdanie-svoego-elementa-formy-v-drupal-7-rasshiryaem-forms-api">Создание своего элемента формы в Drupal 7. Расширяем Forms API.</a></div>
+    
+          <div class = "node-next"><a href="/lesson/izmenenie-sostoyaniy-formy-v-drupal-7">Изменение состояний формы в Drupal 7</a></div>
+    
+    <div class = "nav">Навигация</div>
+
+  </div>
+
+  <div class = "node-similar">
+    <div class="item-list"><h3>Похожие материалы</h3><ul><li class="first odd"><a href="/lesson/kak-pomenyat-napravlenie-spiska-kommentariev-i-vynesti-formu-kommentariev-naverh">Как поменять направление списка комментариев и вынести форму комментариев наверх</a></li>
+<li class="even"><a href="/lesson/dobavlyaem-k-forme-avtosabmit-s-pomoshchyu-chaos-tools">Добавляем к форме автосабмит с помощью Chaos Tools</a></li>
+<li class="last odd"><a href="/lesson/dobavlyaem-avtorizaciyu-po-emeylu-v-drupal-7">Добавляем авторизацию по емейлу в Drupal 7</a></li>
+</ul></div>  </div>
+
+<div class="clearfix">
+	<div id="comments" class="comment-wrapper">
+          <h2 class="title">Комментарии</h2>
+      
+  <a id="comment-3376"></a>
+<div class="comment comment-by-anonymous odd clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <img src="http://drupalace.ru/sites/default/files/pictures/default.png" alt="Аватар пользователя Liqor" title="Аватар пользователя Liqor" />  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/3376#comment-3376" class="permalink" rel="bookmark">#1</a>      </div>
+
+      <div class = "comment-author">
+        <span class="username">Liqor</span> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Спасибо!)) Очень полезно!</p>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        15.02.2012 15:19      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/527/3376">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div><a id="comment-4455"></a>
+<div class="comment comment-by-anonymous even clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <img src="http://drupalace.ru/sites/default/files/pictures/default.png" alt="Аватар пользователя Андрей Гость" title="Аватар пользователя Андрей Гость" />  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/4455#comment-4455" class="permalink" rel="bookmark">#2</a>      </div>
+
+      <div class = "comment-author">
+        <span class="username">Андрей Гость</span> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Спасибо за статью! После 3-х дней мытарств с Друпал 7, понял что вся проблема в том, что я не понимаю этих массивов для рендеринга.</p>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        07.07.2012 01:47      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/527/4455">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div><a id="comment-5092"></a>
+<div class="comment comment-by-anonymous odd clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <img src="http://drupalace.ru/sites/default/files/pictures/default.png" alt="Аватар пользователя Alexander Kruchinin" title="Аватар пользователя Alexander Kruchinin" />  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/5092#comment-5092" class="permalink" rel="bookmark">#3</a>      </div>
+
+      <div class = "comment-author">
+        <span class="username">Alexander Kruchinin</span> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Замечательная статья (и блог) — всё внятно, по сути и наконец-то становится ясен механизм темизации.<br />
+Спасибо!</p>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        25.11.2012 17:25      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/527/5092">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div><a id="comment-5354"></a>
+<div class="comment comment-by-anonymous even clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <img src="http://drupalace.ru/sites/default/files/pictures/default.png" alt="Аватар пользователя м60тх996" title="Аватар пользователя м60тх996" />  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/5354#comment-5354" class="permalink" rel="bookmark">#4</a>      </div>
+
+      <div class = "comment-author">
+        <span class="username">м60тх996</span> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>преобразование рендер массивов в HTML код. - это называется визуализация</p>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        19.02.2013 20:38      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/527/5354">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div>
+      <h2 class="title comment-form">Комментировать</h2>
+    <form class="comment-form clearfix anonymous" action="/comment/reply/527" method="post" id="comment-form" accept-charset="UTF-8"><div><div class="form-item form-type-textfield form-item-name">
+  <label for="edit-name">Ваше имя </label>
+ <input type="text" id="edit-name" name="name" value="" size="30" maxlength="60" class="form-text" />
+</div>
+<div class="field-type-text-long field-name-comment-body field-widget-text-textarea form-wrapper" id="edit-comment-body"><div id="comment-body-add-more-wrapper"><div class="text-format-wrapper"><div class="form-item form-type-textarea form-item-comment-body-und-0-value">
+  <label for="edit-comment-body-und-0-value">Комментарий <span class="form-required" title="Обязательно для заполнения.">*</span></label>
+ <div class="form-textarea-wrapper"><textarea class="text-full form-textarea required" id="edit-comment-body-und-0-value" name="comment_body[und][0][value]" cols="60" rows="5"></textarea></div>
+</div>
+</div>
+</div></div><input type="hidden" name="form_build_id" value="form-cszZiUrgYZbsCiGgz1psncQ3IZmkq7lSVGYJV6e8s_8" />
+<input type="hidden" name="form_id" value="comment_node_lesson_form" />
+<div class="captcha"><input type="hidden" name="captcha_sid" value="2379967" />
+<input type="hidden" name="captcha_token" value="36433421ef879e07f66e1ac604f97bed" />
+<pre class="ascii_art_captcha" style="line-height:1.1;font-size:4pt;">                                                                            <br /> 88888888ba,       ,ad8888ba,    88        88   88888888ba    888888888888  <br /> 88      `&quot;8b     d8&quot;&#039;    `&quot;8b   88        88   88      &quot;8b           ,8P&#039;  <br /> 88        `8b   d8&#039;             88        88   88      ,8P          d8&quot;    <br /> 88         88   88              88        88   88aaaaaa8P&#039;        ,8P&#039;     <br /> 88         88   88      88888   88        88   88&quot;&quot;&quot;&quot;88&#039;         d8&quot;       <br /> 88         8P   Y8,        88   88        88   88    `8b       ,8P&#039;        <br /> 88      .a8P     Y8a.    .a88   Y8a.    .a8P   88     `8b     d8&quot;          <br /> 88888888Y&quot;&#039;       `&quot;Y88888P&quot;     `&quot;Y8888Y&quot;&#039;    88      `8b   8P&#039;           <br />                                                                            <br />                                                                            </pre><div class="form-item form-type-textfield form-item-captcha-response">
+  <label for="edit-captcha-response">Введи код, если не бот <span class="form-required" title="Обязательно для заполнения.">*</span></label>
+ <input type="text" id="edit-captcha-response" name="captcha_response" value="" size="10" maxlength="10" class="form-text required" />
+<div class="description">Enter the code depicted in ASCII art style.</div>
+</div>
+</div><div class="form-actions form-wrapper" id="edit-actions"><span class="button"><span class = "button-left"></span><span class = "button-center"></span><span class = "button-right"></span><input type="submit" id="edit-submit" name="op" value="Сохранить" class="form-submit" /></span></div></div></form>  </div>
+  
+</div>	</div>
+	
+</div>	</div>
+
+        </div><!-- /#main-inner -->
+      </div><!-- /#main -->
+
+              <div id="sidebar">
+          	<div class="region region-sidebar">
+		<div id="block-views-questions-block-1" class="block block-views">
+
+  <div class = "icon"></div>
+
+				<h3 class="title">Вопросы пользователей</h3>
+		
+	<div class="content">
+		<div class="view view-questions view-id-questions view-display-id-block_1 view-dom-id-71524f3f5f9ebb54bb5b14c241cbefd2">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+          <a href="/dopolnenie-tvoey-stati">Дополнение твоей статьи </a>  </li>
+          <li class="views-row views-row-2 views-row-even">  
+          <a href="/pdoexception-sqlstate42000-1044">PDOException: SQLSTATE[42000] [1044]</a>  </li>
+          <li class="views-row views-row-3 views-row-odd">  
+          <a href="/slozhnaya-pohozhest-materialov-views">Сложная &quot;похожесть&quot; материалов. views</a>  </li>
+          <li class="views-row views-row-4 views-row-even">  
+          <a href="/v-anonsah-ne-vyvoditsya-izobrazhenie-umenshennogo-formata">В анонсах не выводится изображение уменьшенного формата.</a>  </li>
+          <li class="views-row views-row-5 views-row-odd">  
+          <a href="/vyravnivanie-left-center-bokovyh-knopok">Выравнивание &quot;left-center&quot; боковых кнопок.</a>  </li>
+          <li class="views-row views-row-6 views-row-even">  
+          <a href="/izmenit-obekt-na-glavnoy">Изменить объект на &quot;Главной&quot;</a>  </li>
+          <li class="views-row views-row-7 views-row-odd views-row-last">  
+          <a href="/css">CSS</a>  </li>
+      </ul></div>    </div>
+  
+  
+  
+      
+<div class="more-link">
+  <a href="/questions">
+    Все вопросы  </a>
+</div>
+  
+  
+  
+</div>	</div>
+	
+</div>
+<div id="block-views-last-comments-block" class="block block-views">
+
+  <div class = "icon"></div>
+
+				<h3 class="title">Последние комментарии</h3>
+		
+	<div class="content">
+		<div class="view view-last-comments view-id-last_comments view-display-id-block view-dom-id-001109b5ee3e5be583db8669027de235">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+  <div class="views-field views-field-subject">        <span class="field-content"><a href="/comment/6102#comment-6102">Советую создать отдельный CSS</a></span>  </div>  
+  <div class="views-field views-field-created">        <span class="field-content"><em class="placeholder">16 часов 25 минут</em> назад</span>  </div></li>
+          <li class="views-row views-row-2 views-row-even">  
+  <div class="views-field views-field-subject">        <span class="field-content"><a href="/comment/6101#comment-6101">убери сжатие кэшированных</a></span>  </div>  
+  <div class="views-field views-field-created">        <span class="field-content"><em class="placeholder">1 день 12 часов</em> назад</span>  </div></li>
+          <li class="views-row views-row-3 views-row-odd">  
+  <div class="views-field views-field-subject">        <span class="field-content"><a href="/comment/6100#comment-6100">setting.php не менялся, я</a></span>  </div>  
+  <div class="views-field views-field-created">        <span class="field-content"><em class="placeholder">1 день 12 часов</em> назад</span>  </div></li>
+          <li class="views-row views-row-4 views-row-even">  
+  <div class="views-field views-field-subject">        <span class="field-content"><a href="/comment/6099#comment-6099">Чтобы сделать белый фон в</a></span>  </div>  
+  <div class="views-field views-field-created">        <span class="field-content"><em class="placeholder">1 день 20 часов</em> назад</span>  </div></li>
+          <li class="views-row views-row-5 views-row-odd">  
+  <div class="views-field views-field-subject">        <span class="field-content"><a href="/comment/6098#comment-6098">а, в чем была проблема?</a></span>  </div>  
+  <div class="views-field views-field-created">        <span class="field-content"><em class="placeholder">1 день 20 часов</em> назад</span>  </div></li>
+          <li class="views-row views-row-6 views-row-even">  
+  <div class="views-field views-field-subject">        <span class="field-content"><a href="/comment/6097#comment-6097">проблема решена</a></span>  </div>  
+  <div class="views-field views-field-created">        <span class="field-content"><em class="placeholder">2 дня 12 часов</em> назад</span>  </div></li>
+          <li class="views-row views-row-7 views-row-odd">  
+  <div class="views-field views-field-subject">        <span class="field-content"><a href="/comment/6096#comment-6096">поднимаю связку nginx</a></span>  </div>  
+  <div class="views-field views-field-created">        <span class="field-content"><em class="placeholder">2 дня 16 часов</em> назад</span>  </div></li>
+          <li class="views-row views-row-8 views-row-even">  
+  <div class="views-field views-field-subject">        <span class="field-content"><a href="/comment/6095#comment-6095">т.е. если я не внесла в</a></span>  </div>  
+  <div class="views-field views-field-created">        <span class="field-content"><em class="placeholder">3 дня 11 часов</em> назад</span>  </div></li>
+          <li class="views-row views-row-9 views-row-odd">  
+  <div class="views-field views-field-subject">        <span class="field-content"><a href="/comment/6094#comment-6094">Спасибо большое за</a></span>  </div>  
+  <div class="views-field views-field-created">        <span class="field-content"><em class="placeholder">4 дня 20 часов</em> назад</span>  </div></li>
+          <li class="views-row views-row-10 views-row-even views-row-last">  
+  <div class="views-field views-field-subject">        <span class="field-content"><a href="/comment/6093#comment-6093">Спасибо за модуль, но есть</a></span>  </div>  
+  <div class="views-field views-field-created">        <span class="field-content"><em class="placeholder">5 дней 11 часов</em> назад</span>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+  
+  
+  
+</div>	</div>
+	
+</div>
+<div id="block-views-blogs-block" class="block block-views">
+
+  <div class = "icon"></div>
+
+				<h3 class="title">Записи в блоге</h3>
+		
+	<div class="content">
+		<div class="view view-blogs view-id-blogs view-display-id-block view-dom-id-5e026cd30d112eb5c4ea3d622b750094">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/novyy-cache-expiration-polnaya-svoboda-v-vybore-pravil-dlya-sbrosa-kesha-stranic">Новый Cache Expiration - полная свобода в выборе правил для сброса кэша страниц</a></span>  </div></li>
+          <li class="views-row views-row-2 views-row-even">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/kesh-stranic-snizhenie-nagruzki-na-server-s-pomoshchyu-memcache-storage-page-cache">Кэш страниц. Снижение нагрузки на сервер с помощью Memcache Storage Page Cache</a></span>  </div></li>
+          <li class="views-row views-row-3 views-row-odd">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/perenos-keshirovanyh-dannyh-v-operativnuyu-pamyat-memcache-storage">Перенос кэшированых данных в оперативную память. Memcache Storage.</a></span>  </div></li>
+          <li class="views-row views-row-4 views-row-even">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/vkontakte-crossposter-2-voskreshenie">Vkontakte CrossPoster 2. Воскрешение.</a></span>  </div></li>
+          <li class="views-row views-row-5 views-row-odd">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/modul-po-dobavleniyu-meta-tegov-path-metatags">Модуль по добавлению мета-тегов. Path Metatags.</a></span>  </div></li>
+          <li class="views-row views-row-6 views-row-even">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/uskoryaem-butstrap-ili-borba-s-nepravilnym-udaleniem-moduley">Ускоряем бутстрап или борьба с неправильным удалением модулей</a></span>  </div></li>
+          <li class="views-row views-row-7 views-row-odd views-row-last">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/vkontakte-crossposter-2-vozvrashchenie">Vkontakte CrossPoster 2. Возвращение.</a></span>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+  
+  
+  
+</div>	</div>
+	
+</div>
+<div id="block-cumulus-2" class="block block-cumulus">
+
+  <div class = "icon"></div>
+
+				<h3 class="title">Категории</h3>
+		
+	<div class="content">
+		        <div id="tags">
+        <a href="/tags/ajax" class="tagadelic level2" rel="tag" title="">ajax</a> 
+<a href="/tags/cache" class="tagadelic level2" rel="tag" title="">cache</a> 
+<a href="/tags/css" class="tagadelic level2" rel="tag" title="">css</a> 
+<a href="/tags/database" class="tagadelic level1" rel="tag" title="">database</a> 
+<a href="/tags/drupal-6" class="tagadelic level6" rel="tag" title="">drupal 6</a> 
+<a href="/tags/drupal-7" class="tagadelic level6" rel="tag" title="">drupal 7</a> 
+<a href="/tags/drupal-api" class="tagadelic level1" rel="tag" title="">drupal API</a> 
+<a href="/tags/forms-api" class="tagadelic level3" rel="tag" title="">forms API</a> 
+<a href="/tags/hook" class="tagadelic level2" rel="tag" title="">hook</a> 
+<a href="/tags/info-fail" class="tagadelic level1" rel="tag" title="">info-файл</a> 
+<a href="/tags/javascript" class="tagadelic level2" rel="tag" title="">javascript</a> 
+<a href="/tags/jquery" class="tagadelic level1" rel="tag" title="">jquery</a> 
+<a href="/tags/module" class="tagadelic level3" rel="tag" title="">module</a> 
+<a href="/tags/mysql" class="tagadelic level2" rel="tag" title="">MySQL</a> 
+<a href="/tags/templatephp" class="tagadelic level3" rel="tag" title="">template.php</a> 
+<a href="/tags/theme" class="tagadelic level1" rel="tag" title="">theme</a> 
+<a href="/tags/views" class="tagadelic level1" rel="tag" title="">views</a> 
+<a href="/tags/modul" class="tagadelic level4" rel="tag" title="">модуль</a> 
+<a href="/tags/proizvoditelnost" class="tagadelic level1" rel="tag" title="">производительность</a> 
+<a href="/tags/failtplphp" class="tagadelic level3" rel="tag" title="">файл.tpl.php</a> 
+
+        <script type="text/javascript">
+          var rnumber = Math.floor(Math.random()*9999999);
+          var widget_so = new SWFObject("/sites/all/modules/cumulus/cumulus.swf?r="+rnumber, "cumulusflash", "225", "225", "9", "F6F6F");
+          widget_so.addParam("wmode", "transparent");
+          widget_so.addParam("allowScriptAccess", "always");
+          widget_so.addVariable("tcolor", "0x0071B3");
+          widget_so.addVariable("tcolor2", "0x0071B3");
+          widget_so.addVariable("hicolor", "0xFFFFFF");
+          widget_so.addVariable("tspeed", "200");
+          widget_so.addVariable("distr", "true");
+          widget_so.addVariable("mode", "tags");
+          widget_so.addVariable("tagcloud", "%3Ctags%3E%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fajax%22+style%3D%22%26quot%3Bfont-size%3A+19px%3B%26quot%3B%22%3Eajax%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fcache%22+style%3D%22%26quot%3Bfont-size%3A+19px%3B%26quot%3B%22%3Ecache%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fcss%22+style%3D%22%26quot%3Bfont-size%3A+19px%3B%26quot%3B%22%3Ecss%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fdatabase%22+style%3D%22%26quot%3Bfont-size%3A+16px%3B%26quot%3B%22%3Edatabase%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fdrupal-6%22+style%3D%22%26quot%3Bfont-size%3A+31px%3B%26quot%3B%22%3Edrupal+6%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fdrupal-7%22+style%3D%22%26quot%3Bfont-size%3A+31px%3B%26quot%3B%22%3Edrupal+7%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fdrupal-api%22+style%3D%22%26quot%3Bfont-size%3A+16px%3B%26quot%3B%22%3Edrupal+API%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fforms-api%22+style%3D%22%26quot%3Bfont-size%3A+22px%3B%26quot%3B%22%3Eforms+API%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fhook%22+style%3D%22%26quot%3Bfont-size%3A+19px%3B%26quot%3B%22%3Ehook%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Finfo-fail%22+style%3D%22%26quot%3Bfont-size%3A+16px%3B%26quot%3B%22%3Einfo-%D1%84%D0%B0%D0%B9%D0%BB%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fjavascript%22+style%3D%22%26quot%3Bfont-size%3A+19px%3B%26quot%3B%22%3Ejavascript%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fjquery%22+style%3D%22%26quot%3Bfont-size%3A+16px%3B%26quot%3B%22%3Ejquery%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fmodule%22+style%3D%22%26quot%3Bfont-size%3A+22px%3B%26quot%3B%22%3Emodule%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fmysql%22+style%3D%22%26quot%3Bfont-size%3A+19px%3B%26quot%3B%22%3EMySQL%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Ftemplatephp%22+style%3D%22%26quot%3Bfont-size%3A+22px%3B%26quot%3B%22%3Etemplate.php%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Ftheme%22+style%3D%22%26quot%3Bfont-size%3A+16px%3B%26quot%3B%22%3Etheme%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fviews%22+style%3D%22%26quot%3Bfont-size%3A+16px%3B%26quot%3B%22%3Eviews%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fmodul%22+style%3D%22%26quot%3Bfont-size%3A+25px%3B%26quot%3B%22%3E%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D1%8C%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fproizvoditelnost%22+style%3D%22%26quot%3Bfont-size%3A+16px%3B%26quot%3B%22%3E%D0%BF%D1%80%D0%BE%D0%B8%D0%B7%D0%B2%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D1%8C%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Ffailtplphp%22+style%3D%22%26quot%3Bfont-size%3A+22px%3B%26quot%3B%22%3E%D1%84%D0%B0%D0%B9%D0%BB.tpl.php%3C%2Fa%3E+%0A%3C%2Ftags%3E");
+          widget_so.write("tags");
+        </script>
+        </div>
+        <div class="more-link"><a href="/tagadelic/chunk/2">Мета теги</a></div>	</div>
+	
+</div>
+<div id="block-block-12" class="block block-block">
+
+  <div class = "icon"></div>
+
+				<h3 class="title">Подписка</h3>
+		
+	<div class="content">
+		<ul>
+<li><a href="http://drupalace.ru/rss.xml" target="_blank">RSS</a></li>
+<li><a href="http://feeds.feedburner.com/Drupalaceru" target="_blank">Feedburner</a></li>
+</ul>
+	</div>
+	
+</div>
+<div id="block-user-login" class="block block-user">
+
+  <div class = "icon"></div>
+
+			
+	<div class="content">
+		<form action="/lesson/render-massivov-v-sedmom-drupale?destination=node/527" method="post" id="user-login-form" accept-charset="UTF-8"><div><div class="form-item form-type-textfield form-item-name">
+  <label for="edit-name--2">Имя пользователя <span class="form-required" title="Обязательно для заполнения.">*</span></label>
+ <input type="text" id="edit-name--2" name="name" value="" size="15" maxlength="60" class="form-text required" />
+</div>
+<div class="form-item form-type-password form-item-pass">
+  <label for="edit-pass">Пароль <span class="form-required" title="Обязательно для заполнения.">*</span></label>
+ <input type="password" id="edit-pass" name="pass" size="15" maxlength="128" class="form-text required" />
+</div>
+<div class="item-list"><ul><li class="first odd"><a href="/user/register" title="Создать новую учетную запись.">Регистрация</a></li>
+<li class="last even"><a href="/user/password" title="Запросить новый пароль на e-mail.">Забыли пароль?</a></li>
+</ul></div><input type="hidden" name="form_build_id" value="form-oFiiUFkTywPO3h_H1g4NZgmNFZ3NlHZOJiIadXTKaJk" />
+<input type="hidden" name="form_id" value="user_login_block" />
+<div class="form-actions form-wrapper" id="edit-actions--3"><span class="button"><span class = "button-left"></span><span class = "button-center"></span><span class = "button-right"></span><input type="submit" id="edit-submit--3" name="op" value="Войти" class="form-submit" /></span></div></div></form>	</div>
+	
+</div>
+<div id="block-block-14" class="block block-block">
+
+  <div class = "icon"></div>
+
+				<h3 class="title">Друзья</h3>
+		
+	<div class="content">
+		<ul><li><a href="http://couponmio.ru/shops" title="couponmio" target="_blank">couponmio</a></li>
+</ul>	</div>
+	
+</div>
+	</div>
+        </div>
+      
+    </div> <!-- /#container -->
+
+          <div id = "footer-menu">
+        <div id = "footer-menu-inner">
+            <ul class="links"><li class="menu-821 first"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/contact" title="">Контакты</a></li>
+<li class="menu-1812"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/blog" title="">Мой блог</a></li>
+<li class="menu-935"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/tracker" title="">Новое</a></li>
+<li class="menu-1502 last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/podderzhka-proekta" title="Поддержка проекта">Поддержать проект</a></li>
+</ul>        </div>
+      </div>
+      
+  <div id = "footer">
+    <div id = "footer-inner">
+
+              <div id = "footer-region-second">
+          <div id = "footer-region-second-inner">
+            	<div class="region region-footer-second">
+		<div id="block-statistics-popular" class="block block-statistics">
+
+				<h3 class="title">Популярные уроки</h3>
+		
+	<div class="content">
+		<div class="item-list"><h3>Просмотры за день:</h3><ul><li class="first odd"><a href="/v-anonsah-ne-vyvoditsya-izobrazhenie-umenshennogo-formata">В анонсах не выводится изображение уменьшенного формата.</a></li>
+<li class="even"><a href="/svoy-shablon-dlya-tipa-materiala-kak-vyvodit-nuzhnye-polya-v-nuzhnyh-mestah-shablona">Свой шаблон для типа материала. Как выводить нужные поля в нужных местах шаблона.</a></li>
+<li class="last odd"><a href="/vkontakte-crossposter-2-voskreshenie">Vkontakte CrossPoster 2. Воскрешение.</a></li>
+</ul></div><br /><div class="item-list"><h3>Просмотры за всё время:</h3><ul><li class="first odd"><a href="/lesson/nemnogo-o-vyvode-lyubykh-cck-polei-programmno-cherez-nodetplphp">Немного о выводе любых cck-полей программно через node.tpl.php</a></li>
+<li class="even"><a href="/lesson/temizatsiya-drupal-7-obzor-failov-temy-shablona">Темизация Drupal 7. Обзор файлов темы (шаблона)</a></li>
+<li class="last odd"><a href="/lesson/umnoe-raskryvayushcheesya-vertikalnoe-menyu-na-jquery-za-2-minuty">&quot;Умное&quot; раскрывающееся вертикальное меню на jquery за 2 минуты</a></li>
+</ul></div><br />	</div>
+	
+</div>
+	</div>
+          </div>
+        </div>
+      
+              <div id = "footer-region-first">
+          	<div class="region region-footer-first">
+		<div id="block-block-13" class="block block-block">
+
+				<h3 class="title">Последнее из моего Твиттера</h3>
+		
+	<div class="content">
+		<p><a class="twitter-timeline" href="https://twitter.com/Spleshka" data-widget-id="349432829320511490" data-chrome="nofooter transparent" data-tweet-limit="3" data-theme="dark">Твиты пользователя @Spleshka</a></p>
+<script>
+<!--//--><![CDATA[// ><!--
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+//--><!]]>
+</script>	</div>
+	
+</div>
+	</div>
+        </div>
+      
+              <div id = "footer-region-third">
+          	<div class="region region-footer-third">
+		<div id="block-views-tracker-block-block-1" class="block block-views">
+
+				<h3 class="title">Последние обновления</h3>
+		
+	<div class="content">
+		<div class="view view-tracker-block view-id-tracker_block view-display-id-block_1 view-dom-id-a407d6a7700c20cb093bd14c6ce8b77a">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/izmenit-obekt-na-glavnoy">Изменить объект на &quot;Главной&quot;</a></span>  </div></li>
+          <li class="views-row views-row-2 views-row-even">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/lesson/otdayom-kesh-anonimov-bez-podnyatiya-bekenda-drupal-7-nginx-memcached">Отдаём кэш анонимов без поднятия бэкэнда. Drupal 7 + nginx + memcached.</a></span>  </div></li>
+          <li class="views-row views-row-3 views-row-odd">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/pdoexception-sqlstate42000-1044">PDOException: SQLSTATE[42000] [1044]</a></span>  </div></li>
+          <li class="views-row views-row-4 views-row-even">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/css">CSS</a></span>  </div></li>
+          <li class="views-row views-row-5 views-row-odd">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/dopolnenie-tvoey-stati">Дополнение твоей статьи </a></span>  </div></li>
+          <li class="views-row views-row-6 views-row-even views-row-last">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/lesson/sozdanie-otdelnogo-shablona-stranitsy-dlya-raznykh-tipov-nody">Создание отдельного шаблона страницы для разных типов ноды</a></span>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+  
+  
+  
+</div>	</div>
+	
+</div>
+	</div>
+        </div>
+      
+      <div class = "clear"></div>
+
+      	<div class="region region-footer">
+		<div class="content-footer">
+  <p>Copyright © 2010-2013 Drupalace<br />
+При использовании материалов с сайта ссылка на источник <strong>обязательна</strong>.</p>
+</div>	</div>
+
+              <div id = "counter">
+          	<div class="region region-counter">
+		<!--LiveInternet counter--><script type="text/javascript"><!--
+document.write("<a href='http://www.liveinternet.ru/click' "+
+"target=_blank><img src='//counter.yadro.ru/hit?t17.1;r"+
+escape(document.referrer)+((typeof(screen)=="undefined")?"":
+";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+";"+Math.random()+
+"' alt='' title='LiveInternet: показано число просмотров за 24"+
+" часа, посетителей за 24 часа и за сегодня' "+
+"border='0' width='88' height='31'><\/a>")
+//--></script><!--/LiveInternet-->
+	</div>
+        </div>
+      
+    </div>
+  </div>
+
+</div>  	<div class="region region-page-bottom">
+		<div style="clear:both;"><!-- Yandex.Metrika counter --><script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter18282010 = new Ya.Metrika({id:18282010, webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/18282010" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter --></div><script>(function() {var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;po.src = 'https://apis.google.com/js/plusone.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);})();</script>	</div>
+<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</body>
+</html>

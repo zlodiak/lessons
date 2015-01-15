@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="ru-RU">
+<head>
+    <meta charset=utf-8>
+    <title>Acman - Блог - Создание сайдбара для сайта Django 1.4</title>
+    <meta name="author" content="Гребенников Виталий" />
+    <meta name="keywords" content="sidebar, сайдбар, Django 1.4, сustom template tags" />
+    <meta name="description" content="Итак, добрались до сайдбара для своего блога. Нужно ж выводить список категорий, тегов, последних статей и тд. Я решил использовать сustom template tags" />
+    <meta name="google-site-verification" content="mEo_suS-oh8CIK1g_f4zyh_J4xPrngx5UDViww2R974" />
+    <link rel="stylesheet" type="text/css" href="/static/css/googlecode.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/default.css" />
+    <link rel='icon' type='image.ico' href="http://acman.ru/media/img/favicon.ico">
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/jqueryarrow.js"></script>
+    <script type="text/javascript" src="/static/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        var link = window.location.pathname;
+        $('#menu li a[href="'+link+'"]').parent().addClass('active');
+
+        $.autoScroll({
+            scrollDuration: 2000,
+            showDuration: 400,
+            hideDuration: 300
+        });
+
+        $("div#logo").hover(
+            function(){
+                $("span#django").text("python/django разработка");
+                $("span#django").css({"color":"#093768"});
+            },
+            function(){
+                $("span#django").text("python/django development");
+                $("span#django").css({"color":"#DDDDDD"});
+            }
+        );
+    });
+    </script>
+</head>
+<body>
+    
+    <!-- start header -->
+    <div id="header">
+        <div id="logo">
+            <h1>
+                <a href="/">Acman</a>
+            </h1>
+            <p>
+                <span id="django">python/django development</span>
+            </p>
+        </div>
+        <div id="menu">
+            <ul>
+                <li>
+                    <a href="/blog/">
+                        <span>Блог разработчика</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/blog/archive/">
+                        <span>Архив записей</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/">
+                        <span>Закажи меня</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <hr />
+    <!-- end header -->
+    <!-- start page -->
+    <div id="wrapper">
+
+        <div id="page">
+            <div id="page-bgtop">
+                <div id="page-bgbtm">
+                    <div id="content">
+<div class="post">
+    <p class="date">
+        Сен/12
+        <br> <b>25</b>
+    </p>
+
+    <h2 class="titl">
+        <a href="10">Создание сайдбара для сайта Django 1.4</a>
+    </h2>
+    <h3>
+        категория: <a href="category/3">Django</a>
+    </h3>
+    <div class="entry">
+        <!-- Поместите этот тег туда, где должна отображаться кнопка +1. -->
+        <div class="g-plusone" data-annotation="inline" data-width="300"></div>
+
+        <!-- Поместите этот тег за последним тегом виджета кнопка +1. -->
+        <script type="text/javascript">
+          window.___gcfg = {lang: 'ru'};
+
+          (function() {
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/platform.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+          })();
+        </script>
+        <p>Итак, добрались до сайдбара для своего блога. Нужно ж выводить список категорий, тегов, последних статей и тд. Я решил использовать сustom template tags (https://docs.djangoproject.com/en/1.4/howto/custom-template-tags/). Почему именно тэги, а не контекстные процессоры? Разные дискуссии есть по этому поводу, можете почитать об этом на форумах. Примеры можно посмотреть в django/template/defaulttags.py.</p>
+
+<p>Начнем с создания каталога для своих тэгов в корне нашего аппа, должно получиться что-то вроде этого:</p>
+
+<p><pre><code>blog/<br />    models.py<br />    templatetags/<br />        __init__.py<br />        sidebar.py<br />    views.py</code></pre></p>
+
+<p>Собственные теги в шаблоне будем подгружать через тег {% load sidebar %}.<br />В своем sidebar.py прописываем:</p>
+
+<p><pre><code>from django import template<br />from blog.models import Tag, Category, Post # импортируем модели<br /># экземпляр класса, в котором все наши теги будут зарегистрированы<br />register = template.Library() <br /># регистрируем наш тег, который будет выводить шаблон right_sidebar.html<br />@register.inclusion_tag("right_sidebar.html")<br />def show_sidebar():<br />    tags = Tag.objects.all() # выбираем все теги<br />    # выбираем все категории<br />    categories = Category.objects.all().order_by("name")<br />    # выбираем все статьи по id - для ссылок и title - для списка <br />    new_posts = Post.objects.values('id','title').order_by("-created")[:7]<br />    # возвращаем наши объекты в шаблон<br />    return {'tags': tags, 'categories': categories, 'new_posts': new_posts}<br /></code></pre></p>
+
+<p>Далее создаем сам шаблон для отображения списка категорий, тэгов и последних добавленных статей "right_sidebar.html":</p>
+
+<p><pre><code>&lt;ul><br />   &lt;li class="categories"><br />       &lt;h2>Категории:&lt;/h2><br />       &lt;ul><br />           {% for category in categories %}<br />           &lt;li class="category"><br />              // выводим список ссылок на категории<br />              &lt;a href="{% url url_category category.id%}">{{ category }}&lt;/a> <br />           &lt;/li><br />           {% endfor %}<br />       &lt;/ul><br />   &lt;/li><br />   ... // так же само для остального<br />&lt;/ul></code></pre></p>
+
+<p>url_category - это именованная ссылка:<br /><pre><code>url(r'^category/(?P&lt;id>\d+)$', 'category', name="url_category")</code></pre></p>
+
+<p>Все, теперь вставляем наш собственный тег show_sidebar в base.html, и он рендерит весь наш шаблон сайдбара right_sidebar.html:</p>
+
+<p><pre><code>&lt;div class="sidebar"><br />    {% show_sidebar %} <br />&lt;/div></code></pre></p>
+
+<p>Все оказалось так просто, а так много времени у меня почему-то на это пошло, я даже не могу найти себе оправдания, но остались незабываемые впечатления)).</p>
+
+        <div class="prev-next-post">
+            
+                <div class="prev-post"><a href="9" class="prev-post fl-l"><i class="arrow-prev"></i><< Комментарии для сайта Django 1.4</a></div>
+            
+
+            
+                <div class="next-post"><a href="11" class="next-post fl-r">Подсветка кода на сайте >><i class="arrow-next"></i></a></div>
+            
+
+        </div>
+        <div style="clear: both;"></div>
+        <br>
+
+    	<script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+    	<div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir,lj,gplus">
+    	</div>
+    	<br>
+        
+        <div id="disqus_thread"></div>
+<script type="text/javascript">
+/* <![CDATA[ */
+
+	var disqus_shortname = 'acman';
+
+
+	/* * * DON'T EDIT BELOW THIS LINE * * */
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </div>
+</div>
+</div>
+                    <div id="sidebar"><ul>
+        <div class="soc_buttons">
+        <a title="Acman на vkontakte" alt ="vkontakte" target="_blank" href="http://vk.com/id65634650" >
+            <img src="/static/images/icons/vkontakte.png" height="50px" width="50px"></a>
+        <a title="Acman на twitter" alt ="twitter" target="_blank" href="https://twitter.com/Asman_Uzh" >
+            <img src="/static/images/icons/twitter.png" height="50px" width="50px"></a>
+        <a title="Acman на facebook" alt ="facebook" target="_blank" href="http://www.facebook.com/accrewmat">
+            <img src="/static/images/icons/face.png" height="50px" width="50px"></a>
+        <a title="Acman на google+" alt ="google+" target="_blank" href="https://plus.google.com/u/0/110739787439630261859">
+            <img src="/static/images/icons/google.png" height="50px" width="50px"></a>
+        </div>
+    <li id="categories">
+        <h2>Категории:</h2>
+        <ul>
+            
+                <li id="category">
+                    <a href="/blog/category/12">CSS</a> (2)
+                </li>
+            
+                <li id="category">
+                    <a href="/blog/category/3">Django</a> (53)
+                </li>
+            
+                <li id="category">
+                    <a href="/blog/category/10">Git</a> (3)
+                </li>
+            
+                <li id="category">
+                    <a href="/blog/category/7">HTML</a> (5)
+                </li>
+            
+                <li id="category">
+                    <a href="/blog/category/4">jQuery</a> (14)
+                </li>
+            
+                <li id="category">
+                    <a href="/blog/category/11">PyCharm</a> (3)
+                </li>
+            
+                <li id="category">
+                    <a href="/blog/category/6">Python</a> (6)
+                </li>
+            
+                <li id="category">
+                    <a href="/blog/category/2">Ubuntu</a> (10)
+                </li>
+            
+                <li id="category">
+                    <a href="/blog/category/1">Интересное</a> (8)
+                </li>
+            
+        </ul>
+    </li>
+    <li>
+        <h2>Последние статьи:</h2>
+        <ul>
+            
+            <li id="category">
+                <a href="/blog/120">Много страниц с одним view Django</a>
+            </li>
+            
+            <li id="category">
+                <a href="/blog/119">Комментарии Disqus в Django по новому</a>
+            </li>
+            
+            <li id="category">
+                <a href="/blog/118">Загрузочная флешка Windows 7 в Ubuntu</a>
+            </li>
+            
+            <li id="category">
+                <a href="/blog/117">Предыдущий, следующий пост Django</a>
+            </li>
+            
+            <li id="category">
+                <a href="/blog/116">Меню Django</a>
+            </li>
+            
+            <li id="category">
+                <a href="/blog/114">Редакция статического текста в админке Django</a>
+            </li>
+            
+            <li id="category">
+                <a href="/blog/115">Отладка Django</a>
+            </li>
+            
+        </ul>
+    </li>
+    <li>
+        <h2>Поставить кофе:</h2>
+        <div id="tag">
+            WMZ: Z100256528508<br>
+            WMR: R319386256832
+<br><br><br>
+<a href=http://www.webstatsdomain.net/domains/www.acman.ru/" target="_blank"><img src="http://www.webstatsdomain.net/widget/worth_pr_alexa_new/?domain=www.acman.ru&width=130" alt="acman.ru-Google pagerank,alexa rank,Competitor" title="acman.ru-Google pagerank,alexa rank,Competitor" style="border:none;"/></a>
+        </div>
+    </li>
+</li>
+</ul>
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end page -->
+    <!-- start footer -->
+    <div id="footer">
+        <div id='legal'>
+            Copyright &copy;
+            <a href="/">acman.ru</a>
+            , 2012 - 2014
+            <br><br>
+
+    <!-- Rating@Mail.ru counter -->
+<script type="text/javascript">//<![CDATA[
+var a='',js=10;try{a+=';r='+escape(document.referrer);}catch(e){}try{a+=';j='+navigator.javaEnabled();js=11;}catch(e){}
+try{s=screen;a+=';s='+s.width+'*'+s.height;a+=';d='+(s.colorDepth?s.colorDepth:s.pixelDepth);js=12;}catch(e){}
+try{if(typeof((new Array).push('t'))==="number")js=13;}catch(e){}
+try{document.write('<a href="http://top.mail.ru/jump?from=2259145">'+
+'<img src="http://d8.c7.b2.a2.top.mail.ru/counter?id=2259145;t=49;js='+js+a+';rand='+Math.random()+
+'" alt="Рейтинг@Mail.ru" style="border:0;" height="31" width="88" \/><\/a>');}catch(e){}//]]></script>
+<noscript><p><a href="http://top.mail.ru/jump?from=2259145">
+<img src="http://d8.c7.b2.a2.top.mail.ru/counter?js=na;id=2259145;t=49"
+style="border:0;" height="31" width="88" alt="Рейтинг@Mail.ru" /></a></p></noscript>
+<!-- //Rating@Mail.ru counter -->
+
+<!-- begin of Top100 code -->
+
+<script id="top100Counter" type="text/javascript" src="http://counter.rambler.ru/top100.jcn?2790931"></script>
+<noscript>
+<a href="http://top100.rambler.ru/navi/2790931/">
+<img src="http://counter.rambler.ru/top100.cnt?2790931" alt="Rambler's Top100" border="0" />
+</a>
+
+</noscript>
+<!-- end of Top100 code -->
+
+<!-- Yandex.Metrika informer -->
+<a href="http://metrika.yandex.ru/stat/?id=17692285&amp;from=informer"
+target="_blank" rel="nofollow"><img src="//bs.yandex.ru/informer/17692285/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
+style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)" onclick="try{Ya.Metrika.informer({i:this,id:17692285,type:0,lang:'ru'});return false}catch(e){}"/></a>
+<!-- /Yandex.Metrika informer -->
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+(function (d, w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter17692285 = new Ya.Metrika({id:17692285, enableAll: true});
+        } catch(e) { }
+    });
+
+    var n = d.getElementsByTagName("script")[0],
+        s = d.createElement("script"),
+        f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f);
+    } else { f(); }
+})(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="//mc.yandex.ru/watch/17692285" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+</div>
+    <!-- end footer --> </div>
+</body>
+</html>

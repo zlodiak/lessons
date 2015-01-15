@@ -1,0 +1,51 @@
+меню в виде группы, шириной 100%.
+если количество пунктов нечётное, то первый и последний пункт должен иметь отличное значение ширины в процентах.
+хорошо бы ещё минимальные значения задать.
+
+					<div class="navpanel_outer">
+						<div class="navpanel btn-group" role="group" aria-label="...">
+							<ul>
+								<li class="btn btn-default">Left</li>
+								<li class="btn btn-default">Middle</li>
+								<li class="btn btn-default">Middle</li>
+								<li class="btn btn-default">Middle</li>
+								<li class="btn btn-default">Middle</li>
+								<li class="btn btn-default">Middle</li>
+								<li class="btn btn-default">Middle</li>
+								<li class="btn btn-default">Right</li>
+							</ul>
+						</div>	
+					</div>	
+
+
+
+/*************************************************************************************************************** GLOBAL_blocks : navpanel */
+.navpanel_outer{
+	
+}
+
+	.navpanel.btn-group{
+		text-align: center;
+
+		display: block;
+	}
+
+		.navpanel ul{
+			overflow: hidden;
+			display: inline-block;
+			width: 100%;
+		}
+
+			.navpanel ul li:first-child{
+				border-radius: 5px 0 0 5px;
+			}
+
+			.navpanel ul li:last-child{
+				border-radius: 0 5px 5px 0;
+			}
+
+			.navpanel ul li{
+				float: left;
+				border-radius: 0;
+				width: 12.5%;
+			}					

@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="ru-RU">
+<head>
+    <meta charset=utf-8>
+    <title>Acman - Блог - Django форма подписки на AJAX</title>
+    <meta name="author" content="Гребенников Виталий" />
+    <meta name="keywords" content="django, ajax, jquery, подписка, подписка на обновления, отправка формы ajax" />
+    <meta name="description" content="Подписка на новости сайта Django с использованием технологии AJAX" />
+    <meta name="google-site-verification" content="mEo_suS-oh8CIK1g_f4zyh_J4xPrngx5UDViww2R974" />
+    <link rel="stylesheet" type="text/css" href="/static/css/googlecode.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/default.css" />
+    <link rel='icon' type='image.ico' href="http://acman.ru/media/img/favicon.ico">
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/jqueryarrow.js"></script>
+    <script type="text/javascript" src="/static/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        var link = window.location.pathname;
+        $('#menu li a[href="'+link+'"]').parent().addClass('active');
+
+        $.autoScroll({
+            scrollDuration: 2000,
+            showDuration: 400,
+            hideDuration: 300
+        });
+
+        $("div#logo").hover(
+            function(){
+                $("span#django").text("python/django разработка");
+                $("span#django").css({"color":"#093768"});
+            },
+            function(){
+                $("span#django").text("python/django development");
+                $("span#django").css({"color":"#DDDDDD"});
+            }
+        );
+    });
+    </script>
+</head>
+<body>
+    
+    <!-- start header -->
+    <div id="header">
+        <div id="logo">
+            <h1>
+                <a href="/">Acman</a>
+            </h1>
+            <p>
+                <span id="django">python/django development</span>
+            </p>
+        </div>
+        <div id="menu">
+            <ul>
+                <li>
+                    <a href="/blog/">
+                        <span>Блог разработчика</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/blog/archive/">
+                        <span>Архив записей</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/">
+                        <span>Закажи меня</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <hr />
+    <!-- end header -->
+    <!-- start page -->
+    <div id="wrapper">
+
+        <div id="page">
+            <div id="page-bgtop">
+                <div id="page-bgbtm">
+                    <div id="content">
+<div class="post">
+    <p class="date">
+        Окт/13
+        <br> <b>02</b>
+    </p>
+
+    <h2 class="titl">
+        <a href="106">Django форма подписки на AJAX</a>
+    </h2>
+    <h3>
+        категория: <a href="category/3">Django</a>
+    </h3>
+    <div class="entry">
+        <!-- Поместите этот тег туда, где должна отображаться кнопка +1. -->
+        <div class="g-plusone" data-annotation="inline" data-width="300"></div>
+
+        <!-- Поместите этот тег за последним тегом виджета кнопка +1. -->
+        <script type="text/javascript">
+          window.___gcfg = {lang: 'ru'};
+
+          (function() {
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/platform.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+          })();
+        </script>
+        <p>Недавно создавал форму подписки на новости на сайте pixity.ru. Решил немного описать. </p>
+
+<p>Задача: сделать форму с двумя полями (имя и e-mail) и кнопочкой "подписаться". Данные, при нажатии на кнопку, будут отправляться с помощью ajax и сохраняться в базу, поля формы при успешной отправке будут очищаться, а поменяется надпись на "спасибо". </p>
+
+<p>Создаем новое приложение "call" и пишем модель и в ней форму ModelForm.</p>
+
+<p>call/models.py:</p>
+
+<p><pre><code>#! coding: utf-8<br />from django.db import models<br />from django.forms import ModelForm<br />#<br />#<br />class Call(models.Model):<br />    name = models.CharField(u"имя", max_length=50)<br />    email = models.CharField(u"e-mail", max_length=150)<br />#<br />    class Meta:<br />        verbose_name = 'Подписка'<br />        verbose_name_plural = 'Подписки'<br />#<br />    def __unicode__(self):<br />        return self.name<br />#<br />#<br />class CallForm(ModelForm):<br />    class Meta:<br />        model = Call<br /></code></pre></p>
+
+<p>Потом добавляем приложение call в INSTALL_APPS, делаем начальную миграцию модели, ведь мало ли что-то придется редактировать.</p>
+
+<p>Добавляем модель в админку.</p>
+
+<p>call/admin.py</p>
+
+<p><pre><code>#! coding: utf-8<br />from django.contrib import admin<br />from .models import Call<br />#<br />#<br />class CallAdmin(admin.ModelAdmin):<br />   list_display = ('name', 'email')<br />#<br />admin.site.register(Call, CallAdmin)<br /></code></pre></p>
+
+<p>Прописываем ссылку.</p>
+
+<p>urls.py:</p>
+
+<p><pre><code>url(r'^call/$', 'call.views.save_call',),<br /></code></pre></p>
+
+<p>Пишем вьюху, которая будет сохранять информацию в базу только при отправке аяксом.</p>
+
+<p>call/views.py:</p>
+
+<p><pre><code>#! coding: utf-8<br />from django.http import HttpResponse<br />from call.models import Call<br />#<br />from django.views.decorators.csrf import csrf_protect<br />#<br />#<br />@csrf_protect<br />def save_call(request):<br />    if request.method == "POST" and request.is_ajax():<br />        c = Call(<br />            name=request.POST.get("name", "")[:50],<br />            email=request.POST.get("email", "")[:150]<br />        )<br />        c.save()<br />        return HttpResponse("ok")<br />    else:<br />        return HttpResponse("bad")<br /></code></pre></p>
+
+<p>Дальше создаем темплейт тег для формочки. В приложении call создаем папку templatetags, заходим в нее, создаем __init__.py и form.py. Регистрируем тег с нашей формой.</p>
+
+<p>call/templatetags/form.py:</p>
+
+<p><pre><code>#! coding: utf-8<br />from django import template<br />from call.models import CallForm<br />#<br />register = template.Library()<br />#<br />#<br />@register.inclusion_tag("call_form.html")<br />def show_form(request):<br />    return {<br />        "form": CallForm()<br />    }<br /></code></pre></p>
+
+<p>Теперь пишем шаблон, в который передаем форму отправки.</p>
+
+<p>call/templates/call_form.html:</p>
+
+<p><pre><code>&lt;form action="." method="POST" id="save-call"><br />    {% for field in form.visible_fields %}<br />        &lt;div class="save-call-field"><br />            {{ field.label_tag }}&lt;br>{{ field }}<br />        &lt;/div><br />    {% endfor %}<br />    &lt;button>ПОДПИСАТЬСЯ&lt;/button><br />&lt;/form><br /></code></pre></p>
+
+<p>Прописываем красивые стили для всего этого дела, чтоб выглядело по сочней :).</p>
+
+<p>Добавляем наш тэг туда где должна быть форма подписки на обновления, в моем случае это footer.html. Подгружаем шаблонный тег {% load form %} и вставляем где будет находиться форма {% show_form request %}.</p>
+
+<p>И наконец пишем js, который будет отправлять данные асинхронно. Не забываем подключить jQuery. </p>
+
+<p>static/js/main.js:</p>
+
+<p><pre><code>$(".footer button").click(function() {<br />//<br />    var name = $("input[name=name]");<br />    var email = $("input[name=email]");<br />//<br />    var error = "";<br />// Проверка введена ли информация в поля формы<br />    if ((name.val() == '') || (email.val() == '')) {<br />         error = "Вы не ввели имя и e-mail";<br />         if (name.val() == '' && email.val() != '') {<br />            error = "Вы не ввели имя";<br />         }<br />         if (name.val() != '' && email.val() == '') {<br />            error = "Вы не ввели e-mail";<br />         }<br />         alert(error);<br />    }<br />// Если поля заполнены, отправляем их значения<br />    if (!error) {<br />        $.ajax({<br />            url: "/call/",<br />            type: 'POST',<br />            dataType:"html",<br />            data: {<br />                "name": name.val(),<br />                "email": email.val(),<br />            },<br />            error: function() {<br />                alert('Ошибка получения запроса');<br />            },<br />// При успехе очищаем поля и меняем кнопочку<br />            success: function(data) {<br />                name.val('');<br />                email.val('');<br />                $(".footer button").text("СПАСИБО")<br />                        .addClass("save-call-button");<br />            },<br />// CSRF механизм защиты Django<br />            beforeSend: function(xhr, settings) {<br />                console.log('-------------before send--');<br />                function getCookie(name) {<br />                    var cookieValue = null;<br />                    if (document.cookie && document.cookie != '') {<br />                        var cookies = document.cookie.split(';');<br />                        for (var i = 0; i < cookies.length; i++) {<br />                            var cookie = jQuery.trim(cookies[i]);<br />                            // Does this cookie string begin with the name we want?<br />                        if (cookie.substring(0, name.length + 1) == (name + '=')) {<br />                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));<br />                            break;<br />                        }<br />                    }<br />                }<br />                return cookieValue;<br />                }<br />                if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {<br />                    // Only send the token to relative URLs i.e. locally.<br />                    xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));<br />                }<br />            }<br />        });// ajax<br />    }<br />    return false;<br />});<br /></code></pre></p>
+
+<p>CSRF защита не влазит, возьмите ее <a href="http://stackoverflow.com/questions/5100539/django-csrf-check-failing-with-an-ajax-post-request" target="_blank">здесь</a></p>
+
+<p>Если возникнут вопросы, не стесняйтесь - задавайте.</p>
+
+        <div class="prev-next-post">
+            
+                <div class="prev-post"><a href="105" class="prev-post fl-l"><i class="arrow-prev"></i><< Передвижение блоков при наведении курсора</a></div>
+            
+
+            
+                <div class="next-post"><a href="107" class="next-post fl-r">Ездящий блок jQuery >><i class="arrow-next"></i></a></div>
+            
+
+        </div>
+        <div style="clear: both;"></div>
+        <br>
+
+    	<script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+    	<div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir,lj,gplus">
+    	</div>
+    	<br>
+        
+        <div id="disqus_thread"></div>
+<script type="text/javascript">
+/* <![CDATA[ */
+
+	var disqus_shortname = 'acman';
+
+
+	/* * * DON'T EDIT BELOW THIS LINE * * */
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </div>
+</div>
+</div>
+                    <div id="sidebar"><ul>
+        <div class="soc_buttons">
+        <a title="Acman на vkontakte" alt ="vkontakte" target="_blank" href="http://vk.com/id65634650" >
+            <img src="/static/images/icons/vkontakte.png" height="50px" width="50px"></a>
+        <a title="Acman на twitter" alt ="twitter" target="_blank" href="https://twitter.com/Asman_Uzh" >
+            <img src="/static/images/icons/twitter.png" height="50px" width="50px"></a>
+        <a title="Acman на facebook" alt ="facebook" target="_blank" href="http://www.facebook.com/accrewmat">
+            <img src="/static/images/icons/face.png" height="50px" width="50px"></a>
+        <a title="Acman на google+" alt ="google+" target="_blank" href="https://plus.google.com/u/0/110739787439630261859">
+            <img src="/static/images/icons/google.png" height="50px" width="50px"></a>
+        </div>
+    <li id="categories">
+        <h2>Категории:</h2>
+        <ul>
+            
+                <li id="category">
+                    <a href="/blog/category/12">CSS</a> (2)
+                </li>
+            
+                <li id="category">
+                    <a href="/blog/category/3">Django</a> (53)
+                </li>
+            
+                <li id="category">
+                    <a href="/blog/category/10">Git</a> (3)
+                </li>
+            
+                <li id="category">
+                    <a href="/blog/category/7">HTML</a> (5)
+                </li>
+            
+                <li id="category">
+                    <a href="/blog/category/4">jQuery</a> (14)
+                </li>
+            
+                <li id="category">
+                    <a href="/blog/category/11">PyCharm</a> (3)
+                </li>
+            
+                <li id="category">
+                    <a href="/blog/category/6">Python</a> (6)
+                </li>
+            
+                <li id="category">
+                    <a href="/blog/category/2">Ubuntu</a> (11)
+                </li>
+            
+                <li id="category">
+                    <a href="/blog/category/1">Интересное</a> (8)
+                </li>
+            
+        </ul>
+    </li>
+    <li>
+        <h2>Последние статьи:</h2>
+        <ul>
+            
+            <li id="category">
+                <a href="/blog/121">Обновляем Ubuntu до последней версии</a>
+            </li>
+            
+            <li id="category">
+                <a href="/blog/120">Много страниц с одним view Django</a>
+            </li>
+            
+            <li id="category">
+                <a href="/blog/119">Комментарии Disqus в Django по новому</a>
+            </li>
+            
+            <li id="category">
+                <a href="/blog/118">Загрузочная флешка Windows 7 в Ubuntu</a>
+            </li>
+            
+            <li id="category">
+                <a href="/blog/117">Предыдущий, следующий пост Django</a>
+            </li>
+            
+            <li id="category">
+                <a href="/blog/116">Меню Django</a>
+            </li>
+            
+            <li id="category">
+                <a href="/blog/114">Редакция статического текста в админке Django</a>
+            </li>
+            
+        </ul>
+    </li>
+    <li>
+        <h2>Поставить кофе:</h2>
+        <div id="tag">
+            WMZ: Z100256528508<br>
+            WMR: R319386256832
+<br><br><br>
+<a href=http://www.webstatsdomain.net/domains/www.acman.ru/" target="_blank"><img src="http://www.webstatsdomain.net/widget/worth_pr_alexa_new/?domain=www.acman.ru&width=130" alt="acman.ru-Google pagerank,alexa rank,Competitor" title="acman.ru-Google pagerank,alexa rank,Competitor" style="border:none;"/></a>
+        </div>
+    </li>
+</li>
+</ul>
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end page -->
+    <!-- start footer -->
+    <div id="footer">
+        <div id='legal'>
+            Copyright &copy;
+            <a href="/">acman.ru</a>
+            , 2012 - 2014
+            <br><br>
+
+    <!-- Rating@Mail.ru counter -->
+<script type="text/javascript">//<![CDATA[
+var a='',js=10;try{a+=';r='+escape(document.referrer);}catch(e){}try{a+=';j='+navigator.javaEnabled();js=11;}catch(e){}
+try{s=screen;a+=';s='+s.width+'*'+s.height;a+=';d='+(s.colorDepth?s.colorDepth:s.pixelDepth);js=12;}catch(e){}
+try{if(typeof((new Array).push('t'))==="number")js=13;}catch(e){}
+try{document.write('<a href="http://top.mail.ru/jump?from=2259145">'+
+'<img src="http://d8.c7.b2.a2.top.mail.ru/counter?id=2259145;t=49;js='+js+a+';rand='+Math.random()+
+'" alt="Рейтинг@Mail.ru" style="border:0;" height="31" width="88" \/><\/a>');}catch(e){}//]]></script>
+<noscript><p><a href="http://top.mail.ru/jump?from=2259145">
+<img src="http://d8.c7.b2.a2.top.mail.ru/counter?js=na;id=2259145;t=49"
+style="border:0;" height="31" width="88" alt="Рейтинг@Mail.ru" /></a></p></noscript>
+<!-- //Rating@Mail.ru counter -->
+
+<!-- begin of Top100 code -->
+
+<script id="top100Counter" type="text/javascript" src="http://counter.rambler.ru/top100.jcn?2790931"></script>
+<noscript>
+<a href="http://top100.rambler.ru/navi/2790931/">
+<img src="http://counter.rambler.ru/top100.cnt?2790931" alt="Rambler's Top100" border="0" />
+</a>
+
+</noscript>
+<!-- end of Top100 code -->
+
+<!-- Yandex.Metrika informer -->
+<a href="http://metrika.yandex.ru/stat/?id=17692285&amp;from=informer"
+target="_blank" rel="nofollow"><img src="//bs.yandex.ru/informer/17692285/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
+style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)" onclick="try{Ya.Metrika.informer({i:this,id:17692285,type:0,lang:'ru'});return false}catch(e){}"/></a>
+<!-- /Yandex.Metrika informer -->
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+(function (d, w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter17692285 = new Ya.Metrika({id:17692285, enableAll: true});
+        } catch(e) { }
+    });
+
+    var n = d.getElementsByTagName("script")[0],
+        s = d.createElement("script"),
+        f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f);
+    } else { f(); }
+})(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="//mc.yandex.ru/watch/17692285" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+</div>
+    <!-- end footer --> </div>
+</body>
+</html>

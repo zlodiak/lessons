@@ -1,0 +1,1977 @@
+==================================================================================================================
+туториал создания проекта с нуля на линуксе:
+
+
+установить virtualenv, virtualwrapper
+
+создать каталог mailsender_project
+
+создать в этом каталоге вирт окружение mailsender_project/mailsender_env:
+virtualenv mailsender_env --python=python2.7
+
+
+дописать в .profile:
+export WORKON_HOME=$HOME/.virtualenvs/mailsender_project
+export PROJECT_HOME=$HOME/.virtualenvs/mailsender_project/mailsender
+source /etc/bash_completion.d/virtualenvwrapper
+export EDITOR="/usr/bin/subl"
+
+выполнить:
+source .profile
+
+переключиться в окружение:
+workon mailsender_env
+
+установить django:
+pip install django=="1.6"
+при этом pip автоматически удаляет старую версию
+
+зайти в mailsender_project и создать проект:
+django-admin.py startproject mailsender
+
+создать приложение:
+python manage.py startapp app_app
+
+создать файл зависимостей 
+
+
+
+
+
+==================================================================================================================
+основный команды ком.строки:
+
+создать приложение:
+python manage.py startapp polls
+
+работать из консоли со средой проекта:
+python manage.py shell
+>>> from django.conf import settings
+>>> print(settings.SITE_ID)
+
+==================================================================================================================
+в linux mint по умолчанию установлен python2.7
+
+установить python3 можно так:
+apt-get install python3.3
+
+при этом симлинк на него находится в /usr/bin/python3
+а сами питоны лежат в /usr/local/lib/
+
+путь /usr/bin/ прописан в $PATH
+поэтому запускать скрипты на питоне можно так:
+python 
+1+1
+
+или так:
+перейти в каталог джанго-проекта
+python manage.py runserver
+
+pip - менеджер Python-пакетов 
+
+==================================================================================================================
+Утилита pip предназначена для установки питоновских библиотек из PyPI, из архивного файла, из git-a, в общем - отовсюду.
+
+pip install South (установить последнюю версию South из PyPI)
+pip install http://www.aeracode.org/releases/south/south-0.6.2.tar.gz (установить South из указанного файла)
+pip install hg+http://bitbucket.org/andrewgodwin/south/ 
+                   (установить South из транка, кроме hg+ поддерживаются также svn+, git+, bzr+)
+pip install South==0.5 (установить конкретную версию)
+pip uninstall South
+
+==================================================================================================================
+
+установить django:
+sudo aptitude install python-django
+
+джанго устанавливается в каталог питона site-packages
+
+при установке более свежей версии джанго нужно удалить старую. или при использовании pip это делается автоматически
+
+easy install - менеджер django-пакетов 
+
+==================================================================================================================
+для удобной смены среды окружения(и версии питона) можно использовать virtualenv и virtualwrapper
+Virtualenv — позволяет для каждого проекта создать своё окружение питонячьих пакетов.
+
+посмотреть куда установлен virtualenv можно так:
+whereis virtualenv
+
+Для установки virtualenv набираем в терминале:
+     sudo apt-get install python-virtualenv
+
+Создаем папку, внутри которой будут храниться папки будущих виртуальных окружений.
+     mkdir .virtualenvs
+
+Для более удобной работы с virtualenv рекомендуется поставить утилиту под названием virtualenvwrapper. 
+    sudo apt-get install virtualenvwrapper
+
+
+для настройки virtualenvwrapper на нашу папку с виртуальными окружениями, добавляем следующий текст в файл ~/.profile (чтобы эти настрйоки выполнялись при каждой загрузке компа):
+    export WORKON_HOME=$HOME/.virtualenvs
+    source /etc/bash_completion.d/virtualenvwrapper
+
+
+Теперь работа с виртуальными окружениями стала еще проще:
+    mkvirtualenv env_name1     - создать в папке с вирт.окружениями окружение "env_name1"
+    workon env_name1              - переключится в окружение "env_name1"
+    lsvirtualenv                           - вывести список доступных виртуальных окружений
+    rmvirtualenv env_name1      - удалить виртуальное окружение "env_name1"
+    deactivate                              - выйти из текущего виртуального окружения
+
+
+
+или можно, находясь в каталоге .virtualenvs , создать вирт окружение с определённой версией питона:
+virtualenv qqq3 --python=python3
+
+==================================================================================================================
+или же можно просто сменить версию питона в системе по умолчанию:
+v@v (03.08.12 19:45:17): ~$ sudo rm /usr/bin/python && sudo ln -s python3.2 /usr/bin/python
+v@v (03.08.12 19:47:41): ~$ python --version
+
+то есть просто переписать симлинк
+
+==================================================================================================================
+сохранить данные об установленных пакетах для быстрого деплоймента на другой машине:
+virtualenv tests --no-site-packages
+source tests/bin/activate
+Устанавливаем пакеты.
+
+pip install Django
+pip install South
+Формируем список установленных пакетов - для передачи другому разработчику или для деплоймента.
+
+pip freeze > requirements.txt
+Содержимое файла requirements.txt:
+
+Django==1.1.1
+South==0.6.2
+wsgiref==0.1.2
+Устанавливаем все пакеты из этого файла одной командой:
+
+pip install -r requirements.txt
+
+==================================================================================================================
+открывать из оболочки текстовый файл в sublime командой /usr/bin/subl
+
+==================================================================================================================
+если какой-либо пакет не устанавливается, то возможно, не совпадает версия. нужно установить явно. например так:
+    У вас старая версия sorl-thumbnail, которая не поддерживает python3.
+    Попробуйте явно установить последнюю.
+    Убедитесь, что вы в нужном активном virtualenv-e, и сделайте pip install sorl-thumbnail==11.12.1b
+
+==================================================================================================================
+если не устанавливается pillow, то нужно доустановить библиотеки:
+$ sudo apt-get install python-dev python-setuptools
+Or for Python 3:
+$ sudo apt-get install python3-dev python3-setuptools
+
+больше здесь https://pillow.readthedocs.org/en/latest/installation.html#external-libraries
+
+==================================================================================================================
+вариант клиента для sqlite:
+sqlite manager плагин для FF
+чтобы началь пользоваться нужно поискать его на тулбаре. можно потом перетянуть в панель настроек.
+
+==================================================================================================================
+можно установить конкретную версию пакета:
+pip install sorl-thumbnail==11.12.1b
+
+
+=================================================================================================================
+способ установить конкретную версию джанго:     
+pip install django=="1.5"
+
+или так:
+First remove the previously installed django 1.3.1 version by deleting the django folder inside /usr/local/lib/pythonx.x/dist-packages(x.x denotes the version of python).Then follow the below steps,
+
+Download Django 1.6 from here.
+
+Open the terminal and move to the directory where you placed the Django 1.6.
+
+cd path/to/driectory/which/contains/django1.6.tar.gz
+
+Extract the django1.6.tar.gz by running the below command.
+
+tar -xzvf Django-1.6.tar.gz
+
+Move to the Django-1.6 directory
+
+cd Django-1.6
+
+Run the below command to install Django-1.6
+
+sudo python setup.py install
+
+==================================================================================================================
+Для Django 1.7 миграции сильно упростились.
+Вместо syncdb нужно: 
+
+python manage.py makemigrations
+python manage.py migrate
+
+Миграция работает сразу для всех app, если нужно сделать для конкретного приложения, указывается название в командной строке.
+South больше не нужен. Если требуется сохранить предыдущие миграции south рекомендуют перенести их в отдельную папку, на практике я их просто удалил, удалил и south из INSTALL_APPS и сделал migrate с ключиком –fake, всё работает как часы.
+
+
+==================================================================================================================
+Можно попробовать проигнорить миграции.
+
+./manage.py syncdb --all
+./manage.py migrate --fake
+
+==================================================================================================================
+способ проверить версию django:
+import django
+django.version
+
+или 
+django.VERSION
+
+==================================================================================================================
+кодировка initial_data.json 
+должна быть utf-8
+
+==================================================================================================================
+создать проект:
+(zapsum)kalinins@kalinins-Lenovo-Z580 ~/.virtualenvs/zapsum $ django-admin startproject zapsum
+
+при этом нужно находиться в нужном каталоге
+
+==================================================================================================================
+шаблоны файлов urls.py^
+
+1:
+urlpatterns = patterns('',
+    url(r'^', include('app_zapsum.urls')),
+    url(r'^admin/', include(admin.site.urls)),  
+)
+
+
+2:
+urlpatterns = patterns('app_zapsum',
+    url(r'^$', 'views.rules', name='rules'),
+    url(r'^search_author$', 'views.search_author', name='search_author'),
+
+    url(r'^admin/', include(admin.site.urls)),
+)
+
+
+==================================================================================================================
+туториал для вывода ссылок в зависимости от того авторизовался ли пользователь или нет:
+views.py:
+def custom_proc(request):
+    return{
+        'request': request,
+    }
+то есть передаём объект запроса во все шаблоны
+
+
+{% load staticfiles tags_app_accounts%}
+то есть прописываем в начале каждого шаблона указание на то,что будем использоват кастомный шаблнный тег
+
+
+в шаблоне:
+<nav class="nav_topper">
+    <h2 class="h2 hide">Блок авторизации</h2>
+    {{ user }}
+    {% part_auth_area request.user.is_authenticated %} 
+</nav>  
+это вложенный шаблон, который заполняется в зависимости от выполнения условия
+
+
+шаблонный тег такой tag_app_accounts:
+@register.inclusion_tag("part_auth_area.html")
+def part_auth_area(is_authenticated):
+    return {
+        'is_authenticated': is_authenticated,
+    }   
+    то есть передаётся в part_auth_area.html переенная is_authenticated
+
+
+
+part_auth_area.html:
+{% if is_authenticated %}
+    <li>
+        <a class="logout_link btn btn-info" href="">Выйти</a>
+    </li>
+{% else %}
+    <li>
+        <a class="login_link btn btn-info" href="">Войти</a>
+    </li>
+    
+    <li>
+        <a class="registration_link btn btn-info" href="">Зарегистрироваться</a>
+    </li>
+{% endif %} 
+
+    
+==================================================================================================================
+туториал. вывод формы регистрации:
+
+создаём форму, расширяя нативную:
+forms.py:
+from django import forms
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django.forms import ModelForm
+
+from app_accounts.models import UserProfile
+
+
+class registrationForm(UserCreationForm):   
+    username = forms.CharField(
+        label='Логин',
+        help_text='',
+        required=True,
+    )
+    
+    password1 = forms.CharField(
+        label='Пароль',
+        help_text='',
+        required=True,
+        widget=forms.PasswordInput,
+    )   
+    
+    password2 = forms.CharField(
+        label='Подтверждение пароля',
+        help_text='',
+        required=True,
+        widget=forms.PasswordInput,
+    )   
+
+    class Meta:
+        model = UserProfile
+        fields = (
+            'username',   
+            'password1', 
+            'password2',
+        )
+
+
+создаём представление:
+views.py:
+from django.http import HttpResponse, HttpResponseRedirect, Http404, HttpResponseForbidden
+from django.template import loader, RequestContext
+from django.shortcuts import render, render_to_response
+
+from app_accounts.forms import registrationForm
+
+
+def registration(request):
+    form = registrationForm()
+    
+    if request.method == 'POST':
+        form = registrationForm(request.POST)   #
+        if form.is_valid():
+            new_user = form.save()
+            
+            return HttpResponseRedirect("/accounts/registration_success/")
+        
+        
+    return render(request, "registration.html", {
+        'form': form,   
+    })  
+
+
+
+
+выводитм в шаблон:
+{% extends "page_base.html" %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+    <section class="section registration">
+        <h2 class="h2">Регистрация</h2>
+
+        <form action="" method="post">
+            {% csrf_token %}    
+            
+            <div class="cell input_outer">
+                <label class="label">{{ form.username.label }}</label>
+                
+                {{ form.username }}
+                
+                {{ form.username.errors }}
+            </div>              
+
+            <div class="cell input_outer">
+                <label class="label">{{ form.password1.label }}</label>
+                
+                {{ form.password1 }}
+                
+                {{ form.password1.errors }}
+            </div>  
+
+            <div class="cell input_outer">
+                <label class="label">{{ form.password2.label }}</label>
+                
+                {{ form.password2 }}
+                
+                {{ form.password2.errors }}
+            </div>                          
+            
+            <div class="cell submit_outer">
+                <input class="my_btn radius4 shadow2" type="submit" value="Зарегистрироваться">
+            </div>
+        </form>
+    </section>
+{% endblock %}
+
+
+
+привязываем к урлу:
+urls.py:
+urlpatterns = patterns('app_accounts',
+    url(r'^registration/$', 'views.registration', name='registration'),
+)
+
+
+
+
+
+
+==================================================================================================================
+сестема регистрации и авторизации, в которой вместо логина используетс email:
+
+models.py:
+from django.db import models
+from django.contrib.auth.models import User, UserManager
+
+
+class UserProfile(User):
+    CHOICES_gender = (
+        ('0', 'М', ),
+        ('1', 'Ж', ),
+    )
+        
+    nickname = models.CharField(
+        max_length=50, 
+        blank=False,
+    )       
+    gender = models.CharField(
+        max_length=10, 
+        choices=CHOICES_gender, 
+        blank=False,
+    )
+    phone = models.CharField(
+        max_length=50, 
+        blank=False,
+    )
+    skype = models.CharField(
+        max_length=50, 
+        blank=False,
+    )   
+    other = models.TextField(
+        max_length=500,
+        blank=False,
+    )
+    avatar = models.ImageField(
+        upload_to='userprofile/', 
+        blank=False,
+    )
+    
+    objects = UserManager()
+
+forms.py:
+from django import forms
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.forms import ModelForm
+
+from app_accounts.models import UserProfile
+
+
+class registrationForm(UserCreationForm):   
+    username = forms.EmailField(
+        label='Email',
+        help_text='',
+        max_length=50, 
+        required=True,
+    )   
+
+    nickname = forms.CharField(
+        label='Отображаемое имя',
+        help_text='',
+        required=True,
+    )
+    
+    password1 = forms.CharField(
+        label='Пароль',
+        help_text='',
+        required=True,
+        widget=forms.PasswordInput,
+    )   
+    
+    password2 = forms.CharField(
+        label='Подтверждение пароля:',
+        help_text='',
+        required=True,
+        widget=forms.PasswordInput,
+    )   
+
+    class Meta:
+        model = UserProfile
+        fields = (  
+            'username',    
+            'nickname',    
+            'password1', 
+            'password2',
+        )
+
+
+class authenticationCustomForm(AuthenticationForm):
+    username = forms.CharField(
+        label='Email',
+        widget=forms.TextInput(),       
+    )
+
+    password = forms.CharField(
+        label='Пароль', 
+        widget=forms.PasswordInput(),
+    )
+
+
+
+views.py:
+from django.http import HttpResponse, HttpResponseRedirect, Http404, HttpResponseForbidden
+from django.template import loader, RequestContext
+from django.shortcuts import render, render_to_response
+from django.contrib import auth
+
+from app_accounts.forms import registrationForm, authenticationCustomForm
+
+
+def custom_proc(request):
+    return{
+        'request': request,
+    }
+
+
+def registration(request):
+    form = registrationForm()
+    
+    if request.method == 'POST':
+        form = registrationForm(request.POST)   
+        if form.is_valid():
+            new_user = form.save()
+            
+            return HttpResponseRedirect("/accounts/registration_success/")
+        
+        
+    t = loader.get_template('page_registration.html')
+    c = RequestContext(request, {
+        'form': form, 
+    }, [custom_proc])   
+    return HttpResponse(t.render(c)) 
+
+
+tpl:
+{% extends "page_base.html" %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+    <section class="section registration">
+        <h2 class="h2">Регистрация</h2>{{ form.errors }}
+
+        <form action="" method="post">
+            {% csrf_token %}    
+            
+            <div class="cell input_outer">
+                <label class="label">{{ form.username.label }}</label>
+                
+                {{ form.username }}
+                
+                {{ form.username.errors }}
+            </div>      
+
+            <div class="cell input_outer">
+                <label class="label">{{ form.nickname.label }}</label>
+                
+                {{ form.nickname }}
+                
+                {{ form.nickname.errors }}
+            </div>                      
+
+            <div class="cell input_outer">
+                <label class="label">{{ form.password1.label }}</label>
+                
+                {{ form.password1 }}
+                
+                {{ form.password1.errors }}
+            </div>  
+
+            <div class="cell input_outer">
+                <label class="label">{{ form.password2.label }}</label>
+                
+                {{ form.password2 }}
+                
+                {{ form.password2.errors }}
+            </div>                          
+            
+            <div class="cell submit_outer">
+                <input class="my_btn radius4 shadow2" type="submit" value="Зарегистрироваться">
+            </div>
+        </form>
+    </section>
+{% endblock %}
+
+
+
+
+==================================================================================================================
+туториал (устаревш)для формы, для изменения данных в БД. используется ajax. при загрузке в форме видны актуальные данные из базы:
+
+urls:
+url(r'^change_profile/$', 'views.change_profile', name='change_profile'), 
+
+models:
+class UserProfile(User):
+    CHOICES_gender = (
+        ('0', 'М', ),
+        ('1', 'Ж', ),
+    )
+            
+    gender = models.CharField(
+        max_length=10, 
+        choices=CHOICES_gender, 
+        blank=False,
+    )
+    phone = models.CharField(
+        max_length=50, 
+        blank=False,
+    )
+    skype = models.CharField(
+        max_length=50, 
+        blank=False,
+    )   
+    other = models.TextField(
+        max_length=500,
+        blank=False,
+    )
+    avatar = models.ImageField(
+        upload_to='userprofile/', 
+        blank=False,
+    )
+    
+    objects = UserManager()
+
+forms:
+class ProfileForm(ModelForm):
+    phone = forms.CharField(
+        label='Номер телефона',
+        widget=forms.TextInput(),   
+        required=False,     
+    )
+
+    skype = forms.CharField(
+        label='Skype',
+        widget=forms.TextInput(),   
+        required=False,     
+    )
+
+    other = forms.CharField(
+        label='Доп.информация',
+        widget=forms.Textarea,      
+        required=False, 
+    )   
+
+    class Meta:
+        model = UserProfile
+        fields = (  
+            'phone',    
+            'skype',    
+            'other', 
+        )
+
+tpl:
+    <section class="section profile">
+        <div class="page-header">
+            <h2>Изменить профиль</h2>
+        </div>
+
+        <form class="profile_form" id="profile_form" action="ya.ru" method="post" novalidate>
+            {% csrf_token %}    
+            
+            <div class="cell input_outer">
+                <label class="label">{{ form.phone.label }}</label>
+                
+                {{ form.phone }}
+                
+                {{ form.phone.errors }}
+            </div>      
+
+            <div class="cell input_outer">
+                <label class="label">{{ form.skype.label }}</label>
+                
+                {{ form.skype }}
+                
+                {{ form.skype.errors }}
+            </div>                      
+
+            <div class="cell input_outer">
+                <label class="label">{{ form.other.label }}</label>
+                
+                {{ form.other }}
+                
+                {{ form.other.errors }}
+            </div>  
+            
+            <div class="cell submit_outer">
+                <input class="btn btn-default btn_submit" type="submit" value="Зарегистрироваться">
+            </div>
+        </form>
+    </section>
+
+
+views:
+@login_required
+def change_profile(request):
+    entry_user_profile = UserProfile.objects.get(user_ptr_id=request.user.id)       
+    form = ProfileForm(instance=entry_user_profile)
+    
+    if request.method == "POST" and request.is_ajax():  
+        try:
+            phone = request.POST.get('phone').strip()
+            skype = request.POST.get('skype').strip()
+            other = request.POST.get('other').strip()
+        except:
+            # to do
+            pass
+        else:
+            form = ProfileForm(data=request.POST)
+            if form.is_valid():
+                entry = UserProfile.objects.get(user_ptr_id=request.user.id)    
+                if phone:       
+                    entry.phone = phone
+
+                if skype:       
+                    entry.skype = skype
+
+                if other:       
+                    entry.other = other                             
+
+                entry.save() 
+
+                return HttpResponse({'message':'qwerty'})       
+        
+    t = loader.get_template('page_change_profile.html')
+    c = RequestContext(request, {
+        'form': form, 
+    }, [custom_proc])   
+
+    return HttpResponse(t.render(c))     
+
+js:
+    $(".profile_form .btn_submit").click(function(event){
+        var phone = $('#id_phone').val(),
+            skype = $('#id_skype').val(),
+            other = $('#id_other').val();
+
+        event.preventDefault();
+
+        console.log(phone);
+        console.log(skype);
+        console.log(other);
+
+        $.ajax({
+            url: "/change_profile/",
+            type: 'POST',
+            dataType:"html",
+            data: {
+                "phone": phone,
+                "skype": skype,
+                "other": other,
+                "csrfmiddlewaretoken": $('#profile_form input[name=csrfmiddlewaretoken]').val()
+            },
+            error: function() {
+                //alert('Ошибка получения запроса');
+            },
+            success: function(data) {
+                //alert('ajax worked::' + '::' + data.message);
+                $('#mySmallModalLabel').text('Изменения сохранены');
+                $('#infoModal').modal('show');
+
+                setTimeout(function(){
+                    $('#infoModal').modal('hide');
+                }, 2000);
+            }
+        });     
+    });
+
+
+
+при загрузке формы поля сразу заполняются значениями из БД. за это отвечает:
+    entry_user_profile = UserProfile.objects.get(user_ptr_id=request.user.id)       
+    form = ProfileForm(instance=entry_user_profile)
+
+после клика по кнопке отправить отключает стандартное событие отправки формы и делаем аяк-звпрос на адрес /change_profile/
+
+то есть направляем на то же самое представление. но теперь там сработает условие 
+if request.method == "POST" and request.is_ajax():  
+
+заполняем 
+
+
+==================================================================================================================
+туториал для вывода в форме поля типа селект, используя foreign keys:
+model:
+from django.db import models
+from django.contrib.auth.models import User, UserManager
+
+
+class Gender(models.Model):     
+    gender = models.CharField(
+        max_length=10, 
+        blank=True,
+    )   
+
+    def __str__(self):
+        return self.gender  
+
+
+class UserProfile(User):            
+    gender = models.ForeignKey(
+        Gender,
+        verbose_name='Пол',
+        blank=True,
+        null=True,
+    )
+    phone = models.CharField(
+        max_length=50, 
+        blank=False,
+    )
+    skype = models.CharField(
+        max_length=50, 
+        blank=False,
+    )   
+    other = models.TextField(
+        max_length=500,
+        blank=False,
+    )
+    avatar = models.ImageField(
+        upload_to='userprofile/', 
+        blank=False,
+    )
+    
+    objects = UserManager()
+
+    forms:
+    class ProfileForm(forms.ModelForm):
+    gender = forms.ModelChoiceField(
+        queryset=Gender.objects.all(),
+        empty_label = None,
+    )       
+
+    phone = forms.CharField(
+        label='Номер телефона',
+        widget=forms.TextInput(),   
+        required=False,     
+    )
+
+    skype = forms.CharField(
+        label='Skype',
+        widget=forms.TextInput(),   
+        required=False,     
+    )
+
+    other = forms.CharField(
+        label='Доп.информация',
+        widget=forms.Textarea,      
+        required=False, 
+    )   
+
+    class Meta:
+        model = UserProfile
+        fields = (  
+            'gender',    
+            'phone',    
+            'skype',    
+            'other', 
+        )
+
+fixtures:
+[
+    {
+        "model": "app_accounts.Gender",
+        "pk": 0,
+        "fields": {
+            "gender": "-----"
+        }
+    },
+    {
+        "model": "app_accounts.Gender",
+        "pk": 1,
+        "fields": {
+            "gender": "Ж"
+        }
+    },
+    {
+        "model": "app_accounts.Gender",
+        "pk": 2,
+        "fields": {
+            "gender": "М"
+        }
+    }
+]
+
+js:
+    $(".profile_form .btn_submit").click(function(event){
+        var gender = $('#id_gender').val(),
+            phone = $('#id_phone').val(),
+            skype = $('#id_skype').val(),
+            other = $('#id_other').val();
+
+        event.preventDefault();
+
+        //console.log(gender);
+        //console.log(phone);
+        //console.log(skype);
+        //console.log(other);
+
+        $.ajax({
+            url: "/change_profile/",
+            type: 'POST',
+            dataType:"html",
+            data: {
+                "gender": gender,
+                "phone": phone,
+                "skype": skype,
+                "other": other,
+                "csrfmiddlewaretoken": $('#profile_form input[name=csrfmiddlewaretoken]').val()
+            },
+            error: function() {
+                //alert('Ошибка получения запроса');
+            },
+            success: function(data) {
+
+                //alert('ajax worked::' + '::' + data.message);
+                $('#mySmallModalLabel').text('Изменения сохранены');
+                $('#infoModal').modal('show');
+
+                setTimeout(function(){
+                    $('#infoModal').modal('hide');
+                }, 2000);
+            }
+        });     
+    });
+
+==================================================================================================================
+туториал для формы, для изменения данных в БД. используется ajax. при загрузке в форме видны актуальные данные из базы(проблема с возвращаемым значением не решена):
+models:
+from django.db import models
+from django.contrib.auth.models import User, UserManager
+
+
+class Gender(models.Model):     
+    gender = models.CharField(
+        max_length=10, 
+        blank=True,
+    )   
+
+    def __str__(self):
+        return self.gender  
+
+
+class UserProfile(User):            
+    gender = models.ForeignKey(
+        Gender,
+        verbose_name='Пол',
+        blank=True,
+        null=True,
+    )
+    phone = models.CharField(
+        max_length=50, 
+        blank=False,
+    )
+    skype = models.CharField(
+        max_length=50, 
+        blank=False,
+    )   
+    other = models.TextField(
+        max_length=500,
+        blank=False,
+    )
+    avatar = models.ImageField(
+        upload_to='userprofile/', 
+        blank=False,
+    )
+    
+    objects = UserManager()
+
+    forms:
+class ProfileForm(forms.ModelForm):
+    gender = forms.ModelChoiceField(
+        queryset=Gender.objects.all(),
+        empty_label = None,
+    )       
+
+    phone = forms.CharField(
+        label='Номер телефона',
+        widget=forms.TextInput(),   
+        required=False,     
+    )
+
+    skype = forms.CharField(
+        label='Skype',
+        widget=forms.TextInput(),   
+        required=False,     
+    )
+
+    other = forms.CharField(
+        label='Доп.информация',
+        widget=forms.Textarea,      
+        required=False, 
+    )   
+
+    class Meta:
+        model = UserProfile
+        fields = (  
+            'gender',    
+            'phone',    
+            'skype',    
+            'other', 
+        )
+
+fixtures:
+[
+    {
+        "model": "app_accounts.Gender",
+        "pk": 0,
+        "fields": {
+            "gender": "-----"
+        }
+    },
+    {
+        "model": "app_accounts.Gender",
+        "pk": 1,
+        "fields": {
+            "gender": "Ж"
+        }
+    },
+    {
+        "model": "app_accounts.Gender",
+        "pk": 2,
+        "fields": {
+            "gender": "М"
+        }
+    }
+]
+
+js:
+    $(".profile_form .btn_submit").click(function(event){
+        var gender = $('#id_gender').val(),
+            phone = $('#id_phone').val(),
+            skype = $('#id_skype').val(),
+            other = $('#id_other').val();
+
+        event.preventDefault();
+
+        //console.log(gender);
+        //console.log(phone);
+        //console.log(skype);
+        //console.log(other);
+
+        $.ajax({
+            url: "/change_profile/",
+            type: 'POST',
+            dataType:"html",
+            data: {
+                "gender": gender,
+                "phone": phone,
+                "skype": skype,
+                "other": other,
+                "csrfmiddlewaretoken": $('#profile_form input[name=csrfmiddlewaretoken]').val()
+            },
+            error: function() {
+                //alert('Ошибка получения запроса');
+            },
+            success: function(data) {
+
+                //alert('ajax worked::' + '::' + data.message);
+                $('#mySmallModalLabel').text('Изменения сохранены');
+                $('#infoModal').modal('show');
+
+                setTimeout(function(){
+                    $('#infoModal').modal('hide');
+                }, 2000);
+            }
+        });     
+    });
+
+views:
+@login_required
+def change_profile(request):
+    entry_user_profile = UserProfile.objects.get(user_ptr_id=request.user.id)       
+    form = ProfileForm(instance=entry_user_profile)
+    
+    if request.method == "POST" and request.is_ajax():  
+        form = ProfileForm(data=request.POST, instance=entry_user_profile)
+        if form.is_valid():
+            form.save()
+
+            return HttpResponse({'message':'qwerty'})   
+            #return HttpResponse(json.dumps({'message':'qwerty'}))  
+        
+    t = loader.get_template('page_change_profile.html')
+    c = RequestContext(request, {
+        'form': form, 
+    }, [custom_proc])   
+
+    return HttpResponse(t.render(c))    
+
+
+==================================================================================================================
+что делать, если при попытке запуска тестового сервера runserver выводится Error: That port is already in use.
+
+1 спосбо убить все процессы, связанные с портом:
+A more simple solution just type sudo fuser -k 8000/tcp. This should kill all the processes associated with port 8000.
+
+2 способ убить конкретный процесс:
+ps aux | grep -i manage
+
+after that you will see all process 
+
+ubuntu@ip-10-154-22-113:~/django-apps/projectname$ ps aux | grep -i manage
+ubuntu    3439  0.0  2.3  40228 14064 pts/0    T    06:47   0:00 python manage.py runserver project name
+ubuntu    3440  1.4  9.7 200996 59324 pts/0    Tl   06:47   2:52 /usr/bin/python manage.py runserver project name
+ubuntu    4581  0.0  0.1   7988   892 pts/0    S+   10:02   0:00 grep --color=auto -i manage
+
+kill -9 process id
+
+e.d kill -9 3440
+
+
+==================================================================================================================
+туториал по отправке аякс-запроса и возвращению значения на примере валидации формы аутентификации:
+js:
+    $("#login_submit").click(function(event){
+        console.log('lsc');
+
+        var username = $('#id_username').val(),
+            password = $('#id_password').val();
+
+        event.preventDefault();
+
+        console.log(username);
+        //console.log(other);
+
+        $.ajax({
+            url: "/accounts/ajax_username_check/",
+            type: 'POST',
+            dataType:"json",
+            data: {
+                "username": username,
+                "csrfmiddlewaretoken": $('#loginForm input[name=csrfmiddlewaretoken]').val()
+            },
+            error: function() {
+                alert('Ошибка получения запроса');
+            },
+            success: function(data) {
+
+                alert('ajax is worked::' + data['result'] + '::' + data);
+                //$('#mySmallModalLabel').text('Изменения сохранены');
+                //$('#infoModal').modal('show');
+
+                setTimeout(function(){
+                    $('#infoModal').modal('hide');
+                }, 2000);
+            }
+        });     
+    });
+
+views:
+import json
+
+def ajax_username_check(request):
+    result = 'default'
+
+    if request.method == "POST" and request.is_ajax():
+        username = request.POST.get('username', '')     
+
+        username_req = User.objects.filter(username=username)       
+
+        if username_req.exists():
+            result = username_req[0].username   
+
+    data = {'result': result,}
+
+    return HttpResponse(json.dumps(data), content_type='application/json')  
+
+tpl:
+        <form class="login_form" id="loginForm" action="#" method="post">
+            {% csrf_token %}
+            
+            <div class="cell input_outer">
+                <label class="label">{{ form.username.label }}</label>
+                
+                {{ form.username }}
+                
+                {{ form.username.errors }}
+                
+                 {{form.non_field_errors}}
+            </div>  
+
+            <div class="cell input_outer">
+                <label class="label">{{ form.password.label }}</label>
+                
+                {{ form.password }}
+                
+                {{ form.password.errors }}
+                
+                 {{form.non_field_errors}}
+            </div>              
+            
+            <div class="cell submit_outer">
+                <input class="btn" id="login_submit" type="submit" value="Войти" />
+            </div>
+        </form>
+
+urls:
+    url(r'^ajax_username_check/$', 'views.ajax_username_check', name='ajax_username_check'),  
+
+
+
+==================================================================================================================
+туториал по использованию sorl-thumbnail:
+pip install sorl-thumbnail==11.12.1b
+
+models:
+from django.db import models
+from django.contrib.auth.models import User, UserManager
+from sorl.thumbnail import ImageField
+
+
+class UserProfile(User):            
+    gender = models.ForeignKey(
+        Gender,
+        verbose_name='Пол',
+        blank=True,
+        null=True,
+    )
+    phone = models.CharField(
+        max_length=50, 
+        blank=False,
+    )
+    skype = models.CharField(
+        max_length=50, 
+        blank=False,
+    )   
+    other = models.TextField(
+        max_length=500,
+        blank=False,
+    )
+    avatar = models.ImageField(
+        upload_to='userprofile/avatar/', 
+        blank=True,
+        null=True,
+    )
+    
+    objects = UserManager()
+
+
+forms:
+class ChangeAvatarForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = (
+            'avatar', 
+        )       
+
+html:
+{% extends "page_base.html" %}
+{% load staticfiles thumbnail %}
+
+{% block title %}Изменить аватар{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h2>Изменить аватар</h2>
+    </div>
+
+    <form class="avatar_form common_form" action="{% url 'change_avatar' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="cell image_outer">
+            <label class="label">{{ form.avatar.label }}</label>
+            
+            {% if avatar %} <img src="{{ avatar.url }}" />
+                {% thumbnail avatar "83x83" crop="center" as im %}
+                    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                {% endthumbnail %}  
+            {% endif %}
+            
+            {{ form.avatar }}
+            
+            {{ form.avatar.errors }}
+        </div>              
+            
+        <div class="cell submit_outer">
+            <input class="my_btn radius4 shadow2" type="submit" value="Изменить" />
+        </div>
+    </form>
+{% endblock %}
+
+
+
+view:
+from app_accounts.models import UserProfile
+from app_zapsum.forms import ChangePasswordForm, ChangeAvatarForm
+
+def change_avatar(request): 
+    entry_user_profile = UserProfile.objects.get(user_ptr_id=request.user.id)   
+            
+    avatar = entry_user_profile.avatar                  
+    form = ChangeAvatarForm(instance=entry_user_profile)        
+                
+    #if request.method == 'POST' and request.is_ajax():                             
+    if request.method == 'POST':                                
+        form = ChangeAvatarForm(request.POST, request.FILES, instance=entry_user_profile)
+        if form.is_valid():             
+            form.save() 
+            return HttpResponseRedirect('/')                        
+                
+    t = loader.get_template('page_change_avatar.html')
+    c = RequestContext(request, {
+        'form': form,
+        'avatar': avatar,
+    }, [custom_proc])   
+    
+    return HttpResponse(t.render(c))    
+
+
+urls:
+в последниюю очередь
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
+            'document_root': settings.MEDIA_ROOT,
+        }),
+   )
+
+
+settings:
+INSTALLED_APPS = (
+    'sorl.thumbnail',
+)
+
+
+STATIC_URL = '/static/'
+
+
+STATICFILES_DIRS = (
+    (os.path.join(BASE_DIR, "zapsum/static/")),
+)
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
+
+
+THUMBNAIL_DEBUG = True
+
+
+
+если в логе ошибки такие:
+Not Found: /media/userprofile/avatar/w.jpg
+Not Found: /media/cache/4b/a5/4ba5b0a8f79249df3bb624fc89b12b10.jpg
+
+,то править urls.py
+
+
+
+==================================================================================================================
+туториал по ajax-загрузке изображения(одного) на примере аватара:
+model:
+class UserProfile(User):            
+    gender = models.ForeignKey(
+        Gender,
+        verbose_name='Пол',
+        blank=True,
+        null=True,
+    )
+    phone = models.CharField(
+        max_length=50, 
+        blank=False,
+    )
+    skype = models.CharField(
+        max_length=50, 
+        blank=False,
+    )   
+    other = models.TextField(
+        max_length=500,
+        blank=False,
+    )
+    avatar = models.ImageField(
+        upload_to='userprofile/avatar/', 
+        blank=True,
+        null=True,
+    )
+    
+    objects = UserManager()
+
+form:
+class ChangeAvatarForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = (
+            'avatar', 
+        )   
+
+html:
+<form class="avatar_form" id="avatarForm" action="/change_avatar/" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="csrfmiddlewaretoken" value="IsTUEuywJ5Q7FmolJeIB5x4iPHqGr4mk">
+
+    <div class="cell image_outer">
+        <label class="label hide">Avatar</label>
+        
+        
+        
+        <input id="id_avatar" name="avatar" type="file">
+        
+        
+    </div>              
+        
+    <div class="cell submit_outer">
+        <input id="avaSubmit" class="btn btn-default" type="submit" value="Изменить">
+    </div>
+</form>   
+
+
+js:
+http://malsup.com/jquery/form/#ajaxForm
+        <script type="text/javascript">
+            $.csrf_token = '{{ csrf_token }}';
+        </script>
+
+        <!-- jquery_form -->
+        <script src="{% static 'zapsum/js/jquery_form/jquery.form.min.js' %}"></script>     
+
+    var form = $('#avatarForm');
+
+    form.ajaxForm();
+
+    $('#avaSubmit').on('click', function(){
+        form.ajaxSubmit({
+            url: form.action,
+            type : form.method,
+            data: $(form).serialize(),
+            success: function (data) {
+                console.log(data.filename);
+
+                window.location.replace('/change_avatar/');
+            }
+        });
+    });
+
+views:
+@login_required
+def change_avatar(request): 
+    entry_user_profile = UserProfile.objects.get(user_ptr_id=request.user.id)   
+            
+    avatar = entry_user_profile.avatar                  
+    form = ChangeAvatarForm(instance=entry_user_profile)        
+                
+    if request.method == 'POST' and request.is_ajax():                                                              
+        form = ChangeAvatarForm(request.POST, request.FILES, instance=entry_user_profile)
+        if form.is_valid():             
+            form.save() 
+
+            filename = False
+            if request.FILES:
+                filename = True
+                    
+            data = {'filename': filename}   
+            return HttpResponse(json.dumps(data), content_type='application/json')          
+                
+    t = loader.get_template('page_change_avatar.html')
+    c = RequestContext(request, {
+        'form': form,
+        'avatar': avatar,
+    }, [custom_proc])   
+    
+    return HttpResponse(t.render(c))    
+
+
+
+
+==================================================================================================================ых
+туториал по загрузке тестовых данных в БД перед запуском приложения:
+в каталоге каждого приложения создать каталог fixtures и в нём initial_data.json
+при syncdb данные будут браться из этого файла. 
+причём всё равно какие модели заполнять через этот файл. то есть можно создать только один такой файл в одном из каталогов приложений и все модели заполнять через него.
+
+кроме того можно помещать этот файл и в другой каталог. для этого в settings.py прописать пути(в документации уточнить)
+
+приемер файла initial_data.json:
+[
+    {
+        "model": "auth.User",
+        "pk": 2,
+        "fields": {
+            "password": "pbkdf2_sha256$12000$mYXKstn17g7M$+odzVtDT7B4UTcd76ZU/WxpLyDK6gV5Cmq1QEFKQzms=",
+            "last_login": "2014-09-24 11:04:01.488821",
+            "is_superuser": 0,
+            "username": "qqqqqq",
+            "first_name": "3",
+            "last_name": "3",
+            "email": "aaa@mail.ru",
+            "is_staff": 0,
+            "is_active": 1,
+            "date_joined": "2014-09-22 17:37:25.866974"
+        }
+    },
+
+    {
+        "model": "app_accounts.UserProfile",
+        "pk": 2,
+        "fields": {
+            "gender": 2,
+            "phone": "2014-09-24 11:04:01.488821",
+            "skype": "dfsdf",
+            "other": "qqqqqq",
+            "avatar": ""
+        }
+    },
+
+    {
+        "model": "app_accounts.Gender",
+        "pk": 0,
+        "fields": {
+            "gender": "-----"
+        }
+    },
+    {
+        "model": "app_accounts.Gender",
+        "pk": 1,
+        "fields": {
+            "gender": "Ж"
+        }
+    },
+    {
+        "model": "app_accounts.Gender",
+        "pk": 2,
+        "fields": {
+            "gender": "М"
+        }
+    }
+]
+
+внимательнее нужно быть с запятыми. это не питон, js
+
+==================================================================================================================
+добавление настоящей даты и времени в модели:
+    last_edit_date = models.DateField(
+        'Дата последнего редактирования',
+        auto_now_add=True,
+    )   
+
+
+или
+from datetime import datetime  
+
+    last_edit_date = models.DateField(
+        'Дата последнего редактирования',
+        default=datetime.now(),
+    )       
+
+==================================================================================================================
+пример редактирования и обновления записи(без создания новой):
+@login_required
+def edit_records(request, id_record):   
+    entry = Diary.get_entry(id_record=id_record, user_id=request.user.pk)
+    form = addMessageForm(instance=entry)
+
+    if request.method == 'POST':
+        form = addMessageForm(request.POST, request.FILES, instance=entry)
+        if form.is_valid():     
+            form.save()     
+            return HttpResponseRedirect('/my_records/')
+
+    t = loader.get_template('page_edit_records.html')
+    c = RequestContext(request, {
+        'form': form,
+    }, [custom_proc])   
+    
+    return HttpResponse(t.render(c))        
+
+
+так form = addMessageForm(request.POST, request.FILES)
+запись не обновится, а создастся новая
+
+
+
+==================================================================================================================
+туториал по интеграции wysiwyg редактора summertime:
+нужен бутстрап
+pip install django-summernote
+help качаем отсюда https://github.com/lqez/django-summernote
+
+INSTALLED_APPS += ('django_summernote', )
+
+urlpatterns = patterns('',
+    ...
+    (r'^summernote/', include('django_summernote.urls')),
+    ...
+)
+
+python manage.py syncdb
+
+
+forms:
+from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
+
+class addMessageForm(forms.ModelForm):
+    date = forms.DateField(
+        widget=forms.TextInput(attrs={
+            'class':'datepicker',
+        }),
+        required=True,
+        label='Дата записи',
+    )       
+
+    text = forms.CharField(
+        label='Содержание записи',
+        help_text='',
+        max_length=5000, 
+        required=True,
+        widget=SummernoteWidget({
+            'width': '670px',
+            #'height': '200px',     
+        }),
+    )           
+                
+    class Meta:
+        model = Diary
+        fields = (
+            'title', 
+            'date',  
+            'text',
+        )       
+
+    def clean_title(self):
+        title = self.cleaned_data['title']
+        q_letters = len(title)
+        if q_letters < 3:
+            raise forms.ValidationError("Заголовок не может быть короче 3 символов.")       
+
+        if q_letters > 100:
+            raise forms.ValidationError("Заголовок не может быть длиннее 100 символов.")                    
+
+        return title    
+
+    def clean_text(self):
+        text = self.cleaned_data['text']
+        q_letters = len(text)
+        if q_letters < 3:
+            raise forms.ValidationError("Содержание не может быть короче 3 символов.")      
+
+        if q_letters > 5000:
+            raise forms.ValidationError("Содержание не может быть длиннее 5000 символов.")                  
+
+        return text     
+
+
+в settings.py не обязательно прописывать настройки
+
+==================================================================================================================
+передача сериализованного объекта из контроллера в ajax:
+
+view:
+def search_author(request): 
+    if request.method == "POST":
+        result = False
+        author = request.POST.get('author', '') 
+        authors_list = UserProfile.get_search_authors_entries(author)
+
+        result = serializers.serialize("json", authors_list)
+        return HttpResponse(json.dumps(result), content_type='application/json')        
+
+    t = loader.get_template('page_search_author.html')
+    c = RequestContext(request, {}, [custom_proc])  
+    
+    return HttpResponse(t.render(c))    
+
+modeL:
+class UserProfile(User):            
+    gender = models.ForeignKey(
+        Gender,
+        verbose_name='Пол',
+        blank=True,
+        null=True,
+    )
+    phone = models.CharField(
+        max_length=50, 
+        blank=False,
+    )
+    skype = models.CharField(
+        max_length=50, 
+        blank=False,
+    )   
+    other = models.TextField(
+        max_length=500,
+        blank=False,
+    )
+    avatar = models.ImageField(
+        upload_to='userprofile/avatar/', 
+        blank=True,
+        null=True,
+    )
+    
+    objects = UserManager()
+
+    @classmethod
+    def get_search_authors_entries(self, author):
+        #return self.objects.filter(username__icontains=author)     
+        return self.objects.filter(username__icontains=author)  
+
+    @classmethod
+    def get_new_authors_entries(self, cut_begin=0, cut_end=2):
+        return self.objects.filter(is_active=1, is_superuser=0).order_by('-date_joined')[cut_begin:cut_end] 
+
+    @classmethod
+    def get_count_authors_entries(self):
+        return self.objects.filter(is_active=1, is_superuser=0).order_by('-date_joined').count()                
+    
+
+
+js:
+    $('#formSearchAuthorSubmit').on('click', function(event){
+        event.preventDefault();
+
+        $.ajax({
+            url: "/search_author/",
+            type: 'POST',
+            dataType:"json",
+            data: {
+                "author": $('#formSearchAuthorWord').val(),
+                "csrfmiddlewaretoken": $.csrf_token
+            },
+            success: function(data) {   
+                var result = $.parseJSON(data);
+
+                try {
+                    console.log(result);
+                    console.log(result[0].pk);
+                    console.log(result[0].model);   
+
+                    //window.location.replace('/search_author/');
+
+                } catch(e) {
+                    $('#mySmallModalLabel').text('Не найдено совпадений');
+                    $('#infoModal').modal('show');
+
+                    setTimeout(function(){
+                        $('#infoModal').modal('hide');
+                    }, 2000);   
+                }                           
+                
+            }
+        });             
+    });
+
+
+
+==================================================================================================================
+туториал по flatpages:
+в settings.py:
+SITE_ID = 1
+INSTALLED_APPS = (
+    'django.contrib.flatpages',
+    'django.contrib.sites',
+)
+MIDDLEWARE_CLASSES = ( 
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',   
+)
+
+
+urls.py(не обязательно):
+url(r'^pages/', include('django.contrib.flatpages.urls')),
+
+
+в templates создать flatages/default.html:
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+    "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+<title>{{ flatpage.title }}</title>
+</head>
+<body>
+{{ flatpage.content }}
+</body>
+</html>
+
+
+
+
+
+==================================================================================================================
+вставить в форму скрытое поле с настоящей датой и временем:
+models:
+    last_edit_date = models.DateField(
+        'Дата последнего редактирования',
+        default=datetime.now(),
+    )   
+
+
+forms:
+from datetime import datetime
+    last_edit_date = forms.DateTimeField(
+        widget=forms.HiddenInput,
+        initial=datetime.now,
+    )
+
+tpl:
+            <div class="cell input_outer">
+                {{ form.last_edit_date }}
+            </div>  
+
+
+
+
+==================================================================================================================
+добавлять в поле модели текущую дату:
+    last_edit_date = models.DateField(
+        'Дата последнего редактирования',
+        auto_now=True,
+    )   
+
+
+==================================================================================================================
+реализация fancybox2:
+
+
+    {% for entry in entries_last_news %}
+        <article class="article">
+            <a class="icon_outer fancybox" href="/media/{{ entry.image }}">
+                {% thumbnail entry.image "97x88" crop="center" as im %}
+                    <img class="icon" src="{{ im.url }}" alt="{{ entry.title }}" title="{{ entry.title }}" width="{{ im.width }}" height="{{ im.height }}" />
+                {% endthumbnail %}              
+            </a>
+            
+            <div class="text_outer">
+                <h3 class="h3">{{ entry.title }}<time class="time" datetime="11-01-2009">{{ entry.date_event|date:"SHORT_DATE_FORMAT" }}</time></h3>
+                
+                {{ entry.teaser }}
+                
+                <a class="more_link" href="#">Подробнее</a>
+            </div>                              
+        </article>    
+    {% endfor %} 
+
+==================================================================================================================
+способ развернуть прект на локальном сервере, используя отдельный каталог для виртуального окружения.
+
+в соответствии с этим 
+http://virtualenvwrapper.readthedocs.org/en/latest/install.html#shell-startup-file
+в файле /home/.profile прописать:
+export WORKON_HOME=$HOME/.virtualenvs/blogik5_project
+export PROJECT_HOME=$HOME/.virtualenvs/blogik5_project/blogik5
+source /etc/bash_completion.d/virtualenvwrapper
+
+запустить на выполнение .profile в контексте родителя:
+source .profile
+
+создать вирт.окружение в отдельном каталоге. в общем структура такая:
+blogik5_project
+    -blogik5_env
+        -bin
+        -lib
+        -local
+
+
+
+далее не забыть установить django:
+pip install django
+
+, находясь в каталоге blogik5_project создать проект:
+django-admin startproject blogik5
+
+blogik5_project
+
+    -blogik5_env
+        -bin
+        -lib
+        -local
+    -blogik5
+        -
+        -
+        -
+
+создать таблицы и запустить сервер:
+python manage.py syncdb
+python manage.py runserver
+
+==================================================================================================================ении существующей когда при измении таблицы и миграции происходит такая печальная фигня:
+ ? The field 'Entry.video_url' does not have a default specified, yet is NOT NULL.
+ ? Since you are adding this field, you MUST specify a default
+ ? value to use for existing rows. Would you like to:
+ ?  1. Quit now, and add a default to the field in models.py
+ ?  2. Specify a one-off value to use for existing columns now
+ ? Please select a choice: 1
+
+
+
+ это означает, что добавлен столбец, но непонятно чего его заполнять в УЖЕ СУЩЕСТВУЮЩИХ записях.
+
+ для этого в модели нужно указать чем заполнить:
+    video_url = models.URLField(
+        verbose_name=u"Адрес видео", 
+        max_length=100,
+        null=True,
+        blank=False,
+    )   
+
+
+в данном случае это запись означает, что пользователь при создании по прежнему не может оставить поле пустым, но при сейчас миграции это поле заполнится пустыми значениями(NULL)
+
+
+
+==================================================================================================================
+если происходит непонятная фигня с индексами при выполнении команды migrate, то нужно удалить из файла миграции всё, чт освязано в с идексами:
+It turn out that SQLite doesn't create an index for one-to-one field in the first place, but South assumes it does. I suspect database type is the culprit for many other errors I encountered when using South.
+
+Solution is simple though. I go into the migration file and remove index part in both forward and backward functions. That's it.
+
+==================================================================================================================
+как импортировать переменные и settings.py?
+from django.conf import settings
+
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================
+==================================================================================================================

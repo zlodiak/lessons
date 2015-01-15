@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
+  "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" version="XHTML+RDFa 1.0" dir="ltr"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:dc="http://purl.org/dc/terms/"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/"
+  xmlns:og="http://ogp.me/ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:sioc="http://rdfs.org/sioc/ns#"
+  xmlns:sioct="http://rdfs.org/sioc/types#"
+  xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+
+<head profile="http://www.w3.org/1999/xhtml/vocab">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta about="/?q=node/4087" property="sioc:num_replies" content="0" datatype="xsd:integer" />
+<link rel="shortcut icon" href="http://fkn.ktu10.com/sites/default/files/logo_0.png" type="image/png" />
+<meta content="python super  - Метод super() в Python" about="/?q=node/4087" property="dc:title" />
+<link rel="canonical" href="/?q=node/4087" />
+<meta name="Generator" content="Drupal 7 (http://drupal.org)" />
+<script type="text/x-mathjax-config">MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+  tex2jax: {
+    inlineMath: [ ['$','$'], ['\\(','\\)'] ],
+    processEscapes: true
+  }
+});</script><link rel="shortlink" href="/?q=node/4087" />
+  <title>python super  - Метод super() в Python | fkn+antitotal</title>
+  <style type="text/css" media="all">@import url("http://fkn.ktu10.com/modules/system/system.base.css?mytnr6");
+@import url("http://fkn.ktu10.com/modules/system/system.menus.css?mytnr6");
+@import url("http://fkn.ktu10.com/modules/system/system.messages.css?mytnr6");
+@import url("http://fkn.ktu10.com/modules/system/system.theme.css?mytnr6");</style>
+<style type="text/css" media="all">@import url("http://fkn.ktu10.com/sites/all/modules/contributed_by_other/comment_notify/comment_notify.css?mytnr6");
+@import url("http://fkn.ktu10.com/modules/book/book.css?mytnr6");
+@import url("http://fkn.ktu10.com/modules/comment/comment.css?mytnr6");
+@import url("http://fkn.ktu10.com/modules/field/theme/field.css?mytnr6");
+@import url("http://fkn.ktu10.com/modules/node/node.css?mytnr6");
+@import url("http://fkn.ktu10.com/modules/search/search.css?mytnr6");
+@import url("http://fkn.ktu10.com/modules/user/user.css?mytnr6");
+@import url("http://fkn.ktu10.com/modules/forum/forum.css?mytnr6");
+@import url("http://fkn.ktu10.com/sites/all/modules/contributed_by_other/views/css/views.css?mytnr6");</style>
+<style type="text/css" media="all">@import url("http://fkn.ktu10.com/sites/all/modules/contributed_by_other/ctools/css/ctools.css?mytnr6");
+@import url("http://fkn.ktu10.com/sites/all/modules/contributed_by_other/syntaxhighlighter/syntaxhighlighter_3.0.83/styles/shCore.css?mytnr6");
+@import url("http://fkn.ktu10.com/sites/all/modules/contributed_by_other/syntaxhighlighter/syntaxhighlighter_3.0.83/styles/shThemeDefault.css?mytnr6");
+@import url("http://fkn.ktu10.com/sites/all/modules/contributed_by_other/extlink/extlink.css?mytnr6");</style>
+<style type="text/css" media="all">@import url("http://fkn.ktu10.com/themes/bartik/css/layout.css?mytnr6");
+@import url("http://fkn.ktu10.com/themes/bartik/css/style.css?mytnr6");
+@import url("http://fkn.ktu10.com/sites/default/files/color/bartik-20c8651e/colors.css?mytnr6");</style>
+<style type="text/css" media="print">@import url("http://fkn.ktu10.com/themes/bartik/css/print.css?mytnr6");</style>
+
+<!--[if lte IE 7]>
+<link type="text/css" rel="stylesheet" href="http://fkn.ktu10.com/themes/bartik/css/ie.css?mytnr6" media="all" />
+<![endif]-->
+
+<!--[if IE 6]>
+<link type="text/css" rel="stylesheet" href="http://fkn.ktu10.com/themes/bartik/css/ie6.css?mytnr6" media="all" />
+<![endif]-->
+  <script type="text/javascript" src="http://fkn.ktu10.com/misc/jquery.js?v=1.4.4"></script>
+<script type="text/javascript" src="http://fkn.ktu10.com/misc/jquery.once.js?v=1.2"></script>
+<script type="text/javascript" src="http://fkn.ktu10.com/misc/drupal.js?mytnr6"></script>
+<script type="text/javascript" src="http://fkn.ktu10.com/sites/all/modules/contributed_by_other/comment_notify/comment_notify.js?mytnr6"></script>
+<script type="text/javascript" src="http://fkn.ktu10.com/sites/all/modules/contributed_by_other/syntaxhighlighter/syntaxhighlighter_3.0.83/scripts/shCore.js?mytnr6"></script>
+<script type="text/javascript" src="http://fkn.ktu10.com/sites/all/modules/contributed_by_other/syntaxhighlighter/syntaxhighlighter_3.0.83/scripts/shLegacy.js?mytnr6"></script>
+<script type="text/javascript" src="http://fkn.ktu10.com/sites/all/modules/contributed_by_other/syntaxhighlighter/syntaxhighlighter_3.0.83/scripts/shBrushCSharp.js?mytnr6"></script>
+<script type="text/javascript" src="http://fkn.ktu10.com/sites/all/modules/contributed_by_other/syntaxhighlighter/syntaxhighlighter_3.0.83/scripts/shBrushCpp.js?mytnr6"></script>
+<script type="text/javascript" src="http://fkn.ktu10.com/sites/all/modules/contributed_by_other/syntaxhighlighter/syntaxhighlighter_3.0.83/scripts/shBrushDelphi.js?mytnr6"></script>
+<script type="text/javascript" src="http://fkn.ktu10.com/sites/all/modules/contributed_by_other/syntaxhighlighter/syntaxhighlighter_3.0.83/scripts/shBrushJava.js?mytnr6"></script>
+<script type="text/javascript" src="http://fkn.ktu10.com/sites/all/modules/contributed_by_other/syntaxhighlighter/syntaxhighlighter_3.0.83/scripts/shBrushPhp.js?mytnr6"></script>
+<script type="text/javascript" src="http://fkn.ktu10.com/sites/all/modules/contributed_by_other/syntaxhighlighter/syntaxhighlighter_3.0.83/scripts/shBrushPython.js?mytnr6"></script>
+<script type="text/javascript" src="http://fkn.ktu10.com/sites/all/modules/contributed_by_other/syntaxhighlighter/syntaxhighlighter_3.0.83/scripts/shBrushSql.js?mytnr6"></script>
+<script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript" src="http://fkn.ktu10.com/sites/all/modules/contributed_by_other/extlink/extlink.js?mytnr6"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"bartik","theme_token":"G-ZiBXw20gVRTD6Eh_zm17WEgAPs9jq6WDrJxJsUBfg","js":{"sites\/all\/modules\/contributed_by_other\/syntaxhighlighter\/syntaxhighlighter.min.js":1,"misc\/jquery.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"sites\/all\/modules\/contributed_by_other\/comment_notify\/comment_notify.js":1,"sites\/all\/modules\/contributed_by_other\/syntaxhighlighter\/syntaxhighlighter_3.0.83\/scripts\/shCore.js":1,"sites\/all\/modules\/contributed_by_other\/syntaxhighlighter\/syntaxhighlighter_3.0.83\/scripts\/shLegacy.js":1,"sites\/all\/modules\/contributed_by_other\/syntaxhighlighter\/syntaxhighlighter_3.0.83\/scripts\/shBrushCSharp.js":1,"sites\/all\/modules\/contributed_by_other\/syntaxhighlighter\/syntaxhighlighter_3.0.83\/scripts\/shBrushCpp.js":1,"sites\/all\/modules\/contributed_by_other\/syntaxhighlighter\/syntaxhighlighter_3.0.83\/scripts\/shBrushDelphi.js":1,"sites\/all\/modules\/contributed_by_other\/syntaxhighlighter\/syntaxhighlighter_3.0.83\/scripts\/shBrushJava.js":1,"sites\/all\/modules\/contributed_by_other\/syntaxhighlighter\/syntaxhighlighter_3.0.83\/scripts\/shBrushPhp.js":1,"sites\/all\/modules\/contributed_by_other\/syntaxhighlighter\/syntaxhighlighter_3.0.83\/scripts\/shBrushPython.js":1,"sites\/all\/modules\/contributed_by_other\/syntaxhighlighter\/syntaxhighlighter_3.0.83\/scripts\/shBrushSql.js":1,"https:\/\/c328740.ssl.cf1.rackcdn.com\/mathjax\/latest\/MathJax.js?config=TeX-AMS-MML_HTMLorMML":1,"sites\/all\/modules\/contributed_by_other\/extlink\/extlink.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"sites\/all\/modules\/contributed_by_other\/comment_notify\/comment_notify.css":1,"modules\/book\/book.css":1,"modules\/comment\/comment.css":1,"modules\/field\/theme\/field.css":1,"modules\/node\/node.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"modules\/forum\/forum.css":1,"sites\/all\/modules\/contributed_by_other\/views\/css\/views.css":1,"sites\/all\/modules\/contributed_by_other\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/contributed_by_other\/syntaxhighlighter\/syntaxhighlighter_3.0.83\/styles\/shCore.css":1,"sites\/all\/modules\/contributed_by_other\/syntaxhighlighter\/syntaxhighlighter_3.0.83\/styles\/shThemeDefault.css":1,"sites\/all\/modules\/contributed_by_other\/extlink\/extlink.css":1,"themes\/bartik\/css\/layout.css":1,"themes\/bartik\/css\/style.css":1,"themes\/bartik\/css\/colors.css":1,"themes\/bartik\/css\/print.css":1,"themes\/bartik\/css\/ie.css":1,"themes\/bartik\/css\/ie6.css":1}},"syntaxhighlighter":{"legacyMode":true},"extlink":{"extTarget":"_blank","extClass":"ext","extSubdomains":1,"extExclude":"","extInclude":"","extAlert":0,"extAlertText":"This link will take you to an external web site. We are not responsible for their content.","mailtoClass":"mailto"}});
+//--><!]]>
+</script>
+</head>
+<body class="html not-front not-logged-in one-sidebar sidebar-first page-node page-node- page-node-4087 node-type-forum" >
+  <div id="skip-link">
+    <a href="#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+    <div id="page-wrapper"><div id="page">
+
+  <div id="header" class="without-secondary-menu"><div class="section clearfix">
+
+          <a href="/" title="Home" rel="home" id="logo">
+        <img src="http://fkn.ktu10.com/sites/default/files/color/bartik-20c8651e/logo.png" alt="Home" />
+      </a>
+    
+          <div id="name-and-slogan">
+
+                              <div id="site-name">
+              <strong>
+                <a href="/" title="Home" rel="home"><span>fkn+antitotal</span></a>
+              </strong>
+            </div>
+                  
+                  <div id="site-slogan">
+            студентам &amp; программистам          </div>
+        
+      </div> <!-- /#name-and-slogan -->
+    
+    
+          <div id="main-menu" class="navigation">
+        <h2 class="element-invisible">Main menu</h2><ul id="main-menu-links" class="links clearfix"><li class="menu-198 first"><a href="/" title="Факультет Компьютерных Наук (ФКН) Воронежского Государственного Университета (ВГУ)  Воронеж Россия.">Home</a></li>
+<li class="menu-319"><a href="http://fkn.ktu10.com/?q=node/263" title="СТРУКТУРА ФАКУЛЬТЕТА
+___________
+CS Faculty VSU Voronezh ФКН ВГУ Воронеж">[ ФКН ]</a></li>
+<li class="menu-336"><a href="/?q=forum" title="Всё классифицировано в виде таблицы, это поможет тем, кто вышел на нас не с помощью поисковика , а сам по себе)">Форум</a></li>
+<li class="menu-322"><a href="/?q=node/389" title="Цели&amp;Задачи">О проекте</a></li>
+<li class="menu-638"><a href="/?q=blog" title="блоги участников и сочувствующих =)">Blogs</a></li>
+<li class="menu-569 last"><a href="http://fkn.ktu10.com/?q=node/4753" title="тем, кто хочет присоединиться)">Регистрация</a></li>
+</ul>      </div> <!-- /#main-menu -->
+    
+    
+  </div></div> <!-- /.section, /#header -->
+
+  
+  
+  <div id="main-wrapper" class="clearfix"><div id="main" class="clearfix">
+
+          <div id="breadcrumb"><h2 class="element-invisible">You are here</h2><div class="breadcrumb"><a href="/">Home</a> » <a href="/?q=forum">Forums</a> » <a href="/?q=forum/24">Программирование</a> » <a href="/?q=forum/627">Python (&quot;Пайсон&quot;, &quot;Пайтон&quot; - или просто Питон))</a></div></div>
+    
+          <div id="sidebar-first" class="column sidebar"><div class="section">
+          <div class="region region-sidebar-first">
+    <div id="block-user-login" class="block block-user">
+
+    <h2>User login</h2>
+  
+  <div class="content">
+    <form action="/?q=node/4087&amp;destination=node/4087" method="post" id="user-login-form" accept-charset="UTF-8"><div><div class="form-item form-type-textfield form-item-name">
+  <label for="edit-name">Username <span class="form-required" title="This field is required.">*</span></label>
+ <input type="text" id="edit-name" name="name" value="" size="15" maxlength="60" class="form-text required" />
+</div>
+<div class="form-item form-type-password form-item-pass">
+  <label for="edit-pass">Password <span class="form-required" title="This field is required.">*</span></label>
+ <input type="password" id="edit-pass" name="pass" size="15" maxlength="60" class="form-text required" />
+</div>
+<div class="item-list"><ul><li class="first last"><a href="/?q=user/password" title="Request new password via e-mail.">Request new password</a></li>
+</ul></div><input type="hidden" name="form_build_id" value="form-lU0Zu52rdia5FwVMXnKDPDPhEpDq_Ke9A6oGH5_YzVc" />
+<input type="hidden" name="form_id" value="user_login_block" />
+<div class="form-actions form-wrapper" id="edit-actions"><input type="submit" id="edit-submit" name="op" value="Log in" class="form-submit" /></div></div></form>  </div>
+</div>
+  </div>
+      </div></div> <!-- /.section, /#sidebar-first -->
+    
+    <div id="content" class="column"><div class="section">
+            <a id="main-content"></a>
+                    <h1 class="title" id="page-title">
+          python super  - Метод super() в Python        </h1>
+                          <div class="tabs">
+          <h2 class="element-invisible">Primary tabs</h2><ul class="tabs primary"><li class="active"><a href="/?q=node/4087" class="active">View<span class="element-invisible">(active tab)</span></a></li>
+<li><a href="/?q=node/4087/backlinks">Дополнительно</a></li>
+</ul>        </div>
+                          <div class="region region-content">
+    <div id="block-system-main" class="block block-system">
+
+    
+  <div class="content">
+    <div id="node-4087" class="node node-forum node-promoted node-full clearfix" about="/?q=node/4087" typeof="sioc:Post sioct:BoardPost">
+
+      
+      <div class="meta submitted">
+        <div class="user-picture">
+    <img typeof="foaf:Image" src="http://fkn.ktu10.com/sites/default/files/styles/thumbnail/public/pictures/picture-19-1381995612.jpg" alt="vedro-compota&#039;s picture" title="vedro-compota&#039;s picture" />  </div>
+      <span property="dc:date dc:created" content="2013-03-30T19:09:32+04:00" datatype="xsd:dateTime" rel="sioc:has_creator">Submitted by <span class="username" xml:lang="" about="/?q=user/19" typeof="sioc:UserAccount" property="foaf:name">vedro-compota</span> on Sat, 03/30/2013 - 19:09</span>    </div>
+  
+  <div class="content clearfix">
+    <div class="field field-name-taxonomy-forums field-type-taxonomy-term-reference field-label-above clearfix"><h3 class="field-label">Forums: </h3><ul class="links"><li class="taxonomy-term-reference-0" rel="sioc:has_container"><a href="/?q=forum/627" typeof="sioc:Container sioc:Forum" property="rdfs:label skos:prefLabel">Python (&quot;Пайсон&quot;, &quot;Пайтон&quot; - или просто Питон))</a></li></ul></div><div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded"><p><strong>ИСТОЧНИК (я копировал текст, так как сайт "лежал" и не известно было - поднимется ли): <a href="http://pkolt.ru/pages/22/">http://pkolt.ru/pages/22/</a></strong></p>
+<h2>Метод super() в Python</h2>
+<p> В Python есть метод super(), который обычно применяется к объектам.<br />
+Его главная задача это <strong>возможность использования в классе потомке, методов класса-родителя.</strong><br />
+ По аналогии с PHP5 нечто вроде parrent::__construct()</p>
+<p>Смотрим пример:</p>
+<pre class="brush:python"># Родительский класс
+
+class A(object):
+
+    def __init__(self):
+        print(u'конструктор класса A')
+
+# Потомок класса А
+class B(A):
+
+    def __init__(self):
+        print(u'конструктор класса B')
+        super(B,self).__init__()</pre><p>
+Смысл примера заключается в том, что <strong>Python автоматически (сам по себе) не запустит родительский конструктор</strong>, поскольку мы его переопределили в классе B… Поэтому <strong>методом super() мы явно вызываем родительский конструктор.</strong> </p>
+<p>Кто-то посчитает код избыточным, ведь приходиться ссылаться на текущий класс чтобы запустить методы родителя, как стало известно в Python версии 3.0 это проблема решена, метод super() будет вызываться без аргументов.</p>
+<p>Кстати существует альтернативная реализация тех же самых действий, как еще ее называют в старом стиле:</p>
+<pre class="brush:python">class A:
+    def __init__(self):
+        print(u'конструктор класса A')
+
+class B(A):
+
+    def __init__(self):
+        print(u'конструктор класса B')
+        A.__init__(self)</pre></div></div></div><div class="field field-name-field-forumtags field-type-taxonomy-term-reference field-label-above clearfix"><h3 class="field-label">Key Words for FKN + antitotal forum (CS VSU): </h3><ul class="links"><li class="taxonomy-term-reference-0"><a href="/?q=taxonomy/term/151" typeof="skos:Concept" property="rdfs:label skos:prefLabel">неофициальный форум фкн</a></li><li class="taxonomy-term-reference-1"><a href="/?q=taxonomy/term/379" typeof="skos:Concept" property="rdfs:label skos:prefLabel">ФКН ВГУ Воронеж</a></li><li class="taxonomy-term-reference-2"><a href="/?q=taxonomy/term/380" typeof="skos:Concept" property="rdfs:label skos:prefLabel">программирование Воронеж</a></li><li class="taxonomy-term-reference-3"><a href="/?q=taxonomy/term/381" typeof="skos:Concept" property="rdfs:label skos:prefLabel">ВГУ информатика</a></li><li class="taxonomy-term-reference-4"><a href="/?q=taxonomy/term/382" typeof="skos:Concept" property="rdfs:label skos:prefLabel">ВГУ компьютерных наук</a></li><li class="taxonomy-term-reference-5"><a href="/?q=taxonomy/term/756" typeof="skos:Concept" property="rdfs:label skos:prefLabel">python super функция</a></li></ul></div>  </div>
+
+      <div class="link-wrapper">
+      <ul class="links inline"><li class="comment_forbidden first"><span><a href="/?q=user/login&amp;destination=node/4087%23comment-form">Log in</a> to post comments</span></li>
+<li class="statistics_counter last"><span>1063 reads</span></li>
+</ul>    </div>
+  
+  
+</div>
+  </div>
+</div>
+<div id="block-views-backlinks-block" class="block block-views">
+
+    <h2>Дополнительные материалы:</h2>
+  
+  <div class="content">
+    <div class="view view-backlinks view-id-backlinks view-display-id-block view-dom-id-c4a1e13de70f73194d4b3d66627743e7">
+        
+  
+  
+  
+  
+  
+  
+  
+  
+</div>  </div>
+</div>
+  </div>
+      
+    </div></div> <!-- /.section, /#content -->
+
+    
+  </div></div> <!-- /#main, /#main-wrapper -->
+
+  
+  <div id="footer-wrapper"><div class="section">
+
+    
+          <div id="footer" class="clearfix">
+          <div class="region region-footer">
+    <div id="block-block-1" class="block block-block">
+
+    
+  <div class="content">
+    
+<!-- Yandex.Metrika counter -->
+<div style="display:none;"><script type="text/javascript">
+(function(w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter10077130 = new Ya.Metrika({id:10077130, enableAll: true});
+        }
+        catch(e) { }
+    });
+})(window, "yandex_metrika_callbacks");
+</script></div>
+<script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+<noscript><div><img src="//mc.yandex.ru/watch/10077130" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->  </div>
+</div>
+<div id="block-system-powered-by" class="block block-system">
+
+    <h2>Inspired by [ Факультет Компьютерных Наук | ФКН ВГУ | Воронеж ]</h2>
+  
+  <div class="content">
+    <span>antitotal brotherhood: &nbsp&nbsp&nbsp&nbsp<a href="http://fkn.ktu10.com/">ФКН вгу</a>
+  &nbsp&nbsp&nbsp |&nbsp&nbsp&nbsp   <a href="http://sib.ktu10.com/">СИБ вгту</a> &nbsp&nbsp&nbsp |&nbsp&nbsp&nbsp   <a href="http://stopnikel.ktu10.com/">STOP_Nikel</a></span>  </div>
+</div>
+  </div>
+      </div> <!-- /#footer -->
+    
+  </div></div> <!-- /.section, /#footer-wrapper -->
+
+</div></div> <!-- /#page, /#page-wrapper -->
+  <script type="text/javascript" src="http://fkn.ktu10.com/sites/all/modules/contributed_by_other/syntaxhighlighter/syntaxhighlighter.min.js?mytnr6"></script>
+</body>
+</html>

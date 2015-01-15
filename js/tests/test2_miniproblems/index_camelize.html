@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <title>вотер</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" type="text/css" href="css/styles.css" id="styles" />		
+				
+</head>
+<body>		
+	<script type="text/javascript">						
+		function camelize(str){
+			var arr = [];
+			var splitArrUpper = [];
+			
+			function ucfirst( str ) {   // Make a string&#039;s first character uppercase
+				// 
+				// +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+			 
+				var f = str.charAt(0).toUpperCase();
+				return f + str.substr(1, str.length-1);
+			}			
+			
+			/*
+				String.prototype.ucFirst = function() {
+				 var str = this;
+				 if(str.length) {
+				 str = str.charAt(0).toUpperCase() + str.slice(1);
+				 }
+				 return str;
+				 };
+
+				// usage example
+				 "hello".ucFirst(); // --> Hello			
+			*/
+			
+			splitArr = str.split('-');
+			console.log(splitArr);
+
+			for(i=0; i<splitArr.length; i++){
+				splitArr[i] = ucfirst(splitArr[i]);
+			}
+			
+			console.log(splitArr);			
+			
+			
+			return strCamel = splitArr.join('-');
+		}
+		
+		alert(camelize('my-short-string-rulezz'));
+		console.log(camelize('my-short-string-rulezz'));		
+	</script>	
+</body>
+</html>

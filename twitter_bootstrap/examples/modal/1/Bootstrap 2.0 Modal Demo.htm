@@ -1,0 +1,78 @@
+
+<!-- saved from url=(0041)http://bootstrap2modaldemo.scripting.com/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+		<title>Bootstrap 2.0 Modal Demo</title>
+		<link href="http://static.scripting.com/github/bootstrap2/css/bootstrap.css" rel="stylesheet">
+		<script src="./Bootstrap 2.0 Modal Demo_files/jquery.js"></script>
+		<script src="./Bootstrap 2.0 Modal Demo_files/bootstrap-transition.js"></script>
+		<script src="./Bootstrap 2.0 Modal Demo_files/bootstrap-modal.js"></script>
+		<style>
+			.divDemoBody  {
+				width: 60%;
+				margin-left: auto;
+				margin-right: auto;
+				margin-top: 100px;
+				}
+			.divDemoBody p {
+				font-size: 18px;
+				line-height: 140%;
+				padding-top: 12px;
+				}
+			.divDialogElements input {
+				font-size: 18px;
+				padding: 3px; 
+				height: 32px; 
+				width: 500px; 
+				}
+			.divButton {
+				padding-top: 12px;
+				}
+			</style>
+		<script>
+			$(document).ready(function() {
+				$('#windowTitleDialog').bind('show', function () {
+					document.getElementById ("xlInput").value = document.title;
+					});
+				});
+			function closeDialog () {
+				$('#windowTitleDialog').modal('hide'); 
+				};
+			function okClicked () {
+				document.title = document.getElementById ("xlInput").value;
+				closeDialog ();
+				};
+			</script>
+		</head>
+	<body class="">
+		<div class="divDemoBody">
+			<h1>Bootstrap 2.0 Modal Demo</h1>
+			<p>A simple demo of a <a href="http://twitter.github.com/bootstrap/javascript.html#modals">modal dialog</a> in Bootstrap 2.0.</p>
+			<p>1. Click the button. 2. Enter a new title for the window. 3. Click OK.</p><script language="JavaScript" type="text/javascript">
+	var imageUrl = "http://counters.scripting.com/counters/count.gif";
+	var imageTag = "<img src=\"" + imageUrl + "?group=bootstrap2ModalDemoStatic&referer=" + escape (document.referrer) + "\" height=\"1\" width=\"1\">";
+	document.write (imageTag);
+	</script><img src="./Bootstrap 2.0 Modal Demo_files/count.gif" height="1" width="1">
+
+			<p>We set the title of the window and close the dialog.</p>
+			<div id="windowTitleDialog" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="windowTitleLabel" aria-hidden="true" style="display: none;">
+				<div class="modal-header">
+					<a href="http://bootstrap2modaldemo.scripting.com/#" class="close" data-dismiss="modal">&#215;</a>
+					<h3>Please enter a new title for this window.</h3>
+					</div>
+				<div class="modal-body">
+					<div class="divDialogElements">
+						<input class="xlarge" id="xlInput" name="xlInput" type="text">
+						</div>
+					</div>
+				<div class="modal-footer">
+					<a href="http://bootstrap2modaldemo.scripting.com/#" class="btn" onclick="closeDialog ();">Cancel</a>
+					<a href="http://bootstrap2modaldemo.scripting.com/#" class="btn btn-primary" onclick="okClicked ();">OK</a>
+					</div>
+				</div>
+			<div class="divButtons">
+				<a data-toggle="modal" href="http://bootstrap2modaldemo.scripting.com/#windowTitleDialog" class="btn btn-primary btn-large">Set Window Title</a>
+				</div>
+			<p>Note -- See <a href="http://bootstrapdemos.scripting.com/">this page</a> for a list of my Bootstrap demos.</p>
+			</div>
+		
+</body></html>

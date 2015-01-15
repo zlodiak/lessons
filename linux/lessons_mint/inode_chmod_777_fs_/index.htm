@@ -1,0 +1,1022 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0060)http://www.linuxcenter.ru/lib/books/kostromin/gl_04_05.phtml -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+	<title>4.5. Права доступа к файлам и каталогам | Linux для пользователя | Книги и руководства | Библиотека Линуксцентра | Linuxcenter.Ru – эксперт по Linux и свободному программному обеспечению. Внедрение Linux и свободного программного обеспечения, дистрибутивы Linux, книги, статьи о Linux, обучение Linux и свободному ПО. Mandriva, Ubuntu, SUSE, Fedora, Red Hat, Debian, KNOPPIX, Gentoo, Slackware, FreeBSD, CentOS, Xandros, RedHat, Linux-XP, OpenBSD, Scientific, ASPLinux, ALTLinux, MOPSLinux.</title>
+<link rel="stylesheet" type="text/css" media="screen" title="glow-theme" href="http://www.linuxcenter.ru/wx-content/themes/linuxcenterdiv/style.css">
+
+    <meta name="spr-verification" content="d3a801c215dfca6">
+    <meta name="yandex-verification" content="66424938565a2532">
+    <!-- 57b15b2b2724d173 -->
+    <meta name="rp6af223eb854141bfbadfaf3da94cdec8" content="948522985f48a5ffcf41dc54daf811d5">
+
+	<meta name="keywords" content="">
+<meta name="description" content="">
+
+<meta name="revisit-after" content="1 day">
+<meta name="ROBOTS" content="INDEX,FOLLOW">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="http://www.linuxcenter.ru/trans/news.rss">
+<link rel="icon" type="image/x-icon" href="http://www.linuxcenter.ru/_favicon.ico">
+<link rel="stylesheet" type="text/css" media="screen" title="glow-theme" href="http://www.linuxcenter.ru/css/ui-lightness/jquery-ui-1.8.custom.css">
+
+<script type="text/javascript" async="" src="http://mc.yandex.ru/metrika/watch.js"></script><script type="text/javascript" async="" src="http://stats.g.doubleclick.net/dc.js"></script><script src="http://www.linuxcenter.ru/jquery-1.4.2.min.js" type="text/javascript"></script><style type="text/css"></style>
+<script src="http://www.linuxcenter.ru/jquery-ui-1.8.custom.min.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+<div id="page">
+
+	<div id="header">
+		<div id="headline">
+			<a href="http://www.linuxcenter.ru/"><div id="logoimg"></div></a>
+			<div id="about"><b>ГНУ/Линуксцентр - ваш поставщик свободного ПО и технической поддержки</b>. <br>
+			<b>Санкт-Петербург: +7 (812) 640-49-90, +7 (812) 309-06-86</b>, <b>Москва: +7 (499) 271-49-54</b><br>
+			Состояние склада: <a href="http://www.linuxcenter.ru/depots/spb/"><b>Санкт-Петербург</b></a>  -  <a href="http://www.linuxcenter.ru/depots/aviamotornaya/"><b>Москва</b></a>
+			</div> 
+ 
+	<div id="searchbox">
+ 
+ 
+<form action="http://www.linuxcenter.ru/" id="cse-search-box">
+  <div>
+    <input type="text" name="searchfor" size="18">
+    <input type="submit" name="sa" value="Поиск">
+  </div>
+</form>
+
+		<!--
+		<form action="http://www.google.ru/cse" id="cse-search-box">
+		  <div>
+		    <input type="hidden" name="cx" value="partner-pub-1746869103398870:fair05-ms2x" />
+		    <input type="hidden" name="ie" value="windows-1251" />
+		    <input type="text" name="q" size="18" />
+		    <input type="submit" name="sa" value="&#x041f;&#x043e;&#x0438;&#x0441;&#x043a;" />
+		  </div>
+		</form>
+		-->
+
+<script type="text/javascript" src="http://www.google.ru/coop/cse/brand?form=cse-search-box&lang=ru"></script> 				
+			</div>
+		</div>
+	</div>
+	
+	<div id="topmenu">
+		<ul id="mainmenu">
+			<li><a href="https://www.linuxcenter.ru/profile/">Аккаунт</a></li>
+			<li><a href="http://www.linuxcenter.ru/shop/">Магазин</a></li>
+			<li><a href="http://www.linuxcenter.ru/service/">Услуги</a></li>
+			<li><a href="http://www.linuxcenter.ru/partner">Партнерам</a></li>
+			<li><a href="http://www.linuxcenter.ru/news/">Новости</a></li>
+			<li><a href="http://www.linuxcenter.ru/lib/">Библиотека</a></li>
+			<li><a href="http://www.linuxcenter.ru/vacancy/">Вакансии</a></li>
+			<li><a href="http://www.linuxcenter.ru/contact/"><b>Контакты</b></a></li>
+                     <li><a href="http://www.linuxcenter.ru/redhat_courses/"><b>Обучение RedHat</b></a></li>
+
+		</ul>
+		<br clear="all">
+	</div>	
+
+	<div id="right_decoration"></div>
+	
+	<div id="content">
+
+		<div id="sidebar">
+			
+			<div class="wrap">
+				<h3>Ваша корзина</h3>
+				<ul>
+									<p style="text-align: center;">Корзина пуста</p>
+								</ul>
+									<form method="post" action="https://www.linuxcenter.ru/">
+					<table align="center">
+						<tbody><tr>
+							<td><small>E-mail</small></td>
+							<td><input type="text" name="user_email" value="" size="10"></td>
+						</tr>
+						<tr>
+							<td><small>Пароль</small></td>
+							<td><input type="password" name="user_password" value="" size="10"></td>
+						</tr>
+					</tbody></table>
+					<input type="hidden" name="action" value="login">
+					<p style="text-align: right; "><input type="submit" name="loginBtn" value="Вход"></p>
+					</form>
+
+					<ul>
+					<li><a href="https://www.linuxcenter.ru/profile/recollect/">Забыли пароль?</a></li>
+					<li><a href="https://www.linuxcenter.ru/profile/registration/">Регистрация</a></li>
+					</ul>
+					<p></p>
+							</div>
+			
+		 
+		<!--
+ 		   <div class="wrap">
+				<h2>Подпишись и выиграй нетбук!</h2>
+				<div align="center"><a href="http://www.linuxcenter.ru/linuxformat-2012"><img style="margin-top: 8px;" 
+				src="http://linuxcenter.ru/images/cd/id6320.jpg" width="120" border="0"></a></div>
+				<p><a href="http://www.linuxcenter.ru/linuxformat-2012">Подпишись на журнал Linux Format до 12 февраля 
+				2012 года и выиграй СУПЕРПРИЗ!</a></p>
+			</div>
+		-->
+		
+			
+			<div class="wrap">
+				<h2><a href="http://www.linuxcenter.ru/shop/" style="color: #FFFFEE;">Интернет-магазин</a></h2>
+				<ul>
+				<li class="section">Программное обеспечение</li>
+				<li><a href="http://www.linuxcenter.ru/shop/distros/">Дистрибутивы</a></li>
+				<li><a href="http://www.linuxcenter.ru/shop/linux-software/1c/">1С: Предприятие</a></li>
+				
+				<li><a href="http://www.linuxcenter.ru/shop/linux-software/office/">Офисное ПО</a></li>
+				<li><a href="http://www.linuxcenter.ru/shop/opensource_software_windows/">СПО для Windows </a></li>
+				<li><a href="http://www.linuxcenter.ru/shop/linux-software/games/">Игры для Linux</a></li>
+			<li class="section">Виртуализация VMware</li>
+												<li><a href="http://www.linuxcenter.ru/shop/vCenter_Converter/">vCenter Converter</a> </li>
+								<li><a href="http://www.linuxcenter.ru/shop/VMware_vSphere/">VMware vSphere</a> </li>
+								<li><a href="http://www.linuxcenter.ru/shop/vSphere_Hypervisor/">vSphere Hypervisor</a> </li>
+							<li class="section"><a href="http://www.linuxcenter.ru/shop/sertified_fstek/">Сертифицированно ФСТЭК</a></li><a href="http://www.linuxcenter.ru/shop/sertified_fstek/">
+				</a><li><a href="http://www.linuxcenter.ru/shop/sertified_fstek/"></a><a href="http://www.linuxcenter.ru/shop/sspt/">ССПТ-2</a></li>
+				<li><a href="http://www.linuxcenter.ru/shop/suse_fstk/">SUSE</a></li>
+				<li><a href="http://www.linuxcenter.ru/shop/altel/">Altel</a></li>
+				<li><a href="http://www.linuxcenter.ru/shop/continent/">АПКШ «Континент»</a></li>
+				<li><a href="http://www.linuxcenter.ru/shop/sobol/">ПАК "Соболь"</a></li>
+				<li class="section">Аппаратное обеспечение</li>
+                                <li><a href="http://www.linuxcenter.ru/shop/ops_hard/">Открытое аппаратное обеспечение</a></li>
+				<li><a href="http://www.linuxcenter.ru/shop/servers/">Серверы</a></li>
+				<li><a href="http://www.linuxcenter.ru/shop/videoservers/">Системы видеонаблюдения</a></li>
+				<li><a href="http://www.linuxcenter.ru/shop/3d/">3D Печать</a></li>
+
+				<li class="section">Литература и обучение</li>
+				<li><a href="http://www.linuxcenter.ru/shop/books-and-magazines/">Журналы, подписка </a></li>
+				
+				<li><a href="http://www.linuxcenter.ru/shop/books/">Книги</a></li>
+				<li><a href="http://www.linuxcenter.ru/redhat_courses/">Учебные курсы</a></li>
+				
+				
+				<li class="section">Услуги</li>
+				<li><a href="http://www.linuxcenter.ru/shop/services/tech_support/">Лицензии и купоны на тех.поддержку</a></li>
+				<li><a href="http://www.linuxcenter.ru/service/">Консалтинг, сервис, техническая поддержка</a></li>
+				<li><a href="http://www.linuxcenter.ru/advert/">Реклама</a></li>
+
+				<li class="section"><a href="http://www.linuxcenter.ru/shop/gifts/">Атрибутика</a></li>
+				<br>
+				<li><a href="http://www.linuxcenter.ru/shop/novelty/">Новинки</a></li>
+				<li><a href="http://www.linuxcenter.ru/shop/forsale/">Распродажа</a></li>
+				<li><a href="http://www.linuxcenter.ru/shop/">Все товары сразу</a></li>
+				</ul>
+				
+			</div>
+			<div class="wrap">
+				<h2>Продукты Oracle</h2>
+				<ul>
+<!--
+												
+				<li><a href="http://www.linuxcenter.ru/shop/my_sql/">MySQL</a></li>
+				
+								
+				<li><a href="http://www.linuxcenter.ru/shop/bi/">Oracle BI</a></li>
+				
+								
+				<li><a href="http://www.linuxcenter.ru/shop/el/">Oracle Linux</a></li>
+				
+								
+				<li><a href="http://www.linuxcenter.ru/shop/database/">Базы данных Oracle</a></li>
+				
+								
+				<li><a href="http://www.linuxcenter.ru/shop/vm/">Виртуализация Oracle</a></li>
+				
+				-->
+
+    <li><a href="http://www.linuxcenter.ru/shop/database/">Базы данных Oracle</a></li>
+    <li><a href="http://www.linuxcenter.ru/shop/my_sql/">MySQL</a></li>
+    <li><a href="http://www.linuxcenter.ru/shop/bi/">Oracle BI</a></li>
+    <li><a href="http://www.linuxcenter.ru/shop/el/">Oracle Linux</a></li>
+    <li><a href="http://www.linuxcenter.ru/shop/vm/">Виртуализация Oracle</a></li>
+   
+
+				</ul>
+			</div>
+			
+			<div class="wrap">
+				<h2>Где купить ?</h2>
+				<ul>
+				<li><a href="http://www.linuxcenter.ru/contact/">Наши магазины</a></li>
+				<li><a href="https://www.linuxcenter.ru/partnerlist/">Наши партнеры</a></li>
+				<li><a href="http://www.linuxcenter.ru/stores/">Магазины партнеров </a></li>
+				</ul>
+			</div>
+
+			<div class="wrap">
+				<h2>ПАРТНЕРАМ</h2>
+				<ul>
+				<li><a href="https://www.linuxcenter.ru/partner/">Информация для партнеров </a></li>
+				<li><a href="http://www.linuxcenter.ru/depots/">Оптовым покупателям</a></li>
+				<li><a href="http://www.linuxcenter.ru/affiliate/about/">Владельцам сайтов</a></li>
+				<li><a href=""></a></li>
+				</ul>
+			</div>
+			
+			<div class="wrap">
+				<h2>Дистрибутивы</h2>
+				<ul>
+																<li><a href="http://www.linuxcenter.ru/shop/acronis/">Acronis</a></li>
+																<li><a href="http://www.linuxcenter.ru/shop/altlinux/">ALT Linux</a></li>
+																<li><a href="http://www.linuxcenter.ru/shop/arch_linux/">Arch Linux</a></li>
+																<li><a href="http://www.linuxcenter.ru/shop/asplinux/">ASPLinux</a></li>
+																<li><a href="http://www.linuxcenter.ru/shop/centos/">CentOS</a></li>
+																<li><a href="http://www.linuxcenter.ru/shop/debian/">Debian</a></li>
+																<li><a href="http://www.linuxcenter.ru/shop/dr_web/">Dr.Web</a></li>
+																<li><a href="http://www.linuxcenter.ru/shop/eclipse/">Eclipse</a></li>
+																<li><a href="http://www.linuxcenter.ru/shop/fedoracore/">Fedora</a></li>
+																<li><a href="http://www.linuxcenter.ru/shop/freebsd/">FreeBSD</a></li>
+																<li><a href="http://www.linuxcenter.ru/shop/freespire/">Freespire</a></li>
+																<li><a href="http://www.linuxcenter.ru/shop/gentoo/">Gentoo</a></li>
+																<li><a href="http://www.linuxcenter.ru/shop/knoppix/">Knoppix</a></li>
+																<li><a href="http://www.linuxcenter.ru/shop/linbox_rescue_server/">Linbox Rescue Server</a></li>
+																<li><a href="http://www.linuxcenter.ru/shop/linuxwizard/">LinuxWizard</a></li>
+																<li><a href="http://www.linuxcenter.ru/shop/mandriva/">Mandriva</a></li>
+																<li><a href="http://www.linuxcenter.ru/shop/meego/">MeeGo</a></li>
+																<li><a href="http://www.linuxcenter.ru/shop/netbsd/">NetBSD</a></li>
+																<li><a href="http://www.linuxcenter.ru/shop/openbsd/">OpenBSD</a></li>
+																<li><a href="http://www.linuxcenter.ru/shop/openoffice/">OpenOffice</a></li>
+																<li><a href="http://www.linuxcenter.ru/shop/redhat/">RedHat</a></li>
+																<li><a href="http://www.linuxcenter.ru/shop/runtu/">Runtu</a></li>
+																<li><a href="http://www.linuxcenter.ru/shop/scientific/">Scientific</a></li>
+																<li><a href="http://www.linuxcenter.ru/shop/slackware/">Slackware</a></li>
+																<li><a href="http://www.linuxcenter.ru/shop/solaris/">Solaris</a></li>
+																<li><a href="http://www.linuxcenter.ru/shop/stonegate/">StoneGate</a></li>
+																<li><a href="http://www.linuxcenter.ru/shop/suse/">SUSE</a></li>
+																<li><a href="http://www.linuxcenter.ru/shop/ubuntu/">Ubuntu</a></li>
+																<li><a href="http://www.linuxcenter.ru/shop/vmware/">VMware</a></li>
+																<li><a href="http://www.linuxcenter.ru/shop/WINE@Etersoft/">WINE@Etersoft</a></li>
+																<li><a href="http://www.linuxcenter.ru/shop/kt/">Китеж</a></li>
+																<li><a href="http://www.linuxcenter.ru/shop/msvsfera/">МСВСфера</a></li>
+												</ul>
+			</div>
+			
+
+			 <div class="wrap">
+			 	<h2>Помощь</h2>
+			 	<ul>
+			 	<li><a href="http://www.linuxcenter.ru/help/#5">Как заказать</a></li>
+			 	<li><a href="http://www.linuxcenter.ru/help/#7">Как оформить</a></li>
+			 	<li><a href="http://www.linuxcenter.ru/help/#10">Как оплатить</a></li>
+			 	</ul>
+			 </div>
+<!--
+			 <div class="wrap">
+			 	<h2>Новостной канал</h2>
+			 	<ul>
+								
+				<li><a href="http://www.linuxcenter.ru/news/#14712">Dr.Web для Android Light 7.00.12</a></li>
+				
+								
+				<li><a href="http://www.linuxcenter.ru/news/#14711">Компания "РОСА" традиционно примет участие в ROSS 2014</a></li>
+				
+								
+				<li><a href="http://www.linuxcenter.ru/news/#14708">«Приоритеты 2014: Информатизация образования и здравоохранения в России»</a></li>
+				
+								
+				<li><a href="http://www.linuxcenter.ru/news/#14707">"Linux Format" №04 (182) Апрель 2014</a></li>
+				
+								
+				<li><a href="http://www.linuxcenter.ru/news/#14706">Подведены первые итоги Международного ПЛАС-Форума «Online & Offline Retail 2014»</a></li>
+				
+							 	
+			 	</ul>
+			 	<p style="text-align: right;">
+			 		<a href="http://www.linuxcenter.ru/trans/news.rss"><img src="http://www.linuxcenter.ru/wx-content/themes/linuxcenterdiv/img/news_rss.gif" border="0"></a>
+			 	</p>
+			 </div>
+			
+			<div class="wrap">
+				<h2><a href="http://www.linuxcenter.ru/lib/" style="color: #FFFFEE;">Библиотека</a></h2>
+				<ul>
+								
+				<li><a href="http://www.linuxcenter.ru/lib/presentation/">Презентации</a></li>
+				
+								
+				<li><a href="http://www.linuxcenter.ru/lib/books/">Книги и руководства</a></li>
+				
+								
+				<li><a href="http://www.linuxcenter.ru/lib/articles/">Статьи</a></li>
+				
+								
+				<li><a href="http://www.linuxcenter.ru/lib/press/">Пресс-релизы ЛинуксЦентра</a></li>
+				
+								
+				<li><a href="http://www.linuxcenter.ru/lib/history/">История Linux</a></li>
+				
+								
+				<li><a href="http://www.linuxcenter.ru/lib/humor/">Linux'оиды шутят</a></li>
+				
+								<li><a href="http://www.linuxcenter.ru/enc/">Энциклопедия Linux</a></li>
+				</ul>
+			</div>
+-->
+			 <div class="wrap">
+			 	<noindex>
+			 	<h2>Мы принимаем к оплате</h2>
+			 	<div align="center">
+			 	<p>
+			 	<img src="http://www.linuxcenter.ru/pimages/sber.gif" border="0"> </p>
+			 	<p><!-- begin WebMoney Transfer : accept label -->
+				<a href="http://www.megastock.ru/" target="_blank">
+				<img src="http://www.megastock.ru/Doc/88x31_accept/blue_rus.gif" alt="www.megastock.ru" border="0" width="0" height="0" style="display: none !important; visibility: hidden !important; opacity: 0 !important; background-position: 1px 1px;"></a>
+				<!-- end WebMoney Transfer : accept label --> 
+				</p>
+			 	<p>
+			 	<a href="http://money.yandex.ru/" target="_blank"><img src="http://money.yandex.ru/img/yamoney_logo120x60.gif" alt="Я принимаю
+					Яндекс.Деньги" title="Я принимаю Яндекс.Деньги" border="0" width="80"></a> </p>
+			 	<p>
+			 	<img src="http://www.linuxcenter.ru/pimages/visa_logo_small.gif" border="0">
+			 	<img src="http://www.linuxcenter.ru/pimages/master_logo_small.gif" border="0">
+			 	</p>
+			 	</div>
+			 	</noindex>
+			 </div>	
+
+			 <div class="wrap">
+			 	<h2>DeveloperWorks Россия</h2>
+			 	<noindex>
+			 	<div align="center">
+			 	<a href="http://www-128.ibm.com/developerworks/ru/?ca=dwpromo&me=W&met=64x64_gif&re=linuxcenter.ru">
+			 	<img src="http://www.linuxcenter.ru/wx-content/themes/linuxcenterdiv/img/colimg_circle.gif" border="0">
+			 	</a>
+			 	</div>
+			 	</noindex>
+			 </div>
+			 <div class="wrap">
+			 	<h2>OpenNET</h2>
+			 	<noindex>
+			 	<div align="center">
+			 	<a href="http://www.opennet.ru/" target="_blank"><img src="http://www.opennet.ru/ob31x88_2.gif" height="31" width="88" border="0" alt="Проект OpenNET"></a>
+			 	</div>
+			 	</noindex>
+			 </div>
+			 <div class="wrap">
+			 	<h2>Издательство «БИНОМ. Лаборатория знаний»</h2>
+			 	<noindex>
+			 	<div align="center">
+			 	<a href="http://metodist.lbz.ru/nio/linux.php">
+			 	<img src="http://linuxcenter.ru/img/logo_binom.gif" width="100" style="margin:1px;" border="0">
+			 	</a>
+			 	</div>
+			 	</noindex>
+			 </div>
+			 
+		
+			 
+			
+			 
+			 <noindex>
+
+
+
+			 
+<div align="left" style="margin-left: 34px;">
+<a href="http://subscribe.ru/catalog/comp.soft.linux.lcnews"><img border="0" src="http://subscribe.ru/stat/comp.soft.linux.lcnews/count.gif" width="88" height="31"></a>
+
+<br>
+
+<!--Rating@Mail.ru COUNTEr--><script language="JavaScript" type="text/javascript"><!--
+d=document;var a='';a+=';r='+escape(d.referrer)
+js=10//--></script><script language="JavaScript1.1" type="text/javascript"><!--
+a+=';j='+navigator.javaEnabled()
+js=11//--></script><script language="JavaScript1.2" type="text/javascript"><!--
+s=screen;a+=';s='+s.width+'*'+s.height
+a+=';d='+(s.colorDepth?s.colorDepth:s.pixelDepth)
+js=12//--></script><script language="JavaScript1.3" type="text/javascript"><!--
+js=13//--></script><script language="JavaScript" type="text/javascript"><!--
+d.write('<a href="http://top.mail.ru/jump?from=145476"'+
+' target=_top><img src="http://d8.c3.b2.a0.top.list.ru/counter'+
+'?id=145476;t=55;js='+js+a+';rand='+Math.random()+
+'" alt="Рейтинг@Mail.ru"'+' border=0 height=31 width=88/><\/a>')
+if(11<js)d.write('<'+'!-- ')//--></script><a href="http://top.mail.ru/jump?from=145476" target="_top"><img src="http://d8.c3.b2.a0.top.list.ru/counter?id=145476;t=55;js=13;r=;j=true;s=1280*1024;d=24;rand=0.5990181018132716" alt="Рейтинг@Mail.ru" border="0" height="31" width="88/"></a><!-- <noscript><a
+target=_top href="http://top.mail.ru/jump?from=145476"><img
+src="http://d8.c3.b2.a0.top.list.ru/counter?js=na;id=145476;t=55"
+border=0 height=31 width=88
+alt="Рейтинг@Mail.ru"/></a></noscript><script language="JavaScript" type="text/javascript"><!--
+if(11<js)d.write('--'+'>')//--><!--/COUNTER-->
+<br>
+
+<!-- SpyLOG -->
+<script src="http://tools.spylog.ru/counter_cv.js" id="spylog_code" type="text/javascript" counter="1094830" part="" track_links="ext" page_level="0">
+</script><script language="javascript">window.spylog_js=1;</script><script language="javascript1.1">window.spylog_js=1.1;</script><script language="javascript1.2">window.spylog_js=1.2;</script><script language="javascript1.3">window.spylog_js=1.3;</script><script language="javascript1.4">window.spylog_js=1.4;</script><script language="javascript1.5">window.spylog_js=1.5;</script><script language="javascript1.6">window.spylog_js=1.6;</script><script language="javascript1.7">window.spylog_js=1.7;</script><script language="javascript1.8">window.spylog_js=1.8;</script><script language="javascript1.9">window.spylog_js=1.9;</script><script language="javascript"></script><a href="http://u10948.30.spylog.com/cnt?cid=1094830&p=0&c=1&fr=0&fl=14.0&px=24&sl=1.7&wh=1280x1024&j=Y&t=-240&h5=111111&pg=http%3A//www.linuxcenter.ru/lib/books/kostromin/gl_04_05.phtml&r=&title=4.5.%20%u041F%u0440%u0430%u0432%u0430%20%u0434%u043E%u0441%u0442%u0443%u043F%u0430%20%u043A%20%u0444%u0430%u0439%u043B%u0430%u043C%20%u0438%20%u043A%u0430%u0442%u0430%u043B%u043E%u0433%u0430%u043C%20%7C%20Linux%20%u0434%u043B%u044F%20%u043F%u043E%u043B%u044C%u0437%u043E%u0432%u0430%u0442%u0435%u043B%u044F%20%7C%20%u041A%u043D%u0438%u0433%u0438%20%u0438%20%u0440%u0443%u043A%u043E%u0432%u043E%u0434%u0441%u0442%u0432%u0430%20%7C%20%u0411%u0438%u0431%u043B%u0438%u043E%u0442%u0435%u043A%u0430%20%u041B%u0438%u043D%u0443%u043A%u0441%u0446%u0435%u043D%u0442%u0440%u0430%20%7C%20Linuxcenter.Ru%20%u2013%20%u044D%u043A%u0441%u043F%u0435%u0440%u0442%20%u043F%u043E%20Linux%20%u0438%20%u0441%u0432%u043E%u0431%u043E%u0434%u043D%u043E%u043C%u0443%20%u043F%u0440%u043E%u0433%u0440%u0430%u043C%u043C%u043D%u043E%u043C%u0443%20%u043E%u0431%u0435%u0441%u043F%u0435%u0447%u0435%u043D%u0438%u044E.%20%u0412%u043D%u0435%u0434%u0440%u0435%u043D%u0438%u0435%20Linux%20%u0438%20%u0441%u0432%u043E%u0431%u043E%u0434%u043D%u043E%u0433%u043E%20%u043F%u0440%u043E%u0433%u0440%u0430%u043C%u043C%u043D%u043E%u0433%u043E%20%u043E%u0431%u0435%u0441%u043F%u0435%u0447%u0435%u043D%u0438%u044F%2C%20%u0434%u0438%u0441%u0442%u0440%u0438%u0431&rn=0.9446170972660184&f=3" target="_blank"><img src="http://u10948.30.spylog.com/cnt?cid=1094830&p=0&c=1&fr=0&fl=14.0&px=24&sl=1.7&wh=1280x1024&j=Y&t=-240&h5=111111&pg=http%3A//www.linuxcenter.ru/lib/books/kostromin/gl_04_05.phtml&r=&title=4.5.%20%u041F%u0440%u0430%u0432%u0430%20%u0434%u043E%u0441%u0442%u0443%u043F%u0430%20%u043A%20%u0444%u0430%u0439%u043B%u0430%u043C%20%u0438%20%u043A%u0430%u0442%u0430%u043B%u043E%u0433%u0430%u043C%20%7C%20Linux%20%u0434%u043B%u044F%20%u043F%u043E%u043B%u044C%u0437%u043E%u0432%u0430%u0442%u0435%u043B%u044F%20%7C%20%u041A%u043D%u0438%u0433%u0438%20%u0438%20%u0440%u0443%u043A%u043E%u0432%u043E%u0434%u0441%u0442%u0432%u0430%20%7C%20%u0411%u0438%u0431%u043B%u0438%u043E%u0442%u0435%u043A%u0430%20%u041B%u0438%u043D%u0443%u043A%u0441%u0446%u0435%u043D%u0442%u0440%u0430%20%7C%20Linuxcenter.Ru%20%u2013%20%u044D%u043A%u0441%u043F%u0435%u0440%u0442%20%u043F%u043E%20Linux%20%u0438%20%u0441%u0432%u043E%u0431%u043E%u0434%u043D%u043E%u043C%u0443%20%u043F%u0440%u043E%u0433%u0440%u0430%u043C%u043C%u043D%u043E%u043C%u0443%20%u043E%u0431%u0435%u0441%u043F%u0435%u0447%u0435%u043D%u0438%u044E.%20%u0412%u043D%u0435%u0434%u0440%u0435%u043D%u0438%u0435%20Linux%20%u0438%20%u0441%u0432%u043E%u0431%u043E%u0434%u043D%u043E%u0433%u043E%20%u043F%u0440%u043E%u0433%u0440%u0430%u043C%u043C%u043D%u043E%u0433%u043E%20%u043E%u0431%u0435%u0441%u043F%u0435%u0447%u0435%u043D%u0438%u044F%2C%20%u0434%u0438%u0441%u0442%u0440%u0438%u0431&rn=0.9446170972660184" alt="SpyLOG" border="0"></a>
+<noscript>
+&lt;a href="http://u10948.30.spylog.com/cnt?cid=1094830&amp;f=3&amp;p=0" target="_blank"&gt;
+&lt;img src="http://u10948.30.spylog.com/cnt?cid=1094830&amp;p=0" alt="SpyLOG" border="0" width="88" height="31"&gt;&lt;/a&gt;
+</noscript>
+<!--/ SpyLOG -->
+<br>
+<!--LiveInternet counter--><script type="text/javascript"><!--
+document.write('<a href="http://www.liveinternet.ru/click" '+
+'target=_blank><img src="http://counter.yadro.ru/hit?t21.6;r'+
+escape(document.referrer)+((typeof(screen)=='undefined')?'':
+';s'+screen.width+'*'+screen.height+'*'+(screen.colorDepth?
+screen.colorDepth:screen.pixelDepth))+';u'+escape(document.URL)+
+';'+Math.random()+
+'" alt="" title="LiveInternet: показано число просмотров за 24 часа, посетителей за 24 часа и за сегодн\я" '+
+'border=0 width=88 height=31><\/a>')//--></script><a href="http://www.liveinternet.ru/click" target="_blank"><img src="http://counter.yadro.ru/hit?t21.6;r;s1280*1024*24;uhttp%3A//www.linuxcenter.ru/lib/books/kostromin/gl_04_05.phtml;0.03642471740022302" alt="" title="LiveInternet: показано число просмотров за 24 часа, посетителей за 24 часа и за сегодня" border="0" width="88" height="31"></a><!--/LiveInternet-->
+<br><br>
+<a href="http://www.linuxcenter.ru/shop/redhat/"><img src="http://linuxcenter.ru/img/partners_logos/RHBusPremierLogo.jpg" border="0" height="145" aligh="center"></a>
+
+<img src="http://www.linuxcenter.ru/0.gif" width="10" height="1">
+<br>
+
+</div>
+</noindex>			 
+	</div>
+		 
+	<div id="main_wrap">
+		<div id="main">
+				
+	
+		<div id="banner2">	
+		
+		<iframe id="a005124a" name="a005124a" src="about:blank" frameborder="0" scrolling="no" width="468" height="60" align="left">&lt;a href='http://adv.mezon.ru/www/delivery/ck.php?n=aacf9d1b&amp;amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'&gt;&lt;img src='http://adv.mezon.ru/www/delivery/avw.php?zoneid=15&amp;amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;amp;n=aacf9d1b' border='0' alt='' /&gt;&lt;/a&gt;</iframe>
+
+		</div>		
+
+		<div id="way">
+
+											<a href="http://www.linuxcenter.ru/">Linuxcenter.ru</a>&nbsp;
+					 <b>»</b> 						<a href="http://www.linuxcenter.ru/lib/">Библиотека Линуксцентра</a>&nbsp;
+					 <b>»</b> 						<a href="http://www.linuxcenter.ru/lib/books/">Книги и руководства</a>&nbsp;
+					 <b>»</b> 						<a href="http://www.linuxcenter.ru/lib/books/kostromin/">Linux для пользователя</a>&nbsp;
+					 <b>»</b> 							<a href="./4.5. Права доступа к файлам и каталогам   Linux для пользователя   Книги и руководства   Библиотека Линуксцентра   Linuxcenter.Ru – эксперт по Linux и свободному программному обеспечению. Внедрение Linux и свободного программного обеспе_files/4.5. Права доступа к файлам и каталогам   Linux для пользователя   Книги и руководства   Библиотека Линуксцентра   Linuxcenter.Ru – эксперт по Linux и свободному программному обеспечению. Внедрение Linux и свободного программного обеспе.htm"><b>4.5. Права доступа к файлам и каталогам</b></a>
+					
+		<br> <br> 
+				
+		</div>
+					
+		
+		
+		
+		
+
+
+
+<div class="wrap">
+
+
+<h2>4.5. Права доступа к файлам и каталогам</h2>
+
+	<div id="libarticle">
+		
+	
+
+
+
+<center><h2>Глава 4. Знакомство с файловой системой ext2fs</h2></center> 
+<table width="100%" align="center">
+<tbody><tr>
+<td width="33%"><noindex><a href="http://www.linuxcenter.ru/lib/books/kostromin/gl_04_04.phtml">Предыдущий раздел</a></noindex></td>
+<td width="33%"><a href="http://www.linuxcenter.ru/lib/books/kostromin/_index#toc4">
+Оглавление</a></td>
+<td width="33%"><a href="http://www.linuxcenter.ru/lib/books/kostromin/gl_04_06.phtml">Следующий раздел</a>
+</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>4.5. Права доступа к файлам и каталогам</h2>
+<p>Поскольку Linux&nbsp;— система
+многопользовательская, вопрос об организации разграничения доступа к
+файлам и каталогам является одним из существенных вопросов, которые
+должна решать операционная система. Механизмы разграничения доступа,
+разработанные для системы UNIX в 70-х годах (возможно, впрочем, они
+предлагались кем-то и раньше), очень просты, но они оказались
+настолько эффективными, что просуществовали уже более 30 лет и по сей
+день успешно выполняют стоящие перед ними задачи. 
+</p>
+<p>В основе механизмов разграничения доступа лежат
+имена пользователей и имена групп пользователей. Вы уже знаете, что в
+Linux каждый пользователь имеет уникальное имя, под которым он входит
+в систему (логируется). Кроме того, в системе создается некоторое
+число групп пользователей, причем каждый пользователь может быть
+включен в одну или несколько групп. Создает и удаляет группы
+суперпользователь, он же может изменять состав участников той или
+иной группы. Члены разных групп могут иметь разные права по доступу к
+файлам, например, группа администраторов может иметь больше прав, чем
+группа программистов.</p>
+<p>В индексном дескрипторе каждого файла записаны имя
+так называемого владельца файла и группы, которая имеет права на этот
+файл. Первоначально, при создании файла его владельцем объявляется
+тот пользователь, который этот файл создал. Точнее&nbsp;— тот
+пользователь, от чьего имени запущен процесс, создающий файл. Группа
+тоже назначается при создании файла&nbsp;— по идентификатору
+группы процесса, создающего файл. Владельца и группу файла можно
+поменять в ходе дальнейшей работы с помощью команд <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">chown</font></font>
+и <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">chgrp</font></font>
+(подробнее о них будет сказано чуть позже).</p>
+<p>Теперь давайте еще раз выполним команду <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">ls
+-l</font></font>. Но зададим ей в качестве дополнительного параметра
+имя конкретного файла, например, файла, задающего саму команду <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">ls</font></font>.
+(Обратите, кстати, внимание на эту возможность команды <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">ls
+-l</font></font>&nbsp;— получить информацию о конкретном файле,
+а не о всех файлах каталога сразу).</p>
+<p lang="en-US" align="LEFT" style="margin-top: 0.07cm; margin-bottom: 0.07cm">
+<font face="Courier New, monospace"><font size="2" style="font-size: 9pt">[user]$
+ls -l /bin/ls</font></font></p>
+<p lang="en-US" align="LEFT" style="margin-top: 0.07cm; margin-bottom: 0.07cm">
+<font face="Courier New, monospace"><font size="2" style="font-size: 9pt">-rwxr-xr-x
+  1   root   root   49940    Sep 12  1999    /bin/ls</font></font></p>
+<p>Вы видите, что в данном случае владельцем файла
+является пользователь root и группа root. Но нас сейчас в выводе этой
+команды больше интересует первое поле, определяющее тип файла и права
+доступа к файлу. Это поле в приведенном примере представлено цепочкой
+символов <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">-rwxr-xr-x</font></font>.
+Эти символы можно условно разделить на 4 группы.</p>
+<p>Первая группа, состоящая из единственного символа,
+определяет тип файла. Этот символ в соответствии с возможными типами
+файлов, рассмотренными в предыдущем разделе, может принимать такие
+значения:</p>
+<ul>
+	<li><p><font face="Courier New, monospace"><font size="2" style="font-size: 9pt">-
+	=</font></font>&nbsp;— обычный файл;</p>
+	</li><li><p><font face="Courier New, monospace"><font size="2" style="font-size: 9pt">d
+	=</font></font>&nbsp;— каталог;</p>
+	</li><li><p><font face="Courier New, monospace"><font size="2" style="font-size: 9pt">b
+	=</font></font>&nbsp;— файл блочного устройства;</p>
+	</li><li><p><font face="Courier New, monospace"><font size="2" style="font-size: 9pt">c
+	=</font></font>&nbsp;— файл символьного устройства;</p>
+	</li><li><p><font face="Courier New, monospace"><font size="2" style="font-size: 9pt">s
+	=</font></font>&nbsp;— доменное гнездо (socket);</p>
+	</li><li><p><font face="Courier New, monospace"><font size="2" style="font-size: 9pt">p
+	=</font></font>&nbsp;— именованный канал (pipe);</p>
+	</li><li><p><font face="Courier New, monospace"><font size="2" style="font-size: 9pt">l
+	=</font></font>&nbsp;— символическая ссылка (link).</p>
+</li></ul>
+<p>Далее следуют три группы по три символа, которые и
+определяют права доступа к файлу соответственно для владельца файла,
+для группы пользователей, которая сопоставлена данному файлу, и для
+всех остальных пользователей системы. В нашем примере права доступа
+для владельца определены как rwx, что означает, что владелец (<font face="Courier New, monospace"><font size="2" style="font-size: 9pt">root</font></font>)
+имеет право читать файл (r), производить запись в этот файл (w), и
+запускать файл на выполнение (x). Замена любого из этих символов
+прочерком будет означать, что пользователь лишается соответствующего
+права. В том же примере мы видим, что все остальные пользователи
+(включая и тех, которые вошли в группу <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">root</font></font>)
+лишены права записи в этот файл, т.&nbsp;е. не могут файл
+редактировать и вообще как-то изменять.</p>
+<p>Вообще говоря, права доступа и информация о типе
+файла в UNIX-системах хранятся в индексных дескрипторах в отдельной
+структуре, состоящей из двух байтов, т.&nbsp;е. из 16 бит (это
+естественно, ведь компьютер оперирует битами, а не символами r, w,
+x). Четыре бита из этих 16-ти отведены для кодированной записи о типе
+файла. Следующие три бита задают особые свойства исполняемых файлов,
+о которых мы скажем чуть позже. И, наконец, оставшиеся 9 бит
+определяют права доступа к файлу. Эти 9 бит разделяются на 3 группы
+по три бита. Первые три бита задают права пользователя, следующие три
+бита&nbsp;— права группы, последние 3 бита определяют права
+всех остальных пользователей (т.&nbsp;е. всех пользователей, за
+исключением владельца файла и группы файла).</p>
+<p>При этом, если соответствующий бит имеет значение
+1, то право предоставляется, а если он равен 0, то право не
+предоставляется. В символьной форме записи прав единица заменяется
+соответствующим символом (r, w или x), а 0 представляется прочерком.</p>
+<p>Право на чтение (r) файла означает, что
+пользователь может просматривать содержимое файла с помощью различных
+команд просмотра, например, командой <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">more</font></font>
+или с помощью любого текстового редактора. Но, подредактировав
+содержимое файла в текстовом редакторе, вы не сможете сохранить
+изменения в файле на диске, если не имеете права на запись (w) в этот
+файл. Право на выполнение (x) означает, что вы можете загрузить файл
+в память и попытаться запустить его на выполнение как исполняемую
+программу. Конечно, если в действительности файл не является
+программой (или скриптом shell), то запустить этот файл на выполнение
+не удастся, но, с другой стороны, даже если файл действительно
+является программой, но право на выполнение для него не установлено,
+то он тоже не запустится.</p>
+<p>Вот мы и узнали<span lang="en-US">,</span> какие
+файлы в Linux являются исполняемыми! Как видите, расширение имени
+файла тут не при чем, все определяется установкой атрибута
+"исполняемый", причем право на исполнение может быть
+предоставлено не всем!</p>
+<p>Если выполнить ту же команду <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">ls
+-l</font></font>, но в качестве последнего аргумента ей указать не
+имя файла, а имя каталога, мы увидим, что для каталогов тоже
+определены права доступа, причем они задаются теми же самыми
+символами rwx. Например, выполнив команду <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">ls
+–l /</font></font><b><font face="Arial, sans-serif">,</font></b>
+мы увидим, что каталогу bin соответствует строка:</p>
+<p lang="en-US" align="LEFT" style="margin-top: 0.07cm; margin-bottom: 0.07cm">
+<font face="Courier New, monospace"><font size="2" style="font-size: 9pt">drwxr-xr-x
+  2   root   root    2048    Jun 21  21:11    bin</font></font></p>
+<a name="prim11"></a>
+<p>Естественно, что по отношению к каталогам
+трактовка понятий "право на чтение", "право на запись"
+и "право на выполнение" несколько изменяется. Право на
+чтение по отношению к каталогам легко понять, если вспомнить, что
+каталог&nbsp;— это просто файл, содержащий список файлов в
+данном каталоге. Следовательно, если вы имеете право на чтение
+каталога, то вы можете просматривать его содержимое (этот самый
+список файлов в каталоге). Право на запись тоже понятно&nbsp;—
+имея такое право, вы сможете создавать и удалять файлы в этом
+каталоге, т.&nbsp;е. просто добавлять в каталог или удалять из него
+запись, содержащую имя какого-то файла и соответствующие ссылки.
+Право на выполнение интуитивно менее понятно. Оно в данном случае
+означает право переходить в этот каталог. Если вы, как владелец,
+хотите дать доступ другим пользователям на просмотр какого-то файла в
+своем каталоге, вы должны дать им право доступа в каталог, т.&nbsp;е.
+дать им "право на выполнение каталога". Более того, надо
+дать пользователю право на выполнение для всех каталогов, стоящих в
+дереве выше данного каталога. Поэтому в принципе для всех каталогов
+по умолчанию устанавливается право на выполнение как для владельца и
+группы, так и для всех остальных пользователей. И, уж если вы хотите
+закрыть доступ в каталог, то лишите всех пользователей (включая
+группу) права входить в этот каталог. Только не лишайте и себя такого
+права, а то придется обращаться к суперпользователю!
+(<noindex><a href="http://www.linuxcenter.ru/lib/books/kostromin/prim.phtml#prim11">Примеч.11</a></noindex>)</p>
+
+<p>После прочтения предыдущего абзаца может
+показаться, что право на чтение каталога не дает ничего нового по
+сравнению с правом на выполнение. Однако разница в этих правах все же
+есть. Если задать только право на выполнение, вы сможете войти в
+каталог, но не увидите там ни одного файла (этот эффект особенно
+наглядно проявляется в том случае, если вы пользуетесь каким-то
+файловым менеджером, например, программой Midnight Commander). Если
+вы имеете право доступа в каком-то из подкаталогов этого каталога, то
+вы можете перейти в него (командой <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">cd</font></font>),
+но, как говорится "вслепую", по памяти, потому что списка
+файлов и подкаталогов текущего каталога вы не увидите.</p>
+<p>Алгоритм проверки прав пользователя при обращении
+к файлу можно описать следующим образом. Система вначале проверяет,
+совпадает ли имя пользователя с именем владельца файла. Если эти
+имена совпадают (т.&nbsp;е. владелец обращается к своему файлу), то
+проверяется, имеет ли владелец соответствующее право доступа: на
+чтение, на запись или на выполнение (не удивляйтесь,
+суперпользователь может лишить некоторых прав и владельца файла).
+Если право такое есть, то соответствующая операция разрешается. Если
+же нужного права владелец не имеет, то проверка прав, предоставляемых
+через группу или через группу атрибутов доступа для остальных
+пользователей, уже даже не проверяются, а пользователю выдается
+сообщение о невозможности выполнения затребованного действия (обычно
+что-то вроде "Permission denied").</p>
+<p>Если имя пользователя, обращающегося к файлу, не
+совпадает с именем владельца, то система проверяет, принадлежит ли
+владелец к группе, которая сопоставлена данному файлу (далее будем
+просто называть ее группой файла). Если принадлежит, то для
+определения возможности доступа к файлу используются атрибуты,
+относящиеся к группе, а на атрибуты для владельца и всех остальных
+пользователей внимания не обращается. Если же пользователь не
+является владельцем файла и не входит в группу файла, то его права
+определяются атрибутами для остальных пользователей. Таким образом,
+третья группа атрибутов, определяющих права доступа к файлу,
+относится ко всем пользователям, кроме владельца файла и
+пользователей, входящих в группу файла.</p>
+<p>Для изменения прав доступа к файлу используется
+команда <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">chmod</font></font>.
+Ее можно использовать в двух вариантах. В первом варианте вы должны
+явно указать, кому какое право даете или кого этого права лишаете:</p>
+<p lang="en-US" align="LEFT" style="margin-top: 0.07cm; margin-bottom: 0.07cm">
+<font face="Courier New, monospace"><font size="2" style="font-size: 9pt"><font face="Courier New, monospace"><font size="2" style="font-size: 9pt">[user]$
+chmod wXp имя-файла</font></font></font></font></p>
+<p>где вместо символа <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">w</font></font>
+подставляется</p>
+<ul>
+	<li><p>либо символ <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">u</font></font>
+	(т.&nbsp;е. пользователь, который является владельцем)<span lang="en-US">;</span></p>
+	</li><li><p>либо <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">g</font></font>
+	(группа);</p>
+	</li><li><p>либо <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">o</font></font>
+	(все пользователи, не входящие в группу, которой принадлежит данный
+	файл);</p>
+	</li><li><p>либо <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">a</font></font>
+	(все пользователи системы, т.&nbsp;е. и владелец, и группа, и все
+	остальные).</p>
+</li></ul>
+<p>Вместо <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">X</font></font>
+ставится:</p>
+<ul>
+	<li><p>либо <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">+</font></font>
+	(предоставляем право)<span lang="en-US">;</span></p>
+	</li><li><p>либо&nbsp;<font face="Courier New, monospace"><font size="2" style="font-size: 9pt">–</font></font>
+	(лишаем соответствующего права)<span lang="en-US">;</span></p>
+	</li><li><p>либо <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">=</font></font>
+	(установить указанные права вместо имеющихся),</p>
+</li></ul>
+<p>Вместо <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">p</font></font>&nbsp;—
+символ, обозначающий соответствующее право:</p>
+<ul>
+	<li><p><font face="Courier New, monospace"><font size="2" style="font-size: 9pt">r</font></font>
+	(чтение)<span lang="en-US">;</span></p>
+	</li><li><p><font face="Courier New, monospace"><font size="2" style="font-size: 9pt">w</font></font>
+	(запись)<span lang="en-US">;</span></p>
+	</li><li><p><font face="Courier New, monospace"><font size="2" style="font-size: 9pt">x</font></font>
+	(выполнение).</p>
+</li></ul>
+<p>Вот несколько примеров использования команды
+<font face="Courier New, monospace"><font size="2" style="font-size: 9pt">chmod</font></font>:</p>
+<p lang="en-US" align="LEFT" style="margin-top: 0.07cm; margin-bottom: 0.07cm">
+<font face="Courier New, monospace"><font size="2" style="font-size: 9pt"><font face="Courier New, monospace"><font size="2" style="font-size: 9pt">[user]$
+chmod a+x file_name</font></font></font></font></p>
+<p>предоставляет всем пользователям системы право на
+выполнение данного файла.</p>
+<p lang="en-US" align="LEFT" style="margin-top: 0.07cm; margin-bottom: 0.07cm">
+<font face="Courier New, monospace"><font size="2" style="font-size: 9pt">[user]$
+chmod go-rw file_name</font></font></p>
+<p>удаляет право на чтение и запись для всех, кроме
+владельца файла.</p>
+<p lang="en-US" align="LEFT" style="margin-top: 0.07cm; margin-bottom: 0.07cm">
+<font face="Courier New, monospace"><font size="2" style="font-size: 9pt">[user]$
+chmod ugo+rwx file_name</font></font></p>
+<p>дает всем права на чтение, запись и выполнение.</p>
+<p>Если опустить указание на то, кому предоставляется
+данное право, то подразумевается, что речь идет вообще обо всех
+пользователях, т.&nbsp;е. вместо <font size="2" style="font-size: 9pt"><font face="Courier New, monospace">[user]$
+chmod a+x file_name</font></font></p>
+<p>можно записать просто</p>
+<p lang="en-US" align="LEFT" style="margin-top: 0.07cm; margin-bottom: 0.07cm">
+<font face="Courier New, monospace"><font size="2" style="font-size: 9pt">[user]$
+chmod +x file_name</font></font></p>
+<p>Второй вариант задания команды <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">chmod</font></font>
+(он используется чаще) основан на цифровом представлении прав. Для
+этого мы кодируем символ r цифрой 4, символ w&nbsp;— цифрой 2,
+а символ x&nbsp;— цифрой 1. Для того, чтобы предоставить
+пользователям какой-то набор прав, надо сложить соответствующие
+цифры. Получив, таким образом, нужные цифровые значения для владельца
+файла, для группы файла и для всех остальных пользователей, задаем
+эти три цифры в качестве аргумента команды <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">chmod</font></font>
+(ставим эти цифры после имени команды перед вторым аргументом,
+который задает имя файла). Например, если надо дать все права
+владельцу (4+2+1=7), право на чтение и запись&nbsp;— группе
+(4+2=6), и не давать никаких прав остальным, то следует дать такую
+команду:</p>
+<p lang="en-US" align="LEFT" style="margin-top: 0.07cm; margin-bottom: 0.07cm">
+<font face="Courier New, monospace"><font size="2" style="font-size: 9pt">[user]$
+chmod 760 file_name</font></font></p>
+<p>Если вы знакомы с двоичным кодированием
+восьмеричных цифр, то вы поймете, что цифры после имени команды в
+этой форме ее представления есть не что иное, как восьмеричная запись
+тех самых 9 бит, которые задают права для владельца файла, группы
+файла и для всех пользователей.</p>
+<p>Выполнять смену прав доступа к файлу с помощью
+команды <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">chmod</font></font>
+может только сам владелец файла или суперпользователь. Для того,
+чтобы иметь возможность изменить права группы, владелец должен
+дополнительно быть членом той группы, которой он хочет дать права на
+данный файл.</p>
+<p>Чтобы завершить рассказ о правах доступа к файлам,
+надо рассказать еще о трех возможных атрибутах файла, устанавливаемых
+с помощью той же команды <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">chmod</font></font>.
+Это те самые атрибуты для исполняемых файлов, которые в индексном
+дескрипторе файла в двухбайтовой структуре, определяющей права на
+файл, занимают позиции 5-7, сразу после кода типа файла.</p>
+<p>Первый из этих атрибутов&nbsp;— так
+называемый "бит смены идентификатора пользователя". Смысл
+этого бита состоит в следующем.</p>
+<p>Обычно, когда пользователь запускает некоторую
+программу на выполнение, эта программа получает те же права доступа к
+файлам и каталогам, которые имеет пользователь, запустивший
+программу. Если же установлен "бит смены идентификатора
+пользователя", то программа получит права доступа к файлам и
+каталогам, которые имеет владелец файла программы (таким образом,
+рассматриваемый атрибут лучше называть "битом смены
+идентификатора владельца"). Это позволяет решать некоторые
+задачи, которые иначе было бы трудно выполнить. Самый характерный
+пример&nbsp;— команда смены пароля <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">passwd</font></font>.
+Все пароли пользователей хранятся в файле /etc/passwd, владельцем
+которого является суперпользователь <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">root</font></font>.
+Поэтому программы, запущенные обычными пользователями, в том числе
+команда <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">passwd</font></font>,
+не могут производить запись в этот файл. А, значит, пользователь как
+бы не может менять свой собственный пароль. Но для файла
+/usr/bin/passwd установлен "бит смены идентификатора владельца",
+каковым является пользователь <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">root</font></font>.
+Следовательно, программа смены пароля <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">passwd</font></font>
+запускается с правами <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">root</font></font>
+и получает право записи в файл /etc/passwd (уже средствами самой
+программы обеспечивается то, что пользователь может изменить только
+одну строку в этом файле).</p>
+<p>Установить "бит смены идентификатора
+владельца" может суперпользователь с помощью команды</p>
+<p lang="en-US" align="LEFT" style="margin-top: 0.07cm; margin-bottom: 0.07cm">
+<font face="Courier New, monospace"><font size="2" style="font-size: 9pt">[root]#
+chmod +s file_name</font></font></p>
+<p>Аналогичным образом работает "бит смены
+идентификатора группы".</p>
+<p>Еще один возможный атрибут исполняемого файла&nbsp;—
+это "бит сохранения задачи" или "sticky bit"
+(дословно&nbsp;— "бит прилипчивости"). Этот бит
+указывает системе, что после завершения программы надо сохранить ее в
+оперативной памяти. Удобно включить этот бит для задач, которые часто
+вызываются на выполнение, так как в этом случае экономится время на
+загрузку программы при каждом новом запуске. Этот атрибут был
+необходим на старых моделях компьютеров. На современных
+быстродействующих системах он используется редко.</p>
+<p>Если используется цифровой вариант задания
+атрибутов в команде <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">chmod</font></font>,
+то цифровое значение этих атрибутов должно предшествовать цифрам,
+задающим права пользователя:</p>
+<p lang="en-US" align="LEFT" style="margin-top: 0.07cm; margin-bottom: 0.07cm">
+<font face="Courier New, monospace"><font size="2" style="font-size: 9pt"><font face="Courier New, monospace"><font size="2" style="font-size: 9pt">[root]#
+chmod 4775 file_name</font></font></font></font></p>
+<p>При этом веса этих битов для получения нужного
+суммарного результата задаются следующим образом:</p>
+<ul>
+	<li><p>4&nbsp;— "бит смены идентификатора пользователя",</p>
+	</li><li><p>2&nbsp;— "бит смены идентификатора группы",</p>
+	</li><li><p>1&nbsp;— "бит сохранения задачи (sticky bit)".</p>
+</li></ul>
+<p>Если какие-то из этих трех битов установлены в 1,
+то несколько изменяется вывод команды <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">ls
+-l</font></font> в части отображения установленных атрибутов прав
+доступа. Если установлен в 1 "бит смены идентификатора
+пользователя", то символ "x" в группе, определяющей
+права владельца файла, заменяется символом "s". Причем,
+если владелец имеет право на выполнение файла, то символ "x"
+заменяется на маленькое "s", а если владелец не имеет права
+на выполнение файла (например, файл вообще не исполняемый), то вместо
+"x" ставится "S". Аналогичные замены имеют место
+при задании "бита смены идентификатора группы", но
+заменяется символ "x" в группе атрибутов, задающих права
+группы. Если равен 1 "бит сохранения задачи (sticky bit)",
+то заменяется символ "x" в группе атрибутов, определяющей
+права для всех остальных пользователей, причем "x"
+заменяется символом "t", если все пользователи могут
+запускать файл на выполнение, и символом "T", если они
+такого права не имеют.</p>
+<p>Таким образом, хотя в выводе команды <font face="Courier New, monospace"><font size="2" style="font-size: 9pt">ls
+-l</font></font> не предусмотрено отдельных позиций для отображения
+значений битов смены идентификаторов и бита сохранения задачи,
+соответствующая информация выводится. Вот небольшой пример того, как
+это будет выглядеть:</p>
+<p lang="en-US" align="LEFT" style="margin-top: 0.07cm; margin-bottom: 0.07cm">
+<font face="Courier New, monospace"><font size="2" style="font-size: 9pt">[root]#
+ls -l prim1</font></font></p>
+<p lang="en-US" align="LEFT" style="margin-top: 0.07cm; margin-bottom: 0.07cm">
+<font face="Courier New, monospace"><font size="2" style="font-size: 9pt">-rwSrwsrwT<span lang="ru-RU">
+</span> 1 <span lang="ru-RU">  </span>kos <span lang="ru-RU">  </span>root
+<span lang="ru-RU">   </span>12 Dec 18 23:17 <span lang="ru-RU">  
+</span>prim1</font></font></p>
+<hr>
+<table width="100%" align="center">
+<tbody><tr>
+<td width="33%"><noindex><a href="http://www.linuxcenter.ru/lib/books/kostromin/gl_04_04.phtml">Предыдущий раздел</a></noindex></td>
+<td width="33%"><a href="http://www.linuxcenter.ru/lib/books/kostromin/_index#toc4">
+Оглавление</a></td>
+<td width="33%"><a href="http://www.linuxcenter.ru/lib/books/kostromin/gl_04_06.phtml">Следующий раздел</a>
+</td>
+</tr>
+</tbody></table>
+	
+	<font size="2"><font color="#ca7622">
+	<p align="right"><b>[ опубликовано 04/11/2005 ]</b></p>
+	</font>
+	<small>В. Костромин (kos at rus-linux dot net) - 4.5. Права доступа к файлам и каталогам	&nbsp;
+	<a href="http://www.linuxcenter.ru/lib/books/kostromin/gl_04_05.phtml?style=print" target="_new">Версия для печати</a>
+	</small>
+	</font></div><font size="2">
+</font></div><font size="2">
+
+
+
+<div class="wrap">
+<h2>Библиотека Линуксцентра. Список разделов</h2>
+<ul style="list-style-image: url(&#39;http://linuxcenter.ru/images/arrow.gif&#39;)">
+			<li><a href="http://www.linuxcenter.ru/lib/presentation/">Презентации</a></li>
+						<li><a href="http://www.linuxcenter.ru/lib/books/">Книги и руководства</a></li>
+			<ul>
+			<li><a href="http://www.linuxcenter.ru/lib/books/kostromin/">Linux для пользователя</a></li>
+						<li><a href="http://www.linuxcenter.ru/lib/books/linuxdev/">Разработка программного обеспечения для Linux. Инструментарий</a></li>
+						<li><a href="http://www.linuxcenter.ru/lib/books/shell/">Программирование на Shell (Unix)</a></li>
+						<li><a href="http://www.linuxcenter.ru/lib/books/ftp/">Учебник FTP</a></li>
+						<li><a href="http://www.linuxcenter.ru/lib/books/vmware/">Энциклопедия VMWare</a></li>
+						<li><a href="http://www.linuxcenter.ru/lib/books/slackbook/">Slackware Linux Essentials</a></li>
+						<li><a href="http://www.linuxcenter.ru/lib/books/slackfaq/">Slackware ЧаВО</a></li>
+						<li><a href="http://www.linuxcenter.ru/lib/books/qt3/">Разработка графического интерфейса с помощью библиотеки Qt3</a></li>
+						<li><a href="http://www.linuxcenter.ru/lib/books/partitioning/">Разделы диска и средства для работы с ними в Линукс</a></li>
+						<li><a href="http://www.linuxcenter.ru/lib/books/posixbook/">Введение в POSIX'ивизм</a></li>
+			</ul>
+			<li><a href="http://www.linuxcenter.ru/lib/articles/">Статьи</a></li>
+						<li><a href="http://www.linuxcenter.ru/lib/press/">Пресс-релизы ЛинуксЦентра</a></li>
+						<li><a href="http://www.linuxcenter.ru/lib/history/">История Linux</a></li>
+						<li><a href="http://www.linuxcenter.ru/lib/humor/">Linux'оиды шутят</a></li>
+			</ul>
+</div>
+
+
+<div align="center">
+ <iframe src="about:blank" height="195" width="583" scrolling="no" name="ibm" border="0" frameborder="0" target="_blank"></iframe>
+	<br><br>
+</div>
+
+<div class="wrap">
+	<h2><a href="http://www.linuxcenter.ru/shop/">Топ-10 интернет магазина Линуксцентра</a></h2>
+	<ul>
+<li><a href="http://www.linuxcenter.ru/shop/books-and-magazines/Linux-Format/lxf_185/">Журнал Linux Format #7 + DVD, Июль 2014</a></li>
+<li><a href="http://www.linuxcenter.ru/shop/books-and-magazines/magazine/elxf_185/">Linux Format #7 Электронная версия журнала, Июль 2014</a></li>
+<li><a href="http://www.linuxcenter.ru/shop/books-and-magazines/magazine/elxf_184/">Linux Format #6 Электронная версия журнала, Июнь 2014</a></li>
+<li><a href="http://www.linuxcenter.ru/shop/books-and-magazines/magazine/elxf_182/">Linux Format #4 Электронная версия журнала, Апрель 2014</a></li>
+<li><a href="http://www.linuxcenter.ru/shop/books-and-magazines/magazine/elxf_183/">Linux Format #5 Электронная версия журнала, Май 2014</a></li>
+<li><a href="http://www.linuxcenter.ru/shop/books-and-magazines/magazine/elxf_181/">Linux Format #3 Электронная версия журнала, Март 2014</a></li>
+<li><a href="http://www.linuxcenter.ru/shop/books-and-magazines/magazine/elxf_180/">Linux Format #2 Электронная версия журнала, Февраль 2014</a></li>
+<li><a href="http://www.linuxcenter.ru/shop/books-and-magazines/magazine/elxf_178-179/">Linux Format #1 Электронная версия журнала, Январь 2014</a></li>
+<li><a href="http://www.linuxcenter.ru/shop/books-and-magazines/Linux-Format/lxf_184/">Журнал Linux Format #6 + DVD, Июнь 2014</a></li>
+<li><a href="http://www.linuxcenter.ru/shop/distros/linux-distros/sles_lp/">SUSE Linux Enterprise Server for X86, AMD64 &amp; Intel64 (1-2 CPU Sockets,Basic Maintenance,1 Physical,3 Year) (Право использования программного обеспечения)</a></li>
+	</ul>
+</div>
+
+<div class="wrap">
+	<h2>&nbsp;</h2>
+	<div style="font-size: 10px;">
+		</div>
+</div>
+	
+
+				</font></div><font size="2">
+			</font></div><font size="2">	
+		<div id="footer">
+			<div id="copyrights">
+			<p>			</p>
+			</div>
+			<div id="bottom_menu">
+				<ul id="mainmenu">
+					<li><a href="https://www.linuxcenter.ru/profile/">Аккаунт</a></li>
+					<li><a href="http://www.linuxcenter.ru/news/">Новости</a></li>
+					<li><a href="http://www.linuxcenter.ru/shop/">Магазин</a></li>
+					<li><a href="http://www.linuxcenter.ru/service/">Услуги</a></li>
+					<li><a href="http://www.linuxcenter.ru/lib/">Библиотека</a></li>
+					<li><a href="http://www.linuxcenter.ru/affiliate/">Партнерам</a></li>
+					<li><a href="http://www.linuxcenter.ru/interesting/">Интересное</a></li>
+					<li><a href="http://www.linuxcenter.ru/about/">О проекте</a></li>
+					<li><a href="http://www.linuxcenter.ru/contact/">Контакты</a></li>
+				</ul>
+			<br><br>
+			<p style="font-size: 11px; padding-bottom: 2px; margin-bottom: 0px;">
+			
+			</p><div style="visibility: hidden"><a href="mailto:aba@linuxcenter.ru">aba@linuxcenter.ru</a></div>
+			
+			©&nbsp;2000-2014 ГНУ/Линуксцентр
+			©&nbsp;Группа компаний <noindex><a href="http://www.mezon.ru/">Mezon.Ru</a></noindex>
+			
+			<br>
+			<a href="mailto:info@linuxcenter.ru">info@linuxcenter.ru</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- По вопросам заказов, оплаты, доставки, общим вопросам<br>
+			<a href="mailto:zabota@linuxcenter.ru">zabota@linuxcenter.ru</a>&nbsp;- По проблемам работы интернет-магазина, функционирования сайта<br>
+			<a href="mailto:partner@linuxcenter.ru">partner@linuxcenter.ru </a> - По вопросам сотрудничества, партнерства, оптовых закупок
+
+			<br>
+			Перепечатка, цитирование и переработка материалов Linuxcenter.Ru разрешается в любой форме, при этом обязательна ссылка на <a href="http://www.linuxcenter.ru/">www.linuxcenter.ru</a>
+			<br>
+			Страница загружена за 0.05 сек.			<p></p>
+			</div>
+			<br clear="all">
+			
+		</div>
+	</font></div><font size="2">
+
+	<div id="top_banner">
+
+<iframe id="acb2a22b" name="acb2a22b" src="about:blank" frameborder="0" scrolling="no" width="468" height="60">&lt;a href='http://adv.mezon.ru/www/delivery/ck.php?n=a4015c25&amp;amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'&gt;&lt;img src='http://adv.mezon.ru/www/delivery/avw.php?zoneid=16&amp;amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;amp;n=a4015c25' border='0' alt='' /&gt;&lt;/a&gt;</iframe>
+
+	</div>
+	
+	<div>
+	
+	</div>
+</font></div><font size="2">
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-308419-5']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+(function (d, w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter21462076 = new Ya.Metrika({id:21462076,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true});
+        } catch(e) { }
+    });
+
+    var n = d.getElementsByTagName("script")[0],
+        s = d.createElement("script"),
+        f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f, false);
+    } else { f(); }
+})(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript>&lt;div&gt;&lt;img src="//mc.yandex.ru/watch/21462076" style="position:absolute; left:-9999px;" alt="" /&gt;&lt;/div&gt;</noscript>
+<!-- /Yandex.Metrika counter -->
+
+</font></body></html>

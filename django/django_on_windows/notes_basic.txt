@@ -1,0 +1,735 @@
+
+
+============================================================================================================================================
+для win7:
+скачать дистибутив
+аспаковать во веменный каталог
+чеез cmd зайти в тот каталог и установить командой python setup.py install
+установить пееменну седы path: C:Python33Scripts
+пеезагузить ОС
+зайти в каталог будущих поектов и набать в cmd django-admin.py startproject mysite 
+
+запустить веб-севе так Пеейдите во внешний каталог mysite, если вы того еще не сделали, и выполните команду python manage.py runserver.
+пеейдите на станицу http://127.0.0.1:8000/ в баузее. Вы увидите станицу с “Welcome to Django”. аботает!
+
+============================================================================================================================================
+стуктуа каталогов:
+proj1(catalog)
+views.py(file)
+manage.py(file)
+proj1(catalog)
+wsgi.py(file)
+urls.py(file)
+settings.py(file)
+__init__.py(file)
+views(catalog)
+
+файл urls.py:
+from django.conf.urls import patterns, include, url
+#import proj1.views.views
+urlpatterns = patterns('', 
+url('^$', proj1.views.views.hello),
+url('^datetime$', proj1.views.views.current_datetime),
+url('^dt$', proj1.views.views.current_datetime),
+url('^dt/(d{0,2})$', proj1.views.views.current_datetime2),
+)
+
+=============
+templates make:
+
+in settings.py:
+TEMPLATE_DIRS = (
+os.path.join(BASE_DIR, 'proj1/templates/'),
+)
+
+
+in urls.py:
+from django.conf.urls import patterns, include, url
+import proj1.views.views
+urlpatterns = patterns('', 
+url('^$', proj1.views.views.hello),
+url('^datetime$', proj1.views.views.current_datetime),
+url('^dt$', proj1.views.views.current_datetime),
+url('^dt/(d{0,2})$', proj1.views.views.current_datetime2),
+url('^dynamic$', proj1.views.views.dynamic),
+)
+
+in views.py:
+from django.http import HttpResponse
+from django.template.loader import get_template
+from django.template import Context
+import datetime
+def hello(request):
+return HttpResponse("Здавствуй, Ми") 
+def current_datetime(request):
+now = datetime.datetime.now()
+html = "<html><body>It is now %s.</body></html>" % now
+return HttpResponse(html) 
+def current_datetime2(request, val):
+now = datetime.datetime.now()
+html = "<html><body>value is %s.</body></html>" % val
+return HttpResponse(html) 
+def dynamic(request):
+name = 'mike'
+t = get_template('index.html')
+html = t.render(Context({'name': name}))
+return HttpResponse(html) 
+
+
+in templates/index.html:
+<html>
+<head></head>
+<body>
+hello, {{name}}
+</body>
+</html> 
+
+============================================================================================================================================
+записывать вызов шаблона можно кооче так:
+from django.shortcuts import render_to_response
+return render_to_response('index.html', {'name': 'serg'})
+
+вместо того:
+name = 'mike'
+t = template.loader.get_template('index.html')
+c = template.Context({'name': 'Adrian'})
+html = t.render(c)
+return HttpResponse(html) 
+
+============================================================================================================================================
+вставлять шаблон в дугой шаблон можно так:
+{% include 'index2.html' %}
+
+
+============================================================================================================================================
+далее заполняем models.py так:
+from django.db import models
+
+class Publisher(models.Model):
+name = models.CharField(max_length=30)
+address = models.CharField(max_length=50)
+city = models.CharField(max_length=60)
+state_province = models.CharField(max_length=30)
+country = models.CharField(max_length=50)
+website = models.URLField()
+
+settings.py:
+INSTALLED_APPS = (
+'books',
+#'django.contrib.admin',
+#'django.contrib.auth',
+#'django.contrib.contenttypes',
+#'django.contrib.sessions',
+#'django.contrib.messages',
+#'django.contrib.staticfiles',
+)
+
+и повеяем павильность python manage.py validate
+
+зы
+кодиовки!
+
+============================================================================================================================================
+команды для shell:
+
+запуск консоли с окужением django:
+python manage.py shell
+
+запуск севеа
+python manage.py runserver
+
+создать пиложение:
+python manage.py startapp polls
+
+python manage.py validate - котоый повеяет ошибки в констукции ваших моделей.
+
+посмотеть sql будущих таблиц:
+python manage.py sql polls
+
+создать таблицы
+python manage.py syncdb
+
+посто вывести на кан будущий sql-запос 
+python manage.py sqlall books
+
+загузка начальных данных в таблицу:
+python manage.py loaddata <fixturename>, где <fixturename> то имя созданного вами файла с данными.
+
+============================================================================================================================================
+тестовый вывод значения из педставления делается так
+with open(os.path.join(settings.BASE_DIR, "debug_local.txt"), "wb") as f:
+f.write(bytes('1', 'UTF-8'))
+
+
+
+
+
+
+
+
+
+
+
+============================================================================================================================================
+inclusion tags:
+from django import template
+
+from mysite.models import Page
+
+register = template.Library()
+
+
+@register.inclusion_tag("nav_top.html")
+def part_nav_top():
+pages_all = Page.objects.all() 
+
+return{
+'pages_all': pages_all,
+}
+
+если в лбом месте лбого шаблона вставить {% part_nav_top %} , то загузится шаблон nav_top.html с набоом пееменных pages_all. пи том поиск шаблона поизовдится в соответствии с настойкой TEMPLATE_DIRS в settings.py
+
+внимание спиз! можно пеедавать пааметы. напиме так:
+{% part_nav_top user.is_authenticated %}
+
+def part_nav_top(is_authenticated):
+ывывапвап
+
+
+внимание! нужно обязательно подгузить файл с inclusion tags в основной шаблон. для того пишем пимено следущее
+{% load staticfiles custom_tags custom_tags_news reviews_fancy_form thumbnail %}
+где custom_tags, custom_tags_news, reviews_fancy_form то названия фалов с набоом inclusion tags(или непоседственно функций)
+
+============================================================================================================================================
+настоить логиование в файл
+
+в settings.py:
+ALLOWED_HOSTS = ['127.0.0.1:8000']
+
+LOGGING = {
+'version': 1,
+'disable_existing_loggers': False,
+'handlers': {
+'file': {
+'level': 'DEBUG',
+'class': 'logging.FileHandler',
+'filename': 'C:/Python33/django_projects/avtos/debug.log',
+},
+},
+'loggers': {
+'django.request': {
+'handlers': ['file'],
+'level': 'DEBUG',
+'propagate': True,
+},
+},
+}
+
+таким обазом ошибки падат в debug.log	
+
+============================================================================================================================================
+скытое поле делается так:
+class PathGloryForm(forms.ModelForm):
+date = forms.DateField(
+widget=forms.TextInput(attrs={
+'class':'datepicker',
+}),
+required=False,
+)	
+
+user_id = forms.IntegerField(
+widget=forms.HiddenInput,
+required=True,
+)	
+
+class Meta:
+model = PathGlory
+fields = (
+'user_id',
+'title', 
+'date', 
+'place', 
+'teaser', 
+'text',
+'path_glory_photo',
+)
+============================================================================================================================================
+абота с cookies:
+установка:
+use this import:
+from django.http import HttpResponse
+
+add this line:
+response = HttpResponse()
+
+Result:
+def custom_proc(request):
+response = HttpResponse()
+response.set_cookie( 'cookie_user_pk', 'qwertyu' )
+
+# render template / redirect (your call) 
+
+return response
+
+
+считывание:
+if 'cookie_user_pk' in request.COOKIES:
+user_pk = request.COOKIES['cookie_user_pk']
+
+
+============================================================================================================================================
+вывод значения вилдета select:
+
+please help bring the selected value of the widget select. 
+
+model.py: 
+class UserProfile(User): 
+CHOICES_teacher = (
+('0', 'qwe', ),
+('1', 'asd',),
+('2', 'zxc', ),
+) 
+
+teacher = models.CharField(
+'teacher',
+max_length=30, 
+choices=CHOICES_teacher, 
+blank=True,
+null=True,
+)
+
+forms.py: 
+class DrumDataForm(forms.ModelForm): 
+class Meta:
+model = UserProfile
+fields = (
+'teacher', 
+)
+
+template.html: 
+{% if entries_user_profile.teacher %}
+<div class="teacher">{{ entries_user_profile.teacher }}</div>
+{% endif %} 
+
+the problem is that the screen displays 0 or 1 or 2. but I need to them on screen qwe or asd or zxc
+
+
+answer:
+{{ entries_user_profile.get_teacher_display }}
+
+https://docs.djangoproject.com/en/dev/ref/models/instances/#django.db.models.Model.get_FOO_display
+http://djbook.ru/rel1.6/ref/models/instances.html
+https://docs.djangoproject.com/en/dev/ref/models/fields/#django.db.models.Field.choices
+
+
+============================================================================================================================================
+по поводу агумента instance:
+то всего лишь указатель на стоку в таблице. то есть можно вместо того:
+@login_required
+def drum_data_page(request):
+arg = {}
+arg['drum_photo'] = None	
+entry_user_profile = UserProfile.objects.get(user_ptr_id__exact=request.user.id)
+
+if request.method == 'POST':
+form = DrumDataForm(request.POST, request.FILES)
+if form.is_valid():	
+entry_user_profile.drum_period_1 = form.cleaned_data.get('drum_period_1')
+entry_user_profile.drum_period_2 = form.cleaned_data.get('drum_period_2')
+entry_user_profile.drum_photo = form.cleaned_data.get('drum_photo')
+entry_user_profile.drums = form.cleaned_data.get('drums').strip()
+entry_user_profile.cymbals = form.cleaned_data.get('cymbals').strip()
+entry_user_profile.hardware = form.cleaned_data.get('hardware').strip()
+entry_user_profile.sticks = form.cleaned_data.get('sticks').strip()
+entry_user_profile.plastics = form.cleaned_data.get('plastics').strip()
+entry_user_profile.groups_past = form.cleaned_data.get('groups_past').strip()
+entry_user_profile.groups_present = form.cleaned_data.get('groups_present').strip()
+entry_user_profile.teacher = form.cleaned_data.get('teacher')
+entry_user_profile.drummers = form.cleaned_data.get('drummers').strip()
+entry_user_profile.save()
+
+return HttpResponseRedirect('/userprofile/drum_data_page_changed/')
+else:
+arg = {
+'drum_period_1': entry_user_profile.drum_period_1,
+'drum_period_2': entry_user_profile.drum_period_2,
+'drum_photo': entry_user_profile.drum_photo,
+'drums': entry_user_profile.drums,
+'cymbals': entry_user_profile.cymbals,
+'hardware': entry_user_profile.hardware,
+'sticks': entry_user_profile.sticks,
+'plastics': entry_user_profile.plastics,
+'groups_past': entry_user_profile.groups_past,
+'groups_present': entry_user_profile.groups_present,
+'teacher': entry_user_profile.teacher,
+'drummers': entry_user_profile.drummers,
+}
+
+form = DrumDataForm(arg)	
+
+t = loader.get_template('drum_data_page.html')
+c = RequestContext(request, {
+'form': form,
+'drum_photo': arg['drum_photo'],
+}, [custom_proc])
+return HttpResponse(t.render(c)) 
+
+
+записать то:
+@login_required
+def drum_data_page(request):
+entry_user_profile = UserProfile.objects.get(user_ptr_id__exact=request.user.id)
+arg = {}
+drum_photo = entry_user_profile.drum_photo	
+
+if request.method == 'POST':
+form = DrumDataForm(request.POST, request.FILES, instance=entry_user_profile)
+if form.is_valid():	
+form.save()
+
+return HttpResponseRedirect('/userprofile/drum_data_page_changed/')
+else:	
+form = DrumDataForm(instance=entry_user_profile)
+
+t = loader.get_template('drum_data_page.html')
+c = RequestContext(request, {
+'form': form,
+'drum_photo': drum_photo,
+}, [custom_proc])
+return HttpResponse(t.render(c)) 
+
+
+то есть в instance помещается словать, ктоый соответствует стоке таблицы(модели)
+
+
+============================================================================================================================================
+фома с выпадащим списком:
+from django.forms.fields import DateField, ChoiceField
+from django.forms.widgets import RadioSelect
+
+class SearchFriendsForm(forms.Form):	
+gender = forms.ChoiceField(
+label='Пол',
+#widget=RadioSelect, 
+choices=(
+('m', 'Male'), 
+('f', 'Female'), 
+),	
+required=False,	
+)	
+
+============================================================================================================================================
+стандатный селекто даты:
+from django.forms.fields import DateField, ChoiceField
+from django.forms.extras.widgets import SelectDateWidget
+
+BIRTH_YEAR_CHOICES = ('1980', '1981', '1982')
+
+birth_date = forms.DateField(
+label='Дата ождения',
+widget=SelectDateWidget(years=BIRTH_YEAR_CHOICES),
+required=False,
+)
+
+============================================================================================================================================
+загузка начальных данных в таблицу:
+Что-бы данные “зааботали”, создайте папку fixtures в папке пиложения и соханите в ней файлы с данными. ( Пим. пе. : имя fixtures педопеделено в Django, и в случае опечатки в названии - данные не будут найдены!)
+
+Загузить данные посто: выполните команду manage.py loaddata <fixturename>, где <fixturename> то имя созданного вами файла с данными. Каждый аз пи запуске loaddata, 
+
+внимание!!!! не забыть установить в файле(блокноте++) encode in ansi
+
+============================================================================================================================================
+использование foreignKey на пимее пола пользователя:
+
+models.py:
+class Gender(models.Model):	
+gender = models.CharField(
+max_length=10, 
+blank=False,
+)	
+
+
+class UserProfile(User):
+nickname = models.CharField(
+'Отобажаемое имя',
+max_length=30, 
+blank=False,
+)
+gender = models.ForeignKey(
+Gender,
+#default=1,
+null=True,
+)
+
+fixtures:
+[
+{
+"model": "drummersaransk.Gender",
+"pk": 1,
+"fields": {
+"gender": "Ж"
+}
+},
+{
+"model": "drummersaransk.Gender",
+"pk": 2,
+"fields": {
+"gender": "М"
+}
+}	
+]
+
+
+внимание! не далать отдельну запись для "не выбан". тому значени соответтсвует NULL
+
+
+views.py:
+@login_required	
+def user_personal(request, id):	
+entries_user_profile = UserProfile.objects.get(user_ptr_id=id)	
+
+t = loader.get_template('user_personal.html')
+c = RequestContext(request, {
+'login': entries_user.username,
+'entries_user_profile': entries_user_profile,
+}, [custom_proc])	
+return HttpResponse(t.render(c))	
+
+
+template:
+{% if entries_user_profile.gender.gender %}
+<tr>
+<td class="label">Пол</td>
+
+<td class="gender info">{{ entries_user_profile.gender.gender }}</td>
+</tr>
+{% endif %}
+
+
+внимание! в таблице UserProfile вместо gender -> gender_id пи том _id создаётся автоматически, его не нужно пописывать
+
+внимание! пееопеделять метку нужно в фоме
+
+============================================================================================================================================
+тутоиал по использовани foreignKey на пимее выбоа пола в соц.сети:
+models:
+class Gender(models.Model):	
+gender = models.CharField(
+max_length=10, 
+blank=False,
+)	
+
+def __str__(self):	 #нужно пееопеделить обязательно. иначе в бкенде лементы выпадащего списка будут содежать хен
+return self.gender
+
+class UserProfile(User):
+nickname = models.CharField(
+'Отобажаемое имя',
+max_length=30, 
+blank=False,
+)
+gender = models.ForeignKey(
+Gender,
+verbose_name='Пол',
+blank=True,
+null=True,
+)
+
+
+fixtures:
+[
+{
+"model": "drummersaransk.Gender",
+"pk": 1,
+"fields": {
+"gender": "Ж"
+}
+},
+{
+"model": "drummersaransk.Gender",
+"pk": 2,
+"fields": {
+"gender": "М"
+}
+}	
+]
+
+внимание. поле gender не обязательно к заполнени. потому может быть пустым(если пол не опеделён)
+
+тепеь выводим данные в фонтенде:
+urls:
+url(r'^(?P<id>[0-9]+)/$', 'views.user_personal', name='user_personal', ),
+
+views:
+@login_required	
+def user_personal(request, id):	
+try:
+entries_user_profile = UserProfile.objects.get(user_ptr_id=id)
+except:
+return HttpResponseRedirect('/page_error404/')
+
+entries_user = User.objects.get(id=id)
+
+path_pk = ''
+
+if request.method == 'POST':	
+path_pk = id
+user_id = int(request.user.pk)
+
+if request.POST.get('action', '') == 'add':	
+q = Friends.get_entry(user_id=user_id, friend_id=path_pk)	
+
+if q == False:	
+Friends.set_entry(user_id=user_id, friend_id=path_pk)	#add	
+
+if request.POST.get('action', '') == 'delete':	
+try:
+Friends.get_entry(user_id=user_id, friend_id=path_pk)	#del
+except:
+pass	
+else:	
+Friends.del_entry(user_id=user_id, friend_id=path_pk)
+
+
+t = loader.get_template('user_personal.html')
+c = RequestContext(request, {
+'login': entries_user.username,
+'entries_user_profile': entries_user_profile,
+}, [custom_proc])	
+return HttpResponse(t.render(c))	
+
+template:
+{% if entries_user_profile.gender.gender %}
+<tr>
+<td class="label">Пол</td>
+
+<td class="gender info">{{ entries_user_profile.gender.gender }}</td>
+</tr>
+{% endif %}
+
+таким обазом неавтоизованный пользователь видит значение gender из таблицы Gender
+
+тепеь выведем выпадащий список со значениями поля gender таблицы gender
+
+url:
+url(r'^userprofile/personal_data_page/$', 'views.personal_data_page', name='personal_data_page', ),	
+
+views:
+@login_required
+def personal_data_page(request):
+entry_user_profile = UserProfile.objects.get(user_ptr_id__exact=request.user.id)
+
+if request.method == 'POST':
+form = PersonalDataForm(request.POST, instance=entry_user_profile)
+if form.is_valid():	
+form.save()	
+
+if form.is_valid():	
+entry_user_profile.save()	
+return HttpResponseRedirect('/userprofile/personal_data_page_changed/')
+else:
+entry_user_profile = UserProfile.objects.get(user_ptr_id__exact=request.user.id)
+form = PersonalDataForm(instance=entry_user_profile)	
+
+t = loader.get_template('personal_data_page.html')
+c = RequestContext(request, {
+'form': form,
+}, [custom_proc])
+return HttpResponse(t.render(c)) 
+
+template:
+<div class="cell">
+<label class="label">{{ form.gender.label }}</label>
+
+{{ form.gender }}
+
+{{ form.gender.errors }}
+</div>
+
+самое непонятное здесь то автоматическое опеделение типа виджеты(select) и его использование в фоме.
+запомнить нужно следущее:
+.если пи вызове поля не указывается поле дугой таблицы, то выводится автоматический виджет select с лементами дугой таблицы
+.если пи вызове указывается поле дугой таблицы, т овыводится конкетное значение из дугой таблицы
+
+
+============================================================================================================================================
+способ заполнить выпадащий список фомы значениями из связанной чеез foreignKey таблицы:
+
+models:
+class Gender(models.Model):	
+gender = models.CharField(
+max_length=10, 
+blank=False,
+)	
+
+@classmethod
+def get_gender_list(self):
+return self.objects.all()	
+
+forms:
+class SearchFriendsForm(forms.Form):
+gender = forms.ChoiceField(
+widget=forms.Select, 
+choices=Gender.objects.all().values_list('id', 'gender'),
+label='Пол',
+)	
+
+result:
+<select id="id_gender" name="gender">
+<option value="1">Ж</option>
+<option value="2">М</option>
+</select>
+
+============================================================================================================================================
+============================================================================================================================================
+============================================================================================================================================
+============================================================================================================================================
+
+Гостевая книга 
+
+Поставьте ссылку на наш сайт!
+<a href="http://2cyr.com/decode/">Универсальный декодер кириллицы</a>	Открытка
+Если дешифратор полезен для вас, Вы можете послать мне открытку от Вашего города или Вашей деревни. Это поощрит меня улучшать программу.
+Petko Yotov
+4, square Emile Zola
+75015 Paris, France	Custom Work
+For a small fee I can help you quickly recode/recover large pieces of data - texts, databases, websites... or write custom functions you can use (invoice available).
+Contact me!
+О программе
+Здравствуйте! Эта страница может пригодиться, если вам прислали текст (предположительно на кириллице), который отображается в виде странной комбинации загадочных символов. Программа попытается угадать кодировку, а если не получится, покажет примеры всех комбинаций кодировок, чтобы вы могли выбрать подходящую.
+
+Использование
+Скопируйте текст в большое текстовое поле дешифратора. Несколько первых слов будут проанализированы, поэтому желательно, чтобы в них содержалась (закодированная) кириллица.
+Программа попытается декодировать текст и выведет результат в нижнее поле.
+В случае удачной перекодировки вы увидите текст в кириллице, который можно при необходимости скопировать и сохранить.
+В случае неудачной перекодировки (текст не в кириллице, состоящий из тех же или других нечитаемых символов) можно выбрать из нового выпадающего списка вариант в кириллице (если их несколько, выбирайте самый длинный). Нажав OK вы получите корректный перекодированный текст.
+Если текст перекодирован лишь частично, попробуйте выбрать другие варианты кириллицы из выпадающего списка.
+Ограничения
+Если текст состоит из вопросительных знаков ("???? ?? ??????"), то проблема скорее всего на стороне отправителя и восстановить текст не получится. Попросите отправителя послать текст заново, желательно в формате простого текстового файла или в документе LibreOffice/OpenOffice/MSOffice.
+Не любой текст может быть гарантированно декодирован, даже если есть вы уверены на 100%, что он написан в кириллице.
+Анализируемый и декодированный тексты ограничены размером в 100 Кб.
+Программа не всегда дает стопроцентную точность: при перекодировке из одной кодовой страницы в другую могут пропасть некоторые символы, такие как болгарские кавычки, реже отдельные буквы и т.п.
+Программа проверяет максимум 6321 вариантов из двух и трех перекодировок: если имело место многократное перекодирование вроде koi8(utf(cp1251(utf))), оно не будет распознано или проверено. Обычно возможные и отображаемые верные варианты находятся между 32 и 255.
+Если части текста закодированы в разных кодировках, программа сможет распознать только одну часть за раз.
+Условия использования
+Пожалуйста, обратите внимание на то, что данная бесплатная программа создана с надеждой, что она будет полезна, но без каких-либо явных или косвенных гарантий пригодности для любого практического использования. Вы можете пользоваться ей на свой страх и риск.
+
+Если вы используете для перекодировки очень длинный текст, убедитесь, что имеется его резервная копия.
+
+Переводчики
+Русский (Russian) : chAlx ; Пётр Васильев (http://yonyonson.livejournal.com/)
+
+Страница подготовки переводов на другие языки находится тут.
+
+Что нового
+October 2013 : I am trying different optimizations for the system which should make the decoder run faster and handle more text. If you notice any problem, please notify me ASAP.
+
+На английской версии страницы доступен changelog программы.
+
+Вернуться к кириллической виртуальной клавиатуре.
+
+A software by Petko Yotov © 2004 - 2014 
+Development sponsored by ACCENT Bulgaria Ltd.
+This same program should be also available at the following mirrors: ACCENT | Notamment | Free.fr.
+The original should be here: Universal Cyrillic decoder.

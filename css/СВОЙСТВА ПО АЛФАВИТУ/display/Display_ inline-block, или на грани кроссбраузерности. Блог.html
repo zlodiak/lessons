@@ -1,0 +1,652 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Display: inline-block, или на грани кроссбраузерности. Блог верстальщика</title>
+  <meta name='yandex-verification' content='670ccdebfb5f0cae' />
+  <link rel="stylesheet" type="text/css" href="/wp-content/themes/dark-blue-green/css/base.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="/wp-content/themes/dark-blue-green/css/decor.css" media="screen" />
+  <!--[if IE]>  <link rel="stylesheet" type="text/css" href="/wp-content/themes/dark-blue-green/css/ie.css" media="screen" /> <![endif]-->
+  <!--[if IE 6]>  <link rel="stylesheet" type="text/css" href="/wp-content/themes/dark-blue-green/css/ie6.css" media="screen" /> <![endif]-->
+  <!--[if IE 7]>  <link rel="stylesheet" type="text/css" href="/wp-content/themes/dark-blue-green/css/ie7.css" media="screen" /> <![endif]-->
+  <link rel="stylesheet" type="text/css" href="/wp-content/themes/dark-blue-green/css/print.css" media="print" />
+  <link rel="stylesheet" type="text/css" href="/wp-content/themes/dark-blue-green/css/pda.css" media="handheld" />
+  <script type="text/javascript" src="/wp-content/themes/dark-blue-green/js/jquery.js"></script>
+  <script type="text/javascript" src="/wp-content/themes/dark-blue-green/js/js.js"></script>
+  
+  <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://webdevelopernotes.ru/feed/" />
+  <link rel="alternate" type="text/xml" title="RSS .92" href="http://webdevelopernotes.ru/feed/rss/" />
+  <link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://webdevelopernotes.ru/feed/atom/" />
+  <link rel="pingback" href="http://webdevelopernotes.ru/xmlrpc.php" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"/>
+    
+<script type="text/javascript">var AKPC_IDS = "";</script>
+	<style type="text/css">.broken_link, a.broken_link {
+	text-decoration: line-through;
+}</style>
+	<meta name="description" content="Свойство display: inline-block: особенности, способы применения, кроссбраузерность" />
+  <meta name="keywords" content="display: inline-block, css, float: left, кроссбраузерный inline-block,css,display,html,вёрстка," />
+  <link href="https://plus.google.com/113958978186915347662" rel="author" />
+	<script type="text/javascript">
+	window.___gcfg = {lang: 'ru'};
+	(function() 
+	{var po = document.createElement("script");
+	po.type = "text/javascript"; po.async = true;po.src = "https://apis.google.com/js/plusone.js";
+	var s = document.getElementsByTagName("script")[0];
+	s.parentNode.insertBefore(po, s);
+	})();</script>
+	<script type="text/javascript">
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-1936893-7']);
+	  _gaq.push(['_trackPageview']);
+	  (function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	</script>
+</head><body>
+  <div id="wrapper">
+	<div id="left">
+	    				<h4>Свежие записи</h4>		<ul>
+				<li><a href="http://webdevelopernotes.ru/2012/08/13/lechit-ili-rezat/" title="Лечить или резать?">Лечить или резать?</a></li>
+				<li><a href="http://webdevelopernotes.ru/2012/07/16/wordpress-kak-otmetit-kommentarii-podpisannogo-posetitelya/" title="WordPress: как отметить комментарии подписанного посетителя">WordPress: как отметить комментарии подписанного посетителя</a></li>
+				<li><a href="http://webdevelopernotes.ru/2012/04/23/php-kolichestvo-simvolov-v-stroke/" title="Php: правильно считаем количество символов в строке">Php: правильно считаем количество символов в строке</a></li>
+				<li><a href="http://webdevelopernotes.ru/2012/04/09/wordpress-commentator-subscribed/" title="WordPress: как сразу узнать, подписан ли комментатор на ответы">WordPress: как сразу узнать, подписан ли комментатор на ответы</a></li>
+				<li><a href="http://webdevelopernotes.ru/2011/10/10/display-table/" title="Табличные значения display: table, table-cell, table-row, table-column, и другие">Табличные значения display: table, table-cell, table-row, table-column, и другие</a></li>
+				</ul>
+		<h4>Популярные статьи</h4>
+<ul><li><a href="http://webdevelopernotes.ru/2008/05/03/urok-xoroshego-tona-dlya-administratora/">Урок хорошего тона для администратора</a></li><li><a href="http://webdevelopernotes.ru/2009/04/05/firefox-scripts-greasemonkey/">Подключение собственных скриптов к Mozilla Firefox: плагин Greasemonkey</a></li><li><a href="http://webdevelopernotes.ru/2010/09/26/kak-prizhat-footer-k-nizu-stranitsy/">Как прижать футер к низу страницы (руководство к действию)</a></li><li><a href="http://webdevelopernotes.ru/2009/06/07/notepad/">Вёрстка в блокноте и не только</a></li><li><a href="http://webdevelopernotes.ru/2011/09/05/display-inline-block/">Display: inline-block, или на грани кроссбраузерности</a></li></ul>
+<g:plus href="https://plus.google.com/113958978186915347662" rel="author" width="210" height="69"></g:plus>
+	</div>
+	<div id="content">
+	<!--[if lt IE 8]> <p class="warning">Вы пользуетесь браузером Internet Explorer <span>7-й</span> версии или ниже. Настоятельно советую обновить его до 8 версии или установить другой браузер (Firefox, Chrome, Opera).</p><![endif]-->			<!-- google_ad_section_start -->
+		<h1 class="section">Display: inline-block, или на грани кроссбраузерности</h1>
+		<p class="info"><span>5 сентября 2011</span>. Рубрики: <a href="http://webdevelopernotes.ru/category/professionalnoe/" title="Просмотреть все записи в рубрике &laquo;Рабочие заметки&raquo;" rel="category tag">Рабочие заметки</a>; автор — Юлия Панина aka Княгиня. </p>
+			<ul xmlns:v="http://rdf.data-vocabulary.org/#" class="sub">
+	  <li typeof="v:Breadcrumb"><a href="/" rel="v:url" property="v:title">Блог верстальщика</a> »</li>
+	  <li typeof="v:Breadcrumb"><a href="http://webdevelopernotes.ru/2011/09/05/display-inline-block/#wrapper" rel="v:url" property="v:title">Display: inline-block, или на грани кроссбраузерности</a></li>
+	</ul>		<div class="post">
+						<p>Из этой заметки вы узнаете:</p>
+<ul>
+<li>как ведёт себя элемент со значением display: inline-block;</li>
+<li>какие бывают сюрпризы при его применении; </li>
+<li>как обойти зловредный IE7;</li>
+<li>а также как можно использовать <strong>display: inline-block</strong> и чем он лучше <em>float: left</em>.</li>
+</ul>
+<p><span id="more-589"></span></p>
+<p>Значение <code>inline-block</code> генерирует блочный элемент с поведением строчного элемента. Другими словами, элемент становится строчным «снаружи» и блочным «внутри»: по отношению к внешним элементам, соседям и предкам, он ведёт себя как строчный (<em>inline</em>), а по отношению к потомкам — как блок (<em>block</em>). При этом он приобретает следующие свойства <em>строчных</em> элементов: </p>
+<ul>
+<li>может размещаться на одной строке с себе подобными;</li>
+<li>по умолчанию имеет ширину по содержанию (то есть, по ширине самого широкого элемента, какой есть внутри);</li>
+<li>поддаётся вертикальному выравниванию с помощью свойства <code>vertical-align</code> (значение по умолчанию — baseline; последнее необходимо помнить, чтобы избегать некоторых surpris’ов при использовании <code>inline-block</code>);</li>
+</ul>
+<p>однако сохраняет ряд <em>блочных</em> свойств:</p>
+<ul>
+<li>можно управлять размерами с помощью <code>width</code> и <code>height</code>;</li>
+<li>можно задавать поля (<code>margin</code>) и отступы (<code>padding</code>), как блочному, при этом вертикальные отступы не будут заезжать на соседние элементы;</li>
+<li>можно центрировать содержание (<code>text-align</code>).</li>
+</ul>
+<p>В общем, не жизнь, а малина. Но красота картины омрачается тем, что не ушедший пока в небытие <em>IE7</em> поддерживает inline-block только для строчных элементов. Приходится бороться.</p>
+<blockquote><p>Можно обматерить браузер, но он не отреагирует. Можно обматерить разработчиков, но они или не услышат, или предложат обновиться до IE8 — IE9 — IE10. Можно пожаловаться на несправедливость жизни, но… Это не только не эстетично, но и не дёшево, не надёжно и не практично.</p>
+</blockquote>
+<h4>Псевдо-inline-block для IE7</h4>
+<p>Вместо каноничного inline-block под IE7 приходится применять <em>простой inline</em>. Но чтобы фокус удался <span>по-настоящему</span>, надо позвать на помощь полумистическое свойство <code>HasLayout</code>. Оно не соответствует стандартам css, но присутствует в IE6 и IE7 (в IE8 его уже нет). Это свойство не имеет собственного селектора, а появляется при наличии некоторых других свойств. Например, <code>zoom: 1</code>. Обратите внимание: это свойство <del>некошерно</del> отсутствует в стандартах CSS2.1 и CSS3. Но в <strong>IE7</strong> оно работает. Во избежание проблем, хаки под IE следует выносить в отдельный файл и подключать через условные комментарии.</p>
+<p>Итого для всех браузеров:</p>
+<pre>.content div{
+  display: inline-block;
+}</pre>
+<p>и для IE7 персонально:</p>
+<pre>.content div{
+  zoom: 1;
+  display: inline;
+}</pre>
+<p>Если нельзя вынести в отдельный файл, вставляем условные комментарии прямо в страницу:</p>
+<pre>&lt;!--[if lte IE 7]>
+&lt;style type="text/css">
+.content div{
+  zoom:1;
+  display:inline;
+}
+&lt;/style>
+&lt;![endif]--></pre>
+<p>Стили для IE7 подключаем <b>после</b> основных.</p>
+<h4>Особенности в применении inline-block</h4>
+<ol>
+<li>Пробелы или переводы строк между строчными элементами браузер отображает как пробел (зазор по горизонтали). Это распространяется и на <em>строчно-блочные</em>: <a href="/wp-content/uploads/2011/09/1-inline-block.html"  class="jspy">пример 1</a>. Чтобы избежать лишних зазоров, пробелы и переводы строк следует удалять. (IE7 и тут ведёт себя нестандартно, и пробелов не делает.)</li>
+<li>
+<p>Элементы со значением <code>display: inline-block</code> по умолчанию выравниваются по базовой линии (<em>baseline</em>). Базовая линия, она же линия шрифта — воображаемая линия, проходящая по нижнему краю прямых знаков без учёта свисаний и нижних выносных элементов:</p>
+<p><img src="/wp-content/uploads/2011/09/baseline.gif" alt="Базовая линия (линия шрифта)"/>
+<p>Пример 2: <a href="/wp-content/uploads/2011/09/2-inline-block.html"  class="jspy">примеры вертикального выравнивания строчно-блочных элементов</a>. <em>Интересно, что IE8, Гугль Хром и Опера вычисляют базовую линию для таблиц иначе, чем IE7 и Фаерфокс.</em></p>
+<p>Однако вертикальное выравнивание действует только на сам inline-block элемент и не распространяется на его потомков. Вертикальное выравнивание содержимого возможно только у элементов таблиц или элементов html с табличными значениями свойства display.</p>
+</li>
+<li>
+<p>По умолчанию ширина <em>inline-block-элемента</em> определяется содержанием. Поэтому не удивляйтесь, если строчно-блочный элемент с одной единственной строчкой растянется на всю ширину страницы: <a href="/wp-content/uploads/2011/09/3-inline-block.html"  class="jspy">пример 3</a>. Для борьбы с этим приходится задавать элементам ширину (<code>width</code>) или максимальную ширину (<code>max-width</code>).</p>
+</li>
+<li>
+<p>Хотя inline-block элементы по отношению к соседям ведут себя как строчные, для потомков они выступают блочными. Разницу между <em>inline</em> и <em>inline-block</em> можно представить так: inline — мягкий мешок, содержимое которого рассыпается внутри и распяливает родителя как вздумает и куда вздумает, а inline-block — твёрдая коробка (box), явным образом ограничивающая поведение потомков.</p>
+</li>
+</ol>
+<p><span class="warning">Также следует помнить</span>, что изменение значения свойства display через css не изменяет классовую принадлежность элемента. По стандартам html в изначально строчные элементы нельзя вкладывать блочные, и изменение свойств через css не отменяет этого правила. Это значит, что не следует использовать inline-block span в качестве контейнера для p, table или div .</p>
+<h4>Display: inline-block и float: left</h4>
+<p>Правило <strong>display: inline-block</strong> позволяет выстроить блочные элементы рядами (годится для разного рода галереек, лент превьюшек и анонсов). Для той же цели нередко применяют правило <code>float: left</code> — плавающие блоки, но с ними возникает ряд проблем.</p>
+<ol>
+<li>
+<p>Float-элементы, имеющие разную высоту, при переходе на новую строку, «затекают» друг за друга; вместо ровных строк получается нагромождение блоков: <a href="/wp-content/uploads/2011/09/4-inline-block-float-left.html"  class="jspy">пример 4</a>.</p>
+<p>Для лечения этой проблемы блокам обычно назначают фиксированную высоту с запасом, но, <span>во-первых</span>, у какого-нибудь блока содержание может оказаться выше ожидаемого, <span>во-вторых</span>, у блоков с малым содержанием внизу образуются лишние пустоты.</p>
+<p>Правило <em>display: inline-block</em> выстраивает блоки ровными строками, причём высота строки определяется по самому высокому из них.</p>
+</li>
+<li>
+<p>Плавающие элементы всегда прижаты к верху строки. Элементы со значением <code>display: inline-block</code> можно выровнять по высоте вверх, вниз и посередине с помощью свойства  <code>vertical-align</code> (напомню, что по умолчанию выравнивание идёт по базовой линии): снова <a href="/wp-content/uploads/2011/09/2-inline-block.html"  class="jspy">пример 2</a>.</p>
+</li>
+<li>
+<p>Плавающие блоки невозможно центрировать: они всегда прижаты к краю контейнера (левому или правому, в зависимости от значения float: left или float: right). Строчно-блочные элементы можно выравнивать влево, вправо или посередине, задав их контейнеру горизонтальное выравнивание  <code>text-align</code>. Пример 5: <a href="/wp-content/uploads/2011/09/5-inline-block.html"  class="jspy">центрирование inline-block элементов</a>.</p>
+</li>
+</ol>
+<p>Вот главное, что нужно знать об этом значении display. А какие вы знаете способы его применения?</p>
+<script type="text/javascript">AKPC_IDS += "589,";</script>			<!-- google_ad_section_end -->
+					</div>
+			<div class="social">
+			  <p>Понравилось? Самое время поделиться заметкой!</p>
+			  <a rel="nofollow" class="jspy" href="http://www.facebook.com/sharer.php?u=http://webdevelopernotes.ru/2011/09/05/display-inline-block/"><img src="/images/facebook.gif" width="73" height="18" alt="Поделиться в Facebook" title="Поделиться в Facebook" /></a><a rel="nofollow" class="jspy" href="http://twitter.com/intent/tweet?text=RT @greatebattle Display: inline-block, или на грани кроссбраузерности: http://webdevelopernotes.ru/?p=589" title="Добавить в Twitter"><img src="/images/twitter.gif" alt="Опубликовать в twitter.com" width="78" height="18" /></a><a rel="nofollow" class="jspy" href="http://vkontakte.ru/share.php?url=http://webdevelopernotes.ru/2011/09/05/display-inline-block/"><img src="/images/vkontakte.gif" width="84" height="18" title="Поделиться ВКонтакте" alt="Поделиться ВКонтакте" /></a><a rel="nofollow" class="jspy" href="http://connect.mail.ru/share?share_url=http://webdevelopernotes.ru/2011/09/05/display-inline-block/"><img src="/images/moi-mir.gif" width="86" height="18" title="Поделиться В Моем Мире" alt="Поделиться В Моем Мире" /></a><a rel="nofollow" class="jspy" href="http://www.livejournal.com/update.bml?event=http://webdevelopernotes.ru/2011/09/05/display-inline-block/&subject=Display: inline-block, или на грани кроссбраузерности" title="Опубликовать в своем блоге livejournal.com"><img src="/images/livejournal.gif" alt="Опубликовать в своем блоге livejournal.com" width="73" height="18" /></a>
+			  <p class="cleaner"></p>
+			  <g:plusone size="medium"></g:plusone>
+			  <iframe src="http://www.facebook.com/plugins/like.php?href=http://webdevelopernotes.ru/2011/09/05/display-inline-block/&amp;layout=button_count&amp;show_faces=false&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:350px; height:21px;" allowTransparency="true"></iframe>
+			</div>
+		<div class="related"><h5>Также рекомендую:</h5><ol>
+<li><a href='http://webdevelopernotes.ru/2011/08/22/display-html-elements/' rel='bookmark' title='Волшебное свойство display, или типы отображения элементов html'>Волшебное свойство display, или типы отображения элементов html</a></li>
+<li><a href='http://webdevelopernotes.ru/2011/10/10/display-table/' rel='bookmark' title='Табличные значения display: table, table-cell, table-row, table-column, и другие'>Табличные значения display: table, table-cell, table-row, table-column, и другие</a></li>
+<li><a href='http://webdevelopernotes.ru/2012/08/13/lechit-ili-rezat/' rel='bookmark' title='Лечить или резать?'>Лечить или резать?</a></li>
+</ol></div>		<!-- You can start editing here. -->
+	<div class="comments">
+		<h5 id="comments">Отзывы (24) на &laquo;Display: inline-block, или на грани кроссбраузерности&raquo;</h5>
+					<div class="navigation">
+				<span class='page-numbers current'>1</span>
+<a class='page-numbers' href='http://webdevelopernotes.ru/2011/09/05/display-inline-block/comment-page-2/#comments'>2</a>
+<a class="next page-numbers" href="http://webdevelopernotes.ru/2011/09/05/display-inline-block/comment-page-2/#comments">»</a>			</div>
+				<ol itemscope itemtype="http://data-vocabulary.org/Review">
+			  <li class="comment even thread-even depth-1" id="comment-2339" value="1">
+	<div id="div-comment-2339" class="commentdiv ">
+	<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/ad80bcccffcbf2f03a8f58002bd740c5?s=32&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><cite class="fn" itemprop="reviewer"><a href='http://biznesguide.ru' rel='external' class='url'>Шамшур Иван</a></cite> <i>(2 комментария)</i></p>
+		<div class="commentmetadata" itemprop="dtreviewed" datetime="2011-09-13"><span title="http://webdevelopernotes.ru/2011/09/05/display-inline-block/comment-page-1/#comment-2339">сентября 13, 2011 в 13:36</span></div>
+	</div>
+	<div class="ctext" itemprop="description">
+		<p>Спасибо за такую подробную статью! Полезно знать!</p>
+	</div>
+	<div class="reply">
+		<a class='comment-reply-link' href='/2011/09/05/display-inline-block/?replytocom=2339#respond' onclick='return addComment.moveForm("div-comment-2339", "2339", "respond", "589")'>Ответить на этот комментарий</a>	</div>
+	</div>
+</li>
+  <li class="comment odd alt thread-odd thread-alt depth-1" id="comment-2341" value="2">
+	<div id="div-comment-2341" class="commentdiv ">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/1f904e85d6139d1979d458746b7bc827?s=32&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><cite class="fn" itemprop="reviewer">Дмитрий</cite> <i>(5 комментариев)</i></p>
+		<div class="commentmetadata" itemprop="dtreviewed" datetime="2011-09-15"><span title="http://webdevelopernotes.ru/2011/09/05/display-inline-block/comment-page-1/#comment-2341">сентября 15, 2011 в 15:13</span></div>
+	</div>
+	<div class="ctext" itemprop="description">
+		<p>&gt; Пробелы или переводы строк между строчными элементами<br />
+Можно убрать свойством word-spacing (или letter-spacing) с отрицательным значением у элемента родителя, ну и конечно же отрицательный margin тоже сойдет <img src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/wink.gif"  alt=";)" title=";)"/> </p>
+	</div>
+	<div class="reply">
+		<a class='comment-reply-link' href='/2011/09/05/display-inline-block/?replytocom=2341#respond' onclick='return addComment.moveForm("div-comment-2341", "2341", "respond", "589")'>Ответить на этот комментарий</a>	</div>
+	</div>
+<ul class='children'>
+  <li class="comment byuser comment-author-admin even depth-2" id="comment-2343" value="2">
+	<div id="div-comment-2343" class="commentdiv admin">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/f0cbd3a6aa3e6a8a97d1290665162ff6?s=32&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><cite class="fn" itemprop="reviewer">Княгиня</cite> <i>(264 комментария)</i></p>
+		<div class="commentmetadata" itemprop="dtreviewed" datetime="2011-09-15"><span title="http://webdevelopernotes.ru/2011/09/05/display-inline-block/comment-page-1/#comment-2343">сентября 15, 2011 в 15:19</span></div>
+	</div>
+	<div class="ctext" itemprop="description">
+		<p>Я пробовала word-spacing и letter-spacing — результат выходит нестабильный. А margin для нейтрализации пробелов — нетехнологично.</p>
+	</div>
+	<div class="reply" title="Администратор">
+		<a class='comment-reply-link' href='/2011/09/05/display-inline-block/?replytocom=2343#respond' onclick='return addComment.moveForm("div-comment-2343", "2343", "respond", "589")'>Ответить на этот комментарий</a>	</div>
+	</div>
+<ul class='children'>
+  <li class="comment odd alt depth-3" id="comment-2344" value="2">
+	<div id="div-comment-2344" class="commentdiv ">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/1f904e85d6139d1979d458746b7bc827?s=32&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><cite class="fn" itemprop="reviewer">Дмитрий</cite> <i>(5 комментариев)</i></p>
+		<div class="commentmetadata" itemprop="dtreviewed" datetime="2011-09-15"><span title="http://webdevelopernotes.ru/2011/09/05/display-inline-block/comment-page-1/#comment-2344">сентября 15, 2011 в 16:28</span></div>
+	</div>
+	<div class="ctext" itemprop="description">
+		<p>Не уверен, но возможно тут помогут значения в <strong>em</strong> или <strong>ex</strong>, т.к. ширина символа пробела имеет зависимость от шрифта.</p>
+	</div>
+	<div class="reply">
+		<a class='comment-reply-link' href='/2011/09/05/display-inline-block/?replytocom=2344#respond' onclick='return addComment.moveForm("div-comment-2344", "2344", "respond", "589")'>Ответить на этот комментарий</a>	</div>
+	</div>
+<ul class='children'>
+  <li class="comment byuser comment-author-admin even depth-4" id="comment-2345" value="2">
+	<div id="div-comment-2345" class="commentdiv admin">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/f0cbd3a6aa3e6a8a97d1290665162ff6?s=32&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><cite class="fn" itemprop="reviewer">Княгиня</cite> <i>(264 комментария)</i></p>
+		<div class="commentmetadata" itemprop="dtreviewed" datetime="2011-09-15"><span title="http://webdevelopernotes.ru/2011/09/05/display-inline-block/comment-page-1/#comment-2345">сентября 15, 2011 в 16:37</span></div>
+	</div>
+	<div class="ctext" itemprop="description">
+		<p>Я и такой вариант рассматривала. Правда, до логического упора это дело не довела, потому что не стояло практической необходимости. Но да, надо это додумать, ибо не всегда есть уверенность, что админ сайта не напихает пробелов.</p>
+	</div>
+	<div class="reply" title="Администратор">
+		<a class='comment-reply-link' href='/2011/09/05/display-inline-block/?replytocom=2345#respond' onclick='return addComment.moveForm("div-comment-2345", "2345", "respond", "589")'>Ответить на этот комментарий</a>	</div>
+	</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+  <li class="comment odd alt thread-even depth-1" id="comment-2346" value="3">
+	<div id="div-comment-2346" class="commentdiv ">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/150b396ebd50087a72185ea55782e940?s=32&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><cite class="fn" itemprop="reviewer"><a href='http://planetaflash.ru/' rel='external' class='url'>Игроман</a></cite> <i>(1 комментарий)</i></p>
+		<div class="commentmetadata" itemprop="dtreviewed" datetime="2011-09-16"><span title="http://webdevelopernotes.ru/2011/09/05/display-inline-block/comment-page-1/#comment-2346">сентября 16, 2011 в 14:07</span></div>
+	</div>
+	<div class="ctext" itemprop="description">
+		<p>Как же надоело играть в войну с этим тупым Ослом. Для этого инвалида пишешь отдельный css-файл.<br />
+За статью спасибо, я часто стал использовать inline-block, но про затычки для Осла не знал.</p>
+	</div>
+	<div class="reply">
+		<a class='comment-reply-link' href='/2011/09/05/display-inline-block/?replytocom=2346#respond' onclick='return addComment.moveForm("div-comment-2346", "2346", "respond", "589")'>Ответить на этот комментарий</a>	</div>
+	</div>
+<ul class='children'>
+  <li class="comment byuser comment-author-admin even depth-2" id="comment-2347" value="3">
+	<div id="div-comment-2347" class="commentdiv admin">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/f0cbd3a6aa3e6a8a97d1290665162ff6?s=32&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><cite class="fn" itemprop="reviewer">Княгиня</cite> <i>(264 комментария)</i></p>
+		<div class="commentmetadata" itemprop="dtreviewed" datetime="2011-09-16"><span title="http://webdevelopernotes.ru/2011/09/05/display-inline-block/comment-page-1/#comment-2347">сентября 16, 2011 в 14:14</span></div>
+	</div>
+	<div class="ctext" itemprop="description">
+		<p>На здоровье.</p>
+<p>С восьмым ИЕ уже можно жить, вот седьмой создаёт проблемы. А ещё, говорят, есть мазохисты, которые до сих пор пользуются шестым. Хотя я считаю, что ие6 в логах — в основном боты.</p>
+	</div>
+	<div class="reply" title="Администратор">
+		<a class='comment-reply-link' href='/2011/09/05/display-inline-block/?replytocom=2347#respond' onclick='return addComment.moveForm("div-comment-2347", "2347", "respond", "589")'>Ответить на этот комментарий</a>	</div>
+	</div>
+<ul class='children'>
+  <li class="comment odd alt depth-3" id="comment-2357" value="3">
+	<div id="div-comment-2357" class="commentdiv subscribed">
+	<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/829cc6efd22d2d2cc7bc6f4482a6e268?s=32&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><cite class="fn" itemprop="reviewer">logvi</cite> <i>(1 комментарий)</i></p>
+		<div class="commentmetadata" itemprop="dtreviewed" datetime="2011-09-27"><span title="http://webdevelopernotes.ru/2011/09/05/display-inline-block/comment-page-1/#comment-2357">сентября 27, 2011 в 13:49</span></div>
+	</div>
+	<div class="ctext" itemprop="description">
+		<p>Иногда требуют поддержку ие6. В основном это госучреждения где юзают старое железо и не имеют денег на обновление парка ПК. Я считаю если за это платят деньги, то можно и повозится, тем более это серьезная школа для верстальшика.</p>
+	</div>
+	<div class="reply" title="Подписан на комментарии">
+		<a class='comment-reply-link' href='/2011/09/05/display-inline-block/?replytocom=2357#respond' onclick='return addComment.moveForm("div-comment-2357", "2357", "respond", "589")'>Ответить на этот комментарий</a>	</div>
+	</div>
+<ul class='children'>
+  <li class="comment byuser comment-author-admin even depth-4" id="comment-2358" value="3">
+	<div id="div-comment-2358" class="commentdiv admin">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/f0cbd3a6aa3e6a8a97d1290665162ff6?s=32&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><cite class="fn" itemprop="reviewer">Княгиня</cite> <i>(264 комментария)</i></p>
+		<div class="commentmetadata" itemprop="dtreviewed" datetime="2011-09-27"><span title="http://webdevelopernotes.ru/2011/09/05/display-inline-block/comment-page-1/#comment-2358">сентября 27, 2011 в 13:57</span></div>
+	</div>
+	<div class="ctext" itemprop="description">
+		<p>Для inline-block в IE6 работает та же подпорка, что и для IE7. Что касается &#171;школы&#187;, то для меня это уже не школа: я начинала с шестым, когда седьмого ещё и в проекте не было. Вот, кстати, памятка о выходе IE7 &#171;в свет&#187;: <a href="/2008/05/27/obnovlenie-ono-nechayanno-nagryanet/">оно нечаянно нагрянет</a>.</p>
+	</div>
+	<div class="reply" title="Администратор">
+		<a class='comment-reply-link' href='/2011/09/05/display-inline-block/?replytocom=2358#respond' onclick='return addComment.moveForm("div-comment-2358", "2358", "respond", "589")'>Ответить на этот комментарий</a>	</div>
+	</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+  <li class="comment odd alt thread-odd thread-alt depth-1" id="comment-2368" value="4">
+	<div id="div-comment-2368" class="commentdiv ">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/11b446b7547bced34cdc31bcd1bb9918?s=32&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><cite class="fn" itemprop="reviewer"><a href='http://googleplusfan.ru/' rel='external' class='url'>Глеб Варганов</a></cite> <i>(1 комментарий)</i></p>
+		<div class="commentmetadata" itemprop="dtreviewed" datetime="2011-10-03"><span title="http://webdevelopernotes.ru/2011/09/05/display-inline-block/comment-page-1/#comment-2368">октября 3, 2011 в 02:05</span></div>
+	</div>
+	<div class="ctext" itemprop="description">
+		<p>У меня в итоге не получилось обойти этот вредный эксплорер!(<br />
+На локалхосте могут быть ошибки из-за того что он на vartrigo server работает?  <img src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/sad.gif"  alt=":(" title=":("/> </p>
+	</div>
+	<div class="reply">
+		<a class='comment-reply-link' href='/2011/09/05/display-inline-block/?replytocom=2368#respond' onclick='return addComment.moveForm("div-comment-2368", "2368", "respond", "589")'>Ответить на этот комментарий</a>	</div>
+	</div>
+<ul class='children'>
+  <li class="comment byuser comment-author-admin even depth-2" id="comment-2369" value="4">
+	<div id="div-comment-2369" class="commentdiv admin">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/f0cbd3a6aa3e6a8a97d1290665162ff6?s=32&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><cite class="fn" itemprop="reviewer">Княгиня</cite> <i>(264 комментария)</i></p>
+		<div class="commentmetadata" itemprop="dtreviewed" datetime="2011-10-03"><span title="http://webdevelopernotes.ru/2011/09/05/display-inline-block/comment-page-1/#comment-2369">октября 3, 2011 в 13:19</span></div>
+	</div>
+	<div class="ctext" itemprop="description">
+		<p>Нет, работа сервера никак не влияет на css. Проверьте, правильно ли вы подключаете стили, не застряло ли где-то что-то взаимоисключающее.</p>
+	</div>
+	<div class="reply" title="Администратор">
+		<a class='comment-reply-link' href='/2011/09/05/display-inline-block/?replytocom=2369#respond' onclick='return addComment.moveForm("div-comment-2369", "2369", "respond", "589")'>Ответить на этот комментарий</a>	</div>
+	</div>
+</li>
+</ul>
+</li>
+  <li class="comment odd alt thread-even depth-1" id="comment-2370" value="5">
+	<div id="div-comment-2370" class="commentdiv ">
+	<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/ea863a5ae95e55c7de8f77c58cc8a4f9?s=32&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><cite class="fn" itemprop="reviewer"><a href='http://zenway.ru' rel='external' class='url'>vovans</a></cite> <i>(9 комментариев)</i></p>
+		<div class="commentmetadata" itemprop="dtreviewed" datetime="2011-10-04"><span title="http://webdevelopernotes.ru/2011/09/05/display-inline-block/comment-page-1/#comment-2370">октября 4, 2011 в 21:15</span></div>
+	</div>
+	<div class="ctext" itemprop="description">
+		<p>Ой, а у меня пользователей ишака вообще мало )) 6-кой заходят за месяц единицы. 7-кой чуть больше, но можно на них не обращать внимания. Я.матрика показывает 0% по первому, и 1% по второму (по факту, конечно же, меньше. А вот ФФ, Хром, опера &#8212; 46/26/20%.</p>
+<p>В общем, радует то, что 6-7 ишак отживает своё <img src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/smile.gif"  alt=":)" title=":)"/> </p>
+	</div>
+	<div class="reply">
+		<a class='comment-reply-link' href='/2011/09/05/display-inline-block/?replytocom=2370#respond' onclick='return addComment.moveForm("div-comment-2370", "2370", "respond", "589")'>Ответить на этот комментарий</a>	</div>
+	</div>
+<ul class='children'>
+  <li class="comment byuser comment-author-admin even depth-2" id="comment-2371" value="5">
+	<div id="div-comment-2371" class="commentdiv admin">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/f0cbd3a6aa3e6a8a97d1290665162ff6?s=32&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><cite class="fn" itemprop="reviewer">Княгиня</cite> <i>(264 комментария)</i></p>
+		<div class="commentmetadata" itemprop="dtreviewed" datetime="2011-10-04"><span title="http://webdevelopernotes.ru/2011/09/05/display-inline-block/comment-page-1/#comment-2371">октября 4, 2011 в 21:26</span></div>
+	</div>
+	<div class="ctext" itemprop="description">
+		<p>У меня на этом блоге (по Яндекс.Метрике) IE6 и IE7 по 1%, а на другом семерки 4%, шестёрки 3%. Но мне очень сильно кажется, что шестёрку в основном оставляют в статистике боты. Также встречается девятка и несколько случаев IE5.5. <img src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/wonder.gif"  alt="=-O" title="=-O"/> </p>
+<p>А так да, мечтаю, когда можно будет про 6-7 забыть. Тогда можно сделать много вкусного с меньшими усилиями. И я говорю не про красоты.</p>
+	</div>
+	<div class="reply" title="Администратор">
+		<a class='comment-reply-link' href='/2011/09/05/display-inline-block/?replytocom=2371#respond' onclick='return addComment.moveForm("div-comment-2371", "2371", "respond", "589")'>Ответить на этот комментарий</a>	</div>
+	</div>
+<ul class='children'>
+  <li class="comment odd alt depth-3" id="comment-2372" value="5">
+	<div id="div-comment-2372" class="commentdiv ">
+	<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/ea863a5ae95e55c7de8f77c58cc8a4f9?s=32&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><cite class="fn" itemprop="reviewer"><a href='http://zenway.ru' rel='external' class='url'>vovans</a></cite> <i>(9 комментариев)</i></p>
+		<div class="commentmetadata" itemprop="dtreviewed" datetime="2011-10-04"><span title="http://webdevelopernotes.ru/2011/09/05/display-inline-block/comment-page-1/#comment-2372">октября 4, 2011 в 21:36</span></div>
+	</div>
+	<div class="ctext" itemprop="description">
+		<p>я думаю, об этом мечтают все здравомыслящие люди )))</p>
+<p>Хорошо ещё, ято ишака сейчас совсем мало стало. Не так давно было реально засилие. А теперь очень даже ничего ситуация.</p>
+	</div>
+	<div class="reply">
+		<a class='comment-reply-link' href='/2011/09/05/display-inline-block/?replytocom=2372#respond' onclick='return addComment.moveForm("div-comment-2372", "2372", "respond", "589")'>Ответить на этот комментарий</a>	</div>
+	</div>
+<ul class='children'>
+  <li class="comment even depth-4" id="comment-2373" value="5">
+	<div id="div-comment-2373" class="commentdiv ">
+	<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/ea863a5ae95e55c7de8f77c58cc8a4f9?s=32&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><cite class="fn" itemprop="reviewer"><a href='http://zenway.ru/' rel='external' class='url'>vovans</a></cite> <i>(9 комментариев)</i></p>
+		<div class="commentmetadata" itemprop="dtreviewed" datetime="2011-10-05"><span title="http://webdevelopernotes.ru/2011/09/05/display-inline-block/comment-page-1/#comment-2373">октября 5, 2011 в 11:49</span></div>
+	</div>
+	<div class="ctext" itemprop="description">
+		<p>Как раз сегодня пришлось повозиться с &#171;inline-block&#187;. Долго думал, где же я про него читал недавно )))</p>
+<p>Спасибо, пригодилось! :о)</p>
+	</div>
+	<div class="reply">
+		<a class='comment-reply-link' href='/2011/09/05/display-inline-block/?replytocom=2373#respond' onclick='return addComment.moveForm("div-comment-2373", "2373", "respond", "589")'>Ответить на этот комментарий</a>	</div>
+	</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+  <li class="comment odd alt thread-odd thread-alt depth-1" id="comment-2538" value="6">
+	<div id="div-comment-2538" class="commentdiv ">
+	<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/4b544ead9170caace99efd66f0a6d091?s=32&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><cite class="fn" itemprop="reviewer">abbyy lingvo</cite> <i>(2 комментария)</i></p>
+		<div class="commentmetadata" itemprop="dtreviewed" datetime="2012-02-28"><span title="http://webdevelopernotes.ru/2011/09/05/display-inline-block/comment-page-1/#comment-2538">февраля 28, 2012 в 14:45</span></div>
+	</div>
+	<div class="ctext" itemprop="description">
+		<p>удивительно, сейчас верстаю сайт и все время попадаются моменты, где надо использовать Display: inline-block) удачно я к Вам зашла=)</p>
+	</div>
+	<div class="reply">
+		<a class='comment-reply-link' href='/2011/09/05/display-inline-block/?replytocom=2538#respond' onclick='return addComment.moveForm("div-comment-2538", "2538", "respond", "589")'>Ответить на этот комментарий</a>	</div>
+	</div>
+</li>
+  <li class="comment even thread-even depth-1" id="comment-2539" value="7">
+	<div id="div-comment-2539" class="commentdiv subscribed">
+	<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/e8b83d1555359124b8a9a2d7d81b4d0f?s=32&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><cite class="fn" itemprop="reviewer"><a href='http://wmbild.ru' rel='external' class='url'>Спонсор</a></cite> <i>(1 комментарий)</i></p>
+		<div class="commentmetadata" itemprop="dtreviewed" datetime="2012-02-28"><span title="http://webdevelopernotes.ru/2011/09/05/display-inline-block/comment-page-1/#comment-2539">февраля 28, 2012 в 19:33</span></div>
+	</div>
+	<div class="ctext" itemprop="description">
+		<p>Может быть немного поофтоплю, за что заранее прошу прощения, но почему все до сих пор возятся с этим IE? Неужели им еще кто-то пользуется? мне кажется если бы прекратили все эти танцы с бубном, то он давно уже покинул наш мир и больше не беспокоил&#8230;</p>
+	</div>
+	<div class="reply" title="Подписан на комментарии">
+		<a class='comment-reply-link' href='/2011/09/05/display-inline-block/?replytocom=2539#respond' onclick='return addComment.moveForm("div-comment-2539", "2539", "respond", "589")'>Ответить на этот комментарий</a>	</div>
+	</div>
+<ul class='children'>
+  <li class="comment byuser comment-author-admin odd alt depth-2" id="comment-2553" value="7">
+	<div id="div-comment-2553" class="commentdiv admin">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/f0cbd3a6aa3e6a8a97d1290665162ff6?s=32&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><cite class="fn" itemprop="reviewer">Княгиня</cite> <i>(264 комментария)</i></p>
+		<div class="commentmetadata" itemprop="dtreviewed" datetime="2012-03-13"><span title="http://webdevelopernotes.ru/2011/09/05/display-inline-block/comment-page-1/#comment-2553">марта 13, 2012 в 05:04</span></div>
+	</div>
+	<div class="ctext" itemprop="description">
+		<p>Похоже, что для вас IE — исключительно шестой. Меж тем с восьмым уже можно жить, а девятый, по слухам, очень даже хорош. К сожалению, Майкрософт не позволяет устанавливать его на XP.</p>
+	</div>
+	<div class="reply" title="Администратор">
+		<a class='comment-reply-link' href='/2011/09/05/display-inline-block/?replytocom=2553#respond' onclick='return addComment.moveForm("div-comment-2553", "2553", "respond", "589")'>Ответить на этот комментарий</a>	</div>
+	</div>
+</li>
+</ul>
+</li>
+  <li class="comment even thread-odd thread-alt depth-1" id="comment-2542" value="8">
+	<div id="div-comment-2542" class="commentdiv ">
+	<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/8c069c47fc4016c9df93f5420343e767?s=32&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><cite class="fn" itemprop="reviewer">picture this</cite> <i>(1 комментарий)</i></p>
+		<div class="commentmetadata" itemprop="dtreviewed" datetime="2012-03-05"><span title="http://webdevelopernotes.ru/2011/09/05/display-inline-block/comment-page-1/#comment-2542">марта 5, 2012 в 12:23</span></div>
+	</div>
+	<div class="ctext" itemprop="description">
+		<p>display: inline &#8212; вполне хватает, и кроссбораузерно</p>
+	</div>
+	<div class="reply">
+		<a class='comment-reply-link' href='/2011/09/05/display-inline-block/?replytocom=2542#respond' onclick='return addComment.moveForm("div-comment-2542", "2542", "respond", "589")'>Ответить на этот комментарий</a>	</div>
+	</div>
+</li>
+  <li class="comment odd alt thread-even depth-1" id="comment-2589" value="9">
+	<div id="div-comment-2589" class="commentdiv ">
+	<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/e6d4e9b4b40bc986d6154b00238db4f8?s=32&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><cite class="fn" itemprop="reviewer">фрэнк лэмпард</cite> <i>(2 комментария)</i></p>
+		<div class="commentmetadata" itemprop="dtreviewed" datetime="2012-04-01"><span title="http://webdevelopernotes.ru/2011/09/05/display-inline-block/comment-page-1/#comment-2589">апреля 1, 2012 в 01:56</span></div>
+	</div>
+	<div class="ctext" itemprop="description">
+		<p>inline использую в тегах H дабы на строчку не перепрыгивали… ну теперь и ещё немного полезностей узнал ))</p>
+	</div>
+	<div class="reply">
+		<a class='comment-reply-link' href='/2011/09/05/display-inline-block/?replytocom=2589#respond' onclick='return addComment.moveForm("div-comment-2589", "2589", "respond", "589")'>Ответить на этот комментарий</a>	</div>
+	</div>
+</li>
+  <li class="comment even thread-odd thread-alt depth-1" id="comment-2657" value="10">
+	<div id="div-comment-2657" class="commentdiv ">
+	<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=32' class='avatar avatar-32 photo avatar-default' height='32' width='32' />		<p><cite class="fn" itemprop="reviewer">Бертран</cite> </p>
+		<div class="commentmetadata" itemprop="dtreviewed" datetime="2012-06-12"><span title="http://webdevelopernotes.ru/2011/09/05/display-inline-block/comment-page-1/#comment-2657">июня 12, 2012 в 01:18</span></div>
+	</div>
+	<div class="ctext" itemprop="description">
+		<p>Спасибо за статью, не мог найти хорошего материала по теме. А тут все разжевано до нельзя <img src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/smile.gif"  alt=":)" title=":)"/> </p>
+	</div>
+	<div class="reply">
+		<a class='comment-reply-link' href='/2011/09/05/display-inline-block/?replytocom=2657#respond' onclick='return addComment.moveForm("div-comment-2657", "2657", "respond", "589")'>Ответить на этот комментарий</a>	</div>
+	</div>
+<ul class='children'>
+  <li class="comment byuser comment-author-admin odd alt depth-2" id="comment-2658" value="10">
+	<div id="div-comment-2658" class="commentdiv admin">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/f0cbd3a6aa3e6a8a97d1290665162ff6?s=32&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><cite class="fn" itemprop="reviewer">Княгиня</cite> <i>(264 комментария)</i></p>
+		<div class="commentmetadata" itemprop="dtreviewed" datetime="2012-06-12"><span title="http://webdevelopernotes.ru/2011/09/05/display-inline-block/comment-page-1/#comment-2658">июня 12, 2012 в 20:58</span></div>
+	</div>
+	<div class="ctext" itemprop="description">
+		<p>Приятного аппетита! <img src='http://webdevelopernotes.ru/wp-includes/images/smilies/icon_biggrin.gif' alt=':D' class='wp-smiley' /> </p>
+	</div>
+	<div class="reply" title="Администратор">
+		<a class='comment-reply-link' href='/2011/09/05/display-inline-block/?replytocom=2658#respond' onclick='return addComment.moveForm("div-comment-2658", "2658", "respond", "589")'>Ответить на этот комментарий</a>	</div>
+	</div>
+</li>
+</ul>
+</li>
+ 
+		</ol>
+					<div class="navigation">
+				<span class='page-numbers current'>1</span>
+<a class='page-numbers' href='http://webdevelopernotes.ru/2011/09/05/display-inline-block/comment-page-2/#comments'>2</a>
+<a class="next page-numbers" href="http://webdevelopernotes.ru/2011/09/05/display-inline-block/comment-page-2/#comments">»</a>			</div>
+			</div>
+
+  <div id="respond">
+	<h4>Есть что сказать? Не молчим!</h4>
+	<div class="cancel-comment-reply"><p><a rel="nofollow" id="cancel-comment-reply-link" href="/2011/09/05/display-inline-block/#respond" style="display:none;">Нажмите, чтобы отменить ответ.</a></p></div>
+<form action="/wp-comments-post.php" method="post" id="commentform">
+  	<table>
+	  <tr>
+		<td><input type="text" name="author" id="author" value="" size="22" tabindex="1"  /></td>
+		<th><label for="author">Ваше имя<sup>*</sup> (обязательно)</label></th>
+	  </tr>
+	  <tr>
+		<td><input type="text" name="email" id="email" value="" size="22" tabindex="2"  /></td>
+		<th><label for="email">Ваш e-mail (не публикуется)<sup></sup></label></th>
+	  </tr>
+	  <tr>
+		<td><input type="text" name="url" id="url" value="" size="22" tabindex="3" /></td>
+		<th><label for="url">Ваш сайт</label></th>
+	  </tr>
+	</table>
+  	<fieldset>
+					<label for="massage">Ваш отзыв<sup>*</sup></label>
+			<p class="info">Используйте теги: &lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; &lt;s&gt; &lt;pre class=&quot;&quot; code=&quot;&quot;&gt; &lt;ul&gt; &lt;li&gt; &lt;ol&gt; .</p>
+				<div id="qips_smiles">
+<img style="cursor: pointer;" onclick="javascript: qips_code('=)');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/smile.gif" alt="=)" title="=)" /> <img style="cursor: pointer;" onclick="javascript: qips_code('8)');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/glass.gif" alt="8)" title="8)" /> <img style="cursor: pointer;" onclick="javascript: qips_code(':(');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/sad.gif" alt=":(" title=":(" /> <img style="cursor: pointer;" onclick="javascript: qips_code(';)');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/wink.gif" alt=";)" title=";)" /> <img style="cursor: pointer;" onclick="javascript: qips_code(':P');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/tongue.gif" alt=":P" title=":P" /> <img style="cursor: pointer;" onclick="javascript: qips_code(':-D');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/laugh.gif" alt=":-D" title=":-D" /> <img style="cursor: pointer;" onclick="javascript: qips_code('=-O');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/wonder.gif" alt="=-O" title="=-O" /> <img style="cursor: pointer;" onclick="javascript: qips_code(':-!');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/sick.gif" alt=":-!" title=":-!" /> <img style="cursor: pointer;" onclick="javascript: qips_code('*IN LOVE*');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/inlove.gif" alt="*IN LOVE*" title="*IN LOVE*" /> <img style="cursor: pointer;" onclick="javascript: qips_code('%)');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/eyes.gif" alt="%)" title="%)" /> <img style="cursor: pointer;" onclick="javascript: qips_code('*CRAZY*');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/crazy.gif" alt="*CRAZY*" title="*CRAZY*" /> <small><a style="text-decoration: none; border-bottom: 1px dashed; top: -5px; position: relative; margin-left: 3px;" href="javascript:void(0);" id="qips_button_smiles" title="Еще смайлы">Еще смайлы</a></small></div>
+<div id="qips_smiles_toggle_wrapper" style="display: none;">
+<img style="cursor: pointer;" onclick="javascript: qips_code('O=)');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/angel.gif" alt="O=)" title="O=)" /> <img style="cursor: pointer;" onclick="javascript: qips_code(':-[');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/blush.gif" alt=":-[" title=":-[" /> <img style="cursor: pointer;" onclick="javascript: qips_code(':-*');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/kiss.gif" alt=":-*" title=":-*" /> <img style="cursor: pointer;" onclick="javascript: qips_code(':-x');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/quiet.gif" alt=":-x" title=":-x" /> <img style="cursor: pointer;" onclick="javascript: qips_code('>:o');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/strong.gif" alt=">:o" title=">:o" /> <img style="cursor: pointer;" onclick="javascript: qips_code(':-|');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/think.gif" alt=":-|" title=":-|" /> <img style="cursor: pointer;" onclick="javascript: qips_code(':-/');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/pitchup.gif" alt=":-/" title=":-/" /> <img style="cursor: pointer;" onclick="javascript: qips_code('*JOKINGLY*');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/jokingly.gif" alt="*JOKINGLY*" title="*JOKINGLY*" /> <img style="cursor: pointer;" onclick="javascript: qips_code(']:->');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/devil.gif" alt="]:->" title="]:->" /> <img style="cursor: pointer;" onclick="javascript: qips_code('[:-}');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/music.gif" alt="[:-}" title="[:-}" /> <img style="cursor: pointer;" onclick="javascript: qips_code('*KISSED*');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/kissed.gif" alt="*KISSED*" title="*KISSED*" /> <img style="cursor: pointer;" onclick="javascript: qips_code('*TIRED*');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/tired.gif" alt="*TIRED*" title="*TIRED*" /> <img style="cursor: pointer;" onclick="javascript: qips_code('*STOP*');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/stop.gif" alt="*STOP*" title="*STOP*" /> <img style="cursor: pointer;" onclick="javascript: qips_code('*KISSING*');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/kissing.gif" alt="*KISSING*" title="*KISSING*" /> <img style="cursor: pointer;" onclick="javascript: qips_code('*ROSE*');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/rose.gif" alt="*ROSE*" title="*ROSE*" /> <img style="cursor: pointer;" onclick="javascript: qips_code('*THUMBS UP*');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/thumbsup.gif" alt="*THUMBS UP*" title="*THUMBS UP*" /> <img style="cursor: pointer;" onclick="javascript: qips_code('*DRINK*');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/drink.gif" alt="*DRINK*" title="*DRINK*" /> <img style="cursor: pointer;" onclick="javascript: qips_code('@=');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/bomb.gif" alt="@=" title="@=" /> <img style="cursor: pointer;" onclick="javascript: qips_code('*HELP*');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/sos.gif" alt="*HELP*" title="*HELP*" /> <img style="cursor: pointer;" onclick="javascript: qips_code('*MACHO*');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/macho.gif" alt="*MACHO*" title="*MACHO*" /> <img style="cursor: pointer;" onclick="javascript: qips_code('*OK*');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/ok.gif" alt="*OK*" title="*OK*" /> <img style="cursor: pointer;" onclick="javascript: qips_code('*WASSUP*');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/wassup.gif" alt="*WASSUP*" title="*WASSUP*" /> <img style="cursor: pointer;" onclick="javascript: qips_code('*SORRY*');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/sorry.gif" alt="*SORRY*" title="*SORRY*" /> <img style="cursor: pointer;" onclick="javascript: qips_code('*BRAVO*');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/bravo.gif" alt="*BRAVO*" title="*BRAVO*" /> <img style="cursor: pointer;" onclick="javascript: qips_code('*LOL*');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/rofl.gif" alt="*LOL*" title="*LOL*" /> <img style="cursor: pointer;" onclick="javascript: qips_code('*PARDON*');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/pardon.gif" alt="*PARDON*" title="*PARDON*" /> <img style="cursor: pointer;" onclick="javascript: qips_code('*NO*');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/no.gif" alt="*NO*" title="*NO*" /> <img style="cursor: pointer;" onclick="javascript: qips_code('*UNKNOWN*');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/unknown.gif" alt="*UNKNOWN*" title="*UNKNOWN*" /> <img style="cursor: pointer;" onclick="javascript: qips_code('*DANCE*');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/dance.gif" alt="*DANCE*" title="*DANCE*" /> <img style="cursor: pointer;" onclick="javascript: qips_code('*YAHOO*');" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/smiles/yahoo.gif" alt="*YAHOO*" title="*YAHOO*" /> </div>
+
+<!-- Begin QipSmiles Javascript -->
+<script type="text/javascript" src="http://webdevelopernotes.ru/wp-content/plugins/qipsmiles/qips-js.php"></script>
+<!-- End QipSmiles Javascript -->
+
+		<textarea name="my_massage" id="massage" cols="40" rows="10" tabindex="4"></textarea>
+		<p class="info">Ссылки с комментариев <strong>dofollow</strong>. Ознакомьтесь, пожалуйста, с <a href="/comments-rules/">правилами dofollow-комментирования</a>.</p>
+		<input type="submit" class="but jspy" tabindex="5" value="Комментировать" />
+		<textarea name="comment" id="comment" cols="1" rows="1"></textarea>
+		<input type='hidden' name='comment_post_ID' value='589' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+		
+
+	<p style="clear: both;" class="subscribe-to-comments">
+	<input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" />
+	<label for="subscribe">Оповещать о новых комментариях по почте</label>
+	</p>
+
+
+	<script type='text/javascript'>
+	<!--
+	ref = escape(document[ 'referrer' ]);
+	document.write("<input type='hidden' name='ref' value='"+ref+"'>");
+	// -->
+	</script>
+		</fieldset>
+</form>
+</div>
+		</div>
+	<div id="right">
+	  <h4>Лучшее в блоге</h4>
+	<ul class='xoxo blogroll'>
+<li><a href="/2008/11/17/doctype/" title="Зачем нужен и с чем едят">Доктайп в html</a></li>
+<li><a href="http://webdevelopernotes.ru/2011/06/19/attribute-selectors-practice/">Css: селекторы атрибутов</a></li>
+<li><a href="/2010/09/26/kak-prizhat-footer-k-nizu-stranitsy/">Прижимаем футер</a></li>
+<li><a href="/2008/09/14/nets/">IT-мифология</a></li>
+
+	</ul>
+
+	<form action="http://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('http://feedburner.google.com/fb/a/mailverify?uri=greatbattle/blog', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true">
+		<h4>Подписаться</h4>
+		<fieldset>
+			<input type="text" name="email" value="Ваш E-mail" onfocus="if(this.value=='Ваш E-mail') this.value='';"/>
+			<input type="hidden" value="greatbattle/blog" name="uri"/>
+			<input type="hidden" name="loc" value="ru_RU"/>
+			<input type="submit" value="Ок" class="jspy" />
+		</fieldset>
+	</form>
+<h4>Рубрики</h4><ul>	<li class="cat-item cat-item-8"><a href="http://webdevelopernotes.ru/category/professionalnoe/" title="Профессиональные заметки верстальщика. Советы и байки из реальной жизни. Премудрости html и css и самая малость о web-дизайне.">Рабочие заметки</a> (59)
+</li>
+	<li class="cat-item cat-item-5"><a href="http://webdevelopernotes.ru/category/yumor/" title="Всё, что меня позабавило, а так же юмористические произведения из моего творчества.">Юмор</a> (61)
+<ul class='children'>
+	<li class="cat-item cat-item-6"><a href="http://webdevelopernotes.ru/category/yumor/aforizmy/" title="Короткие и не очень фразы, которые нравятся мне своей содержательностью.">Афоризмы</a> (15)
+</li>
+	<li class="cat-item cat-item-7"><a href="http://webdevelopernotes.ru/category/yumor/kuryozy/" title="Забавные случаи, которые происходят в повседневной жизни.">Курьёзы</a> (23)
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://webdevelopernotes.ru/category/internet/" title="Случаи из онлайн-жизни.">Интернет</a> (27)
+</li>
+	<li class="cat-item cat-item-1"><a href="http://webdevelopernotes.ru/category/common/" title="Просмотреть все записи в рубрике &laquo;Разное&raquo;">Разное</a> (12)
+</li>
+</ul></li><h4>Последние комментарии</h4>
+<ul id="recentcomments">
+<li><img alt='' src='http://0.gravatar.com/avatar/aca9767a5d60ce0ca3c665e3169dc436?s=16&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D16&amp;r=G' class='avatar avatar-16 photo' height='16' width='16' /><em>FS</em> к <a href='http://webdevelopernotes.ru/2012/08/13/lechit-ili-rezat/comment-page-1/#comment-2729'>Лечить или резать?</a></li>
+<li><img alt='' src='http://1.gravatar.com/avatar/faceeaaeabe14ae69bbdd0dd32d3584a?s=16&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D16&amp;r=G' class='avatar avatar-16 photo' height='16' width='16' /><em>Галина</em> к <a href='http://webdevelopernotes.ru/2012/07/16/wordpress-kak-otmetit-kommentarii-podpisannogo-posetitelya/comment-page-1/#comment-2728'>Wordpress: как отметить комментарии подписанного посетителя</a></li>
+<li><img alt='' src='http://1.gravatar.com/avatar/fad499a4d65b50a010e6f7c242e3dafb?s=16&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D16&amp;r=G' class='avatar avatar-16 photo' height='16' width='16' /><em>Анастасия</em> к <a href='http://webdevelopernotes.ru/2012/08/13/lechit-ili-rezat/comment-page-1/#comment-2727'>Лечить или резать?</a></li>
+<li><img alt='' src='http://0.gravatar.com/avatar/6b93f0e8f85d088330a5ef92aa5b45e9?s=16&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D16&amp;r=G' class='avatar avatar-16 photo' height='16' width='16' /><em>Dixon1111</em> к <a href='http://webdevelopernotes.ru/2011/02/20/sotsialnyie-servisyi-i-korotkie-ssyilki-dlya-wordpress/comment-page-1/#comment-2725'>Социальные сервисы и короткие ссылки для Wordpress</a></li>
+<li><img alt='' src='http://1.gravatar.com/avatar/94b3811fd68f4805fcdd95024f2605f3?s=16&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D16&amp;r=G' class='avatar avatar-16 photo' height='16' width='16' /><em>Vladimir</em> к <a href='http://webdevelopernotes.ru/2011/07/11/moy-blog-v-dmoz/comment-page-2/#comment-2723'>Мой блог — в DMOZ</a></li></ul><div class="recl">
+<!--9c7ec26b--><!--9c7ec26b--></div>	</div>
+  </div>
+<div id="header">
+  <a href="/"><img id="logo" src="/wp-content/themes/dark-blue-green/images/logo/logo.gif" alt="Юлия Панина. Фото"/></a>  <div id="slogan">
+			<h4><a href="/">Блог верстальщика</a></h4>
+		<address><a href="/">Универс<del>т</del>альные премудрости</a></address>
+	  </div>
+  <div id="quote">
+	<h4>Мысль дня</h4>
+	<div class="xmasb_quotes_quote"><p>Постижение сути законов ведет к освобождению от них.</p></div><div class="xmasb_quotes_author"><strong>Наставления в искусстве живописи из павильона Цинцзай</strong></div>
+  </div>
+</div>
+<div id="topmenu">
+	<ul><li class="page_item page-item-2"><a href="http://webdevelopernotes.ru/about/">Об авторе</a></li>
+<li class="page_item page-item-610"><a href="http://webdevelopernotes.ru/comments-rules/">Правила комментирования</a></li>
+<li class="page_item page-item-164"><a href="http://webdevelopernotes.ru/sitemap/">Карта сайта</a></li>
+<li class="page_item page-item-505"><a href="http://webdevelopernotes.ru/rekomenduyu/">Рекомендую</a></li>
+</ul>
+  <div class="cleaner"></div>
+  <form method="get" id="searchform" action="/" >
+	<fieldset>
+	  <label class="screen-reader-text" for="s"></label>
+	  <input type="text" name="s" id="s" value="Поиск по сайту" onfocus="if(this.value == 'Поиск по сайту'){this.value = '';}" onblur="if(this.value == ''){this.value = 'Поиск по сайту';}" />
+	  <input type="image" src="/wp-content/themes/dark-blue-green/images/search_button.png" id="searchsubmit" alt="Найти" />
+	</fieldset>
+  </form>
+</div>
+  <div id="footer">
+	<address><a href="http://rusimages.ru" title="Портфолио верстальщика">Дизайн и вёрстка — Юлия Панина © 2007–2012</a></address>
+	<ul><li class="page_item page-item-2"><a href="http://webdevelopernotes.ru/about/">Об авторе</a></li>
+<li class="page_item page-item-164"><a href="http://webdevelopernotes.ru/sitemap/">Карта сайта</a></li>
+</ul>
+	<!-- begin of Top100 code -->
+	<script id="top100Counter" type="text/javascript" src="http://counter.rambler.ru/top100.jcn?2203064"></script>
+	<noscript>
+	<p><img src="http://counter.rambler.ru/top100.cnt?2203064" alt="" width="1" height="1" /></p>
+	</noscript>
+	<!-- end of Top100 code -->
+	<!-- Сожрано 8.13 MB. 144 queries. 0,326 seconds. -->
+	<!-- 144 queries. 0,326 seconds. -->
+  </div>
+  
+<script type="text/javascript">
+jQuery(function() {
+	
+	jQuery.post("index.php",{ak_action:"api_record_view", ids: AKPC_IDS, type:"single"}, false, "json");
+});
+</script>
+	<script type="text/javascript" src="http://apis.google.com/js/plusone.js">
+  {lang: 'ru'}
+</script>
+<script type="text/javascript">
+/*if(document.location.protocol=='http:'){
+ var Tynt=Tynt||[];Tynt.push('dOp-PeRKar4kJYadbi-bpO');Tynt.i={"ap":"Читать полностью:","as":"в блоге автора","t":true};
+ (function(){var s=document.createElement('script');s.async="async";s.type="text/javascript";s.src='http://tcr.tynt.com/ti.js';var h=document.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);})();
+}*/
+</script>
+<!-- Yandex.Metrika counter --><div style="display:none;"><script type="text/javascript">(function(w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter7353238 = new Ya.Metrika({id:7353238, enableAll: true, trackHash:true, webvisor:true}); } catch(e) { } }); })(window, "yandex_metrika_callbacks");</script></div><script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script><noscript><div><img src="//mc.yandex.ru/watch/7353238" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter --></div>
+<script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+<noscript><div><img src="//mc.yandex.ru/watch/7353238" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+<!--<script type="text/javascript" src="http://jspy.ru/load/776/jspy.js"></script> -->
+</body>
+</html><!-- hyper cache: 69e9cb869cf584e03c7d30135a89d46a 12-08-16 01:17:07 -->

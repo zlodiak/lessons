@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>CSS: Стилизация checkbox-ов на чистом CSS | xandeadx.ru</title>
+    <meta name="google-site-verification" content="r3Sqkhq8GDBz-pngI8lqqQ0zpYy4d84Ag5LUxrj6Y2U" />
+    <meta name="yandex-verification" content="5e62b2a2c12a7256" />
+    <meta name="y_key" content="216bae171e5bf114" />
+    <meta name="keywords" content="css, css3, работа с формами" />
+    <link rel="alternate" type="application/rss+xml" title="RSS - Все записи" href="/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title="RSS - Все комментарии" href="/crss" />
+    <link rel="alternate" type="application/rss+xml" title="RSS - Комментарии к &quot;Стилизация checkbox-ов на чистом CSS&quot;" href="http://xandeadx.ru/crss/node/452" />
+    <link rel="shortcut icon" href="/misc/favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="http://xandeadx.ru/blog/css/452" />
+        <link type="text/css" rel="stylesheet" media="all" href="/sites/default/files/css/css_d11c7d6d7f1528e7f100afb0efb325ab.css" />
+    <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+<body>
+	
+    <div class="mainWrapper">
+        <div class="main">
+            <header>
+                <a href="/">xandeadx.ru</a>
+                <g:plusone size="small" href="http://xandeadx.ru/"></g:plusone>
+                <span class="descr">Блог музицирующего веб-девелопера</span>
+            </header>
+
+            <section class="content">
+                                                <article id="node-452" class="blog">
+
+    <h1 class="title"><a href="/blog/css">CSS</a> → Стилизация checkbox-ов на чистом CSS</h1>
+
+        
+    <div class="meta">
+        
+                
+        Опубликовано в <time datetime="2011-10-03T02:35">Пнд, 03/10/2011 - 02:35</time>        
+        <ul>
+<li><a href="/blog/tags/css" rel="tag">css</a></li>
+<li><a href="/blog/tags/css3" rel="tag">css3</a></li>
+<li><a href="/blog/tags/forms" rel="tag">работа с формами</a></li>
+</ul>        
+    </div>
+    
+    
+    <div class="content">
+    
+        <blockquote><p>
+Когда дизайнер не может «выдать» нормальный дизайн, он начинает стилизовать стандартные контролы (c) <a href="http://twitter.com/#!/petrovnn" target="_blank" rel="nofollow">@petrovnn</a>
+</p></blockquote>
+<p>Ниже, пример стилизации чекбоксов под MacOS.</p>
+<p><img src="/sites/default/files/images/part-5/20111003023619.png" alt="" /></p>
+<p>HTML:</p>
+<div class="geshifilter"><pre class="html4strict geshifilter-html4strict"><span class="sc2">&lt;<span class="kw2">input</span> <span class="kw3">type</span><span class="sy0">=</span><span class="st0">&quot;checkbox&quot;</span> <span class="kw3">id</span><span class="sy0">=</span><span class="st0">&quot;checkbox-id&quot;</span> <span class="sy0">/</span>&gt;</span> <span class="sc2">&lt;<span class="kw2">label</span> <span class="kw3">for</span><span class="sy0">=</span><span class="st0">&quot;checkbox-id&quot;</span>&gt;</span>Some label<span class="sc2">&lt;<span class="sy0">/</span><span class="kw2">label</span>&gt;</span></pre></div>
+<p>CSS:</p>
+<div class="geshifilter"><pre class="css geshifilter-css">input<span class="br0">&#91;</span>type<span class="sy0">=</span><span class="st0">&quot;checkbox&quot;</span><span class="br0">&#93;</span> <span class="br0">&#123;</span>
+    <span class="kw1">position</span><span class="sy0">:</span> <span class="kw2">absolute</span><span class="sy0">;</span>
+    <span class="kw1">left</span><span class="sy0">:</span> <span class="re3">-9999px</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+input<span class="br0">&#91;</span>type<span class="sy0">=</span><span class="st0">&quot;checkbox&quot;</span><span class="br0">&#93;</span> <span class="sy0">+</span> label <span class="br0">&#123;</span>
+    <span class="kw1">background</span><span class="sy0">:</span> <span class="kw2">url</span><span class="br0">&#40;</span><span class="co2">sprite.gif</span><span class="br0">&#41;</span> <span class="nu0">0</span> <span class="nu0">0</span> <span class="kw2">no-repeat</span><span class="sy0">;</span>
+    <span class="kw1">padding-left</span><span class="sy0">:</span> <span class="re3">20px</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+input<span class="br0">&#91;</span>type<span class="sy0">=</span><span class="st0">&quot;checkbox&quot;</span><span class="br0">&#93;</span><span class="re2">:checked </span><span class="sy0">+</span> label <span class="br0">&#123;</span>
+    <span class="kw1">background-position</span><span class="sy0">:</span> <span class="nu0">0</span> <span class="re3">-32px</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre></div>
+<p>Первым правилом скрываем дефолтный контрол, так как тонкой темизации он не поддаётся. Вторым, добавляем для соседнего лэйбла фон с нарисованным чекбоксом. Третьим правилом меняем фон лэйбла если чекбокс к которому он привязан находится в состоянии checked (применяется техника спрайтов).</p>
+<p>Работает во всех современных браузерах.</p>
+<p><a href="/examples/styling-checkbox/index.html" target="_blank">Демо</a>.</p>
+
+                <fieldset class="versionInfo">
+                    <legend>Написанное актуально для</legend>
+                    CSS3
+                </fieldset>
+            
+      <fieldset class="relevantContent">
+        <legend>Похожие записи</legend>
+        <div class="item-list"><ul><li class="first"><a href="http://xandeadx.ru/blog/css/186">CSS: Стилизуем поля под Mac с помощью CSS3 свойства border-image</a></li>
+<li><a href="http://xandeadx.ru/blog/css/404">CSS: Подробно о CSS анимации (видео)</a></li>
+<li class="last"><a href="http://xandeadx.ru/blog/css/206">CSS: border-radius, box-shadow и linear-gradient в Internet Explorer 6+</a></li>
+</ul></div>
+      </fieldset>
+        
+    </div>
+    
+    <p class="links">
+    
+        
+				<a href="http://twitter.com/share" class="twitter-share-button" data-text="CSS: Стилизация checkbox-ов на чистом CSS" data-count="horizontal" data-via="xandeadxru" rel="nofollow">Tweet</a>
+				<g:plusone size="medium"></g:plusone>
+			    
+    </p>
+
+</article>
+<div id="comments">
+  
+            <h2>
+                Комментарии
+                <a href="/crss/node/452">
+                    <img src="/sites/all/themes/brilliance/images/rss.png" alt="RSS" title="Следить за комментариями по RSS" />
+                </a>
+            </h2>
+        <a id="comment-3306"></a>
+
+<div class="comment comment-published">
+
+    <div class="submitted">
+    
+                <div class="picture">
+  <img src="http://www.gravatar.com/avatar/4326f0ea52f1c09dfd5a5316a27523fc.jpg?d=identicon&amp;s=24&amp;r=G" alt="Аватар пользователя Гость" title="Аватар пользователя Гость"  /></div>
+        <strong>Гость</strong>, <time datetime="2011-10-03T14:37">Пнд 03/10/2011 - 14:37</time>  <a href="#comment-3306" class="comment-anchor">#</a>        
+    </div>
+
+    <div class="content">
+        
+        <p>В опере не работает</p>
+    
+    </div>
+  
+</div>
+<a id="comment-3307"></a>
+
+<div class="comment comment-published comment-from-admin">
+
+    <div class="submitted">
+    
+                <div class="picture">
+  <img src="http://www.gravatar.com/avatar/3cf50e2d773baae50a41e15d64c5d38c.jpg?d=identicon&amp;s=24&amp;r=G" alt="Аватар пользователя xandeadx" title="Аватар пользователя xandeadx"  /></div>
+        <strong>xandeadx</strong>, <time datetime="2011-10-03T15:27">Пнд 03/10/2011 - 15:27</time>  <a href="#comment-3307" class="comment-anchor">#</a>        
+    </div>
+
+    <div class="content">
+        
+        <p>в опере это дело проверялось первым делом, работает отлично</p>
+    
+    </div>
+  
+</div>
+<a id="comment-3310"></a>
+
+<div class="comment comment-published">
+
+    <div class="submitted">
+    
+                <div class="picture">
+  <img src="http://www.gravatar.com/avatar/2609c885402b297f59edef100f510318.jpg?d=identicon&amp;s=24&amp;r=G&amp;f=y" alt="Аватар пользователя EllECTRONC" title="Аватар пользователя EllECTRONC"  /></div>
+        <strong>EllECTRONC</strong>, <time datetime="2011-10-03T20:25">Пнд 03/10/2011 - 20:25</time>  <a href="#comment-3310" class="comment-anchor">#</a>        
+    </div>
+
+    <div class="content">
+        
+        <p>Проблема в том, что не у всех современные браузеры. А у большинства заказчиков так вообще IE6 = корпоративный браузер, так что без скриптов не обойтись, как не крути. :(</p>
+<p>P.S.: смайликов нет?</p>
+    
+    </div>
+  
+</div>
+<a id="comment-3318"></a>
+
+<div class="comment comment-published">
+
+    <div class="submitted">
+    
+                <div class="picture">
+  <img src="http://www.gravatar.com/avatar/4326f0ea52f1c09dfd5a5316a27523fc.jpg?d=identicon&amp;s=24&amp;r=G" alt="Аватар пользователя Гость" title="Аватар пользователя Гость"  /></div>
+        <strong>Гость</strong>, <time datetime="2011-10-04T05:56">Втр 04/10/2011 - 05:56</time>  <a href="#comment-3318" class="comment-anchor">#</a>        
+    </div>
+
+    <div class="content">
+        
+        <p>У меня опера 11.5 portable - не работает.</p>
+    
+    </div>
+  
+</div>
+<a id="comment-3321"></a>
+
+<div class="comment comment-published">
+
+    <div class="submitted">
+    
+                <div class="picture">
+  <img src="http://www.gravatar.com/avatar/f3add89a1d4e6090e7993c92686ca87a.jpg?d=identicon&amp;s=24&amp;r=G" alt="Аватар пользователя Vydrin_AP" title="Аватар пользователя Vydrin_AP"  /></div>
+        <strong>Vydrin_AP</strong>, <time datetime="2011-10-04T11:00">Втр 04/10/2011 - 11:00</time>  <a href="#comment-3321" class="comment-anchor">#</a>        
+    </div>
+
+    <div class="content">
+        
+        <p>Тестил в опере, после первой загрузки страницы не заработало, F5 - все ок!<br />
+Попробовал в IE8 - не работает :(</p>
+    
+    </div>
+  
+</div>
+<a id="comment-3324"></a>
+
+<div class="comment comment-published">
+
+    <div class="submitted">
+    
+                <div class="picture">
+  <img src="http://www.gravatar.com/avatar/1850a9aedb096a7e804ae7da9f4a2acb.jpg?d=identicon&amp;s=24&amp;r=G" alt="Аватар пользователя Гость" title="Аватар пользователя Гость"  /></div>
+        <strong>Гость</strong>, <time datetime="2011-10-04T17:14">Втр 04/10/2011 - 17:14</time>  <a href="#comment-3324" class="comment-anchor">#</a>        
+    </div>
+
+    <div class="content">
+        
+        <p>не работает в IE7, 8</p>
+    
+    </div>
+  
+</div>
+<a id="comment-3326"></a>
+
+<div class="comment comment-published comment-from-admin">
+
+    <div class="submitted">
+    
+                <div class="picture">
+  <img src="http://www.gravatar.com/avatar/3cf50e2d773baae50a41e15d64c5d38c.jpg?d=identicon&amp;s=24&amp;r=G" alt="Аватар пользователя xandeadx" title="Аватар пользователя xandeadx"  /></div>
+        <strong>xandeadx</strong>, <time datetime="2011-10-04T18:00">Втр 04/10/2011 - 18:00</time>  <a href="#comment-3326" class="comment-anchor">#</a>        
+    </div>
+
+    <div class="content">
+        
+        <p>с каких пор IE7/8 стали современными браузерами?)</p>
+    
+    </div>
+  
+</div>
+<a id="comment-3331"></a>
+
+<div class="comment comment-published">
+
+    <div class="submitted">
+    
+                <div class="picture">
+  <img src="http://www.gravatar.com/avatar/64aa7861e77cabafd7f43c5a93079bc8.jpg?d=identicon&amp;s=24&amp;r=G" alt="Аватар пользователя Гера" title="Аватар пользователя Гера"  /></div>
+        <strong>Гера</strong>, <time datetime="2011-10-05T09:59">ср 05/10/2011 - 09:59</time>  <a href="#comment-3331" class="comment-anchor">#</a>        
+    </div>
+
+    <div class="content">
+        
+        <p>Реально не работает в Опере.<br />
+Версия: 11.51<br />
+Сборка: 1087<br />
+Платформа: Mac OS X<br />
+Система: 10.6.5</p>
+    
+    </div>
+  
+</div>
+<a id="comment-3332"></a>
+
+<div class="comment comment-published">
+
+    <div class="submitted">
+    
+                <div class="picture">
+  <img src="http://www.gravatar.com/avatar/1850a9aedb096a7e804ae7da9f4a2acb.jpg?d=identicon&amp;s=24&amp;r=G" alt="Аватар пользователя gribchic" title="Аватар пользователя gribchic"  /></div>
+        <strong>gribchic</strong>, <time datetime="2011-10-05T10:03">ср 05/10/2011 - 10:03</time>  <a href="#comment-3332" class="comment-anchor">#</a>        
+    </div>
+
+    <div class="content">
+        
+        <p><strong>to xandeadx</strong><br />
+ну 7 фиг с ним еще, а IE8 это максимум что ставится на winxp. 9-ый ставится только на 7ку.</p>
+    
+    </div>
+  
+</div>
+<a id="comment-3333"></a>
+
+<div class="comment comment-published">
+
+    <div class="submitted">
+    
+                <div class="picture">
+  <img src="http://www.gravatar.com/avatar/64aa7861e77cabafd7f43c5a93079bc8.jpg?d=identicon&amp;s=24&amp;r=G" alt="Аватар пользователя Гера" title="Аватар пользователя Гера"  /></div>
+        <strong>Гера</strong>, <time datetime="2011-10-05T10:06">ср 05/10/2011 - 10:06</time>  <a href="#comment-3333" class="comment-anchor">#</a>        
+    </div>
+
+    <div class="content">
+        
+        <p>Вероятно, Опера не только скрывает контрол, но и не дает по нему кликать. Кроме того, клик по соответсвующему лейблу также не приводит к нужному результату, а другие браузеры просто делают его невидимым, но кликать позволяют. В итоге "галка" в Опере не ставится и, соответственно, смены бекграунда не происходит.</p>
+<p>Примечательно, что если сделать чекбокс видимым, то клик по лейблу вновь изменяет состояние соответствующего чекбокса.</p>
+    
+    </div>
+  
+</div>
+<a id="comment-3334"></a>
+
+<div class="comment comment-published">
+
+    <div class="submitted">
+    
+                <div class="picture">
+  <img src="http://www.gravatar.com/avatar/64aa7861e77cabafd7f43c5a93079bc8.jpg?d=identicon&amp;s=24&amp;r=G" alt="Аватар пользователя Гера" title="Аватар пользователя Гера"  /></div>
+        <strong>Гера</strong>, <time datetime="2011-10-05T10:09">ср 05/10/2011 - 10:09</time>  <a href="#comment-3334" class="comment-anchor">#</a>        
+    </div>
+
+    <div class="content">
+        
+        <p>Вместо </p>
+<div class="geshifilter"><pre class="css geshifilter-css"><span class="kw1">display</span><span class="sy0">:</span> <span class="kw2">none</span><span class="sy0">;</span> </pre></div>
+<p>я сделал </p>
+<div class="geshifilter"><pre class="css geshifilter-css"><span class="kw1">left</span><span class="sy0">:</span> <span class="re3">-5000px</span><span class="sy0">;</span>
+<span class="kw1">position</span><span class="sy0">:</span> <span class="kw2">absolute</span><span class="sy0">;</span></pre></div>
+<p>И в Опере все заработало.</p>
+    
+    </div>
+  
+</div>
+<a id="comment-3344"></a>
+
+<div class="comment comment-published comment-from-admin">
+
+    <div class="submitted">
+    
+                <div class="picture">
+  <img src="http://www.gravatar.com/avatar/3cf50e2d773baae50a41e15d64c5d38c.jpg?d=identicon&amp;s=24&amp;r=G" alt="Аватар пользователя xandeadx" title="Аватар пользователя xandeadx"  /></div>
+        <strong>xandeadx</strong>, <time datetime="2011-10-05T20:08">ср 05/10/2011 - 20:08</time>  <a href="#comment-3344" class="comment-anchor">#</a>        
+    </div>
+
+    <div class="content">
+        
+        <p>Гера, спасибо, демку исправил.</p>
+<p>отпишитесь те у кого не работало :)</p>
+    
+    </div>
+  
+</div>
+<a id="comment-3345"></a>
+
+<div class="comment comment-published">
+
+    <div class="submitted">
+    
+                <div class="picture">
+  <img src="http://www.gravatar.com/avatar/4326f0ea52f1c09dfd5a5316a27523fc.jpg?d=identicon&amp;s=24&amp;r=G" alt="Аватар пользователя Гость" title="Аватар пользователя Гость"  /></div>
+        <strong>Гость</strong>, <time datetime="2011-10-05T20:11">ср 05/10/2011 - 20:11</time>  <a href="#comment-3345" class="comment-anchor">#</a>        
+    </div>
+
+    <div class="content">
+        
+        <p>В опере 11.5 portable теперь у меня заработало.</p>
+    
+    </div>
+  
+</div>
+<a id="comment-3349"></a>
+
+<div class="comment comment-published">
+
+    <div class="submitted">
+    
+                <div class="picture">
+  <img src="http://www.gravatar.com/avatar/f3add89a1d4e6090e7993c92686ca87a.jpg?d=identicon&amp;s=24&amp;r=G" alt="Аватар пользователя Vydrin_AP" title="Аватар пользователя Vydrin_AP"  /></div>
+        <strong>Vydrin_AP</strong>, <time datetime="2011-10-06T10:24">чт 06/10/2011 - 10:24</time>  <a href="#comment-3349" class="comment-anchor">#</a>        
+    </div>
+
+    <div class="content">
+        
+        <p>IE8 - не работает. Чекбокс чекается, но видимо он не понимает конструкцию input[type="checkbox"]:checked + label</p>
+    
+    </div>
+  
+</div>
+<a id="comment-6119"></a>
+
+<div class="comment comment-published">
+
+    <div class="submitted">
+    
+                <div class="picture">
+  <img src="http://www.gravatar.com/avatar/df8b4d93c5c516378c9e44584412363e.jpg?d=identicon&amp;s=24&amp;r=G" alt="Аватар пользователя fearmear" title="Аватар пользователя fearmear"  /></div>
+        <strong>fearmear</strong>, <time datetime="2012-06-15T23:17">пт 15/06/2012 - 23:17</time>  <a href="#comment-6119" class="comment-anchor">#</a>        
+    </div>
+
+    <div class="content">
+        
+        <p>Спасибо, крутой способ.</p>
+<p>Vydrin_AP,<br />
+В IE8 не поддерживается псевдо-класс :checked. Для него можно через js вешать и снимать класс "checked".</p>
+    
+    </div>
+  
+</div>
+<div class="box">
+
+  <h2>Оставить комментарий</h2>
+
+  <div class="content"><form action="/comment/reply/452"  accept-charset="UTF-8" method="post" id="comment-form">
+<div><div class="form-item" id="edit-name-wrapper">
+ <label for="edit-name">Ваше имя: </label>
+ <input type="text" maxlength="60" name="name" id="edit-name" size="30" value="Гость" class="form-text" />
+</div>
+<div class="form-item" id="edit-mail-wrapper">
+ <label for="edit-mail">E-mail: </label>
+ <input type="text" maxlength="64" name="mail" id="edit-mail" size="30" value="" class="form-text" />
+ <div class="description">Содержимое этого поля является приватным и не будет отображаться публично. Если у вас есть аккаунт в <a href="http://www.gravatar.com/" rel="nofollow">Gravatar</a>, привязанный к этому e-mail адресу, то он будет использован для отображения аватара.</div>
+</div>
+<div class="form-item" id="edit-comment-wrapper">
+ <label for="edit-comment">Комментарий: <span class="form-required" title="Обязательное поле">*</span></label>
+ <textarea cols="60" rows="15" name="comment" id="edit-comment"  class="form-textarea resizable required"></textarea>
+</div>
+<ul class="tips"><li>Адреса страниц и электронной почты автоматически преобразуются в ссылки.</li><li>Доступные HTML теги: &lt;a&gt; &lt;i&gt; &lt;b&gt; &lt;strong&gt; &lt;code&gt; &lt;ul&gt; &lt;ol&gt; &lt;li&gt; &lt;blockquote&gt; &lt;em&gt; &lt;s&gt;</li><li>Строки и параграфы переносятся автоматически.</li><li>Подсветка кода осуществляется с помощью тегов: <code>&lt;code&gt;</code>, <code>&lt;css&gt;</code>, <code>&lt;html&gt;</code>, <code>&lt;ini&gt;</code>, <code>&lt;javascript&gt;</code>, <code>&lt;sql&gt;</code>, <code>&lt;php&gt;</code>. Поддерживаемые стили выделения кода: <code>&lt;foo&gt;</code>, <code>[foo]</code>.</li></ul><p><a href="/filter/tips">Подробнее о форматировании</a></p><div class="form-item" id="edit-imnotbot1-wrapper">
+ <label class="option" for="edit-imnotbot1"><input type="checkbox" name="imnotbot1" id="edit-imnotbot1" value="1"   class="form-checkbox" /> Я не спамер</label>
+</div>
+<input type="hidden" name="form_build_id" id="form-5240a75e923cdce2800dc50a4267bf3f" value="form-5240a75e923cdce2800dc50a4267bf3f"  />
+<div class="form-item" id="edit-imnotbot2-wrapper">
+ <label class="option" for="edit-imnotbot2"><input type="checkbox" name="imnotbot2" id="edit-imnotbot2" value="1"   class="form-checkbox" /> Я спамер</label>
+</div>
+<input type="hidden" name="form_id" id="edit-comment-form" value="comment_form"  />
+<div class="clear-block"><div class="form-item" id="edit-notify-wrapper">
+ <label class="option" for="edit-notify"><input type="checkbox" name="notify" id="edit-notify" value="1"   class="form-checkbox" /> Уведомлять меня о новых комментариях</label>
+</div>
+<input type="hidden" name="notify_type" id="edit-notify-type" value="1"  />
+</div><input type="submit" name="op" id="edit-submit" value="Сохранить"  class="form-submit" />
+<input type="submit" name="op" id="edit-preview" value="Предпросмотр"  class="form-submit" />
+
+</div></form>
+</div>
+</div>
+</div>
+                            </section>
+
+            <aside>
+                <div id="block-block-13" class="block block-block">
+
+    
+    <div class="content">
+    
+        <script type="text/javascript"><!--
+google_ad_client = "ca-pub-1420444277064583";
+/* Рекламный блок */
+google_ad_slot = "7090215367";
+google_ad_width = 250;
+google_ad_height = 250;
+//--><!--
+google_ad_client = "ca-pub-1420444277064583";
+/* Рекламный блок */
+google_ad_slot = "7090215367";
+google_ad_width = 250;
+google_ad_height = 250;
+//-->
+</script><script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>        
+    </div>
+    
+</div>
+<div id="block-block-1" class="block block-block">
+
+    <h2>Разделы</h2>
+    <div class="content">
+    
+        <ul>
+<li><a href="/blog/css">CSS</a> (10)</li>
+<li><a href="/blog/drupal">Drupal</a> (446)</li>
+<li><a href="/blog/javascript">Javascript</a> (23)</li>
+<li><a href="/blog/joomla">Joomla</a> (3)</li>
+<li><a href="/blog/mysql">MySQL</a> (4)</li>
+<li><a href="/blog/php">PHP</a> (24)</li>
+<li><a href="/blog/soft">Софт</a> (1)</li>
+<li><a href="/blog/raznoe">Разное</a> (42)</li>
+</ul>
+        
+    </div>
+    
+</div>
+<div id="block-block-5" class="block block-block">
+
+    <h2>Навигация</h2>
+    <div class="content">
+    
+        <ul>
+<li><a href="/rss.xml">RSS</a></li>
+<li><a href="http://twitter.com/xandeadx" rel="nofollow" target="_blank">Twitter</a></li>
+<li><a href="/blog/archive" rel="archives">Архив</a></li>
+<li><a href="/search" rel="search">Поиск</a></li>
+<li><a href="/blog/tags">Список тегов</a></li>
+<li><a href="/services">Услуги</a></li>
+<li><a href="/contact">Обратная связь</a></li>
+</ul>
+        
+    </div>
+    
+</div>
+<div id="block-popularposts-0" class="block block-popularposts">
+
+    <h2>Популярное, за месяц</h2>
+    <div class="content">
+    
+        <ul>
+<li><a href="/blog/drupal/88">Drupal: Работа с базой данных в Drupal 7</a></li>
+<li><a href="/blog/drupal/422">Drupal: Несколько съедобных тем для Drupal 7</a></li>
+<li><a href="/blog/css/345">CSS: Прижать футер к низу страницы</a></li>
+<li><a href="/blog/css/452">CSS: Стилизация checkbox-ов на чистом CSS</a></li>
+<li><a href="/blog/drupal/335">Drupal: Модуль One Click Upload — кнопка быстрой загрузки файлов для BUEditor и CKEditor</a></li>
+</ul>
+<!-- Sat, 14 Jul 2012 12:00:15 +0400 -->
+        
+    </div>
+    
+</div>
+<div id="block-block-4" class="block block-block">
+
+    <h2>Последние записи</h2>
+    <div class="content">
+    
+        <ul>
+<li><a href="/blog/javascript/581">Javascript: Очередь событий в jQuery</a></li>
+<li><a href="/blog/drupal/579">Drupal: Как навесить #ajax на пользовательское событие</a></li>
+<li><a href="/blog/drupal/578">Drupal: Подмена аргументов в Views</a></li>
+<li><a href="/blog/drupal/577">Drupal: Вывести с помощью Views самое осбуждаемое за последнюю неделю</a></li>
+<li><a href="/blog/drupal/576">Drupal: Отдельный шаблон для тизеров (анонсов)</a></li>
+</ul>
+        
+    </div>
+    
+</div>
+<div id="block-commentsblock-0" class="block block-commentsblock">
+
+    <h2>Последние комментарии</h2>
+    <div class="content">
+    
+        <div id="commentsList">
+    <ul>
+<li>
+    <p class="submit"><strong>Нюк</strong>, 13.07.2012</p>
+    <p>
+ставьте последнюю dev версию, а не версию годичной давности
+
+
+Вст <a href="/blog/drupal/2#comment-6233" title="Модуль Taxonomy Menu — создаём меню со списком терминов из словаря">→</a></p>
+</li>
+<li>
+    <p class="submit"><strong>Serj</strong>, 11.07.2012</p>
+    <p>Модуль класс.
+Вы на d.org выкладывать будете? <a href="/blog/drupal/554#comment-6231" title="Parser 2">→</a></p>
+</li>
+<li>
+    <p class="submit"><strong>xandeadx</strong>, 11.07.2012</p>
+    <p>да, спасибо <a href="/blog/drupal/85#comment-6230" title="Отправка email">→</a></p>
+</li>
+<li>
+    <p class="submit"><strong>Ilya</strong>, 11.07.2012</p>
+    <p>
+Отправлять письма можно и без реализации hook_menu()
+
+Опечатка, ск <a href="/blog/drupal/85#comment-6229" title="Отправка email">→</a></p>
+</li>
+<li>
+    <p class="submit"><strong>xandeadx</strong>, 11.07.2012</p>
+    <p>http://php.net/manual/ru/language.operators.assignment.php <a href="/blog/drupal/574#comment-6228" title="Фоново выполнить Batch в hook_cron()">→</a></p>
+</li>
+</ul>
+</div>
+        
+    </div>
+    
+</div>
+<div id="block-block-8" class="block block-block">
+
+    <h2>Спонсоры</h2>
+    <div class="content">
+    
+         <a href="http://honeyparadise.com/o-myode/vidy-meda.html" target="_blank">сорта и виды меда</a>         
+    </div>
+    
+</div>
+            </aside>
+            
+            <div class="searchbar">
+                <form action="/blog/css/452"  accept-charset="UTF-8" method="post" id="search-theme-form">
+<div><div id="search" class="container-inline">
+  <div class="form-item" id="edit-search-theme-form-1-wrapper">
+ <label for="edit-search-theme-form-1">Поиск по сайту: </label>
+ <input type="text" maxlength="128" name="search_theme_form" id="edit-search-theme-form-1" size="15" value="" title="Введите ключевые слова для поиска." class="form-text" />
+</div>
+<input type="submit" name="op" id="edit-submit-1" value="Найти"  class="form-submit" />
+<input type="hidden" name="form_build_id" id="form-53a90daf461ca3ecf834f10e9f9b7508" value="form-53a90daf461ca3ecf834f10e9f9b7508"  />
+<input type="hidden" name="form_id" id="edit-search-theme-form" value="search_theme_form"  />
+</div>
+
+</div></form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="contentBottomLine"></div>
+        <div class="copyright">
+            © xandeadx, 2009&mdash;2012. Перепечатка любых материалов сайта запрещена.            <script id="top100Counter" type="text/javascript" src="http://counter.rambler.ru/top100.jcn?2469273"></script>
+        </div>
+    </footer>
+
+    <script type="text/javascript" src="/sites/default/files/js/js_b1a162f552d1348d1a582070225df887.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, { "basePath": "/", "fancybox": { "options": { "width": "425", "height": "355", "padding": 8, "margin": 0, "titleShow": true, "titlePosition": "outside", "scrolling": "auto", "showCloseButton": 1, "showNavArrows": 1, "cyclic": 0, "opacity": 0, "overlayShow": 1, "overlayColor": "#666", "overlayOpacity": "0.3", "hideOnOverlayClick": 1, "hideOnContentClick": 1, "enableEscapeButton": 1, "centerOnScroll": 0, "autoScale": false, "easingIn": "swing", "easingOut": "swing", "changeFade": "fast", "changeSpeed": 300, "transitionIn": "fade", "speedIn": 300, "transitionOut": "elastic", "speedOut": 300, "onStart": "", "onComplete": "", "onClosed": "", "onCleanup": "", "onCancel": "" }, "selector": "a[href^=\"/sites/default/files/images/\"]:not(.not-fancybox), a.fancybox" }, "BUE": { "templates": { "e2": { "iconpath": "/sites/all/modules/bueditor/icons", "buttons": [ [ "Цитата", "\x3cblockquote\x3e\n%TEXT%\n\x3c/blockquote\x3e", "quote.png", "" ], [ "Жирный", "\x3cstrong\x3e%TEXT%\x3c/strong\x3e", "text_bold.png", "B" ], [ "Наклонный", "js: eDefTagger(\'em\');/*toggle tag*/", "text_italic.png", "I" ], [ "Добавить/изменить ссылку", "js:\nvar B = eDefBrowseButton(\'\', \'attr_href\', \'Browse\', \'link\');\nvar form = [\n {name: \'href\', title: \'URL\', suffix: B},\n {name: \'html\', title: \'Text\'},\n {name: \'target\', title: \'Target\', value: \'_blank\'}\n];\neDefTagDialog(\'a\', form, \'Insert/edit link\', \'OK\');\n", "link.png", "L" ], [ "Код", "\x3ccode\x3e%TEXT%\x3c/code\x3e", "code-small.png", "" ], [ "Код (выпадающий список)", "js: E.codeList([\'code\', \'php\', \'html\', \'javascript\', \'css\', \'sql\']);", "page_white_code.png", "" ] ] } }, "preset": { "edit-comment": "e2" } }, "commentsblock": { "lastCid": "6228" } });
+//--><!]]>
+</script>
+        
+            <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+        <script type="text/javascript" src="https://apis.google.com/js/plusone.js">{lang: 'ru'}</script>
+        
+        
+        <!-- Google Analytics -->
+        <script type="text/javascript">
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-3900438-7']);
+			_gaq.push(['_trackPageview']);
+			_gaq.push(['_trackPageLoadTime']);
+			(function(){
+				var ga = document.createElement('script');
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				ga.setAttribute('async', 'true');
+				document.documentElement.firstChild.appendChild(ga);
+			})();
+        </script>
+        <!-- / Google Analytics -->
+
+        <!-- Yandex.Metrika counter -->
+		<script type="text/javascript">
+		(function (d, w, c) {
+			(w[c] = w[c] || []).push(function() {
+				try {
+					w.yaCounter875290 = new Ya.Metrika({id:875290});
+				} catch(e) {}
+			});
+			var n = d.getElementsByTagName("script")[0],
+				s = d.createElement("script"),
+				f = function () { n.parentNode.insertBefore(s, n); };
+			s.type = "text/javascript";
+			s.async = true;
+			s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+			if (w.opera == "[object Opera]") {
+				d.addEventListener("DOMContentLoaded", f);
+			} else { f(); }
+		})(document, window, "yandex_metrika_callbacks");
+		</script>
+		<noscript><div><img src="//mc.yandex.ru/watch/875290" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+		<!-- /Yandex.Metrika counter -->
+    
+    	
+	<script type='text/javascript'>
+		(function() {
+			var po = document.createElement('script');
+			po.type = 'text/javascript';
+			po.async = true;
+			po.src = 'https://apis.google.com/js/plusone.js';
+			var s = document.getElementsByTagName('script')[0];
+			s.parentNode.insertBefore(po, s);
+		})();
+	</script>
+
+    <!-- 15.07.2012 01:36:46 | 223.97 ms | 4.53 mb -->
+
+</body>
+</html>

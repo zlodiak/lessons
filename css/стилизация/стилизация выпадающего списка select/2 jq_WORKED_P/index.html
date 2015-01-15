@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Стилизация Select</title>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="select.js"></script>
+<script type="text/javascript">$(document).ready(function(){$('.selectBlock').sSelect();});</script>
+<style type="text/css">
+	body{
+		padding:100px;
+		margin:0;
+		background:#CCC;
+		color:#000;
+	}
+	.newListSelected{
+		width:360px;
+		margin:0 auto;
+	}
+	.selectedTxt{
+		width:320px;
+		height:35px;
+		padding:0 30px 0 10px;
+		overflow:hidden;
+		background:url(select.png);
+		color:#000;
+		font-size:24px;
+		line-height:32px;
+		zoom:1;
+		position:relative;
+		z-index:1;
+	}
+	.newList{
+		list-style:none;
+		padding:0;
+		margin:0 0 0 4px;
+		width:352px;
+		position:absolute;
+		z-index:500;
+		top:35px;
+	}
+	.newList li{padding:0;margin:0;}
+	.newList li a{
+		display:block;
+		background:#FFF;
+		opacity:0.85;
+		filter:alpha(opacity=85);
+		font-size:18px;
+		padding:0 6px;
+		line-height:normal;
+		outline:none;
+		height:30px;
+		padding:6px 0 0 6px;
+		overflow:hidden;
+	}
+	.newList li a:link,.newList li a:visited,.newList li a:hover{color:#000;text-decoration:none;}
+	.newList li a.hiLite,.newList li a.newListHover{opacity:0.95;filter:alpha(opacity=95);}
+</style>
+</head>
+<body>
+	<form action="#">
+		<select class="selectBlock">
+			<option>Казань</option>
+			<option>Волгоград</option>
+			<option>Астрахань</option>
+			<option>Ростов</option>
+			<option>Армавир</option>
+		</select>
+	</form>
+</body>
+</html>

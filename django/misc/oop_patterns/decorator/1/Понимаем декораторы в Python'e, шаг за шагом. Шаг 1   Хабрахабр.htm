@@ -1,0 +1,2491 @@
+
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta content='width=1024' name='viewport'>
+    
+    
+    <title>Понимаем декораторы в Python'e, шаг за шагом. Шаг 1 / Хабрахабр</title>
+    
+    <meta name='yandex-verification' content='67d46b975fa41645' /> <!-- яндекс вебмастер - верификация -->
+
+    <meta name="description" content="
+На Хабре множество раз обсуждалась тема декораторов, однако, на мой взгляд, данная статья (выросшая из одного вопроса на stackoverflow) описывает данную тему наиболее понятно и, что немаловажно,..." />    
+    <meta name="keywords" content="python, decorator, decorators, декораторы, step-by-step" />
+    
+    	<meta property="fb:app_id"      content="444736788986613" /> 
+<meta property="og:type"        content="article" /> 
+<meta property="og:url"         content="http://habrahabr.ru/post/141411/" /> 
+<meta property="og:title"       content="Понимаем декораторы в Python'e, шаг за шагом. Шаг 1" /> 
+	<meta property="og:image"       content="http://habrastorage.org/storage2/10d/846/a76/10d846a765d2825966a361edfc61e317.png" />
+	<link rel="image_src" href="http://habrastorage.org/storage2/10d/846/a76/10d846a765d2825966a361edfc61e317.png" />
+	
+<meta property="og:description" content="На Хабре множество раз обсуждалась тема декораторов, однако, на мой взгляд, данная статья (выросшая из одного вопроса на stackoverflow) описывает данную тему..." />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@habrahabr" />
+
+
+      <link href="/styles/1401263253/all.css" rel="stylesheet" media="all" />
+  
+    <link href="/styles/1401263253/_parts/navbar.css" rel="stylesheet" media="all" />
+
+      <link href="/styles/1401263253/_parts/posts.css" rel="stylesheet" media="all" />
+  <link href="/styles/1401263253/_parts/comments.css" rel="stylesheet" media="all" />
+  <link href="/styles/1401263253/forms.css" rel="stylesheet" media="all" />
+  <link href="/styles/1401263253/highlight.css" rel="stylesheet" media="all" />
+
+
+    <link href="/styles/1401263253/printer.css" rel="stylesheet" media="print" />
+
+    
+    
+
+      <script src="/javascripts/1401263253/all.js"></script>
+    <script src="/javascripts/1401263253/_parts/_navbar.js"></script>
+
+
+      <script type="text/javascript" src="/javascripts/1401263253/libs/jquery.form.js"></script>
+  <script type="text/javascript" src="/javascripts/1401263253/libs/jquery.cookie.js"></script>
+  <script type="text/javascript" src="/javascripts/1401263253/libs/wysiwyg.js"></script>
+  <script type="text/javascript" src="/javascripts/1401263253/libs/highlight.js"></script>
+  <script type="text/javascript" src="/javascripts/1401263253/libs/jquery-ui-highlight.js"></script>
+  <script type="text/javascript" src="/javascripts/1401263253/_parts/posts.js"></script>
+  <script type="text/javascript" src="/javascripts/1401263253/_parts/comments.js"></script>
+  <script type="text/javascript" src="/javascripts/1401263253/posts/all.js"></script>
+
+
+      <!-- www.criteo.com/ru -->
+<script type='text/javascript'>
+  var crtg_nid="2580";
+  var crtg_cookiename="cto_rtt";
+  var crtg_varname="crtg_content";
+  function crtg_getCookie(c_name){
+    var i,x,y,ARRCookies=document.cookie.split(";");
+    for(i=0;i<ARRCookies.length;i++){
+      x=ARRCookies[i].substr(0,ARRCookies[i].indexOf("="));
+      y=ARRCookies[i].substr(ARRCookies[i].indexOf("=")+1);
+      x=x.replace(/^\s+|\s+$/g,"");
+      if(x==c_name){return unescape(y);}
+    }
+    return'';
+  }
+  var crtg_content = crtg_getCookie(crtg_cookiename);var crtg_rnd=Math.floor(Math.random()*99999999999);
+  var crtg_url=location.protocol+'//rtax.criteo.com/delivery/rta/rta.js?netId='+escape(crtg_nid);crtg_url+='&cookieName='+escape(crtg_cookiename);crtg_url+='&rnd='+crtg_rnd;crtg_url+='&varName=' + escape(crtg_varname);
+  var crtg_script=document.createElement('script');crtg_script.type='text/javascript';crtg_script.src=crtg_url;crtg_script.async=true;
+  if(document.getElementsByTagName("head").length>0)document.getElementsByTagName("head")[0].appendChild(crtg_script);
+  else
+  if(document.getElementsByTagName("body").length>0)document.getElementsByTagName("body")[0].appendChild(crtg_script);
+</script>
+      <script >
+        var N = 5;
+        var ar_duo1 = Math.floor(Math.random()*N+1);
+      </script>
+      <script type="text/javascript" src="/javascripts/1401263253/adriver.core.2.js"></script>
+
+    <link title="Хабрахабр / Комментарии к публикации «Понимаем декораторы в Python'e, шаг за шагом. Шаг 1»" type="application/rss+xml" rel="alternate" href="http://habrahabr.ru/rss/post/141411/"/>
+        
+    
+    
+<script type="text/javascript">
+
+    var user_type = "guest";
+    var username = 'guest';
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+    ga('create', 'UA-726094-1',  'auto' ); 
+
+  ga('require', 'displayfeatures');
+  ga('set', 'dimension1', user_type); // user type - guest/readonly/habrauser
+  ga('set', 'dimension2', username); // username
+
+
+  ga('send', 'pageview');
+  
+</script>
+
+
+
+<script type="text/javascript">
+var pp_gemius_identifier = new String('p8zr4.NqiIZJgD2cnP2s5fWWnIQFHrAvZ280B955gIr.f7');
+</script>
+<script src="/javascripts/1401263253/gemius.js"></script>
+
+
+
+
+
+
+
+    
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+(function (d, w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter24049213 = new Ya.Metrika({id:24049213,
+                    webvisor:true,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true});
+        } catch(e) { }
+    });
+
+    var n = d.getElementsByTagName("script")[0],
+        s = d.createElement("script"),
+        f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f, false);
+    } else { f(); }
+})(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="//mc.yandex.ru/watch/24049213" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+  </head>
+
+  <body>
+    
+    <div id="layout">
+      <div id="navbar_overlay" class="hidden"></div>
+<div id="navbar">
+  <div class="nav_panel">
+    <a href="http://habrahabr.ru/" class="logo"></a>
+      <a href="/posts/" class="tab tab_menu" data-tab="menu_tab" title="Меню"></a>
+      <a href="https://habrahabr.ru/auth/login/" class="tab tab_login" id="login" title="Войти"></a>
+    
+    <a href="#" class="scroll_to_up hidden scroll_to_up_for_guest" id="scroll_to_top" title="Наверх"></a>
+  </div>
+  <div class="nav_tabs_content ">
+    
+    <div class="nav_tab " id="menu_tab">
+      <div class="title">Разделы</div>
+      <form action="/search/" method="get" class="global_search_form">
+        <div>
+          <input type="text" name="q" placeholder="Поиск" />
+        </div>
+      </form>
+      <div class="menu">
+        <a href="/posts/top/">Посты</a>
+        <a href="/hubs/">Хабы</a>
+        <a href="/companies/">Компании</a>
+        <a href="/users/">Пользователи</a>
+        <a href="http://toster.ru/"  class="new_window">Q&A</a>
+        <a href="/sandbox/">Песочница</a>
+        
+        
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+      <div class="inner">
+        
+                
+        
+
+        	
+  <div class="content_left">
+  	
+
+
+
+
+
+    <div class="post_show">
+  	  
+  <div class="post translation shortcuts_item" id="post_141411">
+  	<div class="published"> 4 апреля 2012 в 23:19</div>  
+    <h1 class="title">
+	      
+      
+
+
+        <span class="post_title">Понимаем декораторы в Python'e, шаг за шагом. Шаг 1</span>
+
+			<span class="flag flag_translation">перевод</span>
+			
+			<span class="flag flag_tutorial"  title="Обучающий материал">tutorial</span>
+			
+			
+
+  	</h1>
+  	
+  	<div class="hubs">
+		<a href="http://habrahabr.ru/hub/development/" class="hub " title="Вы не подписаны на этот хаб" >Разработка</a><span class="profiled_hub" title="Профильный хаб">*</span>, 
+		<a href="http://habrahabr.ru/hub/python/" class="hub " title="Вы не подписаны на этот хаб" >Python</a><span class="profiled_hub" title="Профильный хаб">*</span>
+</div>
+
+  	
+    <div class="content html_format">
+      <img src="http://habrastorage.org/storage2/10d/846/a76/10d846a765d2825966a361edfc61e317.png"/><br/>
+<i><h6>На Хабре множество раз обсуждалась тема декораторов, однако, на мой взгляд, данная статья (выросшая из одного <a href="http://stackoverflow.com/questions/739654/understanding-python-decorators">вопроса на stackoverflow</a>) описывает данную тему наиболее понятно и, что немаловажно, является «пошаговым руководством» по использованию декораторов, позволяющим новичку овладеть этой техникой сразу на достойном уровне.</h6></i><br/>
+<h4>Итак, что же такое «декоратор»?</h4><br/>
+Впереди достаточно длинная статья, так что, если кто-то спешит — вот пример того, как работают декораторы:<br/>
+<pre><code class="python">def makebold(fn):
+    def wrapped():
+        return &quot;&lt;b&gt;&quot; + fn() + &quot;&lt;/b&gt;&quot;
+    return wrapped
+ 
+def makeitalic(fn):
+    def wrapped():
+        return &quot;&lt;i&gt;&quot; + fn() + &quot;&lt;/i&gt;&quot;
+    return wrapped
+ 
+@makebold
+@makeitalic
+def hello():
+    return &quot;hello habr&quot;
+ 
+print hello() ## выведет &lt;b&gt;&lt;i&gt;hello habr&lt;/i&gt;&lt;/b&gt;</code></pre><br/>
+<a name="habracut"></a><br/>
+Те же из вас, кто готов потратить немного времени, приглашаются прочесть длиииинный пост.<br/>
+<br/>
+<h5>Функции в Python'e являются объектами</h5><br/>
+Для того, чтобы понять, как работают декораторы, в первую очередь следует осознать, что в Python'е функции — это тоже объекты.<br/>
+Давайте посмотрим, что из этого следует:<br/>
+<pre><code class="python">def shout(word=&quot;да&quot;):
+    return word.capitalize()+&quot;!&quot;
+ 
+print shout()
+# выведет: 'Да!'
+ 
+# Так как функция - это объект, вы связать её с переменнной,
+# как и любой другой объект
+scream = shout
+ 
+# Заметьте, что мы не используем скобок: мы НЕ вызываем функцию &quot;shout&quot;,
+# мы связываем её с переменной &quot;scream&quot;. Это означает, что теперь мы
+# можем вызывать &quot;shout&quot; через &quot;scream&quot;:
+ 
+print scream()
+# выведет: 'Да!'
+
+# Более того, это значит, что мы можем удалить &quot;shout&quot;, и функция всё ещё
+# будет доступна через переменную &quot;scream&quot;
+ 
+del shout
+try:
+    print shout()
+except NameError, e:
+    print e
+    #выведет: &quot;name 'shout' is not defined&quot;
+ 
+print scream()
+# выведет: 'Да!'</code></pre><br/>
+Запомним этот факт, скоро мы к нему вернёмся, но кроме того, стоит понимать, что функция в Python'e может быть определена… внутри другой функции!<br/>
+<br/>
+<pre><code class="python">def talk():
+    # Внутри определения функции &quot;talk&quot; мы можем определить другую...
+    def whisper(word=&quot;да&quot;):
+        return word.lower()+&quot;...&quot;;
+ 
+    # ... и сразу же её использовать!
+    print whisper()
+
+# Теперь, КАЖДЫЙ РАЗ при вызове &quot;talk&quot;, внутри неё определяется а затем
+# и вызывается функция &quot;whisper&quot;.
+talk()
+# выведет: &quot;да...&quot;
+ 
+# Но вне функции &quot;talk&quot; НЕ существует никакой функции &quot;whisper&quot;:
+try:
+    print whisper()
+except NameError, e:
+    print e
+    #выведет : &quot;name 'whisper' is not defined&quot;</code></pre><br/>
+<h5>Ссылки на функции</h5><br/>
+Ну что, вы всё ещё здесь?:)<br/>
+<br/>
+Теперь мы знаем, что функции являются полноправными объектами, а значит:<br/>
+<ul>
+<li> могут быть связаны с переменной; </li>
+<li> могут быть определены одна внутри другой. </li>
+</ul><br/>
+Что ж, а это значит, что одна функция может вернуть другую функцию!<br/>
+Давайте посмотрим:<br/>
+<pre><code class="python">def getTalk(type=&quot;shout&quot;):
+ 
+    # Мы определяем функции прямо здесь
+    def shout(word=&quot;да&quot;):
+        return word.capitalize()+&quot;!&quot;
+ 
+    def whisper(word=&quot;да&quot;) :
+        return word.lower()+&quot;...&quot;;
+ 
+    # Затем возвращаем необходимую
+    if type == &quot;shout&quot;:
+        # Заметьте, что мы НЕ используем &quot;()&quot;, нам нужно не вызвать функцию,
+        # а вернуть объект функции
+        return shout
+    else:
+        return whisper
+ 
+# Как использовать это непонятное нечто?
+# Возьмём функцию и свяжем её с переменной
+talk = getTalk()
+ 
+# Как мы можем видеть, &quot;talk&quot; теперь - объект &quot;function&quot;:
+print talk
+# выведет: &lt;function shout at 0xb7ea817c&gt;
+ 
+# Который можно вызывать, как и функцию, определённую &quot;обычным образом&quot;:
+print talk()
+ 
+# Если нам захочется - можно вызвать её напрямую из возвращаемого значения:
+print getTalk(&quot;whisper&quot;)()
+# выведет: да...</code></pre><br/>
+Подождите, раз мы можем возвращать функцию, значит, мы можем и передавать её другой функции, как параметр:<br/>
+<pre><code class="python">def doSomethingBefore(func):
+    print &quot;Я делаю что-то ещё, перед тем как вызвать функцию, которую ты мне передал&quot;
+    print func()
+ 
+doSomethingBefore(scream)
+#выведет:
+# Я делаю что-то ещё, перед тем как вызвать функцию, которую ты мне передал
+# Да!</code></pre><br/>
+Ну что, теперь у нас есть все необходимые знания для того, чтобы понять, как работают декораторы.<br/>
+Как вы могли догадаться, декораторы — это, по сути, просто своеобразные «обёртки», которые <b>дают нам возможность делать что-либо до и после того, что сделает декорируемая функция, не изменяя её.</b><br/>
+<br/>
+<h5>Создадим свой декоратор «вручную»</h5><br/>
+<pre><code class="python"># Декоратор - это функция, ожидающая ДРУГУЮ функцию в качестве параметра
+def my_shiny_new_decorator(a_function_to_decorate):
+    # Внутри себя декоратор определяет функцию-&quot;обёртку&quot;.
+    # Она будет (что бы вы думали?..) обёрнута вокруг декорируемой,
+    # получая возможность исполнять произвольный код до и после неё.
+
+    def the_wrapper_around_the_original_function():
+        # Поместим здесь код, который мы хотим запускать ДО вызова
+        # оригинальной функции
+        print &quot;Я - код, который отработает до вызова функции&quot;
+ 
+        # ВЫЗОВЕМ саму декорируемую функцию
+        a_function_to_decorate()
+
+        # А здесь поместим код, который мы хотим запускать ПОСЛЕ вызова
+        # оригинальной функции
+        print &quot;А я - код, срабатывающий после&quot;
+
+    # На данный момент функция &quot;a_function_to_decorate&quot; НЕ ВЫЗЫВАЛАСЬ НИ РАЗУ
+
+    # Теперь, вернём функцию-обёртку, которая содержит в себе
+    # декорируемую функцию, и код, который необходимо выполнить до и после.
+    # Всё просто!
+    return the_wrapper_around_the_original_function
+
+# Представим теперь, что у нас есть функция, которую мы не планируем больше трогать.
+def a_stand_alone_function():
+    print &quot;Я простая одинокая функция, ты ведь не посмеешь меня изменять?..&quot;
+ 
+a_stand_alone_function()
+# выведет: Я простая одинокая функция, ты ведь не посмеешь меня изменять?..
+ 
+# Однако, чтобы изменить её поведение, мы можем декорировать её, то есть
+# Просто передать декоратору, который обернет исходную функцию в любой код,
+# который нам потребуется, и вернёт новую, готовую к использованию функцию:
+ 
+a_stand_alone_function_decorated = my_shiny_new_decorator(a_stand_alone_function)
+a_stand_alone_function_decorated()
+#выведет:
+# Я - код, который отработает до вызова функции
+# Я простая одинокая функция, ты ведь не посмеешь меня изменять?..
+# А я - код, срабатывающий после</code></pre><br/>
+Наверное, теперь мы бы хотели, чтобы каждый раз, во время вызова <i>a_stand_alone_function</i>, вместо неё вызывалась <i>a_stand_alone_function<b>_decorated</b></i>. Нет ничего проще, просто перезапишем <i>a_stand_alone_function</i> функцией, которую нам вернул <i>my_shiny_new_decorator</i>:<br/>
+<pre><code class="python">a_stand_alone_function = my_shiny_new_decorator(a_stand_alone_function)
+a_stand_alone_function()
+#выведет:
+# Я - код, который отработает до вызова функции
+# Я простая одинокая функция, ты ведь не посмеешь меня изменять?..
+# А я - код, срабатывающий после</code></pre><br/>
+Вы ведь уже догадались, что это ровно тоже самое, что делают @декораторы.:)<br/>
+<br/>
+<h5>Разрушаем ореол таинственности вокруг декораторов</h5><br/>
+Вот так можно было записать предыдущий пример, используя синтаксис декораторов:<br/>
+<pre><code class="python">@my_shiny_new_decorator
+def another_stand_alone_function():
+    print &quot;Оставь меня в покое&quot;
+ 
+another_stand_alone_function()
+#выведет:
+# Я - код, который отработает до вызова функции
+# Оставь меня в покое
+# А я - код, срабатывающий после</code></pre><br/>
+Да, всё действительно так просто! @decorator — просто <a href="http://ru.wikipedia.org/wiki/%D0%A1%D0%B8%D0%BD%D1%82%D0%B0%D0%BA%D1%81%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B9_%D1%81%D0%B0%D1%85%D0%B0%D1%80">синтаксический сахар</a> для конструкций вида:<br/>
+<pre><code class="python">another_stand_alone_function = my_shiny_new_decorator(another_stand_alone_function)</code></pre><br/>
+Декораторы — это просто pythonic-реализация <a href="http://ru.wikipedia.org/wiki/%D0%94%D0%B5%D0%BA%D0%BE%D1%80%D0%B0%D1%82%D0%BE%D1%80_(%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD_%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F)">паттерна проектирования «Декоратор»</a>. В Python включены некоторые <a href="http://ru.wikipedia.org/wiki/%D0%A8%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD_%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F#.D0.9E.D1.81.D0.BD.D0.BE.D0.B2.D0.BD.D1.8B.D0.B5">классические паттерны проектирования</a>, такие как рассматриваемые в этой статье декораторы, или привычные любому пайтонисту <a href="http://ru.wikipedia.org/wiki/%D0%98%D1%82%D0%B5%D1%80%D0%B0%D1%82%D0%BE%D1%80_(%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD_%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F)">итераторы</a>.<br/>
+<br/>
+Конечно, можно вкладывать декораторы друг в друга, например так:<br/>
+<pre><code class="python">def bread(func):
+    def wrapper():
+        print &quot;&lt;/------\&gt;&quot;
+        func()
+        print &quot;&lt;\______/&gt;&quot;
+    return wrapper
+ 
+def ingredients(func):
+    def wrapper():
+        print &quot;#помидоры#&quot;
+        func()
+        print &quot;~салат~&quot;
+    return wrapper
+ 
+def sandwich(food=&quot;--ветчина--&quot;):
+    print food
+ 
+sandwich()
+#выведет: --ветчина--
+sandwich = bread(ingredients(sandwich))
+sandwich()
+#выведет:
+# &lt;/------\&gt;
+# #помидоры#
+# --ветчина--
+# ~салат~
+# &lt;\______/&gt;
+</code></pre><br/>
+<br/>
+И используя синтаксис декораторов:<br/>
+<pre><code class="python">@bread
+@ingredients
+def sandwich(food=&quot;--ветчина--&quot;):
+    print food
+ 
+sandwich()
+#выведет:
+# &lt;/------\&gt;
+# #помидоры#
+# --ветчина--
+# ~салат~
+# &lt;\______/&gt;</code></pre><br/>
+<br/>
+Следует помнить о том, что порядок декорирования ВАЖЕН:<br/>
+<pre><code class="python">@ingredients
+@bread
+def sandwich(food=&quot;--ветчина--&quot;):
+    print food
+ 
+sandwich()
+#выведет:
+# #помидоры#
+# &lt;/------\&gt;
+# --ветчина--
+# &lt;\______/&gt;
+# ~салат~
+</code></pre><br/>
+<br/>
+На этом моменте Вы можете счастливо уйти, с осознанием того, что вы поняли, что такое декораторы и с чем их едят.<br/>
+Для тех же, кто хочет помучать ещё немного свой мозг, завтра будет допереведена вторая часть статьи, посвящённая продвинутому использованию декораторов.<br/>
+<br/>
+Содержание:<br/>
+<ul>
+<li><a href="http://habrahabr.ru/post/141411/">Шаг 1. Базовое понимание декораторов</a> <i>(вы сейчас прочитали эту статью)</i></li>
+<li><a href="http://habrahabr.ru/post/141501/">Шаг 2. Продвинутое использование декораторов</a></li>
+</ul><br/>
+<i>Прим. переводчика:<br/>
+Спасибо за внимание. Буду благодарен любым замечаниям по переводу и оформлению, постараюсь учесть их все во второй части перевода.<br/>
+UPD: Во второй части будут разобраны такие вопросы, как: передача аргументов декорируемым функциям, декорация методов, декораторы с параметрами и пр.<br/>
+<b>UPD2: Выложена <a href="http://habrahabr.ru/post/141501/">вторая часть статьи.</a></b></i>
+  	<div class="clear"></div>
+    </div>
+    
+    
+<ul class="tags">
+	<li ><a href="http://habrahabr.ru/search/?q=%5Bpython%5D&target_type=posts" rel="tag">python</a></li><li >, <a href="http://habrahabr.ru/search/?q=%5Bdecorator%5D&target_type=posts" rel="tag">decorator</a></li><li >, <a href="http://habrahabr.ru/search/?q=%5Bdecorators%5D&target_type=posts" rel="tag">decorators</a></li><li >, <a href="http://habrahabr.ru/search/?q=%5B%D0%B4%D0%B5%D0%BA%D0%BE%D1%80%D0%B0%D1%82%D0%BE%D1%80%D1%8B%5D&target_type=posts" rel="tag">декораторы</a></li><li >, <a href="http://habrahabr.ru/search/?q=%5Bstep-by-step%5D&target_type=posts" rel="tag">step-by-step</a></li>
+</ul>
+
+
+    <div class="infopanel_wrapper">
+	<div class="infopanel " id="infopanel_post_141411">
+	
+				<div class="voting   ">
+	
+						<span class="plus" title="Голосовать могут только зарегистрированные пользователи."></span>
+	
+					<div class="mark positive ">
+							<span class="score" title="Всего 119: &uarr;106 и &darr;13">+93</span>
+					</div>
+					
+						<span class="minus" title="Голосовать могут только зарегистрированные пользователи."></span>
+		
+				</div>
+	
+		<div class="pageviews" title="Просмотры поста">26822</div>
+			
+		<div class="favorite">
+				<a class="guest"	href="#" onclick="return false;" title="Только зарегистрированные пользователи могут добавлять посты в избранное"></a>
+		</div>
+		<div class="favs_count" title="Количество пользователей, добавивших пост в избранное">580</div>
+		
+		
+			<div class="original-author">
+				<a title="Автор оригинала: Renaud Gaudin" href="http://yeleman.com/what-are-python-decorators/">Renaud Gaudin</a>
+			</div>
+		
+	
+	
+	
+	
+				<div class="author">
+					<a title="Автор текста" href="http://habrahabr.ru/users/Utter_step/" >Utter_step</a>
+					<span class="rating" title="рейтинг пользователя">89,1</span>
+						<a href="https://plus.google.com/114930869113200125586/?rel=author" class="googleplus_profile">G+</a>
+				</div>
+		
+	
+	
+		
+			<div class="share">
+				<div class="twitter">
+					<a href="http://twitter.com/intent/tweet?text=%D0%9F%D0%BE%D0%BD%D0%B8%D0%BC%D0%B0%D0%B5%D0%BC+%D0%B4%D0%B5%D0%BA%D0%BE%D1%80%D0%B0%D1%82%D0%BE%D1%80%D1%8B+%D0%B2+Python%27e%2C+%D1%88%D0%B0%D0%B3+%D0%B7%D0%B0+%D1%88%D0%B0%D0%B3%D0%BE%D0%BC.+%D0%A8%D0%B0%D0%B3+1+http://habr.ru/p/141411/+via+%40habrahabr+%23habr" title="Опубликовать ссылку в Twitter" target="_blank"></a>
+				</div>
+				<div class="vkontakte">
+					<a href="http://vk.com/share.php?url=http://habrahabr.ru/post/141411/" title="Опубликовать ссылку во ВКонтакте" onclick="window.open(this.href, 'Опубликовать ссылку во Вконтакте', 'width=800,height=300'); return false"></a>
+				</div>
+				<div class="facebook">
+					<a href="https://www.facebook.com/sharer/sharer.php?u=http://habrahabr.ru/post/141411/" title="Опубликовать ссылку в Facebook" onclick="window.open(this.href, 'Опубликовать ссылку в Facebook', 'width=640,height=436,toolbar=0,status=0'); return false"></a>
+				</div>
+				<div class="googleplus">
+					<a href="https://plus.google.com/share?url=http://habrahabr.ru/post/141411/" title="Опубликовать ссылку в Google Plus" onclick="window.open(this.href, 'Опубликовать ссылку в Google Plus', 'width=800,height=300'); return false"></a>
+				</div>
+			</div>
+	
+	</div>
+	<div class="clear"></div>
+</div>
+
+
+
+
+    
+    
+		
+		
+	</div>
+
+    </div>
+
+  		
+	<div id="adriver_banner_132032996"></div>  
+
+  <script type="text/javascript">  
+	  function show_inner_banner_block(name, url){
+	  	if( typeof(name) !== 'undefined'){
+	  		$.get('/html/'+name+'/1401263253/', function(html){
+	  			$('#adriver_banner_132032996').html(html);
+	  			$('.'+name+'_inner_banner').removeClass('hidden');
+	  			if( typeof(url) !== 'undefined'){
+	  				$('.'+name+'_inner_banner .block_url').attr('href', url);
+	  			}
+	  		})
+	  	}
+	  }
+
+		$(function(){
+			var keyword = '';
+			if (typeof crtg_content !== 'undefined' && crtg_content) { keyword = crtg_content; }
+			var custom = { 4:ar_duo1 };
+				custom[1] = 'development';
+				custom[2] = 'python';
+
+            /* Антоша не удаляй это условие блеать! Как я тестить буду? */
+            //if (true)
+            //    show_inner_banner_block('beeline');
+            //else
+			    new adriver("adriver_banner_132032996", {sid: 176776, bt: 52, bn: 3, custom: custom, keyword: keyword});
+		});
+	</script>
+	
+
+
+  	
+  		<div class="comments_list " id="comments">
+
+  <h2 class="title ">Комментарии (<span id="comments_count">32</span>)
+  
+  
+  </h2>
+
+    <div class="comment_item" id="comment_4730047" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4730047">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4730047" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 6: &uarr;5 и &darr;1">+4</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/dunki/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+            <a href="http://habrahabr.ru/users/dunki/" class="username">dunki</a><span class="comma">,</span>
+            <time> 4 апреля 2012 в 23:48</time>
+
+            <a href="#comment_4730047" class="link_to_comment">#</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            спасибо. ждем вторую часть
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4730047">
+        <div class="comment_item" id="comment_4730299" >
+
+    <span class="parent_id" data-parent_id="4730047"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4730299">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4730299" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 2: &uarr;2 и &darr;0">+2</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/krovatti/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/e26/d4f/d13/e26d4fd13dd075656b70a3379bf7a926_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/krovatti/" class="username">krovatti</a><span class="comma">,</span>
+            <time> 5 апреля 2012 в 01:21</time>
+
+            <a href="#comment_4730299" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="4730299" data-parent_id="4730047" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_4730047" data-id="4730299" data-parent_id="4730047" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Присоединяюсь.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4730299">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_4730094" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4730094">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4730094" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 21: &uarr;20 и &darr;1">+19</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/nvbn/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/1d8/e95/d78/1d8e95d788dfad145902ec8dceb16865_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/nvbn/" class="username">nvbn</a><span class="comma">,</span>
+            <time> 5 апреля 2012 в 00:04</time>
+
+            <a href="#comment_4730094" class="link_to_comment">#</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Что в декораторах такого волшебного и непостижимого, заставляющего писать очередной пост про них?
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4730094">
+        <div class="comment_item" id="comment_4730111" >
+
+    <span class="parent_id" data-parent_id="4730094"></span>
+    <div class="comment_body">
+        <div class="info  is_topic_starter  " rel="4730111">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4730111" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 9: &uarr;6 и &darr;3">+3</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Utter_step/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/dd8/c2e/d9d/dd8c2ed9d82ec96e0d9c0e592bc01b91_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/Utter_step/" class="username">Utter_step</a><span class="comma">,</span>
+            <time> 5 апреля 2012 в 00:13</time>
+
+            <a href="#comment_4730111" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="4730111" data-parent_id="4730094" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_4730094" data-id="4730111" data-parent_id="4730094" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Для людей, давно и серьёзно занимающихся программированием — почти ничего.<br/>
+Для новичков, как показывает практика, эта тема неочевидна.<br/>
+<br/>
+Плюс, во второй части будет больше неочевидных вещей, таких как: фабрики декораторов, декораторы с параметрами, декораторы для методов и т.д.<br/>
+<br/>
+Надеюсь, наличие данного материала на русском никому не повредит:)
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4730111">
+        <div class="comment_item" id="comment_4730224" >
+
+    <span class="parent_id" data-parent_id="4730111"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4730224">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4730224" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 7: &uarr;5 и &darr;2">+3</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/krovatti/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/e26/d4f/d13/e26d4fd13dd075656b70a3379bf7a926_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/krovatti/" class="username">krovatti</a><span class="comma">,</span>
+            <time> 5 апреля 2012 в 00:51</time>
+
+            <a href="#comment_4730224" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="4730224" data-parent_id="4730111" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_4730111" data-id="4730224" data-parent_id="4730111" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Я больше скажу. Некоторым еще и полезна будет.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4730224">
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_4730461" >
+
+    <span class="parent_id" data-parent_id="4730111"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4730461">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4730461" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 5: &uarr;4 и &darr;1">+3</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/ddsl/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+            <a href="http://habrahabr.ru/users/ddsl/" class="username">ddsl</a><span class="comma">,</span>
+            <time> 5 апреля 2012 в 06:48</time>
+
+            <a href="#comment_4730461" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="4730461" data-parent_id="4730111" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_4730111" data-id="4730461" data-parent_id="4730111" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Напишите, если не трудно про y-комбинатор, а то статья на хабре просто мне мозг выломала( хотя там строчек кода штук 5 на пример). Так полностью и не понял.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4730461">
+        <div class="comment_item" id="comment_4731019" >
+
+    <span class="parent_id" data-parent_id="4730461"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4731019">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4731019" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  negative">
+                    <span class="score" title="Всего 2: &uarr;0 и &darr;2">–2</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/bobry/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/d41/945/65e/d4194565e87e3877a20d8a2b3757f33b_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/bobry/" class="username">bobry</a><span class="comma">,</span>
+            <time> 5 апреля 2012 в 12:32</time>
+
+            <a href="#comment_4731019" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="4731019" data-parent_id="4730461" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_4730461" data-id="4731019" data-parent_id="4730461" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format bad bad2">
+            Какое отношение y-комбинатор имеет к декораторам? к тому же Python явно не лучший язык для демонстрации подобной идеи.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4731019">
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_4733567" >
+
+    <span class="parent_id" data-parent_id="4730461"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4733567">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4733567" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 3: &uarr;3 и &darr;0">+3</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Astynax/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/1d2/929/e1a/1d2929e1ae15f76b394caec9047a7342_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/Astynax/" class="username">Astynax</a><span class="comma">,</span>
+            <time> 6 апреля 2012 в 09:24</time>
+
+            <a href="#comment_4733567" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="4733567" data-parent_id="4730461" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_4730461" data-id="4733567" data-parent_id="4730461" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Y-комбинатор позволяет в анонимной функции использовать рекурсию с использованием самой себя, без необходимости назначения ей имени — функция остаётся анонимной.<br/>
+<br/>
+Скажем, у нас есть неанонимная рекурсивная функция вычисления факториала:<br/>
+<pre><code class="python">def fact(n):
+    return n * fact(n-1) if n &gt; 0 else 1
+print fact(10)
+</code></pre><br/>
+Это работает, т.к. у нашей функции есть имя fact и мы можем по нему функцию вызывать внутри неё самой.<br/>
+<br/>
+Но если мы захотим написать анонимную функцию вычисления факториала, мы столкнемся с проблемой — как нам внутри функции вызвать её саму, не имея имени.<br/>
+Можно попробовать сделать так:<br/>
+<pre><code class="python">fact = lambda self, n: n * self(self, n) if n &gt; 0 else 1
+print fact(fact, 10)
+</code></pre><br/>
+В данном случае имя функции не встречается внутри неё. Но при внешнем вызове функции приходится передавать в качестве одного из аргументов ссылку на неё саму. Это можно обернуть так:<br/>
+<pre><code class="python">wrap = lambda fn, *args: fn(fn, *args)
+fact = lambda self, n: n * self(self, n) if n &gt; 0 else 1
+print wrap(fact, 10)
+</code></pre><br/>
+Теперь мы её ещё немного дообернем:<br/>
+<pre><code class="python">y = lambda fn: lambda *args: fn(fn, *args)
+fact = y(lambda self, n: n * self(self, n) if n &gt; 0 else 1)
+</code></pre><br/>
+Вот y и есть Y-комбинатор, к тому же анонимный. Пользуем inline как то так:<br/>
+<pre><code class="python"># применяем анонимную рекурсивную функцию
+map(
+    (lambda fn: lambda *args: fn(fn, *args))(
+        lambda self, n: n * self(self, n-1) if n &gt; 0 else 1),
+    [1,2,3]
+)
+</code></pre><br/>
+PROFIT! :)
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4733567">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_4730505" >
+
+    <span class="parent_id" data-parent_id="4730094"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4730505">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4730505" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 4: &uarr;3 и &darr;1">+2</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/monolithed/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/37b/31e/6d0/37b31e6d0cff469284befcc9dda84e8d_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/monolithed/" class="username">monolithed</a><span class="comma">,</span>
+            <time> 5 апреля 2012 в 08:21</time>
+
+            <a href="#comment_4730505" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="4730505" data-parent_id="4730094" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_4730094" data-id="4730505" data-parent_id="4730094" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Видимо тем, что остальные статьи заканчивались на первом примере этого поста. <br/>
+Иными словами автор выбрал несколько иной подход, сперва привел итоговый пример, а затем разложил все по полочкам, так сказать сохранил интригу и не дал заснуть.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4730505">
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_4731018" >
+
+    <span class="parent_id" data-parent_id="4730094"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4731018">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4731018" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 2: &uarr;1 и &darr;1">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/lightman/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/dc0/5b4/b1f/dc05b4b1f6683f8807bb0305f2c3970a_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/lightman/" class="username">lightman</a><span class="comma">,</span>
+            <time> 5 апреля 2012 в 12:32</time>
+
+            <a href="#comment_4731018" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="4731018" data-parent_id="4730094" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_4730094" data-id="4731018" data-parent_id="4730094" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            <blockquote>Что в декораторах такого волшебного и непостижимого, заставляющего писать очередной пост про них?</blockquote> Для человека, издревле работающего с питоно-подобными языками ничего.<br/>
+<br/>
+А вот программера, взрощенного на светлых идеалах паскале- и си-подобных языков, поначалу несколько обескураживает фраза «каждая функция есть объект». А последующее знакомство с теми же декораторами вообще вводит в некоторое замешательство, требующее осознания и последующей перестройки некоторых принципов, укрепившихся в мозге. Вот тут-то подобные статьи и оказываются очень кстати. <br/>
+Ведь чем более разнообразным количеством слов и статей будет описана некая сущность, тем проще её разложить по полочкам и осознать.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4731018">
+        <div class="comment_item" id="comment_4731088" >
+
+    <span class="parent_id" data-parent_id="4731018"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4731088">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4731088" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 2: &uarr;2 и &darr;0">+2</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/VolCh/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+            <a href="http://habrahabr.ru/users/VolCh/" class="username">VolCh</a><span class="comma">,</span>
+            <time> 5 апреля 2012 в 12:55</time>
+
+            <a href="#comment_4731088" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="4731088" data-parent_id="4731018" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_4731018" data-id="4731088" data-parent_id="4731018" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            На Си всё не так плохо, если не требуется метапрограммирование и прочий манкипатчинг. Указатели на функцию в данном контексте являются практическим полным аналогом ссылки на объект Function — можно присваивать переменным, можно вызывать из переменной, можно передавать в другие функции, а значит можно использовать паттерн «декоратор».<br/>
+<br/>
+
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4731088">
+    </div>
+</div>
+
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_4732974" >
+
+    <span class="parent_id" data-parent_id="4730094"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4732974">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4732974" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 2: &uarr;1 и &darr;1">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/qmax/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/8aa/e09/a30/8aae09a30130612f86139af1a2b4109c_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/qmax/" class="username">qmax</a><span class="comma">,</span>
+            <time> 5 апреля 2012 в 23:10</time>
+
+            <a href="#comment_4732974" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="4732974" data-parent_id="4730094" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_4730094" data-id="4732974" data-parent_id="4730094" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            хаскель-барби смотрит на питоновцев и точно также (только с большими глазами) недоумевает — чего такого волшебного в монадах, что о них пишет какждый, освоивший хаскель и умеющий писать.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4732974">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_4730168" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4730168">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4730168" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/niko83/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+            <a href="http://habrahabr.ru/users/niko83/" class="username">niko83</a><span class="comma">,</span>
+            <time> 5 апреля 2012 в 00:32</time>
+
+            <a href="#comment_4730168" class="link_to_comment">#</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            В статье не упоминается что декораторы могут быть применены не только к функциям, но и к целым классам! Таким образом они могут управлять вызовами классаов с целью создания экземпляров, и самими объектами классов, например добавлять новые методы в классы.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4730168">
+        <div class="comment_item" id="comment_4730178" >
+
+    <span class="parent_id" data-parent_id="4730168"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4730178">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4730178" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/niko83/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+            <a href="http://habrahabr.ru/users/niko83/" class="username">niko83</a><span class="comma">,</span>
+            <time> 5 апреля 2012 в 00:36</time>
+
+            <a href="#comment_4730178" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="4730178" data-parent_id="4730168" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_4730168" data-id="4730178" data-parent_id="4730168" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            так же нет инфы что декораторы могут вызываться с аргументами
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4730178">
+        <div class="comment_item" id="comment_4730205" >
+
+    <span class="parent_id" data-parent_id="4730178"></span>
+    <div class="comment_body">
+        <div class="info  is_topic_starter  " rel="4730205">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4730205" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 2: &uarr;1 и &darr;1">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Utter_step/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/dd8/c2e/d9d/dd8c2ed9d82ec96e0d9c0e592bc01b91_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/Utter_step/" class="username">Utter_step</a><span class="comma">,</span>
+            <time> 5 апреля 2012 в 00:43</time>
+
+            <a href="#comment_4730205" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="4730205" data-parent_id="4730178" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_4730178" data-id="4730205" data-parent_id="4730178" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Если бы вы посмотрели по ссылке на <a href="http://yeleman.com/what-are-python-decorators/">оригинал</a>, то заметили бы, что после данного материала идёт как раз «Passing arguments to the decorated function» («Передаем аргументы декорируемым функциям») и «Decorating methods» («Декорируем методы»). Вызов декораторов с параметрами так-же будет во второй части, как я успел упомянуть в <a href="http://habrahabr.ru/post/141411/#comment_4730111">этом комментарии</a>.<br/>
+<br/>
+Резюмируя: не спешите, всё будет:)<br/>
+<br/>
+И спасибо за критику!
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4730205">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_4730226" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4730226">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4730226" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 16: &uarr;12 и &darr;4">+8</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/mc_dir/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+            <a href="http://habrahabr.ru/users/mc_dir/" class="username">mc_dir</a><span class="comma">,</span>
+            <time> 5 апреля 2012 в 00:52</time>
+
+            <a href="#comment_4730226" class="link_to_comment">#</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            <a href="http://habrahabr.ru/post/74838/">habrahabr.ru/post/74838/</a><br/>
+<a href="http://habrahabr.ru/post/46306/">habrahabr.ru/post/46306/</a><br/>
+<a href="http://habrahabr.ru/post/86255/">habrahabr.ru/post/86255/</a><br/>
+<a href="http://habrahabr.ru/post/139866/">habrahabr.ru/post/139866/</a><br/>
+Вот ей богу не надоело еще ??? Мне даже кармы не жалко — но… прям ррр… Я сам php разработчик, начал недавно изучать python. Так вот в питоне куча всего интересного, помимо декораторов. И ими начинающие вряд ли со старта пользоваться будут, а если будут то еще быстрее запутаются (особенно полезен совет вложить декоратор в декоратор — вордпрес напоминает 2 версии, там не декораторы но пол движка на хуках...).<br/>
+Одновременное использование нескольких версий на одной машине (linux), параллельные вычисление, отладка кода, оптимизация, подсчет занимаемой памяти и куча всего всего — довольно ж сильный язык жеж? Что мусолить одну тему по 10 раз?
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4730226">
+        <div class="comment_item" id="comment_4730270" >
+
+    <span class="parent_id" data-parent_id="4730226"></span>
+    <div class="comment_body">
+        <div class="info  is_topic_starter  " rel="4730270">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4730270" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 8: &uarr;6 и &darr;2">+4</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Utter_step/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/dd8/c2e/d9d/dd8c2ed9d82ec96e0d9c0e592bc01b91_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/Utter_step/" class="username">Utter_step</a><span class="comma">,</span>
+            <time> 5 апреля 2012 в 01:07</time>
+
+            <a href="#comment_4730270" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="4730270" data-parent_id="4730226" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_4730226" data-id="4730270" data-parent_id="4730226" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Спасибо за комментарий!<br/>
+<br/>
+Попробую ответить на всё.<br/>
+<br/>
+<blockquote>habrahabr.ru/post/74838/<br/>
+habrahabr.ru/post/46306/<br/>
+habrahabr.ru/post/86255/<br/>
+habrahabr.ru/post/139866/</blockquote><br/>
+1. На Хабре ≈140000 статей, не удивительно, что есть статьи по схожим темам. Уверяю вас, перед тем, как браться за перевод я поискал материалы по данной теме на Хабре и, по моему мнению, тот, что перевожу я, не является дублирующим в целом.<br/>
+<br/>
+<blockquote>ими начинающие вряд ли со старта пользоваться будут, а если будут то еще быстрее запутаются</blockquote><br/>
+2. Со старта — не будут. Но когда-нибудь ведь начнут:)<br/>
+<br/>
+<blockquote>особенно полезен совет вложить декоратор в декоратор</blockquote><br/>
+3. В данной статье нету советов, лишь описание того, как это работает.<br/>
+<br/>
+<blockquote>Что мусолить одну тему по 10 раз?</blockquote><br/>
+4. Надеюсь, вторая часть Вам покажется более «незамусоленой».
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4730270">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_4730289" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4730289">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4730289" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 2: &uarr;1 и &darr;1">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Yanzay/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/48c/de8/d6f/48cde8d6fc88ef933cc09f3976c9887a_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/Yanzay/" class="username">Yanzay</a><span class="comma">,</span>
+            <time> 5 апреля 2012 в 01:15</time>
+
+            <a href="#comment_4730289" class="link_to_comment">#</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Отличная статья, спасибо! Просто и понятно.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4730289">
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_4730334" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4730334">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4730334" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/TBilyn/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+            <a href="http://habrahabr.ru/users/TBilyn/" class="username">TBilyn</a><span class="comma">,</span>
+            <time> 5 апреля 2012 в 02:04</time>
+
+            <a href="#comment_4730334" class="link_to_comment">#</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            У меня есть вопрос, возможно глупый, но все же:<br/>
+зачем разработчики python сделали что функция-декоратор возвращает функцию-обёртку, которая затем вызывается? Как мне это можно было сделать следующим образом: когда вызывается декорированная функция, вместо нее просто вызывается функция-декоратор, который получает первым аргументом данную функцию.<br/>
+<br/>
+Демонстрация кодом:<br/>
+<br/>
+def decorator ():<br/>
+…<br/>
+<br/>
+@ decorator<br/>
+def func ():<br/>
+…<br/>
+<br/>
+Сейчас сделано так:<br/>
+<br/>
+decorator (func)<b> ()</b><br/>
+<br/>
+Мой вариант:<br/>
+<br/>
+decorator (func)<br/>
+<br/>
+Я не говорю что мой вариант лучше.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4730334">
+        <div class="comment_item" id="comment_4730365" >
+
+    <span class="parent_id" data-parent_id="4730334"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4730365">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4730365" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 1: &uarr;1 и &darr;0">+1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/VolCh/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+            <a href="http://habrahabr.ru/users/VolCh/" class="username">VolCh</a><span class="comma">,</span>
+            <time> 5 апреля 2012 в 02:32</time>
+
+            <a href="#comment_4730365" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="4730365" data-parent_id="4730334" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_4730334" data-id="4730365" data-parent_id="4730334" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Потому что func без скобок возвращает объект Function. Если мы декорируем его, то тип возврата не должен изменяться, декорация должна быть прозрачной для вызывающего кода. Везде где используется func, должна использоваться и decorator(func). Например, вложенные декораторы — как вы в своем варианте их реализуете?
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4730365">
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_4730369" >
+
+    <span class="parent_id" data-parent_id="4730334"></span>
+    <div class="comment_body">
+        <div class="info  is_topic_starter  " rel="4730369">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4730369" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 2: &uarr;1 и &darr;1">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Utter_step/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/dd8/c2e/d9d/dd8c2ed9d82ec96e0d9c0e592bc01b91_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/Utter_step/" class="username">Utter_step</a><span class="comma">,</span>
+            <time> 5 апреля 2012 в 02:34</time>
+
+            <a href="#comment_4730369" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="4730369" data-parent_id="4730334" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_4730334" data-id="4730369" data-parent_id="4730334" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Ваш вариант сработает для декораторов простейших функций.<br/>
+Но, предположим, Вам нужно декорировать такую ф-ию:<br/>
+<pre><code class="python">def func(var):
+    print &quot;I've got&quot;, var</code></pre><br/>
+<br/>
+Тогда, вызвав <pre><code class="python"> decorator(func)(&quot;10$&quot;)</code></pre> мы получим ожидаемое поведение.<br/>
+В случае <pre><code class="python"> decorator(func)</code></pre> нам просто «некуда» передать аргумент (как пробрасывать аргументы через декоратор — в скором времени будет показано).<br/>
+<br/>
+Надеюсь, я верно понял суть Вашего вопроса?:)
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4730369">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_4730532" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4730532">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4730532" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 1: &uarr;1 и &darr;0">+1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/KlonKaktusa/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/421/70d/38b/42170d38b411d934d9679b3812051dfb_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/KlonKaktusa/" class="username">KlonKaktusa</a><span class="comma">,</span>
+            <time> 5 апреля 2012 в 08:49</time>
+
+            <a href="#comment_4730532" class="link_to_comment">#</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            <code># Возьмём функцию и запишем её в переменную<br/>
+talk = getTalk()</code><br/>
+<br/>
+Скобки же не нужны?<br/>
+
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4730532">
+        <div class="comment_item" id="comment_4730535" >
+
+    <span class="parent_id" data-parent_id="4730532"></span>
+    <div class="comment_body">
+        <div class="info  is_topic_starter  " rel="4730535">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4730535" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 1: &uarr;1 и &darr;0">+1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Utter_step/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/dd8/c2e/d9d/dd8c2ed9d82ec96e0d9c0e592bc01b91_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/Utter_step/" class="username">Utter_step</a><span class="comma">,</span>
+            <time> 5 апреля 2012 в 08:55</time>
+
+            <a href="#comment_4730535" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="4730535" data-parent_id="4730532" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_4730532" data-id="4730535" data-parent_id="4730532" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Функция getTalk возвращает другую функцию.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4730535">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_4730746" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4730746">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4730746" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/qzer/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/ceb/78c/eb5/ceb78ceb587f323b433283b63dc237d7_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/qzer/" class="username">qzer</a><span class="comma">,</span>
+            <time> 5 апреля 2012 в 10:55</time>
+
+            <a href="#comment_4730746" class="link_to_comment">#</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            что-за редактор, шрифт, тема на скрине?
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4730746">
+        <div class="comment_item" id="comment_4730766" >
+
+    <span class="parent_id" data-parent_id="4730746"></span>
+    <div class="comment_body">
+        <div class="info  is_topic_starter  " rel="4730766">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4730766" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 2: &uarr;1 и &darr;1">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Utter_step/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/dd8/c2e/d9d/dd8c2ed9d82ec96e0d9c0e592bc01b91_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/Utter_step/" class="username">Utter_step</a><span class="comma">,</span>
+            <time> 5 апреля 2012 в 11:03</time>
+
+            <a href="#comment_4730766" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="4730766" data-parent_id="4730746" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_4730746" data-id="4730766" data-parent_id="4730746" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Sublime Text 2
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4730766">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_4730886" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4730886">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4730886" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 1: &uarr;1 и &darr;0">+1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/LighteR/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+            <a href="http://habrahabr.ru/users/LighteR/" class="username">LighteR</a><span class="comma">,</span>
+            <time> 5 апреля 2012 в 11:49</time>
+
+            <a href="#comment_4730886" class="link_to_comment">#</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            <blockquote>Теперь мы знаем, что функции являются полноправными объектами<br/>
+</blockquote><br/>
+Из ваших примеров этого не следует. В своих примерах вы лишь показываете, что в питоне есть функции высшего порядка. Они, например, есть и в php, но, тем не менее, в php функция не является объектами.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4730886">
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_4730970" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4730970">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4730970" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 1: &uarr;1 и &darr;0">+1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/fata1ex/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+            <a href="http://habrahabr.ru/users/fata1ex/" class="username">fata1ex</a><span class="comma">,</span>
+            <time> 5 апреля 2012 в 12:12</time>
+
+            <a href="#comment_4730970" class="link_to_comment">#</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            А еще там есть отличные ответы этого же человека про <a href="http://stackoverflow.com/questions/231767/the-python-yield-keyword-explained">итераторы</a> и <a href="http://stackoverflow.com/questions/100003/what-is-a-metaclass-in-python/6581949">метаклассы</a>. Непонятно только, зачем все это переводить в бесконечном количестве. Все подобные хорошие посты в первых 2-3 ссылках по запросам в поисковике.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4730970">
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_4732364" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4732364">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4732364" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/funca/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/fe9/470/b48/fe9470b482ca92ee7a8ce6e1fdad9d70_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/funca/" class="username">funca</a><span class="comma">,</span>
+            <time> 5 апреля 2012 в 18:58</time>
+
+            <a href="#comment_4732364" class="link_to_comment">#</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            <blockquote>Да, всё действительно так просто! @decorator — просто синтаксический сахар для конструкций вида:</blockquote><blockquote>Декораторы — это просто pythonic-реализация паттерна проектирования «Декоратор». </blockquote>второе утверждение не верное. <a href="http://wiki.python.org/moin/PythonDecorators#What_is_a_Python_Decorator">пруф</a>.<br/>
+<br/>
+конечно, это перевод и придирка относится к оригинальному тексту.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4732364">
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_4732959" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4732959">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4732959" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/qmax/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/8aa/e09/a30/8aae09a30130612f86139af1a2b4109c_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/qmax/" class="username">qmax</a><span class="comma">,</span>
+            <time> 5 апреля 2012 в 23:02</time>
+
+            <a href="#comment_4732959" class="link_to_comment">#</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            «вы можете назначить её переменнной», «помещаем в переменную», «записаны в переменную»<br/>
+Есть хороший термин «связать с перменной», без риска свалиться в вопросы — где располагается то место в которое что-то помещается, сколько места занимает ссылка на объект, итп.<br/>
+<br/>
+
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4732959">
+        <div class="comment_item" id="comment_4733025" >
+
+    <span class="parent_id" data-parent_id="4732959"></span>
+    <div class="comment_body">
+        <div class="info  is_topic_starter  " rel="4733025">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4733025" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Utter_step/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/dd8/c2e/d9d/dd8c2ed9d82ec96e0d9c0e592bc01b91_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/Utter_step/" class="username">Utter_step</a><span class="comma">,</span>
+            <time> 5 апреля 2012 в 23:37</time>
+
+            <a href="#comment_4733025" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="4733025" data-parent_id="4732959" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_4732959" data-id="4733025" data-parent_id="4732959" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Спасибо, тоже резал глаз этот момент, но про связку забыл.:)<br/>
+Fixed
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4733025">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_4732967" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4732967">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4732967" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/qmax/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/8aa/e09/a30/8aae09a30130612f86139af1a2b4109c_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/qmax/" class="username">qmax</a><span class="comma">,</span>
+            <time> 5 апреля 2012 в 23:07</time>
+
+            <a href="#comment_4732967" class="link_to_comment">#</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            «раз мы можем возвращать функцию, значит, мы можем и передавать её другой функции, как параметр»<br/>
+Это два разных явления, являющимися следствиями того, что функции являются объектами «первого класса».
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4732967">
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_4788530" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="author_banned">НЛО прилетело и опубликовало эту надпись здесь</div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4788530">
+    </div>
+</div>
+
+</div>
+
+  					<p class="for_users_only_msg">Только зарегистрированные пользователи могут оставлять комментарии.<br><a href="https://habrahabr.ru/auth/login/">Войдите</a>, пожалуйста.</p>
+
+
+  	
+<form action="/json/favorites/" method="post" id="edit_tags_form" class="hidden">
+  <input type="hidden" name="action" value="add" />
+  <input type="hidden" name="ti" value="0" />
+  <input type="hidden" name="tt" value="0" />
+  <label>Пометьте топик понятными вам метками, если хотите</label>
+  <input type="text" name="tags_string" class="tags_string" />
+  <div class="description">Метки лучше разделять запятой. Например: <i>общение, социальные сети, myspace.com, подростки, мердок</i></div>
+  <input type="submit" value="Сохранить" class="submit" /> или <a href="#" class="close" onclick="return close_edit_tags()">закрыть</a>
+</form>
+    
+    
+
+  </div>
+  <div class="sidebar_right">
+      	<div class="banner_300x100">
+		<!--  AdRiver code START. Type:AjaxJS Site: habrahabr PZ: 0 BN: 5 -->
+		<div id="adriver_banner_2100516578"></div>
+		<script type="text/javascript">
+			$(function(){
+				var keyword = '';
+				if (typeof crtg_content !== 'undefined' && crtg_content) { keyword = crtg_content; }
+
+				var custom = {4:ar_duo1};
+					custom[1] = 'development';
+					custom[2] = 'python';
+
+				new adriver("adriver_banner_2100516578", {sid: 176776, bt: 52, bn: 5, custom: custom, keyword: keyword});
+			}());
+		</script>
+	</div>
+
+
+  			<div class="banner_300x500">
+		<div id="adriver_banner_1863387959"></div>
+		<script type="text/javascript">
+            function show_bn1_block(name, url){
+                console.log('show' + name);
+                if( typeof(name) !== 'undefined'){
+                    $.get('/html/'+name+'/1401263253/', function(html){
+                        $('#adriver_banner_1863387959').html(html);
+                        if( typeof(url) !== 'undefined'){
+                            $('.'+name+'_inner_banner .block_url').attr('href', url);
+                        }
+                    })
+                }
+            }
+
+			$(function(){
+
+				var keyword = '';
+				if (typeof crtg_content !== 'undefined' && crtg_content) { keyword = crtg_content; }
+
+				var custom = {4:ar_duo1};
+					custom[1] = 'development';
+					custom[2] = 'python';
+
+                 new adriver("adriver_banner_1863387959", {sid: 176776, bt: 52, bn: 1, custom: custom, keyword: keyword});
+			}());
+		</script>
+	</div>
+
+  		
+  		
+<div class="block daily_best_posts">
+  <div class="title">Лучшее <sup>за 24 часа</sup></div>
+  <div class="posts_list">
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/224325/" class="post_name">Терминологию master/slave в фреймворке django заменили на leader/follower из соображений политкорректности</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/224351/" class="post_name">Опасный getimagesize() или Zip Bomb для PHP</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/224137/" class="post_name">Как я сделал Wi-Fi весы, ниоткуда не уволился, а про жизнь вообще молчу</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/224297/" class="post_name">Разработка коммерческого электронного устройства с нуля</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/224309/" class="post_name">Привет из прошлого, или Long Live Space Rangers</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/224249/" class="post_name">Что нового нас ожидает в Django 1.7</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/224333/" class="post_name">Работу над HTTP 2.0 предлагают начать заново</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/224193/" class="post_name">Через тернии к звездам. К императивам космического колониализма</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/224339/" class="post_name">Автоматическое выделение меток</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/224387/" class="post_name">Google выпустил собственную модель робота-автомобиля</a>
+      </div>
+  </div>
+  <div class="all"><a href="/top/">все лучшие</a></div>
+</div>
+
+  	  
+
+
+<div class="block similar_posts">
+
+	<div class="title">Похожие посты</div>
+  <div class="posts_list">
+    	<div class="post_item">
+    				<a class="post_name" href="/post/182160/">Step-by-step: настройка SpecFlow для русскоязычного проекта при написании тестов в среде .Net</a>
+    				<span class="when">05.06.2013</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" href="/post/178017/">Добавляем чуть больше рефлексии: декораторы</a>
+    				<span class="when">26.04.2013</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" href="/post/162405/">Заказ производства печатных плат на заводе — step by step</a>
+    				<span class="when">14.12.2012</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" href="/post/143127/">Расширяем Ruby с помощью Ruby: заимствуем у Python декораторы функции</a>
+    				<span class="when">01.05.2012</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" href="/post/141501/">Понимаем декораторы в Python'e, шаг за шагом. Шаг 2</a>
+    				<span class="when">05.04.2012</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" href="/post/136870/">Step By Step: Оформление МПО (посылки) в ФТС (таможне)</a>
+    				<span class="when">01.02.2012</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" href="/post/132317/">Организация текучих (fluent) интерфейсов в Python</a>
+    				<span class="when">10.11.2011</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" href="/post/111588/">Python-way. Работа над ошибками</a>
+    				<span class="when">10.01.2011</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" href="/post/81444/">Step-by-step, от newbie до Happy End от начинающего</a>
+    				<span class="when">21.01.2010</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" href="/post/62744/">Создание GWT приложения с GWT-Ext контролами, работающего на JBoss, с помощью NetBeans. Step By Step</a>
+    				<span class="when">23.06.2009</span>
+      </div>
+  </div>			
+</div>
+
+
+	
+  	  
+<div class="block similar_questions">
+	<div class="title">Вопросы по теме</div>
+
+	<div class="posts_list">
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/97659">Как написать регулярное выражение?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/97597">Кравлер на tornado (AsyncHTTPClient). Можно ли проще?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/97505">ForeignKey для list_filter, как?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/97493">Почему не выполняются python скрипты (Python 3.x + Sublime text 3)?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/97457">Как интегрировать 3D secure (3 Domain Secure Payments) для оплаты карточками на сайте, используя python и rest-api-sdk-python?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/97315">Как в Django использовать request.user в моделях?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/97241">Как добавить переменную в класс?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/96993">Как перенести скрипт (python 3.3 и PyQt4) на другой ПК?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/96933">Антивирус ругается на exe, который я сделал из py-скрипта.Что делать?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/96907">Как правильно посчитать время пользователя online?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/96903">Как соединить дизайн и код?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/96857">Python, много threads внутри пары processes, какие queue юзать?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/96771">Как, используя Python, объединить списки при совпадении хотя бы одного значения?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/96721">Как получить доступ к текущему контексту приложения из нового треда?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/96707">Как лучше спроектировать приложение Flask?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/96547">Какой есть персональный органайзер Desktop на Python (OpenSource)?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/96527">Как можно связать Python с C#?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/96513">Как реализовать одновременное подключение модели peewee к нескольким БД?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/96507">Как изменить регулярку, по которой проверяется username при редактировании пользователя в админке в Django?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/96209">Как в django admin показать данные из модели, подключенной к mysql?</a>
+		</div>
+  </div>			
+		
+</div>
+
+  		
+  		
+
+	<div class="block live_broadcast">
+		<div class="title">Что обсуждают? </div>
+
+		<div class="live_broadcast_activity">
+				<div class="posts_list">
+							<div class="post_item">
+								
+								<a href="/post/224101#comments" class="post_name">Одна маленькая загадка про Cortex-M</a>&nbsp;<span class="count">16</span>
+							</div>
+							<div class="post_item">
+								
+								<a href="/post/224423#comments" class="post_name">Google Chrome отказывает пользователям Windows в возможности установки расширений не из Chrome Web Store</a>&nbsp;<span class="count">2</span>
+							</div>
+							<div class="post_item">
+								
+								<a href="/post/224387#comments" class="post_name">Google выпустил собственную модель робота-автомобиля</a>&nbsp;<span class="count">86</span>
+							</div>
+							<div class="post_item">
+								
+								<a href="/post/224337#comments" class="post_name">Как работает техподдержка Cloud4Y</a>&nbsp;<span class="count">11</span>
+							</div>
+							<div class="post_item">
+								
+								<a href="/post/224375#comments" class="post_name">Skype: голосовой переводчик он-лайн</a>&nbsp;<span class="count">16</span>
+							</div>
+							<div class="post_item">
+								
+								<a href="/post/224325#comments" class="post_name">Терминологию master/slave в фреймворке django заменили на leader/follower из соображений политкорректности</a>&nbsp;<span class="count">158</span>
+							</div>
+							<div class="post_item">
+								
+								<a href="/post/224427#comments" class="post_name">Немцы создали систему управления самолетом при помощи мыслей</a>&nbsp;<span class="count">5</span>
+							</div>
+							<div class="post_item">
+								
+								<a href="/post/224425#comments" class="post_name">Брин признал, что его работа над Google+ была ошибкой</a>&nbsp;<span class="count">3</span>
+							</div>
+							<div class="post_item">
+								
+								<a href="/post/223987#comments" class="post_name">Возможно ли создать сильный искусственный интеллект, не копируя человеческий мозг?</a>&nbsp;<span class="count">260</span>
+							</div>
+							<div class="post_item">
+								
+								<a href="/post/224351#comments" class="post_name">Опасный getimagesize() или Zip Bomb для PHP</a>&nbsp;<span class="count">72</span>
+							</div>
+				</div>
+				<div class="all"><a href="/posts/">все посты</a></div>
+		</div>
+
+	</div>
+  
+  		<!--  AdRiver code START. Type:AjaxJS Site: habrahabr PZ: 0 BN: 2 -->
+
+<div id="adriver_banner_480931290" class="adbanner"></div>
+
+
+<script type="text/javascript">
+    function show_bn2_block(name, url){
+        if( typeof(name) !== 'undefined'){
+            $.get('/html/'+name+'/1401263253/', function(html){
+                $('#adriver_banner_480931290').html(html);
+                if( typeof(url) !== 'undefined'){
+                    $('.'+name+'_inner_banner .block_url').attr('href', url);
+                }
+            })
+        }
+    }
+
+    $(function(){
+
+        var check_scroll_position = function() {
+            var height = $(window).height();
+            var scrollTop = $(window).scrollTop();
+            var scrollBottom = $(window).scrollTop() + height;
+            var blockTop = $('#adriver_banner_480931290').position().top;
+            var show = scrollTop < blockTop && blockTop < scrollBottom;
+            //console.log('scroll', scrollTop, blockTop, scrollBottom, show)
+            if( show ){
+                //console.log('show bn2');
+                $( window ).off('scroll', check_scroll_position);
+                $( window ).trigger('show_bn2');
+            }
+        };
+        $( window ).on('scroll', check_scroll_position);
+
+        $( window ).on('show_bn2', function(){
+            var keyword = '';
+            if (typeof crtg_content !== 'undefined' && crtg_content) { keyword = crtg_content; }
+            var custom = {4:ar_duo1};
+            custom[1] = 'development';
+            custom[2] = 'python';
+            new adriver("adriver_banner_480931290", {sid: 176776, bt: 52, bn: 2, custom: custom, keyword: keyword});
+        });
+    });
+    </script>
+<!--  AdRiver code END  -->
+
+  		
+<div class="block best_company">
+
+		<div class="title">Компания дня <img src="/images/bg_cicle_help.png" title="
+Компания, чей пост набрал максимальное количество баллов<br>
+среди всех опубликованных в корпоративных блогах постах за <br>
+прошедшие сутки. Учитываются посты, для которых истек срок голосования <br>(3 дня с момента публикации)." class="help-tip"></div>
+
+		<div class="company_info">
+			<div class="name">
+			 <img class="favicon" src="//habrastorage.org/getpro/habr/companies/184/6b7/bc6/1846b7bc67936e5c6306f8bce338c75f_small.png" alt="Яндекс" height="16" width="16" />
+			 <div class="company_name"><a href="http://habrahabr.ru/company/yandex/" class="title">Яндекс</a></div>
+			</div>
+
+			<p>Последний пост:
+				<a href="http://habrahabr.ru/company/yandex/blog/223957/">Какому языку можно научиться, задавая вопросы поисковой системе? Семинар в Яндексе</a>
+			</p>
+
+			<div class="buttons">
+  			<div id="fans_count">12201 подписчик</div>
+			</div>
+		</div>
+
+	</div>
+
+
+  		
+
+  		
+	<div class="block new_vacanies">
+  <a href="http://brainstorage.me/jobs" class="title">Brainstorage</a>
+  <div class="vacancies">
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/19283">РНР-разработчик (удаленная работа)</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/3331">Главный Разработчик Java в Департамент систем автоматизации ИТ</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/16373">Scala Developer</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/18211">Java Architect в Департамент систем автоматизации ИТ</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/18213">Java Developer в Департамент систем автоматизации ИТ </a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/10657">Senior Graphics Programmer</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/18587">Главный программист</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/14135">Веб-разработчик</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/16465">Разработчик веб-сервисов</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/19279">Разработчик в новый проект</a>
+		</div>
+  </div>
+  <div class="all"><a href="http://brainstorage.me/jobs">все вакансии</a></div>
+</div>
+
+  		
+	<div class="block freelansim">
+	  <a href="http://freelansim.ru" class="title"></a>
+	  <div class="tasks">
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/69917">Редизайн сайта стиле flat</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/69913">Справиться с вирусом на VPS-сервере (редирект)</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/69909">Личный кабинет сайта на PHP </a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/69905">Доделать программу в matlab</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/69901">Разработать библиотеку на С/С++ (клиента к REST API сервису)</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/69617">Дизайн Landing Page "Продажа Кедровых орехов"</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/69897">Заверстать и сделать программинг сайта из макета ПСД</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/69895">Верстка под insales</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/67251">Seo, Директ, Adwords, помощь в UX</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/69891">Разработка текста письма для рассылки</a>
+				</div>
+
+	  </div>
+	  <div class="all"><a href="http://freelansim.ru/tasks">все заказы</a></div>
+	</div>
+
+  		
+  		
+  		
+  </div>
+  <div class="clear"></div>
+
+  <script>
+    // hubs to GA
+      ga('send', 'event', 'Post_view', 'development (Разработка)',  window.location.pathname + window.location.search);
+      ga('send', 'event', 'Post_view', 'python (Python)',  window.location.pathname + window.location.search);
+  </script>
+
+
+
+        	
+	<div class="rotated_posts">
+			<div class="rotated_post ">
+				<a href="http://habrahabr.ru/company/pt/blog/210952/" class="grey">Две истории об уязвимостях в сервисах Google</a>
+			</div>
+			<div class="rotated_post ">
+				<a href="http://habrahabr.ru/post/213011/" class="grey">11 марта состоится поединок в пинг-понг между машиной и человеком (Тимо Болль)</a>
+			</div>
+			<div class="rotated_post last">
+				<a href="http://habrahabr.ru/post/211430/" class="grey">Небось не каждый день нашему брату достаётся рисовать Краснохолм</a>
+			</div>
+		<div class="clear"></div>
+	</div>
+
+
+        <div class="clear"></div>
+
+        <div class="footer_panel">
+          <div id="footer">
+	<dl>
+		<dd><a href="https://habrahabr.ru/auth/login/">Войти</a></dd>
+		<dd><a href="https://habrahabr.ru/auth/register/">Регистрация</a></dd>
+	</dl>
+	<dl>
+		<dt>Разделы</dt>
+		<dd><a href="http://habrahabr.ru/posts/top/">Посты</a></dd>
+		<dd><a href="http://habrahabr.ru/hubs/">Хабы</a></dd>
+		<dd><a href="http://habrahabr.ru/companies/">Компании</a></dd>
+		<dd><a href="http://habrahabr.ru/users/">Пользователи</a></dd>
+		<dd><a href="http://toster.ru/?_aa=press_anykey">Q&amp;A</a></dd>
+		<dd><a href="http://habrahabr.ru/sandbox/">Песочница</a></dd>
+		
+	</dl>	
+	<dl>
+		<dt>Инфо</dt>
+		<dd><a href="/info/about/">О сайте</a></dd>
+		<dd><a href="/info/help/rules/">Правила</a></dd>
+		<dd><a href="/info/help/">Помощь</a></dd>
+		<dd><a href="/info/agreement/">Соглашение</a></dd>
+	</dl>
+	<dl>
+		<dt>Услуги</dt>
+		<dd><a href="/info/advertising/">Реклама</a></dd>
+		<dd><a href="/info/advertising/corporate/">Корпоративные тарифы</a></dd>
+		<dd><a href="/info/advertising/workshops/">Семинары</a></dd>
+		<dd><a href="/special/">Спецпроекты</a></dd>
+	</dl>
+	<dl>
+		<dt>Разное</dt>
+		<dd><a href="/apps/">Приложения</a></dd>
+		<dd><a href="/special/testdrive/">Тест-драйвы</a></dd>
+		<dd><a href="/info/hello_startup/">Помощь стартапам</a></dd>
+		<dd><a href="/special/minsvyaz/">Льготы стартапам</a></dd>
+	</dl>
+	<div class="copyright">
+
+		<div class="about">
+			<a href="http://tmtm.ru/">TM</a>
+			© 2006&#8211;2014
+			<br><br>
+			<a href="http://habrahabr.ru/feedback/">Служба поддержки</a><br><br>
+			<a href="http://m.habrahabr.ru">Мобильная версия</a><br><br>
+			
+
+			<div class="social_accounts">
+				<a href="https://twitter.com/habrahabr" class="tw"></a>
+				<a href="https://www.facebook.com/habrahabr.ru" class="fb"></a>
+				<a href="http://vk.com/habr" class="vk"></a>
+				<!-- <a href="" class="gp"></a> //-->
+			</div>
+
+		</div>
+	</div>
+
+</div>    
+          <div class="footer_logos">
+		
+		<div class="project brainstorage">
+			<a href="http://brainstorage.ru" class="icon "></a>
+			<div class="text">Все мозги в одном месте</div>
+		</div>
+
+		<div class="project toster">
+			<a href="http://toster.ru" class="icon "></a>
+			<div class="text">Q&A-сервис для разработчиков</div>
+		</div>
+		
+		<div class="project freelansim">
+			<a href="http://freelansim.ru" class="icon "></a>
+			<div class="text">Заказы для фрилансеров</div>
+		</div>
+		
+		<div class="project autokadabra">
+			<a href="http://autokadabra.ru" class="icon "></a>
+			<div class="text ">Уютная и дружелюбная</div>
+		</div>
+		
+</div>
+
+        </div>
+      </div>
+    </div>
+  
+
+      <script type="text/javascript" src="/javascripts/1401263253/libs/jquery.cookie.js"></script>
+      <script type="text/javascript">
+        $(document).ready( function(){
+          window.tmidLogin = function(){ return false; };
+          if( $.cookie('tmid_no_check') == undefined ) {
+            var expire = new Date();
+            expire.setMinutes(expire.getMinutes() + 10 );
+            $.cookie('tmid_no_check', 1, { expires: expire } );
+            $.getScript("https://id.tmtm.ru/checklogin", function(){
+              if( window.tmidLogin() ) {
+
+                  var href = $('#login').attr('href');
+
+                  if( href !== undefined ) {
+                      window.location.href = href;
+                  }
+              }
+            });
+          }
+        });
+      </script>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $.jGrowl.defaults.closerTemplate = '<div>Закрыть все уведомления</div>';         
+        $(".help-tip").tipTip({maxWidth: "300px", edgeOffset: 10});  
+      });
+      // global vars
+      var g_base_url = 'habrahabr.ru';
+      var g_show_xpanel = false;
+      var g_base_fullurl = 'http://habrahabr.ru/';
+      var g_is_guest = false;
+    </script>
+    
+    <script type="text/javascript" src="/javascripts/1401263253/_parts/shortcuts.js"></script>
+    
+    
+    <script type="text/javascript" src="/javascripts/1401263253/_parts/float_block.js"></script>
+    
+    	<script type="text/javascript" src="http://habrahabr.ru/viewcount/post/141411/"></script>
+
+    
+
+  </body>
+</html>

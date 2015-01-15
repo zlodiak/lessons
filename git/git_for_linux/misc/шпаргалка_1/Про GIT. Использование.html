@@ -1,0 +1,747 @@
+<!doctype html>
+<html lang="ru-RU">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+<!-- Mobile viewport optimized -->
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<!-- Favicon -->
+	<link rel="shortcut icon" href="http://blog.sectorit.net/wp-content/themes/ascetica/images/favicon-red.ico" />
+
+<!-- Title -->
+<title>Про GIT. Использование</title>
+
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+<link rel="pingback" href="http://blog.sectorit.net/xmlrpc.php" />
+
+<!-- WP Head -->
+<meta name="generator" content="WordPress 4.0" />
+<meta name="template" content="Ascetica 0.3.5" />
+<link rel="alternate" type="application/rss+xml" title="Чтиво IT &raquo; Лента" href="http://blog.sectorit.net/feed" />
+<link rel="alternate" type="application/rss+xml" title="Чтиво IT &raquo; Лента комментариев" href="http://blog.sectorit.net/comments/feed" />
+<link rel="alternate" type="application/rss+xml" title="Чтиво IT &raquo; Лента комментариев к &laquo;Про GIT. Использование&raquo;" href="http://blog.sectorit.net/development/430/feed" />
+<link rel='stylesheet' id='jetpack-subscriptions-css'  href='http://blog.sectorit.net/wp-content/plugins/jetpack/modules/subscriptions/subscriptions.css?ver=4.0' type='text/css' media='all' />
+<link rel='stylesheet' id='style-css'  href='http://blog.sectorit.net/wp-content/themes/ascetica-custom/style.css?ver=0.3.1' type='text/css' media='all' />
+<link rel='stylesheet' id='avp-mejs-base-skin-css'  href='http://blog.sectorit.net/wp-content/plugins/avplayer/assets/skins/base/mediaelementplayer.min.css?ver=4.0' type='text/css' media='all' />
+<link rel='stylesheet' id='avp-mejs-darkred-skin-css'  href='http://blog.sectorit.net/wp-content/plugins/avplayer/assets/skins/minimal/mesj-skin-darkred.css?ver=4.0' type='text/css' media='all' />
+<link rel='stylesheet' id='avp-mejs-yellow-skin-css'  href='http://blog.sectorit.net/wp-content/plugins/avplayer/assets/skins/minimal/mesj-skin-yellow.css?ver=4.0' type='text/css' media='all' />
+<link rel='stylesheet' id='jetpack-widgets-css'  href='http://blog.sectorit.net/wp-content/plugins/jetpack/modules/widgets/widgets.css?ver=20121003' type='text/css' media='all' />
+<link rel='stylesheet' id='ascetica_fancybox-stylesheet-css'  href='http://blog.sectorit.net/wp-content/themes/ascetica/js/fancybox/jquery.fancybox-1.3.4.css?ver=1' type='text/css' media='screen' />
+<link rel='stylesheet' id='ascetica_flexslider-stylesheet-css'  href='http://blog.sectorit.net/wp-content/themes/ascetica/js/flex-slider/flexslider.css?ver=1' type='text/css' media='screen' />
+<link rel='stylesheet' id='adv-spoiler-css'  href='http://blog.sectorit.net/wp-content/plugins/advanced-spoiler/css/advanced-spoiler.css?ver=2.02' type='text/css' media='all' />
+<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js?ver=4.0'></script>
+<script type='text/javascript' src='http://blog.sectorit.net/wp-content/plugins/avplayer/assets/skins/minimal/mejs-dynamic.js.js?ver=0.1'></script>
+<script type='text/javascript' src='http://blog.sectorit.net/wp-content/plugins/avplayer/assets/mediaelement-and-player.min.js?ver=0.1'></script>
+<script type='text/javascript' src='http://blog.sectorit.net/wp-content/plugins/content-headings-tree/js/widget.js?ver=4.0'></script>
+<script type='text/javascript' src='http://blog.sectorit.net/wp-content/plugins/advanced-spoiler/js/jquery-spoiler.js?ver=2.02'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://blog.sectorit.net/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://blog.sectorit.net/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Linux утилиты для работы с графикой в буфере обмена' href='http://blog.sectorit.net/development/bash/408' />
+<link rel='next' title='Как изменить шаг громкости в Ubuntu 12.04' href='http://blog.sectorit.net/os/ubuntu/484' />
+<link rel='canonical' href='http://blog.sectorit.net/development/430' />
+<link rel='shortlink' href='http://wp.me/p3ioWz-6W' />
+    <script type="text/javascript" src="http://blog.sectorit.net/wp-content/plugins/wp-highlightjs/highlight.pack.js"></script>
+    <script type="text/javascript">hljs.initHighlightingOnLoad();</script>
+    <link rel="stylesheet" href="http://blog.sectorit.net/wp-content/plugins/wp-highlightjs/styles/github.css" />
+    <style></style>
+
+<script type="text/javascript" src="http://blog.sectorit.net/wp-content/themes/ascetica-custom/assets/frontend.js"></script>
+<link rel="stylesheet" href="http://blog.sectorit.net/wp-content/themes/ascetica-custom/assets/frontend.css" type="text/css" media="all" />
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-20010484-8']);
+      _gaq.push(['_setDomainName', 'sectorit.net']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+	<style type="text/css">
+
+		/* Font size. */
+					html { font-size: 16px; }
+		
+		/* Font family. */
+					body, #respond #submit, .button, a.button, .wpcf7-submit, #loginform .button-primary, .pagination a.page-numbers, .comment-navigation a.page-numbers, input[type="text"], input[type="password"], input[type="email"], .input-text, textarea, select { font-family: 'Georgia', serif; }
+		
+		/* Link color. */
+					a, #footer a:hover, .entry-title a:hover { color: #bb2530; }
+				a:hover, a:focus { color: #000; }
+
+		/* Custom CSS. */
+		
+	
+	</style>	
+
+
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Про GIT. Использование" />
+<meta property="og:url" content="http://blog.sectorit.net/development/430" />
+<meta property="og:description" content="Примеры решения основных задач при работе с GIT репозиторием. Термины branch - (бранч) ветка репозитория; origin - алиас на удаленный репозиторий; master - алиас на основную ветку (бранч) локальног..." />
+<meta property="article:published_time" content="2012-07-06T10:17:12+00:00" />
+<meta property="article:modified_time" content="2013-10-02T08:50:59+00:00" />
+<meta property="article:author" content="http://blog.sectorit.net/author/admin" />
+<meta property="og:site_name" content="Чтиво IT" />
+<meta property="og:image" content="http://wordpress.com/i/blank.jpg" />
+<meta name="twitter:site" content="@jetpack" />
+<meta name="twitter:card" content="summary" />
+
+</head>
+
+<body class="wordpress ltr ru_RU child-theme y2014 m12 d04 h17 thursday logged-out singular singular-post singular-post-430 post-format-standard">
+
+	
+	<div id="container">
+		
+		<div class="wrap">
+
+			
+			<div id="header">
+		
+					
+					<div id="branding">
+						
+						<div id="site-title"><a href="http://blog.sectorit.net" title="Чтиво IT" rel="home"><span>Чтиво IT</span></a></div>
+						<div id="site-description"><span>&lt;code&gt;My Life&lt;/code&gt;</span></div>						
+					</div><!-- #branding -->
+
+					
+	
+	<div id="menu-primary" class="site-navigation menu-container" role="navigation">
+
+		<span class="menu-toggle">Menu</span>
+
+		
+		<div class="menu"><ul id="menu-primary-items" class="nav-menu"><li id="menu-item-1417" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1417"><a href="http://blog.sectorit.net/resume">Резюме</a></li>
+<li id="menu-item-1419" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1419"><a title="Подписаться на новые посты" href="http://blog.sectorit.net/feed/">RSS канал</a></li>
+</ul></div>
+		
+	</div><!-- #menu-primary .menu-container -->
+
+	
+					
+	
+											
+	
+						
+			</div><!-- #header -->
+
+						
+						
+			<div id="main">
+				
+				
+				<div id="primary" class="site-content">
+
+							
+	
+	<div id="content">
+
+		
+			
+				
+					
+						
+		
+		<div id="post-430" class="hentry post publish post-1 odd author-admin format-standard category-development">
+		
+			<div class="post-content">
+				
+				<h1 class='post-title entry-title'>Про GIT. Использование</h1>
+				<div class="byline"><time class="published" datetime="2012-07-06T13:17:12+02:00" title="Пятница, Июль 6th, 2012, 1:17 пп">2012-07-06</time> &middot; by <span class="author vcard"><a class="url fn n" rel="author" href="http://blog.sectorit.net/author/admin" title="admin">admin</a></span> &middot; in <span class="category"><a href="http://blog.sectorit.net/posts/development" rel="tag">Development</a></span> </div>
+				<div class="entry-content">
+					
+					<p>Примеры решения основных задач при работе с GIT репозиторием.<br />
+<span id="more-430"></span></p>
+<a name="Термины"></a><h2>Термины</h2>
+<ul>
+<li>branch &#8212; (бранч) ветка репозитория;</li>
+<li>origin &#8212; алиас на удаленный репозиторий;</li>
+<li>master &#8212; алиас на основную ветку (бранч) локального репозитория репозитория;</li>
+<li>index &#8212; снапшот (снимок), <strong>временное</strong> хранилище изменений, которые затем войдут в коммит;</li>
+<li>commit &#8212; фиксация изменений в индексе;</li>
+</ul>
+<a name="Настройка_GIT"></a><h2>Настройка GIT</h2>
+<p>Настройки сохраняются в файле <code>~/.gitconfig</code>. Для первичной настройки гита, выполните в консоли:</p>
+<pre><code>git config --global user.name "Your Name"
+git config --global user.email your_name@gmail.com
+git config --global core.autocrlf true
+git config --global core.safecrlf true
+git config --global color.branch auto
+git config --global color.diff auto
+git config --global color.interactive auto
+git config --global color.status auto
+</code></pre>
+<p>Также можем добавить для удобства алиасы в этом же файле конфига <code>~/.gitconfig</code>:</p>
+<pre><code>[alias]
+  st = status
+  ci = commit
+  br = branch
+  co = checkout
+  df = diff
+  lg = log -p
+</code></pre>
+<a name="Использование"></a><h2>Использование</h2>
+<a name="Репозитории"></a><h3>Репозитории</h3>
+<p>Посмотреть список удаленных репозиториев:</p>
+<pre><code>git remote -v</code></pre>
+<a name="Инициализация_/_Клонирование"></a><h3>Инициализация / Клонирование</h3>
+<p>Инициализировать новый репозиторий в каталоге с проектом:</p>
+<pre><code>git init
+</code></pre>
+<div class="info-block">Изначально в репозитории не будет ни одной ветки. После первого <code>git commit</code>, все изменения войдут в ветку <code>master</code>, если вы не указывали другие опции.</div>
+<p>Клонировать удаленный репозиторий в текущий каталог:</p>
+<pre><code>git clone ssh://git@123.45.67.89/vendor/progect/ .
+</code></pre>
+<p>Клонировать удаленный репозиторий в заданный каталог <code>my-project</code>:</p>
+<pre><code>git clone ssh://git@123.45.67.89/vendor/project my-project
+</code></pre>
+<a name="Индексация_изменений"></a><h3>Индексация изменений</h3>
+<p>Команды <code>add</code> и <code>rm</code> позволяют добавить или исключить файлы из индекса, соответственно.</p>
+<p>Добавить указанные файлы, каталоги (рекурсивно) в индекс:</p>
+<pre><code>git add index.php
+git add path/to/file.php
+</code></pre>
+<p>Внести в индекс все изменения, включая новые файлы:</p>
+<pre><code>git add .
+</code></pre>
+<p>Исключить файлы из индекса и дерева проекта:</p>
+<pre><code>git rm .buildpath .project *.php~
+</code></pre>
+<p>Исключить файлы <code>*.php</code> из папки <code>tmp/smarty/compile/</code>:</p>
+<pre><code>git rm tmp/smarty/compile/*.php
+</code></pre>
+<p>Отменить индексацию последних изменений:</p>
+<pre><code>git reset
+git reset HEAD file.php   # Убрать из индекса file.php
+</code></pre>
+<p>Добавить в индекс только удаленные файлы:</p>
+<pre><code>git add -A
+</code></pre>
+<p>Удалить <em>из индекса</em> файл и добавить в игнор. Файл останется в каталоге.</p>
+<pre><code>git rm --cached ИМЯ_ФАЙЛА
+</code></pre>
+<a name="Коммиты"></a><h3>Коммиты</h3>
+<p>Коммит &#8212; фиксация изменений в репозитории, находящихся в индексе.</p>
+<p>Посмотреть действия при коммите (сравнить индекс с кешем):</p>
+<pre><code>git diff --cached
+</code></pre>
+<p>Сделать коммит всех измененных файлов (НЕ добавленных) с заданным комментарием:</p>
+<pre><code>git commit -a -m "Текст комментария"
+</code></pre>
+<div class="info-block"> Параметр <code>-a</code> позволяет автоматически проиндексировать все изменения в файлах, перед коммитом. Новые файлы при этом индексироваться не будут, удаленные файлы будут учтены.</div>
+<p>Добавить изменения в последний коммит. Изменять комментарий обязательно?</p>
+<pre><code>git commit --amend
+</code></pre>
+<div class="info-block">При выполнении этой команды <code>git</code> откроет файл с данными последнего коммита, в котором нужно отредактировать строку с комментарием. Можно добавить просто <code>UPD #1</code>. Если оставить комментарий без изменений &#8212; последний коммит не будет обновлен. Сохраняем изменения и выходим из режима редактирования файла. После этого изменения будут добавлены к предыдущему коммиту.</div>
+<p>Переключиться на определенный коммит:</p>
+<pre><code>git checkout &lt;hash-коммита&gt;
+</code></pre>
+<a name="Синхронизация_(Pull,_Push,_Fetch)"></a><h3>Синхронизация (Pull, Push, Fetch)</h3>
+<a name="Отправить_изменения"></a><h4>Отправить изменения</h4>
+<p>Отправить свои изменения в основную ветку удаленного репозитория (созданную при клонировании по умолчанию):</p>
+<pre><code>git push
+# то же, что и 
+git push origin master
+</code></pre>
+<p>Залить изменения в ветку <code>fetures</code>:</p>
+<pre><code>git push origin features
+</code></pre>
+<p>Внести изменения в удаленный репозиторий ветку experimental:</p>
+<pre><code>git push experimental:experimental
+</code></pre>
+<a name="Забрать_изменения"></a><h4>Забрать изменения</h4>
+<p>Забрать изменения с удаленного репозитория и слить их с активной веткой:</p>
+<pre><code>git pull
+</code></pre>
+<p>Забрать изменения с удаленного репозитория <em>БЕЗ</em> слияния с активной веткой:</p>
+<pre><code>git fetch
+</code></pre>
+<a name="Ветки_(branch)"></a><h3>Ветки (branch)</h3>
+<p>Посмотреть список всех веток репозитория:</p>
+<pre><code>git branch     # локальные ветки
+git branch -a  # локальные и удаленные ветки
+</code></pre>
+<p>Создать новую ветку <code>bugfix</code>:</p>
+<pre><code>git branch bugfix
+</code></pre>
+<p>Переименовать ветку:</p>
+<pre><code>git branch -m new-name-branch
+</code></pre>
+<p>Переключиться на ветку <code>feature</code>:</p>
+<pre><code>git checkout feature
+</code></pre>
+<p>Удалить ветку, если она слита (merged) с текущей и разрешены все конфликты:</p>
+<pre><code>git branch -d new-branch
+</code></pre>
+<p>Создать ветку и перейти в нее:</p>
+<pre><code>git branch new-branch
+git checkout new-branch
+// или так
+git checkout -b new-branch
+</code></pre>
+<p>Слить изменения из ветки <code>featute</code> в текущую:</p>
+<pre><code>git merge featute
+</code></pre>
+<a name="Состояние_и_история_изменений"></a><h3>Состояние и история изменений</h3>
+<p>Команда <code>status</code> выводит информацию обо всех изменениях, внесенных в дерево директорий проекта по сравнению с последним коммитом рабочей ветки; отдельно выводятся внесенные в индекс и не индексированные файлы.<br />
+А также файлы с неразрешенными конфликтами слияния и файлы, игнорируемые <code>git.</code></p>
+<p>Показать последние изменения: не проиндексированные, удаленные, добавленные, измененные файлы:</p>
+<pre><code>git status
+</code></pre>
+<p>Показать историю коммитов с комментариями:</p>
+<pre><code>git log
+</code></pre>
+<p>Оценка изменений:</p>
+<pre><code>git diff
+</code></pre>
+<p>Показать изменения в исходниках последнего коммита:</p>
+<pre><code>git show
+</code></pre>
+<p>Посмотреть изменения в исходниках, внесенные определенным коммитом:</p>
+<pre><code>git show &lt;COMMIT TAG&gt;
+</code></pre>
+<p>Показать изменения в последнем коммите. Не показывает тип изменения &#8212; модификация, удаление, добавление.</p>
+<pre><code>git log -1 --name-only
+git log --stat --summary  # детальный лог
+</code></pre>
+<p>История изменений файла (№ коммита, кто, когда, строка, ..):</p>
+<pre><code>git blame -L 160,+10 file.ext // показать 10 строк со 160-й строки
+</code></pre>
+<p>Скрыть изменения (изменения вносятся в стек):</p>
+<pre><code>git stash
+</code></pre>
+<p>Показать стек скрытых изменений:</p>
+<pre><code>git stash show
+</code></pre>
+<p>Очистить стек скрытых изменений:</p>
+<pre><code>git stash clear
+</code></pre>
+<a name="Откат_изменений"></a><h3>Откат изменений</h3>
+<p>Отменить индексацию последних изменений:</p>
+<pre><code>git reset
+</code></pre>
+<p>Удалить <em>из индекса</em> файл и добавить его в игнор. Файл останется в каталоге.</p>
+<pre><code>git rm --cached path/to/file.src
+</code></pre>
+<p>Получить версию файла из последнего коммита:</p>
+<pre><code>git show HEAD^:path/to/file &gt; path/to/save/file
+</code></pre>
+<p>Отменить изменения файла до последнего коммита:</p>
+<pre><code>git checkout path/to/file.src
+</code></pre>
+<div class="info-block">Изменения в самих файлах не отменяются. Сбрасывается только <em>индекс</em> изменений (добавление файлов <code>git add</code> перед коммитом)</div>
+<p>Отменить последний коммит (изменения сохранятся):</p>
+<pre><code>git reset --soft HEAD^
+</code></pre>
+<p>Удалить последний коммит и изменения:</p>
+<pre><code>git reset --hard HEAD^
+</code></pre>
+<p>Команда <code>rebase</code> позволяет выбрасывать и сливать коммиты.<br />
+<div class="alert-block">Выполнив эту команду Вы потеряете историю изменений!</div></p>
+<p>Больше никто и никогда не увидит этот позорный коммит:</p>
+<pre><code>git reset --hard HEAD~3 //...вернее, три последних коммита. Никто. Никогда!
+</code></pre>
+<a name="Прочие"></a><h3>Прочие</h3>
+<p>Залить изменения на сервер:</p>
+<pre><code class="bash">git commit -m 'initial commit'
+git remote add origin git@codebasehq.com:exmedia/croco-webmasters/wm2.git
+git push origin master</code></pre>
+<a name="Рекомендации"></a><h2>Рекомендации</h2>
+<ul>
+<li>Не хорошо делать <code>push --force</code> &#8212; будут большие проблемы при попытке синхронизации с репозиторием у остальных клиентов. Есть правило &#8212; не модифицировать историю комитов, которые доступны публичны.</li>
+<li>Для удаления коммитов <code>push --force</code> безобиден, если работаешь с ним один;</li>
+<li>Вместо 40-значного хеша пожно ссылаться на коммиты по имени: HEAD &#8212; последний коммит в текущей ветке, HEAD^ &#8212; предпоследний, HEAD^^ &#8212; пред-предпоследний;</li>
+<li>push access &#8212; разрешение вносить изменения в исходный репозиторий;</li>
+<li>gitk &#8212; утилита для визуализации веток и коммитов;</li>
+</ul>
+<div class="info-block"> Соответствие блоков при разборе конфликтов:</p>
+<pre><code class="diff">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+мои правки
+=======
+удаленные обновления
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; 13b5514fe52ac9315978d0022598c05ba7e0e03a</code></pre>
+<p></div>
+<a name="Решение_проблем"></a><h2>Решение проблем</h2>
+<a name="Aborting_commit_due_to_empty_commit_message"></a><h3>Aborting commit due to empty commit message</h3>
+<p>Ошибка возникает при указании к коммиту длинного комментария с переносом строк.<br />
+Подробнее <a href="http://stackoverflow.com/questions/9725160/aborting-commit-due-to-empty-commit-message">здесь</a>.<br />
+Решение: Нужно создать файл с текстом комментария и выполнить коммит следующей коммандой:</p>
+<pre><code class="bash">git commit -a -F /path-to/commit-message/commit-text.txt</code></pre>
+<a name="Проблема_с_символами_переноса_строк"></a><h3>Проблема с символами переноса строк</h3>
+<p>Нужно конвертировать символы переноса каретки. Для конвертации переносов строк можно использовать утилиту <code>dos2unix</code>:</p>
+<pre><code class="bash">dos2unix find ./src/path/ -type f</code></pre>
+<div class="info-block"> Установить утилиту <code>dos2unix</code> можно из пакета <code>tofrodos</code>:</p>
+<pre><code class="bash">sudo aptitude install tofrodos</code></pre>
+<p>И создать симлинки:</p>
+<pre><code class="bash">sudo ln -s fromdos dos2unix
+sudo ln -s todos unix2dos</code></pre>
+<p></div>
+<pre><code>  <code>core.autocrlf</code> = true  - при получении кода преобразует символы новой строки к \r\n (для Windows), а при <code><code>коммите</code></code> в LF;
+  <code><code>core.autocrlf</code> = input - конвертировать символы переноса строки в LF только при коммите;</code>
+  core.safecrlf<code> = true  - защитить бинарные файлы от преобразования символа новой строки;</code>
+  <code>core.safecrlf = </code>warn  - проводить авто замену с предупреждениями об ошибках в консоли;
+  <code><code>core.</code></code>eol = lf - приводит символы к \n при получении;
+</code></pre>
+<p>Если сразу же не настроить переносы строк, то при каждом <code>push</code> большинство файлов будут помечаться как измененные, хотя никаких изменений в них нет. При этом все равно время от времени появляются такие файлы, им вручную приходится делать <code>revert</code>.</p>
+<p>При ошибке &#171;fatal: CRLF would be replaced by LF in file&#187; &#8212; установите <code>safecrlf в false!</code></p>
+<p>Используйте следующие настройки для Linux:</p>
+<p><code>core.autocrlf = input</code></p>
+<p><code>core.safecrlf = false</code></p>
+<div id="crp_related" class="crp_related"><h3>Похожие посты:</h3><ul><li><a href="http://blog.sectorit.net/wordpress/826"     class="crp_title">Сохранение записи в WordPress по&hellip;</a></li><li><a href="http://blog.sectorit.net/os/ubuntu/484"     class="crp_title">Как изменить шаг громкости в Ubuntu&hellip;</a></li><li><a href="http://blog.sectorit.net/wordpress/258"     class="crp_title">Как установить favicon админке на&hellip;</a></li><li><a href="http://blog.sectorit.net/development/502"     class="crp_title">Composer. Решаем проблему&hellip;</a></li><li><a href="http://blog.sectorit.net/seo/378"     class="crp_title">Как указать поисковику на&hellip;</a></li></ul><div style="clear:both"></div></div>					
+										
+				</div><!-- .entry-content -->
+
+				<div class="entry-meta"></div>
+							
+			</div><!-- .post-content -->
+			
+		</div><!-- .hentry -->
+
+		
+		
+		
+		
+<div id="comments-template">
+
+	<div class="comments-wrap">
+
+		<div id="comments">
+
+			
+				<h3 id="comments-number" class="comments-header block-title"><span>3 Responses</span></h3>
+
+				
+				<ol class="comment-list">
+					
+	<li id="comment-31" class="comment even thread-even depth-1 reader has-avatar">
+
+		
+		<div class="comment-wrap">
+
+			
+			<a href="http://google.com" rel="external nofollow" title="goglopseg"><img alt='goglopseg' src='http://0.gravatar.com/avatar/6a88c4390cee84af7ce0ecbf64600bf6?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' /></a>
+			<div class="comment-meta"><span class="comment-author vcard"><cite class="fn" title="http://google.com"><a href="http://google.com" title="goglopseg" class="url" rel="external nofollow">goglopseg</a></cite></span><!-- .comment-author .vcard --></div>			
+			<div class="comment-meta"><span class="published"><time class="comment-date" datetime="2012-08-24T15:26:15+02:00" title="Пятница, Август 24th, 2012, 3:26 пп">2012-08-24</time> at <time class="comment-time" title="Пятница, Август 24th, 2012, 3:26 пп">15:26</time></span>  &middot; <a class='comment-reply-link' href='/development/430?replytocom=31#respond' onclick='return addComment.moveForm("comment-31", "31", "respond", "430")'>Reply</a> &rarr;</div>
+			<div class="comment-content comment-text">
+				
+				
+				<p>Офигеть просто! Все, блин, всё знают, кроме меня</p>
+			</div><!-- .comment-content .comment-text -->
+
+			
+		</div><!-- .comment-wrap -->
+
+		
+	</li><!-- .comment -->
+	<li id="comment-34" class="comment byuser comment-author-admin bypostauthor odd alt thread-odd thread-alt depth-1 role-administrator user-admin entry-author has-avatar">
+
+		
+		<div class="comment-wrap">
+
+			
+			<a href="http://info.sectorit.net" rel="external nofollow" title="sorbing"><img alt='sorbing' src='http://0.gravatar.com/avatar/aebf40971f53d78b90456eba2b66eefe?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' /></a>
+			<div class="comment-meta"><span class="comment-author vcard"><cite class="fn" title="http://info.sectorit.net"><a href="http://info.sectorit.net" title="sorbing" class="url" rel="external nofollow">sorbing</a></cite></span><!-- .comment-author .vcard --></div>			
+			<div class="comment-meta"><span class="published"><time class="comment-date" datetime="2012-08-28T23:37:58+02:00" title="Вторник, Август 28th, 2012, 11:37 пп">2012-08-28</time> at <time class="comment-time" title="Вторник, Август 28th, 2012, 11:37 пп">23:37</time></span>  &middot; <a class='comment-reply-link' href='/development/430?replytocom=34#respond' onclick='return addComment.moveForm("comment-34", "34", "respond", "430")'>Reply</a> &rarr;</div>
+			<div class="comment-content comment-text">
+				
+				
+				<p>Практика &#8212; залог успеха;)</p>
+			</div><!-- .comment-content .comment-text -->
+
+			
+		</div><!-- .comment-wrap -->
+
+		
+	</li><!-- .comment -->
+	<li id="comment-38" class="comment even thread-even depth-1 reader has-avatar">
+
+		
+		<div class="comment-wrap">
+
+			
+			<img alt='Евгений' src='http://0.gravatar.com/avatar/6166fe4f07eb3e0261379223d1453be1?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />
+			<div class="comment-meta"><span class="comment-author vcard"><cite class="fn">Евгений</cite></span><!-- .comment-author .vcard --></div>			
+			<div class="comment-meta"><span class="published"><time class="comment-date" datetime="2012-09-02T02:40:21+02:00" title="Воскресенье, Сентябрь 2nd, 2012, 2:40 дп">2012-09-02</time> at <time class="comment-time" title="Воскресенье, Сентябрь 2nd, 2012, 2:40 дп">02:40</time></span>  &middot; <a class='comment-reply-link' href='/development/430?replytocom=38#respond' onclick='return addComment.moveForm("comment-38", "38", "respond", "430")'>Reply</a> &rarr;</div>
+			<div class="comment-content comment-text">
+				
+				
+				<p>Я после плотной работы с SVNом вообще гиту не нарадуюсь. Из консоли спокойно можно работать, только команды помни и общее представление что-куда)</p>
+			</div><!-- .comment-content .comment-text -->
+
+			
+		</div><!-- .comment-wrap -->
+
+		
+	</li><!-- .comment -->				</ol><!-- .comment-list -->
+
+				
+				
+			
+			
+		</div><!-- #comments -->
+
+							
+		<div id="respond" class="comment-respond">
+			<h3 id="reply-title" class="comment-reply-title">Добавить комментарий <small><a rel="nofollow" id="cancel-comment-reply-link" href="/development/430#respond" style="display:none;">Отменить ответ</a></small></h3>
+			<div id="commentform" class="comment-form">
+				<iframe src="http://jetpack.wordpress.com/jetpack-comment/?blogid=48714799&#038;postid=430&#038;comment_registration=0&#038;require_name_email=1&#038;stc_enabled=1&#038;stb_enabled=1&#038;show_avatars=1&#038;avatar_default=mystery&#038;greeting=%D0%94%D0%BE%D0%B1%D0%B0%D0%B2%D0%B8%D1%82%D1%8C+%D0%BA%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9&#038;greeting_reply=%D0%94%D0%BE%D0%B1%D0%B0%D0%B2%D0%B8%D1%82%D1%8C+%D0%BA%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9+%D0%B4%D0%BB%D1%8F+%25s&#038;color_scheme=light&#038;lang=ru-RU&#038;jetpack_version=3.1.1&#038;sig=411e44ecfe358f29a4fdb83d3728bdd60dbb07f5#parent=http%3A%2F%2Fblog.sectorit.net%2Fdevelopment%2F430" allowtransparency="false" style="width:100%; height: 430px;border:0px;" frameBorder="0" scrolling="no" name="jetpack_remote_comment" id="jetpack_remote_comment"></iframe>
+			</div>
+		</div>
+
+		
+		<input type="hidden" name="comment_parent" id="comment_parent" value="" />
+
+		
+	</div><!-- .comments-wrap -->
+
+</div><!-- #comments-template -->		
+			
+		
+
+
+				
+			
+		
+		
+	
+		<div class="loop-nav">	
+			<a href="http://blog.sectorit.net/development/bash/408" rel="prev"><span class="previous"><span class="meta-nav">&laquo;</span> Previous</span></a>			<a href="http://blog.sectorit.net/os/ubuntu/484" rel="next"><span class="next">Next <span class="meta-nav">&raquo;</span></span></a>		
+		</div><!-- .loop-nav -->
+
+	
+	</div><!-- #content -->
+
+	
+					
+
+
+				</div><!-- #primary -->	
+
+				
+		</div><!-- #main -->
+
+				
+		
+<div id="sidebar-primary" class="sidebar">
+
+			
+		
+		<section id="hybrid-search-3" class="widget search widget-search"><h3 class="widget-title">Поиск</h3><form method="get" class="search-form" id="search-formhybrid-search" action="http://blog.sectorit.net/"><div><input class="search-text" type="text" name="s" id="search-texthybrid-search" value="Поиск" onfocus="if(this.value==this.defaultValue)this.value='';" onblur="if(this.value=='')this.value=this.defaultValue;" /></div></form></section><section id="hybrid-categories-2" class="widget categories widget-categories"><h3 class="widget-title">Рубрики</h3><ul class="xoxo categories"><li class="cat-item cat-item-70"><a href="http://blog.sectorit.net/posts/android" >Android</a> (1)</li><li class="cat-item cat-item-3"><a href="http://blog.sectorit.net/posts/development" >Development</a> (20)<ul class='children'><li class="cat-item cat-item-16"><a href="http://blog.sectorit.net/posts/development/bash" >Bash</a> (3)</li><li class="cat-item cat-item-34"><a href="http://blog.sectorit.net/posts/development/database" >DataBase</a> (2)</li><li class="cat-item cat-item-23"><a href="http://blog.sectorit.net/posts/development/ide" >IDE</a> (1)</li><li class="cat-item cat-item-12"><a href="http://blog.sectorit.net/posts/development/javascript" >JavaScript</a> (1)</li><li class="cat-item cat-item-20"><a href="http://blog.sectorit.net/posts/development/php" >PHP</a> (5)</li><li class="cat-item cat-item-77"><a href="http://blog.sectorit.net/posts/development/symfony-2-1" >Symfony 2.1</a> (4)</li><li class="cat-item cat-item-4"><a href="http://blog.sectorit.net/posts/development/design" >Дизайн и юзабилити</a> (2)</li></ul></li><li class="cat-item cat-item-17"><a href="http://blog.sectorit.net/posts/os" >OS</a> (9)<ul class='children'><li class="cat-item cat-item-18"><a href="http://blog.sectorit.net/posts/os/ubuntu" >Ubuntu</a> (9)</li></ul></li><li class="cat-item cat-item-19"><a href="http://blog.sectorit.net/posts/seo" >SEO</a> (1)</li><li class="cat-item cat-item-7"><a href="http://blog.sectorit.net/posts/wordpress" >WordPress</a> (6)</li><li class="cat-item cat-item-38"><a href="http://blog.sectorit.net/posts/leisure" >Досуг</a> (4)</li><li class="cat-item cat-item-1"><a href="http://blog.sectorit.net/posts/garbage" >Чтиво</a> (6)</li></ul><!-- .xoxo .categories --></section><div class="content-headings-tree"><section id="content-headings-tree-id-2" class="widget ContentHeadingsListWidget widget-ContentHeadingsListWidget"><h3 class="widget-title">Оглавление</h3><ul><li><a href="#Термины">Термины</a><li><a href="#Настройка_GIT">Настройка GIT</a><li><a href="#Использование">Использование</a><ul><li><a href="#Репозитории">Репозитории</a><li><a href="#Инициализация_/_Клонирование">Инициализация / Клонирование</a><li><a href="#Индексация_изменений">Индексация изменений</a><li><a href="#Коммиты">Коммиты</a><li><a href="#Синхронизация_(Pull,_Push,_Fetch)">Синхронизация (Pull, Push, Fetch)</a><li><a href="#Ветки_(branch)">Ветки (branch)</a><li><a href="#Состояние_и_история_изменений">Состояние и история изменений</a><li><a href="#Откат_изменений">Откат изменений</a><li><a href="#Прочие">Прочие</a></ul></li><li><a href="#Рекомендации">Рекомендации</a><li><a href="#Решение_проблем">Решение проблем</a><ul><li><a href="#Aborting_commit_due_to_empty_commit_message">Aborting commit due to empty commit message</a><li><a href="#Проблема_с_символами_переноса_строк">Проблема с символами переноса строк</a></li></ul></section><section id="text-4" class="widget widget_text widget-widget_text">			<div class="textwidget"><!-- RSS Dynamic Block -->
+
+<script type="text/javascript">
+if (window.location.href.indexOf('/posts/') > 0) {
+document.write(
+'<a href="/feed/" title="Подписаться на новые статьи и записи через RSS канал">' + 
+'<img src="/wp-content/uploads/2012/06/rss-boy.jpg"/>' + 
+'</a>'
+);
+}
+</script></div>
+		</section><section id="text-5" class="widget widget_text widget-widget_text">			<div class="textwidget"><!-- Whois Promo -->
+
+<style type="text/css">
+    @import url(http://fonts.googleapis.com/css?family=Jura&subset=cyrillic);
+
+    #promo-whois * { color: #2D5FAE; }
+    #promo-whois {
+        font-family: 'Jura', sans-serif;
+        width: 200px;
+        color: rgba(33, 51, 0, 0.6);
+        padding: 1px;
+        text-shadow: 2px 8px 6px rgba(0, 0, 0, 0.2), 0 -5px 35px rgba(255, 255, 255, 0.3);
+        text-align: center;
+    }
+    #promo-whois a {
+        text-decoration: none;
+        display: block;
+        border: 1px solid rgba(45, 95, 174, 0.26);
+        border-radius: 10px;
+        padding: 10px;
+    }
+    #promo-whois h3 { font-size: 24px; color: rgba(45, 95, 174, 0.85); margin: 5px; }
+
+    #promo-whois p { margin: 0; }
+    #promo-whois small { font-size: 15px; font-weight: normal; }
+</style>
+
+<div id="promo-whois">
+    <!--<a href="http://whois.sectorit.net/" title="Сервис генерации и проверки доменов на занятость">
+        <h3>Сложно подобрать свободный домен?</h3>
+        <p>
+            <img src="http://whois.sectorit.net/assets/img/promo-whois-domains-checker.png" alt="Whois Tools"/>
+        </p>
+        <p>
+            <small>сгенерируй и проверяй тысячи доменов</small>
+        </p>
+    </a>-->
+
+    <a href="https://www.digitalocean.com/?refcode=e45d57346f1d" title="VPS хостинг на SSD дисках за $5/мес">
+        <h3>VPS хостинг<br>в Европе..<br>за $5</h3>
+        <p>
+            <img src="http://whois.sectorit.net/assets/img/cloud-vps-hosting-on-ssd-5-usd.png" alt="Cloud VPS Hosting on SSD drives"/>
+        </p>
+        <p>
+            <ul>
+                <li>~ 40 мсек пинг в СНГ</li>
+                <li>SSD накопители</li>
+                <li>старт за 1 минуту</li>
+            </ul>
+        </p>
+    </a>
+
+</div></div>
+		</section>		
+	
+	
+</div><!-- #sidebar-primary .aside -->
+
+
+				
+
+		
+		<div id="footer">
+
+			
+			<div class="footer-content">
+				
+				
+				
+			</div>
+
+			
+		</div><!-- #footer -->
+
+				
+		</div><!-- .wrap -->
+
+	</div><!-- #container -->
+
+	
+		<div style="display:none">
+	<div class="grofile-hash-map-6a88c4390cee84af7ce0ecbf64600bf6">
+	</div>
+	<div class="grofile-hash-map-aebf40971f53d78b90456eba2b66eefe">
+	</div>
+	<div class="grofile-hash-map-6166fe4f07eb3e0261379223d1453be1">
+	</div>
+	</div>
+<script type='text/javascript' src='http://blog.sectorit.net/wp-content/plugins/akismet/_inc/form.js?ver=3.0.2'></script>
+<script type='text/javascript' src='http://blog.sectorit.net/wp-content/plugins/avplayer/assets/common.js?ver=0.1'></script>
+<script type='text/javascript' src='http://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201449'></script>
+<script type='text/javascript' src='http://s.gravatar.com/js/gprofiles.js?ver=2014Decaa'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://blog.sectorit.net/wp-content/plugins/jetpack/modules/wpgroho.js?ver=4.0'></script>
+<script type='text/javascript' src='http://blog.sectorit.net/wp-content/themes/ascetica/js/fancybox/jquery.fancybox-1.3.4.pack.js?ver=1.0'></script>
+<script type='text/javascript' src='http://blog.sectorit.net/wp-content/themes/ascetica/js/fitvids/jquery.fitvids.js?ver=1.0'></script>
+<script type='text/javascript' src='http://blog.sectorit.net/wp-content/themes/ascetica/js/flex-slider/jquery.flexslider-min.js?ver=1.0'></script>
+<script type='text/javascript' src='http://blog.sectorit.net/wp-content/themes/ascetica/js/navigation.js?ver=20130223'></script>
+<script type='text/javascript' src='http://blog.sectorit.net/wp-content/themes/ascetica/js/footer-scripts.js?ver=1.0'></script>
+<script type='text/javascript' src='http://blog.sectorit.net/wp-includes/js/comment-reply.min.js?ver=4.0'></script>
+
+		<!--[if IE]>
+		<script type="text/javascript">
+		if ( 0 === window.location.hash.indexOf( '#comment-' ) ) {
+			// window.location.reload() doesn't respect the Hash in IE
+			window.location.hash = window.location.hash;
+		}
+		</script>
+		<![endif]-->
+		<script type="text/javascript">
+			var comm_par_el = document.getElementById( 'comment_parent' ),
+			    comm_par = (comm_par_el && comm_par_el.value) ? comm_par_el.value : '',
+			    frame = document.getElementById( 'jetpack_remote_comment' ),
+			    tellFrameNewParent;
+
+			tellFrameNewParent = function() {
+				if ( comm_par ) {
+					frame.src = "http://jetpack.wordpress.com/jetpack-comment/?blogid=48714799&postid=430&comment_registration=0&require_name_email=1&stc_enabled=1&stb_enabled=1&show_avatars=1&avatar_default=mystery&greeting=%D0%94%D0%BE%D0%B1%D0%B0%D0%B2%D0%B8%D1%82%D1%8C+%D0%BA%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9&greeting_reply=%D0%94%D0%BE%D0%B1%D0%B0%D0%B2%D0%B8%D1%82%D1%8C+%D0%BA%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9+%D0%B4%D0%BB%D1%8F+%25s&color_scheme=light&lang=ru-RU&jetpack_version=3.1.1&sig=411e44ecfe358f29a4fdb83d3728bdd60dbb07f5#parent=http%3A%2F%2Fblog.sectorit.net%2Fdevelopment%2F430" + '&replytocom=' + parseInt( comm_par, 10 ).toString();
+				} else {
+					frame.src = "http://jetpack.wordpress.com/jetpack-comment/?blogid=48714799&postid=430&comment_registration=0&require_name_email=1&stc_enabled=1&stb_enabled=1&show_avatars=1&avatar_default=mystery&greeting=%D0%94%D0%BE%D0%B1%D0%B0%D0%B2%D0%B8%D1%82%D1%8C+%D0%BA%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9&greeting_reply=%D0%94%D0%BE%D0%B1%D0%B0%D0%B2%D0%B8%D1%82%D1%8C+%D0%BA%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9+%D0%B4%D0%BB%D1%8F+%25s&color_scheme=light&lang=ru-RU&jetpack_version=3.1.1&sig=411e44ecfe358f29a4fdb83d3728bdd60dbb07f5#parent=http%3A%2F%2Fblog.sectorit.net%2Fdevelopment%2F430";
+				}
+			};
+
+	
+			if ( 'undefined' !== typeof addComment ) {
+				addComment._Jetpack_moveForm = addComment.moveForm;
+
+				addComment.moveForm = function( commId, parentId, respondId, postId ) {
+					var returnValue = addComment._Jetpack_moveForm( commId, parentId, respondId, postId ), cancelClick, cancel;
+
+					if ( false === returnValue ) {
+						cancel = document.getElementById( 'cancel-comment-reply-link' );
+						cancelClick = cancel.onclick;
+						cancel.onclick = function() {
+							var cancelReturn = cancelClick.call( this );
+							if ( false !== cancelReturn ) {
+								return cancelReturn;
+							}
+
+							if ( !comm_par ) {
+								return cancelReturn;
+							}
+
+							comm_par = 0;
+
+							tellFrameNewParent();
+
+							return cancelReturn;
+						};
+					}
+
+					if ( comm_par == parentId ) {
+						return returnValue;
+					}
+
+					comm_par = parentId;
+
+					tellFrameNewParent();
+
+					return returnValue;
+				};
+			}
+
+	
+			if ( window.postMessage ) {
+				if ( document.addEventListener ) {
+					window.addEventListener( 'message', function( event ) {
+						if ( "http:\/\/jetpack.wordpress.com" !== event.origin ) {
+							return;
+						}
+
+						jQuery( frame ).height( event.data );
+					} );
+				} else if ( document.attachEvent ) {
+					window.attachEvent( 'message', function( event ) {
+						if ( "http:\/\/jetpack.wordpress.com" !== event.origin ) {
+							return;
+						}
+
+						jQuery( frame ).height( event.data );
+					} );
+				}
+			}
+		</script>
+
+	
+	<script src="http://stats.wp.com/e-201449.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	st_go({v:'ext',j:'1:3.1.1',blog:'48714799',post:'430',tz:'2'});
+	var load_cmc = function(){linktracker_init(48714799,430,2);};
+	if ( typeof addLoadEvent != 'undefined' ) addLoadEvent(load_cmc);
+	else load_cmc();
+	</script>	
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="ru-RU">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Исключения в python. Конструкция try &#8212; except для обработки исключений | Python 3 для начинающих и чайников</title>
+<meta name="description" content="Исключения в python, виды исключений и их обработка с помощью конструкции try - except - else - finally.">
+<meta name="keywords" content="исключения, обработка, exceptions, python">
+<link rel="canonical" href="http://pythonworld.ru/tipy-dannyx-v-python/isklyucheniya-v-python-konstrukciya-try-except-dlya-obrabotki-isklyuchenij.html">
+<link rel="stylesheet" href="/wp-content/themes/musin/style.css" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="Python 3 для начинающих RSS Feed" href="http://feeds.feedburner.com/python3_for_beginners">
+<link rel="author" href="https://plus.google.com/108656072372423590033">
+<script type="text/javascript" src="//userapi.com/js/api/openapi.js"></script>
+<script type="text/javascript">VK.init({apiId:3056754,onlyWidgets:true});</script>
+</head>
+<body>
+<script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript"></script><script type="text/javascript">try{var yaCounter16916062=new Ya.Metrika({id:16916062,accurateTrackBounce:true})}catch(e){}</script><noscript><div><img src="//mc.yandex.ru/watch/16916062" style="position:absolute; left:-9999px;" alt=""></div></noscript>
+<script type="text/javascript">new Image().src="//counter.yadro.ru/hit?r"+escape(document.referrer)+((typeof(screen)=="undefined")?"":";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+";"+Math.random();</script>
+<div id="wrapper">
+<div id="header">
+<div id="logo"><img src="/wp-content/themes/musin/images/python-3.png" width="274" height="210" alt="Python 3 логотип"></div>
+<div id="title"><a href="/"><p id="python3">Python<span> 3</span></p><p id="forbeginners">для начинающих</p></a></div>
+</div><div id="content">
+<div id="cont">
+  <div class="post">
+	<h1>Исключения в python. Конструкция try &#8212; except для обработки исключений</h1>
+<!-- Яндекс.Директ -->
+<script type="text/javascript">
+//<![CDATA[
+yandex_partner_id=114392;
+yandex_site_bg_color='FFFFFF';
+yandex_site_charset='utf-8';
+yandex_ad_format='direct';
+yandex_font_size=0.9;
+yandex_direct_type='horizontal';
+yandex_direct_limit=2;
+yandex_direct_title_font_size=1;
+yandex_direct_header_bg_color='FEEAC7';
+yandex_direct_title_color='0000CC';
+yandex_direct_url_color='006600';
+yandex_direct_text_color='000000';
+yandex_direct_hover_color='0066FF';
+yandex_direct_favicon=true;
+document.write('<sc'+'ript type="text/javascript" src="http://an.yandex.ru/system/context.js"></sc'+'ript>');
+//]]>
+</script>
+	<p>Исключения (exceptions) - ещё один тип данных в python. Исключения необходимы для того, чтобы сообщать программисту об ошибках.</p>
+<p><span id="more-694"></span></p>
+<p>Самый простейший пример исключения - деление на ноль:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;">&gt;&gt;&gt; <span style="color:#ff4500">100</span> / <span style="color:#ff4500">0</span>
+Traceback <span style="color:black">&#40;</span>most recent call last<span style="color:black">&#41;</span>:
+  File <span style="color:#00aa00">&quot;&lt;pyshell#1&gt;&quot;</span>, line <span style="color:#ff4500">1</span>, <span style="color:#ff7700">in</span> &lt;module&gt;
+    <span style="color:#ff4500">100</span> / <span style="color:#ff4500">0</span>
+<span style="color:#900090">ZeroDivisionError</span>: division by zero</pre></div></div>
+
+<p>В данном случае интерпретатор сообщил нам об исключении ZeroDivisionError, то есть делении на ноль. Также возможны и другие исключения:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;">&gt;&gt;&gt; <span style="color:#ff4500">2</span> + <span style="color:#00aa00">'1'</span>
+Traceback <span style="color:black">&#40;</span>most recent call last<span style="color:black">&#41;</span>:
+  File <span style="color:#00aa00">&quot;&lt;pyshell#3&gt;&quot;</span>, line <span style="color:#ff4500">1</span>, <span style="color:#ff7700">in</span> &lt;module&gt;
+    <span style="color:#ff4500">2</span> + <span style="color:#00aa00">'1'</span>
+<span style="color:#900090">TypeError</span>: unsupported operand <span style="color:#900090">type</span><span style="color:black">&#40;</span>s<span style="color:black">&#41;</span> <span style="color:#ff7700">for</span> +: <span style="color:#00aa00">'int'</span> <span style="color:#ff7700">and</span> <span style="color:#00aa00">'str'</span>
+&nbsp;
+&gt;&gt;&gt; <span style="color:#900090">int</span><span style="color:black">&#40;</span><span style="color:#00aa00">'qwerty'</span><span style="color:black">&#41;</span>
+Traceback <span style="color:black">&#40;</span>most recent call last<span style="color:black">&#41;</span>:
+  File <span style="color:#00aa00">&quot;&lt;pyshell#6&gt;&quot;</span>, line <span style="color:#ff4500">1</span>, <span style="color:#ff7700">in</span> &lt;module&gt;
+    <span style="color:#900090">int</span><span style="color:black">&#40;</span><span style="color:#00aa00">'qwerty'</span><span style="color:black">&#41;</span>
+<span style="color:#900090">ValueError</span>: invalid literal <span style="color:#ff7700">for</span> <span style="color:#900090">int</span><span style="color:black">&#40;</span><span style="color:black">&#41;</span> <span style="color:#ff7700">with</span> base <span style="color:#ff4500">10</span>: <span style="color:#00aa00">'qwerty'</span></pre></div></div>
+
+<p>В этих двух примерах генерируются исключения TypeError и ValueError соответственно. Подсказки дают нам полную информацию о том, где порождено исключение, и с чем оно связано.</p>
+<p>Рассмотрим иерархию встроенных в python исключений, хотя иногда вам могут встретиться и другие, так как программисты могут создавать собственные исключения. Данный список актуален для <a href="http://pythonworld.ru/novosti-mira-python/chto-novogo-v-python-33.html" title="Что нового в Python 3,3?" target="_blank">python 3.3</a>, в более ранних версиях есть незначительные изменения.</p>
+<ul>
+<li><b>BaseException</b> - базовое исключение, от которого берут начало все остальные.</li>
+<ul>
+<li><b>SystemExit</b> - исключение, порождаемое функцией sys.exit при выходе из программы.</li>
+<li><b>KeyboardInterrupt</b> - порождается при прерывании программы пользователем (обычно сочетанием клавиш Ctrl+C.</li>
+<li><b>GeneratorExit</b> - порождается при вызове метода close объекта generator.</li>
+<li><b>Exception</b> - а вот тут уже заканчиваются полностью системные исключения (которые лучше не трогать) и начинаются обыкновенные, с которыми можно работать.</li>
+<ul>
+<li><b>StopIteration</b> - порождается <a href="http://pythonworld.ru/osnovy/vstroennye-funkcii.html" title="Встроенные функции" target="_blank">встроенной функцией</a> next, если в итераторе больше нет элементов.</li>
+<li><b>ArithmeticError</b> - арифметическая ошибка.</li>
+<ul>
+<li><b>FloatingPointError</b> - порождается при неудачном выполнении операции с плавающей запятой. На практике встречается нечасто.</li>
+<li><b>OverflowError</b> - возникает, когда результат арифметической операции слишком велик для представления. Не появляется при обычной работе с числами (так как python поддерживает длинные числа), но может возникать в некоторых других случаях.</li>
+<li><b>ZeroDivisionError</b> - деление на ноль.</li>
+</ul>
+<li><b>AssertionError</b> - выражение в функции assert ложно.</li>
+<li><b>AttributeError</b> - объект не имеет данного атрибута (значения или метода).</li>
+<li><b>BufferError</b> - операция, связанная с буфером, не может быть выполнена.</li>
+<li><b>EOFError</b> - функция input() наткнулась на конец файла и не смогла при этом ничего прочитать.</li>
+<li><b>ImportError</b> - не удалось импортирование модуля или его атрибута.</li>
+<li><b>LookupError</b> - некорректный индекс или ключ.</li>
+<ul>
+<li><b>IndexError</b> - индекс не входит в диапазон элементов.</li>
+<li><b>KeyError</b> - несуществующий ключ (в <a href="http://pythonworld.ru/tipy-dannyx-v-python/slovari-dict-funkcii-i-metody-slovarej.html" title="Словари (dict). Функции и методы словарей" target="_blank">словаре</a>, <a href="http://pythonworld.ru/tipy-dannyx-v-python/mnozhestva-set-i-frozenset.html" title="Множества (set и frozenset)" target="_blank">множестве</a> или другом объекте).</li>
+</ul>
+<li><b>MemoryError</b> - недостаточно памяти.</li>
+<li><b>NameError</b> - не найдено переменной с таким именем.</li>
+<ul>
+<li><b>UnboundLocalError</b> - сделана ссылка на локальную переменную в функции, но переменная не определена ранее.</li>
+</ul>
+<li><b>OSError</b> - ошибка, связанная с системой.</li>
+<ul>
+<li><b>BlockingIOError</b></li>
+<li><b>ChildProcessError</b> - неудача при операции с дочерним процессом.</li>
+<li><b>ConnectionError</b> - базовый класс для исключений, связанных с подключениями.</li>
+<ul>
+<li><b>BrokenPipeError</b></li>
+<li><b>ConnectionAbortedError</b></li>
+<li><b>ConnectionRefusedError</b></li>
+<li><b>ConnectionResetError</b></li>
+</ul>
+<li><b>FileExistsError</b> - попытка создания <a href="http://pythonworld.ru/tipy-dannyx-v-python/fajly-rabota-s-fajlami.html" title="Файлы. Работа с файлами." target="_blank">файла</a> или директории, которая уже существует.</li>
+<li><b>FileNotFoundError</b> - файл или директория не существует.</li>
+<li><b>InterruptedError</b> - системный вызов прерван входящим сигналом.</li>
+<li><b>IsADirectoryError</b> - ожидался файл, но это директория.</li>
+<li><b>NotADirectoryError</b> - ожидалась директория, но это файл.</li>
+<li><b>PermissionError</b> - не хватает прав доступа.</li>
+<li><b>ProcessLookupError</b> - указанного процесса не существует.</li>
+<li><b>TimeoutError</b></li>
+</ul>
+<li><b>ReferenceError</b> - попытка доступа к атрибуту со слабой ссылкой.</li>
+<li><b>RuntimeError</b> - возникает, когда исключение не попадает ни под одну из других категорий.</li>
+<li><b>NotImplementedError</b> - возникает, когда абстрактные методы класса требуют переопределения в дочерних классах.</li>
+<li><b>SyntaxError</b> - синтаксическая ошибка.</li>
+<ul>
+<li><b>IndentationError</b> - неправильные отступы.</li>
+<ul>
+<li><b>TabError</b> - смешивание в отступах табуляции и пробелов.</li>
+</ul>
+</ul>
+<li><b>SystemError</b> - внутренняя ошибка.</li>
+<li><b>TypeError</b> - операция применена к объекту несоответствующего типа.</li>
+<li><b>ValueError</b> - функция получает аргумент правильного типа, но некорректного значения.</li>
+<ul>
+<li><b>UnicodeError</b> - ошибка, связанная с кодированием / раскодированием unicode в <a href="http://pythonworld.ru/tipy-dannyx-v-python/stroki-literaly-strok.html" title="Строки. Литералы строк" target="_blank">строках</a>.</li>
+<ul>
+<li><b>UnicodeEncodeError</b> - исключение, связанное с кодированием unicode.</li>
+<li><b>UnicodeDecodeError</b> - исключение, связанное с декодированием unicode.</li>
+<li><b>UnicodeTranslateError</b> - исключение, связанное с переводом unicode.
+</ul>
+</ul>
+<li><b>Warning</b> - предупреждение.</li>
+</ul>
+</ul>
+</ul>
+<p>Теперь, зная, когда и при каких обстоятельствах могут возникнуть исключения, мы можем их обрабатывать. Для обработки исключений используется конструкция <b>try - except</b>.</p>
+<p>Первый пример применения этой конструкции:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;">&gt;&gt;&gt; <span style="color:#ff7700">try</span>:
+	k = <span style="color:#ff4500">1</span> / <span style="color:#ff4500">0</span>
+<span style="color:#ff7700">except</span> <span style="color:#900090">ZeroDivisionError</span>:
+	k = <span style="color:#ff4500">0</span>
+&nbsp;
+&nbsp;
+&gt;&gt;&gt; <span style="color:#900090">print</span><span style="color:black">&#40;</span>k<span style="color:black">&#41;</span>
+<span style="color:#ff4500">0</span></pre></div></div>
+
+<p>В блоке try мы выполняем инструкцию, которая может породить исключение, а в блоке except мы перехватываем их. При этом перехватываются как само исключение, так и его потомки. Например, перехватывая ArithmeticError, мы также перехватываем FloatingPointError, OverflowError и ZeroDivisionError.</p>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;">&gt;&gt;&gt; <span style="color:#ff7700">try</span>:
+	k = <span style="color:#ff4500">1</span> / <span style="color:#ff4500">0</span>
+<span style="color:#ff7700">except</span> <span style="color:#900090">ArithmeticError</span>:
+	k = <span style="color:#ff4500">100</span>
+&nbsp;
+&nbsp;
+&gt;&gt;&gt; <span style="color:#900090">print</span><span style="color:black">&#40;</span>k<span style="color:black">&#41;</span>
+<span style="color:#ff4500">100</span></pre></div></div>
+
+<p>Также возможна инструкция except без аргументов, которая перехватывает вообще всё (и прерывание с клавиатуры, и системный выход и т. д.). Поэтому в такой форме инструкция except практически не используется, а используется except Exception. Однако чаще всего перехватывают исключения по одному, для упрощения отладки (вдруг вы ещё другую ошибку сделаете, а except её перехватит).</p>
+<p>Ещё две инструкции, относящиеся к нашей проблеме, это <b>finally</b> и else. Finally выполняет блок инструкций в любом случае, было ли исключение, или нет (применима, когда нужно непременно что-то сделать, к примеру, закрыть файл). Инструкция else выполняется в том случае, если исключения не было.</p>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;">f = <span style="color:#900090">open</span><span style="color:black">&#40;</span><span style="color:#00aa00">'1.txt'</span><span style="color:black">&#41;</span>
+ints = <span style="color:black">&#91;</span><span style="color:black">&#93;</span>
+<span style="color:#ff7700">try</span>:
+    <span style="color:#ff7700">for</span> line <span style="color:#ff7700">in</span> f:
+        ints.<span style="color:black">append</span><span style="color:black">&#40;</span><span style="color:#900090">int</span><span style="color:black">&#40;</span>line<span style="color:black">&#41;</span><span style="color:black">&#41;</span>
+<span style="color:#ff7700">except</span> <span style="color:#900090">ValueError</span>:
+    <span style="color:#900090">print</span><span style="color:black">&#40;</span><span style="color:#00aa00">'Это не число. Выходим.'</span><span style="color:black">&#41;</span>
+<span style="color:#ff7700">except</span> <span style="color:#900090">Exception</span>:
+    <span style="color:#900090">print</span><span style="color:black">&#40;</span><span style="color:#00aa00">'Это что ещё такое?'</span><span style="color:black">&#41;</span>
+<span style="color:#ff7700">else</span>:
+    <span style="color:#900090">print</span><span style="color:black">&#40;</span><span style="color:#00aa00">'Всё хорошо.'</span><span style="color:black">&#41;</span>
+<span style="color:#ff7700">finally</span>:
+    f.<span style="color:black">close</span><span style="color:black">&#40;</span><span style="color:black">&#41;</span>
+    <span style="color:#900090">print</span><span style="color:black">&#40;</span><span style="color:#00aa00">'Я закрыл файл.'</span><span style="color:black">&#41;</span>
+&nbsp;
+<span style="color:#808080;font-style:italic"># Именно в таком порядке: try, группа except, затем else, и только потом finally.</span>
+&nbsp;
+&nbsp;
+Это не число. Выходим.
+Я закрыл файл.</pre></div></div>
+
+<div id="share"><script type="text/javascript">
+(function(d,c){
+  var up=d.createElement("script"),
+  s=d.getElementsByTagName("script")[0],
+  r=Math.floor(Math.random() * 1000000);
+  var cmp = c + Math.floor(Math.random() * 10000);
+  var url = window.location.href;
+  window["__uptolike_widgets_settings_"+cmp] = {};
+  d.write("<div id="+cmp+" class=__uptlk data-uptlkwdgtId="+r+"></div>");
+  up.type = "text/javascript"; up.async = true;
+  up.src = "//w.uptolike.com/widgets/v1/widgets.js?b=fb.tw.vk.gp.mr.my&id=42998&o=1&m=1&sf=2&ss=1&sst=2&c1=ededed&c1a=0.0&c3=ff9300&c5=ffffff&mc=1&c2=000000&c4=ffffff&c4a=1.0&mcs=0&sel=0&fol=1&fl.vk=python_3&c=" + cmp + "&url="+encodeURIComponent(url);
+  s.parentNode.insertBefore(up, s);
+})(document,"__uptlk");
+</script></div><div id="rss">Подпишись на обновления <a target="_blank" rel="nofollow" href="http://feeds.feedburner.com/python3_for_beginners">по RSS</a>, или по почте!
+<form target="_top" action="http://subscribe.ru/member/quick" method="get">
+<input id="rss_email" type="email" value="Введите e-mail..." name="email" onclick="this.value=''">
+<input type="hidden" name="action" value="quick"><input type="hidden" name="src" value="list_comp.soft.python3"><input type="hidden" name="grp" value="comp.soft.python3">
+<input type="submit" value="Подписаться!"></form></div><!-- Яндекс.Директ -->
+<script type="text/javascript">
+//<![CDATA[
+yandex_partner_id=114392;
+yandex_site_bg_color='FFFFFF';
+yandex_site_charset='utf-8';
+yandex_ad_format='direct';
+yandex_font_size=0.9;
+yandex_direct_type='horizontal';
+yandex_direct_limit=2;
+yandex_direct_title_font_size=1;
+yandex_direct_header_bg_color='FEEAC7';
+yandex_direct_title_color='0000CC';
+yandex_direct_url_color='006600';
+yandex_direct_text_color='000000';
+yandex_direct_hover_color='0066FF';
+yandex_direct_favicon=true;
+document.write('<sc'+'ript type="text/javascript" src="http://an.yandex.ru/system/context.js"></sc'+'ript>');
+//]]>
+</script>
+<div id="comments"></div><script type="text/javascript">VK.Widgets.Comments("comments",{limit:5,attach:"graffiti,photo,video,audio"});</script>
+  </div>
+</div>
+</div>
+<div id="sidebar">
+<div id="search"><form action="/" method="GET" id="searchform"><input type="text" name="s" value="Найти..." size="26" onclick="this.value=''" id="form-input"><input type="submit" value="Поиск" id="form-submit"></form></div>
+		<div class="widget">		<p class="widgettitle">Свежие записи</p>		<ul>
+					<li>
+				<a href="http://pythonworld.ru/moduli/modul-functools.html">Модуль functools</a>
+						</li>
+					<li>
+				<a href="http://pythonworld.ru/osnovy/dekoratory.html">Декораторы</a>
+						</li>
+					<li>
+				<a href="http://pythonworld.ru/osnovy/dokumentirovanie-koda-v-python-pep-257.html">Документирование кода в Python. PEP 257</a>
+						</li>
+					<li>
+				<a href="http://pythonworld.ru/osnovy/pep-8-rukovodstvo-po-napisaniyu-koda-na-python.html">PEP 8 &#8212; руководство по написанию кода на Python</a>
+						</li>
+					<li>
+				<a href="http://pythonworld.ru/moduli/modul-os-path.html">Модуль os.path</a>
+						</li>
+				</ul>
+		</div><div class="widget"><p class="widgettitle">Рубрики</p>		<ul>
+	<li class="cat-item cat-item-2"><a href="http://pythonworld.ru/moduli" title="Основные модули в Python 3. Описание модулей и перевод документации к ним.">Модули</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://pythonworld.ru/novosti-mira-python" title="Просмотреть все записи в рубрике &laquo;Новости мира Python&raquo;">Новости мира Python</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://pythonworld.ru/osnovy" title="Введение в язык программирования Python">Основы программирования</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="http://pythonworld.ru/primery-programm" title="Примеры программ на python 3.">Примеры программ</a>
+</li>
+	<li class="cat-item cat-item-6"><a href="http://pythonworld.ru/tipy-dannyx-v-python" title="Основные типы данных в python 3.">Типы данных в Python</a>
+</li>
+		</ul>
+</div><div id="vk_groups"></div><script type="text/javascript">VK.Widgets.Group("vk_groups",{mode:0,width:"285",height:"150",color1:"FFFFFF",color2:"030326",color3:"004db3"},41069912);</script>
+</div>
+<div id="both">&nbsp;</div><div id="footer"><p id="copy">&#169; 2013 <a href="/">Python 3 для начинающих</a></p></div>
+</div>
+</body>
+</html><!-- hyper cache: 311c5c381b63e3e0c61414acfb3931ed 14-02-07 01:58:08 -->

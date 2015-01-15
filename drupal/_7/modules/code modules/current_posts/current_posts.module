@@ -1,0 +1,163 @@
+<?php
+	/**
+	* Implements hook_help.
+	*
+	* Displays help and module information.
+	*
+	* @param path 
+	*   Which path of the site we're using to display help
+	* @param arg
+	*   Array that holds the current path as returned from arg() function
+	*/
+	function current_posts_help($path, $arg) {
+	   switch ($path) {
+		 case "admin/help#current_posts":
+		   return '<p>'. t("Displays links to nodes created on this date") .'</p>';
+		   
+		   break;
+	   }
+	}
+	
+	/** 
+	* Implements hook_block_info().
+	*/
+	function current_posts_block_info(){
+		$blocks['current_posts'] = array(
+			'info' => t('Current posts'), //Имя, которое будет показано в списке блоков.
+			'cache' => DRUPAL_CACHE_PER_ROLE, //По умолчанию
+		);
+		return $blocks;
+	}	
+	
+	/**
+	* Пользовательская функция.
+	*
+	* Set beginning and end dates, retrieve posts from database
+	* saved in that time period.
+	*
+	* @return
+	*   A result set of the targeted posts.
+	*/
+	function current_posts_contents(){
+	  //Получаем сегодняшнюю дату.
+	  $today = getdate();
+	  //Вычисляем дату недельной давности.
+	  $start_time = mktime(0, 0, 0, $today['mon'],($today['mday'] - 17), $today['year']);
+	  //Пулучаем все публикации за последнюю неделю.
+	  $end_time = time();
+	  
+	  $max_num = variable_get('current_posts_max', 3);
+	 
+	//Используем Database API для получения текущих публикаций.
+	  $query = db_select('node', 'n')
+		->fields('n', array('nid', 'title', 'created'))
+		->condition('status', 1) //Опубликовано.
+		->condition('created', array($start_time, $end_time), 'BETWEEN')
+		->orderBy('created', 'DESC') //Последние сверху.
+		->range(0, $max_num)
+		->execute();
+		
+	  return $query; 
+	}	
+	
+	/**
+	* Реализация hook_block_view().
+	*
+	* Подготовка содержимого для блока.
+	*/
+	function current_posts_block_view($delta = '') {
+	  switch($delta){
+		case 'current_posts':
+		  $block['subject'] = t('Current posts4');
+		  if(user_access('access content')){
+			//Используем нашу функцию для получения данных.
+			$result = current_posts_contents();
+			//Массив, содержащий пункты блока для представления.
+			$items = array();
+			//Итерация по результирующему набору и представление в виде ссылок.
+			foreach ($result as $node){
+			  $items[] = array(
+				'data' => l($node->title, 'node/' . $node->nid),
+			  );
+			}
+		 
+			if (empty($items)) { //нет публикаций за последнюю неделю.
+			  $block['content'] = t('Нет доступных публикаций.'); 
+			} 
+			else {
+			  //Передаем данные через функцию theme.
+			  $block['content'] = theme('item_list', array(
+				'items' => $items));
+			}
+		  }
+	  }
+	  return $block;
+	}   
+	
+	/**
+	* Реализуем hook_menu().
+	*/
+	function current_posts_menu() {
+		$items = array();
+
+		$items['admin/config/content/current_posts'] = array(
+			'title' => 'Current posts',
+			'description' => 'Configuration for Current posts module',
+			'page callback' => 'drupal_get_form',
+			'page arguments' => array('current_posts_form'),
+			'access arguments' => array('access administration pages'),
+			'type' => MENU_NORMAL_ITEM,
+		);
+		return
+
+		$items;
+	} 	
+	
+	
+	/**
+	* Функция формы, вызываемая с помощью drupal_get_form()
+	* в current_posts_menu().
+	*/
+	function current_posts_form($form, &$form_state) {
+		$form['current_posts_max'] = array(
+			'#type' => 'textfield',
+			'#title' => t('Maximum number of posts'),
+			'#default_value' => variable_get('current_posts_max', 3),
+			'#size' => 2,
+			'#maxlength' => 2,
+			'#description' => t('The maximum number of links to display in the block.'),
+			'#required' => TRUE,
+		);
+		
+		return system_settings_form($form);
+	}
+
+	/**
+	* Реализация проверки формы Form API.
+	*
+	* @param $form
+	*   Структурированный массив, содержащий элементы и свойства формы.
+	* @param $form_state
+	*   Массив, который сохраняет информацию о текущем состоянии формы
+	*   во время выполнения.
+	*/
+	function current_posts_form_validate($form, &$form_state){
+		$max_num = $form_state['values']['current_posts_max'];
+		if (!is_numeric($max_num)){
+			form_set_error('current_posts_max', t('You must enter an integer for the maximum number of posts to display.'));
+		}
+		else if ($max_num <= 0){
+			form_set_error('current_posts_max', t('Maximum number of posts to display must be positive.'));      
+		}
+	}	
+	
+	/**
+	* Реализация hook_permission().
+	*/
+	function current_posts_permission(){
+		return array(
+			'access current_posts content' => array(
+				'title' => t('Access content for the Current posts module'),
+			) 
+		); 
+	}	

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8" />
+		
+		<title>enemyShips</title>	
+
+		<!--<link rel="icon" href="img/favicon.ico" type="image/x-icon" />-->
+		
+		<!--<meta http-equiv="X-UA-Compatible" content="IE=edge" />-->	
+		
+		<link rel="stylesheet" href="css/style.css" />			
+
+		<!--[if lt IE 9]>
+			<script src="js/html5/html5.js"></script>
+		<![endif]-->			
+	</head>
+	
+	<body>		
+		<div class="wrap" id="wrap">
+
+		</div>
+		
+		<section class="info score_info">
+			<h1 class="h1">your score:</h1>
+
+			<span class="score">0</span>
+		</section>				
+
+		<div id="scripts">
+			<!-- jquery -->
+			<script src="js/jquery/jquery.2.min.js"></script>			
+
+			<!-- helper -->
+			<script src="js/helper/helper.js"></script>	
+
+			<script>
+				var Player = function($player){
+					if (Player.prototype._singletonInstance){
+						return Player.prototype._singletonInstance;
+					};
+					
+					Player.prototype._singletonInstance = this;
+
+					this.$player = $player;
+					this.x = 500; this.y = 500;
+					this.stats = {
+					speed:   10,   score:    0,
+					health: 100,   bullets: 50,
+					};
+
+					this.render = function render(x,y){
+						this.$player.css({
+							'left': (this.x = x || this.x) + 'px',
+							'top':  (this.y = y || this.y) + 'px'
+						});
+						
+						return this;
+					};
+
+					this.changeScore = function changeScore(score){
+						$('.score').text(this.stats.score = score);
+					};
+				};
+
+				var player = new Player($('#player'));
+				
+				var _player = new Player();
+				
+				if (player === _player)
+				  console.log('Successful singleton');
+				  
+				player.changeScore(100); // success
+			</script>				
+		</div>
+	</body>
+</html>

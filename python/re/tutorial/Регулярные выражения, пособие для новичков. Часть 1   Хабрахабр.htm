@@ -1,0 +1,2756 @@
+
+<!DOCTYPE html>
+   
+<html >
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    
+    <meta name = "viewport" content = "width = 1080">
+    
+    <title>Регулярные выражения, пособие для новичков. Часть 1 / Хабрахабр</title>
+    <meta name="description" content="Регулярные выражения (РВ) это, по существу, крошечный язык программирования, встроенный в Python и доступный при помощи модуля re. Используя его, вы указывается правила для множества возможных..." />    
+    <meta name="keywords" content="python, re, regular expressions, regexp, howto, регулярные выражения" />
+    
+    	<meta property="fb:app_id"      content="444736788986613" /> 
+<meta property="og:type"        content="article" /> 
+<meta property="og:url"         content="http://habrahabr.ru/post/115825/" /> 
+<meta property="og:title"       content="Регулярные выражения, пособие для новичков. Часть 1" /> 
+	
+	<meta property="og:image"       content="http://habrahabr.ru/i/habralogo.jpg" />
+	<link rel="image_src" href="http://habrahabr.ru/i/habralogo.jpg" />
+<meta property="og:description" content="Регулярные выражения (РВ) это, по существу, крошечный язык программирования, встроенный в Python и доступный при помощи модуля re. Используя его, вы указывается..." />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@habrahabr" />
+
+    <script type="text/javascript">function adriver(a,b){};</script>
+      <link href="/styles/1392889138/all.css" rel="stylesheet" media="all" />
+
+
+      <link href="/styles/1392889138/_parts/posts.css" rel="stylesheet" media="all" />
+  <link href="/styles/1392889138/_parts/comments.css" rel="stylesheet" media="all" />
+  <link href="/styles/1392889138/forms.css" rel="stylesheet" media="all" />
+  <link href="/styles/1392889138/highlight.css" rel="stylesheet" media="all" />
+  
+    <link href="/styles/1392889138/printer.css" rel="stylesheet" media="print" />
+
+    
+    
+
+      <script type="text/javascript" src="/javascripts/1392889138/all.js"></script>
+    
+    
+    
+
+  
+  
+  
+  
+      <script type="text/javascript" src="/javascripts/1392889138/libs/jquery.form.js"></script>
+  <script type="text/javascript" src="/javascripts/1392889138/libs/jquery.cookie.js"></script>
+  <script type="text/javascript" src="/javascripts/1392889138/libs/wysiwyg.js"></script>
+  <script type="text/javascript" src="/javascripts/1392889138/libs/highlight.js"></script>
+  <script type="text/javascript" src="/javascripts/1392889138/libs/jquery-ui-highlight.js"></script>
+  <script type="text/javascript" src="/javascripts/1392889138/_parts/posts.js"></script>
+  <script type="text/javascript" src="/javascripts/1392889138/_parts/comments.js"></script>
+  <script type="text/javascript" src="/javascripts/1392889138/posts/all.js"></script>
+
+
+
+  	<script type='text/javascript'>
+	  var crtg_nid="2580";
+	  var crtg_cookiename="cto_rtt";
+	  var crtg_varname="crtg_content";
+	  function crtg_getCookie(c_name){
+		  var i,x,y,ARRCookies=document.cookie.split(";");
+		  for(i=0;i<ARRCookies.length;i++){
+			  x=ARRCookies[i].substr(0,ARRCookies[i].indexOf("="));
+			  y=ARRCookies[i].substr(ARRCookies[i].indexOf("=")+1);
+			  x=x.replace(/^\s+|\s+$/g,"");
+			  if(x==c_name){return unescape(y);}
+		   }
+		return'';
+	   }
+	var crtg_content = crtg_getCookie(crtg_cookiename);var crtg_rnd=Math.floor(Math.random()*99999999999);
+		var crtg_url=location.protocol+'//rtax.criteo.com/delivery/rta/rta.js?netId='+escape(crtg_nid);crtg_url+='&cookieName='+escape(crtg_cookiename);crtg_url+='&rnd='+crtg_rnd;crtg_url+='&varName=' + escape(crtg_varname);
+		var crtg_script=document.createElement('script');crtg_script.type='text/javascript';crtg_script.src=crtg_url;crtg_script.async=true;
+		if(document.getElementsByTagName("head").length>0)document.getElementsByTagName("head")[0].appendChild(crtg_script);
+		else
+		if(document.getElementsByTagName("body").length>0)document.getElementsByTagName("body")[0].appendChild(crtg_script);
+	</script>
+
+      <script type="text/javascript" src="/javascripts/1392889138/adriver.core.2.js"></script>
+
+    <link title="Хабрахабр / Комментарии к публикации «Регулярные выражения, пособие для новичков. Часть 1»" type="application/rss+xml" rel="alternate" href="http://habrahabr.ru/rss/post/115825/"/>
+        
+      <script type="text/javascript">
+      var _gaq = window._gaq || [];
+      window.onerror = function(msg, url, line) {
+          //var preventErrorAlert = true;
+          //_gaq.push(['_trackEvent', 'JS Error', msg, navigator.userAgent + ' -> ' + url + " : " + line]);
+          //return preventErrorAlert;
+      };
+      
+      jQuery.error = function (message) {
+          _gaq.push(['_trackEvent', 'jQuery Error', message, navigator.userAgent]);
+      }
+      </script>
+       
+  </head>
+
+  <body>
+   <div class="wrapper">
+      
+      <div id="layout">
+        <div id="header">
+    <div class="userpanel silver">
+          <div class="top">
+            <a href="http://habrahabr.ru/users/zlodiak/" class="username dark">zlodiak</a>
+                    <sup><a href="https://auth.habrahabr.ru/settings/upgrade/">read-only</a></sup>
+				
+        <a href="https://auth.habrahabr.ru/settings/" class="nav-settings">настройки</a>
+        <a href="http://habrahabr.ru/logout/zlodiak/478187341/">выйти</a>
+    </div>
+    <div class="bottom">
+        <a href="http://habrahabr.ru/tracker/">трекер</a>
+        
+        <a href="http://habrahabr.ru/users/zlodiak/favorites/">избранное</a>
+                <a href="http://habrahabr.ru/sandbox/add/">получить инвайт</a>
+    </div>
+    <div class="charge" id="charge_string">
+
+      </div>
+  </div>
+  <a class="logo " href="http://habrahabr.ru/feed/" title="На главную страницу"></a>
+  <div class="search">
+    <form id="search_form" name="search" method="get" action="//habrahabr.ru/search/" >
+      <input type="submit" value="" />
+      <input type="text" name="q" x-webkit-speech speech tabindex="1" >
+    </form>
+  </div>
+
+	<div class="main_menu">
+		<a href="http://habrahabr.ru/feed/">лента</a><a href="http://habrahabr.ru/posts/top/" class="active">посты</a><a href="http://toster.ru/?_aa=press_anykey">q&amp;a</a><a href="http://habrahabr.ru/events/coming/">события</a><a href="http://habrahabr.ru/hubs/">хабы</a><a href="http://habrahabr.ru/companies/">компании</a>
+		<div class="banner_special">
+
+		<script type="text/javascript">
+			(function(){
+				var custom = [];
+				/* custom params */
+					custom[1] = 'python';
+				/* end of custom params */
+				var std = {gender:100, age:101},i;for(i in std){try{custom[std[i]]=eval(i)}catch(e){} }
+				custom.getStd = function(){for(var i=0,j,s=[];i<this.length;i++){if(this[i])s.push((!j?(j=1,i+'='):'')+escape(this[i]));else j=0}return s.length?'&custom='+s.join(';'):''};
+				var RndNum4NoCash = Math.round(Math.random() * 1000000000), ar_Tail = escape(document.referrer || 'unknown');
+				document.write('<iframe src="http://ad.adriver.ru/cgi-bin/erle.cgi?' + 'sid=176776&target=top&w=135&h=35&bt=25&pz=0&rnd=' +
+				RndNum4NoCash + '&tail256=' + ar_Tail + custom.getStd() + '" frameborder=0 vspace=0 hspace=0 width=135 height=35 marginwidth=0'
+				+ ' marginheight=0 scrolling=no></iframe>');
+			})();
+ 		</script>
+	
+
+</div>
+		
+	</div>
+
+</div>
+
+
+
+        
+        
+
+	
+  <div class="content_left">
+
+	
+<div id="global_notify">
+		<div class="inner first" id="notification_4">
+			<a href="#close" class="close" data-id="4" title="Закрыть уведомление">закрыть (3) </a>
+			О, <a href="http://habrahabr.ru/info/help/other/#hotkeys">горячие клавиши</a> заработали!
+		</div>
+		<div class="inner hidden" id="notification_3">
+			<a href="#close" class="close" data-id="3" title="Закрыть уведомление">закрыть (2) </a>
+			В разделе <a href="http://habrahabr.ru/companies/">«Компании»</a> теперь можно быстро подписаться или отписаться от компании.
+		</div>
+		<div class="inner hidden" id="notification_2">
+			<a href="#close" class="close" data-id="2" title="Закрыть уведомление">закрыть </a>
+			В «Ленте» появилась вкладка «Всё». Теперь посты и вопросы из Q&A можно читать в одном потоке.
+		</div>
+</div>
+
+
+
+
+
+
+
+
+	
+  <div class="post translation shortcuts_item" id="post_115825">
+  	<div class="published">20 марта 2011 в 12:34</div>  
+    <h1 class="title">
+	      
+      
+
+
+        <span class="post_title">Регулярные выражения, пособие для новичков. Часть 1</span>
+
+			<span class="flag flag_translation">перевод</span>
+			
+			
+			
+			
+
+  	</h1>
+  	
+  	<div class="hubs">
+		<a href="http://habrahabr.ru/hub/python/" class="hub " title="Вы не подписаны на этот хаб" >Python</a><span class="profiled_hub" title="Профильный хаб">*</span>
+</div>
+
+  	
+    <div class="content html_format">
+      Регулярные выражения (РВ) это, по существу, крошечный язык программирования, встроенный в Python и доступный при помощи модуля re. Используя его, вы указывается правила для множества возможных строк, которые вы хотите проверить; это множество может содержать английские фразы, или адреса электронной почты, или TeX команды, или все что угодно. С помощью РВ вы можете задавать вопросы, такие как «Соответствует ли эта строка шаблону?», или «Совпадает ли шаблон где-нибудь с этой строкой?». Вы можете также использовать регулярные выражения, чтобы изменить строку или разбить ее на части различными способами.<br/>
+<a name="habracut"></a><br/>
+Шаблоны регулярных выражений компилируются в серии байт-кода, которые затем исполняются соответствующим движком написанным на C. Для продвинутого использования может быть важно уделять внимание тому, как движок будет выполнять данное регулярное выражение, и писать его так, чтобы получался байт-код, который работает быстрее. Оптимизация не рассматривается в этом документе, так как она требует от вас хорошего понимания внутренних деталей движка.<br/>
+<br/>
+Язык регулярных выражений относительно мал и ограничен, поэтому не все возможные задачи по обработке строк можно сделать с помощью регулярных выражений. Также существуют задачи, которые <i>можно</i> сделать с помощью регулярных выражений, но выражения оказываются слишком сложными. В этих случаях может быть лучше написать обычный Python код, пусть он будет работать медленнее, чем разработанное регулярное выражение, но будет более понятен.<br/>
+<br/>
+<h4>Простые шаблоны</h4><br/>
+Мы начнем с изучения простейших регулярных выражений. Поскольку регулярные выражения используются для работы со строками, мы начнем с наиболее распространенной задачи — соответствия символов.<br/>
+<br/>
+За подробным объяснением технической стороны регулярных выражений (детерминированных и недетерминированных конечных автоматов) вы можете обратиться к практически любому учебнику по написанию компиляторов.<br/>
+<br/>
+<h5>Соответствие символов</h5><br/>
+Большинство букв и символов соответствуют сами себе. Например, регулярное выражение <code>test</code> будет в точности соответствовать строке <code>test</code> (Вы можете включить режим без учета регистра, что позволит этому регулярному выражению также соответствовать <code>Test</code> или <code>TEST</code>, но об этом позже).<br/>
+<br/>
+Из этого правила есть исключения; некоторые символы это специальные <i>метасимволы</i>, и сами себе не соответствуют. Вместо этого они указывают, что должна быть найдена некоторая необычная вещь, или влияют на другие части регулярного выражения, повторяя или изменяя их значение. Большая часть этого пособия посвящена обсуждению различных метасимволов и тому, что они делают.<br/>
+<br/>
+Вот полный список метасимволов; их значения будут обсуждаться в остальной части этого HOWTO.<br/>
+<br/>
+<code>.  ^  $  *  +  ?  {  [  ]  \  |  (  )</code><br/>
+<br/>
+Первые метасимволы, что мы рассмотрим это <code>[</code> и <code>]</code>. Они используются для определения класса символов, являющегося набором символов, с которыми вы ищите совпадение. Символы могут быть перечислены по отдельности, или в виде некоторого диапазона символов, обозначенного первым и последним символом, разделенных знаком <code>'-'</code>. Например, <code>[abc]</code> будет соответствовать любому из символов <code>a, b</code> или <code>c</code>; это то же самое, что выражение <code>[a-c]</code>, использующее диапазон для задания того же множества символов. Если вы хотите сопоставить только строчные буквы, РВ будет иметь вид <code>[a-z]</code>.<br/>
+<br/>
+Метасимволы не активны внутри классов. Например, <code>[akm$]</code> будет соответствовать любому из символов <code>'a', 'k', 'm'</code> или <code>'$'</code>. Знак <code>'$'</code> это обычно метасимвол (как видно из списка символов выше), но внутри класса символов он лишается своей особой природы.<br/>
+<br/>
+Для того, чтобы находить соответствие символам вне этого класса, в начале класса добавляется символ <code>'^'</code>. Например, выражение <code>[^5] </code> соответствует любому символу, кроме '5'.<br/>
+<br/>
+Пожалуй, наиболее важным является метасимвол обратной косой черты <code>\</code>. Как и в строковых литералах Python, за бэкслешем могут следовать различные символы, обозначающие разные специальные последовательности. Он также используется для экранирования метасимволов, чтобы их можно было использовать в шаблонах; например, если нужно найти соответствие <code>[</code> или <code>\</code>, для того чтобы лишить их своей особой роли метасимволов, перед ним нужно поставить обратную косую черту: <code>\[</code> или <code>\\</code>.<br/>
+<br/>
+Некоторые из специальных последовательностей, начинающихся с <code>'\'</code> представляют предопределенные наборы символов, часто бывающие полезными, такие как набор цифр, набор букв, или множества всего, что не является пробелами, символами табуляции и т. д. (whitespace). Следующие предопределенные последовательности являются их подмножеством. Полный список последовательностей и расширенных определений классов для Юникод-строк смотрите в последней части <a href="http://docs.python.org/library/re.html#re-syntax">Regular Expression Syntax</a>.<br/>
+<br/>
+<code>\d</code><br/>
+Соответствует любой цифре; эквивалент класса <code>[0-9]</code>.<br/>
+<code>\D</code><br/>
+Соответствует любому нечисловому символу; эквивалент класса <code>[^0-9]</code>.<br/>
+<code>\s</code><br/>
+Соответствует любому символу whitespace; эквивалент <code>[ \t\n\r\f\v]</code>.<br/>
+<code>\S</code><br/>
+Соответствует любому не-whitespace символу; эквивалент <code>[^ \t\n\r\f\v]</code>.<br/>
+<code>\w</code><br/>
+Соответствует любой букве или цифре; эквивалент <code>[a-zA-Z0-9_]</code>.<br/>
+<code>\W</code><br/>
+Наоборот; эквивалент <code>[^a-zA-Z0-9_]</code>.<br/>
+<br/>
+Эти последовательности могут быть включены в класс символов. Например, [\s,.] является характер класс, который будет соответствовать любому whitespace-символу или запятой или точке.<br/>
+<br/>
+Последний метасимвол в этом разделе это <code>'.'</code>. Он соответствует всем символам, кроме символа новой строки, но есть альтернативный режим (<code>re.DOTALL</code>), где это множество будет включать и его. <code>'.'</code> часто используется там, где вы хотите сопоставить «любой символ».<br/>
+<br/>
+<h5>Повторяющиеся вещи</h5><br/>
+Возможность сопоставлять различные наборы символов это первое, что регулярные выражения могут сделать и что не всегда можно сделать строковыми методами. Однако, если бы это было единственной дополнительной возможностью, они бы не были так интересны. Другая возможность заключается в том, что вы можете указать какое число раз должна повторяться часть регулярного выражения.<br/>
+<br/>
+Первый метасимвол для повторения это <code>*</code>. Он указывает, что предыдущий символ может быть сопоставлен ноль и более раз, вместо одного сравнения.<br/>
+<br/>
+Например, <code>ca*t</code> будет соответствовать <code>ct</code> (0 символов <code>a</code>), cat (1 символ <code>a</code>), caaat (3 символа <code>a</code>), и так далее. Движок регулярных выражений имеет различные внутренние ограничения вытекающие из размера <code>int</code> типа для C, что не позволяет проводить ему сопоставление более 2 миллиардов символов 'a'. (Надеюсь, вам это не понадобится).<br/>
+<br/>
+Повторения, такие как <code>*</code> называют <i>жадными</i> (greedy); движок будет пытаться повторить его столько раз, сколько это возможно. Если следующие части шаблона не соответствуют, движок вернется назад и попытается попробовать снова с несколькими повторами символа.<br/>
+<br/>
+Пошаговое рассмотрение какого-нибудь примера сделает объяснение более ясным. Давайте рассмотрим выражение <code>a[bcd]*b</code>. Оно соответствует букве <code>'a'</code>, нулю или более символов из класса <code>[bcd]</code>, и наконец, заключительной букве <code>'b'</code>. Теперь представим себе сопоставление этого регулярного выражения строке <code>abcbd</code>. Вот как происходит сравнение поэтапно:<br/>
+<br/>
+1. <code>a</code> — 'a' соответствует регулярному выражению<br/>
+2. <code>abcbd</code> — движок сопоставляет <code>[bcd]*</code> на как можно большем числе символов, то есть до конца строки (поскольку все символы соответствуют классу в скобках [])<br/>
+3. Провал — движок пытается сопоставить последний символ в регулярном выражении — букву <code>b</code>, но текущая позиция уже в конце строки, где нет никаких символов, так что он терпит неудачу. <br/>
+4. <code>abcb</code> — вернулись назад, уменьшили на один символ сопоставление с <code>[bcd]*</code><br/>
+5. Провал — пытаемся снова найти <code>b</code>, но в конце только <code>d</code><br/>
+6. <code>abc</code> — снова возвращаемся назад, теперь <code>[bcd]*</code> это только bc<br/>
+7. <code>abcb</code> — снова ищем последний символ регулярного выражения — b. Теперь он действительно находится на нужной позиции и мы добиваемся успеха<br/>
+<br/>
+Итак, был достигнут конец РВ и сопоставление с ним дало <code>abcb</code>. Этот пример показал, как движок сначала забирается так далеко, как может, и, если не находит соответствия, возвращается назад, снова и снова работая с остатком регулярного выражения. Он будет делать так до тех пор, пока не получит ноль совпадений для <code>[bcd]*</code>, и, если и тогда не получится совпадения, то заключит, что строка совсем не соответствует шаблону РВ.<br/>
+<br/>
+Другой метасимвол повторения это <code>+</code>, повторяющий последовательность сравнения <i>один</i> или более раз. Обратите особое внимание на разницу между <code>*</code> и <code>+</code>. <code>*</code> требует соответствия необходимой части <i>ноль</i> или более раз, то есть повторяемое может и не присутствовать вовсе, а <code>+</code> требует, <i>по крайней мере одно</i> вхождение. Для аналогичного примера <code>ca+t</code> будет сопоставляться <code>cat</code> или, например, <code>caaat</code>, но никак не <code>ct</code>.<br/>
+<br/>
+Есть еще два повторяющих спецификатора. Знак вопроса, <code>?</code>, проверяющий наличие совпадения ноль или один раз. Например, <code>home-?brew</code> соответствует как <code>homebrew</code>, так и <code>home-brew</code>.<br/>
+<br/>
+Наиболее полный повторяющий спецификатор это <code>{m,n}</code>, где <code>m</code> и <code>n</code> — целые числа. Этот определитель означает, что здесь должно быть не менее <code>m</code> и не более <code>n</code> повторений. Например, <code>a/{1,3}b</code> соответствует <code>a/b</code>, <code>a//b</code> и <code>a///b</code>. Это не может быть <code>ab</code>, строка в которой нет слэшей или <code>a////b</code>, в которой их четыре.<br/>
+<br/>
+Вы можете не задавать <code>m</code> или <code>n</code>, тогда для отсутствующего предполагается наиболее разумное значение. Опускание <code>m</code> означает, что нижний предел 0, опускание <code>n</code> предполагает верхним пределом бесконечность, но, как уже говорилось выше, последний ограничен памятью.<br/>
+<br/>
+Читатели уже могли заметить, что все три остальных спецификатора могут быть выражены через последний. <code>{0,}</code> это то же, что <code>*</code>, {1,} эквивалентно <code>+</code>, и <code>{0,1}</code> может заменять знак <code>?</code>.<br/>
+<br/>
+<h4>Использование регулярных выражений</h4><br/>
+Теперь, когда мы рассмотрели несколько простых регулярных выражений, как мы можем использовать их в Python? Модуль <code>re</code> предоставляет интерфейс для регулярных выражений, что позволяет компилировать регулярные выражения в объекты, а затем выполнять с ними сопоставления.<br/>
+<br/>
+<h5>Компиляция регулярных выражений</h5><br/>
+Регулярные выражения компилируются в объекты шаблонов, имеющие методы для различных операций, таких как поиск вхождения шаблона или выполнение замены строки.<br/>
+<br/>
+<blockquote><font color="#66cc66">&gt;&gt;&gt;</font>&nbsp;<font color="#ff7700">import</font>&nbsp;<font color="#dc143c">re</font><br/>
+<font color="#66cc66">&gt;&gt;&gt;</font>&nbsp;p&nbsp;=&nbsp;<font color="#dc143c">re</font>.<font color="#008000">compile</font><font>(</font><font color="#483d8b">'ab*'</font><font>)</font><br/>
+<font color="#66cc66">&gt;&gt;&gt;</font>&nbsp;<font color="#ff7700">print</font>&nbsp;p<br/>
+<font color="#66cc66">&lt;</font>_sre.<font>SRE_Pattern</font>&nbsp;<font color="#008000">object</font>&nbsp;at&nbsp;0x...<font color="#66cc66">&gt;</font></blockquote><br/>
+<br/>
+<code>re.compile()</code> также принимает необязательные аргументы, использующихся для включения различных особенностей и вариаций синтаксиса:<br/>
+<br/>
+<code>&gt;&gt;&gt; p = re.compile('ab*', re.IGNORECASE)</code><br/>
+<br/>
+Регулярное выражение передается <code>re.compile()</code> как строка. Регулярные выражения обрабатываются как строки, поскольку не являются частью языка Python, и нет никакого специального синтаксиса для их выражения. (Существуют приложения, которые вовсе не нуждаются в регулярных выражениях, так что нет необходимости забивать спецификацию языка, включая их.) Вместо этого имеется модуль <code>re</code>, представляющий собой обертку модуля на С, подобно модулям <code>socket</code> или <code>zlib</code>.<br/>
+<br/>
+Передача регулярных выражений в виде строки позволяет Python быть проще, но имеет один недостаток, который является темой следующего раздела.<br/>
+<br/>
+<h4>Бэкслеш бедствие<br/>
+(Или обратная косая чума :) )</h4><br/>
+<br/>
+Как было отмечено ранее, в регулярных выражениях для того, чтобы обозначить специальную форму или позволить символам потерять их особую роль, используется символ бэкслеша (<code>'\'</code>). Это приводит к конфликту с использованием в строковых литералах Python такого же символа с той же целью.<br/>
+<br/>
+Скажем, вы хотите написать регулярное выражение, соответствующее <code>\section</code>, которое надо найти в LaTeX-файле. Чтобы выяснить, что написать в коде программы, начнем со строки, которую необходимо сопоставить. Далее, вы должны избежать любых бэкслешей и других метасимволов, экранировав их обратной косой чертой, в результате чего в строке появляется часть <code>\\</code>. Тогда, результирующая строка, которая должна быть передана <code>re.compile ()</code> должен быть <code>\\section</code>. Однако, для того, чтобы выразить это как строковый литерал Python, оба бэкслеша должны быть экранированы <i>снова</i>, то есть <code>&quot;\\\\section&quot;</code>.<br/>
+<br/>
+Одним словом, чтобы сопоставить бэкслеш, нужно писать в качестве строки регулярного выражения <code>'\\\\'</code>, потому что регулярное выражение должно быть <code>\\</code>, и каждая обратная косая черта должна быть переведена в обычную строку как <code>\\</code>.<br/>
+<br/>
+Решение заключается в использовании для регулярных выражений «сырых» строк (raw string); в строковых литералах с префиксом <code>'r'</code> слэши никак не обрабатываются, так что <code>r&quot;\n&quot;</code> это строка из двух символов ('\' и 'n'), а &quot;\n&quot; — из одного символа новой строки. Поэтому регулярные выражения часто будут записываться с использованием сырых строк.<br/>
+<br/>
+<table>
+<tr>
+<td><b>Regular String</b></td>
+<td><b>Raw string</b></td>
+</tr>
+<tr>
+<td>'ab*'</td>
+<td>r'ab*'</td>
+</tr>
+<tr>
+<td>'\\\\section'</td>
+<td>r'\\section*'</td>
+</tr>
+<tr>
+<td>'\\w+\\s+\\1'</td>
+<td>r'\w+\s+\1'</td>
+</tr>
+</table><br/>
+<br/>
+<h4>Выполнение сопоставлений</h4><br/>
+После того, как у вас есть объект, представляющий скомпилированное регулярное выражение, что вы с ним будете делать? Объекты шаблонов имеют несколько методов и атрибутов. Только самые важные из них будут рассмотрены здесь; для получения полного списка ознакомьтесь с <a href="http://docs.python.org/library/re.html#regular-expression-syntax">документацией <code>re</code></a>.<br/>
+<br/>
+<table>
+<tr>
+<td><b>Метод/атрибут</b></td>
+<td><b>Цель</b></td>
+</tr>
+<tr>
+<td>match()</td>
+<td>Определить, начинается ли совпадение регулярного выражения с начала строки</td>
+</tr>
+<tr>
+<td>search()</td>
+<td>Сканировать всю строку в поисках всех мест совпадений с регулярным выражением</td>
+</tr>
+<tr>
+<td>findall()</td>
+<td>Найти все подстроки совпадений с регулярным выражением и вернуть их в виде списка</td>
+</tr>
+<tr>
+<td>finditer()</td>
+<td>Найти все подстроки совпадений с регулярным выражением и вернуть их в виде итератора</td>
+</tr>
+</table><br/>
+<br/>
+Если не было найдено ни одного совпадения, то <code>match()</code> и <code>search()</code> возвращают <code>None</code>. Если поиск успешен, возвращается экземпляр <code>MatchObject</code>, содержащий информацию о совпадении: где оно начинается и заканчивается, подстрока соответствия, и так далее.<br/>
+<br/>
+Вы можете узнать об этом, интерактивно поэкспериментировав с модулем <code>re</code>. Вы также можете взглянуть на <code>Tools/scripts/redemo.py</code>, демонстрационную программу, включенную в дистрибутив Python. Она позволяет вводить регулярные выражения и строки, и отображает, есть ли совпадение с регулярным выражением или нет. <code>redemo.py</code> может быть весьма полезна для отладки сложных регулярных выражений. <a href="http://kodos.sourceforge.net/">Kodos</a> Фила Шварца — еще один интерактивный инструмент для разработки и тестирования моделей РВ.<br/>
+<br/>
+В этом пособии мы используем для примеров стандартный интерпретатор Python:<br/>
+<br/>
+<blockquote><font color="#66cc66">&gt;&gt;&gt;</font>&nbsp;<font color="#ff7700">import</font>&nbsp;<font color="#dc143c">re</font><br/>
+<font color="#66cc66">&gt;&gt;&gt;</font>&nbsp;p&nbsp;=&nbsp;<font color="#dc143c">re</font>.<font color="#008000">compile</font><font>(</font><font color="#483d8b">'[a-z]+'</font><font>)</font><br/>
+<font color="#66cc66">&gt;&gt;&gt;</font>&nbsp;p<br/>
+<font color="#66cc66">&lt;</font>_sre.<font>SRE_Pattern</font>&nbsp;<font color="#008000">object</font>&nbsp;at&nbsp;0x...<font color="#66cc66">&gt;</font></blockquote><br/>
+<br/>
+Теперь вы можете попробовать сравнить строки для регулярного выражения <code>[a-z]+</code>. Пустая строка ему не будет соответствовать, потому что <code>+</code> означает повторение «один или больше» раз. <code>match()</code> в этом случае должен вернуть <code>None</code>, что и видим:<br/>
+<br/>
+<blockquote><font color="#66cc66">&gt;&gt;&gt;</font>&nbsp;p.<font>match</font><font>(</font><font color="#483d8b">&quot;&quot;</font><font>)</font><br/>
+<font color="#66cc66">&gt;&gt;&gt;</font>&nbsp;<font color="#ff7700">print</font>&nbsp;p.<font>match</font><font>(</font><font color="#483d8b">&quot;&quot;</font><font>)</font><br/>
+<font color="#008000">None</font></blockquote><br/>
+<br/>
+Теперь попробуем строку, которая должна совпасть с шаблоном: <code>'tempo'</code>. В этом случае <code>match()</code> вернет <code>MatchObject</code>, который вы можете разместить в какой-то переменной, чтобы использовать ее в дальнейшем:<br/>
+<br/>
+<blockquote><font color="#66cc66">&gt;&gt;&gt;</font>&nbsp;m&nbsp;=&nbsp;p.<font>match</font><font>(</font><font color="#483d8b">'tempo'</font><font>)</font><br/>
+<font color="#66cc66">&gt;&gt;&gt;</font>&nbsp;<font color="#ff7700">print</font>&nbsp;m<br/>
+<font color="#66cc66">&lt;</font>_sre.<font>SRE_Match</font>&nbsp;<font color="#008000">object</font>&nbsp;at&nbsp;0x...<font color="#66cc66">&gt;</font></blockquote><br/>
+<br/>
+Теперь вы можете вызывать <code>MatchObject</code> для получения информации о соответствующих строках. Для <code>MatchObject</code> также имеется несколько методов и атрибутов, наиболее важными из которых являются:<br/>
+<br/>
+<table>
+<tr>
+<td><b>Метод/атрибут</b></td>
+<td><b>Цель</b></td>
+</tr>
+<tr>
+<td>group()</td>
+<td>Вернуть строку, сошедшуюся с регулярным выражением</td>
+</tr>
+<tr>
+<td>start()</td>
+<td>Вернуть позицию начала совпадения</td>
+</tr>
+<tr>
+<td>end()</td>
+<td>Вернуть позицию конца совпадения</td>
+</tr>
+<tr>
+<td>span()</td>
+<td>Вернуть кортеж (start, end) позиций совпадения</td>
+</tr>
+</table><br/>
+<blockquote><font color="#66cc66">&gt;&gt;&gt;</font>&nbsp;m.<font>group</font><font>(</font><font>)</font><br/>
+<font color="#483d8b">'tempo'</font><br/>
+<font color="#66cc66">&gt;&gt;&gt;</font>&nbsp;m.<font>start</font><font>(</font><font>)</font>,&nbsp;m.<font>end</font><font>(</font><font>)</font><br/>
+<font>(</font><font color="#ff4500">0</font>,&nbsp;<font color="#ff4500">5</font><font>)</font><br/>
+<font color="#66cc66">&gt;&gt;&gt;</font>&nbsp;m.<font>span</font><font>(</font><font>)</font><br/>
+<font>(</font><font color="#ff4500">0</font>,&nbsp;<font color="#ff4500">5</font><font>)</font></blockquote><br/>
+<br/>
+Так как метод <code>match()</code> проверяет совпадения только с начала строки, <code>start()</code> всегда будет возвращать 0. Однако метод <code>search()</code> сканирует всю строку, так что для него начало не обязательно в нуле:<br/>
+<br/>
+<blockquote><font color="#66cc66">&gt;&gt;&gt;</font>&nbsp;<font color="#ff7700">print</font>&nbsp;p.<font>match</font><font>(</font><font color="#483d8b">':::&nbsp;message'</font><font>)</font><br/>
+<font color="#008000">None</font><br/>
+<font color="#66cc66">&gt;&gt;&gt;</font>&nbsp;m&nbsp;=&nbsp;p.<font>search</font><font>(</font><font color="#483d8b">':::&nbsp;message'</font><font>)</font>&nbsp;<font color="#66cc66">;</font>&nbsp;<font color="#ff7700">print</font>&nbsp;m<br/>
+<font color="#66cc66">&lt;</font>_sre.<font>SRE_Match</font>&nbsp;<font color="#008000">object</font>&nbsp;at&nbsp;0x...<font color="#66cc66">&gt;</font><br/>
+<font color="#66cc66">&gt;&gt;&gt;</font>&nbsp;m.<font>group</font><font>(</font><font>)</font><br/>
+<font color="#483d8b">'message'</font><br/>
+<font color="#66cc66">&gt;&gt;&gt;</font>&nbsp;m.<font>span</font><font>(</font><font>)</font><br/>
+<font>(</font><font color="#ff4500">4</font>,&nbsp;<font color="#ff4500">11</font><font>)</font></blockquote><br/>
+<br/>
+В реальных программах наиболее распространенный стиль это хранение <code>MatchObject</code> в переменной, а затем проверка по <code>None</code>. Обычно это выглядит следующим образом:<br/>
+<br/>
+<blockquote>p&nbsp;=&nbsp;<font color="#dc143c">re</font>.<font color="#008000">compile</font><font>(</font>&nbsp;...&nbsp;<font>)</font><br/>
+m&nbsp;=&nbsp;p.<font>match</font><font>(</font>&nbsp;<font color="#483d8b">'string&nbsp;goes&nbsp;here'</font>&nbsp;<font>)</font><br/>
+<font color="#ff7700">if</font>&nbsp;m:<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#ff7700">print</font>&nbsp;<font color="#483d8b">'Match&nbsp;found:&nbsp;'</font>,&nbsp;m.<font>group</font><font>(</font><font>)</font><br/>
+<font color="#ff7700">else</font>:<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#ff7700">print</font>&nbsp;<font color="#483d8b">'No&nbsp;match'</font></blockquote><br/>
+<br/>
+Два метода возвращают все совпадения для шаблона. <code>findall()</code> возвращает список совпавших подстрок:<br/>
+<br/>
+<blockquote><font color="#66cc66">&gt;&gt;&gt;</font>&nbsp;p&nbsp;=&nbsp;<font color="#dc143c">re</font>.<font color="#008000">compile</font><font>(</font><font color="#483d8b">'<font color="#000099">\d</font>+'</font><font>)</font><br/>
+<font color="#66cc66">&gt;&gt;&gt;</font>&nbsp;p.<font>findall</font><font>(</font><font color="#483d8b">'12&nbsp;drummers&nbsp;drumming,&nbsp;11&nbsp;pipers&nbsp;piping,&nbsp;10&nbsp;lords&nbsp;a-leaping'</font><font>)</font><br/>
+<font>[</font><font color="#483d8b">'12'</font>,&nbsp;<font color="#483d8b">'11'</font>,&nbsp;<font color="#483d8b">'10'</font><font>]</font></blockquote><br/>
+<br/>
+Метод <code>findall()</code> должен создать полный список, прежде чем он может быть возвращен в качестве результата. Метод <code>finditer()</code> возвращает последовательность экземпляров <code>MatchObject</code> в качестве итератора.<br/>
+<br/>
+<blockquote><font color="#66cc66">&gt;&gt;&gt;</font>&nbsp;iterator&nbsp;=&nbsp;p.<font>finditer</font><font>(</font><font color="#483d8b">'12&nbsp;drummers&nbsp;drumming,&nbsp;11&nbsp;...&nbsp;10&nbsp;...'</font><font>)</font><br/>
+<font color="#66cc66">&gt;&gt;&gt;</font>&nbsp;iterator<br/>
+<font color="#66cc66">&lt;</font>callable-iterator&nbsp;<font color="#008000">object</font>&nbsp;at&nbsp;0x401833ac<font color="#66cc66">&gt;</font><br/>
+<font color="#66cc66">&gt;&gt;&gt;</font>&nbsp;<font color="#ff7700">for</font>&nbsp;match&nbsp;<font color="#ff7700">in</font>&nbsp;iterator:<br/>
+...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#ff7700">print</font>&nbsp;match.<font>span</font><font>(</font><font>)</font><br/>
+…<br/>
+<font>(</font><font color="#ff4500">0</font>,&nbsp;<font color="#ff4500">2</font><font>)</font><br/>
+<font>(</font><font color="#ff4500">22</font>,&nbsp;<font color="#ff4500">24</font><font>)</font><br/>
+<font>(</font><font color="#ff4500">29</font>,&nbsp;<font color="#ff4500">31</font><font>)</font></blockquote><br/>
+<br/>
+<h4>Функции на уровне модуля</h4><br/>
+Вам не обязательно нужно создавать объекты шаблонов и вызывать их методы; модуль <code>re</code> также предоставляет функции верхнего уровня <code>match(), search(), findall(), sub()</code> и так далее. Эти функции принимают те же аргументы, что и для шаблонов, со строкой РВ в качестве первого аргумента и также возвращают <code>None</code> или <code>MatchObject</code>. <br/>
+<br/>
+<blockquote><font color="#66cc66">&gt;&gt;&gt;</font>&nbsp;<font color="#ff7700">print</font>&nbsp;<font color="#dc143c">re</font>.<font>match</font><font>(</font>r<font color="#483d8b">'From<font color="#000099">\s</font>+'</font>,&nbsp;<font color="#483d8b">'Fromage&nbsp;amk'</font><font>)</font><br/>
+<font color="#008000">None</font><br/>
+<font color="#66cc66">&gt;&gt;&gt;</font>&nbsp;<font color="#dc143c">re</font>.<font>match</font><font>(</font>r<font color="#483d8b">'From<font color="#000099">\s</font>+'</font>,&nbsp;<font color="#483d8b">'From&nbsp;amk&nbsp;Thu&nbsp;May&nbsp;14&nbsp;19:12:10&nbsp;1998'</font><font>)</font><br/>
+<font color="#66cc66">&lt;</font>_sre.<font>SRE_Match</font>&nbsp;<font color="#008000">object</font>&nbsp;at&nbsp;0x...<font color="#66cc66">&gt;</font></blockquote><br/>
+<br/>
+Эти функции просто создают для вас объект шаблона и вызывают соответствующий метод. Они также хранят объект в кэше, так что будущие вызовы с использованием того же регулярного выражения будут быстрее.<br/>
+<br/>
+Должны вы использовать эти функции или шаблоны с методами? Это зависит от того, как часто будет использоваться регулярное выражение и от вашего личного стиля кодинга. Если регулярное выражение используется только в одном месте кода, то такие функции, вероятно, более удобны. Если программа содержит много регулярных выражений, или повторно использует одни и те же в нескольких местах, то будет целесообразно собрать все определения в одном месте, в разделе кода, который предварительно компилирует все регулярные выражения. В качестве примера из стандартной библиотеки, вот кусок из <code>xmllib.py</code>:<br/>
+<br/>
+<code>ref = re.compile( ... )
+entityref = re.compile( ... )
+charref = re.compile( ... )
+starttagopen = re.compile( ... )</code><br/>
+<br/>
+Сам я предпочитаю работать со скомпилированными объектами, даже для одноразового использования, но мало кто окажется таким же пуристом в этом, как я.<br/>
+<br/>
+<h4>Флаги компиляции</h4><br/>
+Флаги компиляции позволяют изменять некоторые аспекты того, как работают регулярные выражения. Флаги доступны в модуле под двумя именами: длинным, таким как <code>IGNORECASE</code> и коротким, в однобуквенной форме, таким как <code>I</code>. Несколько флагов могут быть заданы в форме двоичного ИЛИ; например <code>re.I | re.M</code> устанавливает флаги I и M.<br/>
+<br/>
+<b>DOTALL, S</b><br/>
+Сопоставление, такое же как <code>'.'</code>, то есть с любым символом, но при включении этого флага, в рассмотрение добавляется и символ новой строки.<br/>
+<br/>
+<b>IGNORECASE, I</b><br/>
+Сопоставление без учета регистра; Например, <code>[A-Z]</code> будет также соответствовать и строчным буквам, так что <code>Spam</code> будет соответствовать <code>Spam, spam, spAM</code> и так далее.<br/>
+<br/>
+<b>LOCALE, L</b><br/>
+Делает <code>\w, \W, \b, \B</code> зависящими от локализации. Например, если вы работаете с текстом на французском, и хотите написать <code>\w+</code> для того, чтобы находить слова, но <code>\w</code> ищет только символы из множества <code>[A-Za-z]</code> и не будет искать 'é' или 'ç'. Если система настроена правильно и выбран французский язык, 'é' также будет рассматриваться как буква.<br/>
+<br/>
+<b>MULTILINE, M</b><br/>
+(Метасимволы <code>^</code> и <code>$</code> еще не были описаны; они будут представлены немного позже, в начале второй части этого пособия.<br/>
+<br/>
+Обычно <code>^</code> ищет соответствие только в начале строки, а <code>$</code> только в конце непосредственно перед символом новой строки (если таковые имеются). Если этот флаг указан, <code>^</code> сравнение происходит во всех строках, то есть и в начале, и сразу же после каждого символа новой строки. Аналогично для <code>$</code>.<br/>
+<br/>
+<b>UNICODE, U</b><br/>
+Делает <code>\w, \W, \b, \B, \d, \D, \s, \S</code> соответствующими таблице Unicode.<br/>
+<br/>
+<b>VERBOSE, X</b><br/>
+Включает многословные (подробные) регулярные выражения, которые могут быть организованы более ясно и понятно. Если указан этот флаг, пробелы в строке регулярного выражения игнорируется, кроме случаев, когда они имеются в классе символов или им предшествует неэкранированный бэкслеш; это позволяет вам организовать регулярные выражения более ясным образом. Этот флаг также позволяет помещать в регулярные выражения комментарии, начинающиеся с <code>'#'</code>, которые будут игнорироваться движком.<br/>
+<br/>
+Пример того, как РВ становится существенно проще читать:<br/>
+<br/>
+<blockquote>charref&nbsp;=&nbsp;<font color="#dc143c">re</font>.<font color="#008000">compile</font><font>(</font>r<font color="#483d8b">&quot;&quot;&quot;<br/>
+&nbsp;&amp;[#]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Start&nbsp;of&nbsp;a&nbsp;numeric&nbsp;entity&nbsp;reference<br/>
+&nbsp;(<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0[0-7]+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Octal&nbsp;form<br/>
+&nbsp;&nbsp;&nbsp;|&nbsp;[0-9]+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Decimal&nbsp;form<br/>
+&nbsp;&nbsp;&nbsp;|&nbsp;x[0-9a-fA-F]+&nbsp;&nbsp;&nbsp;#&nbsp;Hexadecimal&nbsp;form<br/>
+&nbsp;)<br/>
+&nbsp;;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Trailing&nbsp;semicolon<br/>
+&quot;&quot;&quot;</font>,&nbsp;<font color="#dc143c">re</font>.<font>VERBOSE</font><font>)</font></blockquote><br/>
+<br/>
+Без verbose это выглядело бы так:<br/>
+<br/>
+<blockquote>charref&nbsp;=&nbsp;<font color="#dc143c">re</font>.<font color="#008000">compile</font><font>(</font><font color="#483d8b">&quot;&amp;#(0[0-7]+&quot;</font><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#483d8b">&quot;|[0-9]+&quot;</font><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#483d8b">&quot;|x[0-9a-fA-F]+);&quot;</font><font>)</font></blockquote><br/>
+<br/>
+В приведенном выше примере была использована автоматическая конкатенация Python строковых литералов для разбивки РВ на более мелкие части, но, все равно, без пояснений это пример труднее понять, чем версию с помощью <code>re.VERBOSE</code>.<br/>
+<br/>
+На этом месте мы пока завершим наше рассмотрение. Советую немного отдохнуть перед <a href="http://habrahabr.ru/blogs/python/115436/">второй половиной</a>, содержащей рассказ о других метасимволах, методах разбиения, поиска и замены строк и большое количество примеров использования регулярных выражений.<br/>
+<br/>
+<a href="http://habrahabr.ru/blogs/python/115436/">Продолжение</a>
+  	<div class="clear"></div>
+    </div>
+    
+    
+<ul class="tags">
+	<li ><a href="http://habrahabr.ru/search/?q=%5Bpython%5D&target_type=posts" rel="tag">python</a></li><li >, <a href="http://habrahabr.ru/search/?q=%5Bre%5D&target_type=posts" rel="tag">re</a></li><li >, <a href="http://habrahabr.ru/search/?q=%5Bregular%20expressions%5D&target_type=posts" rel="tag">regular expressions</a></li><li >, <a href="http://habrahabr.ru/search/?q=%5Bregexp%5D&target_type=posts" rel="tag">regexp</a></li><li >, <a href="http://habrahabr.ru/search/?q=%5Bhowto%5D&target_type=posts" rel="tag">howto</a></li><li >, <a href="http://habrahabr.ru/search/?q=%5B%D1%80%D0%B5%D0%B3%D1%83%D0%BB%D1%8F%D1%80%D0%BD%D1%8B%D0%B5%20%D0%B2%D1%8B%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F%5D&target_type=posts" rel="tag">регулярные выражения</a></li>
+</ul>
+
+
+    <div class="infopanel_wrapper">
+	<div class="infopanel " id="infopanel_post_115825">
+	
+				<div class="voting   ">
+	
+						<span class="plus" title="Срок голосования истек."></span>
+	
+					<div class="mark positive ">
+							<span class="score" title="Всего 105: &uarr;99 и &darr;6">+93</span>
+					</div>
+					
+						<span class="minus" title="Срок голосования истек."></span>
+		
+				</div>
+	
+		<div class="pageviews" title="Просмотры поста">84848</div>
+			
+		<div class="favorite">
+				<a class="add" title="Добавить в избранное" href="#" onclick="return posts_add_to_favorite(this, '2', 115825)"> </a>
+		</div>
+		<div class="favs_count" title="Количество пользователей, добавивших пост в избранное">524</div>
+		
+		
+			<div class="original-author">
+				<a title="Автор оригинала: A. M. Kuchling" href="http://docs.python.org/howto/regex.html">A. M. Kuchling</a>
+			</div>
+		
+	
+	
+	
+	
+				<div class="author">
+					<a title="Автор текста" href="http://habrahabr.ru/users/LeoMat/" >LeoMat</a>
+					<span class="rating" title="рейтинг пользователя">39,0</span>
+				</div>
+		
+	
+	
+		
+			<div class="share">
+				<div class="twitter">
+					<a href="http://twitter.com/intent/tweet?text=%D0%A0%D0%B5%D0%B3%D1%83%D0%BB%D1%8F%D1%80%D0%BD%D1%8B%D0%B5+%D0%B2%D1%8B%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F%2C+%D0%BF%D0%BE%D1%81%D0%BE%D0%B1%D0%B8%D0%B5+%D0%B4%D0%BB%D1%8F+%D0%BD%D0%BE%D0%B2%D0%B8%D1%87%D0%BA%D0%BE%D0%B2.+%D0%A7%D0%B0%D1%81%D1%82%D1%8C+1+http://habr.ru/p/115825/+via+%40habrahabr+%23habr" title="Опубликовать ссылку в Twitter" target="_blank"></a>
+				</div>
+				<div class="vkontakte">
+					<a href="http://vk.com/share.php?url=http://habrahabr.ru/post/115825/" title="Опубликовать ссылку во ВКонтакте" onclick="window.open(this.href, 'Опубликовать ссылку во Вконтакте', 'width=800,height=300'); return false"></a>
+				</div>
+				<div class="facebook">
+					<a href="https://www.facebook.com/sharer/sharer.php?u=http://habrahabr.ru/post/115825/" title="Опубликовать ссылку в Facebook" onclick="window.open(this.href, 'Опубликовать ссылку в Facebook', 'width=640,height=436,toolbar=0,status=0'); return false"></a>
+				</div>
+				<div class="googleplus">
+					<a href="https://plus.google.com/share?url=http://habrahabr.ru/post/115825/" title="Опубликовать ссылку в Google Plus" onclick="window.open(this.href, 'Опубликовать ссылку в Google Plus', 'width=800,height=300'); return false"></a>
+				</div>
+			</div>
+	
+	</div>
+	<div class="clear"></div>
+</div>
+
+
+
+
+    
+    
+		
+		
+	</div>
+
+
+
+	
+<style type="text/css">
+	.post_inner_banner.adidas_inner_banner {overflow:hidden;text-decoration:none;text-align:left;height:70px;border:1px solid #d4d4d4;border-radius:15px;background: url(/images/posts/inner_post_banner/adidas/img.png) no-repeat 0px 0px;}
+	.post_inner_banner.adidas_inner_banner a{display:block;}
+	.post_inner_banner.adidas_inner_banner .adidas-text{font-size: 15px;font-weight:bold;text-transform: uppercase;float:left;margin-top:16px;color: #000000;line-height: 19px;padding-right:30px;margin-right:20px;background: url(/images/posts/inner_post_banner/adidas/arrow.png) no-repeat right center;}
+	.post_inner_banner.adidas_inner_banner .adidas-text1{margin-left:200px;}	
+	.post_inner_banner.adidas_inner_banner .adidas-text2{}	
+	.post_inner_banner.adidas_inner_banner .adidas-btn{width:164px;height:40px;margin-top:15px;display:block;float:left;background: url(/images/posts/inner_post_banner/adidas/btn.png) no-repeat 0px 0px;}
+	
+	@media (max-width: 1300px) { 
+    .post_inner_banner.adidas_inner_banner .adidas-text{font-size:13px;}
+	}
+	@media (max-width: 1200px) { 
+    .post_inner_banner.adidas_inner_banner .adidas-text1{display: none;}
+    .post_inner_banner.adidas_inner_banner .adidas-text2{margin-left:200px;font-size:15px;padding-right: 50px;margin-right:30px;}
+	}
+	@media (max-width: 1100px) { 
+    .post_inner_banner.adidas_inner_banner .adidas-text1{color:green;}
+    .post_inner_banner.adidas_inner_banner .adidas-text2{margin-left:200px;font-size:13px;padding-right: 28px;margin-right:18px;}    
+	}
+</style>
+<div class="adidas_inner_banner post_inner_banner hidden">
+  <a href="#url" class="block_url">
+  <div class="adidas-text adidas-text1">Свежий взгляд<br>на бег</div>
+  <div class="adidas-text adidas-text2">протестируй кроссовки<br>нового поколения</div>
+  <div class="adidas-btn"></div>
+  </a>
+</div>
+
+<style type="text/css">
+    .post_inner_banner.wserver_inner_banner {overflow:hidden;text-decoration:none;text-align:left;height:69px;border:1px solid #d4d4d4;border-radius:15px;background: url(/images/posts/inner_post_banner/wserver/left.png) no-repeat -15px 0px;}
+    .post_inner_banner.wserver_inner_banner a {display:block;}
+    .post_inner_banner.wserver_inner_banner .wserver-text {font-family:'PT Sans', sans-serif;font-size:18px;float:left;color: #000000;line-height: 19px;}
+    .post_inner_banner.wserver_inner_banner .wserver-text1 {margin-left:155px;margin-top:16px;padding-right:20px;}
+    .post_inner_banner.wserver_inner_banner .wserver-text2 {background: url(/images/posts/inner_post_banner/wserver/man.png) no-repeat left center;padding-left:95px;height:53px;padding-top:16px;}
+    .post_inner_banner.wserver_inner_banner .wserver-btn{width:164px;height:40px;margin-top:15px;margin-left:15px;display:block;float:left;background: url(/images/posts/inner_post_banner/wserver/button.png) no-repeat 0px 0px;font-family:'PT Sans Caption', sans-serif;font-weight:bold;color:#fff;font-size:21px;line-height:40px;text-align:center;}
+
+    @media (max-width: 1300px) {
+        .post_inner_banner.wserver_inner_banner .wserver-text{font-size:15px;}
+    }
+
+    @media (max-width: 1200px) {
+        .post_inner_banner.wserver_inner_banner .wserver-text{font-size:13px;}
+        .post_inner_banner.wserver_inner_banner .wserver-btn {margin-left:10px;}
+        .post_inner_banner.wserver_inner_banner .wserver-text2 {padding-left:80px;}
+        .post_inner_banner.wserver_inner_banner .wserver-text1 {padding-right:0;}
+    }
+
+    @media (max-width: 1100px) {
+        .post_inner_banner.wserver_inner_banner .wserver-text1 {display:none;}
+        .post_inner_banner.wserver_inner_banner .wserver-text2{margin-left:155px;background-position:right center;padding-left:0;padding-right:85px;}
+    }
+</style>
+<div class="wserver_inner_banner post_inner_banner hidden">
+    <a href="#url" class="block_url">
+        <div class="wserver-text wserver-text1">Стань<br/>первоиспытателем!</div>
+        <div class="wserver-text wserver-text2">Скачай Windows Server 2012 R2<br/>и <b>выиграй почетную футболку!</b></div>
+        <div class="wserver-btn">Скачать</div>
+    </a>
+</div>
+
+<style type="text/css">
+    .post_inner_banner.nokia_lumia1520_inner_banner {overflow:hidden;text-align:center;height:69px;border:1px solid #d4d4d4;border-radius:15px;background: url(/images/posts/inner_post_banner/nokia/lumia1520_phone.png) no-repeat right;}
+    .post_inner_banner.nokia_lumia1520_inner_banner a {text-decoration:none;color:#000;}
+    .post_inner_banner.nokia_lumia1520_inner_banner div {display:block;float:left;text-align:left;}
+    .post_inner_banner.nokia_lumia1520_inner_banner .nokia_icons {background: url(/images/posts/inner_post_banner/nokia/lumia1520_icons.png) no-repeat;width:120px;height:34px;margin-left:29px;margin-top:18px;}
+    .post_inner_banner.nokia_lumia1520_inner_banner .pedia {margin:16px 30px 0 29px;font-size:15px;line-height:18px;}
+    .post_inner_banner.nokia_lumia1520_inner_banner .pedia a {color:#70a4bd;}
+    .post_inner_banner.nokia_lumia1520_inner_banner .pedia_button {display:block;float:left;margin-top:14px;background: url(/images/posts/inner_post_banner/nokia/lumia1520_button.png) no-repeat;width:229px;height:40px;}
+
+    @media (max-width: 1300px) {
+        .post_inner_banner.nokia_lumia1520_inner_banner {background-position:right -20px top; }
+
+        .post_inner_banner.nokia_lumia1520_inner_banner .pedia {margin:18px 15px 0 15px;}
+        .post_inner_banner.nokia_lumia1520_inner_banner .nokia_icons {margin-left:15px;}
+    }
+    @media (max-width: 1200px) {
+        .post_inner_banner.nokia_lumia1520_inner_banner .nokia_icons {display:none;}
+        .post_inner_banner.nokia_lumia1520_inner_banner {background-position:right -30px top; }
+    }
+    @media (max-width: 1100px) {
+        .post_inner_banner.nokia_lumia1520_inner_banner {background-position:right -90px top; }
+        .post_inner_banner.nokia_lumia1520_inner_banner .pedia {margin-right:30px;}
+    }
+</style>
+<div class="nokia_lumia1520_inner_banner post_inner_banner hidden">
+    <div class="nokia_icons"></div>
+    <div class="pedia"><a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&ad=445870&bt=21&pid=1533340&bid=3132651&bn=3132651&rnd=951495518" target="_blank">Энциклопедия Nokia<br/> Lumia</a> на Хабрахабре</div>
+    <a class="pedia_button block_url" href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&ad=445870&bt=21&pid=1533340&bid=3132651&bn=3132651&rnd=951495518" target="_blank"></a>
+</div>
+<style type="text/css">
+    .post_inner_banner.seopult_inner_banner { overflow:hidden;text-align:center;height:70px;border:1px solid #d4d4d4;border-radius:15px; }
+    .post_inner_banner.seopult_inner_banner a { text-decoration:none;color:#000;overflow:hidden;display:block;height:70px;width:1500px; }
+    .post_inner_banner.seopult_inner_banner div { display:block;float:left;text-align:left;font-size:12px; }
+    .post_inner_banner.seopult_inner_banner .logo { background: url(/images/posts/inner_post_banner/seopult/logo.png) no-repeat center;width:153px;height:70px; }
+    .post_inner_banner.seopult_inner_banner .zig { background: url(/images/posts/inner_post_banner/seopult/zig.png) no-repeat center;width:7px;height:70px; }
+    .post_inner_banner.seopult_inner_banner .target { background: url(/images/posts/inner_post_banner/seopult/target.png) no-repeat 0 5px;width:200px;padding-left:55px;padding-top:12px;height:53px;font:18px/22px Verdana, Arial;color:#000;margin:0 20px; }
+    .post_inner_banner.seopult_inner_banner .list ul { margin:10px 20px; }
+    .post_inner_banner.seopult_inner_banner .list ul li { background: url(/images/posts/inner_post_banner/seopult/li.png) no-repeat 0 2px;padding-left:15px;font:12px/16px Verdana, Arial;color:#000; }
+    .post_inner_banner.seopult_inner_banner .mline { background: url(/images/posts/inner_post_banner/seopult/right.png) no-repeat;width:6px;height:70px; }
+    .post_inner_banner.seopult_inner_banner .mmore { background:#ea9d4a;text-align:center;height:70px;width:172px;font:18px/70px Verdana, Arial;color:#fff; }
+    .post_inner_banner.seopult_inner_banner .mmore span { border-bottom:1px solid #fff; }
+
+
+    @media (max-width: 1300px) {
+        .post_inner_banner.seopult_inner_banner .mmore { width:102px;font-size:14px; }
+    }
+    @media (max-width: 1200px) {
+        .post_inner_banner.seopult_inner_banner .mline,
+        .post_inner_banner.seopult_inner_banner .mmore { display:none; }
+    }
+    @media (max-width: 1100px) {
+        .post_inner_banner.seopult_inner_banner .logo { width:140px; }
+        .post_inner_banner.seopult_inner_banner .target { width:152px;font-size:14px;padding-left:50px;margin:0 10px; }
+    }
+</style>
+<div class="seopult_inner_banner post_inner_banner hidden">
+    <a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&ad=451110&bt=21&bid=3186459&bn=3186459&rnd=140312559" target="_blank" class="block_url">
+        <div class="logo"></div>
+        <div class="zig"></div>
+        <div class="target">Автоматизированное<br/>продвижение сайтов</div>
+        <div class="zig"></div>
+        <div class="list">
+            <ul>
+                <li>50% экономии на ссылках</li><li>Запуск проекта за 10 минут</li><li>Вывод и удержание в ТОП 10</li>
+            </ul>
+        </div>
+        <div class="mline"></div>
+        <div class="mmore"><span>Подробнее</span></div>
+    </a>
+</div>
+<style type="text/css">
+    .post_inner_banner.megafon_inner_banner { overflow:hidden;text-align:center;height:70px;border:1px solid #d4d4d4;border-radius:15px;background: url(/images/posts/inner_post_banner/megafon/login_green.png) no-repeat left top; }
+    .post_inner_banner.megafon_inner_banner a { text-decoration:none;color:#000;}
+    .post_inner_banner.megafon_inner_banner a > div { display:block;float:left;text-align:left; }
+    .post_inner_banner.megafon_inner_banner .slogan { margin-left:30px;font-size:18px;color:#fff;margin-top:12px; }
+    .post_inner_banner.megafon_inner_banner .slogan b { display:block; }
+    .post_inner_banner.megafon_inner_banner .planshet { background: url(/images/posts/inner_post_banner/megafon/login_planshet.png) no-repeat center;width:235px;height:70px;margin:0 20px 0 40px; }
+    .post_inner_banner.megafon_inner_banner .price { font:11px/14px Verdana, Arial;color:#aaaaaa;margin-top:12px; }
+    .post_inner_banner.megafon_inner_banner .price .sum { font:30px/32px Verdana, Arial;color:#472671;font-weight:bold; }
+    .post_inner_banner.megafon_inner_banner .price .zvezda { font-size:18px;position:relative;bottom:0.6em; }
+    .post_inner_banner.megafon_inner_banner .price .link { text-decoration:underline; }
+    .post_inner_banner.megafon_inner_banner .button { background: url(/images/posts/inner_post_banner/megafon/login_button.png) no-repeat;width:125px;height:38px;font:14px/38px Verdana, Arial;color:#fff;margin:17px 0 0 20px;text-align:center; }
+
+    @media (max-width: 1300px) {
+        .post_inner_banner.megafon_inner_banner { background-position:-50px 0; }
+        .post_inner_banner.megafon_inner_banner .slogan { background-position:20px 0;font-size:14px;margin:17px 0 0 17px; }
+        .post_inner_banner.megafon_inner_banner .planshet { margin:0 10px 0 20px; }
+    }
+    @media (max-width: 1200px) {
+        .post_inner_banner.megafon_inner_banner .planshet { margin-left:40px; }
+        .post_inner_banner.megafon_inner_banner .price { margin-left:15px; }
+        .post_inner_banner.megafon_inner_banner .button { display:none; }
+    }
+    @media (max-width: 1100px) {
+        .post_inner_banner.megafon_inner_banner .planshet { margin-left:10px; }
+        .post_inner_banner.megafon_inner_banner .price { margin-left:0;font-size:10px; }
+        .post_inner_banner.megafon_inner_banner .button { margin-left:20px; }
+
+    }
+</style>
+<div class="megafon_inner_banner post_inner_banner hidden">
+    <script type="text/javascript">
+        (new Image()).src = 'http://ar.tns-counter.ru/V13a****ar_ru/ru/CP1251/tmsec=77790_450366-1552541/!' + Math.round(Math.random()*1E9);
+    </script>
+
+    <a href="" target="_blank" class="block_url">
+        <div class="slogan">
+            Новый 3G-планшет
+            <b>Login 2</b>
+        </div>
+        <div class="planshet"></div>
+        <div class="price">
+            <div><span class="sum">2790 р.</span><span class="zvezda"><sup>*</sup></span></div>
+            <sup>*</sup>Условия акции на <span class="link">www.megafon.ru</span>
+        </div>
+        <div class="button">Подробнее</div>
+    </a>
+</div>
+
+<script type="text/javascript">
+function show_inner_banner_block(name, url) {
+	if( typeof(name) !== 'undefined') {
+		if( $('.'+name+'_inner_banner').size() > 0) {
+			$('.'+name+'_inner_banner').show();
+		}
+	}
+
+	if( typeof(url) !== 'undefined') {
+		$('.'+name+'_inner_banner .block_url').attr('href', url);
+	}
+}
+</script>
+
+<div id="adriver_banner_1586921565"></div>
+<script type="text/javascript">
+	//if (true)
+	//	show_inner_banner_block('megafon');
+    //else
+		new adriver("adriver_banner_1586921565", {sid:179440, bt:52, bn:3});
+</script>
+
+
+	
+		<div class="comments_list " id="comments">
+
+  <h2 class="title ">комментарии (<span id="comments_count">32</span>)
+  		<span class="subscribe_comments">
+			отслеживать новые: 
+			<label ><input type="checkbox" id="subscribe_comments" rel="{target_type:'2',target_id:115825 }"  /> в почте</label>
+			<label ><input type="checkbox" id="tracker_comments" rel="{target_type:'2',target_id:115825 }"  /> в трекере</label>
+		</span>
+
+  </h2>
+
+    <div class="comment_item" id="comment_3753172" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="3753172">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_3753172" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 9: &uarr;9 и &darr;0">+9</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/qwertysx/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+            <a href="http://habrahabr.ru/users/qwertysx/" class="username">qwertysx</a><span class="comma">,</span>
+            <time>20 марта 2011 в 12:47</time>
+
+            <a href="#comment_3753172" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 3753172 )" title="В избранное"></a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            <a href="http://www.rubular.com/">regular expression editor</a> очень помогает
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_3753172">
+        <div class="comment_item" id="comment_3753259" >
+
+    <span class="parent_id" data-parent_id="3753172"></span>
+    <div class="comment_body">
+        <div class="info  " rel="3753259">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_3753259" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/ZZZ_Sochi/" class="avatar"><img src="//habr.habrastorage.org/avatars/b45/fdf/b2f/b45fdfb2f20a17bf521c58d293a8cd1e_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/ZZZ_Sochi/" class="username">ZZZ_Sochi</a><span class="comma">,</span>
+            <time>20 марта 2011 в 13:58</time>
+
+            <a href="#comment_3753259" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 3753259 )" title="В избранное"></a>
+            <div class="show_tree" data-id="3753259" data-parent_id="3753172" title="Показать ветку комментариев">&#8629;</div>
+
+            <a href="#comment_3753172" data-id="3753259" data-parent_id="3753172" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            В Eric был довольно удобный редактор и проверщик регулярок. Притом архитектура Эрика позволяла его спокойно оттуда вытащить, что я в своё время и сделал. Но так как давно не использовал больших регулярок (перерос?), выкинул за ненадобностью.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_3753259">
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_3753387" >
+
+    <span class="parent_id" data-parent_id="3753172"></span>
+    <div class="comment_body">
+        <div class="info  " rel="3753387">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_3753387" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 2: &uarr;2 и &darr;0">+2</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/loststylus/" class="avatar"><img src="//habr.habrastorage.org/avatars/ed5/e7e/bfd/ed5e7ebfd3d8de2c80e510352502f1f1_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/loststylus/" class="username">loststylus</a><span class="comma">,</span>
+            <time>20 марта 2011 в 15:38</time>
+
+            <a href="#comment_3753387" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 3753387 )" title="В избранное"></a>
+            <div class="show_tree" data-id="3753387" data-parent_id="3753172" title="Показать ветку комментариев">&#8629;</div>
+
+            <a href="#comment_3753172" data-id="3753387" data-parent_id="3753172" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Regexr в разы удобнее. Плюс, есть десктопная AIR-версия. <a href="http://gskinner.com/RegExr/">gskinner.com/RegExr/</a>
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_3753387">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_3753190" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="3753190">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_3753190" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark  negative">
+                    <span class="score" title="Всего 35: &uarr;4 и &darr;31">–27</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Castle/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+            <a href="http://habrahabr.ru/users/Castle/" class="username">Castle</a><span class="comma">,</span>
+            <time>20 марта 2011 в 13:07</time>
+
+            <a href="#comment_3753190" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 3753190 )" title="В избранное"></a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format bad bad5">
+            С девушкой по тел разговариваю, на её вопрос «чем занимаешься» отвечаю:«Читаю про регулярные выражения». 10 секундная пауза… Она: «Что-что?».
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_3753190">
+        <div class="comment_item" id="comment_3753205" >
+
+    <span class="parent_id" data-parent_id="3753190"></span>
+    <div class="comment_body">
+        <div class="info  is_topic_starter  " rel="3753205">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_3753205" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 15: &uarr;13 и &darr;2">+11</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/LeoMat/" class="avatar"><img src="//habr.habrastorage.org/avatars/397/fe0/f1d/397fe0f1d3b43931763be4d82ba2b133_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/LeoMat/" class="username">LeoMat</a><span class="comma">,</span>
+            <time>20 марта 2011 в 13:16</time>
+
+            <a href="#comment_3753205" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 3753205 )" title="В избранное"></a>
+            <div class="show_tree" data-id="3753205" data-parent_id="3753190" title="Показать ветку комментариев">&#8629;</div>
+
+            <a href="#comment_3753190" data-id="3753205" data-parent_id="3753190" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            <code>&gt;&gt;&gt; print girl_brain.search('Регулярные выражения')<br/>
+None</code>
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_3753205">
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_3753209" >
+
+    <span class="parent_id" data-parent_id="3753190"></span>
+    <div class="comment_body">
+        <div class="info  " rel="3753209">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_3753209" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark  negative">
+                    <span class="score" title="Всего 14: &uarr;2 и &darr;12">–10</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/oYASo/" class="avatar"><img src="//habr.habrastorage.org/avatars/3ae/be0/f39/3aebe0f390824faa66024d46fd53aed4_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/oYASo/" class="username">oYASo</a><span class="comma">,</span>
+            <time>20 марта 2011 в 13:19</time>
+
+            <a href="#comment_3753209" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 3753209 )" title="В избранное"></a>
+            <div class="show_tree" data-id="3753209" data-parent_id="3753190" title="Показать ветку комментариев">&#8629;</div>
+
+            <a href="#comment_3753190" data-id="3753209" data-parent_id="3753190" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format bad bad5">
+            Остальные 95% населения планеты тоже не знаю, что такое регулярные выражения :)
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_3753209">
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_3753285" >
+
+    <span class="parent_id" data-parent_id="3753190"></span>
+    <div class="comment_body">
+        <div class="info  " rel="3753285">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_3753285" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark  negative">
+                    <span class="score" title="Всего 8: &uarr;0 и &darr;8">–8</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/ddsl/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+            <a href="http://habrahabr.ru/users/ddsl/" class="username">ddsl</a><span class="comma">,</span>
+            <time>20 марта 2011 в 14:18</time>
+
+            <a href="#comment_3753285" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 3753285 )" title="В избранное"></a>
+            <div class="show_tree" data-id="3753285" data-parent_id="3753190" title="Показать ветку комментариев">&#8629;</div>
+
+            <a href="#comment_3753190" data-id="3753285" data-parent_id="3753190" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format bad bad5">
+            И это печально.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_3753285">
+        <div class="comment_item" id="comment_3753297" >
+
+    <span class="parent_id" data-parent_id="3753285"></span>
+    <div class="comment_body">
+        <div class="info  " rel="3753297">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_3753297" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 9: &uarr;7 и &darr;2">+5</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Castle/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+            <a href="http://habrahabr.ru/users/Castle/" class="username">Castle</a><span class="comma">,</span>
+            <time>20 марта 2011 в 14:28</time>
+
+            <a href="#comment_3753297" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 3753297 )" title="В избранное"></a>
+            <div class="show_tree" data-id="3753297" data-parent_id="3753285" title="Показать ветку комментариев">&#8629;</div>
+
+            <a href="#comment_3753285" data-id="3753297" data-parent_id="3753285" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Людям из разных областей деятельности свойственно иметь свои определения, словосочетания, которые понятны только людям из этой же области. И это правильно. Только в данном случае она подумала, как потом мне рассказала, в первую очередь про матерные выражения, во вторую — про фразеологизмы. Чему и удивилась. :)
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_3753297">
+        <div class="comment_item" id="comment_6340850" >
+
+    <span class="parent_id" data-parent_id="3753297"></span>
+    <div class="comment_body">
+        <div class="info  " rel="6340850">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_6340850" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Alexufo/" class="avatar"><img src="//habr.habrastorage.org/avatars/324/18a/e1e/32418ae1eab8433a87d3030a0dd78238_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/Alexufo/" class="username">Alexufo</a><span class="comma">,</span>
+            <time> 8 июня 2013 в 00:47</time>
+
+            <a href="#comment_6340850" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 6340850 )" title="В избранное"></a>
+            <div class="show_tree" data-id="6340850" data-parent_id="3753297" title="Показать ветку комментариев">&#8629;</div>
+
+            <a href="#comment_3753297" data-id="6340850" data-parent_id="3753297" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Физиолог Ухтомский описывал этот механизм мозга как «доминанта».
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_6340850">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_3753287" >
+
+    <span class="parent_id" data-parent_id="3753190"></span>
+    <div class="comment_body">
+        <div class="info  " rel="3753287">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_3753287" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark  negative">
+                    <span class="score" title="Всего 10: &uarr;1 и &darr;9">–8</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/evilbloodydemon/" class="avatar"><img src="//habr.habrastorage.org/avatars/c93/bbd/23c/c93bbd23c180add2403c286283bc88cc_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/evilbloodydemon/" class="username">evilbloodydemon</a><span class="comma">,</span>
+            <time>20 марта 2011 в 14:19</time>
+
+            <a href="#comment_3753287" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 3753287 )" title="В избранное"></a>
+            <div class="show_tree" data-id="3753287" data-parent_id="3753190" title="Показать ветку комментариев">&#8629;</div>
+
+            <a href="#comment_3753190" data-id="3753287" data-parent_id="3753190" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format bad bad5">
+            Ну тупые! ©
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_3753287">
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_3754366" >
+
+    <span class="parent_id" data-parent_id="3753190"></span>
+    <div class="comment_body">
+        <div class="info  " rel="3754366">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_3754366" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/soider/" class="avatar"><img src="//habr.habrastorage.org/avatars/0af/13b/e78/0af13be7872820df23ae0d0efa3edb54_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/soider/" class="username">soider</a><span class="comma">,</span>
+            <time>20 марта 2011 в 23:30</time>
+
+            <a href="#comment_3754366" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 3754366 )" title="В избранное"></a>
+            <div class="show_tree" data-id="3754366" data-parent_id="3753190" title="Показать ветку комментариев">&#8629;</div>
+
+            <a href="#comment_3753190" data-id="3754366" data-parent_id="3753190" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            и?
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_3754366">
+        <div class="comment_item" id="comment_3754382" >
+
+    <span class="parent_id" data-parent_id="3754366"></span>
+    <div class="comment_body">
+        <div class="info  " rel="3754382">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_3754382" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Castle/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+            <a href="http://habrahabr.ru/users/Castle/" class="username">Castle</a><span class="comma">,</span>
+            <time>20 марта 2011 в 23:34</time>
+
+            <a href="#comment_3754382" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 3754382 )" title="В избранное"></a>
+            <div class="show_tree" data-id="3754382" data-parent_id="3754366" title="Показать ветку комментариев">&#8629;</div>
+
+            <a href="#comment_3754366" data-id="3754382" data-parent_id="3754366" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Она подумала что это матерные выражения, или в крайнем случае фразеологизмы, чему и удивилась. 
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_3754382">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_3753204" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="3753204">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_3753204" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 25: &uarr;19 и &darr;6">+13</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/ZZZ_Sochi/" class="avatar"><img src="//habr.habrastorage.org/avatars/b45/fdf/b2f/b45fdfb2f20a17bf521c58d293a8cd1e_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/ZZZ_Sochi/" class="username">ZZZ_Sochi</a><span class="comma">,</span>
+            <time>20 марта 2011 в 13:16</time>
+
+            <a href="#comment_3753204" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 3753204 )" title="В избранное"></a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Была у программиста проблема. Решил он её с помощью регулярных выражений. Теперь у него две проблемы.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_3753204">
+        <div class="comment_item" id="comment_3753241" >
+
+    <span class="parent_id" data-parent_id="3753204"></span>
+    <div class="comment_body">
+        <div class="info  " rel="3753241">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_3753241" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 10: &uarr;9 и &darr;1">+8</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/evilbloodydemon/" class="avatar"><img src="//habr.habrastorage.org/avatars/c93/bbd/23c/c93bbd23c180add2403c286283bc88cc_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/evilbloodydemon/" class="username">evilbloodydemon</a><span class="comma">,</span>
+            <time>20 марта 2011 в 13:47</time>
+
+            <a href="#comment_3753241" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 3753241 )" title="В избранное"></a>
+            <div class="show_tree" data-id="3753241" data-parent_id="3753204" title="Показать ветку комментариев">&#8629;</div>
+
+            <a href="#comment_3753204" data-id="3753241" data-parent_id="3753204" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Если решил, то какая у него проблема? В оригинале звучит так<br/>
+Some people, when confronted with a problem, think «I know, I'll use regular expressions.» Now they have two problems.<br/>
+
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_3753241">
+        <div class="comment_item" id="comment_3753254" >
+
+    <span class="parent_id" data-parent_id="3753241"></span>
+    <div class="comment_body">
+        <div class="info  " rel="3753254">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_3753254" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 12: &uarr;11 и &darr;1">+10</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/vanysha/" class="avatar"><img src="//habr.habrastorage.org/avatars/7b4/ebf/e99/7b4ebfe99e0188d402566d99d4a918b1_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/vanysha/" class="username">vanysha</a><span class="comma">,</span>
+            <time>20 марта 2011 в 13:55</time>
+
+            <a href="#comment_3753254" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 3753254 )" title="В избранное"></a>
+            <div class="show_tree" data-id="3753254" data-parent_id="3753241" title="Показать ветку комментариев">&#8629;</div>
+
+            <a href="#comment_3753241" data-id="3753254" data-parent_id="3753241" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Типа:<br/>
+Некоторые люди, когда сталкиваются с проблемой, думают «Я знаю, я решу её с помощью регулярных выражений.» Теперь у них две проблемы.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_3753254">
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_3753260" >
+
+    <span class="parent_id" data-parent_id="3753241"></span>
+    <div class="comment_body">
+        <div class="info  " rel="3753260">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_3753260" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark  negative">
+                    <span class="score" title="Всего 6: &uarr;2 и &darr;4">–2</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/ZZZ_Sochi/" class="avatar"><img src="//habr.habrastorage.org/avatars/b45/fdf/b2f/b45fdfb2f20a17bf521c58d293a8cd1e_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/ZZZ_Sochi/" class="username">ZZZ_Sochi</a><span class="comma">,</span>
+            <time>20 марта 2011 в 13:59</time>
+
+            <a href="#comment_3753260" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 3753260 )" title="В избранное"></a>
+            <div class="show_tree" data-id="3753260" data-parent_id="3753241" title="Показать ветку комментариев">&#8629;</div>
+
+            <a href="#comment_3753241" data-id="3753260" data-parent_id="3753241" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format bad bad2">
+            Это был лишь очень вольный перевод этого, в общем-то, анекдота.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_3753260">
+        <div class="comment_item" id="comment_3753284" >
+
+    <span class="parent_id" data-parent_id="3753260"></span>
+    <div class="comment_body">
+        <div class="info  " rel="3753284">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_3753284" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 6: &uarr;4 и &darr;2">+2</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/evilbloodydemon/" class="avatar"><img src="//habr.habrastorage.org/avatars/c93/bbd/23c/c93bbd23c180add2403c286283bc88cc_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/evilbloodydemon/" class="username">evilbloodydemon</a><span class="comma">,</span>
+            <time>20 марта 2011 в 14:17</time>
+
+            <a href="#comment_3753284" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 3753284 )" title="В избранное"></a>
+            <div class="show_tree" data-id="3753284" data-parent_id="3753260" title="Показать ветку комментариев">&#8629;</div>
+
+            <a href="#comment_3753260" data-id="3753284" data-parent_id="3753260" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Ну так и речь же о том, что <s>плохой</s> слишком вольный перевод.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_3753284">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_3753402" >
+
+    <span class="parent_id" data-parent_id="3753204"></span>
+    <div class="comment_body">
+        <div class="info  " rel="3753402">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_3753402" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 4: &uarr;4 и &darr;0">+4</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Flux/" class="avatar"><img src="//habr.habrastorage.org/avatars/bb9/0be/68a/bb90be68abfe3b53041bf6f9143f44a2_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/Flux/" class="username">Flux</a><span class="comma">,</span>
+            <time>20 марта 2011 в 15:51</time>
+
+            <a href="#comment_3753402" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 3753402 )" title="В избранное"></a>
+            <div class="show_tree" data-id="3753402" data-parent_id="3753204" title="Показать ветку комментариев">&#8629;</div>
+
+            <a href="#comment_3753204" data-id="3753402" data-parent_id="3753204" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            <img src="http://habrastorage.org/storage/habraeffect/d4/b2/d4b28d420d7b7482244540dbf7955323.jpg" alt="image"/>
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_3753402">
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_3753717" >
+
+    <span class="parent_id" data-parent_id="3753204"></span>
+    <div class="comment_body">
+        <div class="info  " rel="3753717">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_3753717" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 2: &uarr;1 и &darr;1">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/anthonio/" class="avatar"><img src="//habr.habrastorage.org/avatars/55e/c2d/1e1/55ec2d1e197a46ece3f1512122065d22_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/anthonio/" class="username">anthonio</a><span class="comma">,</span>
+            <time>20 марта 2011 в 18:36</time>
+
+            <a href="#comment_3753717" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 3753717 )" title="В избранное"></a>
+            <div class="show_tree" data-id="3753717" data-parent_id="3753204" title="Показать ветку комментариев">&#8629;</div>
+
+            <a href="#comment_3753204" data-id="3753717" data-parent_id="3753204" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Если я правильно понимаю, такие вещи писать надо в twitter
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_3753717">
+        <div class="comment_item" id="comment_3753731" >
+
+    <span class="parent_id" data-parent_id="3753717"></span>
+    <div class="comment_body">
+        <div class="info  " rel="3753731">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_3753731" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 2: &uarr;1 и &darr;1">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/anthonio/" class="avatar"><img src="//habr.habrastorage.org/avatars/55e/c2d/1e1/55ec2d1e197a46ece3f1512122065d22_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/anthonio/" class="username">anthonio</a><span class="comma">,</span>
+            <time>20 марта 2011 в 18:42</time>
+
+            <a href="#comment_3753731" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 3753731 )" title="В избранное"></a>
+            <div class="show_tree" data-id="3753731" data-parent_id="3753717" title="Показать ветку комментариев">&#8629;</div>
+
+            <a href="#comment_3753717" data-id="3753731" data-parent_id="3753717" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Твою мать… это на этот пост<br/>
+
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_3753731">
+        <div class="comment_item" id="comment_3753745" >
+
+    <span class="parent_id" data-parent_id="3753731"></span>
+    <div class="comment_body">
+        <div class="info  " rel="3753745">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_3753745" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 2: &uarr;1 и &darr;1">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/anthonio/" class="avatar"><img src="//habr.habrastorage.org/avatars/55e/c2d/1e1/55ec2d1e197a46ece3f1512122065d22_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/anthonio/" class="username">anthonio</a><span class="comma">,</span>
+            <time>20 марта 2011 в 18:48</time>
+
+            <a href="#comment_3753745" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 3753745 )" title="В избранное"></a>
+            <div class="show_tree" data-id="3753745" data-parent_id="3753731" title="Показать ветку комментариев">&#8629;</div>
+
+            <a href="#comment_3753731" data-id="3753745" data-parent_id="3753731" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            да что ж это за фигня…<br/>
+<a href="http://habrahabr.ru/blogs/python/115825/#comment_3753190">habrahabr.ru/blogs/python/115825/#comment_3753190</a>
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_3753745">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_3753273" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="3753273">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_3753273" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 5: &uarr;4 и &darr;1">+3</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Moric/" class="avatar"><img src="//habr.habrastorage.org/avatars/9a6/d5d/c9d/9a6d5dc9d19c9e8f6e4283287f3c91db_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/Moric/" class="username">Moric</a><span class="comma">,</span>
+            <time>20 марта 2011 в 14:08</time>
+
+            <a href="#comment_3753273" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 3753273 )" title="В избранное"></a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Я часто для тестов регулярок использую сервис <a href="http://realcode.ru/regexptester/"> http://realcode.ru/regexptester/</a>
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_3753273">
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_3753372" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="3753372">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_3753372" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 4: &uarr;4 и &darr;0">+4</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/couragic/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+            <a href="http://habrahabr.ru/users/couragic/" class="username">couragic</a><span class="comma">,</span>
+            <time>20 марта 2011 в 15:28</time>
+
+            <a href="#comment_3753372" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 3753372 )" title="В избранное"></a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Использую для проверки этот сервис:<br/>
+<a href="http://gskinner.com/RegExr/">gskinner.com/RegExr/</a><br/>
+<br/>
+Может кушать много текста.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_3753372">
+        <div class="comment_item" id="comment_3753378" >
+
+    <span class="parent_id" data-parent_id="3753372"></span>
+    <div class="comment_body">
+        <div class="info  " rel="3753378">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_3753378" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/pavelpromin/" class="avatar"><img src="//habr.habrastorage.org/avatars/8ea/efa/90d/8eaefa90d50ad8722a403134db149659_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/pavelpromin/" class="username">pavelpromin</a><span class="comma">,</span>
+            <time>20 марта 2011 в 15:30</time>
+
+            <a href="#comment_3753378" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 3753378 )" title="В избранное"></a>
+            <div class="show_tree" data-id="3753378" data-parent_id="3753372" title="Показать ветку комментариев">&#8629;</div>
+
+            <a href="#comment_3753372" data-id="3753378" data-parent_id="3753372" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Опередили ;)
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_3753378">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_3753376" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="3753376">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_3753376" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/pavelpromin/" class="avatar"><img src="//habr.habrastorage.org/avatars/8ea/efa/90d/8eaefa90d50ad8722a403134db149659_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/pavelpromin/" class="username">pavelpromin</a><span class="comma">,</span>
+            <time>20 марта 2011 в 15:29</time>
+
+            <a href="#comment_3753376" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 3753376 )" title="В избранное"></a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            На флэше реализовано <a href="http://gskinner.com/RegExr/.">gskinner.com/RegExr/.</a><br/>
+Можно использовать офлайн.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_3753376">
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_3753797" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="3753797">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_3753797" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/mktums/" class="avatar"><img src="//habr.habrastorage.org/avatars/d5a/edf/ccc/d5aedfccc4e12596e1372e08261c17a9_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/mktums/" class="username">mktums</a><span class="comma">,</span>
+            <time>20 марта 2011 в 19:17</time>
+
+            <a href="#comment_3753797" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 3753797 )" title="В избранное"></a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Я использую <a href="http://txt2re.com">txt2re</a>
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_3753797">
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_3753887" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="3753887">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_3753887" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Bahusss/" class="avatar"><img src="//habr.habrastorage.org/avatars/1bd/e42/1db/1bde421dbc901b89350b43d79bb43810_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/Bahusss/" class="username">Bahusss</a><span class="comma">,</span>
+            <time>20 марта 2011 в 19:58</time>
+
+            <a href="#comment_3753887" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 3753887 )" title="В избранное"></a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Не нашел упоминания про escape, а ведь можно писать и так:<br/>
+<br/>
+re.escape(r'\section*')<br/>
+<br/>
+особенно помогает когда регулярным выражением служит длинная строка прочитанная из файла.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_3753887">
+        <div class="comment_item" id="comment_3753957" >
+
+    <span class="parent_id" data-parent_id="3753887"></span>
+    <div class="comment_body">
+        <div class="info  " rel="3753957">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_3753957" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/lorien/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+            <a href="http://habrahabr.ru/users/lorien/" class="username">lorien</a><span class="comma">,</span>
+            <time>20 марта 2011 в 20:34</time>
+
+            <a href="#comment_3753957" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 3753957 )" title="В избранное"></a>
+            <div class="show_tree" data-id="3753957" data-parent_id="3753887" title="Показать ветку комментариев">&#8629;</div>
+
+            <a href="#comment_3753887" data-id="3753957" data-parent_id="3753887" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            А зачем делать длинную строку, прочитанную из файла и затем заквотированную, регулярным выражением? 
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_3753957">
+        <div class="comment_item" id="comment_3753986" >
+
+    <span class="parent_id" data-parent_id="3753957"></span>
+    <div class="comment_body">
+        <div class="info  " rel="3753986">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_3753986" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Bahusss/" class="avatar"><img src="//habr.habrastorage.org/avatars/1bd/e42/1db/1bde421dbc901b89350b43d79bb43810_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/Bahusss/" class="username">Bahusss</a><span class="comma">,</span>
+            <time>20 марта 2011 в 20:50</time>
+
+            <a href="#comment_3753986" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 3753986 )" title="В избранное"></a>
+            <div class="show_tree" data-id="3753986" data-parent_id="3753957" title="Показать ветку комментариев">&#8629;</div>
+
+            <a href="#comment_3753957" data-id="3753986" data-parent_id="3753957" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Задачи бывают разные. Мне это потребовалось чтобы тестировать локализацию некоторых сообщений продукта. Информация о локализации хранится в файле в виде шаблона, этот шаблон нужно было «наложить» на текст в приложении и проверить что есть совпадение за исключением несколько кастомных данных.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_3753986">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_3754905" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="3754905">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_3754905" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 1: &uarr;1 и &darr;0">+1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/genemy/" class="avatar"><img src="//habr.habrastorage.org/avatars/53c/431/53e/53c43153e5f3af94b91c0d656e037f31_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/genemy/" class="username">genemy</a><span class="comma">,</span>
+            <time>21 марта 2011 в 08:18</time>
+
+            <a href="#comment_3754905" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 3754905 )" title="В избранное"></a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Конструктор регулярных выражений<br/>
+<a href="http://regexpres.narod.ru/calculator.html">regexpres.narod.ru/calculator.html</a>
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_3754905">
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_3758532" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="3758532">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_3758532" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/soshial/" class="avatar"><img src="//habr.habrastorage.org/avatars/993/7eb/5b9/9937eb5b92d4c28dc2290e8013eef2fe_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/soshial/" class="username">soshial</a><span class="comma">,</span>
+            <time>22 марта 2011 в 11:22</time>
+
+            <a href="#comment_3758532" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 3758532 )" title="В избранное"></a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            а можно попросить объяснить мне, как записать условие того, что определённая последовательность <b>не</b> встречается?
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_3758532">
+        <div class="comment_item" id="comment_3848883" >
+
+    <span class="parent_id" data-parent_id="3758532"></span>
+    <div class="comment_body">
+        <div class="info  " rel="3848883">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_3848883" class="voting   ">
+                <span class="minus" title="Read-only не могут голосовать"></span>
+                <span class="plus" title="Read-only не могут голосовать"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/rachiu/" class="avatar"><img src="//habr.habrastorage.org/avatars/7e9/134/cf3/7e9134cf3174895e0f6eb642c59c0dc2_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/rachiu/" class="username">rachiu</a><span class="comma">,</span>
+            <time>26 апреля 2011 в 15:41</time>
+
+            <a href="#comment_3848883" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" onclick="return comments_add_to_favorite(this, '3', 3848883 )" title="В избранное"></a>
+            <div class="show_tree" data-id="3848883" data-parent_id="3758532" title="Показать ветку комментариев">&#8629;</div>
+
+            <a href="#comment_3758532" data-id="3848883" data-parent_id="3758532" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Необходим пример задачи, которую нужно решить. Несмотря на простое определение «последовательность не встречается», его достаточно трудно трактовать в контексте регулярных выражений.<br/>
+<br/>
+Например, если вы хотите найти «aaa» за которыми идет три символа, отличные от «123», можно использовать опреждающую проверку:<br/>
+<code><b>aaa(?!123).{3}</b></code>
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_3848883">
+    </div>
+</div>
+
+    </div>
+</div>
+
+</div>
+
+						<form action="#" method="post"  id="comments_form" class="hidden">
+					<input type="hidden" name="ts" value="1392889294" />
+					<input type="hidden" name="tt" value="2" />
+					<input type="hidden" name="ti" value="115825" />  
+					<input type="hidden" name="comment_id" value="0" />
+					<input type="hidden" name="parent_id" value="0" />
+
+				</form>
+
+
+	
+<form action="/json/favorites/" method="post" id="edit_tags_form" class="hidden">
+  <input type="hidden" name="action" value="add" />
+  <input type="hidden" name="ti" value="0" />
+  <input type="hidden" name="tt" value="0" />
+  <label>Пометьте топик понятными вам метками, если хотите</label>
+  <input type="text" name="tags_string" class="tags_string" />
+  <div class="description">Метки лучше разделять запятой. Например: <i>общение, социальные сети, myspace.com, подростки, мердок</i></div>
+  <input type="submit" value="Сохранить" class="submit" /> или <a href="#" class="close" onclick="return close_edit_tags()">закрыть</a>
+</form>
+    
+
+
+  </div>
+  <div class="sidebar_right">
+		
+	
+	
+		<div class="banner_300x500">
+		<div id="adriver_banner_1863387959"></div>
+		<script type="text/javascript">
+			(function(){
+				var custom = {};
+					custom[1] = 'python';
+				
+				var std = {},i;for(i in
+				std){try{custom[std[i]]=eval(i)}catch(e){} }
+				new adriver("adriver_banner_1863387959", {sid: 176776, bt: 52, bn: 1, custom:
+				custom});
+			}());
+		</script>
+		</div>
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		
+<div class="block daily_best_posts">
+  <div class="title">Лучшее <sup>за 24 часа</sup></div>
+  <div class="posts_list">
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/213215/" class="post_name">Теплый ламповый звук</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/company/yandex/blog/213103/" class="post_name">Яндекс.Кит: новая прошивка для смартфонов</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/213217/" class="post_name">Реакция разных компаний на уязвимости их ресурсов</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/213157/" class="post_name">TCP/IP по аудиоканалу</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/company/contactless/blog/213243/" class="post_name">Наш контроллер для умного дома</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/213205/" class="post_name">Переполненяем стек в fprintf на Linksys WRT120N</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/212957/" class="post_name">WhatsApp вышел на тропу войны</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/company/beeline/blog/213235/" class="post_name">Как мы делали автомобильный трекер</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/213233/" class="post_name">Лабораторный программируемый линейный блок питания UnionTest/KORAD UT3005EP и его калибровка/управление</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/213191/" class="post_name">Исследуем обфускацию прошивки Linksys WRT120N</a>
+      </div>
+  </div>
+  <div class="all"><a href="/top/">все лучшие</a></div>
+</div>
+
+		
+		
+
+
+<div class="block similar_posts">
+
+	<div class="title">Похожие посты</div>
+  <div class="posts_list">
+    	<div class="post_item">
+    				<a class="post_name" href="/post/192920/">Разбор регулярных выражений</a>
+    				<span class="when">07.09.2013</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" href="/post/192356/">Регулярные выражения в WinEdt: поиск формул с неиспользуемыми номерами</a>
+    				<span class="when">03.09.2013</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" href="/post/166777/">Регулярные выражения изнутри</a>
+    				<span class="when">23.01.2013</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" href="/post/156395/">Использование регулярных выражений в Ruby</a>
+    				<span class="when">27.10.2012</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" href="/post/123845/">Регулярные выражения для валидации распространенных видов данных</a>
+    				<span class="when">11.07.2011</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" href="/post/115436/">Регулярные выражения, пособие для новичков. Часть 2</a>
+    				<span class="when">20.03.2011</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" href="/post/114156/">280 кроказябл или взрывная мощь регулярных выражений</a>
+    				<span class="when">20.02.2011</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" href="/post/107992/">Умляуты в регулярных выражениях</a>
+    				<span class="when">12.11.2010</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" href="/post/104768/">Тест простоты числа регулярным выражением</a>
+    				<span class="when">22.09.2010</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" href="/post/102442/">Основы Linux от основателя Gentoo. Часть 2 (1/5): Регулярные выражения</a>
+    				<span class="when">23.08.2010</span>
+      </div>
+  </div>			
+</div>
+
+
+
+	    
+<div class="block similar_questions">
+	<div class="title">Вопросы по теме</div>
+
+	<div class="posts_list">
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/38613?_aa=press_anykey">Метод start в python</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/460?_aa=press_anykey">Как заматчить в питоне многострочный текст регэкспом?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/69334?_aa=press_anykey">Как правильно написать regexp?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/67990?_aa=press_anykey">Регулярное выражение - проблема с кириллицей в названии файла</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/62402?_aa=press_anykey">Как написать поиск русских заглавных букв в строке (regexp, php)?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/61988?_aa=press_anykey">RegExp в php. Проверка строки на наличие нужных последовательностей</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/53938?_aa=press_anykey">Как написать парсер файлов на сайте (Python)?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/40603?_aa=press_anykey">Помогите правильно составить регулярное выражение для org.apache.regexp.re</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/35845?_aa=press_anykey">Почему «срабатывает» выражение?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/21146?_aa=press_anykey">Помогите с регулярным выражением для проверки строки вида 159,5|15|19.6 и вытаскивания чисел</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/17674?_aa=press_anykey">К гуру RegExp-а - как уменьшить число в строке?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/14089?_aa=press_anykey">Регулярное выражение php для получения уникальных доменов в строке</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/11641?_aa=press_anykey">Вопрос для гуру регулярных выражений</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/9910?_aa=press_anykey">RegExp-задачка</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/6792?_aa=press_anykey">PHP + RegExp, поиск по диапазону символов с исключением</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/5012?_aa=press_anykey">Регулярные выражения, использующие lookbehind, на языке JavaScript. Есть ли готовый код, решающий эту проблему раз и навсегда?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/72968?_aa=press_anykey">Как при помощи Python определить имя проводной или беспроводной сети, к которой в текущий момент подключен компьютер?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/72790?_aa=press_anykey">Как заставить Django при отладке запускать удаленный интерпретатор с правами суперюзера?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/72610?_aa=press_anykey">Как на Python (Django) реализовать парсинг query string?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/72598?_aa=press_anykey">Из-за чего низкая скорость обработки больших таблиц (ManyToManyField) в административном интерфейсе Django?</a>
+		</div>
+  </div>			
+		
+</div>
+
+		
+		
+
+	<div class="block live_broadcast">
+		<div class="title">Что обсуждают? </div>
+
+		<div class="live_broadcast_activity">
+				<div class="posts_list">
+							<div class="post_item">
+								
+								<a href="/post/212957/#comment_7332745" class="post_name">WhatsApp вышел на тропу войны</a>&nbsp;<span class="count">52</span>
+							</div>
+							<div class="post_item">
+								
+								<a href="/post/213217/#comment_7332743" class="post_name">Реакция разных компаний на уязвимости их ресурсов</a>&nbsp;<span class="count">63</span>
+							</div>
+							<div class="post_item">
+								
+								<a href="/post/213243/#comment_7332741" class="post_name">Наш контроллер для умного дома</a>&nbsp;<span class="count">49</span>
+							</div>
+							<div class="post_item">
+								
+								<a href="/post/213131/#comment_7332739" class="post_name">Обзор ASUS Zenbook UX301LA</a>&nbsp;<span class="count">108</span>
+							</div>
+							<div class="post_item">
+								
+								<a href="/post/213279/#comment_7332737" class="post_name">Самолетное: 10 категорий людей — те, которые умеют и которые нет</a>&nbsp;<span class="count">2</span>
+							</div>
+							<div class="post_item">
+								
+								<a href="/post/213231/#comment_7332735" class="post_name">Nokia Treasure Tag: «умные» метки на страже ваших вещей</a>&nbsp;<span class="count">6</span>
+							</div>
+							<div class="post_item">
+								
+								<a href="/post/213197/#comment_7332733" class="post_name">BigRep One: новый 3D принтер, который может печатать мебель целиком</a>&nbsp;<span class="count">14</span>
+							</div>
+							<div class="post_item">
+								
+								<a href="/post/213103/#comment_7332731" class="post_name">Яндекс.Кит: новая прошивка для смартфонов</a>&nbsp;<span class="count">323</span>
+							</div>
+							<div class="post_item">
+								
+								<a href="/post/213173/#comment_7332723" class="post_name">«Теоретический минимум» Леонарда Сасскинда издан на русском</a>&nbsp;<span class="count">57</span>
+							</div>
+							<div class="post_item">
+								
+								<a href="/post/213069/#comment_7332721" class="post_name">Риски ИИ от LessWrong.com, часть 1: интервью с Шейном Леггом из DeepMind</a>&nbsp;<span class="count">23</span>
+							</div>
+				</div>
+				<div class="all"><a href="/posts/">все посты</a></div>
+		</div>
+
+	</div>
+  
+		
+
+<!--  AdRiver code START. Type:AjaxJS Site: habrahabr PZ: 0 BN: 2 -->
+<div id="adriver_banner_480931290" class="adbanner"></div>
+
+<script type="text/javascript">
+new adriver("adriver_banner_480931290", {sid:176776, bt:52, bn:2});
+</script>
+
+
+<!--  AdRiver code END  -->
+		
+<div class="block best_company">
+
+		<div class="title">Компания дня <img src="/images/bg_cicle_help.png" title="
+Компания, чей пост набрал максимальное количество баллов<br>
+среди всех опубликованных в корпоративных блогах постах за <br>
+прошедшие сутки. Учитываются посты, для которых истек срок голосования <br>(3 дня с момента публикации)." class="help-tip"></div>
+
+		<div class="company_info">
+			<div class="name">
+			 <img class="favicon" src="//habr.habrastorage.org/company/06e/d69/4b4/06ed694b450896cd8466141051206a02_small.jpg" alt="Telebreeze Corporation" height="16" width="16" />
+			 <div class="company_name"><a href="http://habrahabr.ru/company/telebreeze/" class="title">Telebreeze Corporation</a></div>
+			</div>
+
+			<p>Последний пост:
+				<a href="http://habrahabr.ru/company/telebreeze/blog/212797/">10 самых прорывных технологий 2013 года и основанные на них стартапы</a>
+			</p>
+
+			<div class="buttons">
+  			<div id="fans_count">46 подписчиков</div>
+  				<input  type="button"  id="addCompanyFan" data-id="2666" class="blue " title="Мне нравится компания" value="Подписаться" />
+  				<input  type="button"  id="removeCompanyFan" data-id="2666" class="hidden" title="Компания мне больше не нравится" value="Подписан" />
+			</div>
+		</div>
+
+	</div>
+
+
+		
+
+		
+	<div class="block new_vacanies">
+  <a href="http://hantim.ru" class="title">Хантим</a>
+  <div class="vacancies">
+		<div class="job_item ">
+			<a href="http://hantim.ru/jobs/22572-razrabotchik-java-v-departament-upravleniya-zakupkami">Разработчик Java в Департамент управления закупками</a>&nbsp;&rarr; <a href="http://naumen.hantim.ru/jobs" class="company_name">NAUMEN</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://hantim.ru/jobs/15904-stazhyor">Стажёр</a>&nbsp;&rarr; <a href="http://intersystems.hantim.ru/jobs" class="company_name">InterSystems  Corporation</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://hantim.ru/jobs/24878-java-developer">Java Developer</a>&nbsp;&rarr; <a href="http://wrike.hantim.ru/jobs" class="company_name">Wrike</a>
+		</div>
+		<div class="job_item marked">
+			<a href="http://hantim.ru/jobs/27196-opytnyy-programmist-c">Опытный программист C++</a>&nbsp;&rarr; <a href="http://viva64.hantim.ru/jobs" class="company_name">ООО "СиПроВер"</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://hantim.ru/jobs/30818-veb-razrabotchik-django">Веб-разработчик Django</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://hantim.ru/jobs/30810-embedded-linux-developer">Embedded Linux Developer</a>&nbsp;&rarr; <a href="http://zodiac.hantim.ru/jobs" class="company_name">Zodiac Interactive </a>
+		</div>
+		<div class="job_item ">
+			<a href="http://hantim.ru/jobs/20530-web-programmist">Web-программист</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://hantim.ru/jobs/30790-veduschiy-razrabotchik-s-s">Ведущий разработчик С++/С# </a>&nbsp;&rarr; <a href="http://speechpro.hantim.ru/jobs" class="company_name">Центр Речевых Технологий</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://hantim.ru/jobs/30788-veduschiy-spetsialist-diasoft-fa">Ведущий специалист Diasoft FA#</a>&nbsp;&rarr; <a href="http://uralsib.hantim.ru/jobs" class="company_name">БАНК УРАЛСИБ (ОАО "УРАЛСИБ")</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://hantim.ru/jobs/11347-veduschiy-programmist-java">Ведущий программист Java</a>&nbsp;&rarr; <a href="http://naumen.hantim.ru/jobs" class="company_name">NAUMEN</a>
+		</div>
+  </div>
+  <div class="all"><a href="http://hantim.ru/">все вакансии</a></div>
+</div>
+
+		
+	<div class="block freelansim">
+	  <a href="http://freelansim.ru" class="title"></a>
+	  <div class="tasks">
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/55310">Нужно заниматься озвучиванием</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/55308">Перенести сайт на платформу easel </a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/55306">Отредактировать аналитический отчет</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/55302">Написать программу для курсовой работы на языке программирования F#</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/55300">Подключить 1C к интернет магазину Shop Script 5</a>
+				</div>
+				<div class="task marked">
+					<a href="http://freelansim.ru/tasks/55296">Разработка лендинг пейдж и интернет магазина</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/55294">Отвечать на определенные вопросы пользователей Интернета</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/55290">Интересный заказ высокого уровня на верстку</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/55288">Разработать дизайн и UI мобильного приложения для iPhone</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/55286">Node.js developer</a>
+				</div>
+
+	  </div>
+	  <div class="all"><a href="http://freelansim.ru/tasks">все заказы</a></div>
+	</div>
+
+		
+		
+		
+
+<div class="block similar_events">
+	<div class="title">Ближайшие события</div>
+		<div class="events_items">
+				<div class="event_item">
+						<div class="date">
+						<div class="dayname dayname_5"></div>
+						<div class="day">21</div>
+						<div class="month">фев</div>
+						</div>
+					<div class="title">
+						<a href="/events/4381/">DevArt хакатон в Москве</a>
+					</div>
+				</div>
+				<div class="event_item">
+						<div class="date">
+						<div class="dayname dayname_5"></div>
+						<div class="day">21</div>
+						<div class="month">фев</div>
+						</div>
+					<div class="title">
+						<a href="/events/4304/">HackDay #30 в Москве</a>
+					</div>
+				</div>
+				<div class="event_item">
+						<div class="date">
+						<div class="dayname dayname_5"></div>
+						<div class="day">21</div>
+						<div class="month">фев</div>
+						</div>
+					<div class="title">
+						<a href="/events/4423/">Как стать экспертом по AutoCAD</a>
+					</div>
+				</div>
+				<div class="event_item">
+						<div class="date">
+						<div class="dayname dayname_5"></div>
+						<div class="day">21</div>
+						<div class="month">фев</div>
+						</div>
+					<div class="title">
+						<a href="/events/4148/">Курс «Введение в Java»</a>
+					</div>
+				</div>
+				<div class="event_item">
+						<div class="date">
+						<div class="dayname dayname_5"></div>
+						<div class="day">21</div>
+						<div class="month">фев</div>
+						</div>
+					<div class="title">
+						<a href="/events/4160/">Курс «Интернет-маркетинг в ИТ»</a>
+					</div>
+				</div>
+		</div>
+	<div class="all"><a href="/events/">все события</a></div>
+</div>
+
+		
+  </div>
+  <div class="clear"></div>
+
+  
+        	
+	<div class="rotated_posts">
+			<div class="rotated_post ">
+				<a href="http://habrahabr.ru/company/mailru/blog/211663/" class="grey">Обзор особенностей ядра Андроида</a>
+			</div>
+			<div class="rotated_post ">
+				<a href="http://habrahabr.ru/post/207988/" class="grey">Python: вещи, которых вы могли не знать</a>
+			</div>
+			<div class="rotated_post last">
+				<a href="http://habrahabr.ru/post/196500/" class="grey">Как отключить поиск на новой вкладке Chrome</a>
+			</div>
+		<div class="clear"></div>
+	</div>
+
+        <div class="clear"></div>
+      </div>
+    </div>
+
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+        // test gggg
+        // настройки всплывающих уведомлений
+        $.jGrowl.defaults.closerTemplate = '<div>Закрыть все уведомления</div>';         
+        
+        // настройки тултипов
+        $(".help-tip").tipTip({maxWidth: "300px", edgeOffset: 10});  
+        
+      });
+      // global vars
+      var g_base_url = 'habrahabr.ru';
+      var g_show_xpanel = true;
+      var g_base_fullurl = 'http://habrahabr.ru/';
+      var g_is_guest = true;
+        var g_user_login = 'zlodiak';
+        var g_user_id = 215974;
+        var g_user_avatar = 'http://habrahabr.ru/i/avatars/stub-user-small.gif';   
+    </script>
+    
+    <script type="text/javascript" src="/javascripts/1392889138/_parts/shortcuts.js"></script>
+    <script type="text/javascript" src="/javascripts/1392889138/_parts/to_top.js"></script>
+    <link href="/styles/1392889138/_parts/_to_top.css" rel="stylesheet" media="all" />
+
+    
+    <script type="text/javascript" src="/javascripts/1392889138/_parts/float_block.js"></script>
+    
+    <!-- <script type="text/javascript" src="/javascripts/1392889138/_parts/float_block.js"></script> //-->
+      <!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+(function (d, w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter19919284 = new Ya.Metrika({id:19919284,
+                    webvisor:true,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true});
+        } catch(e) { }
+    });
+
+    var n = d.getElementsByTagName("script")[0],
+        s = d.createElement("script"),
+        f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f, false);
+    } else { f(); }
+})(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="//mc.yandex.ru/watch/19919284" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+
+
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-726094-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+<!-- tns-counter.ru -->
+<script type="text/javascript">
+(new Image()).src = '//www.tns-counter.ru/V13a***R>' + document.referrer.replace(/\*/g,'%2a') + '*tmtm_ru/ru/UTF-8/tmsec=habrahabr_total/' + Math.round(Math.random()*1E9);
+</script>
+<noscript>
+	<img src="http://www.tns-counter.ru/V13a****tmtm_ru/ru/UTF-8/tmsec=habrahabr_total/" width="1" height="1" alt="" />
+</noscript>
+<!--/ tns-counter.ru -->
+
+    <script type="text/javascript" src="/javascripts/1392889138/advertising.js"></script>
+    	<script type="text/javascript" src="http://habrahabr.ru/viewcount/post/115825/"></script>
+
+    
+    <div id="footer">
+	<dl class="user">
+		<dt><a href="http://habrahabr.ru/users/zlodiak/">zlodiak</a></dt>
+		<dd><a href="http://habrahabr.ru/tracker/">Трекер</a></dd>
+			<dd><a href="http://habrahabr.ru/sandbox/add/">Написать</a></dd>
+				<dd><a href="https://auth.habrahabr.ru/settings/upgrade/">Read-only</a></dd>
+
+			<dd><a href="https://auth.habrahabr.ru/settings/">Настройки</a></dd>
+	</dl>
+	<dl>
+		<dt>Разделы</dt>
+
+		<!--dd><a href="http://habrahabr.ru/qa/">Q&A</a></dd-->
+		<dd><a href="http://habrahabr.ru/hubs/">Хабы</a></dd>
+		<dd><a href="http://habrahabr.ru/events/">События</a></dd>
+		<dd><a href="http://habrahabr.ru/companies/">Компании</a></dd>
+		<dd><a href="http://habrahabr.ru/users/">Пользователи</a></dd>
+	</dl>
+	<dl>
+		<dt>Посты</dt>
+		<dd><a href="http://habrahabr.ru/feed/">Лента</a></dd>
+		<dd><a href="http://habrahabr.ru/posts/top/">Лучшие</a></dd>
+		<dd><a href="http://habrahabr.ru/posts/collective/">Тематические</a></dd>
+		<dd><a href="http://habrahabr.ru/posts/corporative/">Корпоративные</a></dd>
+		<dd><a href="http://habrahabr.ru/sandbox/">Песочница</a></dd>
+	</dl>
+	<dl>
+		<dt>Инфо</dt>
+		<dd><a href="http://habrahabr.ru/info/about/">О сайте</a></dd>
+		<dd><a href="http://habrahabr.ru/info/help/rules/">Правила</a></dd>
+		<dd><a href="http://habrahabr.ru/info/help/">Помощь</a></dd>
+		<dd><a href="http://habrahabr.ru/info/agreement/">Соглашение</a></dd>
+		<dd><a href="http://habrahabr.ru/info/stats/">Статистика</a></dd>
+	</dl>
+	<dl>
+		<dt>Услуги</dt>
+		<dd><a href="http://habrahabr.ru/info/advertising/">Реклама</a></dd>
+		<dd><a href="http://habrahabr.ru/info/advertising/corporate/">Корпоративные тарифы</a></dd>
+		<dd><a href="http://habrahabr.ru/info/advertising/workshops/">Семинары</a></dd>
+		<dd><a href="http://habrahabr.ru/special/">Спецпроекты</a></dd>
+		<dd><a href="http://habrahabr.ru/special/minsvyaz/" style="color:green;">Льготы стартапам</a></dd>
+	</dl>
+	<div class="copyright">
+
+		<div class="about">
+			<a href="http://tmtm.ru/">TM</a>
+			© 2006&#8211;2014
+			<br><br>
+			<a href="http://habrahabr.ru/feedback/">Служба поддержки</a><br><br>
+			<a href="http://m.habrahabr.ru">Мобильная версия</a><br><br>
+
+
+			<div class="social_accounts">
+				<a href="https://twitter.com/habrahabr" class="tw"></a>
+				<a href="https://www.facebook.com/habrahabr.ru" class="fb"></a>
+				<a href="http://vk.com/habr" class="vk"></a>
+				<!-- <a href="" class="gp"></a> //-->
+			</div>
+
+		</div>
+	</div>
+
+</div>    
+    <div class="footer_logos">
+		
+		<div class="project brainstorage">
+			<a href="http://brainstorage.ru" class="icon "></a>
+			<div class="text">Все мозги в одном месте</div>
+		</div>
+
+		<div class="project toster">
+			<a href="http://toster.ru" class="icon "></a>
+			<div class="text">Q&A-сервис для разработчиков</div>
+		</div>
+		
+		<div class="project freelansim">
+			<a href="http://freelansim.ru" class="icon "></a>
+			<div class="text">Заказы для фрилансеров</div>
+		</div>
+		
+		
+		<div class="project hantim">
+			<a href="http://hantim.ru" class="icon "></a>
+			<div class="text">Вакансии для айтишников</div>
+		</div>
+		
+		<div class="project autokadabra">
+			<a href="http://autokadabra.ru" class="icon "></a>
+			<div class="text ">Уютная и дружелюбная</div>
+		</div>
+		
+</div>
+
+
+    
+    
+  </body>
+</html>

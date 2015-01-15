@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+
+<html>
+	<head>    
+		<meta charset="utf-8" />
+		
+		<title></title>
+		
+		<!--[if lt IE 9]>
+			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->	
+
+		<!--<link rel="icon" href="favicon.ico" type="image/x-icon" />-->	
+
+		<link rel="stylesheet" href="css/style.css" />			
+		<link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.9.2.custom.css" />	
+	</head>
+
+	<body>			
+		<div id="handle1">start fx</div>
+
+		<div class="area" id="area1">		
+			sdgdfgdfgd<hr />
+			sdgdfgdfgd<hr />
+			sdgdfgdfgd<hr />
+			sdgdfgdfgd<hr />
+			sdgdfgdfgd<hr />
+		</div>
+		
+		<hr />
+		
+		<div id="handle2">start fx</div>
+		
+		<div class="area" id="area2" style="display: none">		
+			sdgdfgdfgd<hr />
+			sdgdfgdfgd<hr />
+			sdgdfgdfgd<hr />
+			sdgdfgdfgd<hr />
+			sdgdfgdfgd<hr />
+		</div>
+		
+		<div id="handle3">start fx</div>
+		
+		<hr />
+		
+		<div class="area" id="area3">		
+			sdgdfgdfgd<hr />
+			sdgdfgdfgd<hr />
+			sdgdfgdfgd<hr />
+			sdgdfgdfgd<hr />
+			sdgdfgdfgd<hr />
+		</div>
+		
+		<hr />
+		<hr />	
+
+		<div id="handle4">start fx</div>
+		
+		<div class="area" id="area4">		
+			sdgdfgdfgd<hr />
+			sdgdfgdfgd<hr />
+			sdgdfgdfgd<hr />
+			sdgdfgdfgd<hr />
+			sdgdfgdfgd<hr />
+		</div>
+		
+		<hr />		
+		
+		<div id="handle5">start fx</div>
+		
+		<div class="area" id="area5">		
+			sdgdfgdfgd<hr />
+			sdgdfgdfgd<hr />
+			sdgdfgdfgd<hr />
+			sdgdfgdfgd<hr />
+			sdgdfgdfgd<hr />
+		</div>
+		
+		<hr />	
+		
+		<div id="handle6">start fx</div>
+		
+		<div class="area" id="area6">		
+			sdgdfgdfgd<hr />
+			sdgdfgdfgd<hr />
+			sdgdfgdfgd<hr />
+			sdgdfgdfgd<hr />
+			sdgdfgdfgd<hr />
+		</div>
+		
+		<hr />	
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script src="js/jquery-ui-1.9.2.custom.min.js"></script>
+		
+		<script>
+			$("#handle1").click(function () {
+				$("#area1").hide("slide", {}, 1000);
+			});
+			
+			$("#handle2").click(function () {
+				$(this).show("slide", {}, 1000);
+			});		
+
+			$("#handle3").click(function () {
+				$("#area3").toggle("slide", {}, 1000);
+			});	
+
+			$("#handle4").click(function () {
+				$("#area4").effect("bounce", { times: 3, direction: 'up', distance: 20}, 300);
+
+			});		
+
+			$("#handle5").click(function () {
+				$("#area5").effect("bounce", { times: 3, direction: 'up', distance: 20}, 300, function(){
+					$(this).css('display', 'none');
+				});
+			});		
+
+			$("#handle6").click(function () {
+				$("#area6").effect("size", { to: {width: 0, height: 60} }, 1000, function(){
+					$(this).css('display', 'none');
+				});
+			});				
+		</script>
+	</body>
+</html>

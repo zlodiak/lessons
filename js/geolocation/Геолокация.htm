@@ -1,0 +1,247 @@
+ 
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
+<head>
+ <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+ <meta name="description" content="Vladimir V. Chukin" />
+ <meta name="keywords" content="погода облака метеорология информационные технологии" />
+ <link type="image/png" rel="SHORTCUT ICON" href="/images/str.png">
+ <link rel="stylesheet" type="text/css" href="/styles.css" />
+ <script type="text/javascript" src="meteo-19.09.2005.js"></script>
+ <title>Геолокация</title>
+ <base href="http://www.chukin.ru/" />
+</head>
+
+<body>
+
+  <div id="garret">
+
+   <div id="logo">
+   <img src="/images/letter3.png" alt="Сайт Чукина Владимира Владимировича" />
+   </div>
+
+   <div id="site">
+   Сайт<br />Чукина<br />Владимира<br />Владимировича
+   </div>
+
+<!--
+   <div style="float: right; width: 700px; ">
+     <script charset="windows-1251" type="text/javascript" src="http://www.ozon.ru/PartnerTwinerNew.aspx?revident=ddca702a-acc1-4370-8869-fc293a8d478b" ></script>
+   </div>
+-->
+<!--   <div class="yandexform" onclick="return {type: 3, logo: 'rb', arrow: true, webopt: false, websearch: false, bg: '#ffffff', fg: '#000000', fontsize: 14, encoding: ''}"><form action="http://www.chukin.ru/search/index.php" method="get"><input type="hidden" name="searchid" value="145602"/><input name="text"/><input type="submit" value="Найти"/></form></div><script type="text/javascript" src="http://site.yandex.net/load/form/1/form.js" charset="utf-8"></script> -->
+
+   <div style="clear: left"></div>
+   <div style="clear: right"></div>
+
+  </div>
+
+
+  <div id="line">
+   <div id="date">
+    <p>15 октября 2013 г.</p>
+   </div>
+  </div>
+
+ <div id="container">
+
+ <div id="menu">
+  <ul>
+   <li><a href="/edu/">Дисциплины</a></li>
+   <li><a href="/timetable/">Расписание</a></li>
+   <li><a href="/diploma/">Дипломы</a></li>
+   <li><a href="http://www.meteolab.ru/publish/">Публикации</a></li>
+   <li><a href="/book/">Книги</a></li>
+   <li><a href="/journal/">Журналы</a></li>
+   <li><a href="/organization/">Организации</a></li>
+   <li><a href="/conference/">Конференции</a></li>
+   <li><a href="/grant/">Гранты</a></li>
+   <li><a href="/weather/">Погода</a></li>
+   <li><a href="/projects/">Проекты</a></li>
+   <li><a href="/soft/">Программы</a></li>
+   <li><a href="/tv/">Телеканалы</a></li>
+   <li><a href="http://www.xumuk.ru/igra_tm/">Таблица Менделеева</a></li>
+   <li><a href="/dictionary/">Словарь слов</a></li>
+   <li><a href="http://www.meteolab.ru">Лаборатория</a></li>
+  </ul>
+
+<div id="weather">
+<a href="http://clck.yandex.ru/redir/dtype=stred/pid=7/cid=1228/*http://weather.yandex.ru/index.xml?city=26063"><img src="http://info.weather.yandex.net/informer/120x156/26063.png" border="0" alt="Яндекс.Погода"/><img width="1" height="1" src="http://clck.yandex.ru/click/dtype=stred/pid=7/cid=1227/*http://img.yandex.ru/i/pix.gif" alt="" border="0"/></a>
+</div>
+
+ </div>
+
+
+ <div id="main">
+
+
+ <div id="link">
+  <a href='/'>Главная</a> / <a href='/edu/'>Дисциплины</a> / <a href='/edu/network/'>Сетевые технологии обмена информацией</a> / <a href='/edu/network/geolocation.php'>Геолокация</a> </div>
+
+
+<div id="info">
+
+ <div id="caption">
+  <h1>Геолокация</h1>
+ </div>
+
+<h3>Геолокация</h3>
+<p>
+Геолокация - определение местоположения (широты и долготы места) пользователя сети Интернет
+по радиосигналам глобальной навигационной спутниковой системы ГЛОНАСС/GPS, по уровню сигналов
+точек доступа WiFi, по номеру соты CellID в сети сотовой связи, по IP-адресу компьютера.
+<p>
+
+<h4>Геолокация от Google</h4>
+
+Для определения местоположения пользователей в современных браузерах есть поддержка геолокации
+в виде объекта navigator.geolocation. У данного объекта есть два метода getCurrentPosition() и
+watchPosition(). Пример использования метода navigator.geolocation.getCurrentPosition() приведен ниже.<br />
+<br />
+<pre>
+/* Определение текущих координат с помощью технологии
+ * Geolocation (GNSS, WiFi, CellID, IP) и Yandex.API
+ */
+  function getPosition() {
+    if(navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        // Пытаемся определить текущие координаты
+        googleAPI,
+        // Иначе, определяем координаты центра города по IP-адресу с помощью Яндекс.API
+        yandexAPI,
+        // Параметры
+        {
+          enableHighAccuracy: true,      // Режим высокой точности
+          timeout: 27000,                // Максиальное время ожидания ответа (в миллисекундах)
+          maximumAge: 0                  // Максимальное время жизни полученных данных
+        }
+      );
+    }
+    else {
+      yandexAPI();
+    }
+    // Устанавливаем таймер вызова этого же метода через 30 секунд
+    setTimeout("getPosition()", 30000);
+  }
+
+
+/* Определяем координаты с помощью Google.API
+ */
+  function googleAPI(position) {
+    alert(position.coords.latitude+", "+position.coords.longitude);
+  }
+
+
+/* Определяем координаты с помощью Yandex.API
+ */
+  function yandexAPI(error) {
+    alert(ymaps.geolocation.latitude+", "+ymaps.geolocation.longitude);
+  }
+</pre>
+
+В этом примере информация о местоположении обновляется каждые 30 секунд, при этом каждый раз
+данные от Google запрашиваются заново и ожидаются в течении 27 секунд.<br />
+<br />
+
+<h4>Первый тест работы геолокации</h4>
+
+При использовании геолокации в интернет-проекте сразу же возникает вопрос о точности определения
+координат. Именно этим мы сейчас и займемся. Проведем для этого небольшой эксперимент. Для этого
+создадим сайт, содержащий JavaScript, который будет с заданной частотой опрашивать определять координаты двух устройств:
+первое - ноутбук с включенным адаптером WiFi, подключенный к сети Интернет через GPRS/3G-модем,
+второе - смартфон с выключенным GPS-приемником и включенной поддержкой навигации в сотовых сетях GSM
+и/или по точкам доступа WiFi, подключенный к сети Интернет также через GPRS/3G-модем. Таким образом,
+имеем возможность оценить точность навигации только по точкам доступа WiFi и с учетом
+данных сотовой сети GSM. Итак, поместим все устройства в автомобиль и провезем их по дорогам
+Санкт-Петербурга. Оборудования оказалось не много, все уместилось на переднем пассажирском
+сиденье.<br />
+<br />
+<img src="images/devices.jpg" width="400"><br />
+<font size="2">Рис. 1. Внешний вид экспериментальной установки</font><br />
+<br />
+Длина маршрута составляет 15 км, начало в спальных районах Санкт-Петербурга на Гражданке,
+окончание - гидрометеорологический университет на набережной, напротив Александро-Невской Лавры.
+Результаты последовательных измерений местоположения каждые 30 секунд соединены прямыми линиями:
+синяя - WiFi, красная WiFi/GSM.<br />
+<br />
+<img src="images/2013-02-15-20-27.png" width="600"><br />
+<font size="2">Рис. 2. Данные тестирования геолокации в сотовых сетях GSM и/или по точкам доступа WiFi</font><br />
+<br />
+Из полученных данных можно сделать предварительный вывод, что точность вполне удовлетворительная,
+по крайней мере отклонения от траектории не превышают 1000 метров. Как ни странно, но точность геолокации по WiFi/GSM
+хуже, чем по WiFi. Это хорошо видно по скачкам красной трактории от одной базовой станции к другой.<br />
+Однако, для количественной оценки точности необходимо привлечение третьего источника данных о местоположении,
+определенного по радиосигналам ГЛОНАСС/GPS. При этом координаты должны определяеться без использования
+геолокации от Google. Это связано с тем, что использование метода navigator.geolocation.getCurrentPosition()
+при включенном ГЛОНАСС/GPS-приемнике и модуле WiFi улучшает точность геолокации по точкам доступа WiFi и
+тем самым влияет на результаты оценки точности (точность оказывается всегда лучше, чем в тех местах где нас еще не было).
+
+</div>
+
+
+
+  </div> <!-- main -->
+
+  <div style="clear: left"></div>
+
+ </div> <!-- container -->
+
+ <div id="feuilleton">
+
+  <div id="copyright">
+   Copyright &copy; 2007-2013, <a href="/">В. В. Чукин</a>
+  </div>
+
+  <div id="button">
+    <a href="http://orthodox.etel.ru/radio.php">
+     <img src="/images/ekat.gif"  alt='Православное радио "Воскресенье"' width="88" height="31" border="0">
+    </a>
+&nbsp;
+    <a href="http://valaam.ru">
+     <img src="/images/valaam.gif" width="88" height="31" alt="Валаамский монастырь" border="0">
+    </a>
+&nbsp;
+    <a href="http://orthomedia.ru">
+     <img src="/images/orthomedia.gif" alt='Медиа-сервер "Россия Православная"' border="0">
+    </a>
+&nbsp;
+    <a href='http://www.linuxcenter.ru/r_45264/'>
+     <img src="/images/linuxcenter.png" alt='Интернет-магазин "ЛинуксЦентр"' border="0">
+    </a>
+&nbsp;
+    <a href="http://yandex.ru/cy?base=0&amp;host=chukin.ru">
+     <img src="http://www.yandex.ru/cycounter?chukin.ru" width="88" height="31" alt="Яндекс цитирования" border="0" />
+    </a>
+&nbsp;
+    <a href="http://jigsaw.w3.org/css-validator/">
+     <img src="/images/valid-css.small.png" alt="Valid CSS!" height="15" width="80" style="border: 0px;" />
+    </a>
+&nbsp;
+    <a href="http://validator.w3.org/check?uri=referer">
+     <img src="/images/valid-xhtml10.small.png" alt="Valid XHTML 1.0 Strict!" height="15" width="80" style="border: 0px;"/>
+    </a>
+&nbsp;
+    <a href="http://www.unicode.org/">
+     <img src="/images/utf-8.gif" height="15" width="80" style="border: 0px;" alt="Unicode Encoded Badge" title="Unicode Encoded!" />
+    </a>
+&nbsp;
+<!--LiveInternet counter--><script type="text/javascript"><!--
+document.write("<a href='http://www.liveinternet.ru/click' "+
+"target=_blank><img src='http://counter.yadro.ru/hit?t26.6;r"+
+escape(document.referrer)+((typeof(screen)=="undefined")?"":
+";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+";"+Math.random()+
+"' alt='' title='LiveInternet: показано число посетителей за"+
+" сегодня' "+
+"border=0 width=88 height=15><\/a>")//--></script><!--/LiveInternet-->
+
+  </div>
+
+ </div>
+
+</body>
+</html>

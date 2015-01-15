@@ -1,0 +1,1205 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>
+	
+	Способы вертикального выравнивания по центру в CSS.
+	| CSS-Tricks по-русски
+
+</title><link rel="icon" href="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/favicon0.ico" type="image/x-icon" /><link type="text/plain" rel="author" href="/humans.txt" /><link rel="shortcut icon" href="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/favicon0.ico" type="image/x-icon" />
+	<link href="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/css30000.css" rel="stylesheet" type="text/css" />
+	
+	<link href="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/common00.css" rel="stylesheet" type="text/css" />
+	
+
+	<script type="text/javascript" src="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/jquery00.js"></script>
+
+	<script type="text/javascript" src="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/jquery01.js"></script>
+
+	<script type="text/javascript" src="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/feedback.js"></script>
+
+	
+	
+<meta name="description" content="Описываются способы вертикального выравнивания и центрирования текста, а также других элементов. Рассматривается пять различных способов, плюсы и минусы каждого из них. Приводится пример создания странички с вертикально центрированным контентом." />
+
+<meta name="keywords" content="вертикальное центрирование css,вертикальное выравнивание css,css центрирование блока,центрирование div внутри css,Спасибо" />
+
+
+	<script type="text/javascript" src="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/scrollsa.js"></script>
+	<script type="text/javascript" src="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/jquery02.js"></script>
+
+	<link href="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/article0.css" rel="stylesheet" type="text/css" />
+	
+
+	<script type="text/javascript">
+
+		$(document).ready(function () {
+			$(".side-group li a.faded").append("<span class=\"slices\" />");
+			if ($(".ad-links a").length == 0) {
+				$(".ad-links").hide();
+			}
+		});
+	
+	</script>
+
+	<!--[if IE]>
+		<script type="text/javascript">
+			document.createElement('header');
+			document.createElement('nav');
+			document.createElement('section');
+			document.createElement('article');
+			document.createElement('aside');
+			document.createElement('footer');
+		</script>
+	<![endif]-->
+	
+
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+</head>
+<body>
+	
+	<div id="page">
+		
+<header>
+	<a class="slices" id="logo" title="css-trick по-русски" href="http://www.css-tricks.ru/"></a>
+	
+<nav>
+	<a class="slices" id="check" href="http://www.css-tricks.ru/" title="Главная">
+	</a>
+	<ul id="menu">
+		<li>
+			<a class="articlesinactive slices" href="http://css-tricks.ru/"></a>
+		</li>
+		<li>
+			<a class="snippetsinactive slices" href="http://css-tricks.ru/snippets"></a>
+		</li>
+	</ul>
+</nav>
+
+	<div class="clear">
+	</div>
+</header>
+
+		<div id="main">
+			<div id="content">
+				<section>
+					
+	
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		$("a[rel='external']").click(function() { window.open(this.href); return false; });
+	});
+
+</script>
+
+<article>
+	<h2>
+		Способы вертикального выравнивания по центру в CSS.</h2>
+	<div style="float:left; margin:0 20px 0 0;">
+		<img src="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/200x2000.jpg" />
+</div>
+<p>
+Существует несколько принципиально отличающихся способов для того чтобы отцентрировать объект 
+по вертикали с помощью CSS, однако сложность может быть в выборе правильного.
+Мы рассмотрим некоторые из них, а также сделаем небольшой сайт, используя полученные знания.
+</p>
+
+	<p>
+Вертикальное выравнивание по центру с помощью CSS достигается не так просто.
+Существует множество способов и не все работают во всех броузерах.
+Давайте рассмотрим 5 различных методов, а также "за" и "против" каждого из них.
+<a href="http://css-tricks.ru/content/demos/VerticalCenteringCSS/demo.html">Пример.</a>
+</p>
+<p>
+	<img border="0" height="330" src="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/demo-thu.jpg" width="550" />
+</p>
+<h2>1-ый способ</h2>
+<p>
+Этот метод предполагает, что мы устанавливаем некоторому элементу <tt>&lt;div&gt;</tt>
+способ отображения как таблица, после этого мы можем использовать в нём свойство <tt>vertical-align</tt>
+(которое работает <a href="http://css-tricks.ru/articles/details/WhatisVerticalAlign">по разному</a> в различных элементах).
+</p>
+<pre><code>&lt;div id=&quot;wrapper&quot;&gt;
+	&lt;div id=&quot;cell&quot;&gt;
+		&lt;div class=&quot;content&quot;&gt;
+			Некоторая полезная информация, которая должна располагаться по центру.
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+<pre><code>#wrapper{
+	display		: table;
+}
+#cell{
+	display		: table-cell;
+	vertical-align	: middle;
+}</code></pre>
+
+<h3>Плюсы</h3>
+<ul>
+	<li>Контент может динамически изменять высоту (высота не определена в CSS).</li>
+	<li>Контент не обрезается в случае, если для него недостаточно места.</li>
+</ul>
+<h3>Минусы</h3>
+<ul>
+	<li>Не работает в IE 7 и меньше</li>
+	<li>Много вложенных тэгов</li>
+</ul>
+<h2>2-ой метод</h2>
+<p>
+Этот метод использует абсолютное позиционирование <tt>div</tt>-а, которому <tt>top</tt> устанавливается
+в 50%, а верхний отступ (<tt>margin-top</tt>) минус половине высоты контента.
+Это подразумевает, что объект должен иметь фиксированную высоту, которая определена в стилях CSS.
+</p>
+<p>
+Поскольку высота фиксированная, вы можете установить <tt>overflow:auto;</tt> для <tt>div</tt>-а 
+содержащего контент, таким образом, в случае если контент не будет влазить, то появятся скролл-бары.
+</p>
+<pre><code>&lt;div id="content"&gt;
+	Content Here		
+&lt;/div&gt;</code></pre>
+<pre><code>#content {
+	position	: absolute;
+	top		: 50%;
+	height		: 240px;
+	margin-top	: -120px; /* минус от половины высоты */
+}</code></pre>
+<h3>Плюсы</h3>
+<ul>
+	<li>Работает во всех броузерах.</li>
+	<li>Нет лишней вложенности.</li>
+</ul>
+<h3>Минусы</h3>
+<ul>
+	<li>Когда не достаточно места, контент пропадает (например, <tt>div</tt> находится внутри <tt>body</tt>,
+	а пользователь уменьшил окна, в этом случае скролл-бары не появятся.</li>
+</ul>
+<h2>3-ий метод</h2>
+<p>
+В этом методе, мы обернём <tt>div</tt> с контентом другим <tt>div</tt>-ом. Установим ему высоту в 50%
+(<tt>height: 50%;</tt>), а нижний отступ половине высоты (<tt>margin-bottom:-contentheight;</tt>).
+Контент будет очищать <tt>float</tt> и выводиться по центру.
+</p>
+<pre><code>&lt;div id=&quot;floater&quot;&gt;
+	&lt;div id=&quot;content&quot;&gt;
+	здесь контент
+	&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<pre><code>#floater{
+	float		: left;
+	height		: 50%;
+	margin-bottom	: -120px;
+}
+#content{
+	clear		: both;
+	height		: 240px;
+	position	: relative;
+}</code></pre>
+<h3>Плюсы</h3>
+<ul>
+	<li>Работает во всех броузерах.</li>
+	<li>Когда недостаточно места (например, когда уменьшено окно) контент не обрезается, появятся скроллбары.</li>
+</ul>
+<h3>Минусы</h3>
+<ul>
+	<li>Думаю только один: что используется лишний пустой элемент.</li>
+</ul>
+<h2>4-ый метод.</h2>
+<p>
+Этот метод использует свойство <tt>position:absolute;</tt> для <tt>div</tt>-а с фиксированными размерами (шириной и высотой).
+Затем устанавливаем ему координаты <tt>top:0; bottom:0;</tt>, но поскольку у него фиксированная высота, то он не
+может растянуться и выравнивается по центру. Это очень похоже на общеизвестный метод горизонтального выравнивания по центру 
+блочного элемента фиксированной ширины (<tt>margin: 0 auto;</tt>).</p>
+<pre><code>&lt;div id=&quot;content&quot;&gt;
+	Важная информация.
+&lt;/div&gt;</code></pre>
+<pre><code>#content{
+	position	: absolute;
+	top		: 0;
+	bottom		: 0;
+	left		: 0;
+	right		: 0;
+	margin		: auto;
+	height		: 240px;
+	width		: 70%;
+}</code></pre>
+<h3>Плюсы</h3>
+<ul>
+	<li>Очень просто.</li>
+</ul>
+<h3>Минусы</h3>
+<ul>
+	<li>Не работает в Internet Explorer</li>
+	<li>Контент будет обрезаться без скролл-баров, если не хватает места в контейнере.</li>
+</ul>
+<h2>5-ый метод</h2>
+<p>
+С помощью этого метода можно выровнять по центру одну строку текста. Просто устанавливаем 
+высоту текста (<tt>line-height</tt>) равной высоте элемента (<tt>height</tt>). После этого строка
+будет выведена по центру.
+</p>
+<pre><code>&lt;div id=&quot;content&quot;&gt;
+	Какая-то строка текста
+&lt;/div&gt;</code></pre>
+<pre><code>#content{
+	height		: 100px;
+	line-height	: 100px;
+}</code></pre>
+<h3>Плюсы</h3>
+<ul>
+	<li>Работает во всех броузерах.</li>
+	<li>Не обрезает текст, если он не влез.</li>
+</ul>
+<h3>Минусы</h3>
+<ul>
+	<li>Работает только с текстом (не работает с блочными элементами).</li>
+	<li>Если текста больше чем одна строка, то выглядит очень плохо.</li>
+</ul>
+<p>
+Этот способ очень полезен для небольших элементов, например чтобы вырвнять по центру текст в кнопке
+или в текстовом поле.</p>
+<p>
+Теперь вы знаете как добиться вертикального выравнивания по центру, давайте сделаем простой web-сайт, 
+который, в конце-концов будет выглядеть так:
+</p>
+<p>
+	<img border="0" height="330" src="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/step4-th.jpg" width="550" /></p>
+<h2>Шаг 1</h2>
+<p>Всегда хорошо начинать с семантической разметки. Наша страница будет структурирована следующим образом:
+</p>
+<ul>
+	<li>#floater (чтобы выровнять контент по центру)</li>
+	<li>#centred (центральный элемент)
+	<ul>
+		<li>#side
+		<ul>
+			<li>#logo</li>
+			<li>#nav (список <code>&lt;ul&gt;</code>)</li>
+		</ul>
+		</li>
+		<li>#content</li>
+	</ul>
+	</li>
+	<li>#bottom (для копирайтов и всего такого)</li>
+</ul>
+<p>Напишем следующую html-разметку:</p>
+<pre><code>&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+&lt;head&gt;
+	&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
+	&lt;title&gt;A Centred Company&lt;/title&gt;
+	&lt;link rel=&quot;stylesheet&quot; href=&quot;styles.css&quot; type=&quot;text/css&quot; media=&quot;all&quot; /&gt;
+&lt;/head&gt;
+ 
+&lt;body&gt;
+	&lt;div id=&quot;floater&quot;&gt;&lt;/div&gt;
+	&lt;div id=&quot;centered&quot;&gt;
+ 		&lt;div id=&quot;side&quot;&gt;
+			&lt;div id=&quot;logo&quot;&gt;&lt;strong&gt;&lt;span&gt;A&lt;/span&gt; Company&lt;/strong&gt;&lt;/div&gt;
+			&lt;ul id=&quot;nav&quot;&gt;
+				&lt;li&gt;&lt;a href=&quot;#&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
+				&lt;li&gt;&lt;a href=&quot;#&quot;&gt;Products&lt;/a&gt;&lt;/li&gt;
+				&lt;li&gt;&lt;a href=&quot;#&quot;&gt;Blog&lt;/a&gt;&lt;/li&gt;
+				&lt;li&gt;&lt;a href=&quot;#&quot;&gt;Contact&lt;/a&gt;&lt;/li&gt;
+				&lt;li&gt;&lt;a href=&quot;#&quot;&gt;About&lt;/a&gt;&lt;/li&gt;
+			&lt;/ul&gt;
+		&lt;/div&gt;
+ 		&lt;div id=&quot;content&quot;&gt;
+ 			&lt;h1&gt;Page Title&lt;/h1&gt;
+ 			&lt;p&gt;
+				Holisticly re-engineer value-added outsourcing after
+				process-centric collaboration and idea-sharing. 
+				Energistically simplify impactful niche markets via 
+				enabled imperatives. Holisticly predominate premium 
+				innovation after compelling scenarios. Seamlessly 
+				recaptiualize high standards in human capital with 
+				leading-edge manufactured products. Distinctively 
+				syndicate standards compliant schemas before robust 
+				vortals. Uniquely recaptiualize leveraged web-readiness 
+				vis-a-vis out-of-the-box information. 
+			&lt;/p&gt;
+ 			&lt;h2&gt;Heading 2&lt;/h2&gt;
+ 			&lt;p&gt;
+				Efficiently embrace customized web-readiness rather 
+				than customer directed processes. Assertively grow 
+				cross-platform imperatives vis-a-vis proactive 
+				technologies. Conveniently empower multidisciplinary 
+				meta-services without enterprise-wide interfaces. 
+				Conveniently streamline competitive strategic theme 
+				areas with focused e-markets. Phosfluorescently 
+				syndicate world-class communities vis-a-vis value-added 
+				markets. Appropriately reinvent holistic services 
+				before robust e-services. 
+			&lt;/p&gt;
+ 		&lt;/div&gt;
+ 	&lt;/div&gt;
+ 	&lt;div id=&quot;bottom&quot;&gt;
+		&lt;p&gt;
+			Copyright notice goes here
+		&lt;/p&gt;
+	&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h2>Шаг 2</h2>
+<p>
+Сейчас мы напишем простейший CSS, для размещения элементов на странице. Вы должны сохранить этот код в файле 
+<tt>style.css</tt>. Именно на него прописана ссылка в html-файле.
+</p>
+<pre><code>html, body {
+	margin		: 0;
+	padding		: 0;
+	height		: 100%;
+}
+body {
+	background	: url('page_bg.jpg') 50% 50% no-repeat #FC3;
+	font-family	: Georgia, Times, serifs;
+}
+#floater {
+	position	: relative;
+	float		: left;
+	height		: 50%;
+	margin-bottom	: -200px;
+	width		: 1px;
+}
+#centered {
+	position	: relative;
+	clear		: left;
+	height		: 400px;
+	width		: 80%;
+	max-width	: 800px;
+	min-width	: 400px;
+	margin		: 0 auto;
+	background	: #fff;
+	border		: 4px solid #666;
+}
+#bottom {
+	position	: absolute;
+	bottom		: 0;
+	right		: 0;
+}
+#nav {
+	position	: absolute;
+	left		: 0;
+	top		: 0;
+	bottom		: 0;
+	right		: 70%;
+	padding		: 20px;
+	margin		: 10px;
+}
+#content {
+	position	: absolute;
+	left		: 30%;
+	right		: 0;
+	top		: 0;
+	bottom		: 0;
+	overflow	: auto;
+	height		: 340px;
+	padding		: 20px;
+	margin		: 10px;
+}</code></pre>
+<p>
+Перед тем как сделать наш контент выровненным по центру, необходимо для <tt>body</tt> и <tt>html</tt>
+установить высоту 100%. Так как высота считается без внутренних и внешних отступов (<tt>padding</tt> и <tt>margin</tt>),
+то мы устанавливаем их (отступы) в 0, чтобы не было скроллбаров.
+</p>
+<p>
+Нижний отступ для элемента &quot;floater&quot;-а равен минус половине высоты контента (<tt>400px</tt>), а именно <tt>-200px</tt>;
+</p>
+<p>Сейчас ваша страничка должна выглядеть приблизительно так:</p>
+<p>
+	<img border="0" height="330" src="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/step2-th.jpg" width="550" />
+</p>
+<p>
+Ширина элемента <tt>#centered</tt> 80%. Это делает наш сайт уже на маленьких экранах и шире на больших.
+большинство сайтов выглядит неприлично на новых широких мониторах в верхнем левом углу.
+Свойства <tt>min-width</tt> и <tt>max-width</tt> также ограничивают нашу страничку, чтобы она не выглядела 
+слишком широкой или слишком узкой. Internet Explorer не поддерживает эти свойства. Для него надо установить 
+фиксированную ширину.
+</p>
+<p>
+Поскольку элементу <tt>#centered</tt> установлено <tt>position:relative</tt>, мы можем
+использовать абсолютное позиционирование элементов внутри него.
+Затем установим <tt>overflow:auto;</tt> для элемента <tt>#content</tt>, чтобы
+появлялись скроллбары, в случае если не будет помещаться контент.
+</p>
+<h2>Шаг 3</h2>
+<p>
+И последнее что мы сделаем, это добавим кое-какие стили, чтобы страничка выглядела немного привлекательнее.
+Давайте начнём с меню.
+</p>
+<pre><code>#nav ul {
+	list-style		: none;
+	padding			: 0;
+	margin			: 20px 0 0 0;
+	text-indent		: 0;
+}
+#nav li {
+	padding			: 0;
+	margin			: 3px;
+}
+#nav li a {
+	display			: block;
+	background-color	: #e8e8e8;
+	padding			: 7px;
+	margin			: 0;
+	text-decoration		: none;
+	color			: #000;
+	border-bottom		: 1px solid #bbb;
+	text-align		: right;
+}
+#nav li a::after {
+	content			: '»';
+	color			: #aaa;
+	font-weight		: bold;
+	display			: inline;
+	float			: right;
+	margin			: 0 2px 0 5px;
+}
+#nav li a:hover, #nav li a:focus {
+	background		: #f8f8f8;
+	border-bottom-color	: #777;
+}
+#nav li a:hover::after {
+	margin			: 0 0 0 7px;
+	color			: #f93;
+}
+#nav li a:active {
+	padding			: 8px 7px 6px 7px;
+}</code></pre>
+<p>
+Первое что мы сделали, чтобы меню выглядело лучше, удалили маркеры, установив атрибут
+<tt>list-style:none</tt>, а также установили внутренние и внешние отступы, так как
+по умолчанию в разных броузерах они сильно различаются.
+</p>
+<p>
+Обратите внимание, что затем мы указали чтобы ссылки отбражадись как блочные элементы.
+Теперь, при выводе, они растягиваются по всей ширине элемента в котором они расположены.
+</p>
+<p>
+Другая интересная вещь, которую мы использовали для меню - это псевдо-классы
+<tt>:before</tt> и <tt>:after</tt>. Они позволяют вам добавить что-нибудь перед и после элемента.
+Это хороший способ добавлять иконки или символы, такие как стрелочка в конце каждой ссылки.
+Такой трюк не работает в Internet Explorer 7 и ниже.
+</p>
+<p>
+	<img border="0" height="330" src="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/step3-th.jpg" width="550" />
+</p>
+<h2>Шаг 4</h2>
+<p>Ну и самое последнее, мы добавим в наш дизайн кое-какие втили для ещё большей красоты.</p>
+<pre><code>#centered {
+	-webkit-border-radius	: 8px;
+	-moz-border-radius	: 8px;
+	border-radius		: 8px;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-family		: Helvetica, Arial, sans-serif;
+	font-weight		: normal;
+	color			: #666;
+}
+h1 {
+	color			: #f93;
+	border-bottom		: 1px solid #ddd;
+	letter-spacing		: -0.05em;
+	font-weight		: bold;
+	margin-top		: 0;
+	padding-top		: 0;
+}
+#bottom {
+	padding			: 10px;
+	font-size		: 0.7em;
+	color			: #f03;
+}
+#logo {
+	font-size		: 2em;
+	text-align		: center;
+	color			: #999;
+}
+#logo strong {
+	font-weight		: normal;
+}
+#logo span {
+	display			: block;
+	font-size		: 4em;
+	line-height		: 0.7em;
+	color			: #666;
+}
+p, h2, h3 {
+	line-height		: 1.6em;
+}
+a {
+	color			: #f03;
+}</code></pre>
+<p>
+В этих стилях мы устанавливаем закруглённые углы для элемента <tt>#centered</tt>.
+В CSS3, за это будет отвечать свойство <tt>border-radius</tt>. Это пока что не реализовано
+некоторыми броузерами, разве только использовать приставки <tt>-moz</tt> и <tt>-webkit</tt>
+для Mozilla Firefox и Safari/Webkit.</p>
+<p>
+	<img border="0" height="330" src="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/step4-th.jpg" width="550" />
+</p>
+<h2>Совместимость</h2>
+<p>
+Как вы уже наверное предположили, основной источник проблем совместимости - Internet Explorer:</p>
+<ul>
+	<li>Элементу <tt>#floater</tt> обязательно надо установить ширину</li>
+	<li>В IE 6 лишние отступы вокруг меню</li>
+</ul>
+
+<p>
+<a href="http://css-tricks.ru/content/demos/VerticalCenteringCSS/demopage.html">Результат.</a>
+</p>
+
+</article>
+<div id="articleSummary">
+	<span class="leftSpan">Опубликовано:
+		15.11.2009</span> <span class="rightSpan">Просмотров
+			22058
+		</span>
+	
+	<span class="rightSpan"><noindex><a rel="nofollow" href="http://css-tricks.ru/Articles/Go/VerticalCenteringCSS">
+		Ссылка на оригинал</a></noindex> </span>
+	
+	<span id="custom-tweet-button" class="rightSpan">
+		<index><a rel="nofollow" href="http://twitter.com/share?url=http%3a%2f%2fcss-tricks.ru%2fArticles%2fDetails%2fVerticalCenteringCSS" rel="nofollow" target="_blank">Tweet it!</a></index>
+	</span>
+	<div style="clear: both;">
+		
+	</div>
+</div>
+<div class="slices" id="more-articles">
+	
+
+<script type="text/javascript">
+
+//	$(document).ready(function() {
+//		$("#randomArticles li a").wrapInner("<span><\/span>");
+//	});
+    
+</script>
+
+<div id="related">
+	<ul id="articles-nav">
+		<li id="random-articles-tab"><a href="" rel="random-articles-div" class="current">Случайные статьи</a></li>
+		<li id="popular-articles-tab" class="last"><a href="" rel="popular-articles-div">Популярные статьи</a></li>
+	</ul>
+	<div id="related-articles-div">
+		<ul id="random-articles-div">
+			
+			<li>
+				<a class="faded" href="http://css-tricks.ru/Articles/Details/AttributeSelectors" title="Далее">Селекторы по атрибутам в CSS</a>
+			</li>
+			
+			<li>
+				<a class="faded" href="http://css-tricks.ru/Articles/Details/RGBaBrowserSupport" title="Далее">Поддержка браузерами функции RGBa.</a>
+			</li>
+			
+			<li>
+				<a class="faded" href="http://css-tricks.ru/Articles/Details/SimplejQueryDropdowns" title="В результате получаем следующее">Простое многоуровневое меню, используя CSS и jQuery.</a>
+			</li>
+			
+			<li>
+				<a class="faded" href="http://css-tricks.ru/Articles/Details/HowNthChildWorks" title="Давайте посмотрим.">Как работает CSS-селектор nth-child</a>
+			</li>
+			
+			<li>
+				<a class="faded" href="http://css-tricks.ru/Articles/Details/InSearchOfTheHolyGrail" title="Далее">Вёрстка сайта. Ещё один подход.</a>
+			</li>
+			
+		</ul>
+		
+		<ul id="popular-articles-div">
+			
+			<li>
+				<a href="http://css-tricks.ru/Articles/Details/Textarea-tricks" title="19830 просмотров">Трюки с textarea</a>
+			</li>
+			
+			<li>
+				<a href="http://css-tricks.ru/Articles/Details/CSSPositioning" title="16074 просмотра">Позиционирование в CSS</a>
+			</li>
+			
+			<li>
+				<a href="http://css-tricks.ru/Articles/Details/TextBlocksOverImage" title="15655 просмотров">Пишем текст поверх изображения</a>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		$("#articles-nav li a").click(function() {
+			var curList = $("#articles-nav li a.current").attr("rel");
+			var $newList = $(this);
+			var curListHeight = $("#related-articles-div").height();
+			$("#related-articles-div").height(curListHeight);
+			$("#articles-nav li a").removeClass("current");
+			$newList.addClass("current");
+			var listID = $newList.attr("rel");
+			if (listID != curList) {
+				$("#" + curList).fadeOut(300, function() {
+					$("#" + listID).fadeIn();
+					var newHeight = $("#" + listID).height();
+					$("#related-articles-div").animate({
+						height: newHeight
+					});
+				});
+			}
+			return false;
+		});
+	});
+</script>
+
+
+</div>
+
+	<div class="slices" id="comments">
+		<a href=""></a>
+		<div id="commentsCount">
+			7
+			comments <span>&nbsp;</span>
+		</div>
+		
+<div class="userComment">
+	<div class="userData">
+		
+		<img src="http://www.gravatar.com/avatar/53baca83877b61399d7b32f99c13cc1e?s=60&amp;d=http%3a%2f%2fwww.css-tricks.ru%2fContent%2fimages%2fTheme%2fuser.png" alt="" />
+		
+		<p class="nickname">
+			Andriy</p>
+		<p class="date">
+			2010.08.05 16:17</p>
+	</div>
+	<div class="commentText">
+		<img alt=" " src="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/comment1.png" />
+		&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;&lt;tr&gt;&lt;td height=&quot;100&quot; valign=&quot;middle&quot;&gt;Content&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;<br /><br />железно по центру :)
+	</div>
+	<div class="clear" style="min-height: 14px;">
+		
+		&nbsp;
+		
+	</div>
+</div>
+
+<div class="userComment">
+	<div class="userData">
+		
+		<img src="http://www.gravatar.com/avatar/baa17c6e8271308210210aa8c9fa06be?s=60&amp;d=http%3a%2f%2fwww.css-tricks.ru%2fContent%2fimages%2fTheme%2fuser.png" alt="" />
+		
+		<p class="nickname">
+			Sober</p>
+		<p class="date">
+			2010.11.17 11:41</p>
+	</div>
+	<div class="commentText">
+		<img alt=" " src="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/comment1.png" />
+		Для 1-го способа, для отображения в IE:<br /><br />&lt;!--[if lte IE 7]&gt;<br />&lt;style type=&quot;text/css&quot;&gt;<br />#out{<br />	position:absolute;<br />	left:50%;<br />	top:50%;<br />	width:auto;<br />	height:auto;<br />}<br />#in{<br />	position:relative;<br />	top:-50%;<br />	left:-50%;<br />}<br />&lt;/style&gt;<br />&lt;![endif]--&gt;
+	</div>
+	<div class="clear" style="min-height: 14px;">
+		
+		&nbsp;
+		
+	</div>
+</div>
+
+<div class="userComment">
+	<div class="userData">
+		
+		<img src="http://www.gravatar.com/avatar/6c50cfc5c386d6264cccd54d9114a366?s=60&amp;d=http%3a%2f%2fwww.css-tricks.ru%2fContent%2fimages%2fTheme%2fuser.png" alt="" />
+		
+		<p class="nickname">
+			Anat</p>
+		<p class="date">
+			2011.01.03 00:38</p>
+	</div>
+	<div class="commentText">
+		<img alt=" " src="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/comment1.png" />
+		С Новым годом!<br />Есть такая проблемка. Блок новостей, а в нем картинка и справа тест. Желательно, чтобы текст разного объема у каждой новости опускался и выравнивался по нижней кромке картинки. При табличной верстке - все просто. А как лучше это сделать в CSS и с кроссбраузерностью?
+	</div>
+	<div class="clear" style="min-height: 14px;">
+		
+		&nbsp;
+		
+<div class="myreply">
+	<div class="myData">
+		<div class="userData">
+			<div class="avatar">
+				<img src="http://www.gravatar.com/avatar/a4f26b049c5bdf06f9b1d9e6b1661753?s=60&amp;d=http%3a%2f%2fwww.css-tricks.ru%2fContent%2fimages%2fTheme%2fuser.png" alt="" />
+			</div>
+			<p class="nickname">
+				basilkot</p>
+			<p class="date">
+				2011.01.03 07:34</p>
+		</div>
+	</div>
+	<ul>
+		<li>
+			<div>
+				например как-нибудь так: <pre><code>&lt;div class="news-holder"&gt;<br />	&lt;span class="img-holder"&gt;<br />		...<br />	&lt;/span&gt;<br />	&lt;span class="txt-holder"&gt;<br />		...<br />	&lt;/span&gt;<br />&lt;/div&gt;<br /><br />.img-holder, .txt-holder<br />{<br />	display: inline-block;<br />	vertical-align: bottom;<br />}</code></pre>
+			</div>
+		</li>
+	</ul>
+</div>
+
+	</div>
+</div>
+
+<div class="userComment">
+	<div class="userData">
+		
+		<img src="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/user0000.png" alt="" />
+		
+		<p class="nickname">
+			Alex</p>
+		<p class="date">
+			2011.04.09 17:28</p>
+	</div>
+	<div class="commentText">
+		<img alt=" " src="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/comment1.png" />
+		В пятом методе <br /><br />#content{<br />	height		: 100px;<br />	line-heigh	: 100px;<br />}<br /><br />в line-heigh недопечатана &quot;t&quot;
+	</div>
+	<div class="clear" style="min-height: 14px;">
+		
+		&nbsp;
+		
+	</div>
+</div>
+
+<div class="userComment">
+	<div class="userData">
+		
+		<img src="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/user0000.png" alt="" />
+		
+		<p class="nickname">
+			br</p>
+		<p class="date">
+			2011.05.27 14:23</p>
+	</div>
+	<div class="commentText">
+		<img alt=" " src="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/comment1.png" />
+		За пятый метод вообще спасибо, очень помог!
+	</div>
+	<div class="clear" style="min-height: 14px;">
+		
+		&nbsp;
+		
+	</div>
+</div>
+
+<div class="userComment">
+	<div class="userData">
+		
+		<img src="http://www.gravatar.com/avatar/75452d9788dbd6a063ddc05edc4c6b19?s=60&amp;d=http%3a%2f%2fwww.css-tricks.ru%2fContent%2fimages%2fTheme%2fuser.png" alt="" />
+		
+		<p class="nickname">
+			Сергей</p>
+		<p class="date">
+			2011.10.18 20:05</p>
+	</div>
+	<div class="commentText">
+		<img alt=" " src="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/comment1.png" />
+		К минусам 5 метода можно добавить, что он подходит только для объектов с заранее известной высотой, если высота в процентах, он не сработает. Но для текста в кнопках он действительно хорош и прост... ))
+	</div>
+	<div class="clear" style="min-height: 14px;">
+		
+		&nbsp;
+		
+	</div>
+</div>
+
+<div class="userComment">
+	<div class="userData">
+		
+		<img src="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/user0000.png" alt="" />
+		
+		<p class="nickname">
+			Виктор</p>
+		<p class="date">
+			2011.11.09 08:06</p>
+	</div>
+	<div class="commentText">
+		<img alt=" " src="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/comment1.png" />
+		А теперь давайте посмотрим, что произойдёт, если  родителю выставить float: left;. Весь результат в трубу. А я не могу не ставить, иначе ему (родителю) не получается margin выставить. У меня в родителях превьюшки фоток.
+	</div>
+	<div class="clear" style="min-height: 14px;">
+		
+		&nbsp;
+		
+	</div>
+</div>
+
+	</div>
+	
+
+<script type="text/javascript">
+
+	function SetFieldValue(cookiename, defaultValue) {
+		if ($.cookie(cookiename) != null) {
+			$("#" + cookiename).val($.cookie(cookiename));
+		}
+		else {
+			$("#" + cookiename).val(defaultValue).css("color", "#bababa");
+		}
+	}
+
+	function SetCommentValues() {
+		SetFieldValue("commentHeader", "Представьтесь");
+		SetFieldValue("email", "E-mail...");
+		$("#comment").val("Ваше сообщение...").css("color", "#bababa");
+	}
+
+	function BindEvents(fieldId, defaultValue) {
+		$(fieldId).focus(function() {
+			$(this).css("color", "black");
+			if ($(this).val() == defaultValue) {
+				$(this).val("");
+			}
+		}).blur(function() {
+			if ($(this).val() == "") {
+				$(this).val(defaultValue);
+				$(this).css("color", "#bababa");
+			}
+		});
+	}
+
+	$(document).ready(function() {
+		SetCommentValues();
+		BindEvents("#commentHeader", "Представьтесь");
+		BindEvents("#comment", "Ваше сообщение...");
+		BindEvents("#email", "E-mail...");
+		$("#appendCommentForm").submit(function() {
+			if (($.trim($("#comment").val()).length == 0) || ($.trim($("#comment").val()) == "Ваше сообщение..."))
+				return false;
+			var f = $("#appendCommentForm");
+			var action = f.attr("action");
+			if ($("#commentHeader").val() == "Представьтесь") {
+				$("#commentHeader").val("");
+			} else {
+			$.cookie("commentHeader", $("#commentHeader").val(), { path: "/", secure: false });
+			}
+			if ($("#email").val() == "E-mail...") {
+				$("#email").val("");
+			} else {
+			$.cookie("email", $("#email").val(), { path: "/", secure: false });
+			}
+			var serializedForm = f.serialize();
+			$("#appendCommentForm").hide();
+			$("#loader").show();
+			$.post(action, serializedForm,
+                                function(html) {
+                                	$("#loader").hide();
+                                	$("#appendCommentForm").show();
+                                	$("#comments").append(html);
+                                	SetCommentValues();
+                                }, "html");
+			return false;
+		})
+	});
+	
+</script>
+
+<div id="leaveComment">
+	<h2>
+		Оставить после себя комментарий</h2>
+	<div id="loader" style="display: none; text-align: center;">
+		<img src="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/loader00.gif" alt="" /></div>
+	<form action="http://css-tricks.ru/Articles/AppendComment/VerticalCenteringCSS" id="appendCommentForm" method="post">
+	<div class="userData">
+		<img src="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/user0001.png" alt="user" /><br />
+		<p class="date">
+			2011.11.17</p>
+	</div>
+	<div id="userNameLeaveComment">
+		<p>
+			<input class="comment" type="text" name="header" id="commentHeader" />
+			<input class="comment" type="text" name="title" value="" id="titleText" /></p>
+		<p>
+			<input class="comment" type="text" name="email" id="email" />
+		</p>
+	</div>
+	<div id="leaveCommentText">
+		<img src="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/comment2.png" alt="" />
+		<p>
+			<textarea class="comment" id="comment" cols="50" rows="10" name="comment"></textarea></p>
+	</div>
+	<div id="identity">
+		<p>
+			<input id="publishComment" type="image" src="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/add_comm.png"
+				value="Опубликовать" /></p>
+	</div>
+	</form>
+</div>
+
+				</section>
+				<aside>
+					
+
+<!-- Google Custom Search Element -->
+<div id="cse" class="side-group">Loading</div>
+<script src="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/jsapi000.js" type="text/javascript"></script>
+<script type="text/javascript">
+    google.load('search', '1');
+    google.setOnLoadCallback(function() {
+        new google.search.CustomSearchControl('014489658268628218400:ugnl97g69wy').draw('cse');
+    }, true);
+</script>
+<div id="services">
+    <noindex><a rel="nofollow" class="slices" id="rss-link" href="http://feeds.feedburner.com/csstricksru" title="Подписаться на RSS.">
+    </a></noindex><noindex><a rel="nofollow" class="slices" id="twitter-link" href="http://www.twitter.com/csstricksru" title="Follow me on twitter.">
+    </a></noindex>
+</div>
+
+<div class="side-group">
+	<h5>
+		Новости</h5>
+	<div>
+		<ul>
+			
+			<li>
+				<a class="faded" href="http://css-tricks.ru/News/3" title="В раздел &quot;Скрипты&quot; добавлен RSS.">В раздел &quot;Скрипты&quot; добавлен RSS.</a>
+
+			</li>
+			
+			<li>
+				<a class="faded" href="http://css-tricks.ru/News/2" title="Раздел &quot;Скрипты&quot; теперь стал доступным!">Раздел &quot;Скрипты&quot; теперь стал доступным!</a>
+
+			</li>
+			
+			<li>
+				<a class="faded" href="http://css-tricks.ru/News/1" title="Появился раздел новости.">Появился раздел новости.</a>
+
+			</li>
+			
+		</ul>
+	</div>
+	<div class="link2all">
+		<a href="http://css-tricks.ru/News/AllNews">Все новости</a>
+	</div>
+</div>
+
+<div class="side-group ad-links">
+	<h5>
+		Ещё ссылки</h5>
+	<style>
+ul.ca89ea {
+padding: 0 !important;
+margin: 0 !important;
+font-size: 12px !important;
+background-color: #ffffff !important;
+border: 1px solid #e0e0e0e !important;
+}
+.ca89ea li {
+list-style: none !important;
+padding: 2px !important;
+text-align: left !important;
+}
+.ca89ea a {
+color: #0000cc !important;
+font-weight: normal;
+font-size: 12px !important;
+}
+.ca89ea .text {
+color: #000000 !important;
+font-size: 12px !important;
+padding: 3px 0 !important;
+line-height: normal !important;
+}
+.ca89ea .host {
+color: #006600;
+font-weight: normal;
+font-size: 12px !important;
+padding: 3px 0 !important;
+line-height: normal !important;
+}
+.ca89ea p {
+margin: 0 !important;
+}
+</style>
+<ul class="ca89ea">
+
+  <li>
+    <p><a href="http://www.wildberries.ru/catalog/114/women.aspx">Брюки на заказ</a></p>
+<p class="text">Пошив одежды для персонала. Продажа по каталогу модных товаров из Франции.</p>
+<p class="host">wildberries.ru</p>
+
+  </li>
+
+  <li>
+    <p><a href="http://www.iprint.ru/poligr/2_0.htm">Дизайнерские открытки</a></p>
+<p class="text">Требования к макетам. Портфолио и контакты мастеров по производству сумок.</p>
+<p class="host">iprint.ru</p>
+
+  </li>
+
+  <li>
+    
+<p class="text">Ноутбуки <a href="http://fotos.ua/shop/71/lenovo/" target="_blank">Lenovo</a></p>
+<p class="host">fotos.ua</p>
+
+  </li>
+
+</ul>
+
+
+
+</div>
+
+	
+<div class="side-group">
+	<h5>
+		Последние статьи</h5>
+	<div>
+		<ul>
+			
+			<li>
+				<a class="faded" href="http://css-tricks.ru/Articles/Details/CSS-white-space" title="Поговорим о свойстве white-space">Поговорим о свойстве white-space</a>
+			</li>
+			
+			<li>
+				<a class="faded" href="http://css-tricks.ru/Articles/Details/why-you-want-use-any-css-selector" title="Чем удобен селектор :any()">Чем удобен селектор :any()</a>
+			</li>
+			
+			<li>
+				<a class="faded" href="http://css-tricks.ru/Articles/Details/jQueryDataMethod" title="Метод data в jQuery">Метод data в jQuery</a>
+			</li>
+			
+			<li>
+				<a class="faded" href="http://css-tricks.ru/Articles/Details/border-image" title="Что такое border-image?">Что такое border-image?</a>
+			</li>
+			
+			<li>
+				<a class="faded" href="http://css-tricks.ru/Articles/Details/Textarea-tricks" title="Трюки с textarea">Трюки с textarea</a>
+			</li>
+			
+			<li>
+				<a class="faded" href="http://css-tricks.ru/Articles/Details/css-opacity-reference" title="CSS и прозрачность элементов.">CSS и прозрачность элементов.</a>
+			</li>
+			
+			<li>
+				<a class="faded" href="http://css-tricks.ru/Articles/Details/AttributeSelectors" title="Селекторы по атрибутам в CSS">Селекторы по атрибутам в CSS</a>
+			</li>
+			
+			<li>
+				<a class="faded" href="http://css-tricks.ru/Articles/Details/FlexibleBoxModel" title="CSS3: Flexible Box Model">CSS3: Flexible Box Model</a>
+			</li>
+			
+			<li>
+				<a class="faded" href="http://css-tricks.ru/Articles/Details/HowNthChildWorks" title="Как работает CSS-селектор nth-child">Как работает CSS-селектор nth-child</a>
+			</li>
+			
+			<li>
+				<a class="faded" href="http://css-tricks.ru/Articles/Details/iebackgroundrgbbug" title="Баг в IE в css-свойстве background">Баг в IE в css-свойстве background</a>
+			</li>
+			
+		</ul>
+	</div>
+	<div class="link2all">
+		<a href="http://css-tricks.ru/Articles/List">Все статьи</a>
+	</div>
+</div>
+
+
+<div>
+
+    <script type="text/javascript"><!--
+        google_ad_client = "pub-8292689641260235";
+        /* 300x250, css-tricks.ru */
+        google_ad_slot = "9306706792";
+        google_ad_width = 300;
+        google_ad_height = 250;
+//-->
+    </script>
+
+    <script type="text/javascript" src="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/show_ads.js">
+    </script>
+
+</div>
+
+
+					
+<div id="SizeMatters">
+	<div>
+		Size matters!</div>
+	<div class="slices" id="rule">
+	</div>
+	<noindex><a href="http://feeds.feedburner.com/csstricksru" rel="nofollow">
+		<img src="http://feeds.feedburner.com/~fc/csstricksru?bg=bc3f00&amp;fg=ffffff&amp;anim=0&amp;label=listeners"
+			height="26" width="88" style="border: 0" alt="" /></a></noindex>
+
+	<script type="text/javascript" language="JavaScript" src="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/cc330000.htm">
+	</script>
+
+	<p>
+		<noindex><a rel="nofollow" href="http://jigsaw.w3.org/css-validator/validator?uri=http%3a%2f%2fcss-tricks.ru%2fArticles%2fDetails%2fVerticalCenteringCSS%3fads%3dno%26css3%3dno">
+			<img style="border: 0; width: 88px; height: 31px" src="Способы%20вертикального%20выравнивания%20по%20центру%20в%20CSS.%20_%20CSS-Tricks%20по-русски.mht_files/vcss0000.gif"
+				alt="Правильный CSS!" />
+		</a></noindex>
+	</p>
+</div>
+
+					<div id="statistica">
+						
+
+<!--Openstat--><span id="openstat2090464"></span><script type="text/javascript">
+                                                     var openstat = { counter: 2090464, image: 5007, next: openstat, track_links: "all" }; document.write(unescape("%3Cscript%20src=%22http" +
+(("https:" == document.location.protocol) ? "s" : "") +
+"://openstat.net/cnt.js%22%20defer=%22defer%22%3E%3C/script%3E"));
+</script><!--/Openstat-->
+
+<!-- Google analytics -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-11408498-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+
+						</div>
+					</div>
+				</aside>
+			</div>
+			
+
+<footer>
+	<div>
+		<div id="footer">
+			<a href="http://www.css-tricks.ru/" class="slices" id="footer-logo"></a>
+			<a href="http://www.css-tricks.ru/" class="slices" id="checkbottom">
+			</a>
+		</div>
+	</div>
+</footer>
+
+
+<div class="slices" id="feedback">
+</div>
+<div id="feedbackdiv">
+	<div class="slices" id="feedbacklogo"></div>
+	<form action="http://css-tricks.ru/Common/Feedback" id="feedbackform" method="post">
+	<div class="slices" id="closefeedback"></div>
+	<h2>
+		Отправить сообщение:</h2>
+	<p>
+		Email</p>
+	<input type="text" id="textFeedback" class="textFeedback" name="textFeedback" />
+	<p>
+		Сообщение</p>
+	<textarea cols="30" rows="9" id="messageFeedback" class="textFeedback" name="messageFeedback"></textarea>
+	<div id="send">
+		<input type="button" class="slices" id="submitFeedback" /></div>
+	</form>
+</div>
+<div id="feedbackoverlay">
+</div>
+
+		</div>
+</body>
+</html>
+
+<!-- This document saved from http://css-tricks.ru/Articles/Details/VerticalCenteringCSS -->

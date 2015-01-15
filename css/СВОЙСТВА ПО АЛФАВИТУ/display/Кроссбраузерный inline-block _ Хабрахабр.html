@@ -1,0 +1,4241 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru">
+	<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<title>Кроссбраузерный inline-block / Хабрахабр</title>
+		<meta name="description" content="Разрешите представить вам перевод статьи «Cross-Browser Inline-Block», написанной Райном Доэрти холодным февралем 2009 года. В&amp;nbsp;статье рассказывается о&amp;nbsp;верстке элементов списка..." />		
+		<meta name="keywords" content="кроссбраузерность, css, inline-block, cross-browser, ryan doherty" />
+		
+		
+	<meta property="fb:app_id"      content="437464306275519" /> 
+<meta property="og:type"        content="article" /> 
+<meta property="og:url"         content="http://habrahabr.ru/post/117109/" /> 
+<meta property="og:title"       content="Кроссбраузерный inline-block" /> 
+
+	<meta property="og:image"       content="http://habrastorage.org/storage/fb5c9d52/26a1817d/d9726d8f/02baee80.jpg" /><meta property="og:image"       content="http://habrastorage.org/storage/a2373857/1b2559a0/5545c9ba/b9bb1f91.jpg" /><meta property="og:image"       content="http://habrastorage.org/storage/1a664b1a/d3d1fe91/1785224c/8bbf3709.jpg" /><meta property="og:image"       content="http://habrastorage.org/storage/2e98342c/35c82f9f/72356ae6/ff9e8849.gif" /><meta property="og:image"       content="http://habrastorage.org/storage/b92a1553/8829e233/2cbc9734/b5f309bb.jpg" /><meta property="og:image"       content="http://habrastorage.org/storage/972eb338/0de44143/18c5c853/87591611.jpg" /><meta property="og:image"       content="http://habrastorage.org/storage/77d7e93e/d51c76c4/74025605/7ef572f4.jpg" /><meta property="og:image"       content="http://habrastorage.org/storage/32794e84/c6d9c40e/7a9ac63d/dbc203ef.jpg" /><meta property="og:image"       content="http://habrastorage.org/storage/972eb338/0de44143/18c5c853/87591611.jpg" /><meta property="og:image"       content="http://habrastorage.org/storage/5f69d428/3a847787/ee53634f/145afd34.jpg" /><meta property="og:image"       content="http://habrastorage.org/storage/4a1e5eaf/d5b8dcdc/3306b2db/62d14801.jpg" />
+	
+
+<meta property="og:description" content="Разрешите представить вам перевод статьи &laquo;Cross-Browser Inline-Block&raquo;, написанной Райном Доэрти холодным февралем 2009 года. В&nbsp;статье рассказывается о&nbsp;верстке..." /> 
+
+
+		
+		
+			<link href="/styles/1345122221/all.css" rel="stylesheet" media="all" />
+		
+
+		<link rel="stylesheet" href="/styles/fontello/css/habr.css?r=1345122221">
+		<!--[if IE 7]><link rel="stylesheet" href="/styles/fontello/css/habr-ie7.css?r=1345122221"><![endif]-->
+    
+		
+  <link href="/styles/1345122221/_parts/posts.css" rel="stylesheet" media="all" />
+  <link href="/styles/1345122221/_parts/comments.css" rel="stylesheet" media="all" />
+  <link href="/styles/1345122221/forms.css" rel="stylesheet" media="all" />
+  <link href="/styles/1345122221/highlight.css" rel="stylesheet" media="all" />
+  <link href="/styles/1345122221/posts/all.css" rel="stylesheet" media="all" />
+  
+
+
+	
+
+		
+		
+			<script type="text/javascript" src="/javascripts/1345122221/all.js"></script>
+		
+		
+		
+			<link href="/styles/1345122221/facebook_reader.css" rel="stylesheet" type="text/css" />
+			<script src="/javascripts/1345122221/facebook_reader.js" type="text/javascript"></script>
+		
+		
+		
+
+	
+	
+	
+	
+		
+  <script type="text/javascript" src="/javascripts/1345122221/libs/jquery.form.js"></script>
+  <script type="text/javascript" src="/javascripts/1345122221/libs/jquery.cookie.js"></script>
+  <script type="text/javascript" src="/javascripts/1345122221/libs/wysiwyg.js"></script>
+  <script type="text/javascript" src="/javascripts/1345122221/libs/highlight.js"></script>
+  <script type="text/javascript" src="/javascripts/1345122221/_parts/posts.js"></script>
+  <script type="text/javascript" src="/javascripts/1345122221/_parts/comments.js"></script>
+  <script type="text/javascript" src="/javascripts/1345122221/posts/all.js"></script>
+
+		
+		<script type="text/javascript" src="/js/1345122221/adriver.core.2.js"></script>
+		
+		
+		
+		<link title="Хабрахабр / Комментарии к публикации «Кроссбраузерный inline-block»" type="application/rss+xml" rel="alternate" href="http://habrahabr.ru/rss/post/117109/"/>
+		
+	</head>
+
+	<body>
+	  
+
+
+
+
+
+
+	<div id="topline"></div>
+	<script type="text/javascript">
+	(function(){
+		var custom = {};
+		
+			custom[1]	= 'css';
+		
+		new adriver("topline", {sid:176776, bt:52, bn:1, custom: custom});
+	})();
+	</script>
+
+
+
+
+		<div id="layout">	    
+		  <div id="header">
+  <div class="userpanel silver">
+    
+    
+      <a href="http://habrahabr.ru/login/" class="login">войти</a> <a href="http://habrahabr.ru/register/">зарегистрироваться</a>
+    
+  </div>
+  <a class="logo" href="http://habrahabr.ru/" title="На главную страницу"></a>
+  <div class="search">
+    <form id="search_form" name="search" method="get" action="/search/" >
+      <input type="submit" value="" />
+      <input type="text" name="q" x-webkit-speech speech  >
+    </form>
+  </div>
+
+
+	<div class="main_menu">
+		<a href="http://habrahabr.ru/posts/top/" class="active">посты</a><a href="http://habrahabr.ru/qa/">q&amp;a</a><a href="http://habrahabr.ru/events/coming/">события</a><a href="http://habrahabr.ru/hubs/">хабы</a><a href="http://habrahabr.ru/companies/">компании</a>
+		<div class="banner_special">
+
+	 
+
+	 
+
+	
+	
+		<!--  AdRiver code START. Type:135x35 Site: habrahabr PZ: 0 BN: 0 -->
+		<script language="javascript" type="text/javascript"><!--
+		var RndNum4NoCash = Math.round(Math.random() * 1000000000);
+		var ar_Tail='unknown'; if (document.referrer) ar_Tail = escape(document.referrer);
+		document.write(
+		'<iframe src="http://ad.adriver.ru/cgi-bin/erle.cgi?'
+		+ 'sid=176776&target=top&w=135&h=35&bt=25&pz=0&rnd=' + RndNum4NoCash + '&tail256=' + ar_Tail
+		+ '" frameborder=0 vspace=0 hspace=0 width=135 height=35 marginwidth=0'
+		+ ' marginheight=0 scrolling=no></iframe>');
+		//--></script>
+		<noscript>
+		<a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=176776&bt=25&pz=0&rnd=795668059" target=_top>
+		<img src="http://ad.adriver.ru/cgi-bin/rle.cgi?sid=176776&bt=25&pz=0&rnd=795668059" alt="-AdRiver-" border=0 width=135 height=35></a>
+		</noscript>
+
+		<!--  AdRiver code END  -->
+	
+	
+
+</div>
+		
+	</div>
+
+
+</div>
+
+
+	
+		  
+	  
+		  
+
+
+	
+  <div class="content_left">
+
+	
+
+
+
+
+
+
+
+
+
+	
+
+		
+  <div class="post translation shortcuts_item" id="post_117109">
+    <h1 class="title">
+	      
+      
+
+
+      
+        <span class="post_title">Кроссбраузерный inline-block</span>
+      
+      
+			<span class="translation">перевод</span>
+			
+  		
+  	</h1>
+  	
+  	
+<div class="hubs">
+	
+		<a href="http://habrahabr.ru/hub/css/" class="hub " title="Вы не подписаны на этот хаб" >CSS</a><span class="profiled_hub" title="Профильный хаб">*</span>
+	
+</div>
+
+  	
+    <div class="content html_format">
+      <i>Разрешите представить вам перевод статьи «Cross-Browser Inline-Block», написанной Райном Доэрти холодным февралем 2009 года. В&nbsp;статье рассказывается о&nbsp;верстке элементов списка с&nbsp;установкой для свойства <b>display</b> значения <b>inline-block</b>. Статья об&nbsp;этом, а&nbsp;также о&nbsp;трудностях, возникающих в&nbsp;процессе достижения результата и&nbsp;о&nbsp;методах их&nbsp;«лечения».</i><br/>
+<br/>
+<a name="habracut"></a><br/>
+<br/>
+<b>Inline-block</b>, заманчивое значение для свойства <b>display</b>, которое обещает очень много, а&nbsp;выполняет совсем мало. Очень часто я&nbsp;получал PSD-файлы, подобные этому:<br/>
+<br/>
+<img src="http://habrastorage.org/storage/fb5c9d52/26a1817d/d9726d8f/02baee80.jpg"/><br/>
+и плакал.<br/>
+<br/>
+Обычно такой способ отображения не&nbsp;вызывает проблем. Фиксированная ширина, фиксированная высота, <b>float: left</b> и&nbsp;готово. Если&nbsp;бы не&nbsp;одно, но! Дизайн должен отображаться корректно при любом количестве содержимого. В&nbsp;нашем случае, если в&nbsp;одном из&nbsp;блоков окажется чуть больше данных, то&nbsp;он&nbsp;«сломает» всю сетку.<br/>
+<br/>
+<img src="http://habrastorage.org/storage/a2373857/1b2559a0/5545c9ba/b9bb1f91.jpg"/><br/>
+<br/>
+Так как первый элемент выше следующих, пятый становится не&nbsp;под ним, как нам того хотелось&nbsp;бы, а&nbsp;«обтекает» по&nbsp;правому краю. В&nbsp;общем, нам необходима эластичность таблицы, но&nbsp;в&nbsp;правильной, семантичной верстке.<br/>
+<br/>
+Начнем с&nbsp;простого примера, где у&nbsp;пунктов списка для свойства <b>display</b> установлено значение <b>inline-block</b>:<br/>
+<br/>
+<pre><code class="html">&lt;ul&gt;
+    &lt;li&gt;
+        &lt;h4&gt;This is awesome&lt;/h4&gt;
+        &lt;img src=&quot;http://farm4.static.flickr.com/3623/3279671785_d1f2e665b6_s.jpg&quot;
+        alt=&quot;lobster&quot; width=&quot;75&quot; height=&quot;75&quot;/&gt;
+    &lt;/li&gt;
+...
+&lt;ul&gt;
+
+&lt;style&gt;
+    li {
+        width: 200px;
+        min-height: 250px;
+        border: 1px solid #000;
+        display: inline-block;
+        margin: 5px;
+    }
+&lt;/style&gt;</code></pre><br/>
+<br/>
+Результат выглядит корректно в Firefox 3, Safari 3 и в Opera:<br/>
+<br/>
+<img src="http://habrastorage.org/storage/1a664b1a/d3d1fe91/1785224c/8bbf3709.jpg"/><br/>
+<br/>
+Кажется, будто что-то не&nbsp;так с&nbsp;вертикальным выравниванием. Говоря по&nbsp;правде, никаких ошибок нет, это как раз корректное поведение браузера, но&nbsp;совсем не&nbsp;тот результат, которого мы&nbsp;бы хотели.<br/>
+<br/>
+А&nbsp;происходит здесь следующее, базовая линия (<a href="http://dev.w3.org/csswg/css3-linebox/#baseline">baseline</a>) каждого элемента <b>&lt;li&gt;</b> выравнивается с&nbsp;базовой линией родительского элемента <b>&lt;ul&gt;</b>. Вы&nbsp;спросите, что такое базовая линия? Лучше один раз увидеть, чем сто раз услышать:<br/>
+<br/>
+<img src="http://habrastorage.org/storage/2e98342c/35c82f9f/72356ae6/ff9e8849.gif"/><br/>
+<br/>
+Базовая линия на&nbsp;рисунке выше обозначена линией, идущей через основание символов. <a href="http://www.w3.org/TR/CSS21/visudet.html#propdef-vertical-align">Значением по-умолчанию</a> для свойства <b>vertical-align</b> у&nbsp;<b>inline</b> и&nbsp;<b>inline-block</b> элементов является <b>baseline</b>. Это значит, что базовая линия элементов выравнивается с&nbsp;базовой линией родителя. На&nbsp;рисунке ниже представлен пример такого выравнивания:<br/>
+<br/>
+<img src="http://habrastorage.org/storage/b92a1553/8829e233/2cbc9734/b5f309bb.jpg"/><br/>
+<br/>
+Как видите, каждая базовая линия блоков на&nbsp;рисунке выше выравнена по&nbsp;базовой линии текста «This is&nbsp;the baseline», который не&nbsp;является элементом <b>&lt;li&gt;</b>. Это просто текстовый узел, находящийся непосредственно в&nbsp;<b>&lt;ul&gt;</b>, помещенный туда в&nbsp;качестве индикатора расположения базовой линии элемента <b>&lt;ul&gt;</b>.<br/>
+<br/>
+Получить желаемый изначально вариант выравнивания довольно просто, достаточно для свойства <b>vertical-align</b> указать значение <b>top</b> и&nbsp;получить в&nbsp;результате отличную сетку:<br/>
+<br/>
+<img src="http://habrastorage.org/storage/972eb338/0de44143/18c5c853/87591611.jpg"/><br/>
+<br/>
+Вот только это не&nbsp;работает в&nbsp;Firefox 2, IE&nbsp;6 и&nbsp;7:<br/>
+<br/>
+<img src="http://habrastorage.org/storage/77d7e93e/d51c76c4/74025605/7ef572f4.jpg"/><br/>
+<br/>
+Для начала займемся Firefox 2.<br/>
+<br/>
+Firefox 2 не&nbsp;поддерживает значение <b>inline-block</b>, зато отлично понимает специфичное для Мозиллы значение <b>-moz-inline-stack</b> для свойства <b>display</b>. Оно приводит к&nbsp;результатам, подобным действию <b>inline-block</b>. Когда мы&nbsp;добавляем его перед <b>display: inline-block</b>, то&nbsp;Firefox 2 игнорирует вышеуказанное, так как не&nbsp;понимает его, и&nbsp;использует <b>-moz-inline-stack</b>. Другие браузеры используют <b>inline-block</b>, игнорируя непонятное для них <b>-moz-inline-stack</b>.<br/>
+<br/>
+<pre><code class="html">&lt;style&gt;
+    li {
+        width: 200px;
+        min-height: 250px;
+        border: 1px solid #000;
+        display: -moz-inline-stack;
+        display: inline-block;
+        vertical-align: top;
+        margin: 5px;
+    }
+&lt;/style&gt;</code></pre><br/>
+<br/>
+К&nbsp;сожалению, это вызывает небольшой баг:<br/>
+<br/>
+<img src="http://habrastorage.org/storage/32794e84/c6d9c40e/7a9ac63d/dbc203ef.jpg"/><br/>
+<br/>
+Честно, я&nbsp;не&nbsp;знаю, что является его причиной. К&nbsp;счастью, лечится он&nbsp;довольно просто обертыванием всего содержимого элемента <b>&lt;li&gt;</b> дополнительным <b>&lt;div&gt;</b>.<br/>
+<br/>
+<pre><code class="html">&lt;li&gt;
+        &lt;div&gt;
+            &lt;h4&gt;This is awesome&lt;/h4&gt;
+            &lt;img src=&quot;http://farm4.static.flickr.com/3623/3279671785_d1f2e665b6_s.jpg&quot;
+            alt=&quot;lobster&quot; width=&quot;75&quot; height=&quot;75&quot;/&gt;
+        &lt;/div&gt;
+&lt;/li&gt;</code></pre><br/>
+<br/>
+<img src="http://habrastorage.org/storage/972eb338/0de44143/18c5c853/87591611.jpg"/><br/>
+<br/>
+Теперь перейдем к&nbsp;IE&nbsp;7. Он&nbsp;тоже не&nbsp;поддерживает <b>inline-block</b>, но&nbsp;мы&nbsp;можем использовать трюк, благодаря которому элементы <b>&lt;li&gt;</b> будут выводиться на&nbsp;экран так, будто используют значение <b>inline-block</b>. Как? Будем использовать <a href="http://haslayout.net/haslayout"><b>hasLayout</b></a>, волшебное свойство IE, делающее доступными многие манипуляции. Вы&nbsp;не&nbsp;можете явно указать для элемента <b>hasLayout: true</b> или сделать это каким-либо подобным простым образом, однако можете запустить механизм, указав <b>zoom: 1</b>.<br/>
+<br/>
+Технически элементы с&nbsp;<b>hasLayout</b>, установленным в&nbsp;значение <b>true</b> сами отвечают за&nbsp;рендеринг самих себя и&nbsp;дочерних элементов. Объедините это с&nbsp;<b>min-height</b> и&nbsp;<b>width</b>, и&nbsp;получите результат, очень близкий к&nbsp;<b>display: block</b>. Это как магический порошок, заставляющий исчезать все появляющиеся при отображении проблемы.<br/>
+<br/>
+Когда мы&nbsp;добавим <b>zoom: 1</b> и&nbsp;<b>*display: inline</b> (звездочка <a href="http://www.ejeliot.com/blog/63">является хаком</a> для IE&nbsp;6 и&nbsp;IE&nbsp;7) для элементов <b>&lt;li&gt;</b>, то&nbsp;научим IE&nbsp;7 отображать их&nbsp;совсем как <b>inline-block</b>:<br/>
+<br/>
+<pre><code class="html">&lt;style&gt;
+    li {
+        width: 200px;
+        min-height: 250px;
+        border: 1px solid #000;
+        display: -moz-inline-stack;
+        display: inline-block;
+        vertical-align: top;
+        margin: 5px;
+        zoom: 1;
+        *display: inline;
+    }
+&lt;/style&gt;</code></pre><br/>
+<br/>
+<img src="http://habrastorage.org/storage/5f69d428/3a847787/ee53634f/145afd34.jpg"/><br/>
+<br/>
+Почти готово. Остался лишь IE 6:<br/>
+<br/>
+<img src="http://habrastorage.org/storage/4a1e5eaf/d5b8dcdc/3306b2db/62d14801.jpg"/><br/>
+<br/>
+IE&nbsp;6 не&nbsp;поддерживает <b>min-height</b>, но&nbsp;взамен мы&nbsp;можем использовать его неверное обращение к&nbsp;свойству <b>height</b>. Установим для <b>_height</b> (обратите внимание на&nbsp;<a href="http://www.ejeliot.com/blog/63">подчеркивание спереди</a>) значение в&nbsp;<b>250px</b> и&nbsp;получим все элементы <b>&lt;li&gt;</b> с&nbsp;нужной высотой. Если&nbsp;же содержимое превысит указанную величину, то&nbsp;просто растянет свой контейнер. Все остальные браузеры проигнорируют <b>_height</b>.<br/>
+<br/>
+Финальный CSS и&nbsp;HTML выглядит так:<br/>
+<br/>
+<pre><code class="html">&lt;style&gt;
+    li {
+        width: 200px;
+        min-height: 250px;
+        border: 1px solid #000;
+        display: -moz-inline-stack;
+        display: inline-block;
+        vertical-align: top;
+        margin: 5px;
+        zoom: 1;
+        *display: inline;
+        _height: 250px;
+    }
+&lt;/style&gt;
+
+&lt;li&gt;
+        &lt;div&gt;
+            &lt;h4&gt;This is awesome&lt;/h4&gt;
+            &lt;img src=&quot;http://farm4.static.flickr.com/3623/3279671785_d1f2e665b6_s.jpg&quot;
+            alt=&quot;lobster&quot; width=&quot;75&quot; height=&quot;75&quot;/&gt;
+        &lt;/div&gt;
+&lt;/li&gt;</code></pre>
+      
+  	<div class="clear"></div>
+    </div>
+    
+    
+<ul class="tags">
+	<li ><a href="http://habrahabr.ru/search/?q=%5B%D0%BA%D1%80%D0%BE%D1%81%D1%81%D0%B1%D1%80%D0%B0%D1%83%D0%B7%D0%B5%D1%80%D0%BD%D0%BE%D1%81%D1%82%D1%8C%5D&target_type=posts" rel="tag">кроссбраузерность</a></li><li >, <a href="http://habrahabr.ru/search/?q=%5Bcss%5D&target_type=posts" rel="tag">css</a></li><li >, <a href="http://habrahabr.ru/search/?q=%5Binline-block%5D&target_type=posts" rel="tag">inline-block</a></li><li >, <a href="http://habrahabr.ru/search/?q=%5Bcross-browser%5D&target_type=posts" rel="tag">cross-browser</a></li><li >, <a href="http://habrahabr.ru/search/?q=%5Bryan%20doherty%5D&target_type=posts" rel="tag">ryan doherty</a></li>
+</ul>
+
+
+    <div class="infopanel" id="infopanel_post_117109">
+	
+        
+	
+	<div class="voting   ">
+
+		
+		
+		<span class="plus" title="Голосовать могут только зарегистрированные пользователи."></span>
+		<span class="minus" title="Голосовать могут только зарегистрированные пользователи."></span>
+		
+
+		<div class="mark positive ">
+			
+			<span class="score" title="Всего 143: &uarr;119 и &darr;24">+95</span>
+			
+			
+		</div>
+
+	</div>
+	
+	
+
+
+
+	<div class="published"> 9 апреля 2011 в 14:45</div>
+
+	<div class="favorite">
+		
+		
+		<a class="guest"  href="#" onclick="return false;" title="Только зарегистрированные пользователи могут добавлять посты в избранное"></a>
+		
+	</div>
+
+	<div class="favs_count" title="Количество пользователей, добавивших пост в избранное">350</div>
+
+	
+		
+		
+		<div class="twitter">
+			<a href="http://twitter.com/intent/tweet?text=http://habr.ru/p/117109/+%D0%9A%D1%80%D0%BE%D1%81%D1%81%D0%B1%D1%80%D0%B0%D1%83%D0%B7%D0%B5%D1%80%D0%BD%D1%8B%D0%B9+inline-block+%23habr" title="Опубликовать ссылку в Twitter" target="_blank"></a>
+		</div>
+		<div class="vkontakte">
+			<a href="http://vkontakte.ru/share.php?url=http://habr.ru/p/117109/" title="Опубликовать ссылку во ВКонтакте" onclick="window.open(this.href, 'Опубликовать ссылку во Вконтакте', 'width=800,height=300'); return false"></a>
+		</div>
+		<div class="facebook">
+			<a href="https://www.facebook.com/sharer/sharer.php?u=http://habr.ru/p/117109/" title="Опубликовать ссылку в Facebook" onclick="window.open(this.href, 'Опубликовать ссылку в Facebook', 'width=640,height=436,toolbar=0,status=0'); return false"></a>
+		</div>
+		<div class="googleplus">
+			<a href="https://plus.google.com/share?url=http://habr.ru/p/117109/" title="Опубликовать ссылку в Google Plus" onclick="window.open(this.href, 'Опубликовать ссылку в Google Plus', 'width=800,height=300'); return false"></a>
+		</div>
+		
+	
+
+	
+	<div class="original-author">
+		<a title="Автор оригинала: Ryan Doherty" href="http://blog.mozilla.com/webdev/2009/02/20/cross-browser-inline-block/">Ryan Doherty</a>
+	</div>
+	
+
+	
+
+	
+	
+
+	
+	
+	<div class="author">
+
+		<a title="Автор текста" href="http://habrahabr.ru/users/drfisher/" >drfisher</a>
+		<span class="rating" title="рейтинг пользователя">9,0</span>
+		
+	</div>
+	
+	
+
+	
+
+	
+	
+
+	
+
+</div>
+<div class="clear"></div>
+
+
+	
+
+    
+    
+		
+		
+	</div>
+
+		
+		
+<div class="comments_list " id="comments">
+
+  <h2 class="title ">комментарии (<span id="comments_count">65</span>)
+  
+
+  </h2>
+
+   
+    
+<div class="comment_item" id="comment_3806963" >
+	
+	<span class="parent_id" data-parent_id="0"></span>
+	
+	
+	
+		<div class="info  " rel="3806963">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3806963" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark positive ">
+						<span class="score" title="Всего 19: &uarr;14 и &darr;5">+9</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/maskin/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/81/13/3e/20645/small_20645.png" alt="" /></a>
+			<a href="http://habrahabr.ru/users/maskin/" class="username">maskin</a>
+			<time datetime="2011-04-09T15:30:17+04:00"> 9 апреля 2011 в 15:30</time>
+			<a href="#comment_3806963" class="link_to_comment">#</a>
+			
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			<a href="http://blog.grakhov.com/post/99406348/inline-block">blog.grakhov.com/post/99406348/inline-block</a> 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3806963">
+	 
+		
+<div class="comment_item" id="comment_3807003" >
+	
+	<span class="parent_id" data-parent_id="3806963"></span>
+	
+	
+	
+		<div class="info  " rel="3807003">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807003" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark positive ">
+						<span class="score" title="Всего 9: &uarr;9 и &darr;0">+9</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/maskin/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/81/13/3e/20645/small_20645.png" alt="" /></a>
+			<a href="http://habrahabr.ru/users/maskin/" class="username">maskin</a>
+			<time datetime="2011-04-09T15:46:56+04:00"> 9 апреля 2011 в 15:46</time>
+			<a href="#comment_3807003" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3807003" data-parent_id="3806963" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3806963" data-id="3807003" data-parent_id="3806963" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Неясно почему минусуют. Ведь была уже статья, кто-то переводил раньше уже. Зачем делать одну работу несколько раз? 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807003">
+	
+	</div>
+</div>
+
+	 
+		
+<div class="comment_item" id="comment_3807277" >
+	
+	<span class="parent_id" data-parent_id="3806963"></span>
+	
+	
+	
+		<div class="info  " rel="3807277">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807277" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark positive ">
+						<span class="score" title="Всего 5: &uarr;5 и &darr;0">+5</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/AYShestakov/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/30/09/9d/21998/small_21998.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/AYShestakov/" class="username">AYShestakov</a>
+			<time datetime="2011-04-09T18:42:39+04:00"> 9 апреля 2011 в 18:42</time>
+			<a href="#comment_3807277" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3807277" data-parent_id="3806963" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3806963" data-id="3807277" data-parent_id="3806963" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			<a href="http://chikuyonok.ru/2011/04/inline-vertical-align/">chikuyonok.ru/2011/04/inline-vertical-align/</a> статья от всеми нами любимого автора Сергея Чикуёнка — подход очень похожий 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807277">
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+   
+    
+<div class="comment_item" id="comment_3806966" >
+	
+	<span class="parent_id" data-parent_id="0"></span>
+	
+	
+	
+		<div class="info  " rel="3806966">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3806966" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark positive ">
+						<span class="score" title="Всего 8: &uarr;6 и &darr;2">+4</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/chainik/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/2b/bc/ca/23882/small_23882.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/chainik/" class="username">chainik</a>
+			<time datetime="2011-04-09T15:31:18+04:00"> 9 апреля 2011 в 15:31</time>
+			<a href="#comment_3806966" class="link_to_comment">#</a>
+			
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			На самом деле, для укрощения старых IE достаточно использовать тэги, которые по умолчанию ведут себя как inline-block: например, ins и del. <br/>
+<pre><code class="html">&lt;ins style=&quot;display: inline-block;width: 25%; &quot;&gt;
+&lt;div style=&quot;float: left; width: 100%;&quot;&gt;
+это инлайн-блок
+&lt;/div&gt;
+&lt;/ins&gt;
+</code></pre><br/>
+Вот <a href="http://sweety.ru/">пример использование</a>, когда товары в магазине автоматически выстраиваются в подходящее число колонок по ширине в зависимости от ширины окна браузера (надеюсь не рухнет). Сам метод описывал еще лет 5 назад один из сотрудников студии Лебедева (по крайней мере я узнал от них).<br/>
+<br/>
+Может это и не самое кошерное решение с точки зрения семантики, зато оно простое и главное работающее без хаков под каждую версию браузера.  
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3806966">
+	 
+		
+<div class="comment_item" id="comment_3806982" >
+	
+	<span class="parent_id" data-parent_id="3806966"></span>
+	
+	
+	
+		<div class="info  " rel="3806982">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3806982" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/kritsky/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/d4/4e/e3/17906/small_17906.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/kritsky/" class="username">kritsky</a>
+			<time datetime="2011-04-09T15:38:24+04:00"> 9 апреля 2011 в 15:38</time>
+			<a href="#comment_3806982" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3806982" data-parent_id="3806966" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3806966" data-id="3806982" data-parent_id="3806966" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Единственное, у вас в конце, где 3 букета, они выравниваются по середине. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3806982">
+	 
+		
+<div class="comment_item" id="comment_3806992" >
+	
+	<span class="parent_id" data-parent_id="3806982"></span>
+	
+	
+	
+		<div class="info  " rel="3806992">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3806992" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/chainik/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/2b/bc/ca/23882/small_23882.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/chainik/" class="username">chainik</a>
+			<time datetime="2011-04-09T15:40:37+04:00"> 9 апреля 2011 в 15:40</time>
+			<a href="#comment_3806992" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3806992" data-parent_id="3806982" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3806982" data-id="3806992" data-parent_id="3806982" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Это настройки общего дива, в котором все инсы.  
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3806992">
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+	 
+		
+<div class="comment_item" id="comment_3807045" >
+	
+	<span class="parent_id" data-parent_id="3806966"></span>
+	
+	
+	
+		<div class="info  " rel="3807045">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807045" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark positive ">
+						<span class="score" title="Всего 6: &uarr;6 и &darr;0">+6</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/neJa/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+			<a href="http://habrahabr.ru/users/neJa/" class="username">neJa</a>
+			<time datetime="2011-04-09T16:26:52+04:00"> 9 апреля 2011 в 16:26</time>
+			<a href="#comment_3807045" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3807045" data-parent_id="3806966" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3806966" data-id="3807045" data-parent_id="3806966" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			«для укрощения старых IE достаточно использовать» любый inline элементы + hasLayout 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807045">
+	
+	</div>
+</div>
+
+	 
+		
+<div class="comment_item" id="comment_3807189" >
+	
+	<span class="parent_id" data-parent_id="3806966"></span>
+	
+	
+	
+		<div class="info  " rel="3807189">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807189" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 6: &uarr;3 и &darr;3">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/Punk_UnDeaD/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/26/6e/e7/24598/small_24598.png" alt="" /></a>
+			<a href="http://habrahabr.ru/users/Punk_UnDeaD/" class="username">Punk_UnDeaD</a>
+			<time datetime="2011-04-09T17:48:30+04:00"> 9 апреля 2011 в 17:48</time>
+			<a href="#comment_3807189" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3807189" data-parent_id="3806966" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3806966" data-id="3807189" data-parent_id="3806966" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Крайне некошерное, данные должны быть отдельно, а оформление отдельно.<br/>
+Все рецепты, содержащие дополнительное обёртывание или замену тега, противоестественны.<br/>
+ 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807189">
+	 
+		
+<div class="comment_item" id="comment_3807425" >
+	
+	<span class="parent_id" data-parent_id="3807189"></span>
+	
+	
+	
+		<div class="info  " rel="3807425">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807425" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark positive ">
+						<span class="score" title="Всего 1: &uarr;1 и &darr;0">+1</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/sha1dy/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/03/33/32/6784/small_6784.png" alt="" /></a>
+			<a href="http://habrahabr.ru/users/sha1dy/" class="username">sha1dy</a>
+			<time datetime="2011-04-09T20:52:16+04:00"> 9 апреля 2011 в 20:52</time>
+			<a href="#comment_3807425" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3807425" data-parent_id="3807189" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3807189" data-id="3807425" data-parent_id="3807189" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Да, в идеальном мире для идеального браузера. Я еще не видел настоящей кошерной верстки, рассчитаной на весь сегмент браузеров от хотя бы ie7 и выше — везде так или иначе приходится добовлять хотя бы один лишний элемент. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807425">
+	 
+		
+<div class="comment_item" id="comment_3807652" >
+	
+	<span class="parent_id" data-parent_id="3807425"></span>
+	
+	
+	
+		<div class="info  " rel="3807652">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807652" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 4: &uarr;2 и &darr;2">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/Punk_UnDeaD/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/26/6e/e7/24598/small_24598.png" alt="" /></a>
+			<a href="http://habrahabr.ru/users/Punk_UnDeaD/" class="username">Punk_UnDeaD</a>
+			<time datetime="2011-04-09T23:26:15+04:00"> 9 апреля 2011 в 23:26</time>
+			<a href="#comment_3807652" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3807652" data-parent_id="3807425" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3807425" data-id="3807652" data-parent_id="3807425" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Значит её нет, раз вы её не видели. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807652">
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+	 
+		
+<div class="comment_item" id="comment_3807461" >
+	
+	<span class="parent_id" data-parent_id="3807189"></span>
+	
+	
+	
+		<div class="info  " rel="3807461">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807461" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark positive ">
+						<span class="score" title="Всего 4: &uarr;3 и &darr;1">+2</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/MikhailEdoshin/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+			<a href="http://habrahabr.ru/users/MikhailEdoshin/" class="username">MikhailEdoshin</a>
+			<time datetime="2011-04-09T21:20:52+04:00"> 9 апреля 2011 в 21:20</time>
+			<a href="#comment_3807461" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3807461" data-parent_id="3807189" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3807189" data-id="3807461" data-parent_id="3807189" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Это простой, легкий для понимания и неправильный лозунг. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807461">
+	 
+		
+<div class="comment_item" id="comment_3807647" >
+	
+	<span class="parent_id" data-parent_id="3807461"></span>
+	
+	
+	
+		<div class="info  " rel="3807647">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807647" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  negative">
+						<span class="score" title="Всего 4: &uarr;1 и &darr;3">–2</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/Punk_UnDeaD/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/26/6e/e7/24598/small_24598.png" alt="" /></a>
+			<a href="http://habrahabr.ru/users/Punk_UnDeaD/" class="username">Punk_UnDeaD</a>
+			<time datetime="2011-04-09T23:19:41+04:00"> 9 апреля 2011 в 23:19</time>
+			<a href="#comment_3807647" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3807647" data-parent_id="3807461" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3807461" data-id="3807647" data-parent_id="3807461" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format bad bad2">
+			Только если ему не следовать. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807647">
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+   
+    
+<div class="comment_item" id="comment_3806967" >
+	
+	<span class="parent_id" data-parent_id="0"></span>
+	
+	
+	
+		<div class="info  " rel="3806967">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3806967" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/kritsky/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/d4/4e/e3/17906/small_17906.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/kritsky/" class="username">kritsky</a>
+			<time datetime="2011-04-09T15:33:37+04:00"> 9 апреля 2011 в 15:33</time>
+			<a href="#comment_3806967" class="link_to_comment">#</a>
+			
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Полезная вещь. <br/>
+Я делал по другому: брал все в дивы и после 4го дива писал <br clear="all"/>
+ 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3806967">
+	 
+		
+<div class="comment_item" id="comment_3806971" >
+	
+	<span class="parent_id" data-parent_id="3806967"></span>
+	
+	
+	
+		<div class="info  " rel="3806971">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3806971" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark positive ">
+						<span class="score" title="Всего 1: &uarr;1 и &darr;0">+1</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/kritsky/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/d4/4e/e3/17906/small_17906.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/kritsky/" class="username">kritsky</a>
+			<time datetime="2011-04-09T15:35:27+04:00"> 9 апреля 2011 в 15:35</time>
+			<a href="#comment_3806971" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3806971" data-parent_id="3806967" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3806967" data-id="3806971" data-parent_id="3806967" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			<code><br clear="all"/>
+</code> 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3806971">
+	
+	</div>
+</div>
+
+	 
+		
+<div class="comment_item" id="comment_3806976" >
+	
+	<span class="parent_id" data-parent_id="3806967"></span>
+	
+	
+	
+		<div class="info  " rel="3806976">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3806976" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 2: &uarr;1 и &darr;1">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/kritsky/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/d4/4e/e3/17906/small_17906.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/kritsky/" class="username">kritsky</a>
+			<time datetime="2011-04-09T15:36:30+04:00"> 9 апреля 2011 в 15:36</time>
+			<a href="#comment_3806976" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3806976" data-parent_id="3806967" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3806967" data-id="3806976" data-parent_id="3806967" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			<pre><code class="html">&lt;br clear=&quot;all&quot; /&gt;</code></pre><br/>
+получилось ;) 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3806976">
+	 
+		
+<div class="comment_item" id="comment_3806978" >
+	
+	<span class="parent_id" data-parent_id="3806976"></span>
+	
+	
+	
+		<div class="info  " rel="3806978">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3806978" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  negative">
+						<span class="score" title="Всего 3: &uarr;1 и &darr;2">–1</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/chainik/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/2b/bc/ca/23882/small_23882.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/chainik/" class="username">chainik</a>
+			<time datetime="2011-04-09T15:37:35+04:00"> 9 апреля 2011 в 15:37</time>
+			<a href="#comment_3806978" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3806978" data-parent_id="3806976" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3806976" data-id="3806978" data-parent_id="3806976" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format bad bad1">
+			Наверное, все же clear=«both»?) 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3806978">
+	 
+		
+<div class="comment_item" id="comment_3806986" >
+	
+	<span class="parent_id" data-parent_id="3806978"></span>
+	
+	
+	
+		<div class="info  " rel="3806986">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3806986" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/kritsky/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/d4/4e/e3/17906/small_17906.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/kritsky/" class="username">kritsky</a>
+			<time datetime="2011-04-09T15:38:42+04:00"> 9 апреля 2011 в 15:38</time>
+			<a href="#comment_3806986" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3806986" data-parent_id="3806978" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3806978" data-id="3806986" data-parent_id="3806978" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Нет, именно так, попробуйте. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3806986">
+	 
+		
+<div class="comment_item" id="comment_3806990" >
+	
+	<span class="parent_id" data-parent_id="3806986"></span>
+	
+	
+	
+		<div class="info  " rel="3806990">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3806990" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 2: &uarr;1 и &darr;1">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/chainik/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/2b/bc/ca/23882/small_23882.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/chainik/" class="username">chainik</a>
+			<time datetime="2011-04-09T15:39:55+04:00"> 9 апреля 2011 в 15:39</time>
+			<a href="#comment_3806990" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3806990" data-parent_id="3806986" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3806986" data-id="3806990" data-parent_id="3806986" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Да-да, у вас как атрибут, а я имел в виду стиль.  
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3806990">
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+	 
+		
+<div class="comment_item" id="comment_3806988" >
+	
+	<span class="parent_id" data-parent_id="3806978"></span>
+	
+	
+	
+		<div class="info  " rel="3806988">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3806988" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark positive ">
+						<span class="score" title="Всего 3: &uarr;2 и &darr;1">+1</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/chainik/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/2b/bc/ca/23882/small_23882.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/chainik/" class="username">chainik</a>
+			<time datetime="2011-04-09T15:39:15+04:00"> 9 апреля 2011 в 15:39</time>
+			<a href="#comment_3806988" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3806988" data-parent_id="3806978" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3806978" data-id="3806988" data-parent_id="3806978" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			тьфу блин,<br/>
+<pre><code class="html">&lt;br style=&quot;clear:both&quot;&gt;</code></pre> 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3806988">
+	 
+		
+<div class="comment_item" id="comment_3807247" >
+	
+	<span class="parent_id" data-parent_id="3806988"></span>
+	
+	
+	
+		<div class="info  " rel="3807247">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807247" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  negative">
+						<span class="score" title="Всего 3: &uarr;1 и &darr;2">–1</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/Fesor/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/08/86/65/20133/small_20133.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/Fesor/" class="username">Fesor</a>
+			<time datetime="2011-04-09T18:23:03+04:00"> 9 апреля 2011 в 18:23</time>
+			<a href="#comment_3807247" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3807247" data-parent_id="3806988" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3806988" data-id="3807247" data-parent_id="3806988" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format bad bad1">
+			А зачем делать это стилем если есть атрибут? Да и способ не лучший. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807247">
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+	 
+		
+<div class="comment_item" id="comment_3807123" >
+	
+	<span class="parent_id" data-parent_id="3806976"></span>
+	
+	
+	
+		<div class="info  " rel="3807123">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807123" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark positive ">
+						<span class="score" title="Всего 3: &uarr;3 и &darr;0">+3</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/dyakov/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/e1/12/22/8011/small_8011.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/dyakov/" class="username">dyakov</a>
+			<time datetime="2011-04-09T17:08:50+04:00"> 9 апреля 2011 в 17:08</time>
+			<a href="#comment_3807123" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3807123" data-parent_id="3806976" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3806976" data-id="3807123" data-parent_id="3806976" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Смысл как раз в том, чтобы число элементов попадало в одну строку автоматически. Даже таблицей так не сверстать… 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807123">
+	 
+		
+<div class="comment_item" id="comment_3807861" >
+	
+	<span class="parent_id" data-parent_id="3807123"></span>
+	
+	
+	
+		<div class="info  " rel="3807861">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807861" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/spaceblock/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/d6/63/30/11763/small_11763.png" alt="" /></a>
+			<a href="http://habrahabr.ru/users/spaceblock/" class="username">spaceblock</a>
+			<time datetime="2011-04-10T02:22:11+04:00">10 апреля 2011 в 02:22</time>
+			<a href="#comment_3807861" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3807861" data-parent_id="3807123" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3807123" data-id="3807861" data-parent_id="3807123" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Это же программированием решается, и уже не важно что там в верстке) 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807861">
+	 
+		
+<div class="comment_item" id="comment_3807886" >
+	
+	<span class="parent_id" data-parent_id="3807861"></span>
+	
+	
+	
+		<div class="info  " rel="3807886">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807886" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/dyakov/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/e1/12/22/8011/small_8011.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/dyakov/" class="username">dyakov</a>
+			<time datetime="2011-04-10T02:59:54+04:00">10 апреля 2011 в 02:59</time>
+			<a href="#comment_3807886" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3807886" data-parent_id="3807861" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3807861" data-id="3807886" data-parent_id="3807861" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			В зависимости от ширны окна уместить либо три либо пять либо семь блоков? 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807886">
+	 
+		
+<div class="comment_item" id="comment_3807889" >
+	
+	<span class="parent_id" data-parent_id="3807886"></span>
+	
+	
+	
+		<div class="info  " rel="3807889">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807889" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/spaceblock/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/d6/63/30/11763/small_11763.png" alt="" /></a>
+			<a href="http://habrahabr.ru/users/spaceblock/" class="username">spaceblock</a>
+			<time datetime="2011-04-10T03:05:02+04:00">10 апреля 2011 в 03:05</time>
+			<a href="#comment_3807889" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3807889" data-parent_id="3807886" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3807886" data-id="3807889" data-parent_id="3807886" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			о, нет, конечно (речь о таблицах) 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807889">
+	
+	</div>
+</div>
+
+	 
+		
+<div class="comment_item" id="comment_3807984" >
+	
+	<span class="parent_id" data-parent_id="3807886"></span>
+	
+	
+	
+		<div class="info  " rel="3807984">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807984" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/mrspd/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/9d/d8/88/21300/small_21300.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/mrspd/" class="username">mrspd</a>
+			<time datetime="2011-04-10T07:43:02+04:00">10 апреля 2011 в 07:43</time>
+			<a href="#comment_3807984" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3807984" data-parent_id="3807886" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3807886" data-id="3807984" data-parent_id="3807886" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Чем вам поиск по яндекс.картинкам не пример? 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807984">
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+   
+    
+<div class="comment_item" id="comment_3806977" >
+	
+	<span class="parent_id" data-parent_id="0"></span>
+	
+	
+	
+		<div class="info  " rel="3806977">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3806977" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark positive ">
+						<span class="score" title="Всего 4: &uarr;4 и &darr;0">+4</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/petrouv/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/7c/c9/9a/19799/small_19799.png" alt="" /></a>
+			<a href="http://habrahabr.ru/users/petrouv/" class="username">petrouv</a>
+			<time datetime="2011-04-09T15:37:30+04:00"> 9 апреля 2011 в 15:37</time>
+			<a href="#comment_3806977" class="link_to_comment">#</a>
+			
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			zoom: 1;<br/>
+display:-moz-inline-box;<br/>
+-moz-box-orient:vertical;<br/>
+display:inline-block;<br/>
+_display:inline;<br/>
+*display:inline;<br/>
+vertical-align: top;<br/>
+<br/>
+По-моему работает без всяких обверток в лишние div, в том числе в FF2. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3806977">
+	 
+		
+<div class="comment_item" id="comment_3806981" >
+	
+	<span class="parent_id" data-parent_id="3806977"></span>
+	
+	
+	
+		<div class="info  " rel="3806981">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3806981" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark positive ">
+						<span class="score" title="Всего 8: &uarr;8 и &darr;0">+8</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/chainik/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/2b/bc/ca/23882/small_23882.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/chainik/" class="username">chainik</a>
+			<time datetime="2011-04-09T15:38:20+04:00"> 9 апреля 2011 в 15:38</time>
+			<a href="#comment_3806981" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3806981" data-parent_id="3806977" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3806977" data-id="3806981" data-parent_id="3806977" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Я уже забыл, когда видел последнего посетителя с ФФ2 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3806981">
+	 
+		
+<div class="comment_item" id="comment_3806998" >
+	
+	<span class="parent_id" data-parent_id="3806981"></span>
+	
+	
+	
+		<div class="info  " rel="3806998">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3806998" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark positive ">
+						<span class="score" title="Всего 6: &uarr;5 и &darr;1">+4</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/petrouv/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/7c/c9/9a/19799/small_19799.png" alt="" /></a>
+			<a href="http://habrahabr.ru/users/petrouv/" class="username">petrouv</a>
+			<time datetime="2011-04-09T15:43:34+04:00"> 9 апреля 2011 в 15:43</time>
+			<a href="#comment_3806998" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3806998" data-parent_id="3806981" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3806981" data-id="3806998" data-parent_id="3806981" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Ну это для понта. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3806998">
+	
+	</div>
+</div>
+
+	 
+		
+<div class="comment_item" id="comment_3808005" >
+	
+	<span class="parent_id" data-parent_id="3806981"></span>
+	
+	
+	
+		<div class="info  " rel="3808005">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3808005" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/Zeboton/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/16/68/8e/8282/small_8282.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/Zeboton/" class="username">Zeboton</a>
+			<time datetime="2011-04-10T09:07:49+04:00">10 апреля 2011 в 09:07</time>
+			<a href="#comment_3808005" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3808005" data-parent_id="3806981" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3806981" data-id="3808005" data-parent_id="3806981" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Прочитав Ваш комментарий, решил посмотреть как обстоят дела на моём сайте ит-шной наклонности.<br/>
+Знаете, у меня есть заходы не то что с Fx2, но даже с Fx1.5, хотя они все в пределах статистической погрешности:<br/>
+<img src="http://s006.radikal.ru/i213/1104/c6/8bec1a6f5468.png" alt="img"/> 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3808005">
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+	 
+		
+<div class="comment_item" id="comment_3807210" >
+	
+	<span class="parent_id" data-parent_id="3806977"></span>
+	
+	
+		<div class="author_banned">НЛО прилетело и опубликовало эту надпись здесь</div>
+	
+	
+	<div class="reply_comments" id="reply_comments_3807210">
+	 
+		
+<div class="comment_item" id="comment_3807219" >
+	
+	<span class="parent_id" data-parent_id="3807210"></span>
+	
+	
+	
+		<div class="info  " rel="3807219">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807219" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  negative">
+						<span class="score" title="Всего 1: &uarr;0 и &darr;1">–1</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/petrouv/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/7c/c9/9a/19799/small_19799.png" alt="" /></a>
+			<a href="http://habrahabr.ru/users/petrouv/" class="username">petrouv</a>
+			<time datetime="2011-04-09T18:03:33+04:00"> 9 апреля 2011 в 18:03</time>
+			<a href="#comment_3807219" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3807219" data-parent_id="3807210" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3807210" data-id="3807219" data-parent_id="3807210" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format bad bad1">
+			Звездочка, насколько я помню из детства, только с IE7 работает. Согласен, что можно заменить на комментарий &quot;//&quot;, чтобы оставить одну декларацию.<br/>
+И перед zoom еще, чтобы Safari исключить. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807219">
+	 
+		
+<div class="comment_item" id="comment_3807245" >
+	
+	<span class="parent_id" data-parent_id="3807219"></span>
+	
+	
+	
+		<div class="info  " rel="3807245">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807245" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark positive ">
+						<span class="score" title="Всего 3: &uarr;3 и &darr;0">+3</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/petrouv/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/7c/c9/9a/19799/small_19799.png" alt="" /></a>
+			<a href="http://habrahabr.ru/users/petrouv/" class="username">petrouv</a>
+			<time datetime="2011-04-09T18:21:10+04:00"> 9 апреля 2011 в 18:21</time>
+			<a href="#comment_3807245" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3807245" data-parent_id="3807219" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3807219" data-id="3807245" data-parent_id="3807219" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Виноват. И вправду на IE6 срабатывает. Детство мое было неправильное. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807245">
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+   
+    
+<div class="comment_item" id="comment_3807004" >
+	
+	<span class="parent_id" data-parent_id="0"></span>
+	
+	
+	
+		<div class="info  " rel="3807004">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807004" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  negative">
+						<span class="score" title="Всего 8: &uarr;2 и &darr;6">–4</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/vflash/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/31/11/1a/3885/small_3885.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/vflash/" class="username">vflash</a>
+			<time datetime="2011-04-09T15:47:50+04:00"> 9 апреля 2011 в 15:47</time>
+			<a href="#comment_3807004" class="link_to_comment">#</a>
+			
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format bad bad4">
+			в IE7-7 при динамике эти трюки приводят к тому что такие блоки просто исчезают с экрана. потому эти танцы с бубном бесполезны. если хотите использовать inline-block откажитесь от устаревших браузеров. А если хотите поддерживать пользователей с IE6 то верстайте так как это было принято 10 лет назад. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807004">
+	 
+		
+<div class="comment_item" id="comment_3807044" >
+	
+	<span class="parent_id" data-parent_id="3807004"></span>
+	
+	
+	
+		<div class="info  " rel="3807044">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807044" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  negative">
+						<span class="score" title="Всего 2: &uarr;0 и &darr;2">–2</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/neJa/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+			<a href="http://habrahabr.ru/users/neJa/" class="username">neJa</a>
+			<time datetime="2011-04-09T16:26:00+04:00"> 9 апреля 2011 в 16:26</time>
+			<a href="#comment_3807044" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3807044" data-parent_id="3807004" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3807004" data-id="3807044" data-parent_id="3807004" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format bad bad2">
+			ничего не исчезает, не знаете сути проблемы не пишите чушь 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807044">
+	 
+		
+<div class="comment_item" id="comment_3807061" >
+	
+	<span class="parent_id" data-parent_id="3807044"></span>
+	
+	
+	
+		<div class="info  " rel="3807061">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807061" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  negative">
+						<span class="score" title="Всего 3: &uarr;1 и &darr;2">–1</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/chainik/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/2b/bc/ca/23882/small_23882.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/chainik/" class="username">chainik</a>
+			<time datetime="2011-04-09T16:38:30+04:00"> 9 апреля 2011 в 16:38</time>
+			<a href="#comment_3807061" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3807061" data-parent_id="3807044" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3807044" data-id="3807061" data-parent_id="3807044" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format bad bad1">
+			Возьмитесь за правый край старого осла (гг) и подергайте сверстанный по статье сайт влево-вправо. Поймете, о чем речь.  
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807061">
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+   
+    
+<div class="comment_item" id="comment_3807024" >
+	
+	<span class="parent_id" data-parent_id="0"></span>
+	
+	
+	
+		<div class="info  " rel="3807024">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807024" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark positive ">
+						<span class="score" title="Всего 9: &uarr;9 и &darr;0">+9</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/catsmeetman/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+			<a href="http://habrahabr.ru/users/catsmeetman/" class="username">catsmeetman</a>
+			<time datetime="2011-04-09T16:07:07+04:00"> 9 апреля 2011 в 16:07</time>
+			<a href="#comment_3807024" class="link_to_comment">#</a>
+			
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Чем дольше поддерживаешь IE6, тем дольше он проживет. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807024">
+	 
+		
+<div class="comment_item" id="comment_3807056" >
+	
+	<span class="parent_id" data-parent_id="3807024"></span>
+	
+	
+	
+		<div class="info  " rel="3807056">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807056" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark positive ">
+						<span class="score" title="Всего 5: &uarr;5 и &darr;0">+5</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/chainik/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/2b/bc/ca/23882/small_23882.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/chainik/" class="username">chainik</a>
+			<time datetime="2011-04-09T16:37:07+04:00"> 9 апреля 2011 в 16:37</time>
+			<a href="#comment_3807056" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3807056" data-parent_id="3807024" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3807024" data-id="3807056" data-parent_id="3807024" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Ну на самом деле тихий консенсус в отрасли состоит в том, чтобы по-умолчанию поддерживать IE6 лишь частично. То есть верстка не должна разваливаться, а сам сайт должен оставаться рабочим, но попиксельной точности уже никто не требует.  
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807056">
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+   
+    
+<div class="comment_item" id="comment_3807030" >
+	
+	<span class="parent_id" data-parent_id="0"></span>
+	
+	
+	
+		<div class="info  " rel="3807030">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807030" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark positive ">
+						<span class="score" title="Всего 3: &uarr;3 и &darr;0">+3</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/brainfucker/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/78/87/75/16416/small_16416.png" alt="" /></a>
+			<a href="http://habrahabr.ru/users/brainfucker/" class="username">brainfucker</a>
+			<time datetime="2011-04-09T16:09:40+04:00"> 9 апреля 2011 в 16:09</time>
+			<a href="#comment_3807030" class="link_to_comment">#</a>
+			
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Я в таких случаях просто использую таблицу. Несмотря на то, что идеалогически это куда более худшее решение, оно значительно быстрее рендерится в браузерах. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807030">
+	
+	</div>
+</div>
+
+   
+    
+<div class="comment_item" id="comment_3807051" >
+	
+	<span class="parent_id" data-parent_id="0"></span>
+	
+	
+	
+		<div class="info  " rel="3807051">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807051" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/orloffkirill/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+			<a href="http://habrahabr.ru/users/orloffkirill/" class="username">orloffkirill</a>
+			<time datetime="2011-04-09T16:31:52+04:00"> 9 апреля 2011 в 16:31</time>
+			<a href="#comment_3807051" class="link_to_comment">#</a>
+			
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Несколько дней назад столкнулся с подобной проблемой — допилил функционал сортировки таблицы на <a href="http://esocash.com">мониторинге</a>, в итоге заметил неправильное отображение в ИЕ7 (под ИЕ6 — не делали, согласно ТЗ) ссылок из серии Добавить в закладки/избранное/на сайт. display: inline-block в ИЕ7 не работал почему-то.<br/>
+Оказалось, если в &lt;div&gt;`е есть несколько &lt;a&gt; и &lt;p&gt;, то inline-block — не работал, а inline — не поддерживает border как надо. Выход — замена &lt;p&gt; на &lt;span&gt; — возможно, технологи скажут, что это семантически неверно, но работает. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807051">
+	 
+		
+<div class="comment_item" id="comment_3807101" >
+	
+	<span class="parent_id" data-parent_id="3807051"></span>
+	
+	
+	
+		<div class="info  " rel="3807101">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807101" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/Inquirer/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/9c/c1/12/17841/small_17841.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/Inquirer/" class="username">Inquirer</a>
+			<time datetime="2011-04-09T16:59:22+04:00"> 9 апреля 2011 в 16:59</time>
+			<a href="#comment_3807101" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3807101" data-parent_id="3807051" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3807051" data-id="3807101" data-parent_id="3807051" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Сохранять семантику при ие7 — тяжкое дело. А заказчик упёрто пытается указывать на «таблицы для нетабличных данных». 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807101">
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+   
+    
+<div class="comment_item" id="comment_3807074" >
+	
+	<span class="parent_id" data-parent_id="0"></span>
+	
+	
+	
+		<div class="info  " rel="3807074">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807074" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark positive ">
+						<span class="score" title="Всего 2: &uarr;2 и &darr;0">+2</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/ambientos/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+			<a href="http://habrahabr.ru/users/ambientos/" class="username">ambientos</a>
+			<time datetime="2011-04-09T16:47:02+04:00"> 9 апреля 2011 в 16:47</time>
+			<a href="#comment_3807074" class="link_to_comment">#</a>
+			
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Вдогонку <a href="http://chikuyonok.ru/2011/04/inline-vertical-align/">chikuyonok.ru/2011/04/inline-vertical-align/</a> 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807074">
+	 
+		
+<div class="comment_item" id="comment_3807094" >
+	
+	<span class="parent_id" data-parent_id="3807074"></span>
+	
+	
+	
+		<div class="info  " rel="3807094">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807094" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark positive ">
+						<span class="score" title="Всего 1: &uarr;1 и &darr;0">+1</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/drfisher/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/1e/e7/78/20174/small_20174.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/drfisher/" class="username">drfisher</a>
+			<time datetime="2011-04-09T16:55:53+04:00"> 9 апреля 2011 в 16:55</time>
+			<a href="#comment_3807094" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3807094" data-parent_id="3807074" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3807074" data-id="3807094" data-parent_id="3807074" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Ссылку на статью для этого перевода я нашел именно там ) 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807094">
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+   
+    
+<div class="comment_item" id="comment_3807112" >
+	
+	<span class="parent_id" data-parent_id="0"></span>
+	
+	
+	
+		<div class="info  " rel="3807112">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807112" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark positive ">
+						<span class="score" title="Всего 4: &uarr;3 и &darr;1">+2</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/ozoned/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+			<a href="http://habrahabr.ru/users/ozoned/" class="username">ozoned</a>
+			<time datetime="2011-04-09T17:04:50+04:00"> 9 апреля 2011 в 17:04</time>
+			<a href="#comment_3807112" class="link_to_comment">#</a>
+			
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			CSS-хаки можно использовать более элегантно:<br/>
+<br/>
+li {<br/>
+ min-height: 250px;<br/>
+ height: auto !important; // IE6 в одном селекторе игнорирует important<br/>
+ height: 250px;<br/>
+ display: inline;<br/>
+ display: inline-block; // IE такого не знает и воспользуется предыдущим свойством<br/>
+ zoom: 1;<br/>
+ } 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807112">
+	 
+		
+<div class="comment_item" id="comment_3807130" >
+	
+	<span class="parent_id" data-parent_id="3807112"></span>
+	
+	
+	
+		<div class="info  " rel="3807130">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807130" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark positive ">
+						<span class="score" title="Всего 3: &uarr;3 и &darr;0">+3</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/dyakov/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/e1/12/22/8011/small_8011.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/dyakov/" class="username">dyakov</a>
+			<time datetime="2011-04-09T17:12:50+04:00"> 9 апреля 2011 в 17:12</time>
+			<a href="#comment_3807130" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3807130" data-parent_id="3807112" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3807112" data-id="3807130" data-parent_id="3807112" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			два слеша не являются комментариями в css 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807130">
+	 
+		
+<div class="comment_item" id="comment_3807136" >
+	
+	<span class="parent_id" data-parent_id="3807130"></span>
+	
+	
+	
+		<div class="info  " rel="3807136">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807136" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark positive ">
+						<span class="score" title="Всего 3: &uarr;3 и &darr;0">+3</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/ozoned/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+			<a href="http://habrahabr.ru/users/ozoned/" class="username">ozoned</a>
+			<time datetime="2011-04-09T17:18:25+04:00"> 9 апреля 2011 в 17:18</time>
+			<a href="#comment_3807136" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3807136" data-parent_id="3807130" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3807130" data-id="3807136" data-parent_id="3807130" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Ну это же не css-файл :) Лень было просто. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807136">
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+	 
+		
+<div class="comment_item" id="comment_4477542" >
+	
+	<span class="parent_id" data-parent_id="3807112"></span>
+	
+	
+	
+		<div class="info  " rel="4477542">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_4477542" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/SelenIT2/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/f9/99/94/33073/small_33073.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/SelenIT2/" class="username">SelenIT2</a>
+			<time datetime="2011-12-18T21:01:51+04:00">18 декабря 2011 в 21:01</time>
+			<a href="#comment_4477542" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="4477542" data-parent_id="3807112" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3807112" data-id="4477542" data-parent_id="3807112" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			<blockquote>// IE такого не знает и воспользуется предыдущим свойством</blockquote><br/>
+На самом деле знает, но умеет применять только к изначально инлайновым элементам типа <code>&lt;span&gt;</code>. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_4477542">
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+   
+    
+<div class="comment_item" id="comment_3807254" >
+	
+	<span class="parent_id" data-parent_id="0"></span>
+	
+	
+	
+		<div class="info  " rel="3807254">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807254" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  negative">
+						<span class="score" title="Всего 2: &uarr;0 и &darr;2">–2</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/brutaler/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/59/9b/be/16598/small_16598.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/brutaler/" class="username">brutaler</a>
+			<time datetime="2011-04-09T18:28:32+04:00"> 9 апреля 2011 в 18:28</time>
+			<a href="#comment_3807254" class="link_to_comment">#</a>
+			
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format bad bad2">
+			Превосходная статья, не встречал раньше подобного метода. Теперь буду использовать! Спасибо за перевод. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807254">
+	
+	</div>
+</div>
+
+   
+    
+<div class="comment_item" id="comment_3807400" >
+	
+	<span class="parent_id" data-parent_id="0"></span>
+	
+	
+	
+		<div class="info  " rel="3807400">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807400" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  negative">
+						<span class="score" title="Всего 5: &uarr;0 и &darr;5">–5</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/evil_kabab/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+			<a href="http://habrahabr.ru/users/evil_kabab/" class="username">evil_kabab</a>
+			<time datetime="2011-04-09T20:33:07+04:00"> 9 апреля 2011 в 20:33</time>
+			<a href="#comment_3807400" class="link_to_comment">#</a>
+			
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format bad bad5">
+			Хорошее решение. Но я бы использовал джаваскрипт, просто чтобы выровнять высоту всех блоков по самому высокому +3px<br/>
+И тоже самое при попытке изменить размер окна 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807400">
+	
+	</div>
+</div>
+
+   
+    
+<div class="comment_item" id="comment_3807469" >
+	
+	<span class="parent_id" data-parent_id="0"></span>
+	
+	
+	
+		<div class="info  " rel="3807469">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807469" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark positive ">
+						<span class="score" title="Всего 1: &uarr;1 и &darr;0">+1</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/sanch3z/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/6b/be/e9/2528/small_2528.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/sanch3z/" class="username">sanch3z</a>
+			<time datetime="2011-04-09T21:28:20+04:00"> 9 апреля 2011 в 21:28</time>
+			<a href="#comment_3807469" class="link_to_comment">#</a>
+			
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Легендарная прямо таки статья 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807469">
+	
+	</div>
+</div>
+
+   
+    
+<div class="comment_item" id="comment_3807669" >
+	
+	<span class="parent_id" data-parent_id="0"></span>
+	
+	
+	
+		<div class="info  " rel="3807669">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807669" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/anklem/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/65/58/89/13061/small_13061.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/anklem/" class="username">anklem</a>
+			<time datetime="2011-04-09T23:35:01+04:00"> 9 апреля 2011 в 23:35</time>
+			<a href="#comment_3807669" class="link_to_comment">#</a>
+			
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			FF2 уже вне игры, хаки для IE в эпоху Conditional Comments смотрятся как атавизм. <br/>
+Что еще удивительно, нашлось немало тех, кто за два года с выхода статьи, ни разу на неё не наткнулся.<br/>
+Или это хабр глючит выдавая архивные посты? 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807669">
+	 
+		
+<div class="comment_item" id="comment_3809784" >
+	
+	<span class="parent_id" data-parent_id="3807669"></span>
+	
+	
+	
+		<div class="info  " rel="3809784">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3809784" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  negative">
+						<span class="score" title="Всего 1: &uarr;0 и &darr;1">–1</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/ArtyV/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/b5/53/34/2405/small_2405.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/ArtyV/" class="username">ArtyV</a>
+			<time datetime="2011-04-11T08:04:18+04:00">11 апреля 2011 в 08:04</time>
+			<a href="#comment_3809784" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3809784" data-parent_id="3807669" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3807669" data-id="3809784" data-parent_id="3807669" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format bad bad1">
+			Нее, просто Чикуёнок мимоходом упомянул эту статью, вот все и кинулись читать. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3809784">
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+   
+    
+<div class="comment_item" id="comment_3807695" >
+	
+	<span class="parent_id" data-parent_id="0"></span>
+	
+	
+	
+		<div class="info  " rel="3807695">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807695" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark positive ">
+						<span class="score" title="Всего 1: &uarr;1 и &darr;0">+1</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/0range/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/62/20/02/4550/small_4550.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/0range/" class="username">0range</a>
+			<time datetime="2011-04-09T23:52:28+04:00"> 9 апреля 2011 в 23:52</time>
+			<a href="#comment_3807695" class="link_to_comment">#</a>
+			
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Во-первых firefox 2 уже давно морально устарел и вот это можно выкинуть <br/>
+<code>display: -moz-inline-stack;</code><br/>
+Во-вторых на резиновых сайтах возникали проблемы с таким кодом для firefox 2, так что там все чуть сложнее было, если кому надо могу поискать решение<br/>
+В-третьих вы не решили проблему отступов у inline элементов, тоесть если убрать маргины то блоки будут не вплотную друг к другу стоять. Там нужно у контейнера несколько параметров обнулить, а у вложенного тега все восстановить. <br/>
+Ну и код для ие6 — 7 лучше выносить в CC, но это и так все знают )) 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807695">
+	 
+		
+<div class="comment_item" id="comment_3807701" >
+	
+	<span class="parent_id" data-parent_id="3807695"></span>
+	
+	
+	
+		<div class="info  " rel="3807701">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807701" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/0range/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/62/20/02/4550/small_4550.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/0range/" class="username">0range</a>
+			<time datetime="2011-04-09T23:56:08+04:00"> 9 апреля 2011 в 23:56</time>
+			<a href="#comment_3807701" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3807701" data-parent_id="3807695" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3807695" data-id="3807701" data-parent_id="3807695" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Вот кстати сниппет, для того чтобы убрать отступы между inline-block блоками<br/>
+<a href="http://snipplr.com/view/49933/display-inlineblock-/">snipplr.com/view/49933/display-inlineblock-/</a><br/>
+может кому пригодится 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807701">
+	 
+		
+<div class="comment_item" id="comment_4314571" >
+	
+	<span class="parent_id" data-parent_id="3807701"></span>
+	
+	
+	
+		<div class="info  " rel="4314571">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_4314571" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/leopard/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/13/30/05/3629/small_3629.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/leopard/" class="username">leopard</a>
+			<time datetime="2011-10-12T09:54:21+04:00">12 октября 2011 в 09:54</time>
+			<a href="#comment_4314571" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="4314571" data-parent_id="3807701" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3807701" data-id="4314571" data-parent_id="3807701" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Можно и так <code>ul.class li{margin-right:-3px;//margin-right:0;}</code> 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_4314571">
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+	 
+		
+<div class="comment_item" id="comment_3807744" >
+	
+	<span class="parent_id" data-parent_id="3807695"></span>
+	
+	
+	
+		<div class="info  " rel="3807744">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3807744" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark positive ">
+						<span class="score" title="Всего 1: &uarr;1 и &darr;0">+1</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/Vii/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+			<a href="http://habrahabr.ru/users/Vii/" class="username">Vii</a>
+			<time datetime="2011-04-10T00:25:09+04:00">10 апреля 2011 в 00:25</time>
+			<a href="#comment_3807744" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3807744" data-parent_id="3807695" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3807695" data-id="3807744" data-parent_id="3807695" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Еще <code>-moz-inline-stack;</code> не работал в связке с <code>position:relative;</code>, а в Opera <code>inline-block + relative</code> переодически глючит до сих пор.  
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3807744">
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+   
+    
+<div class="comment_item" id="comment_3808147" >
+	
+	<span class="parent_id" data-parent_id="0"></span>
+	
+	
+	
+		<div class="info  " rel="3808147">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3808147" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/tenshi/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+			<a href="http://habrahabr.ru/users/tenshi/" class="username">tenshi</a>
+			<time datetime="2011-04-10T11:52:56+04:00">10 апреля 2011 в 11:52</time>
+			<a href="#comment_3808147" class="link_to_comment">#</a>
+			
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			не баг, а фича<br/>
+<a href="https://developer.mozilla.org/en/XUL_Tutorial/Stacks_and_Decks">developer.mozilla.org/en/XUL_Tutorial/Stacks_and_Decks</a> 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3808147">
+	
+	</div>
+</div>
+
+   
+    
+<div class="comment_item" id="comment_3808220" >
+	
+	<span class="parent_id" data-parent_id="0"></span>
+	
+	
+	
+		<div class="info  " rel="3808220">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3808220" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  negative">
+						<span class="score" title="Всего 1: &uarr;0 и &darr;1">–1</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/whybenormal/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/c5/5c/c5/12139/small_12139.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/whybenormal/" class="username">whybenormal</a>
+			<time datetime="2011-04-10T12:49:51+04:00">10 апреля 2011 в 12:49</time>
+			<a href="#comment_3808220" class="link_to_comment">#</a>
+			
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format bad bad1">
+			И тут на помощь приходит дремучий. Как ни странно, это было бы лучшим решением. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3808220">
+	
+	</div>
+</div>
+
+   
+    
+<div class="comment_item" id="comment_3808234" >
+	
+	<span class="parent_id" data-parent_id="0"></span>
+	
+	
+	
+		<div class="info  " rel="3808234">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3808234" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  negative">
+						<span class="score" title="Всего 2: &uarr;0 и &darr;2">–2</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/whybenormal/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/c5/5c/c5/12139/small_12139.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/whybenormal/" class="username">whybenormal</a>
+			<time datetime="2011-04-10T12:55:37+04:00">10 апреля 2011 в 12:55</time>
+			<a href="#comment_3808234" class="link_to_comment">#</a>
+			
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format bad bad2">
+			Пардон. Дремучий table 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3808234">
+	 
+		
+<div class="comment_item" id="comment_3809142" >
+	
+	<span class="parent_id" data-parent_id="3808234"></span>
+	
+	
+	
+		<div class="info  " rel="3809142">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3809142" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/Mithgol/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/fa/a8/83/18334/small_18334.png" alt="" /></a>
+			<a href="http://habrahabr.ru/users/Mithgol/" class="username">Mithgol</a>
+			<time datetime="2011-04-10T21:39:07+04:00">10 апреля 2011 в 21:39</time>
+			<a href="#comment_3809142" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3809142" data-parent_id="3808234" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3808234" data-id="3809142" data-parent_id="3808234" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Вы не поняли, в чём проблема table. А проблема эта в том, что table не умеет переносить ячейки на новую строку или оставлять на предыдущей в зависимости от ширины окошка. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3809142">
+	 
+		
+<div class="comment_item" id="comment_3810060" >
+	
+	<span class="parent_id" data-parent_id="3809142"></span>
+	
+	
+	
+		<div class="info  " rel="3810060">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3810060" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/whybenormal/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/c5/5c/c5/12139/small_12139.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/whybenormal/" class="username">whybenormal</a>
+			<time datetime="2011-04-11T10:25:19+04:00">11 апреля 2011 в 10:25</time>
+			<a href="#comment_3810060" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3810060" data-parent_id="3809142" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3809142" data-id="3810060" data-parent_id="3809142" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Резиновая верстка…<br/>
+Я inline-block использую, когда нужно сделать горизонтальное ul-меню, чтобы оно размещалось в центре блока, т.е. реагировало на text-align: center;<br/>
+<br/>
+Пока другого подобного решения не встречал. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3810060">
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+   
+    
+<div class="comment_item" id="comment_3808427" >
+	
+	<span class="parent_id" data-parent_id="0"></span>
+	
+	
+	
+		<div class="info  " rel="3808427">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3808427" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark positive ">
+						<span class="score" title="Всего 2: &uarr;2 и &darr;0">+2</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/Mithgol/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/fa/a8/83/18334/small_18334.png" alt="" /></a>
+			<a href="http://habrahabr.ru/users/Mithgol/" class="username">Mithgol</a>
+			<time datetime="2011-04-10T15:05:35+04:00">10 апреля 2011 в 15:05</time>
+			<a href="#comment_3808427" class="link_to_comment">#</a>
+			
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Да, хороший рецепт. 10 июня прошлого года <a href="http://habrahabr.ru/blogs/css/96152/">я приводил гиперссылку</a> на сборник, состоящий из этого и нескольких других преполезнейших рецептов (общим числом полсотни), так что очень рад, что у Вас дошли руки перевести один из них. Поглядите на них — быть может, и другие приглянутся для перевода или хотя бы употребления. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3808427">
+	 
+		
+<div class="comment_item" id="comment_3808433" >
+	
+	<span class="parent_id" data-parent_id="3808427"></span>
+	
+	
+	
+		<div class="info  " rel="3808433">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3808433" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark positive ">
+						<span class="score" title="Всего 1: &uarr;1 и &darr;0">+1</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/drfisher/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/1e/e7/78/20174/small_20174.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/drfisher/" class="username">drfisher</a>
+			<time datetime="2011-04-10T15:08:07+04:00">10 апреля 2011 в 15:08</time>
+			<a href="#comment_3808433" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="3808433" data-parent_id="3808427" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3808427" data-id="3808433" data-parent_id="3808427" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Спасибо, обязательно посмотрю. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3808433">
+	
+	</div>
+</div>
+
+	 
+		
+<div class="comment_item" id="comment_4476001" >
+	
+	<span class="parent_id" data-parent_id="3808427"></span>
+	
+	
+	
+		<div class="info  " rel="4476001">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_4476001" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark positive ">
+						<span class="score" title="Всего 1: &uarr;1 и &darr;0">+1</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/Kinjeiro/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+			<a href="http://habrahabr.ru/users/Kinjeiro/" class="username">Kinjeiro</a>
+			<time datetime="2011-12-17T19:34:16+04:00">17 декабря 2011 в 19:34</time>
+			<a href="#comment_4476001" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="4476001" data-parent_id="3808427" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_3808427" data-id="4476001" data-parent_id="3808427" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Вечера доброго!<br/>
+А можно еще раз ссылочку, а то этот адрес уже канул в неизвестность? 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_4476001">
+	 
+		
+<div class="comment_item" id="comment_4993405" >
+	
+	<span class="parent_id" data-parent_id="4476001"></span>
+	
+	
+	
+		<div class="info  " rel="4993405">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_4993405" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/Mithgol/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/fa/a8/83/18334/small_18334.png" alt="" /></a>
+			<a href="http://habrahabr.ru/users/Mithgol/" class="username">Mithgol</a>
+			<time datetime="2012-07-18T08:52:21+04:00">18 июля 2012 в 08:52</time>
+			<a href="#comment_4993405" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="4993405" data-parent_id="4476001" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_4476001" data-id="4993405" data-parent_id="4476001" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			По-видимому, та блогозапись была уничтожена физически <nobr>из-за какого-то</nobr> глюка Хабрахабра или стёрта модераторами хаба CSS. Сейчас я не нахожу в своём блоге ни одной блогозаписи от 10 июня 2010 года. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_4993405">
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+   
+    
+<div class="comment_item" id="comment_3809780" >
+	
+	<span class="parent_id" data-parent_id="0"></span>
+	
+	
+	
+		<div class="info  " rel="3809780">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_3809780" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/ArtyV/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/b5/53/34/2405/small_2405.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/ArtyV/" class="username">ArtyV</a>
+			<time datetime="2011-04-11T08:02:16+04:00">11 апреля 2011 в 08:02</time>
+			<a href="#comment_3809780" class="link_to_comment">#</a>
+			
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Привет вам из позапрошлого года. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_3809780">
+	
+	</div>
+</div>
+
+  
+</div>
+
+		
+	
+		
+			<p class="for_users_only_msg">Только зарегистрированные пользователи могут оставлять комментарии. <a href="http://habrahabr.ru/login/">Войдите</a>, пожалуйста.</p>
+		
+		
+	
+
+
+
+		
+<form action="/json/favorites/" method="post" id="edit_tags_form" class="hidden">
+  <input type="hidden" name="action" value="add" />
+  <input type="hidden" name="ti" value="0" />
+  <input type="hidden" name="tt" value="0" />
+  <label>Пометьте топик понятными вам метками, если хотите</label>
+  <input type="text" name="tags_string" class="tags_string" />
+  <div class="description">Метки лучше разделять запятой. Например: <i>общение, социальные сети, myspace.com, подростки, мердок</i></div>
+  <input type="submit" value="Сохранить" class="submit" /> или <a href="#" class="close" onclick="return close_edit_tags()">закрыть</a>
+</form>
+    
+	
+	
+
+  </div>
+  <div class="sidebar_right">
+	
+		
+		
+
+
+
+
+	<div class="banner_240x400">
+
+		<script type="text/javascript">
+			(function(){
+				var custom = [];
+			/* custom params */
+			
+				custom[1]	= 'css';
+			
+				
+
+			/* end of custom params */
+				custom.getStd = function(){for(var i=0,j,s=[];i<this.length;i++){if(this[i])s.push((!j?(j=1,i+'='):'')+escape(this[i]));else j=0}return s.length?'&custom='+s.join(';'):''};
+
+				var RndNum4NoCash = Math.round(Math.random() * 1000000000),
+					ar_Tail = escape(document.referrer || 'unknown');
+				document.write('<iframe src="http://ad.adriver.ru/cgi-bin/erle.cgi?'
+					+ 'sid=176776&target=top&bt=22&pz=0&rnd=' + RndNum4NoCash + '&tail256=' + ar_Tail + custom.getStd()
+					+ '" frameborder=0 vspace=0 hspace=0 width=240 height=400 marginwidth=0'
+					+ ' marginheight=0 scrolling=no></iframe>');
+			})();
+		</script>
+
+	</div>
+
+
+
+
+
+		
+
+<div class="block daily_best_posts">
+  <div class="title">Лучшее <sup>за 24 часа</sup> &darr; </div>
+  <div class="posts_list">
+    
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="/post/149709/" class="post_name">Джулиан Ассанж получил политическое убежище в Эквадоре</a>
+      </div>
+    
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="/post/149702/" class="post_name">USB TV-тюнеры на rtl2832 — или как услышать в радиоэфире все за 600 рублей</a>
+      </div>
+    
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="/post/149665/" class="post_name">Noty — необычайно гибкий плагин jQuery для вывода уведомлений</a>
+      </div>
+    
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="/post/149685/" class="post_name">Чёрный цвет — табу, миф или необходимость?</a>
+      </div>
+    
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="/post/149695/" class="post_name">Мониторинг производительности PHP-кода с помощью Pinba</a>
+      </div>
+    
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="/post/149676/" class="post_name">Сообществу Debian исполнилось 19 лет</a>
+      </div>
+    
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="/post/149679/" class="post_name">Британские власти угрожают штурмом посольству Эквадора</a>
+      </div>
+    
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="/post/149716/" class="post_name">Умный дом от любителя или HomeMaitc & Co</a>
+      </div>
+    
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="/post/149669/" class="post_name">Flash Player уходит с Android, пользователей просят удалить плагин</a>
+      </div>
+    
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="/post/149596/" class="post_name">Обзор уязвимостей на сайтах «Большой Тройки»</a>
+      </div>
+    
+  </div>
+  <div class="all">&laquo; <a href="/top/">все лучшие</a></div>
+</div>
+
+		
+
+
+<div class="block similar_posts">
+
+	<div class="title">Похожие посты &darr; </div>
+  <div class="posts_list">
+  	
+    	<div class="post_item">
+    				<a class="post_name" href="/post/139969/">Кроссбраузерные CSS</a>
+    				<span class="when">14.03.2012</span>
+      </div>
+  	
+    	<div class="post_item">
+    				<a class="post_name" href="/post/81611/">Tableless justification или inline-blocks revisited</a>
+    				<span class="when">13.10.2010</span>
+      </div>
+  	
+    	<div class="post_item">
+    				<a class="post_name" href="/post/145666/">GPU-ускорение CSS-фильтров в Chromium</a>
+    				<span class="when">12.06.2012</span>
+      </div>
+  	
+    	<div class="post_item">
+    				<a class="post_name" href="/post/139914/">Готовим css-спрайт в Spritepad</a>
+    				<span class="when">14.03.2012</span>
+      </div>
+  	
+    	<div class="post_item">
+    				<a class="post_name" href="/post/138864/">Кроссбраузерные проблемы псевдокласса :active</a>
+    				<span class="when">25.02.2012</span>
+      </div>
+  	
+    	<div class="post_item">
+    				<a class="post_name" href="/post/136615/">Вышел CSS -фреймфорк YAML4 — теперь и с поддержкой HTML5</a>
+    				<span class="when">20.01.2012</span>
+      </div>
+  	
+    	<div class="post_item">
+    				<a class="post_name" href="/post/131788/">CSS 4: что новенького?</a>
+    				<span class="when">02.11.2011</span>
+      </div>
+  	
+    	<div class="post_item">
+    				<a class="post_name" href="/post/131666/">Создатель CSS предлагает убрать скроллбар и сам скроллинг из браузеров</a>
+    				<span class="when">01.11.2011</span>
+      </div>
+  	
+    	<div class="post_item">
+    				<a class="post_name" href="/post/130485/">HTML/CSS-инъекция в почте Mail.Ru</a>
+    				<span class="when">15.10.2011</span>
+      </div>
+  	
+    	<div class="post_item">
+    				<a class="post_name" href="/post/128651/">CSS фреймворки: считаете их полезными?</a>
+    				<span class="when">18.09.2011</span>
+      </div>
+  	
+  </div>			
+</div>
+
+
+
+
+		
+
+
+<div class="block live_broadcast_activity">
+  <div class="title">Прямой эфир &darr; </div>
+  <div class="posts_list">
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/Zorkus/" class="user_name">Zorkus</a> &rarr;
+      <a href="/post/149709/#comment_5066300" class="post_name">Джулиан Ассанж получил политическое убежище в Эквадоре</a>&nbsp;<span class="count">113</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/Angerslave/" class="user_name">Angerslave</a> &rarr;
+      <a href="/post/149660/#comment_5066298" class="post_name">Несколько идей по повышению личной продуктивности веб-разработчика</a>&nbsp;<span class="count">194</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/tony2001/" class="user_name">tony2001</a> &rarr;
+      <a href="/post/149695/#comment_5066297" class="post_name">Мониторинг производительности PHP-кода с помощью Pinba</a>&nbsp;<span class="count">22</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/Bluefox/" class="user_name">Bluefox</a> &rarr;
+      <a href="/post/149716/#comment_5066296" class="post_name">Умный дом от любителя или HomeMaitc & Co</a>&nbsp;<span class="count">29</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/eskofen/" class="user_name">eskofen</a> &rarr;
+      <a href="/post/149679/#comment_5066293" class="post_name">Британские власти угрожают штурмом посольству Эквадора</a>&nbsp;<span class="count">200</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/pravic/" class="user_name">pravic</a> &rarr;
+      <a href="/post/149681/#comment_5066292" class="post_name">Как работает интернет-радиовещание, часть 1</a>&nbsp;<span class="count">16</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/Mezomish/" class="user_name">Mezomish</a> &rarr;
+      <a href="/post/149708/#comment_5066286" class="post_name">ABBYY FineScanner: iPhone вместо сканера</a>&nbsp;<span class="count">46</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/foxmuldercp/" class="user_name">foxmuldercp</a> &rarr;
+      <a href="/post/149713/#comment_5066284" class="post_name">Ноутбук стратегического назначения</a>&nbsp;<span class="count">34</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/lsoul/" class="user_name">lsoul</a> &rarr;
+      <a href="/post/149725/#comment_5066283" class="post_name">Instagram 3.0.0</a>&nbsp;<span class="count">1</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/savostin/" class="user_name">savostin</a> &rarr;
+      <a href="/post/149723/#comment_5066282" class="post_name">Как улучшить веб-формы</a>&nbsp;<span class="count">9</span>
+    </div>
+
+  </div>
+  
+</div>
+
+
+
+  
+		
+
+
+
+
+
+
+
+
+
+
+
+
+   
+		
+
+<div class="block best_company">
+
+		<div class="title">Компания дня <img src="/i/bg_cicle_help.png" title="
+Компания, чей пост набрал максимальное количество баллов<br>
+среди всех опубликованных в корпоративных блогах постах за <br>
+прошедшие сутки. Учитываются посты, для которых истек срок голосования <br>(3 дня с момента публикации)." class="help-tip"></div>
+
+		<div class="company_info">
+			<div class="name">
+			 <img class="favicon" src="/media/company/favicon/4/favicon_354.ico" alt="Nokia" height="16" width="16" />
+			 <div class="company_name"><a href="http://habrahabr.ru/company/Nokia/" class="title">Nokia</a></div>
+			</div>
+
+			<p>Последний пост:
+				<a href="http://habrahabr.ru/company/Nokia/blog/149656/">Лаборатории Nokia по тестированнию антенн</a>
+			</p>
+
+			<div class="buttons">
+  			<div id="fans_count">1278 подписчиков</div>
+  			
+			</div>
+		</div>
+
+	</div>
+
+
+		
+
+<div class="block qa_activity">
+  <div class="title">Q&A &darr; </div>
+  <div class="posts_list">
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/bobermaniac/" class="user_name">bobermaniac</a> &rarr;
+      <a href="http://habrahabr.ru/qa/22850/#answer_93625" class="post_name">Как посчитать общую сумму лайков к статье?</a>&nbsp;<span class="count">1</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/gnomeby/" class="user_name">gnomeby</a> &rarr;
+      <a href="http://habrahabr.ru/qa/22849/#answer_93624" class="post_name">Что означает заголовок &quot;Cteonnt-Length&quot;?</a>&nbsp;<span class="count">2</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/kk86/" class="user_name">kk86</a> &rarr;
+      <a href="http://habrahabr.ru/qa/22828/#comment_110569" class="post_name">Приобретение подержанного Mac: где осуществить, к чему приглядываться, какие общие рекомендации?</a>&nbsp;<span class="count">10</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/powder96/" class="user_name">powder96</a> &rarr;
+      <a href="http://habrahabr.ru/qa/22804/#comment_110568" class="post_name">Как заставить видеокарту работать в сервере?</a>&nbsp;<span class="count">4</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/RomanoO/" class="user_name">RomanoO</a> &rarr;
+      <a href="http://habrahabr.ru/qa/22840/#answer_93623" class="post_name">Как отправить сигнал на внешнее устройство из Chrome?</a>&nbsp;<span class="count">5</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/bartwell/" class="user_name">bartwell</a> &rarr;
+      <a href="http://habrahabr.ru/qa/22832/#answer_93621" class="post_name">Как синхронизировать метод?</a>&nbsp;<span class="count">4</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/dgeliko/" class="user_name">dgeliko</a> &rarr;
+      <a href="http://habrahabr.ru/qa/22845/#comment_110566" class="post_name">Как создать нового пользователя в Debian?</a>&nbsp;<span class="count">4</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/mobileDeveloper/" class="user_name">mobileDeveloper</a> &rarr;
+      <a href="http://habrahabr.ru/qa/22815/#answer_93619" class="post_name">Где найти курсы *nix-администрирования?</a>&nbsp;<span class="count">2</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/MikhailEdoshin/" class="user_name">MikhailEdoshin</a> &rarr;
+      <a href="http://habrahabr.ru/qa/22786/#comment_110564" class="post_name">Любителям алгоритмов: как построить конструктивную биекцию между натуральными числами и наборами по k чисел из n?</a>&nbsp;<span class="count">4</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/ivanych/" class="user_name">ivanych</a> &rarr;
+      <a href="http://habrahabr.ru/qa/22823/#answer_93618" class="post_name">Подскажите, чем проксировать RTSP поток?</a>&nbsp;<span class="count">5</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/gaelpa/" class="user_name">gaelpa</a> &rarr;
+      <a href="http://habrahabr.ru/qa/22837/#comment_110563" class="post_name">Умеет ли PHPStorm распознавать возвращаемый объект через статический метод?</a>&nbsp;<span class="count">4</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/nur/" class="user_name">nur</a> &rarr;
+      <a href="http://habrahabr.ru/qa/22841/#answer_93617" class="post_name">Почему не срабатывают именованные модули RequireJS?</a>&nbsp;<span class="count">1</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/FanKiLL/" class="user_name">FanKiLL</a> &rarr;
+      <a href="http://habrahabr.ru/qa/22846/#comment_110558" class="post_name">Можно ли уменьшить объем Datastore Stored Data из админки GAE?</a>&nbsp;<span class="count">2</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/foxmuldercp/" class="user_name">foxmuldercp</a> &rarr;
+      <a href="http://habrahabr.ru/qa/22844/#answer_93614" class="post_name">Чем можно урезать Windows 8 (аналог nLite)?</a>&nbsp;<span class="count">3</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/Aingis/" class="user_name">Aingis</a> &rarr;
+      <a href="http://habrahabr.ru/qa/22694/#comment_110552" class="post_name">Покупка телефона. Android/iPhone</a>&nbsp;<span class="count">22</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/foxmuldercp/" class="user_name">foxmuldercp</a> &rarr;
+      <a href="http://habrahabr.ru/qa/22847/#answer_93613" class="post_name">Помогите сделать общий доступ</a>&nbsp;<span class="count">4</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/polym0rph/" class="user_name">polym0rph</a> &rarr;
+      <a href="http://habrahabr.ru/qa/22829/#answer_93611" class="post_name">Чего достаточно чтобы организовать песочницу в Windows?</a>&nbsp;<span class="count">3</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/marazmiki/" class="user_name">marazmiki</a> &rarr;
+      <a href="http://habrahabr.ru/qa/22836/#comment_110543" class="post_name">Как подключить  jQuery File Upload к Django?</a>&nbsp;<span class="count">1</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/vtx/" class="user_name">vtx</a> &rarr;
+      <a href="http://habrahabr.ru/qa/22780/#answer_93610" class="post_name">Где/как изучить английский язык до уровня свободного владения?</a>&nbsp;<span class="count">13</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/dali/" class="user_name">dali</a> &rarr;
+      <a href="http://habrahabr.ru/qa/22779/#comment_110541" class="post_name">Прием он-лайн платежей из Казахстана. Какие есть варианты?</a>&nbsp;<span class="count">2</span>
+    </div>
+
+  </div>
+  <div class="all">&laquo; <a href="/qa/">все вопросы</a></div>
+  
+</div>
+
+		
+
+<div class="block new_vacanies">
+  <div class="title">О, работа! &darr; </div>
+  <div class="vacancies">
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10187-php-razrabotchik">PHP-разработчик</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/7765-razrabotchik-na-python">Разработчик на Python</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10177-spetsialist-tehnicheskoy-podderzhki">Специалист технической поддержки</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10184-trebuetsya-menedzher-po-reklame-internet-marketingu-na-udalennuyu-rabotu-v-data-tsentr">Требуется менеджер по рекламе, интернет-маркетингу на удаленную работу в дата-центр</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10185-razrabotchik-saytov-na-1s-bitriks">Разработчик сайтов на 1С-Битрикс</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/9322-programmist-pod-ios-i-android">Программист под iOS и Android</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10180-spetsialist-po-informatsionnoy-bezopasnosti-v-am-ru">Специалист по информационной безопасности в AM.RU</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10179-programmist-actionscript-3-0-flex-sdk">Программист ActionScript 3.0, Flex SDK</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10178-sistemnyy-administrator-inzhener-cisco">Системный администратор / инженер Cisco</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10176-web-tehnolog">web-технолог</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10175-prosvetlyonnyy-veduschiy-testirovschik">Просветлённый ведущий тестировщик</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10170-veb-razrabotchik">Веб разработчик</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/9145-veb-dizayner">Веб дизайнер</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10173-konsultant-microsoft-dynamics-ax-axapta">Консультант Microsoft Dynamics AX (Axapta)</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10169-dizayner-na-fultaym-v-lyubom-gorode">Дизайнер на фултайм в любом городе</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/7298-programmist-python">Программист Python</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/9304-client-side-razrabotchik">Client-side разработчик</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/7198-sistemnyy-administrator-kopirayter">Системный администратор -копирайтер</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10147-veb-razrabotchik">Веб-разработчик</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10167-sistemnyy-administrator-na-highload-proekt">Системный администратор на highload проект</a>
+		</div>
+		
+  </div>
+  <div class="all">&#171; <a href="http://hantim.ru/">все вакансии</a></div>
+
+	</div>
+
+		
+
+		
+
+
+<div class="block similar_events">
+  <div class="title">Ближайшие события</div>
+  <div class="events_items">
+    
+    <div class="event_item">
+			
+			<div class="date">
+				<div class="dayname dayname_5"></div>
+				<div class="day">17</div>
+				<div class="month">авг</div>				
+			</div>
+			
+			<div class="title">
+			 <a href="/events/808/">Ukrainian Testing Days [17-19 августа]</a>			 
+			</div>
+		</div>
+		
+    <div class="event_item">
+			
+			<div class="date">
+				<div class="dayname dayname_5"></div>
+				<div class="day">17</div>
+				<div class="month">авг</div>				
+			</div>
+			
+			<div class="title">
+			 <a href="/events/905/">Байкальский Интернет Форум</a>			 
+			</div>
+		</div>
+		
+    <div class="event_item">
+			
+			<div class="date">
+				<div class="dayname dayname_5"></div>
+				<div class="day">17</div>
+				<div class="month">авг</div>				
+			</div>
+			
+			<div class="title">
+			 <a href="/events/895/">Встреча професиональных разработчиков UNETA</a>			 
+			</div>
+		</div>
+		
+    <div class="event_item">
+			
+			<div class="date">
+				<div class="dayname dayname_5"></div>
+				<div class="day">17</div>
+				<div class="month">авг</div>				
+			</div>
+			
+			<div class="title">
+			 <a href="/events/887/">Chaos Constructions Demoparty</a>			 
+			</div>
+		</div>
+		
+    <div class="event_item">
+			
+			<div class="date">
+				<div class="dayname dayname_6"></div>
+				<div class="day">18</div>
+				<div class="month">авг</div>				
+			</div>
+			
+			<div class="title">
+			 <a href="/events/912/">Шестой WordPress Meetup в Москве</a>			 
+			</div>
+		</div>
+		
+  </div>
+  <div class="all">&laquo; <a href="/events/">все события</a></div>
+</div>
+
+
+		
+<iframe src="//www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fhabrahabr.ru&amp;width=292&amp;height=258&amp;colorscheme=light&amp;show_faces=true&amp;border_color&amp;stream=false&amp;header=false&amp;appId=437464306275519" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:258px;" allowTransparency="true"></iframe>
+
+	
+  </div>
+  <div class="clear"></div>
+
+			
+	
+	
+	<div class="rotated_posts">
+		
+			<div class="rotated_post ">
+				<a href="http://habrahabr.ru/post/149030/" class="grey">Стив Возняк затроллил агента Секретной службы США</a>
+			</div>
+		
+			<div class="rotated_post ">
+				<a href="http://habrahabr.ru/post/149179/" class="grey">Как, зная только имя и email человека, злоумышленники получили доступ ко всем его аккаунтам и удаленно уничтожили информацию на всех его устройствах</a>
+			</div>
+		
+			<div class="rotated_post last">
+				<a href="http://habrahabr.ru/post/146389/" class="grey">Потрясающее демо NettleBox 2</a>
+			</div>
+		
+	</div>
+	
+
+		  <div id="footer">
+      
+			
+			<dl>
+				<dd><a href="http://habrahabr.ru/login/">Войти</a></dd>
+				<dd><a href="http://habrahabr.ru/register/">Регистрация</a></dd>
+			</dl>
+			
+			<dl>
+				<dt>Разделы</dt>
+
+				<dd><a href="http://habrahabr.ru/qa/">Q&A</a></dd>
+				<dd><a href="http://habrahabr.ru/hubs/">Хабы</a></dd>
+				<dd><a href="http://habrahabr.ru/events/">События</a></dd>
+				<dd><a href="http://habrahabr.ru/companies/">Компании</a></dd>
+				<dd><a href="http://habrahabr.ru/job/">Работа</a></dd>
+				<dd><a href="http://habrahabr.ru/people/">Люди</a></dd>
+			</dl>
+			<dl>
+				<dt>Посты</dt>
+				
+				<dd><a href="http://habrahabr.ru/posts/top/">Лучшие</a></dd>
+				<dd><a href="http://habrahabr.ru/posts/collective/">Тематические</a></dd>
+				<dd><a href="http://habrahabr.ru/posts/corporative/">Корпоративные</a></dd>
+				<dd><a href="http://habrahabr.ru/sandbox/">Песочница</a></dd>
+			</dl>
+			<dl>
+				<dt>Инфо</dt>
+				<dd><a href="http://habrahabr.ru/info/about/">О сайте</a></dd>
+				<dd><a href="http://habrahabr.ru/info/help/rules/">Правила</a></dd>
+				<dd><a href="http://habrahabr.ru/info/help/">Помощь</a></dd>
+				<dd><a href="http://habrahabr.ru/info/agreement/">Соглашение</a></dd>
+				<dd><a href="http://habrahabr.ru/info/stats/">Статистика</a></dd>
+			</dl>
+			<dl>
+				<dt>Услуги</dt>
+				<dd><a href="http://habrahabr.ru/info/advertising/">Реклама</a></dd>
+				<dd><a href="http://habrahabr.ru/info/advertising/corporate/">Корпоративные пакеты</a></dd>
+				<dd><a href="http://habrahabr.ru/info/advertising/workshops/">Семинары</a></dd>
+			</dl>
+      <div class="copyright">
+    		<a class="footer_logo" href="http://thematicmedia.ru/">Тематические Медиа</a>
+    		<div class="about">
+    			© 2006&#8211;2012<br>
+    			«<a href="http://www.thematicmedia.ru/">Тематические Медиа</a>»
+    		  <br><br>
+  				Служба поддержки:<br>
+  				<a href="mailto:support@habrahabr.ru" title="адрес службы поддержки пользователей">support@habrahabr.ru</a><br><br><br>
+  				<a href="http://m.habrahabr.ru">Мобильная версия</a>
+
+			  </div>
+      </div>
+
+</div>
+		</div>
+	 	
+		
+    
+		
+		
+    <script type="text/javascript">
+      $(document).ready(function(){
+        // test gggg
+        // настройки всплывающих уведомлений
+        $.jGrowl.defaults.closerTemplate = '<div>Закрыть все уведомления</div>';         
+        
+        // настройки тултипов
+        $(".help-tip").tipTip({maxWidth: "300px", edgeOffset: 10});  
+        
+      });
+      // global vars
+      var g_base_url = 'habrahabr.ru';
+      var g_show_xpanel = false;
+      var g_base_fullurl = 'http://habrahabr.ru/';
+      var g_is_guest = false;
+       
+    </script>
+		
+    <script type="text/javascript" src="/javascripts/1345122221/_parts/shortcuts.js"></script>
+		<script type="text/javascript" src="/javascripts/1345122221/_parts/to_top.js"></script>
+		<link href="/styles/1345122221/_parts/_to_top.css" rel="stylesheet" media="all" />
+		
+		<script type="text/javascript" src="/javascripts/1345122221/_parts/float_banner.js"></script>
+		
+		
+<script type="text/javascript">
+	/*<![CDATA[*/
+	var ga = document.createElement('script');
+		ga.setAttribute('async', 'true');
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	/* ]]>*/
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(
+	    ['_setAccount', 'UA-726094-1'],
+	    ['_setDomainName', '.habrahabr.ru'],
+	    ["_addOrganic", "mail.ru", "q"],
+	    ["_addOrganic","rambler.ru", "words"],
+	    ["_addOrganic","nigma.ru", "s"],
+	    ["_addOrganic","blogs.yandex.ru", "text"],
+	    ["_addOrganic","webalta.ru", "q"],
+	    ["_addOrganic","aport.ru", "r"],
+	    ["_addOrganic","akavita.by", "z"],
+	    ["_addOrganic","meta.ua", "q"],
+	    ["_addOrganic","bigmir.net", "q"],
+	    ["_addOrganic","tut.by", "query"],
+	    ["_addOrganic","all.by", "query"],
+	    ["_addOrganic","i.ua", "q"],
+	    ["_addOrganic","online.ua", "q"],
+	    ["_addOrganic","a.ua", "s"],
+	    ["_addOrganic","ukr.net", "search_query"],
+	    ["_addOrganic","search.com.ua", "q"],
+	    ["_addOrganic","search.ua", "query"],
+	    ["_addOrganic","poisk.ru", "text"],
+	    ["_addOrganic","km.ru", "sq"],
+	    ["_addOrganic","liveinternet.ru", "ask"],
+	    ["_addOrganic","gogo.ru", "q"],
+	    ["_addOrganic","gde.ru", "keywords"],
+	    ["_addOrganic","quintura.ru", "request"],
+	    ['_trackPageview']
+	);
+	document.documentElement.firstChild.appendChild(ga);
+</script>	
+		
+		
+	</body>
+</html>

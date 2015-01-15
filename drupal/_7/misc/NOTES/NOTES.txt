@@ -1,0 +1,144 @@
+================================
+ubercart3
+вывод полей в node--product.tpl.php
+
+
+количество изображений
+echo(count($node->uc_product_image['und']) . '<hr />');
+
+
+путь до изображения первого
+echo (($node->uc_product_image['und'][0]['filename'])); 
+
+
+вывод миниатюры в ссылке(пресеты заданы в магазине по дефолту)
+<a href="<?php echo('http://www.test1.ru/drupals/d7_ubercart/sites/default/files/styles/uc_product_full/public/'.$r); ?>">
+	<img src="<?php echo('http://www.test1.ru/drupals/d7_ubercart/sites/default/files/styles/uc_thumbnail/public/'.$r); ?>" />
+</a>
+
+		
+вывод сформированного полного пути по одному имени файла
+<?php echo render(file_create_url($node->uc_product_image['und'][1]['uri'])); ?>	
+	
+
+вывод кнопки Добавить В Корзину
+print render($content['add_to_cart']);
+или
+<?php print $node->content['add_to_cart']["#value"]; ?>
+
+
+вывод индексов ассоциативного массива ноды
+<pre>	
+<?php
+print_r(array_keys($content));
+?>
+</pre>
+
+
+вывод цен в формате используемой валюты
+<div id="price">
+	<p>List Price: <?php print uc_currency_format($node->list_price); ?></p>
+	<p>Sell Price: <?php print uc_currency_format($node->sell_price); echo $sell_price;?></p>
+</div>
+или
+<?php print render($content['sell_price']); ?>
+
+
+вывод комментариев
+<?php print render($content['comments']); ?>
+
+
+вывод описания
+print($body[0]['value']);
+или
+print render($content['body']);
+
+
+вывод веса
+<?php  print render($content['weight']); ?>
+
+
+вывод размеров
+<?php print render($content['dimensions']); ?>
+
+	
+вывод артикула
+<?php  print $node->model; ?>
+
+
+	
+================================
+drupal 7
+вывод основой части url. до каталога установленного друпала
+echo $GLOBALS['base_url'] . '<hr />';
+
+================================
+ubercart3
+представления
+
+
+отвечает за вывод названий категорий товаров(возможно с картинками) в контентной части для выбранной ветки каталога
+uc_catalog_terms (Term)
+
+отвечает а вывод краткой карточки товаров под категориями товаров в области контента
+uc_catalog (grid)
+
+================================
+ubercart3
+cart widjet theming
+
+	function surma_uc_cart_block_summary($variables){
+		$item_count = $variables['item_count'];
+		$item_text = $variables['item_text'];
+		$total = $variables['total'];
+		$summary_links = $variables['summary_links'];
+
+		$output = '<table class="cart-block-summary"><tbody><tr>'
+		. '<td class="cart-block-summary-items">В вашей корзинке<br />' . $item_text . '<br />на сумму ' . theme('uc_price', array('price' => $total)) . '</td></tr>';
+		$output .= '</tbody></table>';
+
+
+		return $output;
+	}
+	
+Переопределив в template.php функцию theme_uc_cart_block_content (contrib/ubercart/uc_cart/uc_cart.module, line 574), можно с видом корзины реализовать все свои самые извращённые желания.
+================================
+d7
+вывод поля ноды
+
+<?php print $node->field_page_slogan[und][0]['value'] ?>	
+
+================================
+d7
+вывод ноды программно
+
+<?
+	$node = node_load(7);
+	$rendered_node = node_view($node, 'full', NULL);
+	echo(drupal_render($rendered_node));
+?>
+================================
+d7
+вывод формы
+
+module_load_include('inc', 'contact', 'contact.pages');
+echo render(drupal_get_form('contact_site_form'));						
+
+
+================================
+================================
+================================
+================================
+================================
+================================
+================================
+================================
+================================
+================================
+================================
+================================
+================================
+================================
+================================
+================================
+================================

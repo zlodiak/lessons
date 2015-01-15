@@ -1,0 +1,486 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru" dir="ltr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="/files/novosibirsk_favicon_5.png" type="image/x-icon" />
+  <title>[РЕШЕНО]пропали ссылки редактирования | Drupal в рунете</title>
+  <link type="text/css" rel="stylesheet" media="all" href="/files/css/css_6844c51a814378aad9c8a49be0b5e281.css" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/themes/novosibirsk/3column.css" />
+<script type="text/javascript" src="/files/js/js_8b5389affe450ccfda5b50ae4a9096e2.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, { "basePath": "/", "BUE": { "templates": { "e3": { "iconpath": "/sites/all/modules/bueditor/icons", "buttons": [ [ "Вставить/Редактировать изображение", "js:\nvar B = eDefBrowseButton(\'\', \'attr_src\', \'Browse\', \'image\');\nvar form = [\n {name: \'src\', title: \'Адрес изображения\', suffix: B},\n {name: \'width\', title: \'Ширина x Высота\', suffix: \' x \', getnext: true, attributes: {size: 3}},\n {name: \'height\', attributes: {size: 3}},\n {name: \'alt\', title: \'Альтернативный текст\'},\n{name: \'align\', title: \'Выравнивание\', type: \'select\', options: {\'\': \'\', left: \'По левому краю\', right: \'По правому краю\', center: \'По центру\'}}\n];\neDefTagDialog(\'img\', form, \'Вставить/Редактировать изображение\', \'Вставить\');\n", "picture.png", "M" ], [ "Вставить/Редактировать ссылку", "js:\nvar B = eDefBrowseButton(\'\', \'attr_href\', \'Browse\', \'link\');\nvar form = [\n {name: \'href\', title: \'Адрес ссылки\', suffix: B},\n {name: \'title\', title: \'Текст подсказки\'}\n];\neDefTagDialog(\'a\', form, \'Вставить/Редактировать ссылку\', \'Вставить\');\n", "link.png", "L" ], [ "tpl:", "", "separator.gif", "" ], [ "Ссылки на ресурсы drupal", "js:\nBUE.getUserInput = function(form) {\n	E.tagSelection(\'[\'+ form.elements[\"tega\"].value +\'=\'+ form.elements[\"linkitem\"].value +\']\', \'[/\'+ form.elements[\"tega\"].value+\']\', \'end\');\n  BUE.dialog.close();//close the dialog when done.\n}\n\nvar taggsForm = \'\x3cform onsubmit=\"editor.getUserInput(this); return false;\"\x3e\x3ctable\x3e\';//run getUserInput on submission\ntaggsForm += \'\x3ctr\x3e\x3ctd\x3eСсылка на\x3c/td\x3e\';\ntaggsForm += \'\x3ctd\x3e\x3cselect size=\"1\" name=\"tega\"\x3e\x3coption value=\"module\"\x3eModule\x3c/option\x3e\x3coption value=\"theme\"\x3eTheme\x3c/option\x3e\x3coption value=\"user\"\x3eUser\x3c/option\x3e\x3coption value=\"ru-api\"\x3eAPI.ru\x3c/option\x3e\x3coption value=\"api\"\x3eAPI.org\x3c/option\x3e\x3coption value=\"man\"\x3ePHP\x3c/option\x3e\x3c/select\x3e\x3c/td\x3e\x3c/tr\x3e\';\ntaggsForm += \'\x3ctr\x3e\x3ctd\x3eИмя / Название\x3c/td\x3e\';\ntaggsForm += \'\x3ctd\x3e\x3cinput type=\"text\" name=\"linkitem\" /\x3e\x3c/td\x3e\x3c/tr\x3e\';\ntaggsForm += \'\x3c/table\x3e\x3cinput type=\"submit\" value=\"Вставить\" /\x3e\x3c/form\x3e\';\nBUE.dialog.open(\'Вставка ссылки на ресурс drupal\', taggsForm);// powered by EllECTRONC", "plugin.png", "" ], [ "Ссылки на материал drupal", "js:\nBUE.getUserInput = function(form) {\n	E.tagSelection(\'[\'+ form.elements[\"tega\"].value + form.elements[\"linkitem\"].value +\']\', \'[/\'+ form.elements[\"tega\"].value+\']\', \'end\');\n  BUE.dialog.close();//close the dialog when done.\n}\n\nvar taggsForm = \'\x3cform onsubmit=\"editor.getUserInput(this); return false;\"\x3e\x3ctable\x3e\';//run getUserInput on submission\ntaggsForm += \'\x3ctr\x3e\x3ctd\x3eВыберите ресурс\x3c/td\x3e\';\ntaggsForm += \'\x3ctd\x3e\x3cselect size=\"1\" name=\"tega\"\x3e\x3coption value=\"#\"\x3eDrupal.ru\x3c/option\x3e\x3coption value=\"##\"\x3eDrupal.org\x3c/option\x3e\x3c/select\x3e\x3c/td\x3e\x3c/tr\x3e\';\ntaggsForm += \'\x3ctr\x3e\x3ctd\x3eНомер node\x3c/td\x3e\';\ntaggsForm += \'\x3ctd\x3e\x3cinput type=\"text\" name=\"linkitem\" /\x3e\x3c/td\x3e\x3c/tr\x3e\';\ntaggsForm += \'\x3c/table\x3e\x3cinput type=\"submit\" value=\"Вставить\" /\x3e\x3c/form\x3e\';\nBUE.dialog.open(\'Вставка ссылки на материал drupal\', taggsForm);// powered by EllECTRONC", "book_open.png", "" ], [ "tpl:", "", "separator.gif", "" ], [ "Жирный", "\x3cstrong\x3e%TEXT%\x3c/strong\x3e", "text_bold.png", "B" ], [ "Курсив", "js: eDefTagger(\'em\');//toggle tag", "text_italic.png", "I" ], [ "Подчеркнутый", "\x3cu\x3e%TEXT%\x3c/u\x3e", "text_underline.png", "U" ], [ "Зачеркнутый", "js: eDefTagger(\'strike\');", "text_strikethrough.png", "S" ], [ "Мелкий шрифт", "js: eDefTagger(\'small\');", "text_smallcaps.png", "" ], [ "Заголовки", "js: eDefTagChooser([\n [\'h1\', \'Заголовок 1\'],\n [\'h2\', \'Заголовок 2\'],\n [\'h3\', \'Заголовок 3\'],\n [\'h4\', \'Заголовок 4\']\n], true, \'li\', \'ul\', \'slideDown\');//choose among tags", "text_heading_1.png", "H" ], [ "tpl:", "", "separator.gif", "" ], [ "По левому краю", "\x3cdiv class=\"editor-left-button\"\x3e%TEXT%\x3c/div\x3e", "text_align_left.png", "" ], [ "По центру", "\x3cdiv class=\"editor-center-button\"\x3e%TEXT%\x3c/div\x3e", "text_align_center.png", "C" ], [ "По правому краю", "\x3cdiv class=\"editor-right-button\"\x3e%TEXT%\x3c/div\x3e", "text_align_right.png", "" ], [ "tpl:", "", "separator.gif", "" ], [ "Длинное тире", " — ", "—", "" ], [ "Кавычки", "«%TEXT%»", "« »", "" ], [ "Вставка кода", "js: eDefTagChooser([\n [\'code\', \'Без атрибутов\'],\n [\'code\', \'C\', {\'lang\': \'c\'}],\n [\'code\', \'CSS\', {\'lang\': \'css\'}],\n [\'code\', \'C++\', {\'lang\': \'cpp\'}],\n [\'code\', \'Drupal 5\', {\'lang\': \'drupal5\'}],\n [\'code\', \'Drupal 6\', {\'lang\': \'drupal6\'}],\n [\'code\', \'Java\', {\'lang\': \'java\'}],\n [\'code\', \'Javascript\', {\'lang\': \'javascript\'}],\n [\'code\', \'HTML\', {\'lang\': \'html4strict\'}],\n [\'code\', \'PHP\', {\'lang\': \'php\'}],\n [\'code\', \'Python\', {\'lang\': \'python\'}],\n [\'code\', \'Ruby\', {\'lang\': \'ruby\'}],\n [\'code\', \'SQL\', {\'lang\': \'sql\'}]\n], true, \'li\', \'ul\', \'slideDown\');", "page_white_code.png", "" ], [ "tpl:", "", "separator.gif", "" ], [ "Нумерованный список. Преобразовывает выбранные линии в пронумерованный список.", "js: eDefTagLines(\'\x3col\x3e\\n\', \' \x3cli\x3e\', \'\x3c/li\x3e\', \'\\n\x3c/ol\x3e\');", "text_list_numbers.png", "O" ], [ "Обычный список. Преобразовывает выбранные линии в маркированный список.", "js: eDefTagLines(\'\x3cul\x3e\\n\', \' \x3cli\x3e\', \'\x3c/li\x3e\', \'\\n\x3c/ul\x3e\');", "text_list_bullets.png", "U" ], [ "tpl:", "", "separator.gif", "" ], [ "Граница анонса", "\x3c!--break--\x3e", "text_horizontalrule.png", "T" ], [ "Предпросмотр", "js: eDefPreview();", "eye.png", "P" ], [ "Информация", "js: eDefHelp(\'slideDown\');", "information.png", "F" ] ] } }, "preset": { "edit-comment": "e3" } }, "ahah": { "edit-attach": { "url": "/comment-upload/js", "event": "mousedown", "keypress": true, "wrapper": "attach-wrapper", "selector": "#edit-attach", "effect": "none", "method": "replace", "progress": { "type": "bar", "message": "Пожалуйста, подождите..." }, "button": { "attach": "Прикрепить" } } }, "tableDrag": { "comment-upload-attachments": { "comment-upload-weight": [ { "target": "comment-upload-weight", "source": "comment-upload-weight", "relationship": "sibling", "action": "order", "hidden": true, "limit": 0 } ] } } });
+//--><!]]>
+</script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+function druid_forum_goto(fid) { window.location = '/forum/' + fid; }
+//--><!]]>
+</script>
+<!--[if IE]><style>
+.outer, .wide, h2, .wrapper, .minwidth {height: 0; he\ight: auto; zoom: 1;}
+/* rimuove complicazione per Gecko 1.7- */
+.left {margin-right: 1px;}
+.right {margin-left: 1px;}
+#login {width: 178px;}
+img, div { behavior: url(/sites/all/themes/novosibirsk/iepngfix.htc) }
+</style><![endif]-->
+
+<!--[if lt IE 7]><style>
+/* previene espansione center */
+.incenter {width: 100%;	margin-right: -10000px;	position: relative;}
+.center .news2 {margin:0 1px 1px 1px;}
+.minwidth {border-left: 904px solid #fff;}
+.wrapper {margin-left: -904px; position: relative;}
+#topmenu {position:rolevante !important;}
+</style><![endif]-->
+</head>
+
+
+<body>
+<div id="content"> <!-- высота -->
+	<div>  <!-- 3 колонки -->       
+
+  <!--шапка над 3 колонками-->
+	<div class="minwidth"><div class="wrapper">
+
+  <div id="header">
+		<div id="logo"><a href="/" title=""></a></div>
+		<p id="logo-name"><a href="/" title="Drupal Россия"><strong>Drupal</strong> Россия</a></p>
+		<div id="sub-header">
+
+			    <ul class="links" id="sub-topmenu"><li class="menu-122 first"><a href="/features">О Drupal</a></li>
+<li class="menu-244"><a href="/book" title="">Документация</a></li>
+<li class="menu-124"><a href="/about" title="">О Проекте</a></li>
+<li class="menu-2245 last"><a href="/rules" title="">Правила</a></li>
+</ul>
+			<div id="block-block-42" class="block block-block">
+
+  <div class="content">
+    <div style="float:right">
+ <form id="searchbox_000263937362789758988:cjkmtu9kh3o" onsubmit="return false;">  <input type="text" name="q" size="17" style="border: 1px solid gray;" />  <input type="submit" value="&gt;" style="background-color:black;color:gray;border:1px solid gray;" /> </form> <script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_000263937362789758988%3Acjkmtu9kh3o&lang=ru"></script>  <div id="results_000263937362789758988:cjkmtu9kh3o" style="display:none; margin: 2em auto 0 auto; width: 600px;">  <div class="cse-closeResults">  <a>&times; Закрыть</a>  </div>  <div class="cse-resultsContainer"></div> </div>  <style type="text/css">
+@import url(http://www.google.com/cse/api/overlay.css);
+</style>  <script src="http://www.google.com/uds/api?file=uds.js&v=1.0&key=ABQIAAAABziLyYEKTWIfRRZgEYgzVxRAXzc5NcDjCY5pgOlLwlGrpHjDAhTDOPA-lboJuy2fYcu44XRLmjS6gg&hl=ru" type="text/javascript"></script> <script src="http://www.google.com/cse/api/overlay.js"></script> <script type="text/javascript">
+function OnLoad() {
+  new CSEOverlay("000263937362789758988:cjkmtu9kh3o",
+                 document.getElementById("searchbox_000263937362789758988:cjkmtu9kh3o"),
+                 document.getElementById("results_000263937362789758988:cjkmtu9kh3o"));
+}
+GSearch.setOnLoadCallback(OnLoad);
+</script>
+</div>  </div>
+</div>
+			
+		</div>
+    <div id="topmenu">
+    	<a href="/tracker"   title="Новое на сайте">Новое на сайте</a><a href="/forum"   title="Форум">Форум</a><a href="http://api.drupal.ru"   title="API">API</a><a href="/blog"   title="Блоги">Блоги</a><a href="http://podcasts.drupal.ru"   title="Подкасты">Подкасты</a><a href="/aggregator/categories/1"   title="Планета">Планета</a>    	</div>
+	</div>
+
+	<div class="outer">
+		<div class="wrap-cl">
+			<div class="center"><div class="tabs"><ul class="tabs primary clear-block"><li class="active" ><a href="/node/104354" class="active"><span class="tab">Просмотр</span></a></li>
+<li ><a href="/node/104354/edit"><span class="tab">Редактировать</span></a></li>
+<li ><a href="/node/104354/revisions"><span class="tab">Редакции</span></a></li>
+</ul></div><div class="incenter">
+
+			   <!-- новости -->
+      <div id="mission"><div id="block-druid-4" class="block block-druid">
+
+  <div class="content">
+    <div class="form-item">
+ <select name="" onChange="druid_forum_goto(this.options[this.selectedIndex].value)" class="form-select" id="" ><option value="">Перейти к форуму:</option><option value="51">Техподдержка Drupal</option><option value="2044">-FAQ </option><option value="42">-Системное окружение</option><option value="52">-Установка и настройка</option><option value="2118">-Решение проблем</option><option value="78">-Безопасность</option><option value="759">-Масштабируемость, нагрузка и быстродействие</option><option value="1">Разработка для Drupal</option><option value="96">-Выставка сайтов</option><option value="15">-Программирование</option><option value="791">-Дизайн и вёрстка</option><option value="39">Общие</option><option value="41">-Хостинг</option><option value="2045">-SEO</option><option value="12">-Обзоры и сравнения CMS</option><option value="40">-Свободные программы</option><option value="946">-Разное непонятное</option><option value="2055">Размещение заказов</option><option value="62">-Разработка и установка</option><option value="2056">-Разработка модулей</option><option value="2058">-Поиск специалистов и работы</option><option value="2047">Drupal.ru</option><option value="2057">-Модераторский</option><option value="6084">-Сертификация на Drupal.ru</option><option value="22">-Сайт и проект Drupal.ru</option><option value="665">-Создание документации WIKI.DRUPAL.RU</option><option value="2343">-Проекту нужна помощь</option><option value="53">-Работа по переводам UI и документации</option><option value="82">--Терминология</option><option value="2066">-Курилка</option><option value="3769">--Мусор</option><option value="18915">Drupal User Groups (DrUGs)</option><option value="27748">-DrupalMsk</option><option value="18917">-Drupal Юг</option><option value="21869">-DrupalSib</option></select>
+</div>
+  </div>
+</div>
+</div>
+   
+				
+
+<p id="navigation"><a href="/">Главная</a> &#8594; <a href="/forum">Форумы</a> &#8594; <a href="/forum/support">Техподдержка Drupal</a> &#8594; <a href="/forum/2118">Решение проблем</a></p><div class="messages status">
+Запись в дневнике или форуме <em>[РЕШЕНО]пропали ссылки редактирования</em> был обновлен.</div>
+
+				<div class="post">
+						<strong><h1>[РЕШЕНО]пропали ссылки редактирования</h1></strong>
+	<div class="ret">
+			<p>Прислано: <a href="/username/zlodiak" title="Профиль автора сообщения">zlodiak</a></p><p class="formatdate">Чт, 10/10/2013 - 20:45</p>
+	</div>
+			<div class="dr">Другие статьи по теме: <ul class="links inline"><li class="taxonomy_term_15362 first"><a href="/taxonomy/term/15362" rel="tag" title="">Есть вопрос</a></li>
+<li class="taxonomy_term_2118"><a href="/forum/2118" rel="tag" title="Все вопросы, связанные с ошибками, доработками (сниппеты, программирование, хаки и т.д.).
+Кроме FAQ и проблем, которые можно решить стандартными(дополнительными модулями) и средствами Drupal.">Решение проблем</a></li>
+<li class="taxonomy_term_2708 last"><a href="/taxonomy/term/2708" rel="tag" title="">Drupal 7.*</a></li>
+</ul></div>
+		<p><p>помогите пожалуйста советом</p>
+<p>я создал тему, но при наведении мыши на блок не появляются ссылки/значки редактирования материала, которые в общем виде выглядят примерно так <a href="http://prozaik.16mb.com/misc/aa.png"  title="http://prozaik.16mb.com/misc/aa.png" rel="nofollow" >http://prozaik.16mb.com/misc/aa.png</a></p>
+<p>честно говоря, я не помню были ли он в тот момент когда я только начинал работать над темой. в любом случае подскажите пожалуйста как сделать так чтобы они были</p>
+  <div class="forum-topic-navigation clear-block">
+              <a href="/node/104387" class="topic-next" title="К следующей теме">Модуль для платежей без магазина с выводом денег на НЕроссийскую карту ›</a>
+      </div>
+</p>	
+	    <div class="links-bottom"><ul class="links inline"><li class="blog_usernames_blog first"><a href="/blog/85380" title="Читать последние записи в блоге пользователя zlodiak.">Блог пользователя - zlodiak</a></li>
+<li class="flag-bookmarks"><span><span class="flag-wrapper flag-bookmarks flag-bookmarks-104354">
+      <a href="/flag/flag/bookmarks/104354?destination=node%2F104354&amp;token=9c319fea73d82db2aae8c804260cd71a" title="Добавить материал в ваши закладки" class="flag flag-action flag-link-toggle" rel="nofollow">Добавить в закладки</a><span class="flag-throbber">&nbsp;</span>
+    </span>
+</span></li>
+<li class="google_plusone"><span><div class="g-plusone-wrapper" style="margin: 0 1em 1em 1em;float:right" ><div class="g-plusone" data-href="http://www.drupal.ru/node/104354" data-size="small" data-annotation="bubble" data-width="250" ></div></div></span></li>
+<li class="quote last"><a href="/comment/reply/104354?quote=1#comment-form" title="Ответить с цитированием на отдельной странице"><img src="/sites/all/themes/novosibirsk/img/icons/script__arrow.gif"></a></li>
+</ul><img src="/sites/all/themes/novosibirsk/img/icons/blog_pencil.gif" id="img_quote" title="Выделите текст и нажмите эту кнопку, чтобы вставить цитату" onmouseover="getText('zlodiak');" onclick="insertQuote();"></div>
+  
+<div id="comments"><h2 class="comments">Комментарии</h2></div><br><form action="/node/104354"  accept-charset="UTF-8" method="post" id="comment-controls">
+<div><div class="box">
+
+  <h2>Настройки просмотра комментариев</h2>
+
+  <div class="content"><div class="container-inline"><input type="hidden" name="form_build_id" id="form-4a2e9f909c31181f69e654b098eb1ded" value="form-4a2e9f909c31181f69e654b098eb1ded"  />
+<input type="hidden" name="form_token" id="edit-comment-controls-form-token" value="fc2ef4b05eebf9b38180011c65c2f048"  />
+<input type="hidden" name="form_id" id="edit-comment-controls" value="comment_controls"  />
+<div class="form-item" id="edit-mode-wrapper">
+ <select name="mode" class="form-select" id="edit-mode" ><option value="1">Плоский список - свёрнутый</option><option value="2" selected="selected">Плоский список - развёрнутый</option><option value="3">Древовидный - свёрнутый</option><option value="4">Древовидный - развёрнутый</option></select>
+</div>
+<div class="form-item" id="edit-order-wrapper">
+ <select name="order" class="form-select" id="edit-order" ><option value="1">По дате - сначала новые</option><option value="2" selected="selected">По дате - сначала старые</option></select>
+</div>
+<div class="form-item" id="edit-comments-per-page-wrapper">
+ <select name="comments_per_page" class="form-select" id="edit-comments-per-page" ><option value="10">10 комментариев на страницу</option><option value="30">30 комментариев на страницу</option><option value="50" selected="selected">50 комментариев на страницу</option><option value="70">70 комментариев на страницу</option><option value="90">90 комментариев на страницу</option><option value="150">150 комментариев на страницу</option><option value="200">200 комментариев на страницу</option><option value="250">250 комментариев на страницу</option><option value="300">300 комментариев на страницу</option></select>
+</div>
+<input type="submit" name="op" id="edit-submit" value="Сохранить настройки"  class="form-submit" />
+</div><div class="description">Выберите нужный метод показа комментариев и нажмите "Сохранить установки".</div></div>
+</div>
+
+</div></form>
+<a id="comment-576754"></a>
+<div class="comment">
+	<div class="autor">
+		<div>Опубликовано <a href="/username/conocube" title="Информация о пользователе.">conocube</a> в Чт, 10/10/2013 - 21:02.</div>
+			</div>
+<div class="avatar"><a href="/username/conocube" title="Профиль автора сообщения" title=""><div class="picture">
+  <a href="/username/conocube" title="Информация о пользователе."><img src="http://www.drupal.ru/files/imagecache/50x50/pictures/picture-71061.jpg" alt="Аватар пользователя conocube" title="Информация о пользователе."  class="imagecache imagecache-50x50" width="50" height="50" /></a></div>
+</a></div>  
+		<p><p>может модуль отключен - Contextual links? вроде так называется</p>
+</p>
+<br class="clear" />
+	<div class="abuse"><ul class="links"><li class="comment_reply first"><a href="/comment/reply/104354/576754" title="Ответить на этот комментарий на отдельной странице"><img src="/sites/all/themes/novosibirsk/img/icons/script__plus.gif"></a></li>
+<li class="flag-abuse_comment"><span><span class="flag-wrapper flag-abuse-comment flag-abuse-comment-576754">
+      <a href="/flag/flag/abuse_comment/576754?destination=node%2F104354&amp;token=1323a5780cddce3fec6e9bf1597fcd7e" title="Этот комментарий нарушает правила сайта!" class="flag flag-action flag-link-toggle" rel="nofollow">Уберите это!</a><span class="flag-throbber">&nbsp;</span>
+    </span>
+</span></li>
+<li class="quote last"><a href="/comment/reply/104354/576754?quote=1#comment-form" title="Ответить с цитированием на отдельной странице"><img src="/sites/all/themes/novosibirsk/img/icons/script__arrow.gif"></a></li>
+</ul>	<img src="/sites/all/themes/novosibirsk/img/icons/blog_pencil.gif" id="img_quote" title="Выделите текст и нажмите эту кнопку, чтобы вставить цитату" onmouseover="getText('conocube');" onclick="insertQuote();">
+	</div>
+</div><a id="comment-576755"></a>
+<div class="comment">
+	<div class="autor">
+		<div>Опубликовано <a href="/username/conocube" title="Информация о пользователе.">conocube</a> в Чт, 10/10/2013 - 21:08.</div>
+			</div>
+<div class="avatar"><a href="/username/conocube" title="Профиль автора сообщения" title=""><div class="picture">
+  <a href="/username/conocube" title="Информация о пользователе."><img src="http://www.drupal.ru/files/imagecache/50x50/pictures/picture-71061.jpg" alt="Аватар пользователя conocube" title="Информация о пользователе."  class="imagecache imagecache-50x50" width="50" height="50" /></a></div>
+</a></div>  
+		<p><p>еще может быть конфликт js файлов, то есть js друпала vs. js подключенные вами</p>
+</p>
+<br class="clear" />
+	<div class="abuse"><ul class="links"><li class="comment_reply first"><a href="/comment/reply/104354/576755" title="Ответить на этот комментарий на отдельной странице"><img src="/sites/all/themes/novosibirsk/img/icons/script__plus.gif"></a></li>
+<li class="flag-abuse_comment"><span><span class="flag-wrapper flag-abuse-comment flag-abuse-comment-576755">
+      <a href="/flag/flag/abuse_comment/576755?destination=node%2F104354&amp;token=c149158207eace5ad40a4dccf4e49938" title="Этот комментарий нарушает правила сайта!" class="flag flag-action flag-link-toggle" rel="nofollow">Уберите это!</a><span class="flag-throbber">&nbsp;</span>
+    </span>
+</span></li>
+<li class="quote last"><a href="/comment/reply/104354/576755?quote=1#comment-form" title="Ответить с цитированием на отдельной странице"><img src="/sites/all/themes/novosibirsk/img/icons/script__arrow.gif"></a></li>
+</ul>	<img src="/sites/all/themes/novosibirsk/img/icons/blog_pencil.gif" id="img_quote" title="Выделите текст и нажмите эту кнопку, чтобы вставить цитату" onmouseover="getText('conocube');" onclick="insertQuote();">
+	</div>
+</div><a id="comment-576760"></a>
+<div class="comment">
+	<div class="autor">
+		<div>Опубликовано <a href="/username/zlodiak" title="Информация о пользователе.">zlodiak</a> в Чт, 10/10/2013 - 21:52.</div>
+			</div>
+<div class="avatar"><a href="/username/zlodiak" title="Профиль автора сообщения" title=""><div class="picture">
+  <a href="/username/zlodiak" title="Информация о пользователе."><img src="http://www.drupal.ru/files/imagecache/50x50/img/default-avatar.png" alt="Аватар пользователя zlodiak" title="Информация о пользователе."  class="imagecache imagecache-50x50" width="50" height="50" /></a></div>
+</a></div>  
+		<p><p>Contextual links включен. я нашел причину. я вставлял блоки в шаблон не через регионы, а примерно так<br />
+<div class="codeblock geshifilter"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;$module_name&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'views'</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$block_delta&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'slider_on_work_page-block'</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$block&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">module_invoke</span><span style="color: #007700">(</span><span style="color: #0000BB">$module_name</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'block_view'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$block_delta</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;</span><span style="color: #0000BB">render</span><span style="color: #007700">(</span><span style="color: #0000BB">$block</span><span style="color: #007700">[</span><span style="color: #DD0000">'content'</span><span style="color: #007700">]);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div></p>
+<p>подскажите пожалуйста, существуют ли модули типа Contextual links, которые смогут исправить ситуацию?</p>
+<p>или, возможно, прописать какой-нибудь hook?..</p>
+</p>
+<br class="clear" />
+	<div class="abuse"><ul class="links"><li class="comment_edit first"><a href="/comment/edit/576760" title="Редактировать комментарий"><img src="/sites/all/themes/novosibirsk/img/icons/screwdriver_pencil.gif"></a></li>
+<li class="comment_reply"><a href="/comment/reply/104354/576760" title="Ответить на этот комментарий на отдельной странице"><img src="/sites/all/themes/novosibirsk/img/icons/script__plus.gif"></a></li>
+<li class="quote last"><a href="/comment/reply/104354/576760?quote=1#comment-form" title="Ответить с цитированием на отдельной странице"><img src="/sites/all/themes/novosibirsk/img/icons/script__arrow.gif"></a></li>
+</ul>	<img src="/sites/all/themes/novosibirsk/img/icons/blog_pencil.gif" id="img_quote" title="Выделите текст и нажмите эту кнопку, чтобы вставить цитату" onmouseover="getText('zlodiak');" onclick="insertQuote();">
+	</div>
+</div><a id="comment-576860"></a>
+<div class="comment">
+	<div class="autor">
+		<div>Опубликовано <a href="/username/webpavilion" title="Информация о пользователе.">webpavilion</a> в Пт, 11/10/2013 - 15:30.</div>
+			</div>
+<div class="avatar"><a href="/username/webpavilion" title="Профиль автора сообщения" title=""><div class="picture">
+  <a href="/username/webpavilion" title="Информация о пользователе."><img src="http://www.drupal.ru/files/imagecache/50x50/pictures/picture-42294.png" alt="Аватар пользователя webpavilion" title="Информация о пользователе."  class="imagecache imagecache-50x50" width="50" height="50" /></a></div>
+</a></div>  
+		<p><p>Вот так можно:</p>
+<p><div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru" style="font-family:monospace;"><span style="color: #000000; font-weight: bold;">function</span> block_render<span style="color: #66cc66;">&#40;</span><span style="color: #0000ff;">$module</span>, <span style="color: #0000ff;">$block_id</span><span style="color: #66cc66;">&#41;</span> <span style="color: #66cc66;">&#123;</span>
+  <span style="color: #0000ff;">$block</span> = block_load<span style="color: #66cc66;">&#40;</span><span style="color: #0000ff;">$module</span>, <span style="color: #0000ff;">$block_id</span><span style="color: #66cc66;">&#41;</span>;
+  <span style="color: #0000ff;">$block_content</span> = _block_render_blocks<span style="color: #66cc66;">&#40;</span><a href="http://www.php.net/array"   rel="nofollow" ><span style="color: #000066;">array</span></a><span style="color: #66cc66;">&#40;</span><span style="color: #0000ff;">$block</span><span style="color: #66cc66;">&#41;</span><span style="color: #66cc66;">&#41;</span>;
+  <span style="color: #0000ff;">$build</span> = _block_get_renderable_array<span style="color: #66cc66;">&#40;</span><span style="color: #0000ff;">$block_content</span><span style="color: #66cc66;">&#41;</span>;
+  <span style="color: #0000ff;">$block_rendered</span> = <a href="http://api.drupal.ru/api/function/drupal_render/6"   rel="nofollow" ><span style="color: #000066;">drupal_render</span></a><span style="color: #66cc66;">&#40;</span><span style="color: #0000ff;">$build</span><span style="color: #66cc66;">&#41;</span>;
+  <span style="color: #b1b100;">return</span> <span style="color: #0000ff;">$block_rendered</span>;
+<span style="color: #66cc66;">&#125;</span>
+&nbsp;
+<a href="http://www.php.net/print"   rel="nofollow" ><span style="color: #000066;">print</span></a> block_render<span style="color: #66cc66;">&#40;</span><span style="color: #ff0000;">'search'</span>, <span style="color: #ff0000;">'form'</span><span style="color: #66cc66;">&#41;</span>;</pre></div></p>
+<p>если вам только один раз надо то функцию можно не делать, сократив до:</p>
+<p><div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru" style="font-family:monospace;">  <span style="color: #0000ff;">$block</span> = block_load<span style="color: #66cc66;">&#40;</span><span style="color: #ff0000;">'search'</span>, <span style="color: #ff0000;">'form'</span><span style="color: #66cc66;">&#41;</span>;
+  <span style="color: #0000ff;">$block_content</span> = _block_render_blocks<span style="color: #66cc66;">&#40;</span><a href="http://www.php.net/array"   rel="nofollow" ><span style="color: #000066;">array</span></a><span style="color: #66cc66;">&#40;</span><span style="color: #0000ff;">$block</span><span style="color: #66cc66;">&#41;</span><span style="color: #66cc66;">&#41;</span>;
+  <span style="color: #0000ff;">$build</span> = _block_get_renderable_array<span style="color: #66cc66;">&#40;</span><span style="color: #0000ff;">$block_content</span><span style="color: #66cc66;">&#41;</span>;
+  <a href="http://www.php.net/print"   rel="nofollow" ><span style="color: #000066;">print</span></a> <a href="http://api.drupal.ru/api/function/drupal_render/6"   rel="nofollow" ><span style="color: #000066;">drupal_render</span></a><span style="color: #66cc66;">&#40;</span><span style="color: #0000ff;">$build</span><span style="color: #66cc66;">&#41;</span>;</pre></div></p>
+<p>такой способ вызова блоков он "правильнее" поскольку и кеш отработает и Contextual links покажет а через module_invoke - коряво как то хоть и на каждом углу советуют.</p>
+</p>
+<br class="clear" />
+	<div class="abuse"><ul class="links"><li class="comment_reply first"><a href="/comment/reply/104354/576860" title="Ответить на этот комментарий на отдельной странице"><img src="/sites/all/themes/novosibirsk/img/icons/script__plus.gif"></a></li>
+<li class="flag-abuse_comment"><span><span class="flag-wrapper flag-abuse-comment flag-abuse-comment-576860">
+      <a href="/flag/flag/abuse_comment/576860?destination=node%2F104354&amp;token=45947f20ba18c5cf9c7b972d5136176a" title="Этот комментарий нарушает правила сайта!" class="flag flag-action flag-link-toggle" rel="nofollow">Уберите это!</a><span class="flag-throbber">&nbsp;</span>
+    </span>
+</span></li>
+<li class="quote last"><a href="/comment/reply/104354/576860?quote=1#comment-form" title="Ответить с цитированием на отдельной странице"><img src="/sites/all/themes/novosibirsk/img/icons/script__arrow.gif"></a></li>
+</ul>	<img src="/sites/all/themes/novosibirsk/img/icons/blog_pencil.gif" id="img_quote" title="Выделите текст и нажмите эту кнопку, чтобы вставить цитату" onmouseover="getText('webpavilion');" onclick="insertQuote();">
+	</div>
+</div><a id="comment-576997"></a>
+<div class="comment">
+	<div class="autor">
+		<div>Опубликовано <a href="/username/zlodiak" title="Информация о пользователе.">zlodiak</a> в Сб, 12/10/2013 - 09:53.</div>
+			</div>
+<div class="avatar"><a href="/username/zlodiak" title="Профиль автора сообщения" title=""><div class="picture">
+  <a href="/username/zlodiak" title="Информация о пользователе."><img src="http://www.drupal.ru/files/imagecache/50x50/img/default-avatar.png" alt="Аватар пользователя zlodiak" title="Информация о пользователе."  class="imagecache imagecache-50x50" width="50" height="50" /></a></div>
+</a></div>  
+		<p><p>спасибо огромное</p>
+</p>
+<br class="clear" />
+	<div class="abuse"><ul class="links"><li class="comment_edit first"><a href="/comment/edit/576997" title="Редактировать комментарий"><img src="/sites/all/themes/novosibirsk/img/icons/screwdriver_pencil.gif"></a></li>
+<li class="comment_reply"><a href="/comment/reply/104354/576997" title="Ответить на этот комментарий на отдельной странице"><img src="/sites/all/themes/novosibirsk/img/icons/script__plus.gif"></a></li>
+<li class="quote last"><a href="/comment/reply/104354/576997?quote=1#comment-form" title="Ответить с цитированием на отдельной странице"><img src="/sites/all/themes/novosibirsk/img/icons/script__arrow.gif"></a></li>
+</ul>	<img src="/sites/all/themes/novosibirsk/img/icons/blog_pencil.gif" id="img_quote" title="Выделите текст и нажмите эту кнопку, чтобы вставить цитату" onmouseover="getText('zlodiak');" onclick="insertQuote();">
+	</div>
+</div><div class="box">
+
+  <h2>Отправить комментарий</h2>
+
+  <div class="content"><form action="/comment/reply/104354"  accept-charset="UTF-8" method="post" id="comment-form" enctype="multipart/form-data">
+<div><div class="form-item">
+ <label>Ваше имя: </label>
+ <a href="/username/zlodiak" title="Информация о пользователе.">zlodiak</a>
+</div>
+<div class="form-item" id="edit-comment-wrapper">
+ <label for="edit-comment">Комментарий: <span class="form-required" title="Обязательное поле">*</span></label>
+ <textarea cols="60" rows="15" name="comment" id="edit-comment"  class="form-textarea resizable required"></textarea>
+</div>
+<fieldset class=" collapsible collapsed"><legend>Формат ввода</legend><div class="form-item" id="edit-format-1-wrapper">
+ <label class="option" for="edit-format-1"><input type="radio" id="edit-format-1" name="format" value="1"   class="form-radio" /> BBCode + HTML</label>
+ <div class="description"><ul class="tips"><li>Адреса страниц и электронной почты автоматически преобразуются в ссылки.</li><li>Вы можете цитировать другие сообщения тегами [quote].</li><li>Строки и параграфы переносятся автоматически.</li><li>Доступные HTML теги: &lt;pre&gt; &lt;a&gt; &lt;b&gt; &lt;br&gt; &lt;code&gt; &lt;dd&gt; &lt;del&gt; &lt;div&gt; &lt;dl&gt; &lt;dt&gt; &lt;em&gt; &lt;i&gt; &lt;img&gt; &lt;h2&gt; &lt;h3&gt; &lt;h4&gt; &lt;h5&gt; &lt;li&gt; &lt;ol&gt; &lt;u&gt; &lt;ul&gt; &lt;small&gt; &lt;span&gt; &lt;strike&gt; &lt;strong&gt; &lt;table&gt; &lt;td&gt; &lt;tr&gt; &lt;th&gt; &lt;blockquote&gt; &lt;quote&gt; &lt;audio&gt; &lt;video&gt;</li><li>Вы можете использовать метки <a href="/filter/tips/1#filter-bbcode-0">BBCode</a> в тексте. Адреса URL будут автоматически преобразованы в ссылки.</li><li>You can enable syntax highlighting of source code with the following tags: <code>&lt;code&gt;</code>, <code>&lt;blockcode&gt;</code>, <code>&lt;apache&gt;</code>, <code>&lt;apt&gt;</code>, <code>&lt;bash&gt;</code>, <code>&lt;c&gt;</code>, <code>&lt;css&gt;</code>, <code>&lt;diff&gt;</code>, <code>&lt;drupal5&gt;</code>, <code>&lt;drupal6&gt;</code>, <code>&lt;gettext&gt;</code>, <code>&lt;go&gt;</code>, <code>&lt;html4&gt;</code>, <code>&lt;ini&gt;</code>, <code>&lt;java&gt;</code>, <code>&lt;js&gt;</code>, <code>&lt;jquery&gt;</code>, <code>&lt;latex&gt;</code>, <code>&lt;lua&gt;</code>, <code>&lt;make&gt;</code>, <code>&lt;mysql&gt;</code>, <code>&lt;oracle&gt;</code>, <code>&lt;perl&gt;</code>, <code>&lt;php&gt;</code>, <code>&lt;python&gt;</code>, <code>&lt;robots&gt;</code>, <code>&lt;ruby&gt;</code>, <code>&lt;smarty&gt;</code>, <code>&lt;sql&gt;</code>. Beside the tag style "<code>&lt;foo&gt;</code>" it is also possible to use "<code>[foo]</code>". PHP source code can also be enclosed in &lt;?php ... ?&gt; or &lt;% ... %&gt;.</li><li><p>Поисковые системы будут индексировать и переходить по ссылкам на разрешённые домены.</p>
+</li></ul></div>
+</div>
+<div class="form-item" id="edit-format-4-wrapper">
+ <label class="option" for="edit-format-4"><input type="radio" id="edit-format-4" name="format" value="4"  checked="checked"  class="form-radio" /> Ограниченный HTML</label>
+ <div class="description"><ul class="tips"><li>Доступные HTML теги: &lt;pre&gt; &lt;a&gt; &lt;b&gt; &lt;br&gt; &lt;code&gt; &lt;dd&gt; &lt;del&gt; &lt;dl&gt; &lt;dt&gt; &lt;em&gt; &lt;i&gt; &lt;img&gt; &lt;h2&gt; &lt;h3&gt; &lt;h4&gt; &lt;h5&gt; &lt;li&gt; &lt;ol&gt; &lt;u&gt; &lt;ul&gt; &lt;small&gt; &lt;span&gt; &lt;strike&gt; &lt;strong&gt; &lt;table&gt; &lt;td&gt; &lt;tr&gt; &lt;th&gt; &lt;blockquote&gt; &lt;quote&gt; &lt;audio&gt; &lt;video&gt;</li><li>Вы можете цитировать другие сообщения тегами [quote].</li><li>Строки и параграфы переносятся автоматически.</li><li>You can enable syntax highlighting of source code with the following tags: <code>&lt;code&gt;</code>, <code>&lt;blockcode&gt;</code>, <code>&lt;apache&gt;</code>, <code>&lt;apt&gt;</code>, <code>&lt;bash&gt;</code>, <code>&lt;c&gt;</code>, <code>&lt;css&gt;</code>, <code>&lt;diff&gt;</code>, <code>&lt;drupal5&gt;</code>, <code>&lt;drupal6&gt;</code>, <code>&lt;gettext&gt;</code>, <code>&lt;go&gt;</code>, <code>&lt;html4&gt;</code>, <code>&lt;ini&gt;</code>, <code>&lt;java&gt;</code>, <code>&lt;js&gt;</code>, <code>&lt;jquery&gt;</code>, <code>&lt;latex&gt;</code>, <code>&lt;lua&gt;</code>, <code>&lt;make&gt;</code>, <code>&lt;mysql&gt;</code>, <code>&lt;oracle&gt;</code>, <code>&lt;perl&gt;</code>, <code>&lt;php&gt;</code>, <code>&lt;python&gt;</code>, <code>&lt;robots&gt;</code>, <code>&lt;ruby&gt;</code>, <code>&lt;smarty&gt;</code>, <code>&lt;sql&gt;</code>. Beside the tag style "<code>&lt;foo&gt;</code>" it is also possible to use "<code>[foo]</code>". PHP source code can also be enclosed in &lt;?php ... ?&gt; or &lt;% ... %&gt;.</li><li>Адреса страниц и электронной почты автоматически преобразуются в ссылки.</li><li><p>Поисковые системы будут индексировать и переходить по ссылкам на разрешённые домены.</p>
+</li></ul></div>
+</div>
+<div class="form-item" id="edit-format-5-wrapper">
+ <label class="option" for="edit-format-5"><input type="radio" id="edit-format-5" name="format" value="5"   class="form-radio" /> MediaWiki</label>
+ <div class="description"><ul class="tips"><li>HTML-теги запрещены</li><li><p>You can use <a href="http://meta.wikimedia.org/wiki/Cheatsheet"><em>Mediawiki</em> syntax</a>. It is possible that not all formatting options are supported at the moment.<br/>Links to other pages: [[Page Title]] or [[path/to/page|Title]].<br/>External links: http://example.com or [http://example.com some link title].<br/>Interwiki links: [[site:Page Title]].<br/>You can use the following interwiki links: path, gdo, wp<br/>Images are included with [[Image:name]]. <a href="http://en.wikipedia.org/wiki/Wikipedia:Extended_image_syntax">(wikipedia help)</a></p></li><li>You can enable syntax highlighting of source code with the following tags: <code>&lt;code&gt;</code>, <code>&lt;blockcode&gt;</code>, <code>&lt;apache&gt;</code>, <code>&lt;apt&gt;</code>, <code>&lt;bash&gt;</code>, <code>&lt;c&gt;</code>, <code>&lt;css&gt;</code>, <code>&lt;diff&gt;</code>, <code>&lt;drupal5&gt;</code>, <code>&lt;drupal6&gt;</code>, <code>&lt;gettext&gt;</code>, <code>&lt;go&gt;</code>, <code>&lt;html4&gt;</code>, <code>&lt;ini&gt;</code>, <code>&lt;java&gt;</code>, <code>&lt;js&gt;</code>, <code>&lt;jquery&gt;</code>, <code>&lt;latex&gt;</code>, <code>&lt;lua&gt;</code>, <code>&lt;make&gt;</code>, <code>&lt;mysql&gt;</code>, <code>&lt;oracle&gt;</code>, <code>&lt;perl&gt;</code>, <code>&lt;php&gt;</code>, <code>&lt;python&gt;</code>, <code>&lt;robots&gt;</code>, <code>&lt;ruby&gt;</code>, <code>&lt;smarty&gt;</code>, <code>&lt;sql&gt;</code>. Beside the tag style "<code>&lt;foo&gt;</code>" it is also possible to use "<code>[foo]</code>". PHP source code can also be enclosed in &lt;?php ... ?&gt; or &lt;% ... %&gt;.</li><li>Вы можете цитировать другие сообщения тегами [quote].</li></ul></div>
+</div>
+<p><a href="/filter/tips">Подробнее о форматировании</a></p></fieldset>
+<input type="hidden" name="form_build_id" id="form-992fb4bc1821fdae2c72b8a02e4a296f" value="form-992fb4bc1821fdae2c72b8a02e4a296f"  />
+<input type="hidden" name="form_token" id="edit-form-token" value="1c5e792d134a14208cce5a8cd29552fc"  />
+<input type="hidden" name="form_id" id="edit-comment-form" value="comment_form"  />
+<div class="attachments"><fieldset class=" collapsible collapsed"><legend>Приложенные файлы</legend><div class="description">Изменения, сделанные вложением не применяться до тех пор, пока вы не сохраните комментарий.</div><div id="attach-wrapper"><div class="form-item" id="edit-upload-wrapper">
+ <label for="edit-upload">Прикрепить новый файл: </label>
+ <input type="file" name="files[upload]"  class="form-file" id="edit-upload" size="60" />
+
+ <div class="description">Изображения больше чем <em>1800x1800</em> должны быть уменьшены Максимальный размер загружаемого файла <em>8 МБ</em>. Можно загружать файлы только со следующими расширениями: <em>odt ods odg xcf svg jpg jpeg gif tiff png mng txt doc docx xls xlsx sxw sxc tex ps pdf rtf djvu ppt pptx pps odp tgz tar.gz bz2 tar.bz2 tbz2 zip rar psd po pot module info xpi diff install patch ogg spx</em>. </div>
+</div>
+<input type="submit" name="attach" id="edit-attach" value="Прикрепить"  class="form-submit" />
+</div></fieldset>
+</div><div class="clear-block"><div class="form-item" id="edit-notify-wrapper">
+ <label class="option" for="edit-notify"><input type="checkbox" name="notify" id="edit-notify" value="1"   class="form-checkbox" /> Уведомлять меня о новых комментариях</label>
+</div>
+<input type="hidden" name="notify_type" id="edit-notify-type" value="1"  />
+</div><input type="submit" name="op" id="edit-submit-1" value="Сохранить"  class="form-submit" />
+<input type="submit" name="op" id="edit-preview" value="Предпросмотр"  class="form-submit" />
+
+</div></form>
+</div>
+</div>
+      						</div>
+
+
+			</div></div> <!-- center div -->
+			<div class="left"><div class="inleft"><!-- left div -->
+
+				<div id="left">
+						
+<div id="login-1" class="login-block">
+	<h2>zlodiak</h2>
+	<div class="content"><ul class="menu"><li class="leaf first"><a href="/tracker/my" title="Мой трекер"><span class="tab">Мой трекер</span></a></li>
+<li class="leaf"><a href="/blog/85380">Мой блог</a></li>
+<li class="expanded"><a href="/node/add">Создать</a><ul class="menu"><li class="leaf first"><a href="/node/add/changes" title="Add entry to the site changelog.">Changelog</a></li>
+<li class="leaf last"><a href="/node/add/blog" title="">Запись в блог/форум</a></li>
+</ul></li>
+<li class="expanded"><a href="/book">Книги</a><ul class="menu"><li class="leaf first last"><a href="/book/toc">Содержание всех книг</a></li>
+</ul></li>
+<li class="leaf"><a href="/forum/site">Улучшить drupal.ru!</a></li>
+<li class="collapsed"><a href="/username/zlodiak">Мой аккаунт</a></li>
+<li class="leaf"><a href="/bookmarks">Мои закладки</a></li>
+<li class="leaf"><a href="/messages">Сообщения</a></li>
+<li class="leaf"><a href="/logout">Выйти</a></li>
+<li class="leaf last"><a href="/node/82795" title="Уборка">Уборка</a></li>
+</ul></div>
+</div>
+	
+<div id="block-81" class="just-block">
+	<h2></h2>
+	<div class="content"><a href="http://dh.it-patrol.ru/drupal_hosting">
+  <img style="margin-left:-7px;" src="http://it-patrol.ru//sites/dh.it-patrol.ru/files/b1/200x200_black_blue.png" alt="drupal hosting | друпал хостинг | там, где друпал сайты летают | it patrol .inc"> 
+</a>
+</div>
+</div>
+	
+<div id="druid-0" class="just-block">
+	<h2>Новое на сайте</h2>
+	<div class="content"><div class="item-list"><h3></h3><ul><li class=" odd first" class=" odd"><a href="/node/104395" title="Автор: Enrico">Галерея с помощью colorbox и Manual Crop. Как настроить?</a></li>
+<li class=" even"><a href="/node/104394" title="Автор: tetrapentan">Как ускорить работу фильтров views?</a></li>
+<li class=" odd"><a href="/node/104393" title="Автор: noneart; 1 комментарий">javascript не подгружается ниукого кроме администратора, когда включено кеширование, сжатие и объединение</a></li>
+<li class=" even"><a href="/node/104392" title="Автор: tomcon; 2 комментария">Пробую реализовать афишу</a></li>
+<li class=" odd"><a href="/node/104391" title="Автор: RomanovVlad; 2 комментария">Как сделать так чтобы блок не отображался при низкий разрешениях</a></li>
+<li class=" even"><a href="/node/104390" title="Автор: yyuurraa; 1 комментарий">создание термина</a></li>
+<li class=" odd"><a href="/node/104389" title="Автор: AndreyAney; 1 комментарий">Field Collection Update</a></li>
+<li class=" even"><a href="/node/104388" title="Автор: Boozenok; 2 комментария">Помогите с сабмитом формы</a></li>
+<li class=" odd"><a href="/node/104387" title="Автор: leramulina; 5 комментариев">Модуль для платежей без магазина с выводом денег на НЕроссийскую карту</a></li>
+<li class=" even"><a href="/node/104386" title="Автор: Marygold">SMS (смс) подтверждение при создании материала (отправке формы) </a></li>
+<li class=" odd"><a href="/node/104385" title="Автор: rusakov; 1 комментарий">Кнопка &quot;Отправить сообщение&quot; на странице пользователя</a></li>
+<li class=" even"><a href="/node/104384" title="Автор: OkJkeee">Ошибка при загрузке картинок: An image thumbnail was not able to be created.</a></li>
+<li class=" odd"><a href="/node/104383" title="Автор: VasyOK; 9 комментариев">Тег noindex возможно ли добавить к полю views?</a></li>
+<li class=" even"><a href="/node/104382" title="Автор: Photoshopper">Ошибка при импорте переводов интерфейса (на Denwer)</a></li>
+<li class=" odd"><a href="/node/104381" title="Автор: iNFerNo; 2 комментария">Никнемы во Виевс не выводяться через запятую</a></li>
+<li class=" even"><a href="/node/104380" title="Автор: aferuk">модули SMTP и Invite</a></li>
+<li class=" odd"><a href="/node/104379" title="Автор: kodolka; 13 комментариев">Мультиязычный сайт и таксономия</a></li>
+<li class=" even"><a href="/node/104378" title="Автор: aa2007">Drupal Commerce. Предварительный расчет.</a></li>
+<li class=" odd"><a href="/node/104377" title="Автор: Еля Дейнега; 5 комментариев">требуется опытный Drupal разработчик( фриланс)</a></li>
+<li class=" even"><a href="/node/104376" title="Автор: Somecrew; 3 комментария">Как вывести все видео youtube канала</a></li>
+<li class=" odd"><a href="/node/104375" title="Автор: Klinsky">Вынести раскрытый фильтр за пределы блока Views?</a></li>
+<li class=" even"><a href="/node/104374" title="Автор: RHB; 1 комментарий">Кэштрование блоков в Друпал</a></li>
+<li class=" odd"><a href="/node/104373" title="Автор: SYr">Batch API по cron, или как выполнить большую задачу без нагрузки</a></li>
+<li class=" even"><a href="/node/104372" title="Автор: noneart">Entity translation - обновление заголовка продукта при добавлении перевода или редактировании заголовка ноды</a></li>
+<li class=" odd"><a href="/node/104370" title="Автор: tlito; 2 комментария">CKeditor 4.2.1 Full кнопки без картинок</a></li>
+<li class=" even"><a href="/node/104369" title="Автор: hailovigor; 1 комментарий">Как в Rules сделать &quot;отсев&quot; по термину?  Commerce </a></li>
+<li class=" odd"><a href="/node/104365" title="Автор: AndreyL">Синонимы и тема админки</a></li>
+<li class=" even"><a href="/node/104364" title="Автор: alex00500">Перестал работать fckeditor в google chrome </a></li>
+<li class=" odd"><a href="/node/104363" title="Автор: mailq0; 4 комментария">Сообщения на почту mail.ru с /contact отправляются с ошибкой но при регистрации письма приходят нормально</a></li>
+<li class=" even"><a href="/node/104362" title="Автор: tundra; 1 комментарий">Поиск на русском языке (search или sphinxsearch)</a></li>
+<li class=" odd"><a href="/node/104360" title="Автор: SkyMan; 1 комментарий">Использование мульти-стилей для изображений</a></li>
+<li class=" even"><a href="/node/104359" title="Автор: samodelkin; 6 комментариев">Проблемы с работой autocomplete.js</a></li>
+<li class=" odd"><a href="/node/104358" title="Автор: acidcrash; 2 комментария">Фильтрация материалов в админке по таксономии</a></li>
+<li class=" even"><a href="/node/104357" title="Автор: TOIIOP">Вывести новость в статье</a></li>
+<li class=" odd"><a href="/node/104356" title="Автор: maximowich; 5 комментариев">Модуль для оплаты через chronopay в магазине на Drupal Commerce</a></li>
+<li class=" even"><a href="/node/104355" title="Автор: billomania; 2 комментария">Стандартный модуль Poll, нельзя голосовать даже админу</a></li>
+<li class=" odd"><a href="/node/104354" title="Автор: zlodiak; 5 комментариев" class="active">[РЕШЕНО]пропали ссылки редактирования</a></li>
+<li class=" even"><a href="/node/104353" title="Автор: jabber; 6 комментариев">Галерея в Drupal 7  типа Gallerix</a></li>
+<li class=" odd"><a href="/node/104352" title="Автор: rbvadik; 1 комментарий">hierarchical select</a></li>
+<li class=" even"><a href="/node/104351" title="Автор: Wild Diablo; 1 комментарий">Блок сравнения цен в нескольких клиниках</a></li>
+<li class=" odd"><a href="/node/104350" title="Автор: Egoist01; 14 комментариев">темизация модулей</a></li>
+<li class=" even"><a href="/node/104349" title="Автор: Kwadrik; 74 комментария">Прошу помощи по фону</a></li>
+<li class=" odd"><a href="/node/104348" title="Автор: dudin.ie; 1 комментарий">Разыскивается специалист по D7+Commerce</a></li>
+<li class=" even"><a href="/node/104347" title="Автор: _MIR_">MEDIA vs SCALD</a></li>
+<li class=" odd"><a href="/node/104346" title="Автор: agmanix; 2 комментария">Nested nodes для родословной</a></li>
+<li class=" even"><a href="/node/104345" title="Автор: piraids; 2 комментария">Установка различных H1 для подстраниц</a></li>
+<li class=" odd"><a href="/node/104344" title="Автор: zrishat">[РЕШЕНО]ЧПУ, ноды, taxonomy</a></li>
+<li class=" even"><a href="/node/104343" title="Автор: Opentao">Ограничение поискового алгоритма Taobao, расширенный поиск по Таобао</a></li>
+<li class=" odd last" class=" odd"><a href="/node/104342" title="Автор: Felix_FX">Дополнительный заработок.</a></li>
+</ul></div></div>
+</div>
+	
+<div id="druid-5" class="login-block">
+	<h2>Сейчас на сайте</h2>
+	<div class="content"><a href="/online"><em>5 пользователей</em></a><h2>Пик посещаемости</h2><div>241 пользователь:<br />Пт, 01/04/2011 - 12:30</div></div>
+</div>
+				</div>
+
+			</div></div> <!-- left div -->
+		</div> <!-- wrap-cl div -->
+		<div class="right"><div class="inright">
+		
+			<div id="right">
+					<div id="block-profile-0" class="block block-profile">
+  <h2>Об авторе</h2>
+
+  <div class="content">
+    <div class="picture">
+  <a href="/username/zlodiak" title="Информация о пользователе."><img src="http://www.drupal.ru/files/imagecache/96x96/img/default-avatar.png" alt="Аватар пользователя zlodiak" title="Информация о пользователе."  class="imagecache imagecache-96x96" width="64" height="96" /></a></div>
+
+  <p>
+          <strong>Реальное имя</strong><br />
+        zzz  </p>
+  <p>
+          <strong>Страна</strong><br />
+        russia  </p>
+  <p>
+          <strong>Город</strong><br />
+        saransk  </p>
+<div><a href="/username/zlodiak">Просмотреть полный профиль пользователя</a></div>  </div>
+</div>
+			</div>			
+
+		</div></div> <!-- right div -->
+
+		<br class="clear" />
+	</div> <!-- outer div -->
+
+	<div class="wide bottom"></div><!--низ под 3 колонками-->
+	</div></div>
+
+  </div> <!-- 3 колонки -->
+	<div id="clearfooter"></div>
+</div>
+
+<div id="footer">
+		<p><div id="authority">Содержимое сайта публикуется на условиях <a href="/license#content">CreativeCommons Attribution-ShareAlike 3.0</a> или более поздней версии, программные коды в тексте статей — на условиях <a href="/license#code">GNU GPL v2</a> или более поздней версии.<br />
+Copyleft &copy; 2003-2012, drupal.ru. <strong>Drupal</strong> &mdash; торговая марка <a href="/about/dries_buytaert">Дриса Байтаерта</a><br />
+Тема оформления &laquo;<a href="/about/theme-novosibirsk">Новосибирск</a>&raquo;<br />
+Вопросы по работе сайта: <a href="mailto:webmaster@drupal.ru">webmaster@drupal.ru</a><br />
+Сообщения об ошибках отображения сайта от гордых пользователей IE версии 6 и ниже — не принимаются.
+</div><div id="block-block-15" class="block block-block">
+
+  <div class="content">
+    <div id="stats">
+Документов: <strong>90084</strong> &nbsp; Комментариев: <strong>532756</strong> &nbsp;  Рубрик и тегов: <strong>19329</strong> &nbsp; Учётных записей: <strong>54674</strong>
+</div>  </div>
+</div>
+<div id="block-block-46" class="block block-block">
+
+  <div class="content">
+    <div style="float:right;margin-top:-65px;margin-right:5px;">
+
+<script type="text/javascript"><!--
+document.write("<a href='http://www.liveinternet.ru/click' "+
+"target=_blank><img src='http://counter.yadro.ru/hit?t14.11;r"+
+escape(document.referrer)+((typeof(screen)=="undefined")?"":
+";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+";h"+escape(document.title.substring(0,80))+";"+Math.random()+
+"' alt='' title='LiveInternet: показано число просмотров за 24"+
+" часа, посетителей за 24 часа и за сегодня' "+
+"border='0' width='88' height='31'><\/a>")
+//--></script>
+
+<script src="http://tools.spylog.ru/counter_cv.js" id="spylog_code" type="text/javascript" counter="679413" part="" track_links="ext" page_level="0"></script>
+<noscript>
+<a href="http://u6794.13.spylog.com/cnt?cid=679413&f=3&p=0" target="_blank">
+<img src="http://u6794.13.spylog.com/cnt?cid=679413&p=0" alt="SpyLOG" border="0" width="88" height="31"></a>
+</noscript>
+
+<a href="http://www.alexa.com/siteinfo/drupal.ru"><script type='text/javascript' src='http://xslt.alexa.com/site_stats/js/s/a?url=drupal.ru'></script></a>
+
+</div>  </div>
+</div>
+</p>
+</div>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+window.___gcfg = {lang:"ru"};(function() {var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;po.src = 'https://apis.google.com/js/plusone.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);})();
+//--><!]]>
+</script>
+</body>
+</html>

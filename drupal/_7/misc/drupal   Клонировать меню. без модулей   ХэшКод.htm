@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<!-- base_content.html -->
+<!-- PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" -->
+
+<html>
+<!-- xmlns="http://www.w3.org/1999/xhtml" -->
+    <head>
+        <title>drupal / Клонировать меню. без модулей / ХэшКод</title>
+        <meta name="description" content="уважаемые профи, подскажите пожалуйста правильный(логичный и не нагружающий движок) способ клонировать менюнапример я создал меню main-menu, наполнил его пунктами, это меню появилось в блоке, я поместил блок в регион. в результате в шапке сайта появилось моё меню. далее я хотел бы чтобы это же меню" />
+        <meta name="keywords" content="drupal" />
+        <!-- meta name="document-state" content="Dynamic" /-->
+        
+        <meta name="author" lang="ru" content="Sergey Kalinin" />
+        <link rel="canonical" href="http://hashcode.ru/questions/239224/drupal-%D0%BA%D0%BB%D0%BE%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D1%82%D1%8C-%D0%BC%D0%B5%D0%BD%D1%8E-%D0%B1%D0%B5%D0%B7-%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D0%B5%D0%B9" />
+        <link rel="alternate" type="application/rss+xml" title="drupal / Клонировать меню. без модулей - ХэшКод" href="/questions/239224/drupal-%D0%BA%D0%BB%D0%BE%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D1%82%D1%8C-%D0%BC%D0%B5%D0%BD%D1%8E-%D0%B1%D0%B5%D0%B7-%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D0%B5%D0%B9?type=rss">
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        
+        <meta name="google-site-verification" content="VdSdAVEs-70DafSNfXwaX5oLJqO7QoD-hir1JnOWLqI" />
+        
+        <link rel="shortcut icon" href="/upfiles/favicon.ico" />
+        <link href="/m/default/media/style/style.css" rel="stylesheet" type="text/css" />
+        
+        <link href="/cstyle.css" rel="stylesheet" type="text/css" />
+        
+        <!-- link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" / -->
+        <!--[if IE 6]>
+        <style type="text/css">
+        img, div, a { behavior: url(/m/default/media/iepngfix/iepngfix.htc) }
+        </style>
+        <![endif]-->
+        
+        <script src="http://www.google.com/jsapi" type="text/javascript"></script>
+        <script type="text/javascript">
+        /*<![CDATA[*/
+            google.load("jquery", "1.4.2");
+            google.load("jqueryui", "1", {autoload:true});
+        
+            var i18nLang = 'ru';
+            var appUrl = 'http://hashcode.ru';
+            var scriptUrl = '/';
+            var osqaSkin = 'default';
+
+            var messages = {
+                username: 'Sergey Kalinin',
+                confirm: "Вы уверены",
+                yes: "Да",
+                no: "Нет",
+                message: "Сообщение:",
+                cancel: "Отменить",
+                close: "Закрыть",
+                ok: "Ok",
+                matching_tags_url: "/matching_tags/",
+                word: "слово",
+                words: "слова",
+                character: "буква",
+                characters: "буквы"
+            }
+        /* ]]> */
+        </script>
+        <script type="text/javascript">
+        
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+              /*var $dialog = $('<div class="share-this-dialog"></div>')
+                    .html('<div class="share-container"> \
+    <div class="p_data">Расскажите о нас друзьям</div> \
+    <div class="body">Хорошему форуму необходимо много участников! Пользуйтесь этой ссылкой, чтобы приглашать всех, кому может быть интересно.</div> \
+    <input type="text" value="http://hashcode.ru"> \
+    <div class="body">Пользуйтесь своими любимыми сетями, чтобы поделиться ссылкой с друзьями, товарищами и коллегами.</div> \
+    <div class="sites"> \
+        <span class="site"> \
+            <a class="facebook" rel="nofollow" target="_blank" href="http://www.facebook.com/sharer.php?u=http://hashcode.ru&t=Программирование - экспертный форум в Сети Знаний. Присоединяйтесь!"></a> \
+        </span> \
+        <span class="site"> \
+            <a class="twitter" rel="nofollow" target="_blank" href="http://twitter.com/intent/tweet?url=http://hashcode.ru&text=Программирование - экспертный форум в Сети Знаний. Присоединяйтесь!&via=HashCode_ru"></a> \
+        </span> \
+        <span class="site"> \
+            <a class="vkontakte" rel="nofollow" href="http://vkontakte.ru/share.php?url=http://hashcode.ru&title=Программирование - экспертный форум в Сети Знаний. Присоединяйтесь!&image=http://hashcode.ru/upfiles/share.png&description=Рекомендую форум вопросов и ответов. Тематика - программирование, а также смежные области. Интересно, толково, содержательно." target="_blank"></a> \
+        </span> \
+        <span class="site"> \
+            <a class="moikrug" rel="nofollow"  target="_blank" href="http://share.yandex.ru/go.xml?service=moikrug&url=http://hashcode.ru&title=Программирование - экспертный форум в Сети Знаний. Присоединяйтесь!&description=Рекомендую форум вопросов и ответов. Тематика - программирование, а также смежные области. Интересно, толково, содержательно."></a> \
+        </span> \
+    </div> \
+    <div class="banner"> \
+        <div class="left"> \
+            <div class="body">Чтобы рассказать о форуме, добавьте баннер на свою страницу, скопировав и вставив приведенный ниже HTML-код.</div> \
+        </div> \
+        <div class="right"> \
+            <a href="http://hashcode.ru/ads/banner.png?type=big" title="Сеть Знаний, форум вопросов и ответов - ХэшКод"> \
+                <img src="/ads/banner.png?type=small" alt=""> \
+            </a> \
+        </div> \
+        <input type="text" value=\'<a href="http://hashcode.ru"><img src="http://hashcode.ru/ads/banner.png?type=big" width="220" height="250" alt="Программирование - экспертный форум в Сети Знаний"/></a>\'>\
+    </div> \
+</div>')
+                    .dialog({
+                            autoOpen:false,
+                            draggable: true,
+                            height: 410,
+                            width: 400,
+                            resizable: false,
+                            title:'Привет!'
+                        })
+                $('#share-link').click(function(){
+                    $dialog.dialog('open');
+                    return false;
+                })
+                */
+                //var text = "mailto:?subject=" + encodeURI("Сеть Знаний") + "&body="  + encodeURI("Привет! Рекомендую форум вопросов и ответов. Тематика - Программирование, а также смежные области. Форум отличается: квалифицированной аудиторией, отсутствием спама, удобным интерфейсом. Приветствуются вопросы любой сложности, а также толковые ответы. Если интересно содержательное общение, присоединяйтесь: http://hashcode.ru. Спасибо.");
+
+                //$('#emailShare').attr("href", text)
+            });
+        </script>
+        <script type="text/javascript" src="/m/default/media/js/osqa.main.js"></script>
+        
+        
+        
+        
+            <meta name='yandex-verification' content='61947798368885a8' />
+<link href="/m/default/media/style/prettify.css" rel="stylesheet" type="text/css" />
+<script src='/m/default/media/js/prettify.js' type='text/javascript'></script> 
+<script type="text/javascript">
+$(function() {
+	var bePretty = false;
+
+	$("pre code").parent().each(function() 
+	{
+		$(this).addClass("prettyprint");
+		bePretty = true
+	});
+
+	if (bePretty) { prettyPrint() } 
+});
+</script>
+        
+        
+        
+        <script type='text/javascript' src='/m/default/media/js/osqa.question.js'></script>
+        <script type='text/javascript' src='/m/default/media/js/jquery.caret.js'></script>
+        <script type='text/javascript' src='/m/default/media/js/wmd/showdown.js'></script>
+        <script type='text/javascript' src='/m/default/media/js/wmd/wmd.js'></script>
+        <link rel="stylesheet" type="text/css" href="/m/default/media/js/wmd/wmd.css" />
+
+        
+        <script type='text/javascript' src='/m/default/media/js/viewbox_min.js'></script>
+        <script type='text/javascript' src='/m/default/media/js/youtube.js'></script>
+        <link rel="stylesheet" type="text/css" href="/m/default/media/js/viewbox.css" />
+        
+
+        
+        <script type="text/javascript">
+        $().ready(function(){
+            $("#nav_questions").attr('className',"on");
+            var answer_sort_tab = "";
+
+            if (answer_sort_tab) {
+                $("#" + answer_sort_tab).attr('className',"on");
+            }
+
+            $('#editor').TextAreaResizer();
+
+            //toggle preview of editor
+            var display = true;
+            var txt = "[скрыть предпросмотр]";
+            $('#pre-collapse').text(txt);
+            $('#pre-collapse').bind('click', function(){
+                txt = display ? "[показать предпросмотр]" : "[скрыть предпросмотр]";
+                display = !display;
+                $('#previewer').toggle();
+                $('#pre-collapse').text(txt);
+            });
+
+            $('#secondanswer').click(function() {
+                alert("Вы уже ответили на вопрос. Если Вы хотите дополнить ответ, пожалуйста, отредактируйте его.");
+                return;
+                var ok = confirm('Вы уверены, что хотите ответить на вопрос ещe раз?\r\nЕсли вы хотите уточнить свой ответ, попробуйте отредактировать его (ссылка "править").');
+
+                if (ok) {
+                    $("#fmanswer").removeClass("invisible");
+                    $("#secondanswer").addClass("invisible ");
+                }
+            });
+
+        });   
+        function selfanswerClick(repute) {
+            if (50 > repute){
+                alert("Чтобы отвечать на свои вопросы нужно иметь 50 очков уважения.\n\nЕсли Вы хотите уточнить ответ или вопрос, добавьте к нему комментарий.");
+                return;
+            } else {
+                var ok = confirm('Вы уверены, что хотите ответить на свой собственный вопрос?\n\nЕсли Вы хотите уточнить ответы участников, прокомментируйте их (ссылка "добавить комментарий").\n\nЕсли Вы хотите уточнить свой вопрос, отредактрируйте его (ссылка "править").');
+                if (ok) {
+                    $("#fmanswer").removeClass("invisible");
+                    $("#selfanswer").addClass("invisible ");
+                }        
+            }
+        }
+        function submitClicked(e, f) {
+            if(!(browserTester('chrome') || browserTester('safari'))) {
+                $("input.submit")[0].disabled=true;
+            }
+            window.removeEventListener('beforeunload', beforeUnload, true);
+            if (f) {
+                f.submit();
+            }
+        }
+
+        function beforeUnload(e) {
+
+            if($("textarea#editor")[0].value != "") {
+                return yourWorkWillBeLost(e);
+            }
+
+            var commentBoxes = $("textarea.commentBox");
+            for(var index = 0; index < commentBoxes.length; index++) {
+                if(commentBoxes[index].value != "") {
+                    return yourWorkWillBeLost(e);
+                }
+            }
+        }
+        window.addEventListener('beforeunload', beforeUnload, true);
+        </script>
+        <noscript>
+            <style>
+                .comment.not_top_scorer {
+                    display: block;
+                }
+                .comment-form-container {
+                    display: block;
+                }
+                .div.comment-tools {
+                    display: none;
+                }
+            </style>
+        </noscript>
+
+        <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="ХэшКод Search" />
+        
+    </head>
+    <body>
+        <div class="wrapper">
+        
+        <!-- template header.html -->
+
+
+<div id="topArea">
+    <div id="top">
+        <form  id="searchBar" action="/search/" method="get">
+            <div>
+                 <a href="/users/10297/sergey-kalinin" >Sergey Kalinin</a> <a style="margin-left:0px;" href="/users/10297/Sergey_Kalinin/reputation/"><span class="score" title="88 очков уважения">88</span></a><span title="4 Знаки"><span class="bronze">&#9679;</span><span class="badgecount">4</span></span> <a href="/logout/" >выйти</a>  <a href="http://careers.hashcode.ru/" class="careersLink">карьера</a>  <a href="http://meta.hashcode.ru/" class="metaLink">мета</a>  <a href="http://blog.hashcode.ru" >блог</a>  <a href="http://sezn.ru/" class="netLink">сеть знаний</a>  <a href="/faq/" >справка</a> 
+                <input type="text" class="searchInput" value="" name="q" id="keywords" tabindex="1" />
+            </div>
+            <div class="options">
+                <input id="type-question" type="radio" value="question" name="t" checked="checked" /><label for="type-question">Вопросы</label>
+	        <input id="type-tag" type="radio" value="tag" name="t" /><label for="type-tag">Метки</label>
+	        <input id="type-user" type="radio" value="user" name="t" /><label for="type-user">Участники</label>            </div>
+        </form>
+    </div>
+</div>
+
+<div id="roof">
+    <div id="logo">
+        <a href="/">
+            <img src="/upfiles/logo.png" title="вернуться на главную страницу" alt="ХэшКод logo"/>
+        </a>
+    </div>
+
+    <div id="nav">
+        <a id="nav_questions" class="on" href="/questions/" >Вопросы</a><a id="nav_tags" href="/tags/" >Метки</a><a id="nav_users" href="/users/" >Участники</a><a id="nav_badges" href="/badges/" >Знаки</a><a id="nav_research" href="/research/" >Исследования</a>
+        
+
+
+
+
+        
+        <a id="nav_ask" href="/questions/ask/" class="special">Задать вопрос</a>
+        
+    </div>
+</div>
+
+<div class="clear"></div>
+
+
+
+<!-- end template header.html -->
+
+        
+
+
+
+<div id="wrapper" itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="image" href="http://hashcode.ru/upfiles/logo.png">
+    
+    
+    <div id="room">
+        
+<div style="display:none;" id="__main_tag__">drupal</div>
+<div style="display:none;" id="__ip__">31.204.100.154</div>
+<div class="headNormal">
+    <h1 itemprop="headline">
+        <a itemprop="url" href="http://hashcode.ru/questions/239224/drupal-%D0%BA%D0%BB%D0%BE%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D1%82%D1%8C-%D0%BC%D0%B5%D0%BD%D1%8E-%D0%B1%D0%B5%D0%B7-%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D0%B5%D0%B9">
+        
+            Клонировать меню. без модулей
+         
+        </a>
+    </h1>
+</div>
+
+        <div id="CALeft">
+            
+
+    <!--noindex-->
+    <!--googleoff: all-->
+    
+
+
+
+
+    <!--googleon: all-->
+    <!--/noindex-->
+
+<div id="main-body" class="">
+    <div id="askform">
+            <table style="width:100%;" id="question-table" >
+                <tr>
+                    <td style="width:30px;vertical-align:top">
+                        <div class="vote-buttons">
+                            
+
+<a id="post-239224-upvote" title="мне нравится это сообщение (кликните еще раз для отмены)"
+    class="ajax-command post-vote up "
+     href="/vote/239224/up/" rel="nofollow"></a>
+<div id="post-239224-score" class="post-score"
+    title="текущее количество голосов">
+    0
+</div>
+<a id="post-239224-downvote" title="мне не нравится это сообщение (кликните еще раз для отмены)"
+    class="ajax-command post-vote down"
+     href="/vote/239224/down/" rel="nofollow"></a>
+                            
+
+<a id="favorite-mark" title="добавить в или убрать из избранного этот вопрос (кликните еще раз для отмены)"
+    class="ajax-command favorite-mark "
+    href="/mark_favorite/239224/" rel="nofollow"> </a>
+<div id="favorite-count" class="favorite-count">
+   
+</div>
+
+                            <div class="share" style="margin-top: 4px;">
+                                <a target="_blank"  style="background-image: url('http://vk.com/images/vk16.png');display: block; margin-left: 4px; width: 16px; height: 16px;" href="http://vkontakte.ru/share.php?url=http://hashcode.ru/questions/239224&title=Клонировать меню. без модулей - ХэшКод&image=http://hashcode.ru/upfiles/share.png"></a>
+                            </div>
+                            <div class="share" style="margin-top: 3px;">
+                                <a class='twitter' rel="nofollow" target="_blank" href='http://twitter.com/intent/tweet?url=http://hashcode.ru/questions/239224&text=Клонировать меню. без модулей - ХэшКод&campaign=31&via=HashCode_ru' class="text">
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div id="item-right">
+
+                            <div class="question-body" itemprop="text">
+                                <p>уважаемые профи, подскажите пожалуйста правильный(логичный и не нагружающий движок) способ клонировать меню
+например я создал меню main-menu, наполнил его пунктами, это меню появилось в блоке, я поместил блок в регион. в результате в шапке сайта появилось моё меню. далее я хотел бы чтобы это же меню появилось в подвале тоже. при этом источник меню должен быть один и тот же. то есть если я через админку добавлю пункт в меню, которое находится в шапке, тот такой же пункт автоматом должен появиться и в меню, которое в подвале.
+как я решил эту проблему сейчас. меню, которое в шапке я вывел так</p>
+<pre><code>&lt;nav id="smoothmenu1" class="ddsmoothmenu"&gt;
+    &lt;?php print render($page['nav_top']); ?&gt;
+&lt;/nav&gt;
+</code></pre>
+<p>а меню, которое в подвале я вывел так</p>
+<pre><code>&lt;nav id="smoothmenu2" class="ddsmoothmenu"&gt;
+    &lt;?php print render($page['nav_top']); ?&gt;
+&lt;/nav&gt;
+</code></pre>
+<p>но этот способ мне не очень нравится. так как по моей задумке подвал на сайте содержит только один регион, в который через админку я помещаю все нужные блоки(это логично и ориентировано на контент-менеджера). поэтому хардкода хотелось бы избежать</p>
+<p>ещё недостаток моего способа в том, что id дублируются а пределах одной страницы</p>
+                            </div>
+                            <div id="question-tags" class="tags-container tags" itemprop="keywords">
+                                
+                                    <a href="/questions/tagged/drupal/" class="post-tag tag-link-drupal"
+                                        title="смотреть вопросы с меткой 'drupal'" rel="tag">drupal</a>
+                                
+                            </div>
+                            <div id="question-controls" class="post-controls">                            
+                                
+<span class="action-link"><a rel="noindex,nofollow" title="" class="    " href="/questions/239224/edit/">править</a></span>
+                             <!--   
+ -->
+                            </div>
+                            <div class="post-update-info-container">
+                                    
+
+
+
+<div class='post-update-info post-update-info-user'>
+    <p style="line-height:12px;">
+        задан
+        <strong>34 минуты назад</strong>
+    </p>
+    <div itemprop="author">
+
+    <img class="gravatar" width="32" height="32" src="https://secure.gravatar.com/avatar/6daf161d62138d366ac08f442a6e77d5?s=32&amp;d=identicon&amp;r=g" alt="Sergey%20Kalinin's gravatar image" />
+    <p itemscope itemtype="http://schema.org/Person"><a itemprop="url" href="/users/10297/sergey-kalinin"><span itemprop="name">Sergey Kalinin</span></a><br/>
+    <span class="score" title="88 очков уважения">88</span><span title="4 Знаки"><span class="bronze">&#9679;</span><span class="badgecount">4</span></span>
+<!--     -->
+    
+      
+        <br /><span class="score" title="acceptable_rate"></span><span class="accepted"></span><span style="color:#70A210" class="acceptable_rate">63&#037 принятых</span>
+      
+    
+    </p>
+
+    </div>
+</div>
+
+    <div class='post-update-info post-update-info-edited'>
+        <p style="line-height:12px;">
+            <a rel="noindex,nofollow" href="/revisions/239224/">
+                изменен
+                <strong>31 минуту назад</strong>
+            </a>
+        </p>
+
+        
+    </div>
+
+
+
+                            </div>
+                            
+
+
+
+
+
+<div class="comments-container" id="comments-container-239224">
+    
+</div>
+<div id="comment-tools-239224" class="comment-tools">
+    
+    
+        <a href="#" class="add-comment-link" rel="noindex,nofollow">добавить комментарий</a>
+    
+</div>
+
+
+
+
+<div class="clear"></div>
+<div id="comment-239224-form-container" class="comment-form-container">
+    <form id="comment-239224-form" method="post" action="/comment/239224/" accept-charset="utf-8"><div style='display:none;'><input type='hidden' id='csrfmiddlewaretoken' name='csrfmiddlewaretoken' value='8ec9e125b1c8977651e60c8c35da0c73' /></div>
+        <div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='8ec9e125b1c8977651e60c8c35da0c73' /></div>
+        <div class="comment-form-widgets-container">
+            <textarea name="comment" class="commentBox" id="comment"></textarea>
+            <div class="comment-form-buttons">
+                <span id="comment-239224-chars-left" class="comment-chars-left">
+                    <span class="comments-char-left-count">10|600</span>
+                    <span class="comments-chars-togo-msg">символов нужно</span>
+                    <span class="comments-chars-left-msg">символов осталось</span>
+                </span>
+                <input type="submit" class="comment-submit" value="комментировать" />
+                <input type="submit" class="comment-cancel" value="сбросить" />
+            </div>
+            <div class="clear"></div>
+            
+            <div class="canned_comment">
+                <span id="post-239224-menu" class="context-menu">
+                    <span id="post-239224-menu-trigger" class="action-link context-menu-trigger">Использовать шаблонный коментарий</span>
+                    <ul id="post-239224-menu-dropdown" class="context-menu-dropdown" style="width: 275px;">
+                        
+                        <li class="item">
+                            <a style="white-space: pre-wrap;" href="javascript:void(0);" onclick="canned_comment(239224, jQuery(this).text())">@Sergey Kalinin, Согласно правилам форума, вопросы не должны сводиться к решению либо завершению учебных заданий за учащихся. Пожалуйста, уточните, что вы сделали сами и что не получилось.</a>
+                        </li>
+                        
+                        <li class="item">
+                            <a style="white-space: pre-wrap;" href="javascript:void(0);" onclick="canned_comment(239224, jQuery(this).text())">@Sergey Kalinin, Чтобы отформатировать код, выделите его мышью и нажмите на кнопку {} редактора.</a>
+                        </li>
+                        
+                        <li class="item">
+                            <a style="white-space: pre-wrap;" href="javascript:void(0);" onclick="canned_comment(239224, jQuery(this).text())">@Sergey Kalinin, Если вам дан исчерпывающий ответ, отметьте его как верный (нажмите на галку рядом с выбранным ответом).</a>
+                        </li>
+                        
+                        <li class="item">
+                            <a style="white-space: pre-wrap;" href="javascript:void(0);" onclick="canned_comment(239224, jQuery(this).text())">@Sergey Kalinin, используйте, пожалуйста, кириллицу.</a>
+                        </li>
+                        
+                        <li class="item">
+                            <a style="white-space: pre-wrap;" href="javascript:void(0);" onclick="canned_comment(239224, jQuery(this).text())">@Sergey Kalinin, Постарайтесь писать более развернутые вопросы. Поясните, в чем вы видите проблему, как ее воспроизвести и т. д.</a>
+                        </li>
+                        
+                        <li class="item">
+                            <a style="white-space: pre-wrap;" href="javascript:void(0);" onclick="canned_comment(239224, jQuery(this).text())">@Sergey Kalinin, Постарайтесь писать более развернутые ответы. Поясните, на чем основано ваше утверждение.</a>
+                        </li>
+                        
+                        <li class="item">
+                            <a style="white-space: pre-wrap;" href="javascript:void(0);" onclick="canned_comment(239224, jQuery(this).text())">@Sergey Kalinin, Перефразируйте, пожалуйста, Ваш вопрос: исправьте грамматические ошибки, правильно расставьте запятые. Если ещё добавите побольше уточняющей информации, то Вы ускорите получение ответа.</a>
+                        </li>
+                        
+                        <li class="item">
+                            <a style="white-space: pre-wrap;" href="javascript:void(0);" onclick="canned_comment(239224, jQuery(this).text())">@Sergey Kalinin, Это вопрос на форум [РутКод](http://admin.hashcode.ru/).</a>
+                        </li>
+                        
+                        <li class="item">
+                            <a style="white-space: pre-wrap;" href="javascript:void(0);" onclick="canned_comment(239224, jQuery(this).text())">@Sergey Kalinin, Это вопрос на форум [БитКод](http://user.hashcode.ru/).</a>
+                        </li>
+                        
+                    </ul>
+                </span>
+            </div>
+            
+        </div>
+        <script type="text/html" class="new-comment-skeleton" id="new-comment-skeleton-239224">
+            <div class="comment not_top_scorer" id="comment-%ID%">
+                <div id="post-%ID%-score" class="comment-score"></div>
+                <div class="comment-text">%COMMENT%</div>
+                <div class="comment-info" id="comment-%ID%-info">
+                    <a id="comment-%ID%-edit" href="%EDIT_URL%" title="Править комментарий"
+                        class="comment-edit" rel="nofollow"> </a>
+                    <a id="comment-%ID%-delete" href="%DELETE_URL%" title="Удалить комментарий"
+                        class="ajax-command comment-delete confirm" rel="nofollow"> </a>
+                    <a rel="nofollow" id="comment-%ID%-convert" style="display:none;" href="%CONVERT_URL%" title="Преобразовать в ответ"
+                        class="ajax-command comment-convert confirm" rel="nofollow"> </a>
+
+                    <span class="comment-age">(прямо сейчас)</span>
+                    <a class="comment-user" href="%PROFILE_URL%">%USERNAME%</a>
+                    
+                        
+                    
+                </div>
+             </div>
+        </script>
+    </form>
+</div>
+<div class="clear"></div>
+
+
+
+                        </div>
+                        
+                    </td>
+                </tr>
+            </table>
+            
+            
+                <div class="tabBar">
+                    <a name="sort-top"></a>
+                    <div class="headAnswers">
+                        <h2>
+                    1 ответ
+                        </h2>
+                    </div>
+                    
+<div class="tabsA"><a href="/questions/239224/drupal-%D0%BA%D0%BB%D0%BE%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D1%82%D1%8C-%D0%BC%D0%B5%D0%BD%D1%8E-%D0%B1%D0%B5%D0%B7-%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D0%B5%D0%B9?answer_sort=oldest" title="сначала будут показаны старые ответы">старые</a><a href="/questions/239224/drupal-%D0%BA%D0%BB%D0%BE%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D1%82%D1%8C-%D0%BC%D0%B5%D0%BD%D1%8E-%D0%B1%D0%B5%D0%B7-%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D0%B5%D0%B9?answer_sort=newest" title="сначала будут показаны новые ответы">новые</a><a href="/questions/239224/drupal-%D0%BA%D0%BB%D0%BE%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D1%82%D1%8C-%D0%BC%D0%B5%D0%BD%D1%8E-%D0%B1%D0%B5%D0%B7-%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D0%B5%D0%B9?answer_sort=votes" class="on" title="сначала будут показаны ответы с наибольшим количеством голосов">ценные</a></div>
+
+                </div>
+                
+
+                <div itemprop="comment">
+                
+                    
+                    <a name="239245"></a>
+                    <div itemscope itemtype="http://schema.org/Comment" id="answer-container-239245" class="answer accepted-answer first-answer">
+                        <table style="width:100%;">
+                            <tr>
+                                <td style="width:30px;vertical-align:top">
+                                    <div class="vote-buttons">
+                                        
+
+<a id="post-239245-upvote" title="мне нравится это сообщение (кликните еще раз для отмены)"
+    class="ajax-command post-vote up "
+     href="/vote/239245/up/" rel="nofollow"></a>
+<div id="post-239245-score" class="post-score"
+    title="текущее количество голосов">
+    0
+</div>
+<a id="post-239245-downvote" title="мне не нравится это сообщение (кликните еще раз для отмены)"
+    class="ajax-command post-vote down"
+     href="/vote/239245/down/" rel="nofollow"></a>
+                                        
+
+
+    <a id="accept-answer-239245" class="ajax-command accept-answer on"
+      title=" 
+              Sergey Kalinin ответ отмечен как правильный
+              "
+              bn:on="Sergey Kalinin ответ отмечен как правильный"
+              bn:off="отметьте этот ответ как правильный"
+       href="/accept_answer/239245/" rel="nofollow"> 
+    </a>
+
+
+
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="item-right">
+                                        <div class="answer-body" itemprop="text">
+                                            <pre><code> &lt;? print theme('links__system_main_menu', array('links' =&gt; $main_menu, 'attributes' =&gt; array('id' =&gt; 'свой id', 'class' =&gt; 'свой класс', и т.д. ))); ?&gt;
+</code></pre>
+<p>Подставляем id, class, добавляем какие-то свои атрибуты.
+Посмотрите includes/menu.inc  там все функции для работы меню. от этого и отталкивайтесь.</p>
+                                        </div>
+                                        <div class="answer-controls post-controls">
+                                            
+<span class="action-link"><a rel="noindex,nofollow" title="запросить ссылку" class="ajax-command withprompt  copy" href="/answer_link/239245/">ссылка</a></span><span class="action-link-separator">|</span><span class="action-link"><a rel="noindex,nofollow" title="наградить очками Happensit" class="ajax-command withprompt  " href="/award_points/user/6573/answer/239245/">наградить</a></span><span class="action-link-separator">|</span><span class="action-link"><a rel="noindex,nofollow" title="уведомить о спаме, рекламе, неуместной, вредной заметке и т.д." class="ajax-command withprompt  " href="/flag/239245/">тревога</a></span>
+                                           <!-- 
+ -->
+                                        </div>
+                                        <div class="post-update-info-container">
+                                            
+
+
+
+<div class='post-update-info post-update-info-user'>
+    <p style="line-height:12px;">
+        отвечен
+        <strong>6 минут назад</strong>
+    </p>
+    <div itemprop="author">
+
+    <img class="gravatar" width="32" height="32" src="https://secure.gravatar.com/avatar/c676cc8546bba73b8c01299686cfeff5?s=32&amp;d=identicon&amp;r=g" alt="Happensit's gravatar image" />
+    <p itemscope itemtype="http://schema.org/Person"><a itemprop="url" href="/users/6573/happensit"><span itemprop="name">Happensit</span></a><br/>
+    <span class="score" title="224 очка уважения">224</span><span title="7 Знаки"><span class="bronze">&#9679;</span><span class="badgecount">7</span></span>
+<!--     -->
+    
+    </p>
+
+    </div>
+</div>
+
+
+                                        </div>
+                                        
+
+
+
+
+
+<div class="comments-container" id="comments-container-239245">
+    
+</div>
+<div id="comment-tools-239245" class="comment-tools">
+    
+    
+        <a href="#" class="add-comment-link" rel="noindex,nofollow">добавить комментарий</a>
+    
+</div>
+
+
+
+
+<div class="clear"></div>
+<div id="comment-239245-form-container" class="comment-form-container">
+    <form id="comment-239245-form" method="post" action="/comment/239245/" accept-charset="utf-8"><div style='display:none;'><input type='hidden'  name='csrfmiddlewaretoken' value='8ec9e125b1c8977651e60c8c35da0c73' /></div>
+        <div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='8ec9e125b1c8977651e60c8c35da0c73' /></div>
+        <div class="comment-form-widgets-container">
+            <textarea name="comment" class="commentBox" id="comment"></textarea>
+            <div class="comment-form-buttons">
+                <span id="comment-239245-chars-left" class="comment-chars-left">
+                    <span class="comments-char-left-count">10|600</span>
+                    <span class="comments-chars-togo-msg">символов нужно</span>
+                    <span class="comments-chars-left-msg">символов осталось</span>
+                </span>
+                <input type="submit" class="comment-submit" value="комментировать" />
+                <input type="submit" class="comment-cancel" value="сбросить" />
+            </div>
+            <div class="clear"></div>
+            
+            <div class="canned_comment">
+                <span id="post-239245-menu" class="context-menu">
+                    <span id="post-239245-menu-trigger" class="action-link context-menu-trigger">Использовать шаблонный коментарий</span>
+                    <ul id="post-239245-menu-dropdown" class="context-menu-dropdown" style="width: 275px;">
+                        
+                        <li class="item">
+                            <a style="white-space: pre-wrap;" href="javascript:void(0);" onclick="canned_comment(239245, jQuery(this).text())">@Happensit, Согласно правилам форума, вопросы не должны сводиться к решению либо завершению учебных заданий за учащихся. Пожалуйста, уточните, что вы сделали сами и что не получилось.</a>
+                        </li>
+                        
+                        <li class="item">
+                            <a style="white-space: pre-wrap;" href="javascript:void(0);" onclick="canned_comment(239245, jQuery(this).text())">@Happensit, Чтобы отформатировать код, выделите его мышью и нажмите на кнопку {} редактора.</a>
+                        </li>
+                        
+                        <li class="item">
+                            <a style="white-space: pre-wrap;" href="javascript:void(0);" onclick="canned_comment(239245, jQuery(this).text())">@Happensit, Если вам дан исчерпывающий ответ, отметьте его как верный (нажмите на галку рядом с выбранным ответом).</a>
+                        </li>
+                        
+                        <li class="item">
+                            <a style="white-space: pre-wrap;" href="javascript:void(0);" onclick="canned_comment(239245, jQuery(this).text())">@Happensit, используйте, пожалуйста, кириллицу.</a>
+                        </li>
+                        
+                        <li class="item">
+                            <a style="white-space: pre-wrap;" href="javascript:void(0);" onclick="canned_comment(239245, jQuery(this).text())">@Happensit, Постарайтесь писать более развернутые вопросы. Поясните, в чем вы видите проблему, как ее воспроизвести и т. д.</a>
+                        </li>
+                        
+                        <li class="item">
+                            <a style="white-space: pre-wrap;" href="javascript:void(0);" onclick="canned_comment(239245, jQuery(this).text())">@Happensit, Постарайтесь писать более развернутые ответы. Поясните, на чем основано ваше утверждение.</a>
+                        </li>
+                        
+                        <li class="item">
+                            <a style="white-space: pre-wrap;" href="javascript:void(0);" onclick="canned_comment(239245, jQuery(this).text())">@Happensit, Перефразируйте, пожалуйста, Ваш вопрос: исправьте грамматические ошибки, правильно расставьте запятые. Если ещё добавите побольше уточняющей информации, то Вы ускорите получение ответа.</a>
+                        </li>
+                        
+                        <li class="item">
+                            <a style="white-space: pre-wrap;" href="javascript:void(0);" onclick="canned_comment(239245, jQuery(this).text())">@Happensit, Это вопрос на форум [РутКод](http://admin.hashcode.ru/).</a>
+                        </li>
+                        
+                        <li class="item">
+                            <a style="white-space: pre-wrap;" href="javascript:void(0);" onclick="canned_comment(239245, jQuery(this).text())">@Happensit, Это вопрос на форум [БитКод](http://user.hashcode.ru/).</a>
+                        </li>
+                        
+                    </ul>
+                </span>
+            </div>
+            
+        </div>
+        <script type="text/html" class="new-comment-skeleton" id="new-comment-skeleton-239245">
+            <div class="comment not_top_scorer" id="comment-%ID%">
+                <div id="post-%ID%-score" class="comment-score"></div>
+                <div class="comment-text">%COMMENT%</div>
+                <div class="comment-info" id="comment-%ID%-info">
+                    <a id="comment-%ID%-edit" href="%EDIT_URL%" title="Править комментарий"
+                        class="comment-edit" rel="nofollow"> </a>
+                    <a id="comment-%ID%-delete" href="%DELETE_URL%" title="Удалить комментарий"
+                        class="ajax-command comment-delete confirm" rel="nofollow"> </a>
+                    <a rel="nofollow" id="comment-%ID%-convert" style="display:none;" href="%CONVERT_URL%" title="Преобразовать в ответ"
+                        class="ajax-command comment-convert confirm" rel="nofollow"> </a>
+
+                    <span class="comment-age">(прямо сейчас)</span>
+                    <a class="comment-user" href="%PROFILE_URL%">%USERNAME%</a>
+                    
+                        
+                    
+                </div>
+             </div>
+        </script>
+    </form>
+</div>
+<div class="clear"></div>
+
+
+
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                
+                </div>
+                <div class="paginator-container-left">
+                    
+                </div>
+            
+            
+             
+                            
+                
+                  <input
+                    type="button"
+                    id="selfanswer"
+                    value="Ответить на свой вопрос"
+                    class="submit" style="float:left" onClick="selfanswerClick(88);"/>
+                              
+               
+             
+            
+        
+        <form 
+                class="invisible"
+              
+           id="fmanswer" action="/questions/239224/answer/" method="post"><div style='display:none;'><input type='hidden'  name='csrfmiddlewaretoken' value='8ec9e125b1c8977651e60c8c35da0c73' /></div>
+            <div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='8ec9e125b1c8977651e60c8c35da0c73' /></div>
+            <div style="clear:both">
+            </div>
+            
+            
+                <div style="padding:10px 0 0 0;">
+                    <div class="headNormal">
+                      
+                        
+                            Ваш ответ
+                        
+                    </div>
+                </div>
+                
+
+                <div id="description" class="" >
+                    <div id="wmd-button-bar" class="wmd-panel"></div>
+                    <div id="wmd-help-bar" class="wmd-panel"></div>
+                    <textarea rows="10" cols="40" name="text" id="editor"></textarea>
+                    <div class="preview-toggle">
+                        <table width="100%">
+                            <tr>
+                            <!--
+                                <td>
+                                    <span id="pre-collapse" 
+                                        title="Включить режим предпросмотра редактора разметки в реальном времени">
+                                            включить предпросмотр
+                                    </span>
+                                </td>
+                             -->
+                                <td style="text-align: right;" id="editor-metrics"></td>
+                                
+                                  
+                                </td>
+                                
+                            </tr>
+                        
+                        </table>  
+                    </div>
+                    
+                    <div id="previewer" class="wmd-preview"></div>
+                </div>
+
+	            
+                
+                <p><span class="form-error"></span></p>
+                <input type="button"
+                                          
+                        
+                        value="Ответить на вопрос" 
+                                              
+                    
+                    class="submit" style="float:left" onclick="submitClicked(event, this.form)"/>
+            
+            <div style="padding: 60px 0px 0px 0px;" class="headNormal">
+                Если вы не нашли ответ, <a href="/questions/ask/"> задайте вопрос.</a>
+            </div>
+        </form>
+        
+    </div>
+</div>
+
+
+        </div>
+        <div id="CARight">
+            
+    
+
+
+
+
+<div class="boxC">
+    <p  class="tagged-as">
+		отмечен:
+    </p>
+    <p class="tags" style="margin-top: 0px;">
+        
+        	<a href="/questions/tagged/drupal/"
+                        class="tag-link-drupal"
+			title="смотреть вопросы с меткой 'drupal' "
+			rel="tag">drupal</a> 
+                <span class="tag-number">&#215;72</span>
+                <br/>
+        
+    </p>
+    <p>
+        задан <br /> <strong title="Июль 26, 2013, 11:08 д.п.">34 минуты назад</strong>
+    </p>
+    <p> 
+     	показан<br />
+        <strong>10 раз</strong>
+    </p>
+    <p> 
+        обновлен<br /> <strong title="Июль 26, 2013, 11:36 д.п.">5 минут назад</strong>
+    </p>
+</div>
+
+<!--noindex-->
+<!--googleoff: all-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--googleon: all-->
+<!--/noindex-->
+<div class="boxC">
+
+    
+
+    
+    <h3 class="subtitle">Связанные вопросы</h3>
+    <div class="questions-related">
+        
+        <p>
+            <a href="/questions/51506/drupal-form_state-%D0%BF%D1%80%D0%B8-ajax-post-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B5">
+                <span class="answer-votes answered-accepted">0</span>
+            </a>
+            <a href="/questions/51506/drupal-form_state-%D0%BF%D1%80%D0%B8-ajax-post-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B5">drupal form_state при ajax post запросе [закрыт]</a>
+        </p>
+        
+        <p>
+            <a href="/questions/95513/jquery-%D1%85%D1%8D%D1%88-%D0%B2-%D1%83%D1%80%D0%BB-%D0%B5">
+                <span class="answer-votes answered-accepted">3</span>
+            </a>
+            <a href="/questions/95513/jquery-%D1%85%D1%8D%D1%88-%D0%B2-%D1%83%D1%80%D0%BB-%D0%B5">Хэш в урл-е [закрыт]</a>
+        </p>
+        
+        <p>
+            <a href="/questions/230448/html-%D0%BA%D0%BE%D0%BD%D1%82%D0%B5%D0%BD%D1%82-%D0%BC%D0%B5%D0%BD%D1%8E-%D0%BF%D0%BE-%D1%86%D0%B5%D0%BD%D1%82%D1%80%D1%83">
+                <span class="answer-votes answered-accepted">0</span>
+            </a>
+            <a href="/questions/230448/html-%D0%BA%D0%BE%D0%BD%D1%82%D0%B5%D0%BD%D1%82-%D0%BC%D0%B5%D0%BD%D1%8E-%D0%BF%D0%BE-%D1%86%D0%B5%D0%BD%D1%82%D1%80%D1%83">Контент меню по центру</a>
+        </p>
+        
+        <p>
+            <a href="/questions/239121/drupal-fapi-%D0%B8%D0%BD%D0%B4%D0%B5%D0%BA%D1%81%D1%8B-%D0%BC%D0%B0%D1%81%D1%81%D0%B8%D0%B2%D0%B0-form">
+                <span class="answer-votes answered-accepted">0</span>
+            </a>
+            <a href="/questions/239121/drupal-fapi-%D0%B8%D0%BD%D0%B4%D0%B5%D0%BA%D1%81%D1%8B-%D0%BC%D0%B0%D1%81%D1%81%D0%B8%D0%B2%D0%B0-form">Fapi. индексы массива $form</a>
+        </p>
+        
+        <p>
+            <a href="/questions/215939/mssql-%D0%BE%D1%88%D0%B8%D0%B1%D0%BA%D0%B0-%D0%BF%D1%80%D0%B8-%D0%BF%D0%B5%D1%80%D0%B5%D0%BD%D0%BE%D1%81%D0%B5-%D0%B1%D0%B4-%D0%BD%D0%B0-windows-azure-tables-without-a-clustered-index-are-not-supported">
+                <span class="answer-votes answered-accepted">0</span>
+            </a>
+            <a href="/questions/215939/mssql-%D0%BE%D1%88%D0%B8%D0%B1%D0%BA%D0%B0-%D0%BF%D1%80%D0%B8-%D0%BF%D0%B5%D1%80%D0%B5%D0%BD%D0%BE%D1%81%D0%B5-%D0%B1%D0%B4-%D0%BD%D0%B0-windows-azure-tables-without-a-clustered-index-are-not-supported">Ошибка при переносе БД на Windows Azure: Tables without a clustered index are not supported</a>
+        </p>
+        
+        <p>
+            <a href="/questions/30282/cms-drupal7-views-exposed-filters">
+                <span class="answer-votes answered-accepted">0</span>
+            </a>
+            <a href="/questions/30282/cms-drupal7-views-exposed-filters">Drupal7 + Views + Exposed Filters</a>
+        </p>
+        
+        <p>
+            <a href="/questions/99582/%D0%BA%D0%B0%D0%BA-%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D1%82%D1%8C-%D0%BF%D1%80%D0%BE%D1%81%D1%82%D0%BE%D0%B9-%D0%BA%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3-%D0%B2-drupal-7">
+                <span class="answer-votes answered-accepted">0</span>
+            </a>
+            <a href="/questions/99582/%D0%BA%D0%B0%D0%BA-%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D1%82%D1%8C-%D0%BF%D1%80%D0%BE%D1%81%D1%82%D0%BE%D0%B9-%D0%BA%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3-%D0%B2-drupal-7">Как создать простой каталог в Drupal 7?</a>
+        </p>
+        
+        <p>
+            <a href="/questions/141249/%D0%BE%D0%B1%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B8%D0%B7%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-drupal-7">
+                <span class="answer-votes answered-accepted">0</span>
+            </a>
+            <a href="/questions/141249/%D0%BE%D0%B1%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B8%D0%B7%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-drupal-7">Изучение drupal 7</a>
+        </p>
+        
+        <p>
+            <a href="/questions/40294/joomla-%D0%BA%D0%B0%D0%BA%D0%BE%D0%B2%D1%8B-%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B-%D0%BE%D0%B4%D0%BD%D0%BE%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D0%BE%D0%B9-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B-%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%BE%D0%B2-%D0%B2-%D0%BF%D0%BE%D0%BF%D1%83%D0%BB%D1%8F%D1%80%D0%BD%D1%8B%D1%85-cms">
+                <span class="answer-votes answered-accepted">3</span>
+            </a>
+            <a href="/questions/40294/joomla-%D0%BA%D0%B0%D0%BA%D0%BE%D0%B2%D1%8B-%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B-%D0%BE%D0%B4%D0%BD%D0%BE%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D0%BE%D0%B9-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B-%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%BE%D0%B2-%D0%B2-%D0%BF%D0%BE%D0%BF%D1%83%D0%BB%D1%8F%D1%80%D0%BD%D1%8B%D1%85-cms">Каковы алгоритмы одновременной работы администраторов в популярных CMS?</a>
+        </p>
+        
+        <p>
+            <a href="/questions/109026/drupal-%D0%B7%D0%B0%D1%88%D0%B8%D1%82%D0%B0-%D0%BE%D1%82-%D1%84%D0%BB%D1%83%D0%B4%D0%B0">
+                <span class="answer-votes answered-accepted">-1</span>
+            </a>
+            <a href="/questions/109026/drupal-%D0%B7%D0%B0%D1%88%D0%B8%D1%82%D0%B0-%D0%BE%D1%82-%D1%84%D0%BB%D1%83%D0%B4%D0%B0">Зашита от флуда</a>
+        </p>
+        
+    </div>
+    
+</div>
+<div class="boxC" id="subscription_box">
+   <h3 class="subtitle">Отслеживать вопрос</h3><strong>по почте:</strong><div class="subscription-status"><p>Вы по умолчанию подписаны на этот вопрос</p></div><p><a rel="noindex,nofollow" class="ajax-command sidebar_button subscription_switch" href="/subscribe/239224/">
+        
+            отписаться от обновлений
+        
+    </a></p><p>
+        
+            (вы можете настроить уведомления в вашем <a href="/users/10297/sergey-kalinin/subscriptions/">профиле</a>)
+        
+    </p><strong>по RSS:</strong><p><a rel="noindex,nofollow" class="feed-icon" style="background-image:url('/m/default/media/images/feed-icon-small.png');"
+        href="/questions/239224/drupal-%D0%BA%D0%BB%D0%BE%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D1%82%D1%8C-%D0%BC%D0%B5%D0%BD%D1%8E-%D0%B1%D0%B5%D0%B7-%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D0%B5%D0%B9?type=rss" title="подписаться на ответы"></a>
+    Ответы
+</p><p><a rel="noindex,nofollow" class="feed-icon" style="background-image:url('/m/default/media/images/feed-icon-small.png');"
+        href="/questions/239224/drupal-%D0%BA%D0%BB%D0%BE%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D1%82%D1%8C-%D0%BC%D0%B5%D0%BD%D1%8E-%D0%B1%D0%B5%D0%B7-%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D0%B5%D0%B9?type=rss&comments=yes" title="подписаться на ответы и комментарии"></a>
+    Ответы и Комментарии
+</p>
+
+</div>
+
+
+
+        </div>
+        <div id="tail" style="clear:both;">
+            
+            
+        </div>
+    </div>
+    <div class="spacer3"></div>
+</div>
+
+        
+            
+                <div id="custom_footer">
+                    <!-- Yandex.Metrika counter -->
+<div style="display:none;"><script type="text/javascript">
+(function(w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter4377841 = new Ya.Metrika(4377841);
+             yaCounter4377841.clickmap(true);
+             yaCounter4377841.trackLinks(true);
+        
+        } catch(e) { }
+    });
+})(window, 'yandex_metrika_callbacks');
+</script></div>
+<script src="//mc.yandex.ru/metrika/watch_visor.js" type="text/javascript" defer="defer"></script>
+<noscript><div style="position:absolute"><img src="//mc.yandex.ru/watch/4377841" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+                </div>
+            
+            <div id="ground">
+                
+                    
+
+
+
+<div style="text-align: center; margin: 0px 0px 0px 0px;">
+<div style="width: 1000px;">
+    <div style="padding: 5px 0px 25px;float:left;width:100%;">
+        <div style="width:78%;float:left;">
+            <div style="text-align: left;padding-top:5px;;font-weight:bold;">
+                <a style="font-size:14px; padding: 0px 5px;margin:0px;line-height:18px;" href="/about/">о сайте</a>
+                <a style="font-size:14px; padding: 0px 5px;margin:0px;line-height:18px;" href="/faq/">справка</a>
+                <a style="font-size:14px; padding: 0px 5px;margin:0px;line-height:18px;" href="http://blog.hashcode.ru">блог</a>
+                <a style="font-size:14px; padding: 0px 5px;margin:0px;line-height:18px;" href="/contact/">связаться с нами</a>
+                <a style="font-size:14px; padding: 0px 5px;margin:0px;line-height:18px;" href="http://meta.hashcode.ru">оставить отзыв</a>
+                <a style="font-size:14px; padding: 0px 5px;margin:0px;line-height:18px;" href="http://sezn.ru/legal/">соглашение</a>
+            </div>
+            <div style="text-align: left;padding-top:5px;">
+                <a style="font-size:14px; padding: 0px 5px;margin:0px;line-height:18px;" href="http://hashcode.ru">ХэшКод</a>
+                <a style="font-size:14px; padding: 0px 5px;margin:0px;line-height:18px;" href="http://careers.hashcode.ru">Карьера</a>
+                <a style="font-size:14px; padding: 0px 5px;margin:0px;line-height:18px;" href="http://bitcode.ru">БитКод</a>
+                <a style="font-size:14px; padding: 0px 5px;margin:0px;line-height:18px;" href="http://rootcode.ru">РутКод</a>
+                <a style="font-size:14px; padding: 0px 5px;margin:0px;line-height:18px;" href="http://math.hashcode.ru">Математика</a>
+                <a style="font-size:14px; padding: 0px 5px;margin:0px;line-height:18px;" href="http://russ.hashcode.ru">Русский язык</a>
+                <a style="font-size:14px; padding: 0px 5px;margin:0px;line-height:18px;" href="http://games.sezn.ru">Игры</a>
+                <a style="font-size:14px; padding: 0px 5px;margin:0px;line-height:18px;" href="http://turism.sezn.ru">Туризм</a>
+                <a style="font-size:14px; padding: 0px 5px;margin:0px;line-height:18px;" href="http://foto.sezn.ru">Фото</a>
+                <a style="font-size:14px; padding: 0px 5px;margin:0px;line-height:18px;" href="http://hm.sezn.ru">Сделай сам</a>
+                <a style="font-size:14px; padding: 0px 5px;margin:0px;line-height:18px;" href="http://meta.hashcode.ru">Мета</a>
+
+
+            </div>
+        </div>
+        <div style="width:20%;float:left;">
+            <div style="padding-top:28px;">
+                &#169 «<a style="font-size:14px; padding:0px;margin:0px"  href='http://sezn.ru/'><span>Сеть Знаний</span></a>»
+            </div>
+        </div>
+    </div>
+    
+</div>
+    <!--noindex-->
+    <!--googleoff: all-->
+    <div style="display:none;">
+        <a rel="nofollow" target="_top" href="http://top.mail.ru/jump?from=2222754">
+            <img src="http://da.ce.b1.a2.top.mail.ru/counter?id=2222754;t=109"
+                 border="0" height="18" width="88" alt="Рейтинг@Mail.ru">
+        </a>
+        <!--LiveInternet counter-->
+        <script type="text/javascript">
+        <!--
+    document.write("<a rel='nofollow' href='http://www.liveinternet.ru/click' "+
+            "target=_blank><img src='//counter.yadro.ru/hit?t44.6;r"+
+            escape(document.referrer)+((typeof(screen)=="undefined")?"":
+            ";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+                    screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+            ";"+Math.random()+
+            "' alt='' title='LiveInternet' "+
+            "border='0' width='31' height='31'><\/a>")
+        //-->
+        </script>
+        <!--/LiveInternet-->
+    </div>
+    <!--googleon: all-->
+    <!--/noindex-->
+</div>
+
+
+                
+            </div>
+            
+        
+        
+
+        
+            <script type="text/javascript">
+                var _gaq = _gaq || [];
+                _gaq.push(['_setAccount', 'UA-19607292-1']);
+                _gaq.push(['_trackPageview']);
+
+                (function() {
+                    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+                })();
+            </script>
+        
+        </div>
+        <!-- Put all elements with fixed position here, IE6 fixed position fix: http://ryanfait.com/position-fixed-ie6/ -->
+        <div class="notify" style="display:none">
+            
+                
+            
+            <a id="close-notify" onclick="notify.close(true)">&#215;</a>
+        </div>
+    </body>
+</html>
+<!-- end template base_content.html -->

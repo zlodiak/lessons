@@ -1,0 +1,968 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en" dir="ltr"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8" lang="en" dir="ltr"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9" lang="en" dir="ltr"> <![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en" dir="ltr"><!--<![endif]-->
+<head>
+    <title>получить id текущего пользователя | Forum | Django на русском</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Language" content="ru"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="ROBOTS" content="ALL"/>
+    <meta name="keywords" content="Python, Django, framework, open-source, Питон, Джанго"/>
+    <meta name="description" content=""/>
+    <meta name="generator" content="Django"/>
+    <meta name="google-site-verification" content="zICpUlONvVLohGcE1oztBD1-qHqkAOuS-Oaim8NFW2s" />
+    <meta property="og:site_name" content="DjangoBook v2.0"/>
+    <meta property="og:image" content="/static/img/djangobook-title.png"/>
+
+    <link href="/news/feed/" rel="alternate" type="application/rss+xml" title="The freshest news about Russian version of DjangoBook"/>
+    <link href="/examples/feed/" rel="alternate" type="application/rss+xml" title="Newly examples from Russian DjangoBook"/>
+    <link href="/feed/" rel="alternate" type="application/rss+xml" title="DjangoBook RSS feed"/>
+
+    <!-- CSS ================ -->
+    <link rel="stylesheet" href="/static/theme/css/bootstrap.min.css" type="text/css"/>
+    <link rel="stylesheet" href="/static/theme/css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="/static/theme/css/header-2.css" type="text/css"/>
+    <link rel="stylesheet" href="/static/flags/flags.css" type="text/css"/>
+    <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-3919032-6']);
+    _gaq.push(['_trackPageview']);
+
+    
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+
+    <!-- Icons ================ -->
+    <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+    <link rel="apple-touch-icon-precomposed" href="/static/img/djangobook-title.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/img/djangobook-title.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/img/djangobook-title.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static/img/djangobook-title.png" />
+    <link rel="shortcut icon" href="/static/img/favicon.ico" />
+
+    <script type="text/javascript" src="/jsi18n/"></script>
+    <script src="/static/theme/js/jquery.min.js"></script>
+
+    
+    <link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/github.min.css">
+    <style>
+        pre code {
+            background: none;
+        }
+    </style>
+    <script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
+    <script type="text/javascript">
+        jQuery(function($){
+            hljs.tabReplace = '    ';
+            hljs.initHighlightingOnLoad();
+        });
+    </script>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/static/theme/css/bootstrap-responsive.css" type="text/css"/>
+    <link rel="stylesheet" href="/static/theme/css/forum.css" type="text/css"/>
+
+    <script src="/static/forum/js/rating.js"></script>
+
+    <link href="/static/pagedown/demo/browser/demo.css" type="text/css" media="all" rel="stylesheet" />
+<script type="text/javascript" src="/static/pagedown/Markdown.Converter.js"></script>
+<script type="text/javascript" src="/static/pagedown/Markdown.Sanitizer.js"></script>
+<script type="text/javascript" src="/static/pagedown/Markdown.Editor.js"></script>
+<script type="text/javascript" src="/static/pagedown_init.js"></script>
+    <script>
+    jQuery(function($){
+        $('.post-form').submit(function(){
+            if ( ! $('textarea', this).val()){
+                alert('Enter message');
+                return false;
+            }
+        });
+
+        $('.answer-post').click(function(){
+            var $post = $(this).parents('.post').find('.post-content').clone();
+            $post.find('blockquote').remove();
+
+            var text = $.trim($post.text());
+            text = '>'+text.replace(/(\r\n|\n|\r)/gm, "\n\n>")
+
+            $('#id_body').focus().val($('#id_body').val()+text+'\n\n');
+            return false;
+        });
+
+        $('.delete-post').click(function(){
+            return confirm('Do you wish delete this post?');
+        });
+
+        $('.delete-topic').click(function(){
+           return confirm('Do you wish delete this topic?');
+        })
+
+        $('.close-topic').click(function(){
+           return confirm('Do you wish close this topic?');
+        })
+
+        $('.heresy-topic').click(function(){
+           return confirm('Do you wish mark this topic as heresy?');
+        })
+
+        $('.stick-topic').click(function(){
+           return confirm('Do you wish stick this topic?');
+        })
+
+        $('.js-answer-topic').click(function(){
+            $('#id_body').focus();
+            return false;
+        });
+    });
+    </script>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+          $.ajaxSetup({
+              beforeSend: function(xhr, settings) {
+                  function getCookie(name) {
+                      var cookieValue = null;
+                      if (document.cookie && document.cookie != '') {
+                          var cookies = document.cookie.split(';');
+                          for (var i = 0; i < cookies.length; i++) {
+                              var cookie = jQuery.trim(cookies[i]);
+                              // Does this cookie string begin with the name we want?
+                                  if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                      break;
+                                  }
+                          }
+                      }
+                      return cookieValue;
+                  }
+                  if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                      // Only send the token to relative URLs i.e. locally.
+                      xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                  }
+              }
+          });
+      });
+    </script>
+</head>
+<body class="alternative-header">
+    
+    <!-- begin accesibility skip to nav skip content -->
+    <ul class="visuallyhidden" id="top">
+        <li><a href="#nav" title="Skip to navigation" accesskey="n">Skip to navigation</a></li>
+        <li><a href="#page" title="Skip to content" accesskey="c">Skip to content</a></li>
+    </ul>
+    <!-- end /.visuallyhidden accesibility-->
+
+    <!-- mobile navigation trigger-->
+    <h5 class="mobile_nav"><a href="javascript:void(0)">&nbsp;<span></span></a></h5>
+    <!--end mobile navigation trigger-->
+
+    <section class="container preheader">
+
+        <!--this is the login for the user-->
+        <nav class="user clearfix">
+            
+                <a href="/auth/1917/"><i class="fa fa-user"></i> prozaik81-2</a>
+                 <span class="hidden-phone">|</span>
+                <a href="/auth/logout/?next=/forum/topic/2606/">
+                    <i class="fa fa-share"></i> <span class="hidden-phone">Logout</span>
+                </a>
+            
+            
+            <span class="hidden-phone">|</span>
+            
+                <a href="/lang/ru/">RU</a>
+            
+        </nav>
+        <!--close user nav-->
+
+        <div class="search-wrapper">
+            <form class="search" method="get" action="/search/">
+                <div id="search-trigger">Search:</div>
+                <input id="search-box" name="q" type="text" placeholder="search + enter">
+            </form>
+        </div>
+        <ul class="social">
+            <li>
+                <a href="/feed/" data-placement="bottom" title="Subscribe to our RSS"><i class="fa fa-rss fa-lg"></i></a>
+            </li>
+            <li>
+                <a href="https://github.com/Alerion/django_documentation/" data-placement="bottom" title="Documentation translation">
+                    <i class="fa fa-github-alt fa-lg"></i>
+                </a>
+            </li>
+        </ul>
+    </section>
+
+    <header class="header  clearfix">
+    <img src="/static/theme/images/logo.png" class="print logo" alt="name of company" />
+    <div class="container">
+
+        <!-- begin #main_menu -->
+        <div class="menu-wrapper">
+            <!-- begin #main_menu -->
+            <nav id="main_menu">
+                <ul class="accordmobile">
+                    <li><a href="/rel1.6/">Документация</a></li>
+                    <li><a href="/news/" >News</a></li>
+                    <li><a href="/videos/" >Videos</a></li>
+                    <li><a href="/forum/" >Forum</a></li>
+                    
+                    <li class="parent"><a href="javascript:void(0)">Recipes<i></i></a>
+                        <ul>
+                            <li><a href="/examples/">All</a></li>
+                            <li><a href="/examples/add/">Add recipe</a></li>
+                            
+                                <li><a href="/examples/c5/">Django ORM </a></li>
+                            
+                                <li><a href="/examples/c10/">Разное</a></li>
+                            
+                                <li><a href="/examples/c6/">Формы </a></li>
+                            
+                                <li><a href="/examples/c1/">Основы </a></li>
+                            
+                                <li><a href="/examples/c7/">Админка</a></li>
+                            
+                                <li><a href="/examples/c2/">Декораторы </a></li>
+                            
+                                <li><a href="/examples/c11/">Python</a></li>
+                            
+                                <li><a href="/examples/c12/">Архив</a></li>
+                            
+                        </ul>
+                    </li>
+                    <li><a href="/about/">About</a></li>
+                </ul>
+            </nav>
+            <!-- close / #main_menu -->
+        </div>
+        <!-- close / #main_menu -->
+
+        <!-- begin #logo -->
+        <div id="logo">
+            
+            <a href="/">
+                <img style="width: 243px; height: 51px;" alt="Django на русском" src="/static/theme/images/logo.png" />
+                <em>Django на русском</em>
+            </a>
+            
+        </div>
+        <!-- end #logo -->
+        
+        <h4 class="tagline visible-desktop"><div>&quot;Do you program in Assembly ?&quot; she asked. &quot;NOP&quot;, he said.</div>
+        
+        </h4>
+    </div>
+    <!-- close / .container-->
+</header>
+
+    <!-- begin #page - the container for everything but header -->
+    <div id="page">
+        
+
+        
+            
+            
+
+        
+
+        
+<div class="container clearfix" id="main-content">
+    
+    <aside class="widget forum">
+
+        <ul class="breadcrumb">
+            <li><a class="title" href="/forum/">Разработка на Python</a> <span class="divider">/</span></li>
+            <li><a class="title forum" href="/forum/forum/2/">Python &amp; Django</a> <span class="divider">/</span></li>
+            <li class="active">получить id текущего пользователя</li>
+        </ul>
+
+        <div class="topic-status pull-left">
+            
+
+
+
+
+
+
+        </div>
+
+        <div class="pull-right topic-toolbar">
+            
+                
+                <a href="/forum/unread_topics/" class="btn btn-small">
+                    Unread topics (2266)
+                </a>
+                
+            
+
+            
+
+            
+
+            <a href="/forum/add_post/2606/" class="js-answer-topic btn btn-small">Answer</a>
+
+            
+                
+                    <a href="/forum/subscribe/2606/" class="btn btn-info btn-small">Subscribe</a>
+                
+            
+        </div>
+
+        
+
+        
+            
+                
+
+
+<div id="post-16942" class="row-fluid post">
+    <table class="table">
+        <tr>
+            <td class="author hidden-phone">
+                
+<a class="date" href="/forum/topic/2606/#post-16942"><i class="fa fa-clock-o"></i> 27 Sept. 2014, 18:28</a><br>
+<a href="/auth/1917/">
+    <img class="img-polaroid" src="http://www.gravatar.com/avatar/6daf161d62138d366ac08f442a6e77d5.jpg?d=wavatar" title="prozaik81-2" />
+</a>
+<a href="/auth/1917/">
+    prozaik81-2
+    
+</a>
+<div class="hidden-phone">
+    Posts: 135<br>
+    
+
+    <div style="margin-top: 3px">
+        
+
+
+    
+
+    </div>
+</div>
+            </td>
+            <td class="content">
+                <div class="author visible-phone">
+                    
+<a class="date" href="/forum/topic/2606/#post-16942"><i class="fa fa-clock-o"></i> 27 Sept. 2014, 18:28</a><br>
+<a href="/auth/1917/">
+    <img class="img-polaroid" src="http://www.gravatar.com/avatar/6daf161d62138d366ac08f442a6e77d5.jpg?d=wavatar" title="prozaik81-2" />
+</a>
+<a href="/auth/1917/">
+    prozaik81-2
+    
+</a>
+<div class="hidden-phone">
+    Posts: 135<br>
+    
+
+    <div style="margin-top: 3px">
+        
+
+
+    
+
+    </div>
+</div>
+
+                    
+                        <p><strong>Online</strong></p>
+                    
+                </div>
+
+                <div class="post-content">
+                    <p>помогите пожалуйста советом</p>
+<p>есть модель. модель содержит все методы для работы с объектом.  все запросы к views я отправляю аяксом</p>
+<p>проблема в том, что злоумышленник может подменить  отсылаемый id поэтому мне хотелось бы проверять непосредственно в методе модели id, который пришёл  через аякс и id залогиненого пользователя, который получен из недр фрэймвока. подскажите пожалуйста как это сделать</p>
+<p>для примера вот сильно упрощённая модель:</p>
+<pre><code>from django.db import models
+
+class Diary(models.Model):
+    user_id = models.IntegerField(
+        '',
+        blank=True,
+        null=True,      
+    )           
+    is_active = models.BooleanField(default=True)                   
+    is_delete = models.BooleanField(default=False)
+
+    @classmethod
+    def delete_entry(self, id_delete, user_id):
+        #условие проверки id
+
+        return self.objects.get(id=id_delete, user_id=user_id).delete()
+
+    @classmethod
+    def get_entry(self, id_record, user_id):
+        #условие проверки id
+
+        return self.objects.get(id=id_record, user_id=user_id)
+</code></pre>
+<p>только пожалуйста не советуйте выполнять запросы прямо в view</p>
+                </div>
+
+                <div class="clearfix"></div>
+                
+
+                
+            </td>
+        </tr>
+        <tr>
+            <td class="author-footer hidden-phone">
+                
+                    <p><strong>Online</strong></p>
+                
+            </td>
+            <td class="content-footer">
+                
+                    <a class="answer-post" href="#">
+                        <i class="fa fa-reply"></i> <span class="hidden-phone">Answer</span>
+                    </a>
+                
+
+                
+
+                
+
+                
+                    
+
+
+<span class="divider">|</span>
+
+
+    
+
+    
+        
+    
+
+    <span class="js-rating" data-has-vote=""
+        data-rating="0" title="Topic rating">
+        <a href="/forum/vote/topic/2606/" class="js-vote"><i></i> <span class="rating">0</span></a>
+    <span>
+
+
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+            
+        
+            
+                
+
+
+<div id="post-16945" class="row-fluid post">
+    <table class="table">
+        <tr>
+            <td class="author hidden-phone">
+                
+<a class="date" href="/forum/topic/2606/#post-16945"><i class="fa fa-clock-o"></i> 27 Sept. 2014, 22:51</a><br>
+<a href="/auth/2022/">
+    <img class="img-polaroid" src="http://www.gravatar.com/avatar/41e9882ac30195b27010b7b2b768257f.jpg?d=wavatar" title="efanchik" />
+</a>
+<a href="/auth/2022/">
+    efanchik
+    
+</a>
+<div class="hidden-phone">
+    Posts: 7<br>
+    
+        Location: Бельцы
+        
+            <span class="flag flag-md" title="Молдавия"></span>
+        
+    
+
+    <div style="margin-top: 3px">
+        
+
+
+    
+
+    </div>
+</div>
+            </td>
+            <td class="content">
+                <div class="author visible-phone">
+                    
+<a class="date" href="/forum/topic/2606/#post-16945"><i class="fa fa-clock-o"></i> 27 Sept. 2014, 22:51</a><br>
+<a href="/auth/2022/">
+    <img class="img-polaroid" src="http://www.gravatar.com/avatar/41e9882ac30195b27010b7b2b768257f.jpg?d=wavatar" title="efanchik" />
+</a>
+<a href="/auth/2022/">
+    efanchik
+    
+</a>
+<div class="hidden-phone">
+    Posts: 7<br>
+    
+        Location: Бельцы
+        
+            <span class="flag flag-md" title="Молдавия"></span>
+        
+    
+
+    <div style="margin-top: 3px">
+        
+
+
+    
+
+    </div>
+</div>
+
+                    
+                </div>
+
+                <div class="post-content">
+                    <p><em>"Если очень хочется, но нельзя, значит можно" - глупая поговорка</em></p>
+<p>Для того, чтобы в файле с моделями получить доступ к объекту <strong>request</strong>, необходимо создать middleware (как это сделать найдете по этой ссылке: <a href="http://djbook.ru/rel1.6/ref/request-response.html">http://djbook.ru/rel1.6/topics/http/middleware.html</a>)
+с таким содержимым:</p>
+<pre><code># coding=utf-8
+import threading
+
+_thread_locals = threading.local()
+
+def get_request():
+    return getattr(_thread_locals, 'request', None)
+
+class ThreadLocals(object):
+    """
+    Middleware, который получает объект request
+    и делает его доступным глобально
+    """
+    def process_request(self, request):
+        _thread_locals.request = request
+</code></pre>
+<p>В файле с моделями добавляем такой код:</p>
+<pre><code>from middleware.threadlocals import get_request
+request = get_request()
+</code></pre>
+<p>Из request можно извлечь id usera. (как сделать смотрите тут: <a href="http://djbook.ru/rel1.6/ref/request-response.html">http://djbook.ru/rel1.6/ref/request-response.html</a></p>
+                </div>
+
+                <div class="clearfix"></div>
+                
+                    <div class="signature">
+                        
+                            Updated 27 Sept. 2014, 22:57 by <strong>efanchik</strong>.
+                        
+                    </div>
+                
+
+                
+                    <div class="hidden-phone">
+                        <hr>
+                        
+                        <div class="signature">&quot;Тысячу умных переберешь, пока одного мудрого найдешь!&quot;</div>
+                        
+                    </div>
+                
+            </td>
+        </tr>
+        <tr>
+            <td class="author-footer hidden-phone">
+                
+            </td>
+            <td class="content-footer">
+                
+                    <a class="answer-post" href="#">
+                        <i class="fa fa-reply"></i> <span class="hidden-phone">Answer</span>
+                    </a>
+                
+
+                
+
+                
+
+                
+                    
+
+
+<span class="divider">|</span>
+
+
+    
+        
+    
+
+    
+
+    <span class="js-rating" data-has-vote="true"
+        data-rating="1" title="Post rating">
+        <a href="/forum/vote/post/16945/" class="js-vote"><i></i> <span class="rating">1</span></a>
+    <span>
+
+
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+            
+        
+            
+                
+
+
+<div id="post-16949" class="row-fluid post">
+    <table class="table">
+        <tr>
+            <td class="author hidden-phone">
+                
+<a class="date" href="/forum/topic/2606/#post-16949"><i class="fa fa-clock-o"></i> 28 Sept. 2014, 9:12</a><br>
+<a href="/auth/1/">
+    <img class="img-polaroid" src="http://www.gravatar.com/avatar/e76b1be733de761521660e372757def1.jpg?d=wavatar" title="RaD" />
+</a>
+<a href="/auth/1/">
+    RaD
+    
+</a>
+<div class="hidden-phone">
+    Posts: 1882<br>
+    
+        Location: Снегири, МО
+        
+            <span class="flag flag-ru" title="Россия"></span>
+        
+    
+
+    <div style="margin-top: 3px">
+        
+
+
+    
+        <img src="/media/uploads/Achievement/construction.png"
+        style="display: inline-block; width: 20px"
+        rel="popover"
+        title="Разработчик"
+        data-placement="top"
+        data-trigger="hover"
+        data-content="Принимал участие в разработке сайта"
+        data-original-title="Разработчик">
+    
+        <img src="/media/uploads/Achievement/crossingguard.png"
+        style="display: inline-block; width: 20px"
+        rel="popover"
+        title="Помощник"
+        data-placement="top"
+        data-trigger="hover"
+        data-content="Активно помогает советами на форуме"
+        data-original-title="Помощник">
+    
+        <img src="/media/uploads/Achievement/sozialeeinrichtung.png"
+        style="display: inline-block; width: 20px"
+        rel="popover"
+        title="Команда"
+        data-placement="top"
+        data-trigger="hover"
+        data-content="Все, кого мы знаем и кто помогает нам с проектом"
+        data-original-title="Команда">
+    
+        <img src="/media/uploads/Achievement/highschool.png"
+        style="display: inline-block; width: 20px"
+        rel="popover"
+        title="Переводчик"
+        data-placement="top"
+        data-trigger="hover"
+        data-content="Помогал с переводом документации или книги"
+        data-original-title="Переводчик">
+    
+        <img src="/media/uploads/Achievement/university_95ce4a.png"
+        style="display: inline-block; width: 20px"
+        rel="popover"
+        title="Автор"
+        data-placement="top"
+        data-trigger="hover"
+        data-content="Писал статьи"
+        data-original-title="Автор">
+    
+
+    </div>
+</div>
+            </td>
+            <td class="content">
+                <div class="author visible-phone">
+                    
+<a class="date" href="/forum/topic/2606/#post-16949"><i class="fa fa-clock-o"></i> 28 Sept. 2014, 9:12</a><br>
+<a href="/auth/1/">
+    <img class="img-polaroid" src="http://www.gravatar.com/avatar/e76b1be733de761521660e372757def1.jpg?d=wavatar" title="RaD" />
+</a>
+<a href="/auth/1/">
+    RaD
+    
+</a>
+<div class="hidden-phone">
+    Posts: 1882<br>
+    
+        Location: Снегири, МО
+        
+            <span class="flag flag-ru" title="Россия"></span>
+        
+    
+
+    <div style="margin-top: 3px">
+        
+
+
+    
+        <img src="/media/uploads/Achievement/construction.png"
+        style="display: inline-block; width: 20px"
+        rel="popover"
+        title="Разработчик"
+        data-placement="top"
+        data-trigger="hover"
+        data-content="Принимал участие в разработке сайта"
+        data-original-title="Разработчик">
+    
+        <img src="/media/uploads/Achievement/crossingguard.png"
+        style="display: inline-block; width: 20px"
+        rel="popover"
+        title="Помощник"
+        data-placement="top"
+        data-trigger="hover"
+        data-content="Активно помогает советами на форуме"
+        data-original-title="Помощник">
+    
+        <img src="/media/uploads/Achievement/sozialeeinrichtung.png"
+        style="display: inline-block; width: 20px"
+        rel="popover"
+        title="Команда"
+        data-placement="top"
+        data-trigger="hover"
+        data-content="Все, кого мы знаем и кто помогает нам с проектом"
+        data-original-title="Команда">
+    
+        <img src="/media/uploads/Achievement/highschool.png"
+        style="display: inline-block; width: 20px"
+        rel="popover"
+        title="Переводчик"
+        data-placement="top"
+        data-trigger="hover"
+        data-content="Помогал с переводом документации или книги"
+        data-original-title="Переводчик">
+    
+        <img src="/media/uploads/Achievement/university_95ce4a.png"
+        style="display: inline-block; width: 20px"
+        rel="popover"
+        title="Автор"
+        data-placement="top"
+        data-trigger="hover"
+        data-content="Писал статьи"
+        data-original-title="Автор">
+    
+
+    </div>
+</div>
+
+                    
+                </div>
+
+                <div class="post-content">
+                    <p>Может я что-то не понял. Но вы в любом случае обрабатываете запрос в представлении. Соответственно:</p>
+<pre><code>def myview(request):
+    qs = Diary.get_entry(record.pk, request.user.pk)
+    return qs
+</code></pre>
+<p>И не надо никаких извращений с потоками и мидлварями.</p>
+                </div>
+
+                <div class="clearfix"></div>
+                
+
+                
+                    <div class="hidden-phone">
+                        <hr>
+                        
+                        <div class="signature">Если ничего не помогает, прочтите документацию, наконец!</div>
+                        
+                    </div>
+                
+            </td>
+        </tr>
+        <tr>
+            <td class="author-footer hidden-phone">
+                
+            </td>
+            <td class="content-footer">
+                
+                    <a class="answer-post" href="#">
+                        <i class="fa fa-reply"></i> <span class="hidden-phone">Answer</span>
+                    </a>
+                
+
+                
+
+                
+
+                
+                    
+
+
+<span class="divider">|</span>
+
+
+    
+        
+    
+
+    
+
+    <span class="js-rating" data-has-vote="true"
+        data-rating="1" title="Post rating">
+        <a href="/forum/vote/post/16949/" class="js-vote"><i></i> <span class="rating">1</span></a>
+    <span>
+
+
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+            
+        
+
+        
+
+        
+        <form action="/forum/add_post/2606/" method="post" class="post-form form-horizontal">
+            <div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='Mm2GmhWuXaLFb81o7QgNUQph3Ri8iTr5' /></div>
+            <button type="submit" class="btn btn-small submit-button">Submit</button>
+            
+            <div class="wmd-wrapper" id="test-wmd">
+                <div class="wmd-panel">
+                    <div id="id_body_wmd_button_bar"></div>
+                    <textarea id="id_body" class=" wmd-input" rows="10" cols="40" name="body"></textarea>
+                </div>
+                <div id="id_body_wmd_preview" class="wmd-panel wmd-preview"></div>
+            </div>
+            
+            <p>
+                
+                Use <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a> to format text.
+                
+            </p>
+        </form>
+        
+    </aside>
+
+</div>
+
+
+        
+            <a class="feedback-link" href="/feedback/" target="_blank">Please, write feedback if something does not work</a>
+        
+
+        
+<!--begin footer -->
+<footer id="footer" class="clearfix">
+    <!--change this to your stuff-->
+    <section class="footerCredits">
+        <div class="container">
+            <ul class="clearfix">
+                <li>&copy; 2008-2014 &nbsp;&nbsp; Ruslan Popov @ gmail.com &nbsp;&nbsp; Dmitriy Kostochko @ gmail.com</li>
+                <li>Powered by <a href="http://djangoproject.com/">Django 1.4.15</a></li>
+                <li>
+                    
+                    <!--LiveInternet counter--><script type="text/javascript"><!--
+                    document.write("<a href='http://www.liveinternet.ru/click' "+
+                    "target=_blank><img src='//counter.yadro.ru/hit?t52.6;r"+
+                    escape(document.referrer)+((typeof(screen)=="undefined")?"":
+                    ";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+                    screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+                    ";"+Math.random()+
+                    "' alt='' title='LiveInternet: показано число просмотров и"+
+                    " посетителей за 24 часа' "+
+                    "border='0' width='88' height='31'><\/a>")
+                    //--></script><!--/LiveInternet-->
+                    
+                </li>
+                <li>
+                    <a href="https://www.digitalocean.com/?refcode=4a9e52f90ab8"
+                       id="digital_ocean_referal" title="Рефералка Digital Ocean"></a>
+                </li>
+            </ul>
+        </div>
+        <!--footerCredits container-->
+    </section>
+    <!--close section-->
+</footer>
+<!--/.footer-->
+
+        <span class="backToTop"><a href="#top">back to top</a></span>
+    </div>
+    <!-- close #page-->
+
+    <!-- JS JQuery ================ -->
+    
+    <script src="/static/theme/js/bootstrap.min.js"></script><!--transitions, tooltips, popover, buttons, modals, alert messages-->
+    <script src="/static/theme/js/modernizr.custom.87724.js"></script>
+    <script src="/static/theme/js/ddsmoothmenu-min.js"></script><!-- desktop edge detect menu -->
+    <script src="/static/theme/js/jquery.dcjqaccordion.2.7.min.js"></script><!-- mobile multi-level accordion menu -->
+    <script src="/static/theme/js/jquery.easytabs.min.js"></script><!-- tabs/testimonials -->
+    <script src="/static/theme/js/slide-to-top-accordion-min.js"></script><!-- slide to top accordion toggle -->
+    <script src="/static/theme/js/jquery.easing-1.3.min.js"></script><!--easing-->
+    <script src="/static/theme/js/jquery.flexslider-min.js"></script><!--flexslider content slider twitter slider and initializations-->
+    <script src="/static/theme/js/responsive-tables.js"></script><!--responsive table-->
+    <script src="/static/theme/js/jquery.fitvid.js"></script><!-- responsive videos -->
+    <script src="/static/theme/js/scripts.js"></script>
+    <script src="/static/js/jquery.form.js"></script>
+    <script src="/static/js/jquery-spelling.js"></script>
+    <script>
+        $('[rel="popover"]').popover({
+            delay: { show: 500, hide: 100 }
+        });
+        $('[data-toggle="tooltip"]').tooltip();
+    </script>
+    
+    
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter20399554 = new Ya.Metrika({id:20399554,
+                        webvisor:true,
+                        clickmap:true,
+                        trackLinks:true,
+                        accurateTrackBounce:true});
+            } catch(e) { }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks");
+    </script>
+    <noscript><div><img src="//mc.yandex.ru/watch/20399554" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+</body>
+</html>

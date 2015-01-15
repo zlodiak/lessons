@@ -1,0 +1,544 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
+  "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" version="XHTML+RDFa 1.0" dir="ltr"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:dc="http://purl.org/dc/terms/"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/"
+  xmlns:og="http://ogp.me/ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:sioc="http://rdfs.org/sioc/ns#"
+  xmlns:sioct="http://rdfs.org/sioc/types#"
+  xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+
+<head profile="http://www.w3.org/1999/xhtml/vocab">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Drupal 7 (http://drupal.org)" />
+<link rel="canonical" href="http://www.shellhacks.com/ru/Kak-Izvlech-raspakovat-Arhivy-tar-targz-i-tarbz2" />
+<link rel="shortlink" href="http://www.shellhacks.com/ru/node/172" />
+<link rel="shortcut icon" href="http://www.shellhacks.com/sites/default/public_files/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="author" href="https://plus.google.com/u/0/112878129629406556184" />
+<meta name="news_keywords" content="Linux Commands, tar, untar, tar.gz, tar.bz2, извлечение, архив, сжатие, командная строка" />
+<meta content="Как : Извлечь (распаковать) Архивы  [tar], [tar.gz] и [tar.bz2] " about="/ru/Kak-Izvlech-raspakovat-Arhivy-tar-targz-i-tarbz2" property="dc:title" />
+<meta name="description" content="В этой статье показывается, как извлекать (распаковывать) и разархивировать (untar) файлы и папки из архивов [tar], [tar.gz] и [tar.bz2] с помощью командной строки в Linux.
+Также Вы узнаете, как просмотреть содержимое архива не распаковывая его и как извлечь только отдельный файл или отдельно взятую папку." />
+<meta name="keywords" content="Linux Commands, tar, untar, tar.gz, tar.bz2, извлечение, архив, сжатие, командная строка" />
+<meta name="robots" content="follow, index" />
+<meta name="copyright" content="Copyright © 2011-2013 Shell Hacks" />
+  <title>Как : Извлечь (распаковать) Архивы  [tar], [tar.gz] и [tar.bz2]  | Linux Commands</title>
+  <style type="text/css" media="all">@import url("http://www.shellhacks.com/modules/system/system.base.css?nacsiq");
+@import url("http://www.shellhacks.com/modules/system/system.menus.css?nacsiq");
+@import url("http://www.shellhacks.com/modules/system/system.messages.css?nacsiq");
+@import url("http://www.shellhacks.com/modules/system/system.theme.css?nacsiq");</style>
+<style type="text/css" media="all">@import url("http://www.shellhacks.com/modules/comment/comment.css?nacsiq");
+@import url("http://www.shellhacks.com/modules/field/theme/field.css?nacsiq");
+@import url("http://www.shellhacks.com/modules/node/node.css?nacsiq");
+@import url("http://www.shellhacks.com/modules/search/search.css?nacsiq");
+@import url("http://www.shellhacks.com/modules/user/user.css?nacsiq");</style>
+<style type="text/css" media="all">@import url("http://www.shellhacks.com/sites/default/modules/ctools/css/ctools.css?nacsiq");
+@import url("http://www.shellhacks.com/sites/default/modules/tagadelic/tagadelic.css?nacsiq");
+@import url("http://www.shellhacks.com/modules/locale/locale.css?nacsiq");</style>
+<style type="text/css" media="all">@import url("http://www.shellhacks.com/sites/default/themes/zenbased/css/html-reset.css?nacsiq");
+@import url("http://www.shellhacks.com/sites/default/themes/zenbased/css/wireframes.css?nacsiq");
+@import url("http://www.shellhacks.com/sites/default/themes/zenbased/css/layout-fixed.css?nacsiq");
+@import url("http://www.shellhacks.com/sites/default/themes/zenbased/css/page-backgrounds.css?nacsiq");
+@import url("http://www.shellhacks.com/sites/default/themes/zenbased/css/tabs.css?nacsiq");
+@import url("http://www.shellhacks.com/sites/default/themes/zenbased/css/pages.css?nacsiq");
+@import url("http://www.shellhacks.com/sites/default/themes/zenbased/css/blocks.css?nacsiq");
+@import url("http://www.shellhacks.com/sites/default/themes/zenbased/css/navigation.css?nacsiq");
+@import url("http://www.shellhacks.com/sites/default/themes/zenbased/css/views-styles.css?nacsiq");
+@import url("http://www.shellhacks.com/sites/default/themes/zenbased/css/nodes.css?nacsiq");
+@import url("http://www.shellhacks.com/sites/default/themes/zenbased/css/comments.css?nacsiq");
+@import url("http://www.shellhacks.com/sites/default/themes/zenbased/css/forms.css?nacsiq");
+@import url("http://www.shellhacks.com/sites/default/themes/zenbased/css/fields.css?nacsiq");</style>
+<style type="text/css" media="print">@import url("http://www.shellhacks.com/sites/default/themes/zenbased/css/print.css?nacsiq");</style>
+
+<!--[if lte IE 7]>
+<style type="text/css" media="all">@import url("http://www.shellhacks.com/sites/default/themes/zenbased/css/ie7.css?nacsiq");</style>
+<![endif]-->
+
+<!--[if lte IE 6]>
+<style type="text/css" media="all">@import url("http://www.shellhacks.com/sites/default/themes/zenbased/css/ie6.css?nacsiq");</style>
+<![endif]-->
+<style type="text/css" media="all">@import url("http://www.shellhacks.com/sites/default/themes/zenbased/css/prettify.css?nacsiq");</style>
+  <script type="text/javascript" src="http://www.shellhacks.com/misc/jquery.js?v=1.4.4"></script>
+<script type="text/javascript" src="http://www.shellhacks.com/misc/jquery.once.js?v=1.2"></script>
+<script type="text/javascript" src="http://www.shellhacks.com/misc/drupal.js?nacsiq"></script>
+<script type="text/javascript" src="http://www.shellhacks.com/sites/all/libraries/prettify/prettify.js?nacsiq"></script>
+<script type="text/javascript" src="http://www.shellhacks.com/sites/all/libraries/prettify/lang-sql.js?nacsiq"></script>
+<script type="text/javascript" src="http://www.shellhacks.com/sites/default/public_files/languages/ru_5rBaA2kOEH_eyybGfL6zRwyArALoXklDkDLhUH5phwA.js?nacsiq"></script>
+<script type="text/javascript" src="http://www.shellhacks.com/sites/default/modules/prettify/prettify.loader.js?nacsiq"></script>
+<script type="text/javascript" src="http://www.shellhacks.com/sites/default/modules/disqus/disqus.js?nacsiq"></script>
+<script type="text/javascript" src="http://www.shellhacks.com/sites/default/themes/zenbased/js/to_top.js?nacsiq"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"ru\/","ajaxPageState":{"theme":"zenbased","theme_token":"xVSCSRDRc0ghHIreOA0g8l_Cc3E_CnXbBb3iGU_nEiA","js":{"misc\/jquery.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"sites\/all\/libraries\/prettify\/prettify.js":1,"sites\/all\/libraries\/prettify\/lang-sql.js":1,"public:\/\/languages\/ru_5rBaA2kOEH_eyybGfL6zRwyArALoXklDkDLhUH5phwA.js":1,"sites\/default\/modules\/prettify\/prettify.loader.js":1,"sites\/default\/modules\/disqus\/disqus.js":1,"sites\/default\/themes\/zenbased\/js\/to_top.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"modules\/comment\/comment.css":1,"modules\/field\/theme\/field.css":1,"modules\/node\/node.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"sites\/default\/modules\/ctools\/css\/ctools.css":1,"sites\/default\/modules\/tagadelic\/tagadelic.css":1,"modules\/locale\/locale.css":1,"sites\/default\/themes\/zenbased\/css\/html-reset.css":1,"sites\/default\/themes\/zenbased\/css\/wireframes.css":1,"sites\/default\/themes\/zenbased\/css\/layout-fixed.css":1,"sites\/default\/themes\/zenbased\/css\/page-backgrounds.css":1,"sites\/default\/themes\/zenbased\/css\/tabs.css":1,"sites\/default\/themes\/zenbased\/css\/pages.css":1,"sites\/default\/themes\/zenbased\/css\/blocks.css":1,"sites\/default\/themes\/zenbased\/css\/navigation.css":1,"sites\/default\/themes\/zenbased\/css\/views-styles.css":1,"sites\/default\/themes\/zenbased\/css\/nodes.css":1,"sites\/default\/themes\/zenbased\/css\/comments.css":1,"sites\/default\/themes\/zenbased\/css\/forms.css":1,"sites\/default\/themes\/zenbased\/css\/fields.css":1,"sites\/default\/themes\/zenbased\/css\/print.css":1,"sites\/default\/themes\/zenbased\/css\/ie7.css":1,"sites\/default\/themes\/zenbased\/css\/ie6.css":1,"sites\/default\/themes\/zenbased\/css\/prettify.css":1}},"prettify":{"linenums":false,"match":".content","nocode":"no-code","custom":[],"markup":{"pre":true,"code":false,"precode":false}},"disqus":{"domain":"wwwshellhackscom","url":"http:\/\/www.shellhacks.com\/ru\/Kak-Izvlech-raspakovat-Arhivy-tar-targz-i-tarbz2","title":"\u041a\u0430\u043a : \u0418\u0437\u0432\u043b\u0435\u0447\u044c (\u0440\u0430\u0441\u043f\u0430\u043a\u043e\u0432\u0430\u0442\u044c) \u0410\u0440\u0445\u0438\u0432\u044b  [tar], [tar.gz] \u0438 [tar.bz2] ","identifier":"node\/172","language":"ru"}});
+//--><!]]>
+</script>
+</head>
+<body class="html not-front not-logged-in one-sidebar sidebar-second page-node page-node- page-node-172 node-type-article i18n-ru section-kak-izvlech-raspakovat-arhivy-tar-targz-i-tarbz2" >
+  <div id="skip-link">
+    <a href="#main-menu" class="element-invisible element-focusable">Jump to Navigation</a>
+  </div>
+    
+
+  <div id="header"><div class="section clearfix">
+
+    
+          <div id="name-and-slogan">
+                              <div id="site-name">
+              <a href="/ru" title="Главная" rel="home"><span>ShellHacks</span></a>
+            </div>
+                  
+              </div><!-- /#name-and-slogan -->
+    
+      <div class="region region-header">
+    <div id="block-menu-menu-top-menu" class="block block-menu contextual-links-region first odd">
+
+        <h2 class="block-title"><нет></h2>
+    
+  <div class="content">
+    <ul class="menu"><li id="custom-menu-item-id-1" class="first leaf"><a href="/ru" title="">About me</a></li>
+<li id="custom-menu-item-id-2" class="leaf"><a href="/ru" title="">Contact</a></li>
+<li id="custom-menu-item-id-3" class="last leaf"><a href="/ru" title="">Advertise</a></li>
+</ul>  </div>
+
+</div><!-- /.block -->
+<div id="block-block-44" class="block block-block contextual-links-region even">
+
+      
+  <div class="content">
+    <p><a href="/ru">[<font color="F88C00">S</font>]hell<br />
+ Hacks</a><br /><span class="slogan">Заметки Linux Админа</span></p>
+  </div>
+
+</div><!-- /.block -->
+<div id="block-system-main-menu" class="block block-system contextual-links-region block-menu last odd">
+
+      
+  <div class="content">
+    <ul class="menu"><li id="custom-menu-item-id-4" class="first last leaf"><a href="/ru" title="">Home</a></li>
+</ul>  </div>
+
+</div><!-- /.block -->
+  </div><!-- /.region -->
+
+    
+  </div></div><!-- /.section, /#header -->
+
+<div id="page-wrapper"><div id="page">
+
+  <div id="main-wrapper"><div id="main" class="clearfix with-navigation">
+
+  <div class="region region-sidebar-second column sidebar"><div class="section">
+    <div id="block-locale-language" class="block block-locale contextual-links-region first odd">
+
+      
+  <div class="content">
+    <ul class="language-switcher-locale-url"><li class="en first"><a href="/en/HowTo-Extract-untar-tar-targz-and-tarbz2-Files" class="language-link" lang="en" title="HowTo : Extract (untar) [tar], [tar.gz] and [tar.bz2] Files">English</a></li>
+<li class="ru last active"><a href="/ru/Kak-Izvlech-raspakovat-Arhivy-tar-targz-i-tarbz2" class="language-link active" lang="ru" title="Как : Извлечь (распаковать) Архивы  [tar], [tar.gz] и [tar.bz2] ">Русский</a></li>
+</ul>  </div>
+
+</div><!-- /.block -->
+<div id="block-search-form" class="block block-search contextual-links-region even">
+
+      
+  <div class="content">
+    <form action="/ru/Kak-Izvlech-raspakovat-Arhivy-tar-targz-i-tarbz2" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="container-inline">
+      <h2 class="element-invisible">Форма поиска</h2>
+    <div class="form-item form-type-textfield form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Поиск </label>
+ <input title="Введите ключевые слова для поиска." type="text" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-text" />
+</div>
+<div class="form-actions form-wrapper" id="edit-actions"><input type="submit" id="edit-submit" name="op" value="Поиск" class="form-submit" /></div><input type="hidden" name="form_build_id" value="form-XkGZ3VYXQvb1d6amQCeoOq3VGej10rJFEJKBHkIQAr4" />
+<input type="hidden" name="form_id" value="search_block_form" />
+</div>
+</div></form>  </div>
+
+</div><!-- /.block -->
+<div id="block-block-45" class="block block-block contextual-links-region odd">
+
+      
+  <div class="content">
+    <script type="text/javascript">
+<!--//--><![CDATA[// ><!--
+<!--
+google_ad_client = "ca-pub-7422629363230924";
+/* RightPanel336x280-1st */
+google_ad_slot = "9651321495";
+google_ad_width = 336;
+google_ad_height = 280;
+//-->
+
+//--><!]]>
+</script><script type="text/javascript" src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+<!--//--><![CDATA[// ><!--
+
+
+//--><!]]>
+</script>  </div>
+
+</div><!-- /.block -->
+<div id="block-menu-menu-categories" class="block block-menu contextual-links-region even">
+
+        <h2 class="block-title">Разделы</h2>
+    
+  <div class="content">
+    <ul class="menu"><li id="custom-menu-item-id-6" class="first expanded"><a href="/ru/Categories/Linux-BASH-Scripting" title="Linux BASH Scripting (22)">BASH Скриптинг (22)</a><ul class="menu"><li id="custom-menu-item-id-5" class="first last leaf"><a href="/ru/Categories/Linux-BASH-Scripting/Parsing" title="Parsing (20)">Парсинг (20)</a></li>
+</ul></li>
+<li id="custom-menu-item-id-9" class="expanded"><a href="/ru/Categories/Web-Servers" title="Web Servers (4)">Web Сервера (4)</a><ul class="menu"><li id="custom-menu-item-id-7" class="first leaf"><a href="/ru/Categories/Web-Servers/Apache" title="Apache (6)">Apache (6)</a></li>
+<li id="custom-menu-item-id-8" class="last leaf"><a href="/ru/Categories/Web-Servers/Nginx" title="Nginx (2)">Nginx (2)</a></li>
+</ul></li>
+<li id="custom-menu-item-id-10" class="leaf"><a href="/ru/Categories/Anonymity" title="Anonymity (9)">Анонимность (9)</a></li>
+<li id="custom-menu-item-id-12" class="expanded"><a href="/ru/Categories/Databases" title="Databases (0)">Базы Данных (0)</a><ul class="menu"><li id="custom-menu-item-id-11" class="first last leaf"><a href="/ru/Categories/Databases/MySQL" title="MySQL (14)">MySQL (14)</a></li>
+</ul></li>
+<li id="custom-menu-item-id-14" class="expanded"><a href="/ru/Categories/Backup-and-Recovery" title="Backup and Recovery (6)">Бэкап и Восстановление (6)</a><ul class="menu"><li id="custom-menu-item-id-13" class="first last leaf"><a href="/ru/Categories/Backup-and-Recovery/TSM" title="TSM (10)">TSM (10)</a></li>
+</ul></li>
+<li id="custom-menu-item-id-15" class="leaf"><a href="/ru/Categories/Defence" title="Defence (8)">Защита (8)</a></li>
+<li id="custom-menu-item-id-16" class="leaf"><a href="/ru/Categories/Linux-Commands" title="Linux Commands (32)">Команды Linux (32)</a></li>
+<li id="custom-menu-item-id-18" class="expanded"><a href="/ru/Categories/Cryptography" title="Cryptography (7)">Криптография (7)</a><ul class="menu"><li id="custom-menu-item-id-17" class="first last leaf"><a href="/ru/Categories/Cryptography/OpenSSL" title="OpenSSL (16)">OpenSSL (16)</a></li>
+</ul></li>
+<li id="custom-menu-item-id-19" class="expanded"><a href="/ru/Categories/Monitoring" title="Monitoring (10)">Мониторинг (10)</a></li>
+<li id="custom-menu-item-id-20" class="leaf"><a href="/ru/Categories/Messaging" title="Messaging (8)">Обмен Сообщениями (8)</a></li>
+<li id="custom-menu-item-id-21" class="leaf"><a href="/ru/Categories/Denial-of-Service" title="Denial of Service (1)">Отказ в обслуживании (1)</a></li>
+<li id="custom-menu-item-id-23" class="expanded"><a href="/ru/Categories/Linux-Apps" title="Linux Apps (14)">Приложения Linux (14)</a><ul class="menu"><li id="custom-menu-item-id-22" class="first last leaf"><a href="/ru/Categories/Package-management" title="Package management (8)">Управления пакетами (8)</a></li>
+</ul></li>
+<li id="custom-menu-item-id-24" class="leaf"><a href="/ru/Categories/Penetration" title="Penetration (3)">Проникновение (3)</a></li>
+<li id="custom-menu-item-id-27" class="expanded"><a href="/ru/Categories/Networks" title="Networks (12)">Сети (12)</a><ul class="menu"><li id="custom-menu-item-id-25" class="first leaf"><a href="/ru/Categories/Networks/CISCO" title="CISCO (6)">CISCO (6)</a></li>
+<li id="custom-menu-item-id-26" class="last leaf"><a href="/ru/Categories/Networks/DNS" title="DNS (14)">DNS (14)</a></li>
+</ul></li>
+<li id="custom-menu-item-id-28" class="leaf"><a href="/ru/Categories/Tips-and-Tricks" title="Tips and Tricks (34)">Советы и Хитрости (34)</a></li>
+<li id="custom-menu-item-id-31" class="last expanded"><a href="/ru/Categories/Remote-Access" title="Remote Access (4)">Удаленный Доступ (4)</a><ul class="menu"><li id="custom-menu-item-id-29" class="first leaf"><a href="/ru/Categories/Remote-Access/FTP" title="FTP (2)">FTP (2)</a></li>
+<li id="custom-menu-item-id-30" class="last leaf"><a href="/ru/Categories/Remote-Access/SSH" title="SSH (16)">SSH (16)</a></li>
+</ul></li>
+</ul>  </div>
+
+</div><!-- /.block -->
+<div id="block-block-9" class="block block-block contextual-links-region odd">
+
+        <h2 class="block-title">подписка</h2>
+    
+  <div class="content">
+    <div class="subscribe">
+<a class="rss" href="http://feeds.feedburner.com/ru/ShellHacks" target="_blank"></a><a class="twitter" href="https://twitter.com/shellhacks_ru" target="_blank"></a><a class="vkontakte" href="#"></a></div>
+  </div>
+
+</div><!-- /.block -->
+<div id="block-tagadelic-1" class="block block-tagadelic contextual-links-region last even">
+
+        <h2 class="block-title">Keywords</h2>
+    
+  <div class="content">
+    <a href="/ru/Tags/komandnaya-stroka" class="tagadelic level5" rel="tag" title="">командная строка</a> 
+<a href="/ru/Tags/command-line" class="tagadelic level6" rel="tag" title="">command line</a> 
+<a href="/ru/Tags/Script" class="tagadelic level4" rel="tag" title="">Script</a> 
+<a href="/ru/Tags/tsm" class="tagadelic level3" rel="tag" title="">tsm</a> 
+<a href="/ru/Tags/Apache" class="tagadelic level3" rel="tag" title="">Apache</a> 
+<a href="/ru/Tags/sed" class="tagadelic level2" rel="tag" title="">sed</a> 
+<a href="/ru/Tags/MySQL" class="tagadelic level5" rel="tag" title="">MySQL</a> 
+<a href="/ru/Tags/DNS" class="tagadelic level4" rel="tag" title="">DNS</a> 
+<a href="/ru/Tags/tar" class="tagadelic level1" rel="tag" title="">tar</a> 
+<a href="/ru/Tags/set" class="tagadelic level2" rel="tag" title="">сеть</a> 
+<a href="/ru/Tags/linux" class="tagadelic level1" rel="tag" title="">linux</a> 
+<a href="/ru/Tags/OpenSSL" class="tagadelic level5" rel="tag" title="">OpenSSL</a> 
+<a href="/ru/Tags/tarbz2" class="tagadelic level1" rel="tag" title="">tar.bz2</a> 
+<a href="/ru/Tags/password" class="tagadelic level5" rel="tag" title="">password</a> 
+<a href="/ru/Tags/ssh" class="tagadelic level1" rel="tag" title="">ssh</a> 
+<a href="/ru/Tags/private-key" class="tagadelic level1" rel="tag" title="">private key</a> 
+<a href="/ru/Tags/SMTP" class="tagadelic level1" rel="tag" title="">SMTP</a> 
+<a href="/ru/Tags/network" class="tagadelic level3" rel="tag" title="">network</a> 
+<a href="/ru/Tags/CSR" class="tagadelic level1" rel="tag" title="">CSR</a> 
+<a href="/ru/Tags/CISCO" class="tagadelic level1" rel="tag" title="">CISCO</a> 
+<a href="/ru/Tags/dig" class="tagadelic level2" rel="tag" title="">dig</a> 
+<a href="/ru/Tags/grep" class="tagadelic level4" rel="tag" title="">grep</a> 
+<a href="/ru/Tags/install" class="tagadelic level4" rel="tag" title="">install</a> 
+<a href="/ru/Tags/bash" class="tagadelic level8" rel="tag" title="">bash</a> 
+<a href="/ru/Tags/firewall" class="tagadelic level1" rel="tag" title="">firewall</a> 
+<a href="/ru/Tags/cURL" class="tagadelic level2" rel="tag" title="">cURL</a> 
+<a href="/ru/Tags/OpenSSH" class="tagadelic level4" rel="tag" title="">OpenSSH</a> 
+<a href="/ru/Tags/awk" class="tagadelic level4" rel="tag" title="">awk</a> 
+<a href="/ru/Tags/crack" class="tagadelic level1" rel="tag" title="">crack</a> 
+<a href="/ru/Tags/certificate" class="tagadelic level2" rel="tag" title="">certificate</a> 
+<div class="more-link"><a href="/ru/tagadelic/chunk/1" title="Мета теги">Еще</a></div>  </div>
+
+</div><!-- /.block -->
+  </div></div><!-- /.section, /.region -->
+
+    <div id="content" class="column"><div class="section">
+            <a id="main-content"></a>
+            		<!-- google_ad_section_start -->        <h1 class="title" id="page-title">Как : Извлечь (распаковать) Архивы  [tar], [tar.gz] и [tar.bz2] </h1>
+        <div class="category-title"><div class="field field-name-field-category field-type-taxonomy-term-reference field-label-hidden"><div class="field-items"><div class="field-item even"><a href="/ru/Categories/Linux-Commands" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">Linux Commands</a></div></div></div></div>
+		<!-- google_ad_section_end -->                                    	
+	  <div class="region region-content">
+    <div id="block-system-main" class="block block-system first odd">
+
+      
+  <div class="content">
+    <div id="node-172" class="node node-article node-promoted view-mode-full clearfix" about="/ru/Kak-Izvlech-raspakovat-Arhivy-tar-targz-i-tarbz2" typeof="sioc:Item foaf:Document">
+
+      
+    
+
+
+
+
+
+
+<div id="block-block-12" class="block block-block contextual-links-region first odd">
+
+      
+  <div class="content">
+    <script type="text/javascript">
+<!--//--><![CDATA[// ><!--
+<!--
+google_ad_client = "ca-pub-7422629363230924";
+/* InArticleAfterTeaser336x280 */
+google_ad_slot = "6006981490";
+google_ad_width = 336;
+google_ad_height = 280;
+//-->
+
+//--><!]]>
+</script><script type="text/javascript" src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+<!--//--><![CDATA[// ><!--
+
+
+//--><!]]>
+</script>  </div>
+
+</div><!-- /.block -->
+
+
+    <div class="content">
+    <!-- google_ad_section_start --><div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded"><p>В этой статье показывается, как извлекать (распаковывать) и разархивировать (untar) файлы и папки из архивов <strong>[tar]</strong>, <strong>[tar.gz]</strong> и <strong>[tar.bz2]</strong> с помощью командной строки в Linux.</p>
+<p>Также Вы узнаете, как просмотреть содержимое архива не распаковывая его и как извлечь только отдельный файл или отдельно взятую папку.</p>
+<div id="InArticleAfterTeaser336x280"></div>
+<p><info><strong>TAR</strong> [файл *.tar] - это простой архив без сжатия<br /><strong>TAR GZIP</strong> [файл *.tar.gz] - это TAR архив, сжатый с помощью GZIP<br /><strong>TAR BZIP2</strong> [файл *.tar.bz2] - это TAR архив, сжатый с помощью BZIP2</info></p>
+<h2>Распаковать и Разархивировать Файлы [tar], [tar.gz] и [tar.bz2]</h2>
+<h3>[tar] - Извлечь (распаковать) TAR Архив</h3>
+<p><codebox>$ tar -xvf foo.tar</codebox></p>
+<h3>[tar.gz] - Извлечь и Разархивировать TAR Архив, сжатый с помощью GZIP</h3>
+<p><codebox>$ tar -xvzf foo.tar.gz</codebox></p>
+<h3>[tar.bz2] - Извлечь и Разархивировать TAR Архив, сжатый с помощью BZIP2</h3>
+<p><codebox>$ tar -xvjf foo.tar.bz2</codebox></p>
+<table class="table1"><tr><th>Опции
+</th><th>Описание
+</th></tr><tr><td>-x
+</td><td>извлечь файлы из архива
+</td></tr><tr><td>-v
+</td><td>выводить список обрабатываемых файлов
+</td></tr><tr><td>-f
+</td><td>указать имя архива или TAR файла
+</td></tr><tr><td>-z
+</td><td>разархивировать содержимое, сжатое с помощью программы gzip [tar.gz]
+</td></tr><tr><td>-j
+</td><td>разархивировать содержимое, сжатое с помощью программы bzip2 [tar.bz2]<br /></td></tr></table><h2>Просмотреть Содержимое Архива [tar], [tar.gz] или [tar.bz2]</h2>
+<h3>[tar] - Показать содержимое TAR архива</h3>
+<p><div id="block-block-32--2" class="block block-block contextual-links-region even">
+
+      
+  <div class="content">
+    <script type="text/javascript">
+<!--//--><![CDATA[// ><!--
+<!--
+google_ad_client = "ca-pub-7422629363230924";
+/* InsideArticle336x280 */
+google_ad_slot = "7601781491";
+google_ad_width = 336;
+google_ad_height = 280;
+//-->
+
+//--><!]]>
+</script><script type="text/javascript" src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+<!--//--><![CDATA[// ><!--
+
+
+//--><!]]>
+</script>  </div>
+
+</div><!-- /.block -->
+<p><codebox>$ tar -tvf foo.tar</codebox></p>
+<h3>[tar.gz] - Показать содержимое TAR архива, сжатого с помощью GZIP</h3>
+<p><codebox>$ tar -ztvf foo.tar.gz</codebox></p>
+<h3>[tar.bz2] - Показать содержимое TAR архива, сжатого с помощью BZIP2</h3>
+<p><codebox>$ tar -jtvf tar.bz2</codebox></p>
+<table class="table1"><tr><th>Опции
+</th><th>Описание
+</th></tr><tr><td>-t
+</td><td>показать содержимое архива<br /></td></tr></table><h2>Извлечь Один Файл из TAR Архива</h2>
+<p>Используйте следующие команды для извлечения одного файла, скажем <strong>bar.txt</strong>, из архива :<br /><codebox>$ tar -xvf foo.tar bar.txt<br />
+$ tar -xzvf foo.tar.gz bar.txt<br />
+$ tar -xjvf foo.tar.bz2 bar.txt</codebox></p>
+<p>Также можно указать путь к файлу :<br /><codebox>$ tar -xvf foo.tar docs/bar.txt<br />
+$ tar -xzvf foo.tar.gz docs/bar.txt<br />
+$ tar -xjvf foo.tar.bz2 docs/bar.txt</codebox></p>
+<h2>Извлечь Одну Папку из TAR Архива</h2>
+<p>Используйте следующие команды для извлечения одной папки, скажем <strong>docs</strong>, из архива :</p>
+<p><codebox>$ tar -xvf foo.tar docs<br />
+$ tar -xzvf foo.tar.gz docs<br />
+$ tar -xjvf foo.tar.bz2 docs</codebox></p>
+<p>Также можно извлечь какую-либо поддиректорию :<br /><codebox>$ tar -xvf foo.tar docs/images<br />
+$ tar -xzvf foo.tar.gz docs/images<br />
+$ tar -xjvf foo.tar.bz2 docs/images</codebox></p>
+</div></div></div><!-- google_ad_section_end -->  </div>
+     <div style="clear: left">
+
+
+<div id="block-block-19" class="block block-block contextual-links-region even">
+
+      
+  <div class="content">
+    <script type="text/javascript">
+<!--//--><![CDATA[// ><!--
+<!--
+google_ad_client = "ca-pub-7422629363230924";
+/* LinksAfterArticle200x90-1st */
+google_ad_slot = "6830593099";
+google_ad_width = 200;
+google_ad_height = 90;
+//-->
+
+//--><!]]>
+</script><script type="text/javascript" src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+<!--//--><![CDATA[// ><!--
+
+
+//--><!]]>
+</script>  </div>
+
+</div><!-- /.block -->
+
+
+
+
+
+
+<!-- google_ad_section_start --><div class="field field-name-field-tags field-type-taxonomy-term-reference field-label-hidden"><div class="field-items"><div class="field-item even" rel="dc:subject"><a href="/ru/Tags/tar" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">tar</a></div><div class="field-item odd" rel="dc:subject"><a href="/ru/Tags/untar" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">untar</a></div><div class="field-item even" rel="dc:subject"><a href="/ru/Tags/targz" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">tar.gz</a></div><div class="field-item odd" rel="dc:subject"><a href="/ru/Tags/tarbz2" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">tar.bz2</a></div><div class="field-item even" rel="dc:subject"><a href="/ru/Tags/izvlechenie" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">извлечение</a></div><div class="field-item odd" rel="dc:subject"><a href="/ru/Tags/arhiv" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">архив</a></div><div class="field-item even" rel="dc:subject"><a href="/ru/Tags/szhatie" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">сжатие</a></div><div class="field-item odd" rel="dc:subject"><a href="/ru/Tags/komandnaya-stroka" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">командная строка</a></div></div></div><!-- google_ad_section_end -->
+
+
+<!-- google_ad_section_start --><div id="block-featured-content-1" class="block block-featured-content contextual-links-region odd">
+
+        <h2 class="block-title">Похожие статьи</h2>
+    
+  <div class="content">
+    <div class="featured-content-block featured-content-block-1 featured-content-block-filter">
+              <ul class="featured-content-block-content">
+            <li><a href="/ru/Raspakovka-Arhivov-targzbz2rarzip7ztbz2tgzZ">Распаковка Архивов [tar|gz|bz2|rar|zip|7z|tbz2|tgz|Z]</a></li>
+            <li><a href="/ru/Kak-Skachat-i-Raspakovat-untar-TAR-Arhiv-Odnoy-Komandoy">Как : Скачать и Распаковать (untar) TAR Архив Одной Командой</a></li>
+            <li><a href="/ru/Kak-Podschitat-Kolichestvo-Faylov-v-Papke">Как Подсчитать Количество Файлов в Папке?</a></li>
+            <li><a href="/ru/Kak-Ochistit-Istoriyu-Komand-v-BASH">Как : Очистить Историю Команд в BASH</a></li>
+            <li><a href="/ru/7-Sovetov-Nastroyka-Istorii-Komand-v-Bash">7 Советов - Настройка Истории Команд в Bash</a></li>
+            <li><a href="/ru/Kak-Sozdat-POLZOVATELYa-s-Pravami-ROOT-v-Linux">Как : Создать ПОЛЬЗОВАТЕЛЯ с Правами ROOT в Linux</a></li>
+            <li><a href="/ru/Dobavlenie-Zadaniy-dlya-Cron-v-Linux-Primery-Crontab">Добавление Заданий для Cron в Linux - Примеры Crontab</a></li>
+            </ul>
+            </div>
+  </div>
+
+</div><!-- /.block -->
+<!-- google_ad_section_end -->
+
+<div>
+<ul class="links inline"><li class="translation_en first last"><a href="/en/HowTo-Extract-untar-tar-targz-and-tarbz2-Files" title="HowTo : Extract (untar) [tar], [tar.gz] and [tar.bz2] Files" class="translation-link" lang="en">English</a></li>
+</ul></div>
+</div>
+</div>
+<!-- /.node -->
+  </div>
+
+</div><!-- /.block -->
+<div id="block-disqus-disqus-comments" class="block block-disqus contextual-links-region last even">
+
+      
+  <div class="content">
+    <div id="disqus_thread"><noscript><p><a href="http://wwwshellhackscom.disqus.com/?url=http%3A%2F%2Fwww.shellhacks.com%2Fru%2FKak-Izvlech-raspakovat-Arhivy-tar-targz-i-tarbz2">View the discussion thread.</a></p></noscript></div>  </div>
+
+</div><!-- /.block -->
+  </div><!-- /.region -->
+
+
+<div class="to_top">
+            <div class="to_top_opacity"></div>
+            <div class="to_top_panel" title="Наверх">
+                <div class="to_top_button"><span class="arrow">↑</span>
+                </div>  
+            </div>
+    </div> 
+
+    </div></div><!-- /.section, /#content -->
+
+    
+
+  </div></div><!-- /#main, /#main-wrapper -->
+
+  
+</div></div><!-- /#page, /#page-wrapper -->
+
+  <div class="region region-bottom">
+    <div id="block-block-5" class="block block-block contextual-links-region first odd">
+
+      
+  <div class="content">
+    <p>Copyright © 2011-2014 Shell Hacks - Linux Howtos and Tutorials</p>
+  </div>
+
+</div><!-- /.block -->
+<div id="block-block-7" class="block block-block contextual-links-region even">
+
+      
+  <div class="content">
+    <!-- Yandex.Metrika counter --><script type="text/javascript">
+<!--//--><![CDATA[// ><!--
+
+(function (d, w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter21254521 = new Ya.Metrika({id:21254521,
+                    webvisor:true,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true});
+        } catch(e) { }
+    });
+
+    var n = d.getElementsByTagName("script")[0],
+        s = d.createElement("script"),
+        f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f, false);
+    } else { f(); }
+})(document, window, "yandex_metrika_callbacks");
+
+//--><!]]>
+</script><p></p><noscript>
+<div><img src="//mc.yandex.ru/watch/21254521" style="position:absolute; left:-9999px;" alt="" /></div>
+<p></p></noscript>
+<!-- /Yandex.Metrika counter -->  </div>
+
+</div><!-- /.block -->
+<div id="block-block-8" class="block block-block contextual-links-region last odd">
+
+      
+  <div class="content">
+    <script>
+<!--//--><![CDATA[// ><!--
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-40564425-2', 'shellhacks.com');
+  ga('send', 'pageview');
+
+
+//--><!]]>
+</script>  </div>
+
+</div><!-- /.block -->
+  </div><!-- /.region -->
+  </body>
+</html>

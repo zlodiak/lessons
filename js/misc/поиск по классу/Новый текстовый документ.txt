@@ -1,0 +1,26 @@
+if(document.getElementsByClassName) { // есть есть родная фукнция, используем ее
+	getElementsByClass = function(classList, node) {    
+		return (node || document).getElementsByClassName(classList) // вызываем метод getElementsByClassName нужного узла.
+		// если  указан node, то будет произведен поиск в нем, иначе во всем документе
+	}
+
+} else { // если родной функции нет, то будем обходить DOM
+	getElementsByClass = function(classList, node) {			
+		var node = node || document, // узел, в котором ищем
+			list = node.getElementsByTagName('*'),  // выбираем все дочерние узлы
+			length = list.length, // количество дочерних узлов
+			classArray = classList.split(/\s+/), // разбиваем список классов
+			classes = classArray.length, // длина списка классов 
+			result = [], i,j
+		for(i = 0; i < length; i++) { // перебираем все дочерние узлы
+			for(j = 0; j < classes; j++)  { //перебираем все классы
+				if(list[i].className.search('\\b' + classArray[j] + '\\b') != -1) { // если текущий узел имеет текущий класс
+					result.push(list[i]) // запоминаем его
+					break // прекращаем перебор классов
+				}
+			}
+		}
+	
+		return result // возвращаем набор элементов
+	}
+}

@@ -1,0 +1,488 @@
+/*
+----------------------------------------------------------------------------------------------------
+[Table of Contents]
+
+1. Reset and default page configuration
+			
+2. Blocks
+			
+3. Page Constructor
+			3.1 Header 									| .hdr
+			3.2 Content 								| .cnt
+			3.3 Footer 									| .ftr
+4. Pages
+			
+----------------------------------------------------------------------------------------------------
+*/
+
+
+
+/*
+####################################################################################################
+[1. Reset and default page configuration]
+####################################################################################################
+*/
+html{ font-size: 100%;}
+body {
+    background: #003682;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.625em;	/* default page font size is 10px (1em) */
+    margin: 0 2em 1em;
+    min-width: 117em;	/* Default scroll width is 16px, so 1024-16 is 1008px */
+}
+
+   div,dl,dt,dd,ul,ol,li,form,table,tr,td,
+   h3,h4,pre,p,span,b,i,a,
+   input,textarea { margin: 0; padding: 0; outline: none; }
+	
+   ul { list-style-type: none;}
+   img { border: none; }
+   table { border-collapse: collapse; border-spacing: 0; text-align: center; width: 100%; }
+
+    /* remember to define focus styles! */
+   :focus {outline: 0; }
+
+
+   h1 { 
+      background: url(../img/himik-trans.png) left top no-repeat; 
+      right: 126px; 
+      top: 67px; 
+      width: 180px; 
+      height: 36px; 
+      z-index: 4;
+   }
+
+    h2 { 
+      color: #000d45; 
+      font: bold 1.2em Arial, Helvetica, sans-serif;	
+      background: url(../img/h2bg.jpg) left top no-repeat;  
+      padding: 0 1.6em; 
+      margin: 1.5em 0 0 .3em; 
+    }
+    h3 { color: #fff; font: bold 1.5em Arial, Helvetica, sans-serif; padding: .6em 1em 0;}
+    h4 { font: bold 1.12em Tahoma, Geneva, sans-serif;  padding: .6em 0; }
+	
+    a { text-decoration: underline; }
+    a:hover { text-decoration: none; }
+	
+    .white { color: #fff;}
+
+/*
+####################################################################################################
+[2. Blocks]
+####################################################################################################
+*/
+
+    /*Orange block--------------------------------------------------------------------------------*/
+    div.orange_block {}
+        div.orange_block div{ background: url(../img/orange_block.jpg) no-repeat;}
+	        div.orange_block div.top {}
+	            div.orange_block div.top div { background-position: 100% -35px; height: 3.5em; }
+	                div.orange_block div.top div div { 
+                                                   height: 3.5em; 
+                                                   background-position: 0 -85px; 
+                                                   background-repeat: repeat-x; 
+                                                   margin: 0em .5em;
+		   }
+            div.orange_block div.mdl { 
+                                   background: #f59916; 
+                                   padding: .3em 1.5em .5em; 
+                                   border: .5em solid #c57c11; 
+                                   border-width: 0 .5em;
+		    }
+           div.orange_block div.btm { background-position: 0 -70px; height: .5em; background-repeat: no-repeat;}
+	           div.orange_block div.btm div { background-position: 100% -75px; height: .5em;}
+	               div.orange_block div.btm div div { 
+                                                 background-position: 0 -80px; 
+                                                 background-repeat: repeat-x; 
+                                                 height: .5em; 
+                                                 margin: 0 .5em; 
+		           }
+		  
+	/*Blue block--------------------------------------------------------------------------------*/ 
+			div.blue_block { margin: .5em 0; width: 100%; }
+		        div.blue_block div{ background: url(../img/blue_block.jpg) no-repeat;}
+			        div.blue_block div.top { background-position: 0 0; }
+				        div.blue_block div.top div {height: 3.4em; background-position: 100% -34px; }
+				            div.blue_block div.top div div { background-position: 0 -82px; background-repeat: repeat-x; margin: 0 .5em;}
+				    
+				    div.blue_block div.mdl{ 
+                                        background: #fff; 
+                                        border: .5em solid #373bc3; 
+                                        border-width: 0 .5em; 
+                                        padding: .3em .3em .2em; 
+                                        position: relative;
+				    }
+
+				div.blue_block div.btm { background-position: 0 -68px;}
+				    div.blue_block div.btm div { height: 4px; background-position: 100% -73px;}
+				        div.blue_block div.btm div div { background-position: 0 -77px; background-repeat: repeat-x; margin: 0 .5em; }
+				
+		/*Red block--------------------------------------------------------------------------------*/			
+		div.red_block { margin: .5em 0; width: 100%;}
+		    div.red_block div{ background: url(../img/red_block.jpg) no-repeat; }
+			    div.red_block div.top {}
+				    div.red_block div.top div {height: 3.1em; background-position: 100% -32px; }
+				        div.red_block div.top div div { background-position: 0 -79px; background-repeat: repeat-x; margin: 0 .5em;}
+				  
+				div.red_block div.mdl { background: #ff2b0d; border: .5em solid #d72409; border-width: 0 .5em; padding: 2.5em .5em 2em;  }
+
+				div.red_block div.btm { background-position: 0 -65px;}
+				    div.red_block div.btm div { height: 4px; background-position: 100% -69px;}
+				        div.red_block div.btm div div { background-position: 0 -74px; background-repeat: repeat-x; margin: 0 .5em; }
+
+/*
+####################################################################################################
+[3. Page Constructor]
+####################################################################################################
+
+----------------------------------------------------------------------------------------------------
+	[3.1 Header]
+----------------------------------------------------------------------------------------------------
+*/
+	div#hdr { 
+           background: url(../img/head-bg.jpg) bottom left repeat-x; 
+           height: 140px; 
+           position: relative; 
+           margin-bottom: 1em;
+    }
+       div#hdr img, h1 { position: absolute;}
+      
+       div#hdr img.stadium { left: 1em; top: 0; z-index: 1; }
+       div#hdr img.star {right: 0em; bottom: 0; z-index: 1; }
+       div#hdr img.snow { right: 16em; top: .3em; z-index: 3; }
+       div#hdr img.logo { left: -2.5em; top: -1em; z-index: 4; }
+       div#hdr img.moscow { right: 6em; top: 3em; z-index: 3; }		
+				
+				
+/*
+----------------------------------------------------------------------------------------------------
+	[3.2 Content]
+----------------------------------------------------------------------------------------------------
+*/
+	/* content container */
+	div#cnt-case { overflow: hidden; margin: 0 2em; }
+	
+	        div.blue_block a { 
+	                       display: block; 
+                           color: #de2e32; 
+                           font: bold 1.3em Arial, Helvetica, sans-serif; 
+            }
+                           div.blue_block p { font: 1.1em Arial, Helvetica, sans-serif; }
+			
+			div.blue_block span.chess b {float: right;}
+	               
+			div.red_block td.yellow { background: #ffc800;}
+            div.red_block td.green { background: #2ecb00;}
+            div.red_block td.blue { background: #0570c3;}
+		
+		    #content .chess { border: none;}
+		
+		/* content container LEFT---------------------------------------------------------------------------------------------*/
+		div#cnt-left { float: left; width: 32.1em; margin-right: .6em;}
+          
+		  /* content container panel left*/
+		  div#cnt-left div.spnl { float: left; width: 11.2em; }
+		     		    
+             /* content container panel left box*/
+             div#cnt-left div.spnl div.tab { 
+                                         min-height: 24.5em; 
+                                         width: 100%; 
+                                         background: #00132d; 
+                                         margin: 1em 0; 
+                                         position: relative; 
+                                         border: .1em solid #fff; 
+             }
+                                         div.tab img, div.tab a, div.tab span { display: block;}
+                                         img.tbt { 
+                                               position: absolute ; 
+                                               top: -.3em; 
+                                               left: 0; 
+                                               width: 11.2em; 
+                                               height: .3em;
+                                         }
+                                         img.tbb { 
+                                               position: absolute ; 
+                                               bottom: -.3em; 
+                                               left: 0; 
+                                               width: 11.2em; 
+                                               height: .3em;
+                                         }
+                                        div.tab img[alt="su-155"] { width: 4.5em; height: 7.5em; margin: 2em auto 1.5em;}
+                                        div.tab img[alt="pic-region"] { width: 8em; height: 3.5em; margin: 0 auto 2em;}
+				                        div.tab span { 
+                                                margin: 0 2em 3em; 
+                                                text-align: center;
+                                                line-height: .9; 
+                                                color: #fff; 
+                                                font: bold 1.2em Arial, Helvetica, sans-serif;
+                                         }
+				         
+					/* content container panel left - ul*/
+					div.tab ul { margin: 1em 1.5em 2em; list-style: none;}
+		                div.tab ul li a { width: 100%; color: #fff; font: bold 1.1em Arial, Helvetica, sans-serif; }
+			
+			/* content container panel Left Games*/	
+			div#cnt-left div.games { float: right; width: 19.7em;}
+			    div#cnt-left .games h2 { 
+                                   font: bold 2.4em Arial, Helvetica, sans-serif; 
+                                   color: #fff; 
+                                   background: none; 	
+                                   margin: .5em auto .1em; 
+                                   padding:0; 
+                                   text-align: center;
+			   }
+				
+			/* content container panel Left Games box Bill*/   
+			div#cnt-left div.games div.bill { 
+                                   background: url(../img/billbg.jpg) top left no-repeat; 
+                                   overflow: hidden; 
+                                   padding: 0em 1.2em; 
+                                   height: 6.8em; 
+                                   margin-bottom: 2.4em;
+             }
+                  div#cnt-left div.games div.bill h2 { 
+                                                  background: url(../img/icon-left.gif) top center no-repeat; 
+                                                  font: bold 1.8em Arial, Helvetica, sans-serif; 
+                                                  float: left; width: 4.416em; 
+                                                  padding: 1.5em 0 .7em; 
+                                                  line-height: .9;
+                 }
+                  div#cnt-left div.games div.bill h2+h2 { background:url(../img/icon-right.gif) top center no-repeat;}
+                       div#cnt-left div.games div.bill h2 span { display: block; font-size: .6em;}
+			
+             /* content container Left Orange Block Table*/
+             div.orange_block table { background: #f59916;}
+                 div.orange_block table th.team {
+                                              text-align: left; 
+                                              padding-left: .3em; 
+                                              width: 90%;
+                                              font: bold 1.3em Arial, Helvetica, sans-serif; 
+                                              color: #fff;
+				 }
+                 div.orange_block table th.points { 
+                                              width: 10%; 
+                                              background: #ff4c4e; 
+                                              font: bold 1.3em Arial, Helvetica, sans-serif;
+                                              color: #fff; 
+                                              padding: .3em 0;
+				 }
+                 div.orange_block td { 
+                                text-align: left; 
+                                background:#facc8b; 
+                                font: bold 1.2em Arial, Helvetica, sans-serif; 
+                                padding: .4em 0em .4em .3em; 
+                                border: .2em solid #f59916; 
+                                border-width: .2em 0;
+				 }
+						        div.orange_block tr:hover td { background: #003cff; color: #fcff00;}
+							    div.orange_block td+td+td { background: #ffea94 ; text-align: center;}
+							    div.orange_block tr:hover td+td+td { background:#fcff00; color: #003cff;}
+							  
+            /* content container Left Blue Block ul*/
+            div.games div.blue_block ul { 
+                                     overflow: hidden; 
+                                     padding-bottom: 1em; 
+                                     list-style: none; 
+                                     background: #fff; 
+                                     border: .5em solid #373bc3; 
+                                     border-width: 0 .5em; 
+		   }
+		                           div.games div.blue_block a { margin: 1em 0 .8em;}
+					               div.games div.blue_block ul li a{ 
+                                                               background: url(../img/libg.jpg) .4em 50% no-repeat; 
+                                                               padding: 0em .5em 0em 1.4em;
+                                                               font: bold 1.1em Arial, Helvetica, sans-serif; 
+                                                               color: #000; 
+                                                               line-height: .4em;
+								  }
+						                                        div.games div.blue_block ul li a span{ float: right;}
+							
+				 
+           div.blue_block span.chess { 
+                                  border-top: .1em dashed #b8b8b8; 
+                                  display: block; 
+                                  padding: 1.3em .5em .3em; 
+                                  font: 1.1em Arial, Helvetica, sans-serif;
+           }
+						
+		/* content container Left Red Block */
+		div.red_block div.top h3 { text-align: center;}
+		div.red_block div.top a { 
+                             float: left; 
+                             margin: .8em 1em 0; 
+                             color: #fff; 
+                             font: bold 1.3em Arial, Helvetica, sans-serif;  
+		}
+              div.red_block div.top a+a { float: right;}
+              div.red_block th { padding: .2em; background: #ff9687;}
+              div.red_block td { 
+                            padding: .1em 0 .6em .1em; 
+                            background: #ffcbc3; 
+                            border: .1em #ff3e23 solid; 
+                            vertical-align: top; 
+                            text-align: left; 
+                            font-size: 1.2em;
+		      }
+		      div.red_block td:hover { background: #ffc800;}			
+						
+						
+        /* content container RIGHT---------------------------------------------------------------------------------------------*/	
+        div#right { float: right; width: 27.2em; margin-left: .6em; margin-bottom: 1em; }
+		
+            /* content container Right Orange Block */
+            #right div.orange_block p {
+                                    border: .5em solid #c57c11; 
+                                    border-width: 0 .5em; 
+                                    background: #fff url(../img/hokkey-man.gif) bottom right no-repeat; 
+                                    padding: .5em 3em .5em .5em; 
+                                    font: 1.2em Arial, Helvetica, sans-serif; 
+		    }
+            #right div.orange_block p span { display: block; margin: 2em 0; }
+            #right div.orange_block p a { 
+                                      display: block; 
+                                      margin-top: 4em; 
+                                      font-weight: bold; 
+                                      color: #000; 
+            }
+            #right div.orange_block div.top h3 { 
+                                             padding: .2em 0; 
+                                             font-size: 1.5em; 
+                                             color :#044c9e; 
+                                             line-height: .9;
+		    }
+		    #right div.orange_block div.top h3 span { float: left; font-size: 2.3em; color :#fff;}
+		       #right div.orange_block div.top h3 i { display: block;}
+			   
+      /* content container Right Red Block */
+      #right div.red_block div.mdl { background: #fff;}
+            #right div.red_block div.mdl div { 
+                                           background: none; 
+                                           padding: .4em 0 .4em 5em; 
+                                           border-bottom: .1em dashed #b8b8b8; 
+                                           overflow: hidden;
+            }
+                                           #right div.red_block div.mdl div span{ font: 1.3em Verdana, Geneva, sans-serif; color: #b2b2b2; }
+                                           #right div.red_block div.mdl div h4{ font: bold 1.2em Verdana, Geneva, sans-serif; color: #c13019; }
+                                           #right div.red_block div.mdl div a{ font: bold 1.2em Verdana, Geneva, sans-serif; color: #000;  }
+                               #right div.red_block div.mdl div img { 
+                                                                             float: left; 
+                                                                             position: relative; 
+                                                                             left: -5em; 
+                                                                             margin-right: -5em;
+                                           }
+                                           #right div.mdl div:first-child { margin-top: -2em;}
+		
+        /* content container Right Contest Box */
+        div.contest b, #ftr b {
+                           display: block; 
+                           background: #000; 
+                           font-size: 1em; 
+                           height: .1em;
+        }
+                           b.one { margin: 0 .4em;}
+                           b.two { margin: 0 .3em;}
+                           b.three { margin: 0 .2em;}
+                           b.four{ margin: 0 .1em;}
+					          
+                           div.contest div { background: #000 url(../img/shape.gif) 99% 100% no-repeat; padding: 0 10em 0 1em; }  
+                               div.contest h4 { 
+                                            background: url(../img/h3bg.gif) left center no-repeat; 
+                                            padding-left: 1.4em; 
+                                            color: #ffe75b; 
+                                            font-size: 1em;
+                               }
+                               div.contest p { color: #fff; padding: .4em 0 1em; font-size: 1.2em;}
+                               div.contest a { 
+                                            display: block;
+                                            text-align: center; 
+                                            padding: .3em .1em; 
+                                            margin-top: -.4em;  
+                                            color: #fff; 
+                                            background: url(../img/a_bg.jpg) center no-repeat;
+                               }
+                              
+											  
+											  
+     /* content container CONTENT---------------------------------------------------------------------------------------------*/		
+     #content  { overflow: hidden;  margin-bottom: 1em;} 
+	
+            #content div.photo { width: 516px; margin: 0 auto; }
+                #content div.photo div.mdl img { width: 500px; height: 281px; border: none; }
+                #content div.photo span { padding: 7px 5px 3px; display: block; font: bold 15px Arial, Helvetica, sans-serif; }
+			 
+               /* content container Content ul*/	
+               #content ul {
+                         float: right;
+                         margin-top: 5px; 
+                         position: relative;
+               }
+                   #content ul li { background: #80a6db; float:left; margin: 0 2px;}
+                       #content ul li a {  
+                                      display: block; 
+                                      padding: 0 6px; 
+                                      color: #fff; 
+                                      font: bold 15px Verdana, Geneva, sans-serif;
+									  text-decoration: none;
+                       }
+				   
+                           #content ul li a img { 
+                                              position: absolute; 
+                                              display: none; 
+                                              width: 500px; 
+                                              height: 281px; 
+                                              left: -338px; 
+                                              top: -289px;
+}
+                           #content div.photo ul li a span { 
+                                                        width: 240px; 
+                                                        position: absolute; 
+                                                        display: none; 
+                                                        left: -341px; 
+                                                        bottom: -2px; 
+                                                        color: #000; 
+                                                        font: bold 15px Arial, Helvetica, sans-serif; 
+                                                        background: #fff;
+                                                        padding:0;
+                                                        padding-left: 10px;
+                           }
+                           #content ul li.img img{ display: block; }
+                           #content ul li a:hover img, #content div.photo ul li a:hover span { display: block;}
+                           #content ul li a:hover{ background: #0047aa;}
+							   
+             /* content container Content div.mdl*/		  
+             #content div.mdl div { background: #f5f5f5; border-bottom: .1em dashed #b8b8b8; padding: 1em .6em; }
+                  #content div.mdl div:first-child { padding: 0 .6em 1em; }
+                  #content div.mdl div h4 { font: bold 1.4em Verdana, Geneva, sans-serif;}
+                      #content div.mdl div h4 span { 
+                                                 display: block; 
+                                                 float: right; 
+                                                 background: url(../img/clock.jpg) no-repeat center; 
+                                                 color: #fff; padding: .4em .5em; 
+                                                 margin-top: -.5em; 
+                                                 font-size: .8em;
+                      }
+			          
+                      #content div.mdl div p { 
+                                          font: 1.2em Arial, Helvetica, sans-serif; 
+                                          margin: -2em 0 -4em;  
+                                          padding: 2em 7em 5em 0; 
+                                          background: url(../img/pbg.gif) 98% 2em no-repeat;
+                      }				   
+/*
+----------------------------------------------------------------------------------------------------
+	[3.3 Footer]
+----------------------------------------------------------------------------------------------------
+*/
+    div#ftr { clear: both; margin-top: 1em;}
+	    #ftr b { background: #00183b; }
+         #ftr p { 
+              background: #00183b; 
+              padding: 3em 3em .6em; 
+              text-align: right; 
+              vertical-align: bottom;
+              color: #fff; 
+              font-size: 1.3em;
+         }
+
+

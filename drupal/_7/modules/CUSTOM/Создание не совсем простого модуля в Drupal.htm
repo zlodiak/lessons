@@ -1,0 +1,699 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML+RDFa 1.1//EN">
+<html lang="ru" dir="ltr" version="HTML+RDFa 1.1"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:dc="http://purl.org/dc/terms/"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/"
+  xmlns:og="http://ogp.me/ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:sioc="http://rdfs.org/sioc/ns#"
+  xmlns:sioct="http://rdfs.org/sioc/types#"
+  xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+<head profile="http://www.w3.org/1999/xhtml/vocab">
+<meta charset="utf-8" />
+<meta name="description" content="Создаем модуль для Drupal 7. Инструкция по созданию модуля для Drupal." />
+<meta content="Drupal 7: пример создания модуля" about="/sozdanie-modulya-drupal" property="dc:title" />
+<link rel="shortcut icon" href="http://trish.in/sites/default/files/faviconka_ru_1760_0.ico" type="image/vnd.microsoft.icon" />
+<meta name="keywords" content="Создание модуля Drupal, разработка модуля Drupal" />
+<link rel="shortlink" href="/node/19" />
+<meta name="Generator" content="Drupal 7 (http://drupal.org)" />
+<link rel="canonical" href="http://trish.in/sozdanie-modulya-drupal" />
+<link rel="canonical" href="/sozdanie-modulya-drupal" />
+<title>Создание модуля в Drupal</title>
+<link type="text/css" rel="stylesheet" href="http://trish.in/sites/default/files/css/css_pbm0lsQQJ7A7WCCIMgxLho6mI_kBNgznNUWmTWcnfoE.css" media="all" />
+<link type="text/css" rel="stylesheet" href="http://trish.in/sites/default/files/css/css_BOlIFSvN0-g5fPdLF7XguUmAdJBqxmqll39ohRpoJ_4.css" media="all" />
+<link type="text/css" rel="stylesheet" href="http://trish.in/sites/default/files/css/css_fbDPALFlYS4UI6v_0Yy9xCF9kdu84-SY9D4DYX2aNBo.css" media="all" />
+<link type="text/css" rel="stylesheet" href="http://trish.in/sites/default/files/css/css_Y6yDmWY2JRoae35C63nKNaw4egFt2dS7MLT2qzhPKnQ.css" media="all" />
+<style type="text/css" media="all">
+<!--/*--><![CDATA[/*><!--*/
+div.container{width:1140px;}.two-sidebars .content-inner{margin-left:240px;margin-right:160px;}.sidebar-first .content-inner{margin-left:240px;margin-right:0;}.sidebar-second .content-inner{margin-right:160px;margin-left:0;}.region-sidebar-first{width:240px;margin-left:-100%;}.region-sidebar-second{width:160px;margin-left:-160px;}
+
+/*]]>*/-->
+</style>
+<script type="text/javascript" src="http://trish.in/sites/default/files/js/js_xAPl0qIk9eowy_iS9tNkCWXLUVoat94SQT48UBCFkyQ.js"></script>
+<script type="text/javascript" src="http://trish.in/sites/default/files/js/js_zrsA9B6CcTK2VBz55Ux6FQbR6qgiqxSp-IwJBntUGto.js"></script>
+<script type="text/javascript" src="http://trish.in/sites/default/files/js/js_NSuthYmFNaVW-rfNeYJiX6bCe5Q-GgupqBJcpRh15dU.js"></script>
+<script type="text/javascript" src="http://trish.in/sites/default/files/js/js_Io9BZ0Vb29p9ueRqdiYDNYGQapo5_UIQeObDdksHa6A.js"></script>
+<script type="text/javascript" src="http://trish.in/sites/default/files/js/js_y6z09G8wziV3u7PNF_GapdFAnyXxzMpio1NmM4CAJAo.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","active_regions":["region-leaderboard"],"ajaxPageState":{"theme":"pixture_reloaded","theme_token":"-ArFv6mrVL6WRl2cwNIOLZMX_vExc_ya4y60DIiIAWI","js":{"sites\/all\/modules\/syntaxhighlighter\/syntaxhighlighter.min.js":1,"misc\/jquery.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"sites\/all\/libraries\/syntaxhighlighter_3.0.83\/scripts\/shCore.js":1,"sites\/all\/libraries\/syntaxhighlighter_3.0.83\/scripts\/shBrushBash.js":1,"sites\/all\/libraries\/syntaxhighlighter_3.0.83\/scripts\/shBrushCss.js":1,"sites\/all\/libraries\/syntaxhighlighter_3.0.83\/scripts\/shBrushJScript.js":1,"sites\/all\/libraries\/syntaxhighlighter_3.0.83\/scripts\/shBrushPerl.js":1,"sites\/all\/libraries\/syntaxhighlighter_3.0.83\/scripts\/shBrushPhp.js":1,"sites\/all\/libraries\/syntaxhighlighter_3.0.83\/scripts\/shBrushPlain.js":1,"sites\/all\/libraries\/syntaxhighlighter_3.0.83\/scripts\/shBrushPython.js":1,"sites\/all\/libraries\/syntaxhighlighter_3.0.83\/scripts\/shBrushSql.js":1,"sites\/all\/libraries\/syntaxhighlighter_3.0.83\/scripts\/shBrushXml.js":1,"sites\/all\/libraries\/syntaxhighlighter_3.0.83\/scripts\/shBrushYaml.js":1,"public:\/\/languages\/ru_5JZgD2x8HMI50GRUqIRMoNhTER4Yv4U6t9e4X5GTQ24.js":1,"sites\/all\/modules\/disqus\/disqus.js":1,"sites\/all\/themes\/adaptivetheme\/js\/at.js":1,"sites\/all\/themes\/adaptivetheme\/js\/equalize-blocks.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"modules\/field\/theme\/field.css":1,"modules\/node\/node.css":1,"modules\/poll\/poll.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"sites\/all\/modules\/views\/css\/views.css":1,"sites\/all\/modules\/cctags\/cctags.css":1,"sites\/all\/modules\/ctools\/css\/ctools.css":1,"sites\/all\/libraries\/syntaxhighlighter_3.0.83\/styles\/shCore.css":1,"sites\/all\/libraries\/syntaxhighlighter_3.0.83\/styles\/shThemeRDark.css":1,"sites\/all\/themes\/adaptivetheme\/css\/base.css":1,"sites\/all\/themes\/adaptivetheme\/css\/edit-links.css":1,"sites\/all\/themes\/adaptivetheme\/css\/layout.css":1,"sites\/all\/themes\/adaptivetheme\/css\/messages.css":1,"sites\/all\/themes\/pixture_reloaded\/admin-section.css":1,"sites\/all\/themes\/pixture_reloaded\/forms.css":1,"sites\/all\/themes\/pixture_reloaded\/tables.css":1,"sites\/all\/themes\/pixture_reloaded\/gpanels-fluid.css":1,"sites\/all\/themes\/pixture_reloaded\/colors.css":1,"sites\/all\/themes\/pixture_reloaded\/pr.css":1,"0":1}},"disqus":{"domain":"trishin","url":"http:\/\/trish.in\/sozdanie-modulya-drupal","title":"Drupal 7: \u043f\u0440\u0438\u043c\u0435\u0440 \u0441\u043e\u0437\u0434\u0430\u043d\u0438\u044f \u043c\u043e\u0434\u0443\u043b\u044f","identifier":"node\/19"}});
+//--><!]]>
+</script>
+<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-23853046-1']);
+  _gaq.push(['_setDomainName', '.trish.in']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+<!-- Разместите этот тег в теге head или непосредственно перед закрывающим тегом body -->
+<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+
+
+<noindex>
+    <script type="text/javascript" src="http://bloggingehow.googlecode.com/files/bloggingehow.js">
+    </script>
+
+    <script type="text/javascript">
+    var twitterAccount = "almalexey";
+    var tweetThisText = document.location + " Создание модуля в Drupal";
+    tripleflapInit();
+    </script>
+</noindex>
+<span style="font-size:11px;position:absolute;"><a title='Blogger Widget
+by BLoggingeHow' href="http://bloggingehow.blogspot.com" target='_blank'><img
+border='0' src='http://img1.blogblog.com/img/blank.gif'/></a></span>
+
+
+</head>
+<body class="html not-front not-logged-in two-sidebars page-type-article ff-sss hff-sss fs-12 bs-d rc-4 hs-ts">
+  <div id="skip-link">
+    <a href="#main-content" class="element-invisible element-focusable">Перейти к основному содержанию</a>
+  </div>
+    <div id="page" class="container">
+
+  <header id="header" class="clearfix">
+    <div id="branding">
+                    <hgroup>
+                      <h1 id="site-name"><a href="/" rel="home" title="Главная страница">Trish.in</a></h1>
+                                <h2 id="site-slogan">Веб-разработка и сайтостроение</h2>
+          
+        </hgroup>
+          </div>
+	
+      <div class="region region-header">
+    <div id="block-block-2" class="block block-block">
+  <div class="block-inner clearfix">
+                <div class="block-content">
+      <p>Заказ сайта - <a href="mailto:webmaster@trish.in">webmaster@trish.in</a> </p>
+    </div>
+  </div>
+</div>
+  </div>
+ <!-- /header region -->
+     <!-- /menu bar -->
+		
+  </header> <!-- /header -->
+
+   <!-- /breadcrumb -->
+  		
+   <!-- /message -->
+   <!-- /help -->
+
+   <!-- /secondary-content -->
+
+  <!-- Three column 3x33 Gpanel -->
+  
+  <div id="columns"><div class="columns-inner clearfix">
+    <div id="content-column"><div class="content-inner">
+       <!-- /highlight -->
+            <section id="main-content">
+                  <header>
+                        <h1 id="page-title">Drupal 7: пример создания модуля</h1> <!-- /page title -->
+                                     <!-- /local task tabs -->
+             <!-- /action links -->
+          </header>
+                  <div class="region region-content">
+    <div id="block-system-main" class="block block-system">
+  <div class="block-inner clearfix">
+                <div class="block-content">
+      
+
+
+<article id="article-19" class="article article-type-article clearfix" about="/sozdanie-modulya-drupal" typeof="sioc:Item foaf:Document">
+
+
+
+  	
+  
+  	
+	<!-- 		<div style="padding: 5px 0 5px 0; text-align: left;">
+		<script language="JavaScript" type="text/javascript">
+			var mn_promo_site_id='2736'; var ban_id='5721';
+			var link_id='1145';
+			var size="468x60";	// размер баннера
+			var cid="a9092395373bdb86ef077a5afc5be4cf";
+			var sa=""; // субаккаунт
+			</script>
+		<script language="JavaScript" type="text/javascript" src="http://a11.myragon.ru/"></script>
+		</div>
+		-->
+	
+  <div class="article-content">
+  <div class="field field-name-field-image field-type-image field-label-hidden">
+        <div class="field-item even" rel="og:image rdfs:seeAlso" resource="http://trish.in/sites/default/files/styles/large/public/field/image/modul_drupal.png?itok=AXmRwxfE"><img typeof="foaf:Image" src="http://trish.in/sites/default/files/styles/large/public/field/image/modul_drupal.png?itok=AXmRwxfE" width="250" height="173" alt="Создание модуля Drupal" /></div>
+  </div>
+<div class="field field-name-body field-type-text-with-summary field-label-hidden">
+        <div class="field-item even" property="content:encoded"><p>Здравствуйте, друзья! </p>
+<p>Сегодня мы с вами постараемся создать модуль для Drupal 7, который может пригодится при интеграции вашего сайта на Drupal с биржей ссылок Sape.</p>
+<p>Мы здесь преследуем двойную цель. </p>
+<p>Во-первых, и, пожалуй, это основная наша задача, мы постараемся научиться <strong>создавать модули для Drupal 7</strong>.<br />
+Пока что это будет простенький модуль, не делающий ничего сверхъестественного и, возможно, не использующий все великолепие хуков Drupal, но тем не менее это будет настоящий модуль, с инсталляцией и разделом настройки. Так что расценивайте его как хороший способ попрактиковаться в разработке под Drupal 7.</p>
+<p>Во-вторых, практически каждый веб-мастер приходит в итоге к необходимости монетизации своих проектов, а некоторые ставят заработок на первое место, создают множество сайтов-сателлитов и внедряют их в биржи ссылок.<br />
+Друпал прекрасно подходит для создания сателитов, т.к. имеет большое количество готовых шаблонов и seo-инструменты (правда, для этого нужно доустановить новые модули). </p>
+<p>Но некоторых вещей в нем все же не хватает. Для того чтобы было понятно о чем идет речь, нам придется немного отклониться от темы и поговорить о принципах монетизации сайтов.</p>
+<p>Sape - это всем известная биржа ссылок, позволяющая вебмастерам (владельцам сайтов) с одной стороны и seo-оптимизаторам с другой стороны продавать и покупать ссылки на сайты.<br />
+Для того, чтобы ваш сайт был принят в Sape нужно лишь не нарушать законодательство РФ и добиться того, чтобы большая часть страниц вашего сайта была проиндексирована Яндексом.</p>
+<p>Цена ссылки со страницы вашего сайта зависит от нескольких факторов. Это, в первую очередь, показатели ТИЦ и PR вашего сайта, а также уровень вложенности страницы по отношению к главной. Как правило, сайты добавляемые в Sape, поначалу имеют нулевые показатели ТИЦ и PR, но ссылки-то хочется продавать подороже!<br />
+Следовательно, остается лишь наращивать количество страниц второго уровня вложенности, т.е. вложенных в главную.<br />
+Ссылки со страниц третьего уровня вложенности имеют значительно меньшую стоимость, а более глубокие уровни Sape уже не интересны.</p>
+<p>"Ну и что здесь такого!" - воскликнете Вы. "Ведь можно просто сделать очень длинное древовидное меню на главной странице, в котором отобразить, скажем, 600 позиций каталога".<br />
+Да, такой подход имеет право на жизнь. </p>
+<p>Но есть парочка "Но": во-первых, робот Sape не индексирует более 150 ссылок с одной страницы, а во-вторых, даже если вы сделаете меню на 150 позиций, оно займет огромный процент от всего текстового содержимого вашей страницы. А с учетом того, что сателлиты, как правило, имеют на каждой странице очень небольшой объем текстового содержимого, Ваше меню станет преобладать на странице над остальным контентом.<br />
+В итоге, с точки зрения поисковых систем, все ваши страницы станут практически идентичными, т.н. "нечеткими дублями", и для поисковых роботов они превратятся в одну страницу, что, конечно же, скажется на их индексации.</p>
+<p>Мы создадим модуль, призванный исправить эту ситуацию.</p>
+<h2>Цель</h2>
+<ul><li>Модуль должен иметь страницу настроек в админке Drupal, где можно будет настроить список выводимых модулем url</li>
+<li>Т.к. мы делаем сателлит и о пользователе заботимся не слишком, эти url должны выводиться в виде пейджера, используя в качестве анкоров нумерацию, начиная с нуля. Таким образом, мы существенно сократим объем меню, что позволит нам избежать пессимизации со стороны поисковых систем.</li>
+<li>Модуль должен иметь собственный инсталятор и сам совершать необходимые изменения в базе данных Drupal при установке и удалении.</li>
+</ul><p>Назовем наш маленький модуль Tcompactmenu, т.к. он призван сделать из огромного меню навигации компактный блок ссылок (постраничную навигацию).<br />
+ Начнем по порядку.</p>
+<p> </p>
+<h2>1. Создаем файл tcompactmenu.info</h2>
+<p> </p>
+<p>Файл .info в Drupal 7 выглядит примерно так:</p>
+<pre class="brush:plain">
+name = Tcompactmenu
+description = Makes a compact menu that looks like a block of numbered links.
+dependencies[] = menu
+package = "Tpackage"
+core = 7.x
+version = "7.x-1.0"
+configure = admin/config/user-interface/tcompactmenu
+files[]= tcompactmenu.module
+</pre><p>Поясним:</p>
+<p>- <em>name</em> - имя модуля. Это имя будет выводится в админке Drupal на странице модулей, должно совпадать с именем файла модуля<br />
+- <em>description</em> - описание модуля. Описание также будет выводиться в админке Drupal рядом с именем модуля<br />
+- <em>dependencies[]</em> - массив зависисмостей. Здесь указывается имя модуля, без которого данный модуль не сможет функционировать.<br />
+Секций dependencies[] может быть сколько угодно.<br />
+- <em>package</em> - пакет, к которому относится модуль. Пакеты группируют модули внутри себя по какому-либо признаку, например по схожей функциональности. Модули, относящиеся к одному пакету, будут в админке Drupal выведены в отдельном контейнере.<br />
+ - <em>core</em> - мажорная версия ядра Drupal, под которую разработан модуль<br />
+version - версия модуля<br />
+- <em>configure </em>- путь, по которому будет доступна страница настроек модуля<br />
+- <em>files[]</em> - массив подключаемых модулем файлов. Секций files[] может быть сколько угодно.</p>
+<p> </p>
+<h2>2. Создаем файл tcompactmenu.install</h2>
+<p> </p>
+<p>Этот файл предназначен для установки модуля на ваш Drupal сайт и удаления его из системы. Благодаря данному файлу, при первом включении вашего модуля, в базе данных Drupal создадутся необходимые для его работы таблицы, а при удалении модуля эти таблицы также будут уничожены. Кроме всего прочего, в этом файле могут быть реализованы хуки обновления модуля до старших версий.</p>
+<p>В Drupal 7 .install файл не обязан содержать хуки <em>hook_install</em> и <em>hook_unisnstall</em>, можно лишь реализовать <em>hook_schema</em>, который определяет имя и структуру необходимых таблиц.</p>
+<p>Итак, наш файл <em>tcompactmenu.install</em> будет иметь следующее содержимое:</p>
+<pre class="brush:php">
+function tcompactmenu_uninstall() {
+  cache_clear_all('tcompactmenu','cache',TRUE);
+  menu_rebuild();
+}
+</pre><p>
+Здесь мы после удаления модуля на всякий случай очищаем кэши Drupal и перестраиваем меню, чтобы ненужные уже пункты были из него удалены.</p>
+<pre class="brush:php">
+function tcompactmenu_schema() {
+  $schema['tcompactmenu'] = array(
+    'fields' =&gt; array(
+      'id' =&gt; array('type' =&gt; 'serial', 'not null' =&gt; TRUE),
+      'url' =&gt; array('type' =&gt; 'varchar', 'length' =&gt; 255, 'not null' =&gt; TRUE)
+    ),
+   'primary key' =&gt; array('id'),
+  );
+  return $schema;
+}
+</pre><p>
+Мы пишем весьма простую, я бы даже сказал, примитивную версию модуля, поэтому для работы ему понадобится всего одна таблица, содержащая список выводимых блоком URL. В данной версии не будет предусмотрено размещение нескольких блоков пейджера. Эту функциональность можно оставить до следующих версий.</p>
+<p> </p>
+<h2>3. Создаем файл tcompactmenu.module</h2>
+<p> </p>
+<p>Наконец, мы добрались до самого важного - собственно, файл модуля. Здесь необходимо реализовать несколько хуков.</p>
+<h3>1. HOOK_menu()</h3>
+<pre class="brush:php">
+function tcompactmenu_menu() {
+  
+  $items = array();
+  
+  $items['admin/config/user-interface/tcompactmenu'] = array(
+    'title' =&gt; 'Tcompactmenu',
+    'description' =&gt; 'Configure the Tcompactmenu.',
+    'page callback' =&gt; 'drupal_get_form',
+    'page arguments' =&gt; array('tcompactmenu_settings'),
+    'access callback' =&gt; 'user_access',
+    'access arguments' =&gt; array('administer site configuration'),
+    //'file' =&gt; 'tcompactmenu.admin.inc',
+  );
+
+  return $items;
+}
+</pre><p>
+Этот хук возвращает массив добавляемых модулем пунктов меню.</p>
+<p>В нашем случае, мы добавляем в раздел настройки админки Drupal, в подраздел "Пользовательский интерфейс" ссылку на редактирование настроек модуля.<br />
+Поясним, как это работает. В массив items добавляется опять же массив, содержащий настройки данного пункта меню. Ключом  массива является ссылка пункта меню. Давайте разберемся, что означают элементы вложенного массива:</p>
+<p>- <em>title</em> - название пункта меню<br />
+- <em>description</em> - описание пункта меню. То, что будет выводится на странице конфигурации под названием.<br />
+- <em>page_callback</em> - какая функция Drupal должна запускаться при нажатии на данный пункт меню. В нашем случае, это функция, возвращающая форму Drupal.<br />
+- <em>page_arguments</em> - аргументы, передаваемые вызываемой функции. Мы говорим Drupal, что он должен вернуть форму tcompactmenu_settings, содержащую настройки модуля. Форма будет описана ниже.<br />
+- <em>access_callback</em> - какая функция Drupal должна вызываться для определения права доступа пользователя к разделу сайта<br />
+- <em>access_arguments</em> - аргументы, передаваемые функции определения права доступа. В нашем случае, это уровень доступа администратора сайта.</p>
+<h3>2. HOOK_settings()</h3>
+<pre class="brush:php">
+function tcompactmenu_settings() {
+  	
+	$form['urls'] = array(
+      '#title' =&gt;  t('Specify a set of URLs'),
+	  '#description' =&gt; t('URLs should be separated by commas'),
+      '#type' =&gt; 'textarea',
+      '#default_value' =&gt; _tcompactmenu_get_urls(),
+    );
+
+  $form['submit'] = array(
+    '#type' =&gt; 'submit',
+    '#value' =&gt; t('Save tcompactmenu settings'),
+  );
+
+  return $form;
+}
+</pre><p>
+Этот хук возвращает форму настроек модуля (помните, в HOOK_menu() мы указали эту функцию в качестве callback?)<br />
+В этой форме мы определяем 2 элемента - текстовое поле, содержащее список URL через запятую, а также кнопку отправки данных на сервер.<br />
+В массиве, описывающем текстовое поле, есть ключ <em>#default_value</em>. Значением этого ключа должно быть то, что мы хотим видеть в текстовом поле, когда открывается форма настроек. Мы, с помощью отдельной функции <em> _tcompactmenu_get_urls()</em>, возвращаем список URL из базы данных. Функцию рассмотрим чуть ниже.</p>
+<p>Также, момент о котором стоит помнить, это локализация модуля. Хорошим тоном является пропускать весь текст выводимый на сайте, через функцию локализации с коротким именем<em> t</em>. Много времени это не отнимет, зато в дальнейшем сильно упростит перевод модуля на другой язык. Например, на русский.</p>
+<h3>3. Функция _tcompactmenu_get_urls()</h3>
+<pre class="brush:php">
+function _tcompactmenu_get_urls(){
+
+	$select = db_select('tcompactmenu','tc');
+	$select-&gt;addField('tc','id');
+	$select-&gt;addField('tc','url');
+	
+	$entries = $select-&gt;execute()-&gt;fetchAll();
+	
+	$str = "";
+	foreach($entries as $num =&gt; $entrie){
+		$str.= $entrie-&gt;url.",";
+	}
+	
+	$str = substr($str, 0, strlen($str)-1);
+	
+	return trim($str);
+}
+</pre><p>
+Здесь, я думаю, даже пояснений особых не нужно. Функция просто достает из таблицы модуля список URL и конкатенирует ссылки через запятую.<br />
+Заметим лишь, что покусочное построение SQL запросов в Drupal 7 весьма удобная вещь.</p>
+<h3>4. HOOK_settings_submit()</h3>
+<pre class="brush:php">
+function tcompactmenu_settings_submit($form, &amp;$form_state){
+	
+	$urls = $form_state['values']['urls'];
+	
+	
+	$urls_array = explode(",", $urls);
+	
+	//очищаем таблицу
+	db_delete('tcompactmenu')-&gt;execute();
+	
+	$fields = array();
+	
+	foreach($urls_array as $url){
+		$fields['url'] = trim($url);
+		db_insert('tcompactmenu')-&gt;fields($fields)-&gt;execute();
+	}
+	
+	drupal_set_message(t('The tcompactmenu settings saved'));
+}
+</pre><p>
+Этот хук обрабатывает данные формы <em>tcompactmenu_settings</em>, описанной выше. Само собой, он запускается после нажатия пользователем на кнопку сохранения данных формы.<br />
+Хук принимает два объекта - объект формы и объект состояния формы. Как раз через объект состояния формы мы можем получить все присланные формой данные. В нашем случае это отредактированный пользователем список URL. Мы разбиваем эту строку по запятым, формируем из нее массив и вставляем каждый элемент массива в нашу таблицу модуля (предварительно очистив ее).</p>
+<h3>5. HOOK_block_info()</h3>
+<pre class="brush:php">
+function tcompactmenu_block_info(){
+   
+   $blocks = array();
+   
+   $blocks[0]['info'] = t('Tcompactmenu links block');
+   $blocks[0]['cache'] = DRUPAL_NO_CACHE;
+    
+  return $blocks;
+}
+</pre><p>
+Этот небольшой хук сообщает Drupal, что наш модуль должен породить блок. Внутри хука мы формируем массив с настройками блока - описание, которое буде выводиться на странице блоков и указание не кэшировать данный блок.</p>
+<h3>6. HOOK_block_view()</h3>
+<pre class="brush:php">
+function tcompactmenu_block_view($delta = '') {
+	
+	$select = db_select('tcompactmenu','tc');
+	$select-&gt;addField('tc','id');
+	$select-&gt;addField('tc','url');
+	
+	$entries = $select-&gt;execute()-&gt;fetchAll();
+
+	$blocks = array();
+	$blocks['subject'] = null;
+	$blocks['content'] = theme('tcompactmenu_block', array('urls' =&gt; $entries));
+
+	return $blocks;
+}
+</pre><p>
+Продолжаем <strong>создание модуля для Drupal</strong>. Еще не устали? Осталось совсем немного. </p>
+<p>Данный хук позволяет темезировать наш блок. Более того, он теоретически позволяет темизировать каждый экземпляр блока, в зависимости от его порядкового номера. Для этого предназначен аргумент $delta. Но так как мы создаем несложный модуль, у нас будет всего один экземпляр блока.</p>
+<p>Итак, внутри хука мы достали из базы данных список URL  и передали этот список функции темизации  theme. Это одна из самых выжных и часто используемых функций в Drupal 7, запомните ее. </p>
+<p>Для данной функции должен быть определен хук <em>HOOK_theme()</em> внутри модуля. Аргументы <em>tcompactmenu_block</em> и <em>array('urls' =&gt; $entries)</em> говорят о том, что <span style="color:red;">информацию о используемом файле шаблона нужно взять из элемента массива, возвращаемого <em>HOOK_theme()</em> с ключом <em>tcompactmenu_block</em> и передать в этот файл шаблона переменную <em>$entries</em>, причем в файле шаблона она будет доступна по имени <em>$urls</em></span>.</p>
+<p>Предложение получилось не из простых). Советую перечитать его пару раз и осознать получше. Данная функция вернет итоговый HTML-код после процесса темизации.</p>
+<h3>8. HOOK_theme()</h3>
+<pre class="brush:php">
+function tcompactmenu_theme() {
+	
+	return array(
+		'tcompactmenu_block' =&gt; array(
+			'variables' =&gt; array(
+				'urls' =&gt; NULL
+			),
+			'file' =&gt; 'tcompactmenu.block.inc',
+			'template' =&gt; 'tcompactmenu-block',
+		)
+	);
+}
+</pre><p>
+Вот и <em>HOOK_theme()</em> о котором мы только что говорили. Как видите, данный хук говорит Drupal какие элементы с помощью каких шаблонов темезировать и снабжает эти шаблоны переменными. Кроме того, он подключает файлы с функциями, которые будут доступны  изнутри файла шаблона, чтобы не загромождать файл шаблона кодом.</p>
+<h3>9. Файл шаблона: tcompactmenu-block.tpl.php</h3>
+<pre class="brush:php">
+&lt;div id = "tcompactmenu-pager"&gt;
+	&lt;?php
+		
+		$curpath = "/".request_path();
+		//echo $curpath; exit; 
+		
+		foreach($urls as $num =&gt; $url):
+	?&gt;
+		&lt;span&gt;
+			&lt;a class="&lt;?php echo $url-&gt;url == $curpath ? 'active': ''; ?&gt;" href="&lt;?php echo $url-&gt;url; ?&gt;"&gt;&lt;?php echo $num+1; ?&gt;&lt;/a&gt;
+			&lt;?php //echo (($num+1)%20 == 0)? "&lt;br /&gt;" : ""; ?&gt;
+		&lt;/span&gt;
+	&lt;?php
+		endforeach;
+	?&gt;
+&lt;/div&gt; 
+</pre><p>
+Шаблон блока совсем простой. Внутри него мы получаем путь до текущей страницы с помощью функции Drupal 7 <em>request_path() </em> и выводим ссылки подряд, используя в качестве анкоров их порядковые номера. Кроме того, мы подсвечиваем ссылку, если ее URL совпадает с URL текущей страницы.<br />
+Также я привел способ вывода ссылок в несколько строк по 20 элементов в каждой строке (внутри php-комментариев).</p>
+<p>Вот, собственно, и все, друзья. Мы с вами <strong>создали модуль для Drupal</strong>, попутно научились описывать формы, создавать блоки  и использовать темизацию. Также мы умеем вносить необходимые изменения в базу данных при установке и удалении модуля.<br />
+Конечно, это лишь малюсенькая толика информации, которая вам может понадобиться при создании реального модуля, но зато она на живом примере дает почувствовать, что значит разрабатывать модули под Drupal.</p>
+<p><strong>P.S.</strong> Исходники модуля можно скачать тут: <a href="/sites/default/files/tcompactmenu.rar">tcompactmenu.rar (2.85 КБ)</a></p>
+</div>
+  </div>
+<section class="field field-name-field-tags field-type-taxonomy-term-reference field-label-above clearfix">
+      <h2 class="field-label">Tags:&nbsp;</h2>
+    <ul class="field-items">
+          <li class="field-item even" rel="dc:subject">
+        <a href="/tags/drupal-7" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">Drupal 7</a>      </li>
+          <li class="field-item odd" rel="dc:subject">
+        <a href="/tags/drupal" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">Drupal</a>      </li>
+          <li class="field-item even" rel="dc:subject">
+        <a href="/tags/php" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">PHP</a>      </li>
+          <li class="field-item odd" rel="dc:subject">
+        <a href="/tags/sape" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">Sape</a>      </li>
+      </ul>
+</section>
+  </div>
+
+      <nav class="clearfix" style="clear:both;"></nav>
+  	
+
+	<div class="item-list"><h3>Также вам может быть интересно:</h3><ul><li><a href="/article/kak-programmno-sozdat-stranicu-v-drupal">Как программно создать страницу в Drupal?</a></li><li><a href="/articles/multisiting-drupal">Подробно о мультисайтинге в Drupal</a></li><li><a href="/page-title-drupal">Свой title страницы в Drupal без использования модуля</a></li></ul></div> 
+
+
+		
+		<a title="Подписаться на ленту «Trish.in RSS»" href="/rss.xml"><img  alt="Подписаться на ленту «Trish.in RSS»" src="http://trish.in/sites/all/themes/pixture_reloaded/rss_icon_1.png" ></a>
+	
+		<script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+<div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="button" data-yashareQuickServices="yaru,vkontakte,facebook,twitter,odnoklassniki,moimir,lj,friendfeed,moikrug" >
+
+</div> 
+	
+
+	<script type="text/javascript" src="http://trish.in/sites/all/libraries/share42/share42.js"></script>
+<script type="text/javascript">share42('http://trish.in/sites/all/libraries/share42/','http://trish.in/sozdanie-modulya-drupal','Drupal 7: пример создания модуля',10,87)</script>
+
+
+ 
+	<!-- Put this script tag to the <head> of your page -->
+<script type="text/javascript" src="http://userapi.com/js/api/openapi.js?32"></script>
+	<script type="text/javascript">
+  VK.init({apiId: 2384491, onlyWidgets: true});
+</script>
+<!-- Put this div tag to the place, where the Like block will be -->
+<div id="vk_like" style="margin-top:10px; margin-left:6px;"></div>
+<script type="text/javascript">
+VK.Widgets.Like("vk_like", {type: "button"});
+</script>
+<br/>
+
+
+<!-- Разместите этот тег в теге head или непосредственно перед закрывающим тегом body -->
+<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+
+<!-- Разместите этот тег в том месте, где должна отображаться кнопка +1 -->
+<div style="margin-left:6px;"><g:plusone size="medium"></g:plusone> </div>
+
+<br/>
+<!--
+<div id="fb-root"></div><script src="http://connect.facebook.net/ru_RU/all.js#xfbml=1"></script><fb:comments href="trish.in/sozdanie-modulya-drupal" num_posts="2" width="500"></fb:comments>
+
+<script type="text/javascript" src="http://userapi.com/js/api/openapi.js?32"></script>
+
+<script type="text/javascript">
+  VK.init({apiId: 2384491, onlyWidgets: true});
+</script>
+
+
+<div id="vk_comments"></div>
+<script type="text/javascript">
+VK.Widgets.Comments("vk_comments", {limit: 10, width: "496", attach: "*"});
+</script>
+-->
+
+ 	
+  
+</article>    </div>
+  </div>
+</div>
+  </div>
+ <!-- /content -->
+         <!-- /feed icons -->
+      </section> <!-- /main-content -->
+        <aside class="region region-content-aside">
+    <div id="block-disqus-disqus-comments" class="block block-disqus">
+  <div class="block-inner clearfix">
+                <div class="block-content">
+      <div id="disqus_thread"><noscript><p><a href="http://trishin.disqus.com/?url=http%3A%2F%2Ftrish.in%2Fsozdanie-modulya-drupal">View the discussion thread.</a></p></noscript></div>    </div>
+  </div>
+</div>
+  </aside>
+ <!-- /content-aside -->
+    </div></div> <!-- /content-column -->
+	
+      <div class="region region-sidebar-first sidebar">
+    <div id="block-block-6" class="block block-block">
+  <div class="block-inner clearfix">
+                <div class="block-content">
+      <!-- <noindex><a rel="nofollow" href="http://myragon.ru/?ref=617b184c&sa=trishin"><img src="http://myragon.ru/img/banners/300x100.gif" width="220"></a></noindex> --><div style="float:left;"><a href="/rss.xml"><img src="/misc/rss3.png" /></a></div>
+<p style="padding-top:20px; padding-left:70px;"><a href="/rss.xml">Подпишитесь на свежие статьи!</a></p>
+    </div>
+  </div>
+</div>
+<section id="block-block-4" class="block block-block">
+  <div class="block-inner clearfix">
+              <h2 class="block-title">Поиск по сайту</h2>
+            <div class="block-content">
+      <!-- <img src="/sites/default/files/navalny.jpg" width="200" alt="navalny.jpg" /> --><form action="http://www.google.ru/cse" id="cse-search-box">
+<div><input type="hidden" name="cx" value="partner-pub-2257597517294996:pl9zu1b929p" /><input type="hidden" name="ie" value="UTF-8" /><input type="text" name="q" size="31" /><input type="submit" style="display:none;" name="sa" value="Поиск" /></div>
+</form>
+<script type="text/javascript" src="http://www.google.ru/coop/cse/brand?form=cse-search-box&amp;lang=ru"></script>    </div>
+  </div>
+</section>
+<nav id="block-system-navigation" class="block block-system block-menu">
+  <div class="block-inner clearfix">
+              <h2 class="block-title">Навигация</h2>
+            <div class="block-content">
+      <ul class="menu clearfix"><li class="first leaf menu-item-612"><a href="/nemnogo-o-trishine" title="Обо мне и моем блоге">Немного о Тришине</a></li><li class="leaf menu-item-604"><a href="/sitemap">Карта сайта</a></li><li class="last leaf menu-item-666"><a href="http://trish.in/user" title="Вход в аккаунт">Вход</a></li></ul>    </div>
+  </div>
+</nav>
+<section id="block-views-categoties-view-block" class="block block-views">
+  <div class="block-inner clearfix">
+              <h2 class="block-title">Рубрики</h2>
+            <div class="block-content">
+      <div class="view view--categoties-view view-id-_categoties_view view-display-id-block view-dom-id-2f9cb4fb69a38b460a21c9e8f79cf45f">
+        
+  
+  
+      <div class="view-content">
+        <div class="views-row views-row-1 views-row-odd views-row-first">
+      
+  <div class="views-field views-field-name">        <span class="field-content"><a href="/rubriki/drupal">Drupal</a></span>  </div>  </div>
+  <div class="views-row views-row-2 views-row-even">
+      
+  <div class="views-field views-field-name">        <span class="field-content"><a href="/rubriki/frameworks">Фреймворки</a></span>  </div>  </div>
+  <div class="views-row views-row-3 views-row-odd">
+      
+  <div class="views-field views-field-name">        <span class="field-content"><a href="/rubriki/billmanager">BILLmanager</a></span>  </div>  </div>
+  <div class="views-row views-row-4 views-row-even">
+      
+  <div class="views-field views-field-name">        <span class="field-content"><a href="/rubriki/proektirovanie">Проектирование</a></span>  </div>  </div>
+  <div class="views-row views-row-5 views-row-odd">
+      
+  <div class="views-field views-field-name">        <span class="field-content"><a href="/rubriki/php">PHP</a></span>  </div>  </div>
+  <div class="views-row views-row-6 views-row-even">
+      
+  <div class="views-field views-field-name">        <span class="field-content"><a href="/rubriki/javascript">Javascript</a></span>  </div>  </div>
+  <div class="views-row views-row-7 views-row-odd">
+      
+  <div class="views-field views-field-name">        <span class="field-content"><a href="/rubriki/seo">SEO</a></span>  </div>  </div>
+  <div class="views-row views-row-8 views-row-even">
+      
+  <div class="views-field views-field-name">        <span class="field-content"><a href="/rubriki/uchebniki">Учебники</a></span>  </div>  </div>
+  <div class="views-row views-row-9 views-row-odd views-row-last">
+      
+  <div class="views-field views-field-name">        <span class="field-content"><a href="/rubriki/prochee">Прочее</a></span>  </div>  </div>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>    </div>
+  </div>
+</section>
+<section id="block-cctags-1" class="block block-cctags">
+  <div class="block-inner clearfix">
+              <h2 class="block-title">Облако тэгов</h2>
+            <div class="block-content">
+      <div class="cctags cctags-block wrapper"><a href="/tags/lithium" class="cctags cctags-block vid-1 level-1 depth-0 count-1 ccfilter tooltip" title="" rel="tag">Lithium</a>&nbsp; <a href="/tags/sape" class="cctags cctags-block vid-1 level-1 depth-0 count-1 ccfilter tooltip" title="" rel="tag">Sape</a>&nbsp; <a href="/tags/title" class="cctags cctags-block vid-1 level-1 depth-0 count-1 ccfilter tooltip" title="" rel="tag">title</a>&nbsp; <a href="/tags/bundles" class="cctags cctags-block vid-1 level-1 depth-0 count-1 ccfilter tooltip" title="" rel="tag">bundles</a>&nbsp; <a href="/tags/perevody" class="cctags cctags-block vid-1 level-4 depth-0 count-3 ccfilter tooltip" title="" rel="tag">переводы</a>&nbsp; <a href="/tags/symfony-2" class="cctags cctags-block vid-1 level-5 depth-0 count-4 ccfilter tooltip" title="" rel="tag">Symfony 2</a>&nbsp; <a href="/tags/freymvorki" class="cctags cctags-block vid-1 level-6 depth-0 count-6 ccfilter tooltip" title="" rel="tag">фреймворки</a>&nbsp; <a href="/tags/yaml" class="cctags cctags-block vid-1 level-1 depth-0 count-1 ccfilter tooltip" title="" rel="tag">YAML</a>&nbsp; <a href="/tags/drupal" class="cctags cctags-block vid-1 level-7 depth-0 count-7 ccfilter tooltip" title="" rel="tag">Drupal</a>&nbsp; <a href="/tags/api" class="cctags cctags-block vid-1 level-4 depth-0 count-3 ccfilter tooltip" title="" rel="tag">API</a>&nbsp; <a href="/tags/syntax-highlighter" class="cctags cctags-block vid-1 level-1 depth-0 count-1 ccfilter tooltip" title="" rel="tag">syntax highlighter</a>&nbsp; <a href="/tags/yandeks" class="cctags cctags-block vid-1 level-1 depth-0 count-1 ccfilter tooltip" title="" rel="tag">Яндекс</a>&nbsp; <a href="/tags/yii" class="cctags cctags-block vid-1 level-1 depth-0 count-1 ccfilter tooltip" title="" rel="tag">yii</a>&nbsp; <a href="/tags/yiinitializr" class="cctags cctags-block vid-1 level-1 depth-0 count-1 ccfilter tooltip" title="" rel="tag">yiinitializr</a>&nbsp; <a href="/tags/blogun" class="cctags cctags-block vid-1 level-1 depth-0 count-1 ccfilter tooltip" title="" rel="tag">Блогун</a>&nbsp; <a href="/tags/reklamnaya-kampaniya" class="cctags cctags-block vid-1 level-1 depth-0 count-1 ccfilter tooltip" title="" rel="tag">рекламная кампания</a>&nbsp; <a href="/tags/multisayting" class="cctags cctags-block vid-1 level-1 depth-0 count-1 ccfilter tooltip" title="" rel="tag">мультисайтинг</a>&nbsp; <a href="/tags/pochta" class="cctags cctags-block vid-1 level-1 depth-0 count-1 ccfilter tooltip" title="" rel="tag">Почта</a>&nbsp; <a href="/tags/html5" class="cctags cctags-block vid-1 level-1 depth-0 count-1 ccfilter tooltip" title="" rel="tag">html5</a>&nbsp; <a href="/tags/oop" class="cctags cctags-block vid-1 level-4 depth-0 count-3 ccfilter tooltip" title="" rel="tag">ООП</a>&nbsp; <a href="/tags/uchebniki" class="cctags cctags-block vid-1 level-2 depth-0 count-2 ccfilter tooltip" title="" rel="tag">учебники</a>&nbsp; <a href="/tags/ispsystem" class="cctags cctags-block vid-1 level-2 depth-0 count-2 ccfilter tooltip" title="" rel="tag">ispsystem</a>&nbsp; <a href="/tags/symfony" class="cctags cctags-block vid-1 level-5 depth-0 count-5 ccfilter tooltip" title="" rel="tag">Symfony</a>&nbsp; <a href="/tags/php" class="cctags cctags-block vid-1 level-8 depth-0 count-11 ccfilter tooltip" title="" rel="tag">PHP</a>&nbsp; <a href="/tags/javascript" class="cctags cctags-block vid-1 level-2 depth-0 count-2 ccfilter tooltip" title="" rel="tag">javascript</a>&nbsp; <a href="/tags/abstraktnyy-klass" class="cctags cctags-block vid-1 level-1 depth-0 count-1 ccfilter tooltip" title="" rel="tag">абстрактный класс</a>&nbsp; <a href="/tags/views" class="cctags cctags-block vid-1 level-2 depth-0 count-2 ccfilter tooltip" title="" rel="tag">Views</a>&nbsp; <a href="/tags/drupal-7" class="cctags cctags-block vid-1 level-7 depth-0 count-7 ccfilter tooltip" title="" rel="tag">Drupal 7</a>&nbsp; <a href="/tags/kontroller" class="cctags cctags-block vid-1 level-1 depth-0 count-1 ccfilter tooltip" title="" rel="tag">контроллер</a>&nbsp; <a href="/tags/reklamodatelyu" class="cctags cctags-block vid-1 level-1 depth-0 count-1 ccfilter tooltip" title="" rel="tag">рекламодателю</a>&nbsp; <a href="/tags/twig" class="cctags cctags-block vid-1 level-2 depth-0 count-2 ccfilter tooltip" title="" rel="tag">Twig</a>&nbsp; <a href="/tags/zend-framework" class="cctags cctags-block vid-1 level-1 depth-0 count-1 ccfilter tooltip" title="" rel="tag">Zend Framework</a>&nbsp; <a href="/tags/interfeys" class="cctags cctags-block vid-1 level-1 depth-0 count-1 ccfilter tooltip" title="" rel="tag">интерфейс</a>&nbsp; <a href="/tags/billmanager" class="cctags cctags-block vid-1 level-2 depth-0 count-2 ccfilter tooltip" title="" rel="tag">BILLmanager</a>&nbsp; <a href="/tags/sobesedovanie" class="cctags cctags-block vid-1 level-1 depth-0 count-1 ccfilter tooltip" title="" rel="tag">собеседование</a>&nbsp; <a href="/tags/karta-sayta" class="cctags cctags-block vid-1 level-1 depth-0 count-1 ccfilter tooltip" title="" rel="tag">Карта сайта</a>&nbsp; </div>	  <div class="alltags"><a href="http://trish.in/tags">Все теги</a><div>
+    </div>
+  </div>
+</section><div id="block-block-10" class="block block-block">
+  <div class="block-inner clearfix">
+                <div class="block-content">
+      <script type="text/javascript">
+<!--//--><![CDATA[// ><!--
+<!--
+google_ad_client = "ca-pub-2257597517294996";
+/* Широкий небоскреб */
+google_ad_slot = "8128525653";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+
+//--><!]]>
+</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+<!--//--><![CDATA[// ><!--
+
+
+//--><!]]>
+</script>    </div>
+  </div>
+</div>
+  </div>
+      <div class="region region-sidebar-second sidebar">
+    <div id="block-block-5" class="block block-block">
+  <div class="block-inner clearfix">
+                <div class="block-content">
+      <script type="text/javascript">
+<!--//--><![CDATA[// ><!--
+<!--
+google_ad_client = "ca-pub-2257597517294996";
+/* minitower */
+google_ad_slot = "5800714996";
+google_ad_width = 120;
+google_ad_height = 600;
+//-->
+//--><!]]>
+</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>    </div>
+  </div>
+</div>
+<div id="block-block-12" class="block block-block">
+  <div class="block-inner clearfix">
+                <div class="block-content">
+      <script type="text/javascript">
+<!--//--><![CDATA[// ><!--
+<!--
+google_ad_client = "ca-pub-2257597517294996";
+/* minitower */
+google_ad_slot = "5800714996";
+google_ad_width = 120;
+google_ad_height = 600;
+//-->
+//--><!]]>
+</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>    </div>
+  </div>
+</div>
+<section id="block-disqus-disqus-recent-comments" class="block block-disqus">
+  <div class="block-inner clearfix">
+              <h2 class="block-title">Последние комментарии</h2>
+            <div class="block-content">
+      <div id="dsq-recentcomments" class="dsq-widget"><script type="text/javascript" src="http://disqus.com/forums/trishin/recent_comments_widget.js?num_items=3&amp;excerpt_length=100&avatar_size=32"></script></div>    </div>
+  </div>
+</section>
+  </div>
+  </div></div> <!-- /columns -->
+
+   <!-- /tertiary-content -->
+
+  <!-- Four column Gpanel -->
+  
+      <footer id="footer"><div id="footer-inner" class="clearfix">
+        <div class="region region-footer">
+    <div id="block-block-1" class="block block-block">
+  <div class="block-inner clearfix">
+                <div class="block-content">
+      <p><a href="/rss.xml" title="Подписаться на ленту «Trish.in RSS»"><img typeof="foaf:Image" src="http://trish.in/misc/feed.png" width="16" height="16" alt="Подписаться на ленту «Trish.in RSS»" /></a></p>
+<!-- Yandex.Metrika informer --><p><a href="http://metrika.yandex.ru/stat/?id=7337692&amp;from=informer" target="_blank" rel="nofollow"><img src="//bs.yandex.ru/informer/7337692/3_0_E0E0E0FF_C0C0C0FF_0_pageviews" style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)" onclick="try{Ya.Metrika.informer({i:this,id:7337692,type:0,lang:'ru'});return false}catch(e){}" /></a></p>
+<!-- /Yandex.Metrika informer --><!-- Yandex.Metrika counter --><div style="display:none;">
+<script type="text/javascript">
+<!--//--><![CDATA[// ><!--
+(function(w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter7337692 = new Ya.Metrika({id:7337692, enableAll: true, webvisor:true}); } catch(e) { } }); })(window, "yandex_metrika_callbacks");
+//--><!]]>
+</script></div>
+<script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script><p></p><noscript>
+<div><img src="//mc.yandex.ru/watch/7337692" style="position:absolute; left:-9999px;" alt="" /></div>
+<p></p></noscript>
+<!-- /Yandex.Metrika counter --><!-- begin of Top100 code --><script id="top100Counter" type="text/javascript" src="http://counter.rambler.ru/top100.jcn?2508116"></script><p></p><noscript><br /><noindex><a rel="nofollow" href="http://top100.rambler.ru/navi/2508116/"><br /><img src="http://counter.rambler.ru/top100.cnt?2508116" alt="Rambler's Top100" border="0" /><br /></a></noindex><p></p></noscript>
+<!-- end of Top100 code -->    </div>
+  </div>
+</div>  </div>
+ <!-- /footer region -->
+    </div></footer> <!-- /footer/footer-inner -->
+  
+</div> <!-- /page -->
+  <script type="text/javascript" src="http://trish.in/sites/default/files/js/js_Rk5YIkK6m2gKTGH-GrMu0pM_PlMKXnI0ktQUgXw1XgA.js"></script>
+  
+  
+<script type="text/javascript" charset="utf-8">
+var proto = (document.location.protocol=='https:')?'https:':'http:';
+var host = proto+'//widget.copiny.com';
+document.write(unescape("%3Cscript src='" + host + "/static/js/widget.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript" charset="utf-8">
+        var copinyWidgetOptions = {
+	position: 'right',
+        hostcommunity:'http://trishin.copiny.com',
+        newwindow: '0',
+        type: 'idea',
+	color: 	  '#0020ed',
+        border:   '#ffffff',
+	round:    '1',
+	title:	  'Обратная связь',
+        cache:   '9ca936d041c7637244c3fb8ef4a8ea6c/9ca936d041c7637244c3fb8ef4a8ea6c/ejOwVXUxULV0BZFOhqouhqoWBmC2AZhtBGa7IIm4aYMpQ7CQEUQIzDYHs50B',
+        community:1753
+};
+initCopinyWidget(copinyWidgetOptions);
+CopinyWidget.showTab();
+</script>
+  
+</body>
+</html>

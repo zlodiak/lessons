@@ -1,0 +1,12 @@
+include("C:/os/domains/localhost/modx_8/assets/connections/connect.php");
+
+$query="SELECT * FROM modx_site_templates";
+$result = mysql_query($query) or die("Query failed");
+while ($line = mysql_fetch_row($result)) { 
+	print "<p>$line[3]</p>";
+} 	
+	
+$currentResource = $modx->getOption('site_start');
+$modx->setPlaceholder('options1', 'opa1'); 
+$modx->setPlaceholder('options2', 'opa2'); 
+$modx->setPlaceholder('trrows', $currentResource);

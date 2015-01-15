@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1251">
+	<title>CSS3 support in Internet Explorer 6, 7, and 8</title>
+
+	<link rel="stylesheet" type="text/css" href="CSS3%20support%20in%20Internet%20Explorer%206,%207,%20and%208_files/page_styles.css">
+
+	<style type="text/css">
+		/* IE-CSS3-enabled elements: */
+		h1 {
+			font-size: 16pt;
+			margin: 0 0 25px 0;
+			text-align: center;
+			text-shadow: 1px 1px 2px #888888;
+			behavior: url(ie-css3.htc);
+		}
+
+		.box1 {
+			background-color: #f0f0f0;
+			width: 740px;
+			margin: 0 auto 15px auto;
+			padding: 20px 35px;
+			border: 1px solid #d7d7d7;
+
+			-moz-border-radius: 11px;
+			-webkit-border-radius: 11px;
+			border-radius: 11px;
+			behavior: url(ie-css3.htc);
+		}
+		.box2 {
+			background: transparent url(ashera.jpg); no-repeat top left;
+			width: 414px;
+			height: 262px;
+			margin: 0 auto 35px auto;
+			padding: 15px;
+			border: 11px solid #c6ac6c;
+			position: relative;
+			margin-top: 35px;
+
+			-moz-border-radius: 32px;
+			-webkit-border-radius: 32px;
+			border-radius: 32px;
+
+			-moz-box-shadow: 10px 10px 10px #000;
+			-webkit-box-shadow: 10px 10px 10px #000;
+			box-shadow: 10px 10px 10px #000;
+
+			z-index: 2;
+
+			behavior: url(ie-css3.htc);
+		}
+
+		/* The script works with absolutely positioned elements too */
+		.box3 {
+			background-color: #ddd;
+			width: 110px;
+			height: 25px;
+			padding: 20px;
+			position: absolute;
+			top: 1px; left: 1px;
+			text-align: center;
+			font-weight: bold;
+
+			-moz-border-radius: 15px;
+			-webkit-border-radius: 15px;
+			border-radius: 15px;
+
+			-moz-box-shadow: 10px 10px 20px #000;
+			-webkit-box-shadow: 10px 10px 10px #000;
+			box-shadow: 10px 10px 20px #000;
+
+			behavior: url(ie-css3.htc);
+		}
+
+		.box2 div {
+			position: absolute;
+			bottom: 10px;
+			left: 0px;
+			width: 100%;
+			text-align: center;
+			font-weight: bold;
+			font-size: 13pt;
+			color: #ffd550;
+			_bottom: 21px; /* IE6 */
+			_width: 108%; /* IE6 */
+			/* IE6 workarounds are ugly, I know. Just feeling lazy right now... */
+		}
+
+		.rel {
+			margin: 30px 0 0 33px;
+			padding: 0;
+			position: relative;
+			zoom: 1; /* IE6 */
+		}
+
+		code {
+			padding: 0 1ex;
+			background: #fff;
+			border: 1px solid #ddd;
+			white-space: nowrap;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="rel">
+		<div class="box1">
+			<h1>CSS3 support for Internet Explorer 6, 7, and 8</h1>
+
+			<h3>What is it?</h3>
+			<p>IE-CSS3 is a script to provide Internet Explorer support for some new styles available in the upcoming CSS3 standard.</p>
+
+			<h3>How it works</h3>
+			<p>If you're viewing this page in Internet Explorer, some of the 
+elements have been rebuilt by the script in Vector Markup Language 
+(VML), an IE-specific vector drawing language. VML supports things that 
+are missing from IE's CSS implementation like rounded corners and blur 
+effects.</p>
+
+			<h3>How to use it</h3>
+			<p>
+				Just add CSS styles as you normally would, but include one new line:
+</p><pre>.box {
+  -moz-border-radius: 15px; /* Firefox */
+  -webkit-border-radius: 15px; /* Safari and Chrome */
+  border-radius: 15px; /* Opera 10.5+, future browsers, and now also Internet Explorer 6+ using IE-CSS3 */
+
+  -moz-box-shadow: 10px 10px 20px #000; /* Firefox */
+  -webkit-box-shadow: 10px 10px 20px #000; /* Safari and Chrome */
+  box-shadow: 10px 10px 20px #000; /* Opera 10.5+, future browsers and IE6+ using IE-CSS3 */
+
+  behavior: url(ie-css3.htc); /* This lets IE know to call the script on all elements which get the 'box' class */
+}
+</pre>
+			<p></p>
+
+			<h3>Issues and Workarounds</h3>
+			<p>You would expect URLs in <code>behavior: url(...)</code> to be relative to the current directory as they are in a <code>background-image: url(...)</code> style for example, but instead Microsoft decided to ignore standards here and make them relative to the docroot instead. So <code>behavior: url(ie-css3.htc)</code> should work if ie-css3.htc is in the root directory of the site.</p>
+
+			<p class="nomargin">You will probably run into issues with z-index, 
+especially if embedding one IE-CSS3 enabled element inside of another. 
+There are two simple workarounds:</p>
+			<ul>
+				<li>Set the z-index of the IE-CSS3 element to a number <strong>larger</strong> than its surrounding elements.</li>
+				<li>Make sure the IE-CSS3 element is positioned, such as with <code>position: relative</code> or <code>position: absolute</code></li>
+			</ul>
+
+			<p class="nomargin">Sometimes an IE-CSS3 element will show up at a 
+slightly different position than the original, untouched element. There 
+could be a few reasons for this:</p>
+			<ul>
+				<li>You have broken tags somewhere in your markup, probably above the IE-CSS3 element.</li>
+				<li>You are experiencing misc IE6 and IE7 bugs. Try adding the styles <code>zoom: 1</code> and/or <code>position: relative</code>
+ to the IE-CSS3 element and its immediate parent. You could also try 
+removing any margins on the IE-CSS3 element and/or its parent, use 
+padding instead.</li>
+			</ul>
+
+			<h3>Styles and their status</h3>
+			<table>
+				<tbody><tr>
+					<th>Style</th>
+					<th>What works</th>
+					<th>What doesn't work</th>
+				</tr>
+				<tr>
+					<td>border-radius</td>
+					<td>
+						<ul>
+							<li>Setting a radius for all four corners</li>
+							<li>Element borders</li>
+						</ul>
+					</td>
+					<td>
+						<ul>
+							<li>Setting a radius for individual corners separately</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<td>box-shadow</td>
+					<td>
+						<ul>
+							<li>Blur size</li>
+							<li>Offset</li>
+						</ul>
+					</td>
+					<td>
+						<ul>
+							<li>Any color other than #000</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<td>text-shadow</td>
+					<td>
+						<ul>
+							<li>Blur size</li>
+							<li>Offset</li>
+							<li>Color</li>
+						</ul>
+					</td>
+					<td>
+						<ul>
+							<li>The shadow looks a little bit different than it does in FF/Safari/Chrome, I'm not sure why</li>
+						</ul>
+					</td>
+				</tr>
+			</tbody></table>
+
+			<h3>TODO</h3>
+			<p>A better site for this script :)</p>
+
+			<div class="box2">
+				<div>This cat does not approve of square corners.</div>
+			</div>
+
+			<p>Thanks to <a href="http://www.htmlremix.com/css/curved-corner-border-radius-cross-browser">Remiz Rahnas</a> for writing the original script that this is based off of.</p>
+		</div>
+		<div class="box3">
+			<a href="http://fetchak.com/ie-css3/ie-css3.htc">Download</a>
+		</div>
+	</div>
+
+
+
+</body></html>

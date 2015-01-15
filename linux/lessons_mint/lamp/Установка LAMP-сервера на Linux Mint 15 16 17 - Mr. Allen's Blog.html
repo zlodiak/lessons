@@ -1,0 +1,1075 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru-RU">
+<head profile="http://gmpg.org/xfn/11">
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
+	<title>Установка LAMP-сервера на Linux Mint 15/16/17 - Mr. Allen's Blog</title>
+<meta name="Description" content="LAMP-сервер, это полнофункциональный WEB-сервер, включающий в себя Linux, Apache, MySQL и PHP. Отсюда и идет название - LAMP. Этот сервер нужен для локального тестирования сайтов и последующей выгрузк" />
+<meta name="Keywords" content="Установка,LAMP-сервера,на,Linux,Mint,15/16/17,Apache,apt-get,How-To,LAMP,Linux,Linux Mint,Mint,MySQL,PHP,root,SSH,Web,Интернет,Терминал,Browser,How To,Linux,Mac,Web,Wordpress" />
+
+	<link rel="alternate" type="application/rss+xml" title="Mr. Allen&#039;s Blog &raquo; Лента" href="http://www.mr-allen.net/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Mr. Allen&#039;s Blog &raquo; Лента комментариев" href="http://www.mr-allen.net/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Mr. Allen&#039;s Blog &raquo; Лента комментариев к &laquo;Установка LAMP-сервера на Linux Mint 15/16/17&raquo;" href="http://www.mr-allen.net/2013/11/installing-lamp-on-linux-mint-15-16-17/feed/" />
+<link rel='stylesheet' id='wuc_font-css'  href='http://fonts.googleapis.com/css?family=Open+Sans%3A300italic%2C400%2C600&#038;ver=4.0' type='text/css' media='all' />
+<link rel='stylesheet' id='wuc_style-css'  href='http://www.mr-allen.net/wp-content/plugins/wp-construction-mode/style/style.css?ver=1.8' type='text/css' media='all' />
+<link rel='stylesheet' id='jetpack-subscriptions-css'  href='http://www.mr-allen.net/wp-content/plugins/jetpack/modules/subscriptions/subscriptions.css?ver=4.0' type='text/css' media='all' />
+<link rel='stylesheet' id='crayon-css'  href='http://www.mr-allen.net/wp-content/plugins/crayon-syntax-highlighter/css/min/crayon.min.css?ver=2.6.6' type='text/css' media='all' />
+<link rel='stylesheet' id='crayon-theme-classic-css'  href='http://www.mr-allen.net/wp-content/plugins/crayon-syntax-highlighter/themes/classic/classic.css?ver=2.6.6' type='text/css' media='all' />
+<link rel='stylesheet' id='crayon-font-monaco-css'  href='http://www.mr-allen.net/wp-content/plugins/crayon-syntax-highlighter/fonts/monaco.css?ver=2.6.6' type='text/css' media='all' />
+<link rel='stylesheet' id='fb_data_style-css'  href='http://www.mr-allen.net/wp-content/plugins/feedburner-form/control/fbstyle.css?ver=4.0' type='text/css' media='all' />
+<link rel='stylesheet' id='jetpack-widgets-css'  href='http://www.mr-allen.net/wp-content/plugins/jetpack/modules/widgets/widgets.css?ver=20121003' type='text/css' media='all' />
+<link rel='stylesheet' id='quick_chat_style_sheet-css'  href='http://www.mr-allen.net/wp-content/plugins/quick-chat/css/quick-chat.css?ver=4.0' type='text/css' media='all' />
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='quick_chat_ie_style_sheet-css'  href='http://www.mr-allen.net/wp-content/plugins/quick-chat/css/quick-chat-ie.css?ver=4.0' type='text/css' media='all' />
+<![endif]-->
+<link rel='stylesheet' id='widget-grid-and-list-css'  href='http://www.mr-allen.net/wp-content/plugins/jetpack/modules/widgets/widget-grid-and-list.css?ver=4.0' type='text/css' media='all' />
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js?ver=4.0'></script>
+<script type='text/javascript' src='http://maps.google.com/maps/api/js?sensor=false&#038;ver=3'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var quicktagsL10n = {"closeAllOpenTags":"\u0417\u0430\u043a\u0440\u044b\u0442\u044c \u0432\u0441\u0435 \u043e\u0442\u043a\u0440\u044b\u0442\u044b\u0435 \u0442\u0435\u0433\u0438","closeTags":"\u0437\u0430\u043a\u0440\u044b\u0442\u044c \u0442\u0435\u0433\u0438","enterURL":"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0430\u0434\u0440\u0435\u0441 (URL)","enterImageURL":"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0430\u0434\u0440\u0435\u0441 (URL) \u043a\u0430\u0440\u0442\u0438\u043d\u043a\u0438","enterImageDescription":"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u044f","fullscreen":"\u043d\u0430 \u0432\u0435\u0441\u044c \u044d\u043a\u0440\u0430\u043d","toggleFullscreen":"\u041f\u043e\u043b\u043d\u043e\u044d\u043a\u0440\u0430\u043d\u043d\u044b\u0439 \u0440\u0435\u0436\u0438\u043c","textdirection":"\u043d\u0430\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u0442\u0435\u043a\u0441\u0442\u0430","toggleTextdirection":"\u041f\u0435\u0440\u0435\u043a\u043b\u044e\u0447\u0438\u0442\u044c \u043d\u0430\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u0442\u0435\u043a\u0441\u0442\u0430 \u0432 \u0440\u0435\u0434\u0430\u043a\u0442\u043e\u0440\u0435"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.mr-allen.net/wp-includes/js/quicktags.min.js?ver=4.0'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.6.6","is_admin":"0","ajaxurl":"http:\/\/www.mr-allen.net\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"\u041d\u0430\u0436\u043c\u0438\u0442\u0435 %s \u0434\u043b\u044f \u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u044f, %s \u0434\u043b\u044f \u0432\u0441\u0442\u0430\u0432\u043a\u0438","minimize":"Click To Expand Code"};
+var CrayonTagEditorSettings = {"home_url":"http:\/\/www.mr-allen.net","css":"crayon-te","css_selected":"crayon-selected","code_css":"#crayon-code","url_css":"#crayon-url","url_info_css":"#crayon-te-url-info","lang_css":"#crayon-lang","title_css":"#crayon-title","mark_css":"#crayon-mark","range_css":"#crayon-range","inline_css":"crayon-inline","inline_hide_css":"crayon-hide-inline","inline_hide_only_css":"crayon-hide-inline-only","hl_css":"#crayon-highlight","switch_html":"#content-html","switch_tmce":"#content-tmce","tinymce_button_generic":".mce-btn","tinymce_button":"a.mce_crayon_tinymce,.mce-i-crayon_tinymce","tinymce_button_unique":"mce_crayon_tinymce","tinymce_highlight":"mce-active","submit_css":"#crayon-te-ok","cancel_css":"#crayon-te-cancel","content_css":"#crayon-te-content","dialog_title_css":"#crayon-te-title","submit_wrapper_css":"#crayon-te-submit-wrapper","data_value":"data-value","attr_sep":":","css_sep":"_","fallback_lang":"default","dialog_title_add":"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u043a\u043e\u0434 Crayon","dialog_title_edit":"\u0418\u0437\u043c\u0435\u043d\u0438\u0442\u044c \u043a\u043e\u0434 Crayon","submit_add":"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c","submit_edit":"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c","bar":"#crayon-te-bar","bar_content":"#crayon-te-bar-content","extensions":{"scpt":"applescript","applescript":"applescript","swf":"as","fla":"as","cs":"c#","h":"c++","hh":"c++","hpp":"c++","hxx":"c++","h++":"c++","cc":"c++","cpp":"c++","cxx":"c++","c++":"c++","pas":"delphi","java":"java","class":"java","jar":"java","mv":"miva","mvc":"miva","mvt":"miva","m":"objc","mm":"objc","pl":"perl","py":"python","pyw":"python","pyc":"python","pyo":"python","pyd":"python","rb":"ruby","rbx":"ruby","rhtml":"ruby","vbs":"vb"}};
+var CrayonSyntaxSettings = {"version":"2.6.6","is_admin":"0","ajaxurl":"http:\/\/www.mr-allen.net\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"\u041d\u0430\u0436\u043c\u0438\u0442\u0435 %s \u0434\u043b\u044f \u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u044f, %s \u0434\u043b\u044f \u0432\u0441\u0442\u0430\u0432\u043a\u0438","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.mr-allen.net/wp-content/plugins/crayon-syntax-highlighter/js/min/crayon.te.min.js?ver=2.6.6'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.mr-allen.net/xmlrpc.php?rsd" />
+<link rel='prev' title='SSH и X11 &#8211; запуск X-программ через SSH' href='http://www.mr-allen.net/2013/10/ssh-and-x11-applicatons/' />
+<link rel='next' title='Все обновления Windows 8 и 8.1 до 11 ноября 2013' href='http://www.mr-allen.net/2013/11/windows-8-all-updates-november-2013/' />
+<link rel='canonical' href='http://www.mr-allen.net/2013/11/installing-lamp-on-linux-mint-15-16-17/' />
+<link rel='shortlink' href='http://wp.me/p3UVCw-9j' />
+			<link rel='alternate' type='application/rss+xml' title="Форумы в RSS" href="http://www.mr-allen.net/wp-content/plugins/mingleforum/feed.php?topic=all" /> <link rel="shortcut icon" href="http://mr-allen.net/wp-content/uploads/2013/12/favicon.ico" type="image/x-icon" />
+					<script type="text/javascript" src="http://www.mr-allen.net/wp-content/themes/architecture/js/dpagination.js"></script>
+						
+				<link rel="stylesheet" href="http://www.mr-allen.net/wp-content/themes/architecture/css/index.css" type="text/css" media="screen, projection" />
+				<link rel="stylesheet" href="http://www.mr-allen.net/wp-content/themes/architecture/css/wide.css" type="text/css" media="screen and (min-width:1024px)" />
+				<!--[if lt IE 9]>
+				<link rel="stylesheet" href="http://www.mr-allen.net/wp-content/themes/architecture/css/wide.css" type="text/css" media="screen" />
+				<link rel="stylesheet" href="http://www.mr-allen.net/wp-content/themes/architecture/css/ie.css" type="text/css" media="screen" />
+				<![endif]-->
+				<link rel="stylesheet" href="http://www.mr-allen.net/wp-content/themes/architecture/css/mobile.css" type="text/css" media="screen and (min-width:240px) and (max-width:639px)" />
+				<link rel="stylesheet" href="http://www.mr-allen.net/wp-content/themes/architecture/css/tablet.css" type="text/css" media="screen and (min-width:640px) and (max-width:1023px)" />
+				<link rel="stylesheet" href="http://www.mr-allen.net/wp-content/themes/architecture/style.css" type="text/css" media="screen, projection" />
+				<link rel="stylesheet" href="http://www.mr-allen.net/wp-content/themes/architecture/css/shortcode.css" type="text/css" media="screen, projection" />
+				<script type="text/javascript" src="http://www.mr-allen.net/wp-content/themes/architecture/js/superfish.js?ver=3.3.1"></script>
+				<script type="text/javascript" src="http://www.mr-allen.net/wp-content/themes/architecture/js/smthemes.js?ver=657"></script>
+				<script src="http://www.mr-allen.net/wp-content/themes/architecture/js/jquery.cycle.all.js" type="text/javascript"></script>
+						<script type="text/javascript">
+				jQuery(document).ready(function() {
+
+								jQuery(document).ready(function() {
+				jQuery('.fp-slides').cycle({
+					fx: 'scrollDown',
+					timeout: 7000,
+					delay: 0,
+					speed: 1000,
+					next: '.fp-next',
+					prev: '.fp-prev',
+					pager: '.fp-pager',
+					continuous: 0,
+					sync: 1,
+					pause: 7000,
+					pauseOnPagerHover: 1,
+					cleartype: true,
+					cleartypeNoBg: true
+				});
+			});
+								jQuery(".menus .children").addClass('sub-menu');
+									if ( jQuery(document).width() > 1023 ) jQuery(function(){ 
+	jQuery('ul.menus').superfish({ 
+	animation: {height:'show'},				
+								autoArrows:  true,
+                dropShadows: false, 
+                speed: 200,
+                delay: 800                });
+            });
+								jQuery('textarea[name="comment"]').each(function(){
+						jQuery(this).attr('name','c09b1');
+					});
+					jQuery('.feedback input').each(function(){
+						jQuery(this).attr('name','c09b1['+jQuery(this).attr('name')+']');
+					});
+					jQuery('.feedback textarea').each(function(){
+						jQuery(this).attr('name','c09b1['+jQuery(this).attr('name')+']');
+					});
+				});
+			</script>
+				<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Установка LAMP-сервера на Linux Mint 15/16/17" />
+<meta property="og:url" content="http://www.mr-allen.net/2013/11/installing-lamp-on-linux-mint-15-16-17/" />
+<meta property="og:description" content="LAMP-сервер, это полнофункциональный WEB-сервер, включающий в себя Linux, Apache, MySQL и PHP. Отсюда и идет название - LAMP. Этот сервер нужен для локального тестирования сайтов и последующей выгр..." />
+<meta property="article:published_time" content="2013-11-02T14:37:46+00:00" />
+<meta property="article:modified_time" content="2014-06-12T18:59:39+00:00" />
+<meta property="article:author" content="http://www.mr-allen.net/author/root/" />
+<meta property="og:site_name" content="Mr. Allen&#039;s Blog" />
+<meta property="og:image" content="http://www.mr-allen.net/wp-content/uploads/2013/11/lamp-server.jpg" />
+<meta name="twitter:site" content="@jetpack" />
+<meta name="twitter:image:src" content="http://www.mr-allen.net/wp-content/uploads/2013/11/lamp-server.jpg?w=640" />
+<meta name="twitter:card" content="summary_large_image" />
+	
+	<style type="text/css"></style>
+	
+		
+	
+</head>
+
+<body class="single single-post postid-577 single-format-standard  content-r" layout='2'>
+
+<div id='scrollUp'><img src='http://www.mr-allen.net/wp-content/themes/architecture/images/smt/arrow-up.png' alt='Up' title='Scroll window up' /></div>
+		
+<div id='all'>
+<div id='header'>
+	
+	<div class='container clearfix'>
+	
+		<div id='secondarymenu-container'>
+
+			<div id="logo">
+								<a href='http://www.mr-allen.net/'><img src='http://mr-allen.net/wp-content/uploads/2013/10/logo-11.png' class='logo' alt='Mr. Allen&#039;s Blog' title="Mr. Allen&#039;s Blog" /></a>
+						
+						</div>
+			
+			<div class="menusearch" title="">
+				 
+<div class="searchform" title="">
+    <form method="get" ifaviconffd="searchform" action="http://www.mr-allen.net/"> 
+		<input type='submit' value='' class='searchbtn' />
+        <input type="text" value="Поиск" class='searchtxt' 
+            name="s" id="s"  onblur="if (this.value == '')  {this.value = 'Поиск';}"  
+            onfocus="if (this.value == 'Поиск') {this.value = '';}" 
+        />
+		<div style='clear:both'></div>
+    </form>
+</div><!-- #search -->			</div>
+			
+			<div id='menu-box'>
+			<div id='secondarymenu'>
+				<div class="menu-topmenu-container"><ul id="menu-main-menu" class="menus menu-topmenu"><li id="menu-item-101" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a href="http://www.mr-allen.net/about/">About me</a></li>
+<li id="menu-item-707" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-707"><a href="http://www.mr-allen.net/gallery/">Photo gallery</a></li>
+<li id="menu-item-601" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-601"><a href="http://upload.mr-allen.net">File Storage</a></li>
+<li id="menu-item-787" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-787"><a href="http://mr-allen.net/forum">Forum</a></li>
+<li id="menu-item-1317" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1317"><a href="http://www.mr-allen.net/order/">Order site</a></li>
+</ul></div>				
+			</div>
+			</div>
+			
+		</div>
+		<select class='mobile-menu' id='mobile-sec-menu'><option value='#'>Go to ...</option><option value='http://www.mr-allen.net/about/'>About me</option><option value='http://www.mr-allen.net/gallery/'>Photo gallery</option><option value='http://upload.mr-allen.net'>File Storage</option><option value='http://mr-allen.net/forum'>Forum</option><option value='http://www.mr-allen.net/order/'>Order site</option></select>		<select class='mobile-menu' id='mobile-main-menu'><option value='#'>Go to ...</option>		<script>
+			jQuery(document).ready(function(){
+				jQuery('.menu-primary li').each(function() {
+					jQuery('<option />', {
+					'value':jQuery(this).find('a').attr('href'),
+					'text':jQuery(this).find('a').html()
+					}).appendTo(jQuery('#mobile-main-menu'));
+				});
+			});
+		</script>
+		</select>		<div id='header-block'>
+		
+			<div id='mainmenu-container'>
+				<div id='mainmenu'>
+							 <div class="menu-primary-container">
+			<ul class="menus menu-primary">
+                <li ><a href="http://www.mr-allen.net/">Home</a></li>
+					<li class="cat-item cat-item-1"><a href="http://www.mr-allen.net/category/about-all/" title="Обо всем">About All</a>
+</li>
+	<li class="cat-item cat-item-35"><a href="http://www.mr-allen.net/category/how-to/" >How To</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="http://www.mr-allen.net/category/linux/" >Linux</a>
+</li>
+	<li class="cat-item cat-item-62"><a href="http://www.mr-allen.net/category/mac/" >Mac</a>
+</li>
+	<li class="cat-item cat-item-29"><a href="http://www.mr-allen.net/category/mobile/" >Mobile</a>
+<ul class='children'><div class='transparent'></div><div class='inner'>
+	<li class="cat-item cat-item-65"><a href="http://www.mr-allen.net/category/mobile/android/" >Android</a>
+</li>
+</div></ul>
+</li>
+	<li class="cat-item cat-item-185"><a href="http://www.mr-allen.net/category/notes/" >Notes</a>
+</li>
+	<li class="cat-item cat-item-23"><a href="http://www.mr-allen.net/category/web/" >Web</a>
+<ul class='children'><div class='transparent'></div><div class='inner'>
+	<li class="cat-item cat-item-64"><a href="http://www.mr-allen.net/category/web/browser/" >Browser</a>
+</li>
+	<li class="cat-item cat-item-168"><a href="http://www.mr-allen.net/category/web/hosting/" >Hosting</a>
+</li>
+	<li class="cat-item cat-item-63"><a href="http://www.mr-allen.net/category/web/wordpress/" >Wordpress</a>
+</li>
+</div></ul>
+</li>
+	<li class="cat-item cat-item-28"><a href="http://www.mr-allen.net/category/windows/" >Windows</a>
+<ul class='children'><div class='transparent'></div><div class='inner'>
+	<li class="cat-item cat-item-125"><a href="http://www.mr-allen.net/category/windows/updates/" >Updates</a>
+</li>
+</div></ul>
+</li>
+			</ul>
+		</div>
+						</div>
+			</div>
+							<div class='slider-container'>
+					<div class='slider-bgr'></div>
+									<div class="slider">
+					<div class="fp-slides">
+													<div class="fp-slides-items fp-first">
+															<div class="fp-thumbnail">
+																		<a href="http://mr-allen.net/2013/09/mail-and-yandex-troyans-how-to-remove/" title=""><img src="http://mr-allen.net/wp-content/uploads/2013/09/computer-repair.jpg" alt="Удаление Mail.ru@Защитник, Яндекс.Бар и прочих тулбаров" /></a>
+																	</div>
+																<div class="fp-content-wrap">
+									<div class="fp-content-fon"></div>
+									<div class="fp-content">
+																				<h3 class="fp-title"><a href="http://mr-allen.net/2013/09/mail-and-yandex-troyans-how-to-remove/" title="">Удаление Mail.ru@Защитник, Яндекс.Бар и прочих тулбаров</a></h3>
+																														<p>Данное рекламное программное обеспечение является вредоносном, хотя и маскируется под полезное. Узнайте, как его удалить. 
+																					<a class="fp-more" href="http://mr-allen.net/2013/09/mail-and-yandex-troyans-how-to-remove/">Читать далее...</a>
+																				</p>
+																			</div>
+								</div>
+															</div>
+														<div class="fp-slides-items">
+															<div class="fp-thumbnail">
+																		<a href="http://mr-allen.net/gallery" title=""><img src="http://mr-allen.net/wp-content/uploads/2014/01/the-sea.jpg" alt="Фотогалерея" /></a>
+																	</div>
+																<div class="fp-content-wrap">
+									<div class="fp-content-fon"></div>
+									<div class="fp-content">
+																				<h3 class="fp-title"><a href="http://mr-allen.net/gallery" title="">Фотогалерея</a></h3>
+																														<p>Самые лучшие фотографии, когда либо сделанные мной. 
+																					<a class="fp-more" href="http://mr-allen.net/gallery">Читать далее...</a>
+																				</p>
+																			</div>
+								</div>
+															</div>
+														<div class="fp-slides-items">
+															<div class="fp-thumbnail">
+																		<a href="http://mr-allen.net/2014/01/forum-for-wordpress/" title=""><img src="http://mr-allen.net/wp-content/uploads/2014/01/forum-plugin.jpg" alt="Какой плагин форума выбрать для WordPress?" /></a>
+																	</div>
+																<div class="fp-content-wrap">
+									<div class="fp-content-fon"></div>
+									<div class="fp-content">
+																				<h3 class="fp-title"><a href="http://mr-allen.net/2014/01/forum-for-wordpress/" title="">Какой плагин форума выбрать для WordPress?</a></h3>
+																														<p>Форум для сайта или блога - вещь нужная и привлекающая новых посетителей. Остается только одно - техническая реализация. 
+																					<a class="fp-more" href="http://mr-allen.net/2014/01/forum-for-wordpress/">Читать далее...</a>
+																				</p>
+																			</div>
+								</div>
+															</div>
+														<div class="fp-slides-items">
+															<div class="fp-thumbnail">
+																		<a href="http://www.mr-allen.net/2013/09/the-impovered-functionality-of-zyxel-keenetic-giga-ii/" title=""><img src="http://www.mr-allen.net/wp-content/uploads/2014/04/giga_2.jpg" alt="Расширение возможностей ZyXEL Keenetic Giga 2" /></a>
+																	</div>
+																<div class="fp-content-wrap">
+									<div class="fp-content-fon"></div>
+									<div class="fp-content">
+																				<h3 class="fp-title"><a href="http://www.mr-allen.net/2013/09/the-impovered-functionality-of-zyxel-keenetic-giga-ii/" title="">Расширение возможностей ZyXEL Keenetic Giga 2</a></h3>
+																														<p>Стандартный веб-интерфейс роутера малофункционален. Расширить возможности интерфейса можно достаточно просто... 
+																					<a class="fp-more" href="http://www.mr-allen.net/2013/09/the-impovered-functionality-of-zyxel-keenetic-giga-ii/">Читать далее...</a>
+																				</p>
+																			</div>
+								</div>
+															</div>
+														<div class="fp-slides-items">
+															<div class="fp-thumbnail">
+																		<a href="http://www.mr-allen.net/2013/11/installing-lamp-on-linux-mint-15-16/" title=""><img src="http://www.mr-allen.net/wp-content/uploads/2014/04/server.jpg" alt="Установка LAMP-сервера на Linux Mint 15/16" /></a>
+																	</div>
+																<div class="fp-content-wrap">
+									<div class="fp-content-fon"></div>
+									<div class="fp-content">
+																				<h3 class="fp-title"><a href="http://www.mr-allen.net/2013/11/installing-lamp-on-linux-mint-15-16/" title="">Установка LAMP-сервера на Linux Mint 15/16</a></h3>
+																														<p>Полноценный локальный WEB-сервер на вашем компьютере... или сервере. 
+																					<a class="fp-more" href="http://www.mr-allen.net/2013/11/installing-lamp-on-linux-mint-15-16/">Читать далее...</a>
+																				</p>
+																			</div>
+								</div>
+															</div>
+														<div class="fp-slides-items">
+															<div class="fp-thumbnail">
+																		<a href="http://www.mr-allen.net/2013/10/running-windows-xp-on-the-old-machine/" title=""><img src="http://www.mr-allen.net/wp-content/uploads/2014/04/windows.jpg" alt="Windows XP SP3 - оптимизация работы на старом компьютере" /></a>
+																	</div>
+																<div class="fp-content-wrap">
+									<div class="fp-content-fon"></div>
+									<div class="fp-content">
+																				<h3 class="fp-title"><a href="http://www.mr-allen.net/2013/10/running-windows-xp-on-the-old-machine/" title="">Windows XP SP3 - оптимизация работы на старом компьютере</a></h3>
+																														<p>Старый компьютер может работать очень быстро, но для этого надо произвести оптимизацию. 
+																					<a class="fp-more" href="http://www.mr-allen.net/2013/10/running-windows-xp-on-the-old-machine/">Читать далее...</a>
+																				</p>
+																			</div>
+								</div>
+															</div>
+														<div class="fp-slides-items">
+															<div class="fp-thumbnail">
+																		<a href="http://www.mr-allen.net/order" title=""><img src="http://www.mr-allen.net/wp-content/uploads/2014/04/html_code.jpg" alt="Мои услуги" /></a>
+																	</div>
+																<div class="fp-content-wrap">
+									<div class="fp-content-fon"></div>
+									<div class="fp-content">
+																				<h3 class="fp-title"><a href="http://www.mr-allen.net/order" title="">Мои услуги</a></h3>
+																														<p>Я предоставляю услуги по созданию сайтов как на Wordpress, так и на чистом HTML. 
+																					<a class="fp-more" href="http://www.mr-allen.net/order">Читать далее...</a>
+																				</p>
+																			</div>
+								</div>
+															</div>
+														<div class="fp-slides-items">
+															<div class="fp-thumbnail">
+																		<a href="http://www.mr-allen.net/2014/04/how-to-install-linux-on-samsung-galaxy-note-3/" title=""><img src="http://www.mr-allen.net/wp-content/uploads/2014/04/android.png" alt="Установка Linux на Samsung Galaxy Note 3" /></a>
+																	</div>
+																<div class="fp-content-wrap">
+									<div class="fp-content-fon"></div>
+									<div class="fp-content">
+																				<h3 class="fp-title"><a href="http://www.mr-allen.net/2014/04/how-to-install-linux-on-samsung-galaxy-note-3/" title="">Установка Linux на Samsung Galaxy Note 3</a></h3>
+																														<p>Вы никогда не думали, что ваш смартфон может быть нечто большем, чем просто смартфон, например ... полноценным компьютером? 
+																					<a class="fp-more" href="http://www.mr-allen.net/2014/04/how-to-install-linux-on-samsung-galaxy-note-3/">Читать далее...</a>
+																				</p>
+																			</div>
+								</div>
+															</div>
+												</div>
+					<div class="fp-prev-next-wrap">
+						<div class="fp-prev-next">
+							<a href="#fp-next" class="fp-next"></a>
+							<a href="#fp-prev" class="fp-prev"></a>
+						</div>
+					</div>
+					<div class="fp-nav">
+						<span class="fp-pager">&nbsp;</span>
+					</div>  
+					<div class='bground'></div>
+				</div>
+				
+								</div>			
+		</div>
+		
+		
+	</div>
+</div>
+
+<div id='content-top' class='container'></div>
+<div id='content'>
+	<div class='container clearfix'>
+	
+		
+	<div class='sidebar right clearfix'>
+		<div id="meta-3" class="widget widget_meta"><div class="inner"><div class="caption"><h3>Menu</h3></div>			<ul>
+			<li><a href="http://www.mr-allen.net/wp-login.php?action=register">Регистрация</a></li>			<li><a href="http://www.mr-allen.net/wp-login.php">Войти</a></li>
+			<li><a href="http://www.mr-allen.net/feed/"><abbr title="Really Simple Syndication">RSS</abbr> записей</a></li>
+			<li><a href="http://www.mr-allen.net/comments/feed/"><abbr title="Really Simple Syndication">RSS</abbr> комментариев</a></li>
+<li><a href="http://ru.wordpress.org/" title="Сайт работает на WordPress &#8212; современной персональной платформе для публикаций.">WordPress.org</a></li>			</ul>
+</div></div><div id="text-8" class="widget widget_text"><div class="inner"><div class="caption"><h3>Donate</h3></div>			<div class="textwidget"><center>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="5ACWC9HM75QBW">
+<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypalobjects.com/ru_RU/i/scr/pixel.gif" width="1" height="1">
+</form>
+</center></div>
+		</div></div><div id="text-12" class="widget widget_text"><div class="inner"><div class="caption"><h3>Order site!</h3></div>			<div class="textwidget">Вы можете заказать у меня высококачественные сайты по демократической цене.
+<br>
+<p style="text-align: center;"><span style="color: #ffffff;"><a class="btn blue big" href="http://www.mr-allen.net/order"><span style="color: #ffffff;">Заказать сайт</span></a></span></p>
+<p style="text-align: center;"><span style="color: #ffffff;"><a class="btn green big" href="http://www.mr-allen.net/about"><span style="color: #ffffff;">Информация обо мне</span></a></span></p></div>
+		</div></div><div id="text-10" class="widget widget_text"><div class="inner"><div class="caption"><h3>Subscribe</h3></div>			<div class="textwidget"><form style="border:1px solid #ccc;padding:3px;text-align:center;" action="http://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('http://feedburner.google.com/fb/a/mailverify?uri=mr-allen', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true"><p>Enter your email address:</p><p><input type="text" style="width:140px" name="email"/></p><input type="hidden" value="mr-allen" name="uri"/><input type="hidden" name="loc" value="ru_RU"/><input type="submit" value="Subscribe" /><p>Delivered by <a href="http://feedburner.google.com" target="_blank">FeedBurner</a></p></form></div>
+		</div></div><div id="text-11" class="widget widget_text"><div class="inner"><div class="caption"><h3>Ads</h3></div>			<div class="textwidget"><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Side_02 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:160px;height:600px"
+     data-ad-client="ca-pub-7165755301283817"
+     data-ad-slot="3658447531"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+		</div></div><div id="tag_cloud-2" class="widget widget_tag_cloud"><div class="inner"><div class="caption"><h3>Tags cloud</h3></div><div class="tagcloud"><a href='http://www.mr-allen.net/tag/adaway/' class='tag-link-31' title='3 записей' style='font-size: 9.73195876289pt;'>AdAway</a>
+<a href='http://www.mr-allen.net/tag/adb/' class='tag-link-98' title='5 записей' style='font-size: 12.3298969072pt;'>Adb</a>
+<a href='http://www.mr-allen.net/tag/adblock/' class='tag-link-30' title='3 записей' style='font-size: 9.73195876289pt;'>AdBlock</a>
+<a href='http://www.mr-allen.net/tag/android/' class='tag-link-65' title='7 записей' style='font-size: 14.0618556701pt;'>Android</a>
+<a href='http://www.mr-allen.net/tag/apt-get/' class='tag-link-10' title='7 записей' style='font-size: 14.0618556701pt;'>apt-get</a>
+<a href='http://www.mr-allen.net/tag/arch/' class='tag-link-12' title='3 записей' style='font-size: 9.73195876289pt;'>Arch</a>
+<a href='http://www.mr-allen.net/tag/bash/' class='tag-link-77' title='5 записей' style='font-size: 12.3298969072pt;'>bash</a>
+<a href='http://www.mr-allen.net/tag/debian/' class='tag-link-14' title='4 записей' style='font-size: 11.175257732pt;'>Debian</a>
+<a href='http://www.mr-allen.net/tag/gentoo/' class='tag-link-11' title='3 записей' style='font-size: 9.73195876289pt;'>Gentoo</a>
+<a href='http://www.mr-allen.net/tag/how-to-2/' class='tag-link-43' title='27 записей' style='font-size: 22pt;'>How-To</a>
+<a href='http://www.mr-allen.net/tag/htop/' class='tag-link-74' title='3 записей' style='font-size: 9.73195876289pt;'>Htop</a>
+<a href='http://www.mr-allen.net/tag/linux/' class='tag-link-5' title='21 записей' style='font-size: 20.412371134pt;'>Linux</a>
+<a href='http://www.mr-allen.net/tag/mac/' class='tag-link-62' title='10 записей' style='font-size: 16.0824742268pt;'>Mac</a>
+<a href='http://www.mr-allen.net/tag/mc/' class='tag-link-73' title='3 записей' style='font-size: 9.73195876289pt;'>MC</a>
+<a href='http://www.mr-allen.net/tag/microsoft/' class='tag-link-132' title='6 записей' style='font-size: 13.3402061856pt;'>Microsoft</a>
+<a href='http://www.mr-allen.net/tag/mint/' class='tag-link-13' title='3 записей' style='font-size: 9.73195876289pt;'>Mint</a>
+<a href='http://www.mr-allen.net/tag/mobile/' class='tag-link-29' title='3 записей' style='font-size: 9.73195876289pt;'>Mobile</a>
+<a href='http://www.mr-allen.net/tag/php/' class='tag-link-139' title='4 записей' style='font-size: 11.175257732pt;'>PHP</a>
+<a href='http://www.mr-allen.net/tag/root/' class='tag-link-15' title='15 записей' style='font-size: 18.3917525773pt;'>root</a>
+<a href='http://www.mr-allen.net/tag/security/' class='tag-link-179' title='3 записей' style='font-size: 9.73195876289pt;'>Security</a>
+<a href='http://www.mr-allen.net/tag/shell/' class='tag-link-107' title='3 записей' style='font-size: 9.73195876289pt;'>Shell</a>
+<a href='http://www.mr-allen.net/tag/ssh/' class='tag-link-78' title='8 записей' style='font-size: 14.7835051546pt;'>SSH</a>
+<a href='http://www.mr-allen.net/tag/terminal/' class='tag-link-183' title='4 записей' style='font-size: 11.175257732pt;'>Terminal</a>
+<a href='http://www.mr-allen.net/tag/update/' class='tag-link-126' title='7 записей' style='font-size: 14.0618556701pt;'>Update</a>
+<a href='http://www.mr-allen.net/tag/update-center/' class='tag-link-127' title='9 записей' style='font-size: 15.5051546392pt;'>Update Center</a>
+<a href='http://www.mr-allen.net/tag/updates/' class='tag-link-125' title='10 записей' style='font-size: 16.0824742268pt;'>Updates</a>
+<a href='http://www.mr-allen.net/tag/web/' class='tag-link-23' title='17 записей' style='font-size: 19.2577319588pt;'>Web</a>
+<a href='http://www.mr-allen.net/tag/webdeveloper/' class='tag-link-50' title='8 записей' style='font-size: 14.7835051546pt;'>WebDeveloper</a>
+<a href='http://www.mr-allen.net/tag/wi-fi/' class='tag-link-83' title='3 записей' style='font-size: 9.73195876289pt;'>Wi-Fi</a>
+<a href='http://www.mr-allen.net/tag/windows/' class='tag-link-28' title='20 записей' style='font-size: 20.1237113402pt;'>Windows</a>
+<a href='http://www.mr-allen.net/tag/windows-xp/' class='tag-link-113' title='6 записей' style='font-size: 13.3402061856pt;'>Windows XP</a>
+<a href='http://www.mr-allen.net/tag/wordpress/' class='tag-link-63' title='4 записей' style='font-size: 11.175257732pt;'>Wordpress</a>
+<a href='http://www.mr-allen.net/tag/zyxel-keenetic/' class='tag-link-75' title='3 записей' style='font-size: 9.73195876289pt;'>ZyXEL Keenetic</a>
+<a href='http://www.mr-allen.net/tag/%d0%b1%d0%bb%d0%be%d0%ba%d0%b8%d1%80%d0%be%d0%b2%d0%ba%d0%b0-%d1%80%d0%b5%d0%ba%d0%bb%d0%b0%d0%bc%d1%8b/' class='tag-link-33' title='3 записей' style='font-size: 9.73195876289pt;'>Блокировка рекламы</a>
+<a href='http://www.mr-allen.net/tag/%d0%b4%d0%b0%d0%b3%d0%be%d0%bc%d1%8b%d1%81/' class='tag-link-87' title='3 записей' style='font-size: 9.73195876289pt;'>Дагомыс</a>
+<a href='http://www.mr-allen.net/tag/%d0%bc%d0%b0%d1%80%d1%88%d1%80%d1%83%d1%82%d0%b8%d0%b7%d0%b0%d1%82%d0%be%d1%80/' class='tag-link-82' title='3 записей' style='font-size: 9.73195876289pt;'>Маршрутизатор</a>
+<a href='http://www.mr-allen.net/tag/%d0%bd%d0%b5%d1%82%d0%b1%d1%83%d0%ba/' class='tag-link-7' title='2 записей' style='font-size: 8pt;'>Нетбук</a>
+<a href='http://www.mr-allen.net/tag/%d0%be%d0%b1%d0%bd%d0%be%d0%b2%d0%bb%d0%b5%d0%bd%d0%b8%d0%b5/' class='tag-link-129' title='9 записей' style='font-size: 15.5051546392pt;'>Обновление</a>
+<a href='http://www.mr-allen.net/tag/%d0%be%d0%b1%d0%bd%d0%be%d0%b2%d0%bb%d0%b5%d0%bd%d0%b8%d0%b5-%d1%81%d0%b8%d1%81%d1%82%d0%b5%d0%bc%d1%8b/' class='tag-link-147' title='5 записей' style='font-size: 12.3298969072pt;'>Обновление системы</a>
+<a href='http://www.mr-allen.net/tag/%d0%be%d0%b1%d0%bd%d0%be%d0%b2%d0%bb%d0%b5%d0%bd%d0%b8%d1%8f/' class='tag-link-161' title='4 записей' style='font-size: 11.175257732pt;'>Обновления</a>
+<a href='http://www.mr-allen.net/tag/%d1%80%d0%be%d1%83%d1%82%d0%b5%d1%80/' class='tag-link-81' title='4 записей' style='font-size: 11.175257732pt;'>Роутер</a>
+<a href='http://www.mr-allen.net/tag/%d1%81%d0%ba%d1%80%d0%b8%d0%bf%d1%82/' class='tag-link-21' title='9 записей' style='font-size: 15.5051546392pt;'>Скрипт</a>
+<a href='http://www.mr-allen.net/tag/%d1%82%d0%b5%d1%80%d0%bc%d0%b8%d0%bd%d0%b0%d0%bb/' class='tag-link-9' title='13 записей' style='font-size: 17.6701030928pt;'>Терминал</a>
+<a href='http://www.mr-allen.net/tag/%d1%84%d0%be%d1%82%d0%be/' class='tag-link-92' title='3 записей' style='font-size: 9.73195876289pt;'>Фото</a>
+<a href='http://www.mr-allen.net/tag/%d1%87%d0%bf/' class='tag-link-91' title='3 записей' style='font-size: 9.73195876289pt;'>ЧП</a></div>
+</div></div><div id="archives-2" class="widget widget_archive"><div class="inner"><div class="caption"><h3>Archives</h3></div>		<select name="archive-dropdown" onchange='document.location.href=this.options[this.selectedIndex].value;'>
+			<option value="">Выберите месяц</option>
+
+				<option value='http://www.mr-allen.net/2014/09/'> Сентябрь 2014 &nbsp;(1)</option>
+	<option value='http://www.mr-allen.net/2014/07/'> Июль 2014 &nbsp;(1)</option>
+	<option value='http://www.mr-allen.net/2014/06/'> Июнь 2014 &nbsp;(2)</option>
+	<option value='http://www.mr-allen.net/2014/04/'> Апрель 2014 &nbsp;(4)</option>
+	<option value='http://www.mr-allen.net/2014/03/'> Март 2014 &nbsp;(3)</option>
+	<option value='http://www.mr-allen.net/2014/02/'> Февраль 2014 &nbsp;(6)</option>
+	<option value='http://www.mr-allen.net/2014/01/'> Январь 2014 &nbsp;(7)</option>
+	<option value='http://www.mr-allen.net/2013/12/'> Декабрь 2013 &nbsp;(3)</option>
+	<option value='http://www.mr-allen.net/2013/11/'> Ноябрь 2013 &nbsp;(6)</option>
+	<option value='http://www.mr-allen.net/2013/10/'> Октябрь 2013 &nbsp;(6)</option>
+	<option value='http://www.mr-allen.net/2013/09/'> Сентябрь 2013 &nbsp;(15)</option>
+		</select>
+</div></div><div id="top-posts-2" class="widget widget_top-posts"><div class="inner"><div class="caption"><h3>Top rated</h3></div><ul class='widgets-list-layout no-grav'>
+					<li>
+						<img src="http://i0.wp.com/www.mr-allen.net/wp-content/uploads/2013/09/Keenetic_Giga_II_front.jpeg?resize=40%2C40" class='widgets-list-layout-blavatar' alt="Расширяем функционал ZyXEL Keenetic GIGA II" />
+						<div class="widgets-list-layout-links"><a href="http://www.mr-allen.net/2013/09/the-impovered-functionality-of-zyxel-keenetic-giga-ii/" class="bump-view" data-bump-view="tp">Расширяем функционал ZyXEL Keenetic GIGA II</a></div>
+					</li>
+									<li>
+						<img src="http://i2.wp.com/www.mr-allen.net/wp-content/uploads/2014/01/forum.jpg?resize=40%2C40" class='widgets-list-layout-blavatar' alt="Какой форум выбрать для Wordpress?" />
+						<div class="widgets-list-layout-links"><a href="http://www.mr-allen.net/2014/01/forum-for-wordpress/" class="bump-view" data-bump-view="tp">Какой форум выбрать для Wordpress?</a></div>
+					</li>
+									<li>
+						<img src="http://i1.wp.com/www.mr-allen.net/wp-content/uploads/2014/03/android.png?resize=40%2C40" class='widgets-list-layout-blavatar' alt="Online-эмулятор Android" />
+						<div class="widgets-list-layout-links"><a href="http://www.mr-allen.net/2014/03/online-android-emulator/" class="bump-view" data-bump-view="tp">Online-эмулятор Android</a></div>
+					</li>
+									<li>
+						<img src="http://i2.wp.com/www.mr-allen.net/wp-content/uploads/2013/10/fujitsu.jpg?resize=40%2C40" class='widgets-list-layout-blavatar' alt="Windows XP SP3 - оптимизация работы на старом компьютере" />
+						<div class="widgets-list-layout-links"><a href="http://www.mr-allen.net/2013/10/running-windows-xp-on-the-old-machine/" class="bump-view" data-bump-view="tp">Windows XP SP3 - оптимизация работы на старом компьютере</a></div>
+					</li>
+									<li>
+						<img src="http://i0.wp.com/www.mr-allen.net/wp-content/uploads/2014/02/radmin.jpg?resize=40%2C40" class='widgets-list-layout-blavatar' alt="Radmin Viewer для Mac OS X" />
+						<div class="widgets-list-layout-links"><a href="http://www.mr-allen.net/2014/02/radmin-viewer-for-mac-os-x/" class="bump-view" data-bump-view="tp">Radmin Viewer для Mac OS X</a></div>
+					</li>
+				</ul>
+</div></div><div id="recent-comments-2" class="widget widget_recent_comments"><div class="inner"><div class="caption"><h3>New comments</h3></div><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link"><a href='http://google' rel='external nofollow' class='url'>George</a></span> к записи <a href="http://www.mr-allen.net/2014/01/forum-for-wordpress/#comment-101">Какой форум выбрать для WordPress?</a></li><li class="recentcomments"><span class="comment-author-link"><a href='http://mr-allen.net' rel='external nofollow' class='url'>root</a></span> к записи <a href="http://www.mr-allen.net/2013/09/the-impovered-functionality-of-zyxel-keenetic-giga-ii/#comment-100">Расширяем функционал ZyXEL Keenetic GIGA II</a></li><li class="recentcomments"><span class="comment-author-link">Anton</span> к записи <a href="http://www.mr-allen.net/2013/09/the-impovered-functionality-of-zyxel-keenetic-giga-ii/#comment-99">Расширяем функционал ZyXEL Keenetic GIGA II</a></li><li class="recentcomments"><span class="comment-author-link">agadullinsf</span> к записи <a href="http://www.mr-allen.net/2013/09/the-impovered-functionality-of-zyxel-keenetic-giga-ii/#comment-97">Расширяем функционал ZyXEL Keenetic GIGA II</a></li><li class="recentcomments"><span class="comment-author-link">Татьяна</span> к записи <a href="http://www.mr-allen.net/2014/02/radmin-viewer-for-mac-os-x/#comment-96">Radmin Viewer для Mac OS X</a></li></ul></div></div><div id="text-3" class="widget widget_text"><div class="inner"><div class="caption"><h3>Informaition</h3></div>			<div class="textwidget"><p><!--Openstat--><br />
+<span id="openstat2338229"></span><br />
+<script type="text/javascript">
+var openstat = { counter: 2338229, image: 5083, color: "458efc", next: openstat, track_links: "all" };
+(function(d, t, p) {
+var j = d.createElement(t); j.async = true; j.type = "text/javascript";
+j.src = ("https:" == p ? "https:" : "http:") + "//openstat.net/cnt.js";
+var s = d.getElementsByTagName(t)[0]; s.parentNode.insertBefore(j, s);
+})(document, "script", document.location.protocol);
+</script><br />
+<!--/Openstat--></p>
+<p><!--cy-pr.com--><a href="http://www.cy-pr.com/" target="_blank"><img src="http://www.cy-pr.com/e/www.mr-allen.net_1_107.138.206.gif" border="0" width="88" height="31" alt="Анализ сайта онлайн"/></a><!--cy-pr.com--><br />
+<br></p>
+<p><a href="http://feeds.feedburner.com/mr-allen"><img src="http://feeds.feedburner.com/~fc/mr-allen?bg=99CCFF&amp;fg=444444&amp;anim=1" height="26" width="88" style="border:0" alt="" /></a></p>
+</div>
+		</div></div><div id="useronline-2" class="widget widget_useronline"><div class="inner"><div class="caption"><h3>Online</h3></div><div id="useronline-count"><a href="http://mr-allen.net/useronline"><strong>1 User</strong> now on site</a><br>
+<strong>22</strong> most online</div></div></div>	</div><!-- ddd-->		 <div id="main_content">  <div class='articles'> 		<div class='one-post'>
+			<div id="post-577" class="post-577 post type-post status-publish format-standard has-post-thumbnail hentry category-browser category-how-to category-linux category-mac category-web category-wordpress tag-apache tag-apt-get tag-how-to-2 tag-lamp tag-linux tag-linux-mint tag-mint tag-mysql tag-php tag-root tag-ssh tag-web tag-142 tag-9 post-caption">
+			
+			<span class='post-comments'><a href="http://www.mr-allen.net/2013/11/installing-lamp-on-linux-mint-15-16-17/#respond" title="Прокомментировать запись &laquo;Установка LAMP-сервера на Linux Mint 15/16/17&raquo;">0</a></span>
+							<h1>Установка LAMP-сервера на Linux Mint 15/16/17</h1>
+							
+			
+			</div>
+			
+			
+			<div class='post-body'>
+			<img width="228" height="126" src="http://www.mr-allen.net/wp-content/uploads/2013/11/lamp-server-228x126.jpg" class="alignleft featured_image wp-post-image" alt="lamp-server" />			<p class='post-meta'>
+				<span class='post-date'>02.11.2013</span>&nbsp/
+				Posted in &nbsp;<a href="http://www.mr-allen.net/category/web/browser/" rel="category tag">Browser</a>, <a href="http://www.mr-allen.net/category/how-to/" rel="category tag">How To</a>, <a href="http://www.mr-allen.net/category/linux/" rel="category tag">Linux</a>, <a href="http://www.mr-allen.net/category/mac/" rel="category tag">Mac</a>, <a href="http://www.mr-allen.net/category/web/" rel="category tag">Web</a>, <a href="http://www.mr-allen.net/category/web/wordpress/" rel="category tag">Wordpress</a>			</p>			
+			
+				<p><strong>LAMP-сервер</strong>, это полнофункциональный WEB-сервер, включающий в себя <strong>L</strong>inux, <strong>A</strong>pache, <strong>M</strong>ySQL и <strong>P</strong>HP. Отсюда и идет название &#8211; <strong>LAMP</strong>. Этот сервер нужен для локального тестирования сайтов и последующей выгрузкой из на хостинг или даже для использования своейго компьютера в качестве сервера без хостинга. Но для этого необходимо иметь белый IP-адрес и возможность подключения доменного имени.</p>
+<p>Для начала надо перейли в интерактивный режим <strong>sudo</strong> (sudo -s или sudo -i) и установить <strong>Apache</strong>. После установки при заходе на <strong>80-ый порт</strong> через любой браузер на localhost или IP-адрес машины будет выводиться соббщение, что сервер Apache готов к работе &#8211; <strong>It Works!</strong></p><!-- Crayon Syntax Highlighter v2.6.6 -->
+
+		<div id="crayon-542ae33a1f088123565923" class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-always" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Включить/Отключить нумерацию строк"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Включить/Отключить подсветку кода"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Включить/Отключить перенос строк"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Показать код в новом окне"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+sudo -i
+apt-get install apache2</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-542ae33a1f088123565923-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-542ae33a1f088123565923-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-line" id="crayon-542ae33a1f088123565923-1"><span class="crayon-v">sudo</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-i">i</span></div><div class="crayon-line crayon-striped-line" id="crayon-542ae33a1f088123565923-2"><span class="crayon-v">apt</span><span class="crayon-o">-</span><span class="crayon-e">get </span><span class="crayon-e">install </span><span class="crayon-v">apache2</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0008 seconds] -->
+<p>
+<a href="http://mr-allen.net/wp-content/uploads/2013/11/apache.png"><img class="aligncenter size-full wp-image-578" src="http://mr-allen.net/wp-content/uploads/2013/11/apache.png" alt="apache" width="705" height="584" /></a></p>
+<p>После этого нам надо установить <strong>PHP</strong> и различные модули для него. На данный момент будет установлен простой PHP, необходимые модули можно потом уже поставить самому.</p><!-- Crayon Syntax Highlighter v2.6.6 -->
+
+		<div id="crayon-542ae33a1f099437507081" class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-always" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Включить/Отключить нумерацию строк"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Включить/Отключить подсветку кода"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Включить/Отключить перенос строк"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Показать код в новом окне"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+apt-get install php5 libapache2-mod-php5</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-542ae33a1f099437507081-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-line" id="crayon-542ae33a1f099437507081-1"><span class="crayon-v">apt</span><span class="crayon-o">-</span><span class="crayon-e">get </span><span class="crayon-e">install </span><span class="crayon-e">php5 </span><span class="crayon-v">libapache2</span><span class="crayon-o">-</span><span class="crayon-v">mod</span><span class="crayon-o">-</span><span class="crayon-v">php5</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0005 seconds] -->
+<p>
+Для проверки установленного PHP можно вывести phpinfo. Для этого делаем :</p><!-- Crayon Syntax Highlighter v2.6.6 -->
+
+		<div id="crayon-542ae33a1f0a0824084000" class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-always" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-mixed-highlight" title="Содержит коды на разных языках"></span><div class="crayon-button crayon-nums-button" title="Включить/Отключить нумерацию строк"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Включить/Отключить подсветку кода"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Включить/Отключить перенос строк"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Показать код в новом окне"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+echo '&lt;?php phpinfo(); ?&gt;' &gt; /var/www/phpinfo.php</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-542ae33a1f0a0824084000-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-line" id="crayon-542ae33a1f0a0824084000-1"><span class="crayon-i">echo</span><span class="crayon-h"> </span><span class="crayon-s">'<span class="crayon-ta">&lt;?php</span><span class="crayon-h"> </span><span class="crayon-e">phpinfo</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span><span class="crayon-h"> </span><span class="crayon-ta">?&gt;</span>'</span><span class="crayon-h"> </span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-t">var</span><span class="crayon-o">/</span><span class="crayon-v">www</span><span class="crayon-o">/</span><span class="crayon-v">phpinfo</span><span class="crayon-sy">.</span><span class="crayon-v">php</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0065 seconds] -->
+<p>
+И после этого заходим на <strong>IP-адрес или на localhost</strong>, указывая <strong>phpinfo.php</strong>.</p>
+<p><img class="aligncenter size-full wp-image-580" src="http://mr-allen.net/wp-content/uploads/2013/11/phpinfo.png" alt="phpinfo" width="705" height="583" /></p>
+<p>Теперь установим <strong>MySQL сервер</strong>. Во время установка MySQL сервера необходимо будет ввести <strong>пароль root&#8217;а</strong> для сервера MySQL.</p><!-- Crayon Syntax Highlighter v2.6.6 -->
+
+		<div id="crayon-542ae33a1f0a7965544494" class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-always" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Включить/Отключить нумерацию строк"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Включить/Отключить подсветку кода"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Включить/Отключить перенос строк"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Показать код в новом окне"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+apt-get install mysql-server</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-542ae33a1f0a7965544494-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-line" id="crayon-542ae33a1f0a7965544494-1"><span class="crayon-v">apt</span><span class="crayon-o">-</span><span class="crayon-e">get </span><span class="crayon-e">install </span><span class="crayon-v">mysql</span><span class="crayon-o">-</span><span class="crayon-v">server</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0004 seconds] -->
+<p>
+Теперь проверяем :</p><!-- Crayon Syntax Highlighter v2.6.6 -->
+
+		<div id="crayon-542ae33a1f0ad673381524" class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-always" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Включить/Отключить нумерацию строк"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Включить/Отключить подсветку кода"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Включить/Отключить перенос строк"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Показать код в новом окне"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+mysql -u root -p</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-542ae33a1f0ad673381524-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-line" id="crayon-542ae33a1f0ad673381524-1"><span class="crayon-v">mysql</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-i">u</span><span class="crayon-h"> </span><span class="crayon-v">root</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-v">p</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0005 seconds] -->
+<p>
+<img class="aligncenter size-full wp-image-579" src="http://mr-allen.net/wp-content/uploads/2013/11/mysql.png" alt="mysql" width="684" height="490" /></p>
+<p>Выходим (<em>exit</em>) и устанавливаем дополнительные модули. Если потребуется пароль, а он обязательно потребуется &#8211; надо ввести установленный пароль от MySQL. <strong>PhpMyAdmin</strong> будет доступен в http://localhost/phpmyadmin или в http://ip-adress/phpmyadmin.</p><!-- Crayon Syntax Highlighter v2.6.6 -->
+
+		<div id="crayon-542ae33a1f0b4047658706" class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-always" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Включить/Отключить нумерацию строк"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Включить/Отключить подсветку кода"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Включить/Отключить перенос строк"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Показать код в новом окне"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+apt-get install libapache2-mod-auth-mysql php5-mysql phpmyadmin</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-542ae33a1f0b4047658706-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-line" id="crayon-542ae33a1f0b4047658706-1"><span class="crayon-v">apt</span><span class="crayon-o">-</span><span class="crayon-e">get </span><span class="crayon-e">install </span><span class="crayon-v">libapache2</span><span class="crayon-o">-</span><span class="crayon-v">mod</span><span class="crayon-o">-</span><span class="crayon-v">auth</span><span class="crayon-o">-</span><span class="crayon-e">mysql </span><span class="crayon-v">php5</span><span class="crayon-o">-</span><span class="crayon-e">mysql </span><span class="crayon-v">phpmyadmin</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0007 seconds] -->
+<p>
+И не забываем добавить строчку</p><!-- Crayon Syntax Highlighter v2.6.6 -->
+
+		<div id="crayon-542ae33a1f0ba142579546" class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-always" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Включить/Отключить нумерацию строк"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Включить/Отключить подсветку кода"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Включить/Отключить перенос строк"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Показать код в новом окне"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+Include /etc/phpmyadmin/apache.conf в файл /etc/apache2/apache2.conf</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-542ae33a1f0ba142579546-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-line" id="crayon-542ae33a1f0ba142579546-1"><span class="crayon-v">Include</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-v">etc</span><span class="crayon-o">/</span><span class="crayon-v">phpmyadmin</span><span class="crayon-o">/</span><span class="crayon-v">apache</span><span class="crayon-sy">.</span><span class="crayon-i">conf</span><span class="crayon-h"> </span>в<span class="crayon-h"> </span>файл <span class="crayon-o">/</span><span class="crayon-v">etc</span><span class="crayon-o">/</span><span class="crayon-v">apache2</span><span class="crayon-o">/</span><span class="crayon-v">apache2</span><span class="crayon-sy">.</span><span class="crayon-v">conf</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0008 seconds] -->
+<p>
+Сюда</p><!-- Crayon Syntax Highlighter v2.6.6 -->
+
+		<div id="crayon-542ae33a1f0c0886172839" class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-always" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Включить/Отключить нумерацию строк"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Включить/Отключить подсветку кода"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Включить/Отключить перенос строк"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Показать код в новом окне"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+nano /etc/apache2/apache2.conf</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-542ae33a1f0c0886172839-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-line" id="crayon-542ae33a1f0c0886172839-1"><span class="crayon-v">nano</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-v">etc</span><span class="crayon-o">/</span><span class="crayon-v">apache2</span><span class="crayon-o">/</span><span class="crayon-v">apache2</span><span class="crayon-sy">.</span><span class="crayon-v">conf</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0005 seconds] -->
+<p>
+<a href="http://mr-allen.net/wp-content/uploads/2013/11/phpmyadmin.png"><img class="aligncenter size-full wp-image-582" src="http://mr-allen.net/wp-content/uploads/2013/11/phpmyadmin.png" alt="phpmyadmin" width="705" height="583" /></a></p>
+<p>Теперь можно не волноваться &#8211; <strong>сервер полностью готов</strong> к использованию.</p>
+			</div>
+		</div>
+		
+		
+		
+		
+		
+	
+	
+	
+	
+	</div>	
+	
+	
+	
+	
+	
+<div class='tags'><span>Теги:&nbsp;&nbsp;</span><a href="http://www.mr-allen.net/tag/apache/" rel="tag">Apache</a>, <a href="http://www.mr-allen.net/tag/apt-get/" rel="tag">apt-get</a>, <a href="http://www.mr-allen.net/tag/how-to-2/" rel="tag">How-To</a>, <a href="http://www.mr-allen.net/tag/lamp/" rel="tag">LAMP</a>, <a href="http://www.mr-allen.net/tag/linux/" rel="tag">Linux</a>, <a href="http://www.mr-allen.net/tag/linux-mint/" rel="tag">Linux Mint</a>, <a href="http://www.mr-allen.net/tag/mint/" rel="tag">Mint</a>, <a href="http://www.mr-allen.net/tag/mysql/" rel="tag">MySQL</a>, <a href="http://www.mr-allen.net/tag/php/" rel="tag">PHP</a>, <a href="http://www.mr-allen.net/tag/root/" rel="tag">root</a>, <a href="http://www.mr-allen.net/tag/ssh/" rel="tag">SSH</a>, <a href="http://www.mr-allen.net/tag/web/" rel="tag">Web</a>, <a href="http://www.mr-allen.net/tag/%d0%b8%d0%bd%d1%82%d0%b5%d1%80%d0%bd%d0%b5%d1%82/" rel="tag">Интернет</a>, <a href="http://www.mr-allen.net/tag/%d1%82%d0%b5%d1%80%d0%bc%d0%b8%d0%bd%d0%b0%d0%bb/" rel="tag">Терминал</a></div>				<div class="related-posts">				<h3>Похожие записи:</h3><ul>							<li class='first'><a href="http://www.mr-allen.net/2014/07/samsung-galaxy-r-recovery-with-broken-home-button/" title="Ссылка на Samsung Galaxy R - вход в Recovery со сломанной кнопкой Home" class='img'><img width="126" height="126" src="http://www.mr-allen.net/wp-content/uploads/2014/07/galaxy_r-150x150.jpg" class="attachment-126x126 wp-post-image" alt="Samsung Galaxy R - вход в Recovery со сломанной кнопкой Home" title="Samsung Galaxy R - вход в Recovery со сломанной кнопкой Home" /></a><br /><a href="http://www.mr-allen.net/2014/07/samsung-galaxy-r-recovery-with-broken-home-button/" title="Ссылка на Samsung Galaxy R - вход в Recovery со сломанной кнопкой Home" rel="bookmark" class="related-ttl"><div class='related-bg' style='background:rgb(138,115,30)'></div><span>Samsung Galaxy R - вход в Recovery со сломанной кнопкой Home</span></a></li>										<li><a href="http://www.mr-allen.net/2014/06/how-to-test-boot-flashdrive-with-vms/" title="Ссылка на Тест boot-флешки в Parallels Desktop и других VM" class='img'><img width="126" height="126" src="http://www.mr-allen.net/wp-content/uploads/2014/06/slax-150x150.png" class="attachment-126x126 wp-post-image" alt="Тест boot-флешки в Parallels Desktop и других VM" title="Тест boot-флешки в Parallels Desktop и других VM" /></a><br /><a href="http://www.mr-allen.net/2014/06/how-to-test-boot-flashdrive-with-vms/" title="Ссылка на Тест boot-флешки в Parallels Desktop и других VM" rel="bookmark" class="related-ttl"><div class='related-bg' style='background:rgb(50,18,35)'></div><span>Тест boot-флешки в Parallels Desktop и других VM</span></a></li>										<li><a href="http://www.mr-allen.net/2014/04/how-to-disable-secureboot/" title="Ссылка на Отключение SecureBoot в ноутбуках ASUS" class='img'><img width="126" height="126" src="http://www.mr-allen.net/wp-content/uploads/2014/04/security-150x150.jpg" class="attachment-126x126 wp-post-image" alt="Отключение SecureBoot в ноутбуках ASUS" title="Отключение SecureBoot в ноутбуках ASUS" /></a><br /><a href="http://www.mr-allen.net/2014/04/how-to-disable-secureboot/" title="Ссылка на Отключение SecureBoot в ноутбуках ASUS" rel="bookmark" class="related-ttl"><div class='related-bg' style='background:rgb(134,6,60)'></div><span>Отключение SecureBoot в ноутбуках ASUS</span></a></li>										<li><a href="http://www.mr-allen.net/2014/04/gde-bug-with-visual-editor/" title="Ссылка на GDE, визуальный редактор и Beta/Alpha версии Wordpress" class='img'><img width="126" height="126" src="http://www.mr-allen.net/wp-content/uploads/2014/04/google-docs-150x150.jpg" class="attachment-126x126 wp-post-image" alt="GDE, визуальный редактор и Beta/Alpha версии Wordpress" title="GDE, визуальный редактор и Beta/Alpha версии Wordpress" /></a><br /><a href="http://www.mr-allen.net/2014/04/gde-bug-with-visual-editor/" title="Ссылка на GDE, визуальный редактор и Beta/Alpha версии Wordpress" rel="bookmark" class="related-ttl"><div class='related-bg' style='background:rgb(64,149,150)'></div><span>GDE, визуальный редактор и Beta/Alpha версии Wordpress</span></a></li>					</ul></div>	    	    
+        
+    					
+		<div id="respond" class="comment-respond">
+			<h3 id="reply-title" class="comment-reply-title">Добавить комментарий <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2013/11/installing-lamp-on-linux-mint-15-16-17/#respond" style="display:none;">Отменить ответ</a></small></h3>
+			<div id="commentform" class="comment-form">
+				<iframe src="http://jetpack.wordpress.com/jetpack-comment/?blogid=57896872&#038;postid=577&#038;comment_registration=0&#038;require_name_email=1&#038;stc_enabled=1&#038;stb_enabled=1&#038;show_avatars=1&#038;avatar_default=mystery&#038;greeting=%D0%94%D0%BE%D0%B1%D0%B0%D0%B2%D0%B8%D1%82%D1%8C+%D0%BA%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9&#038;greeting_reply=%D0%94%D0%BE%D0%B1%D0%B0%D0%B2%D0%B8%D1%82%D1%8C+%D0%BA%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9+%D0%B4%D0%BB%D1%8F+%25s&#038;color_scheme=light&#038;lang=ru-RU&#038;jetpack_version=3.1.1&#038;sig=d211787a95d8e7b003096d51e4c7982fad3c02da#parent=http%3A%2F%2Fwww.mr-allen.net%2F2013%2F11%2Finstalling-lamp-on-linux-mint-15-16-17%2F" allowtransparency="false" style="width:100%; height: 430px;border:0px;" frameBorder="0" scrolling="no" name="jetpack_remote_comment" id="jetpack_remote_comment"></iframe>
+			</div>
+		</div>
+
+		
+		<input type="hidden" name="comment_parent" id="comment_parent" value="" />
+
+		 </div><!-- #content -->  
+</div></div>
+
+			<div id='smthemes_share'>
+			<ul class='inner'>
+				<li><iframe src="//www.facebook.com/plugins/like.php?href=http://www.mr-allen.net/2013/11/installing-lamp-on-linux-mint-15-16-17/&send=false&layout=box_count&width=50&show_faces=false&action=like&colorscheme=light&font&height=65&locale=en_US" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:50px; height:65px;" allowTransparency="true"></iframe></li><li><a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-lang="en">Tweet</a>
+			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></li><li><g:plusone size="tall"></g:plusone>
+			<script type="text/javascript">
+			  (function() {
+				var po = document.createElement("script"); po.type = "text/javascript"; po.async = true;
+				po.src = "https://apis.google.com/js/plusone.js";
+				var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s);
+			  })();
+			</script></li><li><script type="text/javascript" src="http://www.reddit.com/static/button/button2.js"></script></li><li><a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:61px; height:20px; background:url(http://platform.tumblr.com/v1/share_2.png) top left no-repeat transparent;">Share on Tumblr</a></li><li><div class="g-plus" data-action="share" data-annotation="vertical-bubble" data-height="60"></div>
+							<script type="text/javascript">
+							window.___gcfg = {lang: "en-GB", parsetags: "onload"};
+							(function() {
+								var po = document.createElement("script"); po.type = "text/javascript"; po.async = true;
+								po.src = "https://apis.google.com/js/plusone.js";
+								var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s);
+							  })();
+							</script>
+							</li>			</ul>
+			</div>
+			<div id='content-bottom' class='container'></div>
+<div id='footer'>
+		<div class='container clearfix'>
+			
+						<div class='footer-widgets-container'><div class='footer-widgets'>
+				<div class='widgetf'>
+									</div>
+				
+				<div class='widgetf'>
+									</div>
+				
+				<div class='widgetf widgetf_last'>
+									</div>
+			</div></div>
+						
+		</div>
+		
+		<div class='footer_txt'>
+			<div class='container'>
+				<div class='top_text'>
+				<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44056800-1', 'mr-allen.net');
+  ga('send', 'pageview');
+
+</script>
+<a href="http://mr-allen.net">Mr. Allen's Blog</a> | <a href="http://mr-allen.net/forum">Mr. Allen's Forum</a> | <a href="http://upload.mr-allen.net">Mr. Allen's Filestorage</a> | <a href="http://mr-allen.net/gallery">Mr. Allen's Gallery</a>
+<br>
+© Mr. Allen's Blog 2013-2014				</div>
+			</div>
+		</div>
+			<div style="display:none">
+	</div>
+<script type='text/javascript' src='http://www.mr-allen.net/wp-content/plugins/akismet/_inc/form.js?ver=3.0.2'></script>
+<link rel='stylesheet' id='buttons-css'  href='http://www.mr-allen.net/wp-includes/css/buttons.min.css?ver=4.0' type='text/css' media='all' />
+<script type='text/javascript' src='http://www.mr-allen.net/wp-content/plugins/quick-chat/js/jquery.c00kie.js?ver=4.13'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var quick_chat = {"url":"http:\/\/www.mr-allen.net\/wp-content\/plugins\/quick-chat\/","ajaxurl":"http:\/\/www.mr-allen.net\/wp-admin\/admin-ajax.php","user_id":"0","version":"4.13","debug_mode":"0"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.mr-allen.net/wp-content/plugins/quick-chat/js/quick-chat-load.js?ver=4.13'></script>
+<script type='text/javascript' src='http://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201440'></script>
+<script type='text/javascript' src='http://www.mr-allen.net/wp-includes/js/comment-reply.min.js?ver=4.0'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var wordCountL10n = {"type":"w"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.mr-allen.net/wp-admin/js/word-count.min.js?ver=4.0'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var userSettings = {"url":"\/","uid":"0","time":"1412096826","secure":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.mr-allen.net/wp-includes/js/utils.min.js?ver=4.0'></script>
+<script type='text/javascript' src='http://www.mr-allen.net/wp-admin/js/editor.min.js?ver=4.0'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var wpLinkL10n = {"title":"\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u044c\/\u0438\u0437\u043c\u0435\u043d\u0438\u0442\u044c \u0441\u0441\u044b\u043b\u043a\u0443","update":"\u041e\u0431\u043d\u043e\u0432\u0438\u0442\u044c","save":"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0441\u0441\u044b\u043b\u043a\u0443","noTitle":"(\u0431\u0435\u0437 \u043d\u0430\u0437\u0432\u0430\u043d\u0438\u044f)","noMatchesFound":"\u0421\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439 \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u043e."};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.mr-allen.net/wp-includes/js/wplink.min.js?ver=4.0'></script>
+
+		<script type="text/javascript">
+		tinyMCEPreInit = {
+			baseURL: "http://www.mr-allen.net/wp-includes/js/tinymce",
+			suffix: ".min",
+						mceInit: {'comment':{theme:"modern",skin:"lightgray",language:"ru",formats:{
+						alignleft: [
+							{selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li', styles: {textAlign:'left'}},
+							{selector: 'img,table,dl.wp-caption', classes: 'alignleft'}
+						],
+						aligncenter: [
+							{selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li', styles: {textAlign:'center'}},
+							{selector: 'img,table,dl.wp-caption', classes: 'aligncenter'}
+						],
+						alignright: [
+							{selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li', styles: {textAlign:'right'}},
+							{selector: 'img,table,dl.wp-caption', classes: 'alignright'}
+						],
+						strikethrough: {inline: 'del'}
+					},relative_urls:false,remove_script_host:false,convert_urls:false,browser_spellcheck:true,fix_list_elements:true,entities:"38,amp,60,lt,62,gt",entity_encoding:"raw",keep_styles:false,preview_styles:"font-family font-size font-weight font-style text-decoration text-transform",wpeditimage_disable_captions:false,wpeditimage_html5_captions:false,plugins:"charmap,colorpicker,hr,lists,media,paste,tabfocus,textcolor,fullscreen,wordpress,wpautoresize,wpeditimage,wpgallery,wplink,wpdialogs,wpview,image,directionality",external_plugins:{"crayon_tinymce":"http:\/\/www.mr-allen.net\/wp-content\/plugins\/crayon-syntax-highlighter\/util\/tag-editor\/crayon_tinymce.js","anchor":"http:\/\/www.mr-allen.net\/wp-content\/plugins\/tinymce-advanced\/mce\/anchor\/plugin.min.js","code":"http:\/\/www.mr-allen.net\/wp-content\/plugins\/tinymce-advanced\/mce\/code\/plugin.min.js","insertdatetime":"http:\/\/www.mr-allen.net\/wp-content\/plugins\/tinymce-advanced\/mce\/insertdatetime\/plugin.min.js","nonbreaking":"http:\/\/www.mr-allen.net\/wp-content\/plugins\/tinymce-advanced\/mce\/nonbreaking\/plugin.min.js","print":"http:\/\/www.mr-allen.net\/wp-content\/plugins\/tinymce-advanced\/mce\/print\/plugin.min.js","searchreplace":"http:\/\/www.mr-allen.net\/wp-content\/plugins\/tinymce-advanced\/mce\/searchreplace\/plugin.min.js","table":"http:\/\/www.mr-allen.net\/wp-content\/plugins\/tinymce-advanced\/mce\/table\/plugin.min.js","visualblocks":"http:\/\/www.mr-allen.net\/wp-content\/plugins\/tinymce-advanced\/mce\/visualblocks\/plugin.min.js","visualchars":"http:\/\/www.mr-allen.net\/wp-content\/plugins\/tinymce-advanced\/mce\/visualchars\/plugin.min.js","emoticons":"http:\/\/www.mr-allen.net\/wp-content\/plugins\/tinymce-advanced\/mce\/emoticons\/plugin.min.js","advlist":"http:\/\/www.mr-allen.net\/wp-content\/plugins\/tinymce-advanced\/mce\/advlist\/plugin.min.js","wptadv":"http:\/\/www.mr-allen.net\/wp-content\/plugins\/tinymce-advanced\/mce\/wptadv\/plugin.min.js"},content_css:"http://www.mr-allen.net/wp-includes/css/dashicons.min.css?ver=4.0,http://www.mr-allen.net/wp-includes/js/tinymce/skins/wordpress/wp-content.css?ver=4.0,http://www.mr-allen.net/wp-content/themes/architecture/css/shortcode.css",selector:"#comment",resize:"vertical",menubar:true,wpautop:true,indent:false,toolbar1:"bold,italic,underline,blockquote,bullist,numlist,alignleft,aligncenter,alignright,link,unlink,table,fullscreen,undo,redo,wp_adv,copy,cut,paste,hr,spellchecker,separator,crayon_tinymce",toolbar2:"formatselect,styleselect,alignjustify,strikethrough,outdent,indent,pastetext,removeformat,charmap,wp_more,emoticons,forecolor,wp_help,subscript,superscript,image",toolbar3:"fontselect,fontsizeselect,print,anchor,insertdatetime,nonbreaking,ltr,rtl,visualblocks,media,wp_page,backcolor,code,searchreplace",toolbar4:"",tabfocus_elements:":prev,:next",body_class:"comment post-type-post post-status-publish post-format-standard",extended_valid_elements:",pre[*],code[*],iframe[*]"}},
+			qtInit: {'comment':{id:"comment",buttons:"strong,em,link,block,del,ins,img,ul,ol,li,code,more,close"}},
+			ref: {plugins:"charmap,colorpicker,hr,lists,media,paste,tabfocus,textcolor,fullscreen,wordpress,wpautoresize,wpeditimage,wpgallery,wplink,wpdialogs,wpview,image,directionality",theme:"modern",language:"ru"},
+			load_ext: function(url,lang){var sl=tinymce.ScriptLoader;sl.markDone(url+'/langs/'+lang+'.js');sl.markDone(url+'/langs/'+lang+'_dlg.js');}
+		};
+		</script>
+		<script type='text/javascript' src='http://www.mr-allen.net/wp-includes/js/tinymce/tinymce.min.js?ver=4104-20140822'></script>
+<script type='text/javascript' src='http://www.mr-allen.net/wp-includes/js/tinymce/plugins/compat3x/plugin.min.js?ver=4104-20140822'></script>
+<script type='text/javascript'>
+tinymce.addI18n( 'ru', {"New document":"\u041d\u043e\u0432\u044b\u0439 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442","Formats":"\u0424\u043e\u0440\u043c\u0430\u0442\u044b","Headings":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043a\u0438","Heading 1":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a 1","Heading 2":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a 2","Heading 3":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a 3","Heading 4":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a 4","Heading 5":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a 5","Heading 6":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a 6","Blocks":"\u0411\u043b\u043e\u043a\u0438","Paragraph":"\u0410\u0431\u0437\u0430\u0446","Blockquote":"\u0426\u0438\u0442\u0430\u0442\u0430","Div":"\u0421\u043b\u043e\u0439","Pre":"\u041e\u0442\u0444\u043e\u0440\u043c\u0430\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u044b\u0439","Address":"\u0410\u0434\u0440\u0435\u0441","Inline":"\u0421\u0442\u0440\u043e\u043a\u0438","Underline":"\u041f\u043e\u0434\u0447\u0451\u0440\u043a\u043d\u0443\u0442\u044b\u0439","Strikethrough":"\u041f\u0435\u0440\u0435\u0447\u0451\u0440\u043a\u043d\u0443\u0442\u044b\u0439","Subscript":"\u041d\u0438\u0436\u043d\u0438\u0439 \u0438\u043d\u0434\u0435\u043a\u0441","Superscript":"\u0412\u0435\u0440\u0445\u043d\u0438\u0439 \u0438\u043d\u0434\u0435\u043a\u0441","Clear formatting":"\u041e\u0447\u0438\u0441\u0442\u0438\u0442\u044c \u0444\u043e\u0440\u043c\u0430\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435","Bold":"\u0416\u0438\u0440\u043d\u044b\u0439","Italic":"\u041a\u0443\u0440\u0441\u0438\u0432","Code":"\u041a\u043e\u0434","Source code":"\u0418\u0441\u0445\u043e\u0434\u043d\u044b\u0439 \u043a\u043e\u0434","Font Family":"\u0421\u0435\u043c\u0435\u0439\u0441\u0442\u0432\u043e \u0448\u0440\u0438\u0444\u0442\u043e\u0432","Font Sizes":"\u0420\u0430\u0437\u043c\u0435\u0440\u044b \u0448\u0440\u0438\u0444\u0442\u043e\u0432","Align center":"\u041f\u043e \u0446\u0435\u043d\u0442\u0440\u0443","Align right":"\u041f\u043e \u043f\u0440\u0430\u0432\u043e\u043c\u0443 \u043a\u0440\u0430\u044e","Align left":"\u041f\u043e \u043b\u0435\u0432\u043e\u043c\u0443 \u043a\u0440\u0430\u044e","Justify":"\u041f\u043e \u0448\u0438\u0440\u0438\u043d\u0435","Increase indent":"\u0423\u0432\u0435\u043b\u0438\u0447\u0438\u0442\u044c \u043e\u0442\u0441\u0442\u0443\u043f","Decrease indent":"\u0423\u043c\u0435\u043d\u044c\u0448\u0438\u0442\u044c \u043e\u0442\u0441\u0442\u0443\u043f","Cut":"\u0412\u044b\u0440\u0435\u0437\u0430\u0442\u044c","Copy":"\u041a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c","Paste":"\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u044c","Select all":"\u0412\u044b\u0434\u0435\u043b\u0438\u0442\u044c \u0432\u0441\u0451","Undo":"\u041e\u0442\u043c\u0435\u043d\u0438\u0442\u044c","Redo":"\u041f\u043e\u0432\u0442\u043e\u0440\u0438\u0442\u044c","Ok":"OK","Cancel":"\u041e\u0442\u043c\u0435\u043d\u0430","Close":"\u0417\u0430\u043a\u0440\u044b\u0442\u044c","Visual aids":"\u0412\u0438\u0437\u0443\u0430\u043b\u044c\u043d\u044b\u0435 \u043f\u043e\u0434\u0441\u043a\u0430\u0437\u043a\u0438","Bullet list":"\u041c\u0430\u0440\u043a\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u044b\u0439 \u0441\u043f\u0438\u0441\u043e\u043a","Numbered list":"\u041d\u0443\u043c\u0435\u0440\u043e\u0432\u0430\u043d\u043d\u044b\u0439 \u0441\u043f\u0438\u0441\u043e\u043a","Square":"\u041a\u0432\u0430\u0434\u0440\u0430\u0442","Default":"\u041f\u043e \u0443\u043c\u043e\u043b\u0447\u0430\u043d\u0438\u044e","Circle":"\u041a\u0440\u0443\u0436\u043e\u043a","Disc":"\u0422\u043e\u0447\u043a\u0430","Lower Greek":"\u0421\u0442\u0440\u043e\u0447\u043d\u044b\u0435 \u0433\u0440\u0435\u0447\u0435\u0441\u043a\u0438\u0435 \u0431\u0443\u043a\u0432\u044b","Lower Alpha":"\u0421\u0442\u0440\u043e\u0447\u043d\u044b\u0435 \u043b\u0430\u0442\u0438\u043d\u0441\u043a\u0438\u0435 \u0431\u0443\u043a\u0432\u044b","Upper Alpha":"\u0417\u0430\u0433\u043b\u0430\u0432\u043d\u044b\u0435 \u043b\u0430\u0442\u0438\u043d\u0441\u043a\u0438\u0435 \u0431\u0443\u043a\u0432\u044b","Upper Roman":"\u0417\u0430\u0433\u043b\u0430\u0432\u043d\u044b\u0435 \u0440\u0438\u043c\u0441\u043a\u0438\u0435 \u0431\u0443\u043a\u0432\u044b","Lower Roman":"\u0421\u0442\u0440\u043e\u0447\u043d\u044b\u0435 \u0440\u0438\u043c\u0441\u043a\u0438\u0435 \u0431\u0443\u043a\u0432\u044b","Name":"\u0418\u043c\u044f","Anchor":"\u042f\u043a\u043e\u0440\u044c","Anchors":"\u042f\u043a\u043e\u0440\u044f","Document properties":"\u0421\u0432\u043e\u0439\u0441\u0442\u0432\u0430 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430","Robots":"\u0420\u043e\u0431\u043e\u0442\u044b","Title":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a","Keywords":"\u041a\u043b\u044e\u0447\u0435\u0432\u044b\u0435 \u0441\u043b\u043e\u0432\u0430","Encoding":"\u041a\u043e\u0434\u0438\u0440\u043e\u0432\u043a\u0430","Description":"\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435","Author":"\u0410\u0432\u0442\u043e\u0440","Insert\/edit image":"\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u044c\/\u0438\u0437\u043c\u0435\u043d\u0438\u0442\u044c \u043a\u0430\u0440\u0442\u0438\u043d\u043a\u0443","General":"\u041e\u0431\u0449\u0438\u0435","Advanced":"\u0414\u043e\u043f\u043e\u043b\u043d\u0438\u0442\u0435\u043b\u044c\u043d\u043e","Source":"\u0418\u0441\u0442\u043e\u0447\u043d\u0438\u043a","Border":"\u0420\u0430\u043c\u043a\u0430","Constrain proportions":"\u0421\u043e\u0445\u0440\u0430\u043d\u044f\u0442\u044c \u043f\u0440\u043e\u043f\u043e\u0440\u0446\u0438\u0438","Vertical space":"\u041e\u0442\u0441\u0442\u0443\u043f (V)","Image description":"\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435","Style":"\u0421\u0442\u0438\u043b\u044c","Dimensions":"\u0420\u0430\u0437\u043c\u0435\u0440\u044b","Insert image":"\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u044c \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435","Insert date\/time":"\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u044c \u0434\u0430\u0442\u0443\/\u0432\u0440\u0435\u043c\u044f","Insert\/edit video":"\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u044c\/\u0438\u0437\u043c\u0435\u043d\u0438\u0442\u044c \u0432\u0438\u0434\u0435\u043e\u0444\u0430\u0439\u043b","Poster":"\u041f\u043e\u0441\u0442\u0435\u0440","Alternative source":"\u0410\u043b\u044c\u0442\u0435\u0440\u043d\u0430\u0442\u0438\u0432\u043d\u044b\u0439 \u0438\u0441\u0442\u043e\u0447\u043d\u0438\u043a","Paste your embed code below:":"\u0412\u0441\u0442\u0430\u0432\u044c\u0442\u0435 \u043a\u043e\u0434 \u043e\u0431\u044a\u0435\u043a\u0442\u0430:","Insert video":"\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u044c \u0432\u0438\u0434\u0435\u043e\u0444\u0430\u0439\u043b","Embed":"\u041e\u0431\u044a\u0435\u043a\u0442","Special character":"\u041f\u0440\u043e\u0438\u0437\u0432\u043e\u043b\u044c\u043d\u044b\u0439 \u0441\u0438\u043c\u0432\u043e\u043b","Right to left":"\u0421\u043f\u0440\u0430\u0432\u0430 \u043d\u0430\u043b\u0435\u0432\u043e","Left to right":"\u0421\u043b\u0435\u0432\u0430 \u043d\u0430\u043f\u0440\u0430\u0432\u043e","Emoticons":"\u0418\u043a\u043e\u043d\u043a\u0438 Emoticons","Nonbreaking space":"\u041d\u0435\u0440\u0430\u0437\u0440\u044b\u0432\u043d\u044b\u0439 \u043f\u0440\u043e\u0431\u0435\u043b","Page break":"\u0420\u0430\u0437\u0440\u044b\u0432 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u044b","Paste as text":"\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u044c \u043a\u0430\u043a \u0442\u0435\u043a\u0441\u0442","Preview":"\u041f\u0440\u043e\u0441\u043c\u043e\u0442\u0440\u0435\u0442\u044c","Print":"\u041f\u0435\u0447\u0430\u0442\u044c","Save":"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c","Fullscreen":"\u041d\u0430 \u0432\u0435\u0441\u044c \u044d\u043a\u0440\u0430\u043d","Horizontal line":"\u0413\u043e\u0440\u0438\u0437\u043e\u043d\u0442\u0430\u043b\u044c\u043d\u0430\u044f \u043b\u0438\u043d\u0438\u044f","Horizontal space":"\u041e\u0442\u0441\u0442\u0443\u043f (H)","Restore last draft":"\u0412\u043e\u0441\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u0442\u044c \u043f\u043e\u0441\u043b\u0435\u0434\u043d\u0438\u0439 \u0447\u0435\u0440\u043d\u043e\u0432\u0438\u043a","Insert\/edit link":"\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u044c\/\u0438\u0437\u043c\u0435\u043d\u0438\u0442\u044c \u0441\u0441\u044b\u043b\u043a\u0443","Remove link":"\u0423\u0434\u0430\u043b\u0438\u0442\u044c \u0441\u0441\u044b\u043b\u043a\u0443","Could not find the specified string.":"\u041d\u0435 \u0443\u0434\u0430\u043b\u043e\u0441\u044c \u043d\u0430\u0439\u0442\u0438 \u0443\u043a\u0430\u0437\u0430\u043d\u043d\u0443\u044e \u0441\u0442\u0440\u043e\u043a\u0443.","Replace":"\u0417\u0430\u043c\u0435\u043d\u0438\u0442\u044c","Next":"\u0414\u0430\u043b\u0435\u0435","Prev":"\u041d\u0430\u0437\u0430\u0434","Whole words":"\u0426\u0435\u043b\u044b\u0435 \u0441\u043b\u043e\u0432\u0430","Find and replace":"\u041d\u0430\u0439\u0442\u0438 \u0438 \u0437\u0430\u043c\u0435\u043d\u0438\u0442\u044c","Replace with":"\u0417\u0430\u043c\u0435\u043d\u0430","Find":"\u041d\u0430\u0439\u0442\u0438","Replace all":"\u0417\u0430\u043c\u0435\u043d\u0438\u0442\u044c \u0432\u0441\u0435","Match case":"\u0421 \u0443\u0447\u0451\u0442\u043e\u043c \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430","Spellcheck":"\u041f\u0440\u043e\u0432\u0435\u0440\u043a\u0430 \u043e\u0440\u0444\u043e\u0433\u0440\u0430\u0444\u0438\u0438","Finish":"\u0417\u0430\u0432\u0435\u0440\u0448\u0438\u0442\u044c","Ignore all":"\u041f\u0440\u043e\u043f\u0443\u0441\u0442\u0438\u0442\u044c \u0432\u0441\u0435","Ignore":"\u041f\u0440\u043e\u043f\u0443\u0441\u0442\u0438\u0442\u044c","Insert table":"\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u044c \u0442\u0430\u0431\u043b\u0438\u0446\u0443","Delete table":"\u0423\u0434\u0430\u043b\u0438\u0442\u044c \u0442\u0430\u0431\u043b\u0438\u0446\u0443","Table properties":"\u0421\u0432\u043e\u0439\u0441\u0442\u0432\u0430 \u0442\u0430\u0431\u043b\u0438\u0446\u044b","Row properties":"\u0421\u0432\u043e\u0439\u0441\u0442\u0432\u0430 \u0441\u0442\u0440\u043e\u043a\u0438 \u0442\u0430\u0431\u043b\u0438\u0446\u044b","Cell properties":"\u0421\u0432\u043e\u0439\u0441\u0442\u0432\u0430 \u044f\u0447\u0435\u0439\u043a\u0438 \u0442\u0430\u0431\u043b\u0438\u0446\u044b","Row":"\u0421\u0442\u0440\u043e\u043a\u0430","Rows":"\u0421\u0442\u0440\u043e\u043a\u0438","Column":"\u0421\u0442\u043e\u043b\u0431\u0435\u0446","Cols":"\u0421\u0442\u043e\u043b\u0431\u0446\u044b","Cell":"\u042f\u0447\u0435\u0439\u043a\u0430","Header cell":"\u042f\u0447\u0435\u0439\u043a\u0430 \u0437\u0430\u0433\u043e\u043b\u043e\u0432\u043a\u0430","Header":"\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a","Body":"\u041e\u0441\u043d\u043e\u0432\u043d\u0430\u044f \u0447\u0430\u0441\u0442\u044c","Footer":"\u041d\u0438\u0436\u043d\u044f\u044f \u0447\u0430\u0441\u0442\u044c","Insert row before":"\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u044c \u0441\u0442\u0440\u043e\u043a\u0443 \u0434\u043e","Insert row after":"\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u044c \u0441\u0442\u0440\u043e\u043a\u0443 \u043f\u043e\u0441\u043b\u0435","Insert column before":"\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u044c \u0441\u0442\u043e\u043b\u0431\u0435\u0446 \u0434\u043e","Insert column after":"\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u044c \u0441\u0442\u043e\u043b\u0431\u0435\u0446 \u043f\u043e\u0441\u043b\u0435","Paste row before":"\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u044c \u0441\u0442\u0440\u043e\u043a\u0443 \u0442\u0430\u0431\u043b\u0438\u0446\u044b \u0434\u043e","Paste row after":"\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u044c \u0441\u0442\u0440\u043e\u043a\u0443 \u0442\u0430\u0431\u043b\u0438\u0446\u044b \u043f\u043e\u0441\u043b\u0435","Delete row":"\u0423\u0434\u0430\u043b\u0438\u0442\u044c \u0441\u0442\u0440\u043e\u043a\u0443","Delete column":"\u0423\u0434\u0430\u043b\u0438\u0442\u044c \u0441\u0442\u043e\u043b\u0431\u0435\u0446","Cut row":"\u0412\u044b\u0440\u0435\u0437\u0430\u0442\u044c \u0441\u0442\u0440\u043e\u043a\u0443 \u0442\u0430\u0431\u043b\u0438\u0446\u044b","Copy row":"\u041a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0441\u0442\u0440\u043e\u043a\u0443 \u0442\u0430\u0431\u043b\u0438\u0446\u044b","Merge cells":"\u041e\u0431\u044a\u0435\u0434\u0438\u043d\u0438\u0442\u044c \u044f\u0447\u0435\u0439\u043a\u0438 \u0442\u0430\u0431\u043b\u0438\u0446\u044b","Split cell":"\u0420\u0430\u0437\u0434\u0435\u043b\u0438\u0442\u044c \u044f\u0447\u0435\u0439\u043a\u0443 \u0442\u0430\u0431\u043b\u0438\u0446\u044b","Height":"\u0412\u044b\u0441\u043e\u0442\u0430","Width":"\u0428\u0438\u0440\u0438\u043d\u0430","Caption":"\u041f\u043e\u0434\u043f\u0438\u0441\u044c","Alignment":"\u0412\u044b\u0440\u0430\u0432\u043d\u0438\u0432\u0430\u043d\u0438\u0435","Left":"\u0421\u043b\u0435\u0432\u0430","Center":"\u041f\u043e \u0446\u0435\u043d\u0442\u0440\u0443","Right":"\u0421\u043f\u0440\u0430\u0432\u0430","None":"\u041d\u0435\u0442","Row group":"\u0413\u0440\u0443\u043f\u043f\u0430 \u0441\u0442\u0440\u043e\u043a","Column group":"\u0413\u0440\u0443\u043f\u043f\u0430 \u0441\u0442\u043e\u043b\u0431\u0446\u043e\u0432","Row type":"\u0422\u0438\u043f \u0441\u0442\u0440\u043e\u043a\u0438","Cell type":"\u0422\u0438\u043f \u044f\u0447\u0435\u0439\u043a\u0438","Cell padding":"\u041e\u0442\u0441\u0442\u0443\u043f\u044b \u0432 \u044f\u0447\u0435\u0439\u043a\u0430\u0445","Cell spacing":"\u041e\u0442\u0441\u0442\u0443\u043f\u044b \u043c\u0435\u0436\u0434\u0443 \u044f\u0447\u0435\u0439\u043a\u0430\u043c\u0438","Scope":"\u0410\u0442\u0440\u0438\u0431\u0443\u0442 scope","Insert template":"\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u044c \u0448\u0430\u0431\u043b\u043e\u043d","Templates":"\u0428\u0430\u0431\u043b\u043e\u043d\u044b","Background color":"\u0426\u0432\u0435\u0442 \u0444\u043e\u043d\u0430","Text color":"\u0426\u0432\u0435\u0442 \u0442\u0435\u043a\u0441\u0442\u0430","Show blocks":"\u041f\u043e\u043a\u0430\u0437\u0430\u0442\u044c \u0431\u043b\u043e\u043a\u0438","Show invisible characters":"\u041f\u043e\u043a\u0430\u0437\u0430\u0442\u044c \u043d\u0435\u0432\u0438\u0434\u0438\u043c\u044b\u0435 \u0441\u0438\u043c\u0432\u043e\u043b\u044b","Words: {0}":"\u0421\u043b\u043e\u0432: {0}","Paste is now in plain text mode. Contents will now be pasted as plain text until you toggle this option off.":"\u0412\u044b\u0431\u0440\u0430\u043d \u0440\u0435\u0436\u0438\u043c \u0432\u0441\u0442\u0430\u0432\u043a\u0438 \u043f\u0440\u043e\u0441\u0442\u043e\u0433\u043e \u0442\u0435\u043a\u0441\u0442\u0430. \u0421\u043e\u0434\u0435\u0440\u0436\u0438\u043c\u043e\u0435 \u0431\u0443\u0434\u0435\u0442 \u0432\u0441\u0442\u0430\u0432\u043b\u044f\u0442\u044c\u0441\u044f \u0432 \u0432\u0438\u0434\u0435 \u043f\u0440\u043e\u0441\u0442\u043e\u0433\u043e \u0442\u0435\u043a\u0441\u0442\u0430, \u043f\u043e\u043a\u0430 \u0432\u044b \u043d\u0435 \u043e\u0442\u043a\u043b\u044e\u0447\u0438\u0442\u0435 \u044d\u0442\u043e\u0442 \u0440\u0435\u0436\u0438\u043c.\n\n\u0415\u0441\u043b\u0438 \u0432\u044b \u0445\u043e\u0442\u0438\u0442\u0435 \u0432\u0441\u0442\u0430\u0432\u0438\u0442\u044c \u0442\u0435\u043a\u0441\u0442 \u0441 \u0444\u043e\u0440\u043c\u0430\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435\u043c \u0438\u0437 Microsoft Word, \u043f\u043e\u043f\u0440\u043e\u0431\u0443\u0439\u0442\u0435 \u043e\u0442\u043a\u043b\u044e\u0447\u0438\u0442\u044c \u044d\u0442\u043e\u0442 \u0440\u0435\u0436\u0438\u043c. \u0420\u0435\u0434\u0430\u043a\u0442\u043e\u0440 \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u0438 \u043e\u0447\u0438\u0441\u0442\u0438\u0442 \u0442\u0435\u043a\u0441\u0442, \u0441\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u044b\u0439 \u0438\u0437 Word.","Rich Text Area. Press ALT-F9 for menu. Press ALT-F10 for toolbar. Press ALT-0 for help":"\u041e\u0431\u043b\u0430\u0441\u0442\u044c \u0440\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u044f. Alt + F9 \u2014 \u043c\u0435\u043d\u044e. Alt + F10 \u2014 \u043f\u0430\u043d\u0435\u043b\u044c \u0438\u043d\u0441\u0442\u0440\u0443\u043c\u0435\u043d\u0442\u043e\u0432. Alt + 0 \u2014 \u043f\u043e\u043c\u043e\u0449\u044c.","You have unsaved changes are you sure you want to navigate away?":"\u0421\u0434\u0435\u043b\u0430\u043d\u043d\u044b\u0435 \u0432\u0430\u043c\u0438 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0431\u0443\u0434\u0443\u0442 \u043e\u0442\u043c\u0435\u043d\u0435\u043d\u044b, \u0435\u0441\u043b\u0438 \u0432\u044b \u0443\u0439\u0434\u0451\u0442\u0435 \u0441 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u044b.","Your browser doesn't support direct access to the clipboard. Please use the Ctrl+X\/C\/V keyboard shortcuts instead.":"\u0412\u0430\u0448 \u0431\u0440\u0430\u0443\u0437\u0435\u0440 \u043d\u0435 \u043f\u043e\u0434\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u0435\u0442 \u043f\u0440\u044f\u043c\u043e\u0439 \u0434\u043e\u0441\u0442\u0443\u043f \u043a \u0431\u0443\u0444\u0435\u0440\u0443 \u043e\u0431\u043c\u0435\u043d\u0430. \u0418\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u0439\u0442\u0435 \u0433\u043e\u0440\u044f\u0447\u0438\u0435 \u043a\u043b\u0430\u0432\u0438\u0448\u0438 \u0438\u043b\u0438 \u043c\u0435\u043d\u044e \u00ab\u041f\u0440\u0430\u0432\u043a\u0430\u00bb \u0432\u0430\u0448\u0435\u0433\u043e \u0431\u0440\u0430\u0443\u0437\u0435\u0440\u0430.","Insert":"\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u044c","File":"\u0424\u0430\u0439\u043b","Edit":"\u0418\u0437\u043c\u0435\u043d\u0438\u0442\u044c","Tools":"\u0418\u043d\u0441\u0442\u0440\u0443\u043c\u0435\u043d\u0442\u044b","View":"\u041f\u0440\u043e\u0441\u043c\u043e\u0442\u0440","Table":"\u0422\u0430\u0431\u043b\u0438\u0446\u0430","Format":"\u0424\u043e\u0440\u043c\u0430\u0442","Keyboard Shortcuts":"\u0413\u043e\u0440\u044f\u0447\u0438\u0435 \u043a\u043b\u0430\u0432\u0438\u0448\u0438","Toolbar Toggle":"\u041f\u043e\u043a\u0430\u0437\u0430\u0442\u044c\/\u0441\u043a\u0440\u044b\u0442\u044c \u043f\u0430\u043d\u0435\u043b\u044c \u0438\u043d\u0441\u0442\u0440\u0443\u043c\u0435\u043d\u0442\u043e\u0432","Insert Read More tag":"\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u044c \u0442\u0435\u0433 \u00ab\u0414\u0430\u043b\u0435\u0435\u00bb","Read more...":"\u0422\u0435\u0433 \u00ab\u0414\u0430\u043b\u0435\u0435\u00bb","Distraction Free Writing":"\u041f\u043e\u043b\u043d\u043e\u044d\u043a\u0440\u0430\u043d\u043d\u044b\u0439 \u0440\u0435\u0436\u0438\u043c"});
+tinymce.ScriptLoader.markDone( 'http://www.mr-allen.net/wp-includes/js/tinymce/langs/ru.js' );
+</script>
+<script type='text/javascript' src='http://www.mr-allen.net/wp-includes/js/tinymce/langs/wp-langs-en.js?ver=4104-20140822'></script>
+		<script type="text/javascript">
+		tinyMCEPreInit.load_ext("http://www.mr-allen.net/wp-content/plugins/crayon-syntax-highlighter/util/tag-editor", "ru");
+tinymce.PluginManager.load("crayon_tinymce", "http://www.mr-allen.net/wp-content/plugins/crayon-syntax-highlighter/util/tag-editor/crayon_tinymce.js");
+tinyMCEPreInit.load_ext("http://www.mr-allen.net/wp-content/plugins/tinymce-advanced/mce/anchor", "ru");
+tinymce.PluginManager.load("anchor", "http://www.mr-allen.net/wp-content/plugins/tinymce-advanced/mce/anchor/plugin.min.js");
+tinyMCEPreInit.load_ext("http://www.mr-allen.net/wp-content/plugins/tinymce-advanced/mce/code", "ru");
+tinymce.PluginManager.load("code", "http://www.mr-allen.net/wp-content/plugins/tinymce-advanced/mce/code/plugin.min.js");
+tinyMCEPreInit.load_ext("http://www.mr-allen.net/wp-content/plugins/tinymce-advanced/mce/insertdatetime", "ru");
+tinymce.PluginManager.load("insertdatetime", "http://www.mr-allen.net/wp-content/plugins/tinymce-advanced/mce/insertdatetime/plugin.min.js");
+tinyMCEPreInit.load_ext("http://www.mr-allen.net/wp-content/plugins/tinymce-advanced/mce/nonbreaking", "ru");
+tinymce.PluginManager.load("nonbreaking", "http://www.mr-allen.net/wp-content/plugins/tinymce-advanced/mce/nonbreaking/plugin.min.js");
+tinyMCEPreInit.load_ext("http://www.mr-allen.net/wp-content/plugins/tinymce-advanced/mce/print", "ru");
+tinymce.PluginManager.load("print", "http://www.mr-allen.net/wp-content/plugins/tinymce-advanced/mce/print/plugin.min.js");
+tinyMCEPreInit.load_ext("http://www.mr-allen.net/wp-content/plugins/tinymce-advanced/mce/searchreplace", "ru");
+tinymce.PluginManager.load("searchreplace", "http://www.mr-allen.net/wp-content/plugins/tinymce-advanced/mce/searchreplace/plugin.min.js");
+tinyMCEPreInit.load_ext("http://www.mr-allen.net/wp-content/plugins/tinymce-advanced/mce/table", "ru");
+tinymce.PluginManager.load("table", "http://www.mr-allen.net/wp-content/plugins/tinymce-advanced/mce/table/plugin.min.js");
+tinyMCEPreInit.load_ext("http://www.mr-allen.net/wp-content/plugins/tinymce-advanced/mce/visualblocks", "ru");
+tinymce.PluginManager.load("visualblocks", "http://www.mr-allen.net/wp-content/plugins/tinymce-advanced/mce/visualblocks/plugin.min.js");
+tinyMCEPreInit.load_ext("http://www.mr-allen.net/wp-content/plugins/tinymce-advanced/mce/visualchars", "ru");
+tinymce.PluginManager.load("visualchars", "http://www.mr-allen.net/wp-content/plugins/tinymce-advanced/mce/visualchars/plugin.min.js");
+tinyMCEPreInit.load_ext("http://www.mr-allen.net/wp-content/plugins/tinymce-advanced/mce/emoticons", "ru");
+tinymce.PluginManager.load("emoticons", "http://www.mr-allen.net/wp-content/plugins/tinymce-advanced/mce/emoticons/plugin.min.js");
+tinyMCEPreInit.load_ext("http://www.mr-allen.net/wp-content/plugins/tinymce-advanced/mce/advlist", "ru");
+tinymce.PluginManager.load("advlist", "http://www.mr-allen.net/wp-content/plugins/tinymce-advanced/mce/advlist/plugin.min.js");
+tinyMCEPreInit.load_ext("http://www.mr-allen.net/wp-content/plugins/tinymce-advanced/mce/wptadv", "ru");
+tinymce.PluginManager.load("wptadv", "http://www.mr-allen.net/wp-content/plugins/tinymce-advanced/mce/wptadv/plugin.min.js");
+
+var ajaxurl = "/wp-admin/admin-ajax.php";
+		( function() {
+			var init, edId, qtId, firstInit, wrapper;
+
+			if ( typeof tinymce !== 'undefined' ) {
+				for ( edId in tinyMCEPreInit.mceInit ) {
+					if ( firstInit ) {
+						init = tinyMCEPreInit.mceInit[edId] = tinymce.extend( {}, firstInit, tinyMCEPreInit.mceInit[edId] );
+					} else {
+						init = firstInit = tinyMCEPreInit.mceInit[edId];
+					}
+
+					wrapper = tinymce.DOM.select( '#wp-' + edId + '-wrap' )[0];
+
+					if ( ( tinymce.DOM.hasClass( wrapper, 'tmce-active' ) || ! tinyMCEPreInit.qtInit.hasOwnProperty( edId ) ) &&
+						! init.wp_skip_init ) {
+
+						try {
+							tinymce.init( init );
+
+							if ( ! window.wpActiveEditor ) {
+								window.wpActiveEditor = edId;
+							}
+						} catch(e){}
+					}
+				}
+			}
+
+			if ( typeof quicktags !== 'undefined' ) {
+				for ( qtId in tinyMCEPreInit.qtInit ) {
+					try {
+						quicktags( tinyMCEPreInit.qtInit[qtId] );
+
+						if ( ! window.wpActiveEditor ) {
+							window.wpActiveEditor = qtId;
+						}
+					} catch(e){};
+				}
+			}
+
+			if ( typeof jQuery !== 'undefined' ) {
+				jQuery('.wp-editor-wrap').on( 'click.wp-editor', function() {
+					if ( this.id ) {
+						window.wpActiveEditor = this.id.slice( 3, -5 );
+					}
+				});
+			} else {
+				for ( qtId in tinyMCEPreInit.qtInit ) {
+					document.getElementById( 'wp-' + qtId + '-wrap' ).onclick = function() {
+						window.wpActiveEditor = this.id.slice( 3, -5 );
+					}
+				}
+			}
+		}());
+		</script>
+				<div id="wp-link-backdrop" style="display: none"></div>
+		<div id="wp-link-wrap" class="wp-core-ui" style="display: none">
+		<form id="wp-link" tabindex="-1">
+		<input type="hidden" id="_ajax_linking_nonce" name="_ajax_linking_nonce" value="6f433a4232" />		<div id="link-modal-title">
+			Вставить/изменить ссылку			<button type="button" id="wp-link-close"><span class="screen-reader-text">Закрыть</span></button>
+	 	</div>
+		<div id="link-selector">
+			<div id="link-options">
+				<p class="howto">Введите адрес назначения (URL)</p>
+				<div>
+					<label><span>URL</span><input id="url-field" type="text" name="href" /></label>
+				</div>
+				<div>
+					<label><span>Заголовок</span><input id="link-title-field" type="text" name="linktitle" /></label>
+				</div>
+				<div class="link-target">
+					<label><span>&nbsp;</span><input type="checkbox" id="link-target-checkbox" /> Открывать в новом окне/вкладке</label>
+				</div>
+			</div>
+			<p class="howto"><a href="#" id="wp-link-search-toggle">Или сделайте ссылку на существующий материал</a></p>
+			<div id="search-panel">
+				<div class="link-search-wrapper">
+					<label>
+						<span class="search-label">Поиск</span>
+						<input type="search" id="search-field" class="link-search-field" autocomplete="off" />
+						<span class="spinner"></span>
+					</label>
+				</div>
+				<div id="search-results" class="query-results" tabindex="0">
+					<ul></ul>
+					<div class="river-waiting">
+						<span class="spinner"></span>
+					</div>
+				</div>
+				<div id="most-recent-results" class="query-results" tabindex="0">
+					<div class="query-notice" id="query-notice-message">
+						<em class="query-notice-default">Поисковый запрос не задан. Показаны недавние элементы.</em>
+						<em class="query-notice-hint screen-reader-text">Воспользуйтесь поиском или клавишами вверх/вниз, чтобы выбрать элемент.</em>
+					</div>
+					<ul></ul>
+					<div class="river-waiting">
+						<span class="spinner"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="submitbox">
+			<div id="wp-link-cancel">
+				<a class="submitdelete deletion" href="#">Отмена</a>
+			</div>
+			<div id="wp-link-update">
+				<input type="submit" value="Добавить ссылку" class="button button-primary" id="wp-link-submit" name="wp-link-submit">
+			</div>
+		</div>
+		</form>
+		</div>
+					<style type="text/css">.wp-fullscreen-wrap .mce-menubar { position: static !important; width: auto !important; }</style>
+			
+		<!--[if IE]>
+		<script type="text/javascript">
+		if ( 0 === window.location.hash.indexOf( '#comment-' ) ) {
+			// window.location.reload() doesn't respect the Hash in IE
+			window.location.hash = window.location.hash;
+		}
+		</script>
+		<![endif]-->
+		<script type="text/javascript">
+			var comm_par_el = document.getElementById( 'comment_parent' ),
+			    comm_par = (comm_par_el && comm_par_el.value) ? comm_par_el.value : '',
+			    frame = document.getElementById( 'jetpack_remote_comment' ),
+			    tellFrameNewParent;
+
+			tellFrameNewParent = function() {
+				if ( comm_par ) {
+					frame.src = "http://jetpack.wordpress.com/jetpack-comment/?blogid=57896872&postid=577&comment_registration=0&require_name_email=1&stc_enabled=1&stb_enabled=1&show_avatars=1&avatar_default=mystery&greeting=%D0%94%D0%BE%D0%B1%D0%B0%D0%B2%D0%B8%D1%82%D1%8C+%D0%BA%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9&greeting_reply=%D0%94%D0%BE%D0%B1%D0%B0%D0%B2%D0%B8%D1%82%D1%8C+%D0%BA%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9+%D0%B4%D0%BB%D1%8F+%25s&color_scheme=light&lang=ru-RU&jetpack_version=3.1.1&sig=d211787a95d8e7b003096d51e4c7982fad3c02da#parent=http%3A%2F%2Fwww.mr-allen.net%2F2013%2F11%2Finstalling-lamp-on-linux-mint-15-16-17%2F" + '&replytocom=' + parseInt( comm_par, 10 ).toString();
+				} else {
+					frame.src = "http://jetpack.wordpress.com/jetpack-comment/?blogid=57896872&postid=577&comment_registration=0&require_name_email=1&stc_enabled=1&stb_enabled=1&show_avatars=1&avatar_default=mystery&greeting=%D0%94%D0%BE%D0%B1%D0%B0%D0%B2%D0%B8%D1%82%D1%8C+%D0%BA%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9&greeting_reply=%D0%94%D0%BE%D0%B1%D0%B0%D0%B2%D0%B8%D1%82%D1%8C+%D0%BA%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9+%D0%B4%D0%BB%D1%8F+%25s&color_scheme=light&lang=ru-RU&jetpack_version=3.1.1&sig=d211787a95d8e7b003096d51e4c7982fad3c02da#parent=http%3A%2F%2Fwww.mr-allen.net%2F2013%2F11%2Finstalling-lamp-on-linux-mint-15-16-17%2F";
+				}
+			};
+
+	
+			if ( 'undefined' !== typeof addComment ) {
+				addComment._Jetpack_moveForm = addComment.moveForm;
+
+				addComment.moveForm = function( commId, parentId, respondId, postId ) {
+					var returnValue = addComment._Jetpack_moveForm( commId, parentId, respondId, postId ), cancelClick, cancel;
+
+					if ( false === returnValue ) {
+						cancel = document.getElementById( 'cancel-comment-reply-link' );
+						cancelClick = cancel.onclick;
+						cancel.onclick = function() {
+							var cancelReturn = cancelClick.call( this );
+							if ( false !== cancelReturn ) {
+								return cancelReturn;
+							}
+
+							if ( !comm_par ) {
+								return cancelReturn;
+							}
+
+							comm_par = 0;
+
+							tellFrameNewParent();
+
+							return cancelReturn;
+						};
+					}
+
+					if ( comm_par == parentId ) {
+						return returnValue;
+					}
+
+					comm_par = parentId;
+
+					tellFrameNewParent();
+
+					return returnValue;
+				};
+			}
+
+	
+			if ( window.postMessage ) {
+				if ( document.addEventListener ) {
+					window.addEventListener( 'message', function( event ) {
+						if ( "http:\/\/jetpack.wordpress.com" !== event.origin ) {
+							return;
+						}
+
+						jQuery( frame ).height( event.data );
+					} );
+				} else if ( document.attachEvent ) {
+					window.attachEvent( 'message', function( event ) {
+						if ( "http:\/\/jetpack.wordpress.com" !== event.origin ) {
+							return;
+						}
+
+						jQuery( frame ).height( event.data );
+					} );
+				}
+			}
+		</script>
+
+	
+	<script src="http://stats.wp.com/e-201440.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	st_go({v:'ext',j:'1:3.1.1',blog:'57896872',post:'577',tz:'4'});
+	var load_cmc = function(){linktracker_init(57896872,577,2);};
+	if ( typeof addLoadEvent != 'undefined' ) addLoadEvent(load_cmc);
+	else load_cmc();
+	</script>
+	</div> </div> </body>
+</html>

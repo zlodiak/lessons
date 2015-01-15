@@ -1,0 +1,582 @@
+<!DOCTYPE html><!-- HTML 5 -->
+<html lang="ru-RU">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="pingback" href="http://cyberapp.ru/xmlrpc.php" />
+	
+	<title>Маска ввода в полях формы на jQuery  &#8212;  Блог сибирского прогера</title>
+    
+        <style>
+.ui-tooltip-custom .ui-tooltip-titlebar, .ui-tooltip-custom .ui-tooltip-content{
+  border-color: #145181 !important;
+  color: #ffffff !important;
+}
+
+.ui-tooltip-custom .ui-tooltip-content{
+   background-color: #1c82d0 !important;
+}
+
+.ui-tooltip-custom .ui-tooltip-titlebar{
+   background-color: #1c82d0 !important;
+}
+</style>
+<link rel="alternate" type="application/rss+xml" title="Блог сибирского прогера &raquo; Лента" href="http://cyberapp.ru/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Блог сибирского прогера &raquo; Лента комментариев" href="http://cyberapp.ru/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Блог сибирского прогера &raquo; Лента комментариев к &laquo;Маска ввода в полях формы на jQuery&raquo;" href="http://cyberapp.ru/2011/07/06/jquery-maskedinput/feed/" />
+<link rel='stylesheet' id='qtip-css'  href='http://cyberapp.ru/wp-content/plugins/simple-counters/css/jquery.qtip.css?ver=2.0.0' type='text/css' media='all' />
+<link rel='stylesheet' id='core3.0-css'  href='http://cyberapp.ru/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0' type='text/css' media='all' />
+<link rel='stylesheet' id='core-Eclipse3.0-css'  href='http://cyberapp.ru/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/styles/shCoreEclipse.css?ver=3.0' type='text/css' media='all' />
+<link rel='stylesheet' id='theme-Eclipse3.0-css'  href='http://cyberapp.ru/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/styles/shThemeEclipse.css?ver=3.0' type='text/css' media='all' />
+<link rel='stylesheet' id='zee_stylesheet-css'  href='http://cyberapp.ru/wp-content/themes/zeepersonal/style.css?ver=3.8' type='text/css' media='all' />
+<link rel='stylesheet' id='zee_color_style-css'  href='http://cyberapp.ru/wp-content/themes/zeepersonal/includes/styles/orange.css?ver=3.8' type='text/css' media='all' />
+<script type='text/javascript' src='http://cyberapp.ru/wp-includes/js/comment-reply.min.js?ver=3.8'></script>
+<script type='text/javascript' src='http://cyberapp.ru/wp-includes/js/jquery/jquery.js?ver=1.10.2'></script>
+<script type='text/javascript' src='http://cyberapp.ru/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+<script type='text/javascript' src='http://cyberapp.ru/wp-content/plugins/simple-counters/js/jquery.qtip.min.js?ver=2.0.0'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var scOptions = {"position":"right","delta":"0","fontColor":"#ffffff","color":"#1c82d0","colorTo":"#145181","borderColor":"#676767","borderStyle":"win7","dgv":"vertical","hints":"themed","facebook":{"id":"","imgUrl":"http:\/\/cyberapp.ru\/wp-content\/plugins\/simple-counters\/images\/facebook.png","count":"38","hint":"\u0411\u0443\u0434\u044c\u0442\u0435 \u043c\u043e\u0438\u043c \u0434\u0440\u0443\u0433\u043e\u043c \u043d\u0430 Facebook \u0434\u043b\u044f \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u044f \u043f\u043e\u0441\u043b\u0435\u0434\u043d\u0438\u0445 \u043d\u043e\u0432\u043e\u0441\u0442\u0435\u0439 \u0438 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u0439 \u0441\u0430\u0439\u0442\u0430!","hintImg":"http:\/\/cyberapp.ru\/wp-content\/plugins\/simple-counters\/images\/facebook-hint.png","useAvatar":"false","link":"http:\/\/www.facebook.com\/novichkovsergey","str":"\u0414\u0440\u0443\u0437\u0435\u0439"},"twitter":{"id":"cyberapp","imgUrl":"http:\/\/cyberapp.ru\/wp-content\/plugins\/simple-counters\/images\/twitter.png","count":"4","hint":"\u0421\u043e\u0432\u043c\u0435\u0441\u0442\u043d\u043e \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u0439\u0442\u0435 \u0438 \u0443\u0437\u043d\u0430\u0432\u0430\u0439\u0442\u0435 \u0442\u043e, \u0447\u0442\u043e \u043f\u0440\u043e\u0438\u0441\u0445\u043e\u0434\u0438\u0442 \u043f\u0440\u044f\u043c\u043e \u0441\u0435\u0439\u0447\u0430\u0441 \u043d\u0430 \u0441\u0430\u0439\u0442\u0435 <strong>\u0411\u043b\u043e\u0433 \u0441\u0438\u0431\u0438\u0440\u0441\u043a\u043e\u0433\u043e \u043f\u0440\u043e\u0433\u0435\u0440\u0430<\/strong>!<br\/>\u041f\u0440\u0438\u0441\u043e\u0435\u0434\u0438\u043d\u044f\u0439\u0442\u0435\u0441\u044c \u043a\u043e \u043c\u043d\u0435 \u043d\u0430 Twitter!","hintImg":"http:\/\/cyberapp.ru\/wp-content\/plugins\/simple-counters\/images\/twitter-hint.png","useAvatar":"false","str":"\u0441\u043f\u0443\u0442\u043d\u0438\u043a\u0430"},"hintStyle":"ui-tooltip-custom"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://cyberapp.ru/wp-content/plugins/simple-counters/js/sc.min.js?ver=2.0.23'></script>
+<script type='text/javascript' src='http://cyberapp.ru/wp-content/themes/zeepersonal/includes/js/jquery-ui-1.8.11.custom.min.js?ver=3.8'></script>
+<script type='text/javascript' src='http://cyberapp.ru/wp-content/themes/zeepersonal/includes/js/jquery.easing.1.3.js?ver=3.8'></script>
+<script type='text/javascript' src='http://cyberapp.ru/wp-content/themes/zeepersonal/includes/js/jquery.cycle.all.min.js?ver=3.8'></script>
+<script type='text/javascript' src='http://cyberapp.ru/wp-content/themes/zeepersonal/includes/js/jquery.slidemenu.js?ver=3.8'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://cyberapp.ru/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://cyberapp.ru/wp-includes/wlwmanifest.xml" /> 
+<link rel='next' title='jQuery Color Picker &#8212; виджет выбора цвета' href='http://cyberapp.ru/2011/10/06/jquery-color-picker/' />
+<meta name="generator" content="WordPress 3.8" />
+<link rel='canonical' href='http://cyberapp.ru/2011/07/06/jquery-maskedinput/' />
+<link rel='shortlink' href='http://cyberapp.ru/?p=21' />
+<style type="text/css"></style>	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+<style type="text/css">
+	   #custom_header {
+			width: 950px;
+			margin: 0 auto;
+	   }
+	   #custom_header img {
+			margin: 0;
+			width: 950px;
+            height: 160px;
+        }
+    </style></head>
+
+<body class="single single-post postid-21 single-format-standard">
+<div id="wrapper">
+
+	<div id="header">
+
+		<div id="head">
+			<div id="logo">
+									<a href="http://cyberapp.ru"><img src="http://cyberapp.ru/wp-content/themes/zeepersonal/images/logo.png" alt="Logo" /></a>
+							</div>
+			<div id="navi">
+				<ul id="menu-%d0%b3%d0%bb%d0%b0%d0%b2%d0%bd%d0%be%d0%b5-%d0%bc%d0%b5%d0%bd%d1%8e" class="menu"><li id="menu-item-175" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-175"><a href="http://cyberapp.ru/cyber-image-manager/">Cyber Image Manager</a></li>
+<li id="menu-item-81" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-81"><a href="http://cyberapp.ru/jquery-paginator-3000/">jQuery Paginator 3000 +</a></li>
+<li id="menu-item-82" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-82"><a href="http://cyberapp.ru/about-me/">Обо мне</a></li>
+</ul>			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	
+			<div id="custom_header_bg">
+			<div id="custom_header">
+				<img src="http://cyberapp.ru/wp-content/uploads/2013/10/default_header1.jpg" />
+			</div>
+		</div>
+		
+	<div class="google-top">
+		<script type="text/javascript"><!--
+			google_ad_client = "ca-pub-8815849714495812";
+			/* AfterHeader */
+			google_ad_slot = "1844888282";
+			google_ad_width = 970;
+			google_ad_height = 90;
+			//-->
+		</script>
+		<script type="text/javascript" src="//pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+	</div>
+	<div id="wrap">
+		<div id="content">
+
+				
+			<div id="post-21" class="post-21 post type-post status-publish format-standard hentry category-jquery category-form tag-forms tag-jquery tag-jquery-">
+			
+				<h2>Маска ввода в полях формы на jQuery</h2>
+					
+				<div class="postmeta">
+					radik /
+					<a href="http://cyberapp.ru/2011/07/06/jquery-maskedinput/">2011.07.06</a> /
+					<a href="http://cyberapp.ru/2011/07/06/jquery-maskedinput/#comments"  title="comments">Отзывов (11)</a>
+									</div>
+				
+				<div class="entry">
+										<p style="text-align: center;"><img class="aligncenter size-full wp-image-22" style="width: 457px; height: 252px;" title="jQuery masked input" src="http://cyberapp.ru/wp-content/uploads/images/1299482215.jpg" alt="" /></p>
+<p>Masked input &#8212; очередной плагин предназначенный для всеми горячо любимого javascript фремворка jQuery, он позволяет облегчить жизнь вам и вашим пользователям, тем что с его помощью можно установить строгий формат ввода (маску ввода) в текстовые поля формы что хорошо подойдет для ввода времени, даты, телефона и т.п.<br />
+<span id="more-21"></span><br />
+Плагин корректно работает во всех браузерах начитаная с IE6 +, FF 1.5 +, Opera, Safari, Chrome.</p>
+<p>И так, что же нужно сделать для того, что бы начать использовать данный плагин на своем сайте? Для начала подключите javascript файлы jQuery и плагина к вашей странице, выглядеть это будет примерно так:</p>
+<pre class="brush: html; gutter: true">&lt;script src=&quot;jquery.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;jquery.maskedinput.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</pre>
+<p>Далее нужно вызвать функцию плагина для всех элементов формы для которых надо создать маску, и передать в нее необходимые параметры:</p>
+<pre class="brush: javascript; gutter: true">jQuery(function($){
+   $(&quot;#date&quot;).mask(&quot;99/99/9999&quot;);
+   $(&quot;#phone&quot;).mask(&quot;(999) 999-9999&quot;);
+   $(&quot;#tin&quot;).mask(&quot;99-9999999&quot;);
+   $(&quot;#ssn&quot;).mask(&quot;999-99-9999&quot;);
+});</pre>
+<p>Функция плагина принимает 2 параметра первый &#8212; сама маска для ввода, второй &#8212; объект дополнительных параметров. Маска ввода представляет из себя строку состоящую из спец символов:</p>
+<ol>
+<li>a &#8212; трактуется как буквенный символ из диапазона (A-Z,a-z)</li>
+<li>9 &#8212; трактуется как числовой символ (0-9)</li>
+<li>* &#8212; трактуется как алфавитно цифровой символ (A-Z,a-z,0-9)</li>
+</ol>
+<p>Все символы кроме перечисленных выше трактуются как литералы.</p>
+<p>В объекте дополнительных параметров можно указать заполнитель маски ввода, по умолчанию он равен _, к примеру вы захотели изменить его на пробел, тогда ваш код вызова функции плагина будет выглядеть примерно так:</p>
+<pre class="brush: javascript; gutter: true">jQuery(function($){
+   $(&quot;#product&quot;).mask(&quot;99/99/9999&quot;,{placeholder:&quot; &quot;});
+});</pre>
+<p>Так же в качестве дополнительного параметра можно указать функцию обратного вызова, которая будет вызвана после того как все элементы маски будут заполнены, например:</p>
+<pre class="brush: javascript; gutter: true">jQuery(function($){
+   $(&quot;#product&quot;).mask(&quot;99/99/9999&quot;,{completed : function(){
+       alert(&quot;Вы ввели: &quot;+this.val());}
+   });
+});</pre>
+<p>Вы можете использовать свои определения для спецсимволов маски ввода к примеру, вы хотите что бы пользователь мог указывать разность или сумму чисел тогда вы можете сделать это следующим образом:</p>
+<pre class="brush: actionscript3; gutter: true">jQuery(function($){
+   $.mask.definitions[&#039;~&#039;]=&#039;[+-]&#039;;
+   $(&quot;#eyescript&quot;).mask(&quot;~9.99 ~9.99 999&quot;);
+});</pre>
+<p>Иногда бывают такие ситуации, что возникает потребность не заполнять пользователем некоторую часть маски ввода, для этого вы можете использовать спецсимвол ? &#8212; все что идет после этого символа является не обязательным для ввода с стороны пользователя, например:</p>
+<pre class="brush: javascript; gutter: true">jQuery(function($){
+   $(&quot;#phone&quot;).mask(&quot;(999) 999-9999? x99999&quot;);
+});</pre>
+<p>Вот это наверное и все основные возможности данного плагина, используйте его в своих проектах и вы сделаете жизнь неопытного пользователя маленечко проще :)</p>
+<p>Посмотреть плагин в действии, а так же скачать его вы можете <a title="jQuery Masked Input" href="http://cyberapp.ru/external.php?target=aHR0cDovL2RpZ2l0YWxidXNoLmNvbS9wcm9qZWN0cy9tYXNrZWQtaW5wdXQtcGx1Z2luLw==">тут</a>.</p>
+<a class = "github-ribbon" href="http://cyberapp.ru/external.php?target=aHR0cHM6Ly9naXRodWIuY29tL3Nub3ZpY2hrb3Y=" target = "_blank" ><img style="position: fixed; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub" /></a>					<div class="clear"></div>
+										<!-- <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+			xmlns:dc="http://purl.org/dc/elements/1.1/"
+			xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+		<rdf:Description rdf:about="http://cyberapp.ru/2011/07/06/jquery-maskedinput/"
+    dc:identifier="http://cyberapp.ru/2011/07/06/jquery-maskedinput/"
+    dc:title="Маска ввода в полях формы на jQuery"
+    trackback:ping="http://cyberapp.ru/2011/07/06/jquery-maskedinput/trackback/" />
+</rdf:RDF> -->			
+				</div>
+				
+				<div class="postinfo">
+					Рубрика: <a href="http://cyberapp.ru/category/jquery/" title="Просмотреть все записи в рубрике &laquo;jQuery&raquo;" rel="category tag">jQuery</a>, <a href="http://cyberapp.ru/category/jquery/form/" title="Просмотреть все записи в рубрике &laquo;Формы&raquo;" rel="category tag">Формы</a> / 
+					Метки:<a href="http://cyberapp.ru/tag/forms/" rel="tag">forms</a>, <a href="http://cyberapp.ru/tag/jquery/" rel="tag">jQuery</a>, <a href="http://cyberapp.ru/tag/jquery-%d0%bf%d0%bb%d0%b0%d0%b3%d0%b8%d0%bd/" rel="tag">jQuery плагин</a>				</div>
+
+			</div>
+
+		
+					
+		
+<!-- You can start editing here. -->
+
+
+<div id="comments">
+	<h3>Отзывов (11)</h3>
+
+		
+	<ol class="commentlist">
+			<li class="comment even thread-even depth-1 parent" id="comment-3758">
+				<div id="div-comment-3758" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn">Сергей</cite><span class="says">:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://cyberapp.ru/2011/07/06/jquery-maskedinput/comment-page-1/#comment-3758">
+			2013.12.02 в 19:26</a>		</div>
+
+		<p>Подскажите пожалуйста. Как можно с помощью этого или другого плагина организовать ввод по такой маске 0,3 или 9,2 или 10,3 или 179,3 и т.д.?</p>
+
+		<div class="reply">
+			<a class='comment-reply-link' href='/2011/07/06/jquery-maskedinput/?replytocom=3758#respond' onclick='return addComment.moveForm("div-comment-3758", "3758", "respond", "21")'>Ответить</a>		</div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-radik bypostauthor odd alt depth-2" id="comment-3818">
+				<div id="div-comment-3818" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn">radik</cite><span class="says">:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://cyberapp.ru/2011/07/06/jquery-maskedinput/comment-page-1/#comment-3818">
+			2013.12.03 в 16:32</a>		</div>
+
+		<p>К сожалению с помощью данного плагина такое сделать нельзя.</p>
+
+		<div class="reply">
+			<a class='comment-reply-link' href='/2011/07/06/jquery-maskedinput/?replytocom=3818#respond' onclick='return addComment.moveForm("div-comment-3818", "3818", "respond", "21")'>Ответить</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment even thread-odd thread-alt depth-1 parent" id="comment-1210">
+				<div id="div-comment-1210" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn">Ярослав</cite><span class="says">:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://cyberapp.ru/2011/07/06/jquery-maskedinput/comment-page-1/#comment-1210">
+			2013.05.27 в 20:23</a>		</div>
+
+		<p>jquery.mask &#8212; не хочет работать с вновь созданными полями или если какой-либо родитель у которого. раньше было свойство hidden, a потом убранное. То все его потомки не будут обрабатываться маской. Подскажите, как решить эту проблему?</p>
+
+		<div class="reply">
+			<a class='comment-reply-link' href='/2011/07/06/jquery-maskedinput/?replytocom=1210#respond' onclick='return addComment.moveForm("div-comment-1210", "1210", "respond", "21")'>Ответить</a>		</div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-radik bypostauthor odd alt depth-2" id="comment-1213">
+				<div id="div-comment-1213" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn">radik</cite><span class="says">:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://cyberapp.ru/2011/07/06/jquery-maskedinput/comment-page-1/#comment-1213">
+			2013.05.31 в 11:17</a>		</div>
+
+		<p>Здравствуйте, к сожалению с такой ситуацией я не сталкивался, но могу предположить, что для таких элементов нужно инициализировать маску после его отобрадения или удаления совйства hidden.</p>
+
+		<div class="reply">
+			<a class='comment-reply-link' href='/2011/07/06/jquery-maskedinput/?replytocom=1213#respond' onclick='return addComment.moveForm("div-comment-1213", "1213", "respond", "21")'>Ответить</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1 parent" id="comment-1141">
+				<div id="div-comment-1141" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn">alex</cite><span class="says">:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://cyberapp.ru/2011/07/06/jquery-maskedinput/comment-page-1/#comment-1141">
+			2013.04.08 в 17:46</a>		</div>
+
+		<p>добрый день. а вместо id можно использовать name=&#187;&#8230;..&#187;? и как будет выглядеть код? т.е. что будет вместо #phone?</p>
+
+		<div class="reply">
+			<a class='comment-reply-link' href='/2011/07/06/jquery-maskedinput/?replytocom=1141#respond' onclick='return addComment.moveForm("div-comment-1141", "1141", "respond", "21")'>Ответить</a>		</div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-radik bypostauthor odd alt depth-2" id="comment-1143">
+				<div id="div-comment-1143" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn">radik</cite><span class="says">:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://cyberapp.ru/2011/07/06/jquery-maskedinput/comment-page-1/#comment-1143">
+			2013.04.09 в 09:45</a>		</div>
+
+		<p>Доброго времени суток, вместо id вы можете использовать любой селектор jQuery, что такое селекторы и как их использовать вы можете узнать из документации на оф. сайте jQuery.</p>
+
+		<div class="reply">
+			<a class='comment-reply-link' href='/2011/07/06/jquery-maskedinput/?replytocom=1143#respond' onclick='return addComment.moveForm("div-comment-1143", "1143", "respond", "21")'>Ответить</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment even thread-odd thread-alt depth-1 parent" id="comment-1080">
+				<div id="div-comment-1080" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href='http://wp-admin.com.ua' rel='external nofollow' class='url'>WordPress уроки</a></cite><span class="says">:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://cyberapp.ru/2011/07/06/jquery-maskedinput/comment-page-1/#comment-1080">
+			2012.12.19 в 06:54</a>		</div>
+
+		<p>Как сделать маску на имейл?</p>
+
+		<div class="reply">
+			<a class='comment-reply-link' href='/2011/07/06/jquery-maskedinput/?replytocom=1080#respond' onclick='return addComment.moveForm("div-comment-1080", "1080", "respond", "21")'>Ответить</a>		</div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-radik bypostauthor odd alt depth-2" id="comment-1081">
+				<div id="div-comment-1081" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn">radik</cite><span class="says">:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://cyberapp.ru/2011/07/06/jquery-maskedinput/comment-page-1/#comment-1081">
+			2012.12.19 в 12:12</a>		</div>
+
+		<p>С помощью данного плагина в одном поле ни как не сделать, если только не ограничить по длине количество символов. К примеру с ограничением можно так: ************@******.**?* Написал на память поэтому 100% работоспособность не гарантирую.</p>
+
+		<div class="reply">
+			<a class='comment-reply-link' href='/2011/07/06/jquery-maskedinput/?replytocom=1081#respond' onclick='return addComment.moveForm("div-comment-1081", "1081", "respond", "21")'>Ответить</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1 parent" id="comment-1071">
+				<div id="div-comment-1071" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn">Дмитрий</cite><span class="says">:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://cyberapp.ru/2011/07/06/jquery-maskedinput/comment-page-1/#comment-1071">
+			2012.10.26 в 21:29</a>		</div>
+
+		<p>А как сделать маску для условий:<br />
+только цифры без ограничения их колличества<br />
+или<br />
+только цифры колличеством от 7 до 9</p>
+
+		<div class="reply">
+			<a class='comment-reply-link' href='/2011/07/06/jquery-maskedinput/?replytocom=1071#respond' onclick='return addComment.moveForm("div-comment-1071", "1071", "respond", "21")'>Ответить</a>		</div>
+				</div>
+		<ul class="children">
+		<li class="comment odd alt depth-2" id="comment-1215">
+				<div id="div-comment-1215" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn">bors</cite><span class="says">:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://cyberapp.ru/2011/07/06/jquery-maskedinput/comment-page-1/#comment-1215">
+			2013.06.02 в 18:43</a>		</div>
+
+		<p>$(селектор).mask(&#171;9?9999999999999999999&#8243;);</p>
+<p>$(селектор).mask(&#171;9999999?99&#8243;);</p>
+
+		<div class="reply">
+			<a class='comment-reply-link' href='/2011/07/06/jquery-maskedinput/?replytocom=1215#respond' onclick='return addComment.moveForm("div-comment-1215", "1215", "respond", "21")'>Ответить</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment even thread-odd thread-alt depth-1" id="comment-3">
+				<div id="div-comment-3" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn">Petroupdabe</cite><span class="says">:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://cyberapp.ru/2011/07/06/jquery-maskedinput/comment-page-1/#comment-3">
+			2011.09.30 в 03:59</a>		</div>
+
+		<p>перечитал весь блог, довольно неплохо</p>
+
+		<div class="reply">
+			<a class='comment-reply-link' href='/2011/07/06/jquery-maskedinput/?replytocom=3#respond' onclick='return addComment.moveForm("div-comment-3", "3", "respond", "21")'>Ответить</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+	</ol>
+
+	<div class="comment_navi">
+		<div class="alignleft"></div>
+		<div class="alignright"></div>
+	</div>
+	<div class="clear"></div>
+</div>
+ 
+									<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">Добавить комментарий <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2011/07/06/jquery-maskedinput/#respond" style="display:none;">Отменить ответ</a></small></h3>
+									<form action="http://cyberapp.ru/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																			<p class="comment-notes">Ваш e-mail не будет опубликован. Обязательные поля помечены <span class="required">*</span></p>							<p class="comment-form-author"><label for="author">Имя <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" aria-required='true' /></p>
+<p class="comment-form-email"><label for="email">E-mail <span class="required">*</span></label> <input id="email" name="email" type="text" value="" size="30" aria-required='true' /></p>
+<p class="comment-form-url"><label for="url">Сайт</label> <input id="url" name="url" type="text" value="" size="30" /></p>
+												<p class="comment-form-comment"><label for="comment">Комментарий</label> <textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea></p>												<p class="form-submit">
+							<input name="submit" type="submit" id="submit" value="Отправить комментарий" />
+							<input type='hidden' name='comment_post_ID' value='21' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+						</p>
+						<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="1c3e4b89df" /></p>					</form>
+							</div><!-- #respond -->
+				<div class="clear"></div>
+		
+	</div>
+		
+		
+<div id="sidebar">
+	<ul>
+
+<li id="search-3" class="widget widget_search"><form role="search" method="get" id="searchform" class="searchform" action="http://cyberapp.ru/">
+				<div>
+					<label class="screen-reader-text" for="s">Найти:</label>
+					<input type="text" value="" name="s" id="s" />
+					<input type="submit" id="searchsubmit" value="Поиск" />
+				</div>
+			</form></li>
+
+            <li class="wp-donation-widget">
+                <div class="item">
+                    <form method="get" action="wmk:payto">
+                        <table>
+                            <tr>
+                                <td class="icon"><img src="http://cyberapp.ru/wp-content/plugins/wp-donation/images/wmkeeper_32x32.png"></td>
+                                <td>
+                                    <input type="submit" value="Пожертвовать">
+                                    <input type="text" size="4" value="9" name="Amount"> WMZ<br>
+                                    <input type="hidden" value="Z200354610828" name="Purse">
+                                    <input type="hidden" value="Пожертвование для Cyber Applications (http://cyberapp.ru)" name="Desc">
+                                    <input type="hidden" value="Y" name="BringToFront">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="desc">WebMoney на кошелек <b>Z200354610828</b></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+
+                <br>
+
+                <div class="item">
+                    <form method="post" action="https://money.yandex.ru/charity.xml">
+                        <table>
+                            <tr>
+                                <td class="icon"><img src="http://cyberapp.ru/wp-content/plugins/wp-donation/images/ya_money.gif"></td>
+                                <td>
+                                    <input type="hidden" value="41001204115947" name="to">
+                                    <input type="hidden" value="Cyber Applications" name="CompanyName">
+                                    <input type="hidden" value="http://cyberapp.ru" name="CompanyLink">
+                                    <input type="submit" value="Пожертвовать">
+                                    <input type="text" size="4" value="199" name="CompanySum" id="CompanySum"> руб.<br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="desc">Яндекс.Деньги на счёт <b>41001204115947</b></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </li>
+        <li id="text-3" class="widget widget_text">			<div class="textwidget"><script type="text/javascript"><!--
+google_ad_client = "ca-pub-8815849714495812";
+/* SideBar */
+google_ad_slot = "1066159089";
+google_ad_width = 300;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript" src="//pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+		</li>
+<li id="categories-5" class="widget widget_categories"><h2 class="widgettitle">Рубрики</h2>
+		<ul>
+	<li class="cat-item cat-item-33"><a href="http://cyberapp.ru/category/css/" title="Просмотреть все записи в рубрике &laquo;CSS&raquo;">CSS</a> (1)
+</li>
+	<li class="cat-item cat-item-3"><a href="http://cyberapp.ru/category/jquery/" title="Просмотреть все записи в рубрике &laquo;jQuery&raquo;">jQuery</a> (11)
+<ul class='children'>
+	<li class="cat-item cat-item-15"><a href="http://cyberapp.ru/category/jquery/color-picker/" title="Просмотреть все записи в рубрике &laquo;Color Picker&raquo;">Color Picker</a> (1)
+</li>
+	<li class="cat-item cat-item-30"><a href="http://cyberapp.ru/category/jquery/widgets/" title="Просмотреть все записи в рубрике &laquo;Widgets&raquo;">Widgets</a> (3)
+</li>
+	<li class="cat-item cat-item-22"><a href="http://cyberapp.ru/category/jquery/animation-jquery/" title="Просмотреть все записи в рубрике &laquo;Анимация&raquo;">Анимация</a> (1)
+</li>
+	<li class="cat-item cat-item-29"><a href="http://cyberapp.ru/category/jquery/%d0%bc%d0%b5%d0%bd%d1%8e/" title="Просмотреть все записи в рубрике &laquo;Меню&raquo;">Меню</a> (3)
+</li>
+	<li class="cat-item cat-item-23"><a href="http://cyberapp.ru/category/jquery/%d0%bf%d0%be%d0%b4%d1%81%d0%ba%d0%b0%d0%b7%d0%ba%d0%b8/" title="Просмотреть все записи в рубрике &laquo;Подсказки&raquo;">Подсказки</a> (1)
+</li>
+	<li class="cat-item cat-item-12"><a href="http://cyberapp.ru/category/jquery/form/" title="Просмотреть все записи в рубрике &laquo;Формы&raquo;">Формы</a> (2)
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-25"><a href="http://cyberapp.ru/category/php/" title="Просмотреть все записи в рубрике &laquo;PHP&raquo;">PHP</a> (9)
+<ul class='children'>
+	<li class="cat-item cat-item-26"><a href="http://cyberapp.ru/category/php/kohana/" title="Просмотреть все записи в рубрике &laquo;Kohana&raquo;">Kohana</a> (9)
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-32"><a href="http://cyberapp.ru/category/twitter-bootstrap/" title="Просмотреть все записи в рубрике &laquo;Twitter Bootstrap&raquo;">Twitter Bootstrap</a> (1)
+</li>
+		</ul>
+</li>
+<li id="tag_cloud-7" class="widget widget_tag_cloud"><h2 class="widgettitle">Метки</h2>
+<div class="tagcloud"><a href='http://cyberapp.ru/tag/colorpicker/' class='tag-link-16' title='1 запись' style='font-size: 8pt;'>ColorPicker</a>
+<a href='http://cyberapp.ru/tag/forms/' class='tag-link-11' title='1 запись' style='font-size: 8pt;'>forms</a>
+<a href='http://cyberapp.ru/tag/jquery/' class='tag-link-3' title='9 записей' style='font-size: 22pt;'>jQuery</a>
+<a href='http://cyberapp.ru/tag/jquery-%d0%bf%d0%bb%d0%b0%d0%b3%d0%b8%d0%bd/' class='tag-link-19' title='8 записей' style='font-size: 21pt;'>jQuery плагин</a>
+<a href='http://cyberapp.ru/tag/ko3/' class='tag-link-27' title='9 записей' style='font-size: 22pt;'>KO3</a>
+<a href='http://cyberapp.ru/tag/kohana-3-2/' class='tag-link-28' title='9 записей' style='font-size: 22pt;'>Kohana 3.2</a>
+<a href='http://cyberapp.ru/tag/tooltip/' class='tag-link-24' title='1 запись' style='font-size: 8pt;'>tooltip</a>
+<a href='http://cyberapp.ru/tag/%d0%b0%d0%bd%d0%b8%d0%bc%d0%b0%d1%86%d0%b8%d1%8f/' class='tag-link-17' title='7 записей' style='font-size: 20pt;'>анимация</a>
+<a href='http://cyberapp.ru/tag/%d1%8d%d1%84%d1%84%d0%b5%d0%ba%d1%82%d1%8b/' class='tag-link-18' title='6 записей' style='font-size: 19pt;'>эффекты</a></div>
+</li>
+<li id="recent-comments-2" class="widget widget_recent_comments"><h2 class="widgettitle">Последние комментарии</h2>
+<ul id="recentcomments"><li class="recentcomments">radik к записи <a href="http://cyberapp.ru/jquery-paginator-3000/comment-page-1/#comment-4909">jQuery Paginator 3000 +</a></li><li class="recentcomments">Кирилл к записи <a href="http://cyberapp.ru/jquery-paginator-3000/comment-page-1/#comment-4907">jQuery Paginator 3000 +</a></li><li class="recentcomments">radik к записи <a href="http://cyberapp.ru/2012/08/06/kohana-file-upload-part-2/comment-page-1/#comment-4654">Kohana file upload &#8212; Загрузка файлов Kohana &#8212; Часть 2</a></li><li class="recentcomments">Денис к записи <a href="http://cyberapp.ru/2012/08/06/kohana-file-upload-part-2/comment-page-1/#comment-4412">Kohana file upload &#8212; Загрузка файлов Kohana &#8212; Часть 2</a></li><li class="recentcomments">radik к записи <a href="http://cyberapp.ru/2012/08/06/kohana-file-upload-part-2/comment-page-1/#comment-4363">Kohana file upload &#8212; Загрузка файлов Kohana &#8212; Часть 2</a></li><li class="recentcomments">Денис к записи <a href="http://cyberapp.ru/2012/08/06/kohana-file-upload-part-2/comment-page-1/#comment-4330">Kohana file upload &#8212; Загрузка файлов Kohana &#8212; Часть 2</a></li><li class="recentcomments">radik к записи <a href="http://cyberapp.ru/2011/07/06/jquery-maskedinput/comment-page-1/#comment-3818">Маска ввода в полях формы на jQuery</a></li><li class="recentcomments">Сергей к записи <a href="http://cyberapp.ru/2011/07/06/jquery-maskedinput/comment-page-1/#comment-3758">Маска ввода в полях формы на jQuery</a></li><li class="recentcomments">radik к записи <a href="http://cyberapp.ru/cyber-image-manager/comment-page-2/#comment-3359">Cyber Image Manager</a></li><li class="recentcomments">alex к записи <a href="http://cyberapp.ru/cyber-image-manager/comment-page-2/#comment-3247">Cyber Image Manager</a></li></ul></li>
+	
+	</ul>
+</div>	</div>
+	
+	<div class="clear"></div>
+		
+	<div class="google-bottom">
+		<script type="text/javascript"><!--
+			google_ad_client = "ca-pub-8815849714495812";
+			/* AfterContent */
+			google_ad_slot = "4798354686";
+			google_ad_width = 970;
+			google_ad_height = 90;
+			//-->
+		</script>
+		<script type="text/javascript" src="//pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+	</div>
+	
+	<div id="footer">
+		<div id="foot">
+			© 2011 Новичков Сергей			<!-- <div class="credit_link">Theme by <a href="http://themezee.com/zeepersonal">ThemeZee.com</a></div> -->
+			<div class="clear"></div>
+		</div>
+	</div>
+</div>
+	
+<!-- WP SyntaxHighlighter Ver.1.7.3 Begin -->
+<script type="text/javascript" src="http://cyberapp.ru/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shCore.js?ver=3.0"></script>
+<script type="text/javascript" src="http://cyberapp.ru/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shAutoloader.js?ver=3.0"></script>
+<script type="text/javascript" src="http://cyberapp.ru/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushXml.js?ver=3.0"></script>
+<script type="text/javascript">//<![CDATA[
+	SyntaxHighlighter.autoloader(
+	"applescript	http://cyberapp.ru/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushAppleScript.js?ver=3.0"
+	,"as3 actionscript3	http://cyberapp.ru/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushAS3.js?ver=3.0"
+	,"bash shell	http://cyberapp.ru/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushBash.js?ver=3.0"
+	,"cf coldfusion	http://cyberapp.ru/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushColdFusion.js?ver=3.0"
+	,"cpp c	http://cyberapp.ru/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushCpp.js?ver=3.0"
+	,"c# c-sharp csharp	http://cyberapp.ru/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushCSharp.js?ver=3.0"
+	,"css	http://cyberapp.ru/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushCss.js?ver=3.0"
+	,"delphi pas pascal	http://cyberapp.ru/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushDelphi.js?ver=3.0"
+	,"diff patch	http://cyberapp.ru/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushDiff.js?ver=3.0"
+	,"erl erlang	http://cyberapp.ru/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushErlang.js?ver=3.0"
+	,"groovy	http://cyberapp.ru/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushGroovy.js?ver=3.0"
+	,"java	http://cyberapp.ru/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushJava.js?ver=3.0"
+	,"jfx javafx	http://cyberapp.ru/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushJavaFX.js?ver=3.0"
+	,"js jscript javascript	http://cyberapp.ru/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushJScript.js?ver=3.0"
+	,"perl pl	http://cyberapp.ru/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPerl.js?ver=3.0"
+	,"php	http://cyberapp.ru/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPhp.js?ver=3.0"
+	,"plain text	http://cyberapp.ru/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPlain.js?ver=3.0"
+	,"ps powershell	http://cyberapp.ru/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPowerShell.js?ver=3.0"
+	,"py python	http://cyberapp.ru/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPython.js?ver=3.0"
+	,"rails ror ruby rb	http://cyberapp.ru/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushRuby.js?ver=3.0"
+	,"sass scss	http://cyberapp.ru/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushSass.js?ver=3.0"
+	,"scala	http://cyberapp.ru/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushScala.js?ver=3.0"
+	,"sql	http://cyberapp.ru/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushSql.js?ver=3.0"
+	,"vb vbnet	http://cyberapp.ru/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushVb.js?ver=3.0"
+	,"xml xhtml xslt html	http://cyberapp.ru/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushXml.js?ver=3.0"
+	);
+	SyntaxHighlighter.defaults['auto-links'] = true;
+	SyntaxHighlighter.defaults['quick-code'] = true;
+	SyntaxHighlighter.defaults['title'] = '';
+	SyntaxHighlighter.defaults['class-name'] = 'notranslate';
+	SyntaxHighlighter.defaults['collapse'] = false;
+	SyntaxHighlighter.defaults['first-line'] = 1;
+	SyntaxHighlighter.defaults['gutter'] = true;
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['smart-tabs'] = true;
+	SyntaxHighlighter.defaults['tab-size'] = 4;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = "Can't find brush for: ";
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = "Brush wasn't configured for html-script option: ";
+	SyntaxHighlighter.all();
+	
+//]]></script>
+<!-- WP SyntaxHighlighter Ver.1.7.3 End -->
+<link rel='stylesheet' id='wp-donation-css'  href='http://cyberapp.ru/wp-content/plugins/wp-donation/css/wp-donation.css?ver=3.8' type='text/css' media='all' />
+    <!-- Yandex.Metrika counter -->
+    <div style="display:none;"><script type="text/javascript">
+    (function(w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter10213429 = new Ya.Metrika({id:10213429, enableAll: true});
+            }
+            catch(e) { }
+        });
+    })(window, "yandex_metrika_callbacks");
+    </script></div>
+    <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+    <noscript><div><img src="//mc.yandex.ru/watch/10213429" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+</body>
+</html>

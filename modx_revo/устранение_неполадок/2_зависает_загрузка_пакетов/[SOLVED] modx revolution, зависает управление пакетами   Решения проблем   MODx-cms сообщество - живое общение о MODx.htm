@@ -1,0 +1,885 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="ru">
+<head>
+	
+	
+	<title>[SOLVED] modx revolution, зависает управление пакетами / Решения проблем / MODx-cms сообщество - живое общение о MODx</title>
+	
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="description" content="Добрый день!  Помогите, пожалуйста, справится с проблемой.  MODX Revolution 2.2.2-pl — после загрузки пакетов в какой-то момент перестаёт работать управление" />
+	<meta name="keywords" content="Revo,Modx Revo 2.2.2-pl,управление пакетами" />
+
+	<link rel='stylesheet' type='text/css' href='http://community.modx-cms.ru/templates/cache/modxcms/a1df1f9bb099deca3438713bb8730d0a.css' />
+
+	<!--<link rel='stylesheet' type='text/css' href='/templates/skin/new-jquery/css/reset.css' />
+	<link rel='stylesheet' type='text/css' href='/templates/skin/new-jquery/css/grid.css' />
+	<link rel='stylesheet' type='text/css' href='/templates/skin/new-jquery/css/blocks.css' />
+	<link rel='stylesheet' type='text/css' href='/templates/skin/new-jquery/css/common.css' />
+	<link rel='stylesheet' type='text/css' href='/templates/skin/new-jquery/css/comments.css' />
+	<link rel='stylesheet' type='text/css' href='/templates/skin/new-jquery/css/forms.css' />
+	<link rel='stylesheet' type='text/css' href='/templates/skin/new-jquery/css/main.css' />
+	<link rel='stylesheet' type='text/css' href='/templates/skin/new-jquery/css/popups.css' />
+    <link rel='stylesheet' type='text/css' href='/templates/skin/new-jquery/css/topic.css' />
+	<link rel='stylesheet' type='text/css' href='/templates/skin/new-jquery/css/jquery.jqmodal.css' />
+	<link rel='stylesheet' type='text/css' href='/templates/skin/new-jquery/css/jquery.notifier.css' />
+	<link rel='stylesheet' type='text/css' href='/templates/skin/new-jquery/css/smoothness/jquery-ui.css' />-->
+
+	<link href="http://community.modx-cms.ru/templates/skin/modxcms/images/favicon.gif" rel="shortcut icon" />
+	<link rel="search" type="application/opensearchdescription+xml" href="http://community.modx-cms.ru/search/opensearch/" title="MODx-cms сообщество - живое общение о MODx" />
+
+			<link rel="alternate" type="application/rss+xml" href="http://community.modx-cms.ru/rss/comments/7482/" title="[SOLVED] modx revolution, зависает управление пакетами">
+		
+		
+	<script language="JavaScript" type="text/javascript">
+	var DIR_WEB_ROOT 			= 'http://community.modx-cms.ru';
+	var DIR_STATIC_SKIN 		= 'http://community.modx-cms.ru/templates/skin/modxcms';
+	var DIR_ROOT_ENGINE_LIB     = 'http://community.modx-cms.ru/engine/lib'; 
+	var LIVESTREET_SECURITY_KEY = '22e782b610dd793d22e11f0510f8c326';
+	var SESSION_ID              = '299d6ac383a9380b3122d6d061bcffba'; 
+	var BLOG_USE_TINYMCE		= '';
+
+	var TINYMCE_LANG='en';
+			TINYMCE_LANG='ru';
+	
+	var aRouter = new Array();
+			aRouter['error'] = 'http://community.modx-cms.ru/error/';
+			aRouter['registration'] = 'http://community.modx-cms.ru/registration/';
+			aRouter['profile'] = 'http://community.modx-cms.ru/profile/';
+			aRouter['my'] = 'http://community.modx-cms.ru/my/';
+			aRouter['blog'] = 'http://community.modx-cms.ru/blog/';
+			aRouter['personal_blog'] = 'http://community.modx-cms.ru/personal_blog/';
+			aRouter['top'] = 'http://community.modx-cms.ru/top/';
+			aRouter['index'] = 'http://community.modx-cms.ru/index/';
+			aRouter['new'] = 'http://community.modx-cms.ru/new/';
+			aRouter['topic'] = 'http://community.modx-cms.ru/topic/';
+			aRouter['login'] = 'http://community.modx-cms.ru/login/';
+			aRouter['people'] = 'http://community.modx-cms.ru/people/';
+			aRouter['settings'] = 'http://community.modx-cms.ru/settings/';
+			aRouter['tag'] = 'http://community.modx-cms.ru/tag/';
+			aRouter['talk'] = 'http://community.modx-cms.ru/talk/';
+			aRouter['comments'] = 'http://community.modx-cms.ru/comments/';
+			aRouter['rss'] = 'http://community.modx-cms.ru/rss/';
+			aRouter['link'] = 'http://community.modx-cms.ru/link/';
+			aRouter['question'] = 'http://community.modx-cms.ru/question/';
+			aRouter['blogs'] = 'http://community.modx-cms.ru/blogs/';
+			aRouter['search'] = 'http://community.modx-cms.ru/search/';
+			aRouter['admin'] = 'http://community.modx-cms.ru/admin/';
+			aRouter['ajax'] = 'http://community.modx-cms.ru/ajax/';
+			aRouter['feed'] = 'http://community.modx-cms.ru/feed/';
+			aRouter['stream'] = 'http://community.modx-cms.ru/stream/';
+			aRouter['photoset'] = 'http://community.modx-cms.ru/photoset/';
+			aRouter['ec_ajax'] = 'http://community.modx-cms.ru/ec_ajax/';
+			aRouter['sitemap'] = 'http://community.modx-cms.ru/sitemap/';
+		</script>
+
+	<script type='text/javascript' src='http://community.modx-cms.ru/templates/cache/modxcms/f49de277a4e91504eab8b30b7f7701cc.js'></script>
+
+    
+	<script language="JavaScript" type="text/javascript">
+		var tinyMCE=false;
+		ls.lang.load({"blog_join":"\u0432\u0441\u0442\u0443\u043f\u0438\u0442\u044c \u0432 \u0431\u043b\u043e\u0433","blog_leave":"\u043f\u043e\u043a\u0438\u043d\u0443\u0442\u044c \u0431\u043b\u043e\u0433"});
+	</script>
+	
+	
+</head>
+
+
+<body onload="prettyPrint()">
+	
+	<div id="header">
+	<div class="head_centr">
+			<div class="auth">
+			<a href="http://community.modx-cms.ru/login/" id="login_form_show" class="login-link">Войти</a> или 
+			<a href="http://community.modx-cms.ru/registration/">Зарегистрироваться</a>
+		</div>
+		
+	    <form action="http://community.modx-cms.ru/search/topics/" method="GET" class="search">
+			<input class="text" type="text" onblur="if (!value) value=defaultValue" onclick="if (value==defaultValue) value=''" value="Поиск" name="q" />
+			<input class="search-submit" type="submit" value="" />
+		</form>
+		
+		
+	
+
+	<a href="http://community.modx-cms.ru" class="logo">MODx <span>cms</span></a>
+	
+	<ul class="pages"><li><a href="http://www.modx-cms.ru" title="MODx-cms" >MODx-cms</a></li>
+			<li><a href="http://www.modx-cms.ru/dokumentatsiya.html" title="Документация по MODx" >Документация</a></li>
+			<li><a href="http://www.modx-cms.ru/demo.html" title="Демо" >Демо</a></li>
+			<li><a href="http://www.modx-cms.ru/proekt.html" title="Проект" >Проект</a></li>
+		</ul>
+	</div>
+</div>
+	<!--<div id="nav">
+	<div id="nav-inner">
+		
+		
+		
+	
+	</div>
+</div>-->
+
+	<div id="container">
+		<div id="wrapper" class=" ">
+						<div id="sidebar">
+
+    <div class="block">
+	<h2>Разделы</h2>
+	
+		
+			
+	
+	
+	
+	
+	    
+						<ul class="pages">
+		<li class="active"><a href="http://community.modx-cms.ru">Топики</a>
+		<ul class="menu">
+	<li >
+		<a href="http://community.modx-cms.ru/">Все</a> <a href="http://community.modx-cms.ru/new/" class="new">+7</a>			</li>
+
+	<li class="active">
+		<a href="http://community.modx-cms.ru/blog/">Коллективные</a> <a href="http://community.modx-cms.ru/blog/new/" class="new">+6</a>					<ul class="sub-menu">
+				<li ><a href="http://community.modx-cms.ru/blog/">Хорошие</a></li>
+				<li ><a href="http://community.modx-cms.ru/blog/new/">Новые</a> +6</li>				<li ><a href="http://community.modx-cms.ru/blog/bad/">Плохие</a></li>
+				
+			</ul>
+			</li>
+
+	<li >
+		<a href="http://community.modx-cms.ru/personal_blog/">Персональные</a> <a href="http://community.modx-cms.ru/personal_blog/new/" class="new">+1</a>			</li>
+	
+		
+	<li >
+		<a href="http://community.modx-cms.ru/top/">TOP</a>
+			</li>
+
+	
+</ul>
+		
+		</li>
+		<li ><a href="http://community.modx-cms.ru/blogs/">Блоги</a></li>
+		<li ><a href="http://community.modx-cms.ru/people/">Люди</a></li>
+								
+		
+	</ul>
+			
+	
+	</div>
+		
+		
+										<div class="block stream" id="block_stream">
+	<h2>Прямой эфир</h2>
+	
+	
+	<ul class="switcher">						
+		<li id="block_stream_item_comment" class="active">Комментарии</li>
+		<li id="block_stream_item_topic">Публикации</li>
+		
+		
+	</ul>					
+	
+	
+	<div class="block-content" id="block_stream_content">
+		<ul class="list">
+									
+		<li class="even">
+			<a href="http://community.modx-cms.ru/profile/lopata/" class="user">lopata</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="http://community.modx-cms.ru/blog/solutions/8356.html#comment52302" class="topic-title">Wayfinder</a>
+			<span>3</span> &rarr;
+			<a href="http://community.modx-cms.ru/blog/solutions/" class="blog-title">Решения проблем</a>
+		</li>
+									
+		<li >
+			<a href="http://community.modx-cms.ru/profile/robot_tommy/" class="user">robot_tommy</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="http://community.modx-cms.ru/blog/addons/1146.html#comment52300" class="topic-title">[Plugin] MultiPhotos - прикрепляем к странице  несколько фотографий</a>
+			<span>312</span> &rarr;
+			<a href="http://community.modx-cms.ru/blog/addons/" class="blog-title">Готовые дополнения для MODx</a>
+		</li>
+									
+		<li class="even">
+			<a href="http://community.modx-cms.ru/profile/Zloboff/" class="user">Zloboff</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="http://community.modx-cms.ru/blog/addons/2222.html#comment52298" class="topic-title">Создаем компонент для MODX Revolution</a>
+			<span>28</span> &rarr;
+			<a href="http://community.modx-cms.ru/blog/addons/" class="blog-title">Готовые дополнения для MODx</a>
+		</li>
+									
+		<li >
+			<a href="http://community.modx-cms.ru/profile/Zloboff/" class="user">Zloboff</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="http://community.modx-cms.ru/blog/questions/8355.html#comment52297" class="topic-title">[REVO] Написание собственного компонента</a>
+			<span>4</span> &rarr;
+			<a href="http://community.modx-cms.ru/blog/questions/" class="blog-title">Вопросы</a>
+		</li>
+									
+		<li class="even">
+			<a href="http://community.modx-cms.ru/profile/DRUMSLAVE/" class="user">DRUMSLAVE</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="http://community.modx-cms.ru/blog/solutions/8347.html#comment52292" class="topic-title">Снова проблема мультиязычности</a>
+			<span>1</span> &rarr;
+			<a href="http://community.modx-cms.ru/blog/solutions/" class="blog-title">Решения проблем</a>
+		</li>
+									
+		<li >
+			<a href="http://community.modx-cms.ru/profile/scva/" class="user">scva</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="http://community.modx-cms.ru/blog/solutions/8350.html#comment52290" class="topic-title">Баг при обновлении до modx-2.2.4, не войти в админку</a>
+			<span>1</span> &rarr;
+			<a href="http://community.modx-cms.ru/blog/solutions/" class="blog-title">Решения проблем</a>
+		</li>
+									
+		<li class="even">
+			<a href="http://community.modx-cms.ru/profile/ibp/" class="user">ibp</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="http://community.modx-cms.ru/blog/paidorders/8335.html#comment52289" class="topic-title">[REVO] Создание модуля события</a>
+			<span>3</span> &rarr;
+			<a href="http://community.modx-cms.ru/blog/paidorders/" class="blog-title">Объявления о работе</a>
+		</li>
+									
+		<li >
+			<a href="http://community.modx-cms.ru/profile/Blessun/" class="user">Blessun</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="http://community.modx-cms.ru/blog/addons/8080.html#comment52288" class="topic-title">[EVO] JotX - улучшенный и дополненный Jot</a>
+			<span>73</span> &rarr;
+			<a href="http://community.modx-cms.ru/blog/addons/" class="blog-title">Готовые дополнения для MODx</a>
+		</li>
+									
+		<li class="even">
+			<a href="http://community.modx-cms.ru/profile/Pathologic/" class="user">Pathologic</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="http://community.modx-cms.ru/blog/questions/8353.html#comment52285" class="topic-title">[Evo] Ditto filter и html сущности</a>
+			<span>9</span> &rarr;
+			<a href="http://community.modx-cms.ru/blog/questions/" class="blog-title">Вопросы</a>
+		</li>
+									
+		<li >
+			<a href="http://community.modx-cms.ru/profile/rushtimee/" class="user">rushtimee</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="http://community.modx-cms.ru/blog/questions/8354.html#comment52284" class="topic-title">[Revo] getPage. Шаблоны страниц</a>
+			<span>9</span> &rarr;
+			<a href="http://community.modx-cms.ru/blog/questions/" class="blog-title">Вопросы</a>
+		</li>
+									
+		<li class="even">
+			<a href="http://community.modx-cms.ru/profile/pavel7777/" class="user">pavel7777</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="http://community.modx-cms.ru/blog/addons/1043.html#comment52282" class="topic-title">[plugin]DirectResize 1.0.1 для Revolution</a>
+			<span>6</span> &rarr;
+			<a href="http://community.modx-cms.ru/blog/addons/" class="blog-title">Готовые дополнения для MODx</a>
+		</li>
+									
+		<li >
+			<a href="http://community.modx-cms.ru/profile/daniilos/" class="user">daniilos</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="http://community.modx-cms.ru/blog/addons/2146.html#comment52280" class="topic-title">InnovaStudio WYSIWYG Editor 5.5 для MODx Evo  + Basic Manager 1.0.0.9 beta (обновлено 24.03.2012)</a>
+			<span>94</span> &rarr;
+			<a href="http://community.modx-cms.ru/blog/addons/" class="blog-title">Готовые дополнения для MODx</a>
+		</li>
+									
+		<li class="even">
+			<a href="http://community.modx-cms.ru/profile/danik/" class="user">danik</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="http://community.modx-cms.ru/blog/dev/8311.html#comment52279" class="topic-title">Подсветка кода чанков/шаблонов/ресурсов в модальных окнах</a>
+			<span>4</span> &rarr;
+			<a href="http://community.modx-cms.ru/blog/dev/" class="blog-title">В разработке!</a>
+		</li>
+									
+		<li >
+			<a href="http://community.modx-cms.ru/profile/csoldier/" class="user">csoldier</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="http://community.modx-cms.ru/blog/questions/2053.html#comment52275" class="topic-title">Ditto @CODE + PHx   (EVO)</a>
+			<span>5</span> &rarr;
+			<a href="http://community.modx-cms.ru/blog/questions/" class="blog-title">Вопросы</a>
+		</li>
+									
+		<li class="even">
+			<a href="http://community.modx-cms.ru/profile/mcvova/" class="user">mcvova</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="http://community.modx-cms.ru/blog/questions/8302.html#comment52260" class="topic-title">Рассылка новостей для REVO</a>
+			<span>3</span> &rarr;
+			<a href="http://community.modx-cms.ru/blog/questions/" class="blog-title">Вопросы</a>
+		</li>
+									
+		<li >
+			<a href="http://community.modx-cms.ru/profile/Panamatic89/" class="user">Panamatic89</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="http://community.modx-cms.ru/blog/solutions/8248.html#comment52252" class="topic-title">SBShop ошибка дерева ресурсов</a>
+			<span>6</span> &rarr;
+			<a href="http://community.modx-cms.ru/blog/solutions/" class="blog-title">Решения проблем</a>
+		</li>
+									
+		<li class="even">
+			<a href="http://community.modx-cms.ru/profile/Dmi3y/" class="user">Dmi3y</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="http://community.modx-cms.ru/blog/news/8343.html#comment52251" class="topic-title">Запустился сайт СlipperCMS</a>
+			<span>11</span> &rarr;
+			<a href="http://community.modx-cms.ru/blog/news/" class="blog-title">Новости</a>
+		</li>
+									
+		<li >
+			<a href="http://community.modx-cms.ru/profile/neonebo/" class="user">neonebo</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="http://community.modx-cms.ru/blog/questions/8349.html#comment52247" class="topic-title">элементы управления(prev &amp; next) GetPage</a>
+			<span>6</span> &rarr;
+			<a href="http://community.modx-cms.ru/blog/questions/" class="blog-title">Вопросы</a>
+		</li>
+									
+		<li class="even">
+			<a href="http://community.modx-cms.ru/profile/SDee/" class="user">SDee</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="http://community.modx-cms.ru/blog/questions/8351.html#comment52244" class="topic-title">Отметить новинки Evo</a>
+			<span>10</span> &rarr;
+			<a href="http://community.modx-cms.ru/blog/questions/" class="blog-title">Вопросы</a>
+		</li>
+									
+		<li >
+			<a href="http://community.modx-cms.ru/profile/createit/" class="user">createit</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="http://community.modx-cms.ru/blog/questions/8352.html#comment52243" class="topic-title">Колличество материалов.</a>
+			<span>3</span> &rarr;
+			<a href="http://community.modx-cms.ru/blog/questions/" class="blog-title">Вопросы</a>
+		</li>
+	</ul>
+
+
+<div class="bottom">
+	<a href="http://community.modx-cms.ru/comments/">Весь эфир</a> | <a href="http://community.modx-cms.ru/rss/allcomments/">RSS</a>
+</div>
+	</div>
+</div>
+
+
+															<div class="block tags">
+	<ul class="cloud">						
+					<li><a class="w3" rel="tag" href="http://community.modx-cms.ru/tag/ajax/">ajax</a></li>	
+					<li><a class="w3" rel="tag" href="http://community.modx-cms.ru/tag/AjaxSearch/">AjaxSearch</a></li>	
+					<li><a class="w3" rel="tag" href="http://community.modx-cms.ru/tag/API/">API</a></li>	
+					<li><a class="w2" rel="tag" href="http://community.modx-cms.ru/tag/Articles/">Articles</a></li>	
+					<li><a class="w8" rel="tag" href="http://community.modx-cms.ru/tag/ditto/">ditto</a></li>	
+					<li><a class="w1" rel="tag" href="http://community.modx-cms.ru/tag/Easy%202%20Gallery/">Easy 2 Gallery</a></li>	
+					<li><a class="w5" rel="tag" href="http://community.modx-cms.ru/tag/eForm/">eForm</a></li>	
+					<li><a class="w8" rel="tag" href="http://community.modx-cms.ru/tag/evo/">evo</a></li>	
+					<li><a class="w4" rel="tag" href="http://community.modx-cms.ru/tag/evo%201.0.5/">evo 1.0.5</a></li>	
+					<li><a class="w2" rel="tag" href="http://community.modx-cms.ru/tag/EvoGallery/">EvoGallery</a></li>	
+					<li><a class="w4" rel="tag" href="http://community.modx-cms.ru/tag/evolution/">evolution</a></li>	
+					<li><a class="w1" rel="tag" href="http://community.modx-cms.ru/tag/filter/">filter</a></li>	
+					<li><a class="w3" rel="tag" href="http://community.modx-cms.ru/tag/FormIt/">FormIt</a></li>	
+					<li><a class="w3" rel="tag" href="http://community.modx-cms.ru/tag/Gallery/">Gallery</a></li>	
+					<li><a class="w2" rel="tag" href="http://community.modx-cms.ru/tag/getPage/">getPage</a></li>	
+					<li><a class="w4" rel="tag" href="http://community.modx-cms.ru/tag/getResources/">getResources</a></li>	
+					<li><a class="w4" rel="tag" href="http://community.modx-cms.ru/tag/jot/">jot</a></li>	
+					<li><a class="w3" rel="tag" href="http://community.modx-cms.ru/tag/Jquery/">Jquery</a></li>	
+					<li><a class="w2" rel="tag" href="http://community.modx-cms.ru/tag/login/">login</a></li>	
+					<li><a class="w1" rel="tag" href="http://community.modx-cms.ru/tag/manager/">manager</a></li>	
+					<li><a class="w1" rel="tag" href="http://community.modx-cms.ru/tag/ManagerManager/">ManagerManager</a></li>	
+					<li><a class="w2" rel="tag" href="http://community.modx-cms.ru/tag/Maxigallery/">Maxigallery</a></li>	
+					<li><a class="w10" rel="tag" href="http://community.modx-cms.ru/tag/modx/">modx</a></li>	
+					<li><a class="w2" rel="tag" href="http://community.modx-cms.ru/tag/modx%201.0.5/">modx 1.0.5</a></li>	
+					<li><a class="w4" rel="tag" href="http://community.modx-cms.ru/tag/modx%20evo/">modx evo</a></li>	
+					<li><a class="w5" rel="tag" href="http://community.modx-cms.ru/tag/MODx%20Revo/">MODx Revo</a></li>	
+					<li><a class="w3" rel="tag" href="http://community.modx-cms.ru/tag/MODx%20Revolution/">MODx Revolution</a></li>	
+					<li><a class="w2" rel="tag" href="http://community.modx-cms.ru/tag/MySQL/">MySQL</a></li>	
+					<li><a class="w3" rel="tag" href="http://community.modx-cms.ru/tag/php/">php</a></li>	
+					<li><a class="w1" rel="tag" href="http://community.modx-cms.ru/tag/phpthumbof/">phpthumbof</a></li>	
+					<li><a class="w5" rel="tag" href="http://community.modx-cms.ru/tag/PHx/">PHx</a></li>	
+					<li><a class="w2" rel="tag" href="http://community.modx-cms.ru/tag/plugin/">plugin</a></li>	
+					<li><a class="w2" rel="tag" href="http://community.modx-cms.ru/tag/quip/">quip</a></li>	
+					<li><a class="w10" rel="tag" href="http://community.modx-cms.ru/tag/Revo/">Revo</a></li>	
+					<li><a class="w6" rel="tag" href="http://community.modx-cms.ru/tag/revolution/">revolution</a></li>	
+					<li><a class="w5" rel="tag" href="http://community.modx-cms.ru/tag/Shopkeeper/">Shopkeeper</a></li>	
+					<li><a class="w2" rel="tag" href="http://community.modx-cms.ru/tag/snippet/">snippet</a></li>	
+					<li><a class="w4" rel="tag" href="http://community.modx-cms.ru/tag/TinyMCE/">TinyMCE</a></li>	
+					<li><a class="w6" rel="tag" href="http://community.modx-cms.ru/tag/tv/">tv</a></li>	
+					<li><a class="w3" rel="tag" href="http://community.modx-cms.ru/tag/TV-%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80/">TV-параметр</a></li>	
+					<li><a class="w6" rel="tag" href="http://community.modx-cms.ru/tag/wayfinder/">wayfinder</a></li>	
+					<li><a class="w2" rel="tag" href="http://community.modx-cms.ru/tag/weblogin/">weblogin</a></li>	
+					<li><a class="w2" rel="tag" href="http://community.modx-cms.ru/tag/WebloginPE/">WebloginPE</a></li>	
+					<li><a class="w2" rel="tag" href="http://community.modx-cms.ru/tag/xPDO/">xPDO</a></li>	
+					<li><a class="w2" rel="tag" href="http://community.modx-cms.ru/tag/YAMS/">YAMS</a></li>	
+					<li><a class="w2" rel="tag" href="http://community.modx-cms.ru/tag/%D0%90%D0%B2%D1%82%D0%BE%D1%80%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F/">Авторизация</a></li>	
+					<li><a class="w4" rel="tag" href="http://community.modx-cms.ru/tag/%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD%D0%BA%D0%B0/">админка</a></li>	
+					<li><a class="w3" rel="tag" href="http://community.modx-cms.ru/tag/%D0%B3%D0%B0%D0%BB%D0%B5%D1%80%D0%B5%D1%8F/">галерея</a></li>	
+					<li><a class="w1" rel="tag" href="http://community.modx-cms.ru/tag/%D0%BA%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3/">каталог</a></li>	
+					<li><a class="w1" rel="tag" href="http://community.modx-cms.ru/tag/%D0%BA%D0%BE%D0%B4%D0%B8%D1%80%D0%BE%D0%B2%D0%BA%D0%B0/">кодировка</a></li>	
+					<li><a class="w2" rel="tag" href="http://community.modx-cms.ru/tag/%D0%BA%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B8/">комментарии</a></li>	
+					<li><a class="w2" rel="tag" href="http://community.modx-cms.ru/tag/%D0%BC%D0%B0%D0%B3%D0%B0%D0%B7%D0%B8%D0%BD/">магазин</a></li>	
+					<li><a class="w3" rel="tag" href="http://community.modx-cms.ru/tag/%D0%BC%D0%B5%D0%BD%D1%8E/">меню</a></li>	
+					<li><a class="w4" rel="tag" href="http://community.modx-cms.ru/tag/%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D1%8C/">модуль</a></li>	
+					<li><a class="w2" rel="tag" href="http://community.modx-cms.ru/tag/%D0%BD%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D0%B8/">новости</a></li>	
+					<li><a class="w3" rel="tag" href="http://community.modx-cms.ru/tag/%D0%BE%D1%88%D0%B8%D0%B1%D0%BA%D0%B0/">ошибка</a></li>	
+					<li><a class="w3" rel="tag" href="http://community.modx-cms.ru/tag/%D0%BF%D0%BB%D0%B0%D0%B3%D0%B8%D0%BD/">плагин</a></li>	
+					<li><a class="w2" rel="tag" href="http://community.modx-cms.ru/tag/%D0%BF%D0%BE%D0%B8%D1%81%D0%BA/">поиск</a></li>	
+					<li><a class="w1" rel="tag" href="http://community.modx-cms.ru/tag/%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D0%B8/">пользователи</a></li>	
+					<li><a class="w1" rel="tag" href="http://community.modx-cms.ru/tag/%D0%BF%D1%80%D0%B0%D0%B2%D0%B0%20%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%B0/">права доступа</a></li>	
+					<li><a class="w3" rel="tag" href="http://community.modx-cms.ru/tag/%D0%BF%D1%80%D0%BE%D0%B1%D0%BB%D0%B5%D0%BC%D0%B0/">проблема</a></li>	
+					<li><a class="w5" rel="tag" href="http://community.modx-cms.ru/tag/%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0/">работа</a></li>	
+					<li><a class="w6" rel="tag" href="http://community.modx-cms.ru/tag/%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0/">разработка</a></li>	
+					<li><a class="w5" rel="tag" href="http://community.modx-cms.ru/tag/%D1%81%D0%B0%D0%B9%D1%82/">сайт</a></li>	
+					<li><a class="w7" rel="tag" href="http://community.modx-cms.ru/tag/%D1%81%D0%BD%D0%B8%D0%BF%D0%BF%D0%B5%D1%82/">сниппет</a></li>	
+					<li><a class="w1" rel="tag" href="http://community.modx-cms.ru/tag/%D1%82%D0%B5%D0%B3%D0%B8/">теги</a></li>	
+					<li><a class="w1" rel="tag" href="http://community.modx-cms.ru/tag/%D1%85%D0%BE%D1%81%D1%82%D0%B8%D0%BD%D0%B3/">хостинг</a></li>	
+					<li><a class="w3" rel="tag" href="http://community.modx-cms.ru/tag/%D1%87%D0%B0%D0%BD%D0%BA/">чанк</a></li>	
+					<li><a class="w2" rel="tag" href="http://community.modx-cms.ru/tag/%D0%A7%D0%9F%D0%A3/">ЧПУ</a></li>	
+					<li><a class="w2" rel="tag" href="http://community.modx-cms.ru/tag/%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD/">шаблон</a></li>	
+			</ul>
+</div>
+															<div class="block blogs" id="block_blogs">
+	<h2>Блоги</h2>
+	
+	
+	<ul class="switcher">
+		<li id="block_blogs_item_top" class="active">Топ</li>
+			</ul>
+	
+	
+	<div class="block-content" id="block_blogs_content">
+		<ul class="list">
+			<li>
+			<span class="rating">98.76</span>
+			<a href="http://community.modx-cms.ru/blog/questions/">Вопросы</a> 
+					</li>
+			<li>
+			<span class="rating">51.25</span>
+			<a href="http://community.modx-cms.ru/blog/addons/">Готовые дополнения для MODx</a> 
+					</li>
+			<li>
+			<span class="rating">32.74</span>
+			<a href="http://community.modx-cms.ru/blog/paidorders/">Объявления о работе</a> 
+					</li>
+			<li>
+			<span class="rating">32.51</span>
+			<a href="http://community.modx-cms.ru/blog/tips_and_tricks/">Tips &amp; tricks</a> 
+					</li>
+			<li>
+			<span class="rating">27.10</span>
+			<a href="http://community.modx-cms.ru/blog/solutions/">Решения проблем</a> 
+					</li>
+			<li>
+			<span class="rating">19.15</span>
+			<a href="http://community.modx-cms.ru/blog/sites/">Сайты на MODx</a> 
+					</li>
+			<li>
+			<span class="rating">17.68</span>
+			<a href="http://community.modx-cms.ru/blog/documentation/">Документация по MODx</a> 
+					</li>
+			<li>
+			<span class="rating">17.05</span>
+			<a href="http://community.modx-cms.ru/blog/social-network/">Социальная сеть</a> 
+					</li>
+			<li>
+			<span class="rating">16.25</span>
+			<a href="http://community.modx-cms.ru/blog/security/">Безопасность</a> 
+					</li>
+			<li>
+			<span class="rating">15.29</span>
+			<a href="http://community.modx-cms.ru/blog/research/">Эксперименты и исследования</a> 
+					</li>
+	</ul>				
+	</div>
+
+	
+	<div class="bottom">
+		<a href="http://community.modx-cms.ru/blogs/">Все блоги</a>
+	</div>
+</div>
+
+									</div>					<div id="content" >
+				<div id="content-inner">
+						<div class="login-form jqmWindow" id="login_form">
+		<a href="#" class="close jqmClose"></a>
+		
+		<form action="http://community.modx-cms.ru/login/" method="POST">
+			<h3>Авторизация</h3>
+
+			
+
+			<p><label>Логин или эл. почта:<br />
+			<input type="text" class="input-text" name="login" id="login-input"/></label></p>
+			
+			<p><label>Пароль:<br />
+			<input type="password" name="password" class="input-text" /></label></p>
+			
+			<label class="label-remember"><input type="checkbox" name="remember" class="checkbox" checked />Запомнить меня</label>
+
+			
+
+			<input type="submit" name="submit_login" class="button" value="Войти" /><br /><br />
+			
+			<a href="http://community.modx-cms.ru/login/reminder/">Напомнить пароль</a><br />
+			<a href="http://community.modx-cms.ru/registration/">Регистрация</a>
+		</form>
+	</div>
+						
+
+						
+					
+
+
+<div class="topic">
+	<h1 class="title">
+							[SOLVED] modx revolution, зависает управление пакетами
+			</h1>
+	
+	<a href="#" onclick="return ls.favourite.toggle(7482,this,'topic');" class="favourite "></a>
+
+	
+	
+	<div class="info-top">
+		<a href="http://community.modx-cms.ru/blog/solutions/" class="title-blog">Решения проблем</a>
+	
+		<span class="actions">                                                                   
+								</span>
+	</div>
+
+
+	<div class="content">
+					 Добрый день!<br/>
+Помогите, пожалуйста, справится с проблемой.<br/>
+MODX Revolution 2.2.2-pl — после загрузки пакетов в какой-то момент перестаёт работать управление пакетами: при переходе к управлению пакетами не показан ни один пакет, после нажатия «искать пакеты локально», «обновить» или «очистить фильтр», появляется надпись «Loading...» и загрузка висит бесконечно. <a name="cut" rel="nofollow"></a> <br/>
+<br/>
+UPD: Проблему решил. Всё дело было в большом числе пакетов и большом размере некоторых из них. MODx просто не хватало отведённых 30 секунд. Установил на время установки в php.ini max_execution_time=300.<br/>
+Может кому пригодится.<br/>
+P.S. Для шаред=хостинга видимо придётся. Дописывать в файлы админки ini_set(«max_execution_time», 300);<br/>
+<br/>
+UP2: Для возобновления работоспособности необходимо удалить все распакованные пакеты из /core/package и очистить таблицу modx_transport_packages<br/>
+<br/>
+UPD3: После проведённого шаманства таблица пакетов успешно загружается, но после попытки установки виснет, оставляя в логах апача PHP Notice: unserialize() [<a href="http://function.unserialize" rel="nofollow">function.unserialize</a>]: Error at offset 15542 of 32314 bytes<br/>
+Решено правкой файлов в core/xpdo в соответствии с рекомендацией <a href="http://davidwalsh.name/php-serialize-unserialize-issues" rel="nofollow">davidwalsh.name/php-serialize-unserialize-issues</a><br/>
+<br/>
+UPD4: До изменения файлов в предыдущем шаге рекомендую сделать копии, а после успешной установки пакетов — вернуть всё обратно. В противном случаи могут возникать ошибки в модулях, использующих некоторые функции xpdo.<br/>
+<br/>
+Я единственный, у кого возникают такие проблемы (пытаюсь установить 12 пакетов, среди них есть весьма объёмные, например frontpage (2,8Мб в запакованном виде, sekkugaleries ~2Мб в распакованном виде)?
+			</div> 
+
+
+
+	<ul class="tags">
+					<li><a href="http://community.modx-cms.ru/tag/Revo/">Revo</a>, </li>
+					<li><a href="http://community.modx-cms.ru/tag/Modx%20Revo%202.2.2-pl/">Modx Revo 2.2.2-pl</a>, </li>
+					<li><a href="http://community.modx-cms.ru/tag/%D1%83%D0%BF%D1%80%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BF%D0%B0%D0%BA%D0%B5%D1%82%D0%B0%D0%BC%D0%B8/">управление пакетами</a></li>
+		                                                             
+	</ul>
+
+
+
+	<ul class="info">
+		<li id="vote_area_topic_7482" class="voting  guest">
+			<a href="#" class="plus" onclick="return ls.vote.vote(7482,this,1,'topic');"></a>
+			<span id="vote_total_topic_7482" class="total" title="всего проголосовало: 0"> 0 </span>
+			<a href="#" class="minus" onclick="return ls.vote.vote(7482,this,-1,'topic');"></a>
+		</li>
+		<li class="date">08 июня 2012, 11:26</li>
+		<li class="username"><a href="http://community.modx-cms.ru/profile/Zidian/">Zidian</a></li>
+					<li class="social"><div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="yaru,vkontakte,facebook,twitter,odnoklassniki,moimir,lj,friendfeed,moikrug,gplus"></div></li>
+				
+	</ul>
+			
+	</div>
+
+<div id="yandex_ad"></div>
+
+	
+<div class="comments-header">
+	<h3>Комментарии (<span id="count-comments">5</span>)</h3>
+		<a href="http://community.modx-cms.ru/rss/comments/7482/" class="rss">RSS</a>
+		<a href="#" onclick="ls.comments.collapseCommentAll(); return false;" onfocus="blur();">свернуть</a> /
+	<a href="#" onclick="ls.comments.expandCommentAll(); return false;" onfocus="blur();">развернуть</a>
+</div>
+
+<a name="comments"></a>
+	
+	
+<div class="comments" id="comments">
+						
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_47905">
+		
+		
+<div id="comment_id_47905" class="comment not-admin " >
+	<a name="comment47905" ></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_47905" class="content">
+			
+			Спасибо! Помогло. Думал уж придется все перестанавливать :)
+			</div>
+	
+	<div id="info_edit_47905" class="info_edit"  style="display: none;">
+	    	</div>
+	
+							
+		<div id="vote_area_comment_47905" class="voting  guest     ">
+			<a href="#" class="plus" onclick="return ls.vote.vote(47905,this,1,'comment');"></a>
+			<span id="vote_total_comment_47905" class="total">0</span>
+			<a href="#" class="minus" onclick="return ls.vote.vote(47905,this,-1,'comment');"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://community.modx-cms.ru/profile/zaswerd/"><img src="http://community.modx-cms.ru/templates/skin/modxcms/images/avatar_24x24.jpg" alt="avatar" /></a></li>
+		<li class="username"><a href="http://community.modx-cms.ru/profile/zaswerd/">zaswerd</a></li>
+		<li class="date">02 июля 2012, 15:27</li>
+				<li><a href="#comment47905" class="comment-link"></a></li>	
+				<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+								
+
+	</ul>
+	
+</div>		
+									
+				
+					</div>
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_51950">
+		
+		
+<div id="comment_id_51950" class="comment not-admin " >
+	<a name="comment51950" ></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_51950" class="content">
+			
+			У меня та же проблема на XAMPP for Windows<br/>
+У вас установлено на Linux или на Windows?
+			</div>
+	
+	<div id="info_edit_51950" class="info_edit"  style="display: none;">
+	    	</div>
+	
+							
+		<div id="vote_area_comment_51950" class="voting  guest     ">
+			<a href="#" class="plus" onclick="return ls.vote.vote(51950,this,1,'comment');"></a>
+			<span id="vote_total_comment_51950" class="total">0</span>
+			<a href="#" class="minus" onclick="return ls.vote.vote(51950,this,-1,'comment');"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://community.modx-cms.ru/profile/lhavi/"><img src="http://community.modx-cms.ru/templates/skin/modxcms/images/avatar_24x24.jpg" alt="avatar" /></a></li>
+		<li class="username"><a href="http://community.modx-cms.ru/profile/lhavi/">lhavi</a></li>
+		<li class="date">23 августа 2012, 09:27</li>
+				<li><a href="#comment51950" class="comment-link"></a></li>	
+				<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+								
+
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_51967">
+		
+		
+<div id="comment_id_51967" class="comment not-admin " >
+	<a name="comment51967" ></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_51967" class="content">
+			
+			Windows, проблема возникала на разных wamp сборках (xampp в том числе), и на разных версиях windows (xp и 7)/
+			</div>
+	
+	<div id="info_edit_51967" class="info_edit"  style="display: none;">
+	    	</div>
+	
+							
+		<div id="vote_area_comment_51967" class="voting  guest     ">
+			<a href="#" class="plus" onclick="return ls.vote.vote(51967,this,1,'comment');"></a>
+			<span id="vote_total_comment_51967" class="total">0</span>
+			<a href="#" class="minus" onclick="return ls.vote.vote(51967,this,-1,'comment');"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://community.modx-cms.ru/profile/Zidian/"><img src="http://community.modx-cms.ru/templates/skin/modxcms/images/avatar_24x24.jpg" alt="avatar" /></a></li>
+		<li class="username"><a href="http://community.modx-cms.ru/profile/Zidian/">Zidian</a></li>
+		<li class="date">23 августа 2012, 15:38</li>
+				<li><a href="#comment51967" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="#" onclick="ls.comments.goToParentComment(51967,51950); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+								
+
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_51973">
+		
+		
+<div id="comment_id_51973" class="comment not-admin " >
+	<a name="comment51973" ></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_51973" class="content">
+			
+			А после выполнения каких шагов у вас заработало?
+			</div>
+	
+	<div id="info_edit_51973" class="info_edit"  style="display: none;">
+	    	</div>
+	
+							
+		<div id="vote_area_comment_51973" class="voting  guest     ">
+			<a href="#" class="plus" onclick="return ls.vote.vote(51973,this,1,'comment');"></a>
+			<span id="vote_total_comment_51973" class="total">0</span>
+			<a href="#" class="minus" onclick="return ls.vote.vote(51973,this,-1,'comment');"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://community.modx-cms.ru/profile/lhavi/"><img src="http://community.modx-cms.ru/templates/skin/modxcms/images/avatar_24x24.jpg" alt="avatar" /></a></li>
+		<li class="username"><a href="http://community.modx-cms.ru/profile/lhavi/">lhavi</a></li>
+		<li class="date">23 августа 2012, 20:10</li>
+				<li><a href="#comment51973" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="#" onclick="ls.comments.goToParentComment(51973,51967); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+								
+
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_51988">
+		
+		
+<div id="comment_id_51988" class="comment not-admin " >
+	<a name="comment51988" ></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_51988" class="content">
+			
+			Установить удалось, когда проделал всё указанное.<br/>
+Если нужно просто вернуть работоспособность менеджера, без установки проблемного пакета — достаточно действий из UP2.
+			</div>
+	
+	<div id="info_edit_51988" class="info_edit"  style="display: none;">
+	    	</div>
+	
+							
+		<div id="vote_area_comment_51988" class="voting  guest     ">
+			<a href="#" class="plus" onclick="return ls.vote.vote(51988,this,1,'comment');"></a>
+			<span id="vote_total_comment_51988" class="total">0</span>
+			<a href="#" class="minus" onclick="return ls.vote.vote(51988,this,-1,'comment');"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://community.modx-cms.ru/profile/Zidian/"><img src="http://community.modx-cms.ru/templates/skin/modxcms/images/avatar_24x24.jpg" alt="avatar" /></a></li>
+		<li class="username"><a href="http://community.modx-cms.ru/profile/Zidian/">Zidian</a></li>
+		<li class="date">24 августа 2012, 13:57</li>
+				<li><a href="#comment51988" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="#" onclick="ls.comments.goToParentComment(51988,51973); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+								
+
+	</ul>
+	
+</div>		
+							</div></div></div></div>    
+			</div>				
+	
+
+			Только зарегистрированные и авторизованные пользователи могут оставлять комментарии.
+		
+
+
+	
+
+
+<script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+<script type="text/javascript">
+(function(w, d, n, s, t) {
+    w[n] = w[n] || [];
+    w[n].push(function() {
+        Ya.Direct.insertInto(51911, "yandex_ad", {
+            site_charset: "utf-8",
+            ad_format: "direct",
+            font_size: 0.9,
+            type: "horizontal",
+            border_type: "block",
+            limit: 3,
+            title_font_size: 2,
+            site_bg_color: "FFFFFF",
+            header_bg_color: "FFFFFF",
+            border_color: "FFFFFF",
+            title_color: "B50101",
+            url_color: "555555",
+            all_color: "0000CC",
+            text_color: "333333",
+            hover_color: "0066FF",
+            favicon: true
+        });
+    });
+    t = d.documentElement.firstChild;
+    s = d.createElement("script");
+    s.type = "text/javascript";
+    s.src = "http://an.yandex.ru/system/context.js";
+    s.setAttribute("async", "true");
+    t.insertBefore(s, t.firstChild);
+})(window, document, "yandex_context_callbacks");
+</script>
+
+
+			
+			</div><!-- /content-inner -->
+		</div><!-- /content -->
+
+		
+	</div><!-- /wrapper -->
+
+	<div id="footer">
+		<div id="footer-inner">
+			<div class="right">&copy; Powered by <a href="http://livestreetcms.ru">LiveStreet CMS</a></div>
+			
+						
+		</div>
+	</div>
+
+</div><!-- /container -->
+
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-370814-4");
+pageTracker._setDomainName(".modx-cms.ru");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+</html>

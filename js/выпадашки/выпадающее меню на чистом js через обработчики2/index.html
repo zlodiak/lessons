@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<html>
+	<head>    
+		<meta charset="utf-8" />
+		
+		<title></title>
+		
+		<!--[if lt IE 9]>
+			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->	
+
+		<!--<link rel="icon" href="favicon.ico" type="image/x-icon" />-->	
+
+		<link rel="stylesheet" href="css/style.css" />	
+
+		<!--[if lte IE 8]>
+			<link rel="stylesheet" href="css/ie78.css" media="all">	
+		<![endif]-->		
+	</head>
+
+	<body>	
+		<div class="wrap">
+			<div class="wrap_inner">
+				<div class="main">
+					<aside class="left_block">
+						<nav class="categories" >
+							<h1>
+								<span>Категории</span>
+							</h1>
+							
+							<ul class="outer" id="catalog_menu">
+								<li>
+									<a  href="index.html">
+										<span>LED-освещение</span>
+									</a>
+									
+									<ul class="inner">
+										<li>
+											<a  href="index.html">
+												<span>LED-sdfs</span>
+											</a>
+										</li>
+										
+										<li>
+											<a  href="index.html">
+												<span>Автономные источники тока</span>
+											</a>
+										</li>
+
+										<li>
+											<a  href="index.html">
+												<span>Аналоговые ИС</span>
+											</a>
+										</li>	
+									</ul>									
+								</li>
+								
+								<li>
+									<a  href="index.html">
+										<span>Автономные источники тока</span>
+									</a>
+									
+									<ul class="inner">
+										<li>
+											<a  href="index.html">
+												<span>Lsdfsdfsdfs</span>
+											</a>
+										</li>
+										
+										<li>
+											<a  class="selected" href="index.html">
+												<span>Автонsdfки тока</span>
+											</a>
+										</li>
+
+										<li>
+											<a  href="index.html">
+												<span>sdf ИС</span>
+											</a>
+										</li>	
+									</ul>									
+								</li>
+
+								<li>
+									<a  href="index.html">
+										<span>Аналоговые ИС</span>
+									</a>
+								</li>
+
+								<li>
+									<a  href="index.html">
+										<span>Беспроводные компоненты</span>
+									</a>
+									
+									<ul class="inner">									
+										<li>
+											<a  href="index.html">
+												<span>Беспроводные компоненты</span>
+											</a>
+										</li>
+
+										<li>
+											<a  href="index.html">
+												<span>LED-освещение</span>
+											</a>
+										</li>
+										
+										<li>
+											<a  href="index.html">
+												<span>Автономные источники тока</span>
+											</a>
+										</li>
+									</ul>									
+								</li>
+
+								<li>
+									<a  href="index.html">
+										<span>Беспроводные компоненты</span>
+									</a>
+								</li>
+
+								<li>
+									<a  href="index.html">
+										<span>LED-освещение</span>
+									</a>
+								</li>
+								
+								<li>
+									<a  href="index.html">
+										<span>Автономные источники тока</span>
+									</a>
+								</li>
+
+								<li>
+									<a  href="index.html">
+										<span>Аналоговые ИС</span>
+									</a>
+								</li>
+
+								<li>
+									<a  href="index.html">
+										<span>Аналоговые ИС</span>
+									</a>
+								</li>
+
+								<li>
+									<a  href="index.html">
+										<span>Беспроводные компоненты</span>
+									</a>
+								</li>								
+							</ul>
+						</nav>	
+					</aside>
+				</div>	
+			</div>
+		</div>
+
+		
+
+		<script>
+			var menu = document.getElementById('catalog_menu');
+			var inner_ul_collection = menu.querySelectorAll('ul');
+
+			for(j = 0; j < inner_ul_collection.length; j++)  {
+				inner_ul_collection[j].style.display='none';
+				//console.log(inner_ul_collection[j]);
+			}
+
+			//обработчик наведения на пункт меню
+			menu.onmouseover = function(event){
+				var target = event && event.target || window.event.srcElement;//получаем элемент-источник события
+				if(target.tagName == 'LI'){
+					var ul_inner = target.getElementsByTagName('ul')[0];
+					ul_inner.style.display="block";
+				}
+				else if(target.tagName == 'A'){
+					var ul_inner = target.parentNode.getElementsByTagName('ul')[0];	
+					ul_inner.style.display="block";
+					target.stopPropagation();
+				}
+				else if(target.tagName == 'SPAN'){
+					var ul_inner = target.parentNode.parentNode.getElementsByTagName('ul')[0];	
+					ul_inner.style.display="block";
+					target.stopPropagation();
+				}				
+			}
+			
+			menu.onmouseout = function(event){
+				var target = event && event.target || window.event.srcElement;//получаем элемент-источник события
+				if(target.tagName == 'LI'){
+					var ul_inner = target.getElementsByTagName('ul')[0];
+					ul_inner.style.display="none";
+				}
+				else if(target.tagName == 'A'){
+					var ul_inner = target.parentNode.getElementsByTagName('ul')[0];	
+					ul_inner.style.display="none";
+					target.stopPropagation();
+				}
+				else if(target.tagName == 'SPAN'){
+					var ul_inner = target.parentNode.parentNode.getElementsByTagName('ul')[0];	
+					ul_inner.style.display="none";
+					target.stopPropagation();
+				}				
+			}			
+			
+
+
+		
+		
+
+
+		</script>	
+			
+	</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <title></title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="css2/styles.css" id="styles" />		
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+		
+</head>
+<body>	
+	<ul id="voter">
+		<li class="punkt1">
+			<span class="name" id="data1">пункт 1 : </span>						
+		</li>
+
+		<li class="punkt2">
+			<span class="name">пункт 2 : </span>					
+		</li>
+		
+		<li class="punkt3">
+			<span class="name">пункт 3 : </span>						
+		</li>
+		
+		<li class="punkt4">
+			<span class="name">пункт 4 : </span>						
+		</li>				
+	</ul>
+	
+	<div class="toggleDisplay">показать/скрыть результаты</div>
+	
+	<input class="results" type="button" name="results" value="Подвести итоги голосования" />
+
+	
+
+      <script type="text/javascript">     
+      
+		window.onload = function(){
+			$('li').append('<span class="data">0</span>');
+			
+			$('li').click(
+				function(){
+					if(!$(this).find('.data').hasClass('hide')){
+						var str = $(this).find('.data').text();
+						//$(this).find('.data').text(Number(str+1));
+						$(this).find('.data').text(+str+1); 									
+					}
+					else{
+						alert('Внимание! для продолжения голосования необходимо включить видимость результатов бирюзовой кнопенцией внизу которая');
+					}
+				}								
+			)
+			
+			$('.toggleDisplay').click(				
+				function(){					
+					$('.data').toggleClass('hide');	
+				}
+			)
+			
+			$('.results').click(
+				function(){
+					var elems = $('.data');
+					var mass = [];					
+					mass = elems.text();
+					
+					for(i=0; i<elems.length; i++){
+						mass = elems.text();
+						console.log(mass[i]+'__');
+					};					
+					
+					console.log(mass);
+					
+					alert('победил пункт ' + (+maxelm(mass)+1) + " позор пункту" + (+minelm(mass)+1));
+
+				}
+			)
+		}		
+
+		function maxelm(v)
+		{ 
+			var m= v[0]
+
+			for (var i=1; i <= v.length-1; i++)
+			{ if (v[i] > m )
+				m= i
+			}
+
+			return m
+		}     
+
+		function minelm(v)
+		{ 
+			var m= v[0]
+
+			for (var i=1; i <= v.length-1; i++)
+			{ if (v[i] < m )
+				m= i
+			}
+
+			return m
+		}    
+
+      </script>
+</body>
+</html>

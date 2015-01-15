@@ -1,0 +1,563 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru" dir="ltr">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+
+<script type="text/javascript" src="/lang.js"></script>
+<script type="text/javascript">
+if(location.href.indexOf('/node')==-1) { 
+	if(location.href.indexOf('/admin')==-1) {
+		if(location.href.indexOf('/batch?')==-1) {
+			//isNewLang();
+			//CheckLang();
+		}
+	}
+}
+</script>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Webial, вебсайт создание разработка сайта, CMS" />
+<meta name="copyright" content="Webial.com" />
+<meta name="description" content="Данная статья представляет собой краткое пошаговое руководство  по разработке простого Helloworld  модуля в Drupal 6.x, который выполняет одну  простую функцию – вывод на экран надписи &quot;Hello World&quot;." />
+<link rel="shortcut icon" href="/misc/favicon.ico" type="image/x-icon" />
+                
+  <meta name="revisit-after" content="1 day" />
+  <title>Drupal:  создание простого модуля Drupal. Урок 1 | Компания Webial - разработка и обслуживание веб проектов.</title>
+  <link type="text/css" rel="stylesheet" media="all" href="/sites/all/themes/corolla/reset.css" />
+  <link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/codefilter/codefilter.css?r" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/node/node.css?r" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/poll/poll.css?r" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/system/defaults.css?r" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/system/system.css?r" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/system/system-menus.css?r" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/user/user.css?r" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/dhtml_menu/dhtml_menu.css?r" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/google_cse/google_cse.css?r" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/lightbox2/css/lightbox.css?r" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/comment/comment.css?r" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/smileys/scripts/smileys.css?r" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/themes/corolla/reset.css?r" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/themes/corolla/base.css?r" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/themes/corolla/style.css?r" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/themes/corolla/drupal-6.css?r" />
+  <style type="text/css" media="all"></style> 
+
+  <!--[if lte IE 8]>
+  <link type="text/css" rel="stylesheet" href="/sites/all/themes/corolla/ie8.css" media="all" />
+  <![endif]-->
+
+  <!--[if lte IE 7]>
+  <link type="text/css" rel="stylesheet" href="/sites/all/themes/corolla/ie7.css" media="all" />
+  <![endif]-->
+  
+  <!--[if lte IE 6]>
+  <link type="text/css" rel="stylesheet" href="/sites/all/themes/corolla/ie6.css" media="all" />
+  
+  <script src="/sites/all/themes/corolla/dd_belatedpng.js"></script>
+	<script>
+			DD_belatedPNG.fix('#logobig,#logobar,.flagUS,.flagUA,.flagRU,#contentlt,#contentcc,#contentbb,.menublocktop,.menublockcenter,.menublockbottom,.JustBlockTop,.JustBlockCenter,.JustBlockBottom,.closebtn,.active,.ie6pngfix,.avatarWebial,.user-picture img');
+	</script>
+		
+  <![endif]-->
+  
+  <script type="text/javascript"> <!--
+              document.write('<link type="text/css" rel="stylesheet" media="screen and (-webkit-min-device-pixel-ratio:0)" href="/sites/all/themes/corolla/safari.css"/>');
+  --></script>
+
+
+  <script type="text/javascript" src="/misc/jquery.js?r"></script>
+<script type="text/javascript" src="/misc/drupal.js?r"></script>
+<script type="text/javascript" src="/sites/default/files/languages/ru_06317c6bd2176a9017a0823d6ce435a3.js?r"></script>
+<script type="text/javascript" src="/sites/all/modules/dhtml_menu/dhtml_menu.js?r"></script>
+<script type="text/javascript" src="/sites/all/modules/lightbox2/js/lightbox.js?r"></script>
+<script type="text/javascript" src="/modules/comment/comment.js?r"></script>
+<script type="text/javascript" src="/sites/all/modules/smileys/scripts/smileys.js?r"></script>
+<script type="text/javascript" src="/sites/all/modules/smileys/scripts/ui.core.dialog.js?r"></script>
+<script type="text/javascript" src="/sites/all/modules/smileys/scripts/ui.draggable.js?r"></script>
+<script type="text/javascript" src="/sites/all/modules/smileys/scripts/ui.resizable.js?r"></script>
+<script type="text/javascript" src="/sites/all/modules/captcha/captcha.js?r"></script>
+<script type="text/javascript" src="/misc/collapse.js?r"></script>
+<script type="text/javascript" src="/misc/textarea.js?r"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, { "basePath": "/", "dhtmlMenu": { "slide": "slide", "siblings": "siblings", "children": "children", "clone": "clone", "relativity": 0, "doubleclick": 0 }, "lightbox2": { "rtl": "0", "file_path": "/(\\w\\w/)sites/default/files", "default_image": "/sites/all/modules/lightbox2/images/brokenimage.jpg", "border_size": 10, "font_color": "AA7A43", "box_color": "eee", "top_position": "", "overlay_opacity": "0.8", "overlay_color": "000", "disable_close_click": 1, "resize_sequence": 0, "resize_speed": 400, "fade_in_speed": 400, "slide_down_speed": 600, "use_alt_layout": 0, "disable_resize": 0, "disable_zoom": 0, "force_show_nav": 0, "show_caption": 1, "loop_items": 0, "node_link_text": "View Image Details", "node_link_target": 0, "image_count": "Image !current of !total", "video_count": "Video !current of !total", "page_count": "Page !current of !total", "lite_press_x_close": "press \x3ca href=\"#\" onclick=\"hideLightbox(); return FALSE;\"\x3e\x3ckbd\x3ex\x3c/kbd\x3e\x3c/a\x3e to close", "download_link_text": "", "enable_login": false, "enable_contact": false, "keys_close": "c x 27", "keys_previous": "p 37", "keys_next": "n 39", "keys_zoom": "z", "keys_play_pause": "32", "display_image_size": "original", "image_node_sizes": "()", "trigger_lightbox_classes": "", "trigger_lightbox_group_classes": "", "trigger_slideshow_classes": "", "trigger_lightframe_classes": "", "trigger_lightframe_group_classes": "", "custom_class_handler": 0, "custom_trigger_classes": "", "disable_for_gallery_lists": 1, "disable_for_acidfree_gallery_lists": true, "enable_acidfree_videos": true, "slideshow_interval": 5000, "slideshow_automatic_start": true, "slideshow_automatic_exit": true, "show_play_pause": true, "pause_on_next_click": false, "pause_on_previous_click": true, "loop_slides": false, "iframe_width": 600, "iframe_height": 400, "iframe_border": 1, "enable_video": 0 }, "smileys": { "enable_dialog": 1, "draggable": 1, "resizable": 1, "dialog_width": "400", "dialog_height": "0" } });
+//--><!]]>
+</script>
+  
+  <script type="text/javascript"> <!--
+              document.write('<link rel="stylesheet" type="text/css" href="/sites/all/themes/corolla/css3.css">');
+  --></script>
+  <script type="text/javascript" src="/socializ_2.js"></script>
+<!-- Put this script tag to the <head> of your page -->
+<script type="text/javascript" src="http://userapi.com/js/api/openapi.js?24"></script>
+
+<script type="text/javascript">
+  VK.init({apiId: 2305623, onlyWidgets: true});
+</script>
+
+<script type="text/javascript" src="/profreader.js"></script>
+
+</head>
+<body class="not-front not-logged-in page-node node-type-blog  one-sidebar">
+ <div style="display:none;">
+<!--LiveInternet counter--><script type="text/javascript"><!--
+new Image().src = "//counter.yadro.ru/hit?r"+
+escape(document.referrer)+((typeof(screen)=="undefined")?"":
+";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+";"+Math.random();//--></script><!--/LiveInternet-->
+
+ </div>
+      <div id="header-menu-wrapper" style="padding:0; min-width: 980px;">
+		<table class="menuBarTbl"><tr>
+			<td class="lmb">&nbsp;</td>
+			<td class="cmb">
+				<div class="logodiv">
+					<a id="logobar" href="/"></a>
+				</div>
+			</td >
+			<td class="cmb2">
+			
+				<div class="lemb">&nbsp;</div>
+				<div class="cemb">
+		
+					<table class="main-menu clearfix"><tr><td  class="menu-123 first clearfix "><a class="topmenulinks" href='/' title="О компании Webial">О компании</a></td>
+<td  class="menu-139 clearfix  active"><a class="topmenulinks" href='/blog.html' title="Блог компании Webial">Блог</a></td>
+<td  class="menu-130 clearfix "><a class="topmenulinks" href='/projects.html' title="Реализованные проекты компанией Webial">Портфолио</a></td>
+<td  class="menu-131 clearfix "><a class="topmenulinks" href='/services.html' title="Услуги предоставляемые компанией Webial">Услуги</a></td>
+<td  class="menu-129 last clearfix "><a class="topmenulinks" href='/feedback.html' title="Написать письмо менеджеру компании Webial">Контакты</a></td>
+</tr></table>				</div>
+				<div class="remb">&nbsp;</div>
+			</td>
+			<td class="cmb">
+				<div id="langbar">
+					<a class="flagUS" title="Change current language of this site" onclick="if(!confirm('Are you sure you want to change the language of this site into English? It will restart the page...')) return false; newLang('en'); return false;" href="/external.php?link=http://webial.com/blog/cms/drupal_simple_module_part1.html?lang=en"></a>
+					<a class="flagUA" title="Змінити поточну мову сайту" onclick="if(!confirm('Ви впевнені що хочете змінити мову цього сайту на українську? Це призведе до перезавантаження сторінки ...')) return false;newLang('uk');return false;" href="/external.php?link=http://webial.com.ua/blog/cms/drupal_simple_module_part1.html?lang=uk"></a>
+					<a class="flagRU" title="Сменить текущий язык сайта" onclick="if(!confirm('Вы уверены что хотите обновить страницу?')) return false;" href="http://webial.ru/blog/cms/drupal_simple_module_part1.html"></a>
+				</div>
+			</td >
+			<td class="rmb">&nbsp;</td>
+		</tr></table>
+	
+	
+    </div>
+	
+    
+  <div id="header-wrapper">
+    <div id="header" class="clear-block">
+
+	
+      
+    </div> <!-- /#header -->
+  </div> <!-- /#header-wrapper -->
+
+  <div id="main-columns-wrapper">
+    <div id="main-columns">
+
+      <div id="main-wrapper" class=" first">
+  <div id="main">
+	<div id="contentlt"></div>
+	<div id="contentcc">
+    <div id="page" class="clear-block">
+	
+      
+              <div class="region region-content-top">
+          
+	<div id="searchbar">
+		<form action="/search/google"  accept-charset="UTF-8" method="get" id="google-cse-searchbox-form">
+<div><input type="hidden" name="cx" id="edit-cx" value="partner-pub-4580120980065517:9682736214"  />
+<input type="hidden" name="cof" id="edit-cof" value="FORID:11"  />
+<div class="form-item" id="edit-query-wrapper">
+ <input type="text" maxlength="128" name="query" id="edit-query" size="81" value="" title="Введите слова, которые вы хотите искать." class="form-text" />
+</div>
+<input type="submit" name="op" id="edit-sa" value="Поиск"  class="form-submit" />
+<input type="hidden" name="cr" id="edit-cr" value="countryRU"  />
+<input type="hidden" name="gl" id="edit-gl" value="ru"  />
+<input type="hidden" name="hl" id="edit-hl" value="ru"  />
+<input type="hidden" name="safe" id="edit-safe" value="off"  />
+<div class="form-radios"><div class="form-item" id="edit-sitesearch--wrapper">
+ <label class="option" for="edit-sitesearch-"><input type="radio" id="edit-sitesearch-" name="sitesearch" value=""   class="form-radio" /> Search the web</label>
+</div>
+<div class="form-item" id="edit-sitesearch-webial.ru-wrapper">
+ <label class="option" for="edit-sitesearch-webial.ru"><input type="radio" id="edit-sitesearch-webial.ru" name="sitesearch" value="http://webial.ru"  checked="checked"  class="form-radio" /> Search <em>http://webial.ru</em></label>
+</div>
+</div><input type="hidden" name="form_build_id" id="form-a2f779ff9e9bc0c7a1fb6f0d8917ec18" value="form-a2f779ff9e9bc0c7a1fb6f0d8917ec18"  />
+<input type="hidden" name="form_id" id="edit-google-cse-searchbox-form" value="google_cse_searchbox_form"  />
+
+</div></form>
+	</div>
+        </div>
+      
+      
+      	  
+	  	  
+	<!--<div id="mygooglesearch">
+			<form action="http://webial.ru/search/" id="cse-search-box">
+	  <div>
+		<input type="hidden" name="cx" value="partner-pub-4580120980065517:9682736214" />
+		<input type="hidden" name="cof" value="FORID:10" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="as_q" size="55" />
+		<input type="submit" name="sa" value="&#x041f;&#x043e;&#x0438;&#x0441;&#x043a;" />
+	  </div>
+	</form>
+	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+	<script type="text/javascript">google.load("elements", "1", {packages: "transliteration"});</script>
+	<script type="text/javascript" src="http://www.google.com/cse/t13n?form=cse-search-box&t13n_langs=ru"></script>
+
+	<script type="text/javascript" src="http://www.google.ru/coop/cse/brand?form=cse-search-box&amp;lang=ru"></script>
+
+	</div>-->
+	
+	
+	<div id="findMistakes"></div>
+	<script type="text/javascript"> <!--
+		$('#findMistakes').html('Заметили ошибку или нерабочую ссылку на сайте? Выделите её и нажмите <strong>Ctrl + Enter</strong>');
+		$('#findMistakes').css({'border':'1px dotted #ccc','margin-bottom':'30px','padding':'5px'}); -->
+	</script>
+	
+	  <table class="likelinks"><tr>
+				<td>
+					<a title="Затвитеть" href="http://twitter.com/share" class="twitter-share-button">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+				</td>
+				<td>
+<!-- Put this div tag to the place, where the Like block will be -->
+<div id="vk_like"></div>
+<script type="text/javascript">
+VK.Widgets.Like("vk_like", {type: "button", verb: 1});
+</script>
+				</td>
+				<td>
+<iframe src="http://www.facebook.com/plugins/like.php?href&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=true&amp;action=recommend&amp;colorscheme=light&amp;font=verdana&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;"></iframe>
+				</td>
+			</tr></table>
+			
+      					<h1 class="page-title">Drupal:  создание простого модуля Drupal. Урок 1</h1>
+										      
+      
+              <div class="region region-content">
+          <div id="node-55" class=" node">
+
+  <div class="blog-header">
+
+    
+          <div class="submitted"  style="border-top:none;">Опубликовано <em>Assembler</em> в Втр, 03.05.2011				<div class="terms"><ul class="links inline"><li class="taxonomy_term_19 first last"><a href="/blog/cms" rel="tag" title="Статьи блога о движках для сайтов.">CMS</a></li>
+</ul></div>
+		
+		  </div>
+    	
+	<div style="clear:both;"></div>
+
+  </div> <!-- /.node-header -->
+
+  <div class="blog-content">
+         
+<p>Данная статья представляет собой краткое пошаговое руководство  по разработке простого Helloworld  модуля в Drupal 6.x, который выполняет одну  простую функцию – вывод на экран надписи &quot;Hello World&quot;.</p>
+	<p>Для этого Вам необходимо выполнить такие действия:</p>
+	<p><strong>1. Создайте новую  папку для вашего модуля</strong></p>
+	<p>В каталоге yoursite/modules создайте  папку с названием Hellow.  Данная папака предназначена для хранения основных модулей сайта, в том числе и  нашего нового модуля.</p>
+	<p><strong>2. В новом каталоге  создайте файл с расширением *.</strong><strong>info: </strong>в данном случае  файл будет иметь название <strong>hellow.</strong><strong>info</strong></p>
+	<p>Содержание файла <strong>hellow.</strong><strong>info :</strong></p>
+	
+	<div class="codeblock"><code>	; $Id$<br />&nbsp;&nbsp;&nbsp; name = Module&nbsp; Hello World<br />&nbsp;&nbsp;&nbsp; description&nbsp; = My first Drupal 6.x Module<br />&nbsp;&nbsp;&nbsp; core = 6.x</code></div>
+	
+    <p>Этот файл позволяет Drupal опознать наш модуль в системе. </p>
+	<p><strong>3. Создайте файл с  расширением *.</strong><strong>module:  </strong>в нашем случае файл будет иметь название <strong>hellow.module.</strong></p>
+	<p>Мы должны указать для Drupal путь, под которым может быть  доступен наш модуль. Делается это с помощью функции hook_menu (). Для обрабоки  всех событий в модуле необходимо объявить функцию: modulename_hookname (). В  нашем случае она будет выглядеть как <strong>hellow_menu  ()</strong> {}. Данная функция описана ниже:</p>
+	
+	<div class="codeblock"><code>	function hellow_menu(){<br />$items = array();<br />$items[&#039;hellow&#039;] = array(<br />&#039;page arguments&#039; =&gt; array(1),<br />&#039;title&#039; =&gt; t(&#039;Hello World - Module&#039;),<br />&#039;page callback&#039; =&gt; &#039;hellow_page&#039;,<br />&#039;type&#039; =&gt; MENU_CALLBACK,<br />&#039;access arguments&#039; =&gt; array(&#039;access content&#039;),<br />&nbsp; );<br />&nbsp; return $items;<br />}</code></div>
+	
+	  <p>Мы создали массив $items['hellow'], который позволяет создать определенные настройки для нашего модуля в системе.</p>
+	<ol start="1" type="1">
+      <li><strong>title:</strong> заголовок страницы.</li>
+	  <li><strong>page callback</strong>: это функция,       которая вызывается при открытии ссылки на модуль.</li>
+	  <li><strong>page arguments:</strong> количество       аргументов, которые возвращаются при вызове.</li>
+	  <li><strong>access arguments:</strong> массив прав       доступа. В данном случае &quot;access content&quot; - абсолютный доступ к       странице.</li>
+	  <li><strong>type</strong>: определяет проверку hook_menu ().</li>
+    </ol>
+	<p>Таким образом, при открытии ссылки /yoursite/hellow произведется обратный вызов  функции hellow_page ().</p>
+	<p>Теперь создадим hellow_page  () функцию, содержание которой выглядит следующий образом:</p>
+	
+	<div class="codeblock"><code>	function hellow_page($argument) {<br />&nbsp;&nbsp; return &quot;Hello World!!!&quot;;<br />}</code></div>
+	
+	  <p>Итак, общий вид файла hellow.module:</p>	
+    
+	<div class="codeblock"><code>&lt;?php<br />function hellow_menu(){<br />$items = array();<br />$items[&#039;hellow&#039;] = array(<br />&#039;page arguments&#039; =&gt; array(1),<br />&#039;title&#039; =&gt; t(&#039;Hello World - Module&#039;),<br />&#039;page callback&#039; =&gt; &#039;hellow_page&#039;,<br />&#039;type&#039; =&gt; MENU_CALLBACK,<br />&#039;access arguments&#039; =&gt; array(&#039;access content&#039;),<br />&nbsp; );<br />&nbsp; return $items;<br />}<br />function hellow_page($argument) {<br />&nbsp;&nbsp;&nbsp; return &quot;Hello World! Arguments parsed was &quot; . $argument;<br />}</code></div>
+	
+	  <p>Теперь перейдите в Admin/build/modules и  подключите наш модуль. Доступ к модулю можно получить по ссылке //yoursite.com/hellow</p>   </div>
+  
+  <div class="inside-links "> 
+  	<div class="links"><ul class="links inline"><li class="blog_usernames_blog first last"><a href="/blog/assembler" title="Читать последние записи в блоге Assembler.">Блог пользователя Assembler</a></li>
+</ul></div>
+  </div>
+</div>
+<div id="comments">
+
+      <h2 class="comments">
+      0 комментариев    </h2>
+    <div style="clear:both;"></div>
+  <div class="box">
+
+  <h2>Написать свой комментарий</h2>
+
+  <div class="content"><form action="/comment/reply/55"  accept-charset="UTF-8" method="post" id="comment-form">
+<div><div class="form-item" id="edit-name-wrapper">
+ <label for="edit-name">Ваше имя: <span class="form-required" title="Обязательное поле">*</span></label>
+ <input type="text" maxlength="60" name="name" id="edit-name" size="30" value="Анонимный" class="form-text required" />
+</div>
+<div class="form-item" id="edit-mail-wrapper">
+ <label for="edit-mail">E-mail: <span class="form-required" title="Обязательное поле">*</span></label>
+ <input type="text" maxlength="64" name="mail" id="edit-mail" size="30" value="" class="form-text required" />
+ <div class="description">Содержание этого поля является приватным и не предназначено к показу.</div>
+</div>
+<div class="form-item" id="edit-homepage-wrapper">
+ <label for="edit-homepage">Домашняя страница: </label>
+ <input type="text" maxlength="255" name="homepage" id="edit-homepage" size="30" value="" class="form-text" />
+</div>
+<div class="smileys-box"><fieldset class=" collapsible collapsed"><legend>Смайлы</legend><div class="smileys"><span><img src="/sites/all/modules/smileys/packs/QIP/aa.gif" alt="O:-)" title="  —  O:-) O=)" width="27" height="23" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/ab.gif" alt=":-)" title="  —  :-) :) =)" width="20" height="24" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/ac.gif" alt=":-(" title="  —  :-( :( ;(" width="20" height="24" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/ad.gif" alt=";-)" title="  —  ;-) ;)" width="20" height="20" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/ae.gif" alt=":-P" title="  —  :-P" width="18" height="18" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/af.gif" alt="8-)" title="  —  8-)" width="21" height="21" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/ag.gif" alt=":-D" title="  —  :-D" width="20" height="20" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/ah.gif" alt=":-[" title="  —  :-[" width="25" height="25" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/ai.gif" alt="=-O" title="  —  =-O" width="20" height="20" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/aj.gif" alt=":-:" title="  —  :-:" width="34" height="23" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/ak.gif" alt=":&#039;&#039;(" title="  —  :&#039;&#039;(" width="31" height="22" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/ap.gif" alt=":JOKINGLY:" title="  —  :JOKINGLY:" width="25" height="25" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/aq.gif" alt="]:-&amp;gt;" title="  —  ]:-&amp;gt;" width="39" height="34" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/at.gif" alt=":-!" title="  —  :-!" width="21" height="21" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/av.gif" alt=":STOP:" title="  —  :STOP:" width="36" height="23" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/ay.gif" alt=":THUMBS" title="  —  :THUMBS UP:" width="26" height="23" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/az.gif" alt=":DRINK:" title="  —  :DRINK:" width="51" height="28" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/bb.gif" alt="@=" title="  —  @=" width="28" height="24" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/bc.gif" alt=":HELP:" title="  —  :HELP:" width="30" height="33" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/be.gif" alt="%)" title="  —  %)" width="20" height="24" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/bg.gif" alt=":WASSUP:" title="  —  :WASSUP: :SUP:" width="28" height="25" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/bj.gif" alt=":ROFL:" title="  —  :ROFL: :LOL:" width="29" height="25" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/bk.gif" alt=":PARDON:" title="  —  :PARDON:" width="36" height="26" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/bl.gif" alt=":NO:" title="  —  :NO:" width="36" height="26" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/bm.gif" alt=":CRAZY:" title="  —  :CRAZY:" width="20" height="27" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/bp.gif" alt=":YAHOO:" title="  —  :YAHOO: :YAHOO!:" width="42" height="27" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/bs1.gif" alt=":narkoman:" title="  —  :narkoman:" width="33" height="28" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/bs2.gif" alt=":eye_blue:" title="  —  :eye_blue:" width="23" height="20" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/bs7.gif" alt=":list:" title="  —  :list:" width="26" height="26" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/bs8.gif" alt=":slip:" title="  —  :slip:" width="29" height="29" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/ca3.gif" alt=":lol_stena:" title="  —  :lol_stena:" width="51" height="26" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/ca5.gif" alt=":kills:" title="  —  :kills:" width="43" height="27" class="smiley-class" /></span><span><img src="/sites/all/modules/smileys/packs/QIP/ca7.gif" alt=":holliday:" title="  —  :holliday:" width="35" height="30" class="smiley-class" /></span></div></fieldset>
+</div><div class="form-item" id="edit-comment-wrapper">
+ <label for="edit-comment">Комментарий: <span class="form-required" title="Обязательное поле">*</span></label>
+ <textarea cols="60" rows="15" name="comment" id="edit-comment"  class="form-textarea resizable required"></textarea>
+</div>
+<ul class="tips"><li>Адреса страниц и электронной почты автоматически преобразуются в ссылки.</li><li>Доступны HTML теги: &lt;a&gt; &lt;em&gt; &lt;strong&gt; &lt;cite&gt; &lt;code&gt; &lt;ul&gt; &lt;ol&gt; &lt;li&gt; &lt;dl&gt; &lt;dt&gt; &lt;dd&gt;</li><li>Строки и параграфы переносятся автоматически.</li><li><a href="/filter/tips/1#filter-smileys-0">Текстовые смайлы</a> будут заменены на графические.</li></ul><p><a href="/filter/tips">Подробнее о форматировании</a></p><input type="hidden" name="form_build_id" id="form-9374d95f0478d6d1d34e5466446b128f" value="form-9374d95f0478d6d1d34e5466446b128f"  />
+<input type="hidden" name="form_id" id="edit-comment-form" value="comment_form"  />
+<fieldset class="captcha"><legend>CAPTCHA</legend><div class="description">Защита от спам-роботов:</div><input type="hidden" name="captcha_sid" id="edit-captcha-sid" value="64465"  />
+<input type="hidden" name="captcha_token" id="edit-captcha-token" value="84587118842134376385abd53b4d1989"  />
+<img src="/image_captcha/64465/1349511323" alt="Image CAPTCHA" title="Image CAPTCHA" /><div class="form-item" id="edit-captcha-response-wrapper">
+ <label for="edit-captcha-response">What code is in the image?: <span class="form-required" title="Обязательное поле">*</span></label>
+ <input type="text" maxlength="128" name="captcha_response" id="edit-captcha-response" size="15" value="" class="form-text required" />
+ <div class="description">Enter the characters shown in the image.</div>
+</div>
+</fieldset>
+<input type="submit" name="op" id="edit-submit" value="Сохранить"  class="form-submit" />
+<input type="submit" name="op" id="edit-preview" value="Предпросмотр"  class="form-submit" />
+
+</div></form>
+</div>
+</div>
+  <div style="clear:both;"></div>
+</div>
+        </div>
+      
+          </div> <!-- /#page -->
+	<div style="clear:both;"></div>
+	</div>
+	<div id="contentbb"></div>
+
+
+    <div id="closure">
+      <div id="info">
+        <span title="Авторские права на материалы сайта">&copy; <em>Webial</em>, 2011</span>
+      </div>
+
+              <div id="footer-menu">
+          <div>
+<ul>
+<li class="seclinks"><a style="width: 100%" href="/sitemap.html" title="Структура сайта Webial.ru">Карта сайта</a></li></ul>
+
+</div>
+        </div>
+      	  
+	  <div style="width:40%; margin:0 auto;">
+		<table class="footerlinks"><tr>
+		<td>
+			<a href="/external.php?link=http://www.facebook.com/pages/Webial_ru/111048578979808" title="Компания Webial Russia на Facebook">Facebook</a>
+		</td>
+		<td>
+			<a href="/external.php?link=http://twitter.com/webialru" title="Следуй за нами на Twitter">Twitter</a>
+		</td>
+		<td>
+			<a href="/external.php?link=http://vkontakte.ru/webial_ru" title="Компания Webial Russia Вконтакте">Вконтакте</a>
+		</td>
+		</tr></table>
+	  </div>
+	  <div style="clear:both;"></div>
+    </div> <!-- /#closure -->
+
+  </div> <!-- /#main -->
+</div> <!-- /#main-wrapper -->
+
+
+
+    <div id="sidebar-first" class="clear-block last">
+    <div class="region region-sidebar-first">
+      <div class="menublock" style="margin-bottom: 25px;">
+
+<div class="menublocktop"><h2 class="headermb">Блог компании</h2></div>
+
+<div class="menublockcenter">
+<div class="vertmenu">
+<div class=""><div class="menucline"><a title="Общий блог пользователей." style="width: 100%" href="/blog.html">Общий блог компании</a></div></div><div class=""><div class="menucline"><a title="Блог пользователя Assembler." style="width: 100%" href="/blog/assembler">Блог Assembler</a></div></div><div class=""><div class="menucline"><a title="Блог пользователя 20gramm." style="width: 100%" href="/blog/20gramm">Блог 20gramm</a></div></div><div class=""><div class="menucline"><a title="Блог пользователя uamaxua." style="width: 100%" href="/blog/uamaxua">Блог uaMaXua</a></div></div><div class=""><div class="menucline"><a title="Блог пользователя exsofter." style="width: 100%" href="/blog/exsofter">Блог eXsofter</a></div></div><div class=""><div class="menucline"><a title="Подробнее о корпоративном блоге компании Webial." style="width: 100%" href="/blog/about.html">О блоге</a></div></div></div>
+</div>
+
+<div class="menublockbottom"></div>
+
+</div>
+<div class="menublock" style="margin-bottom: 25px;">
+
+<div class="menublocktop"><h2 class="headermb">Категории блога</h2></div>
+
+<div class="menublockcenter">
+<div class="vertmenu">
+<div class=""><div class="menucline"><a title="Все публикации на корпоративном блоге." style="width: 100%" href="/blog.html">Все публикации блога</a></div></div><div class=""><div class="menucline"><a title="Статьи блога про программирование." style="width: 100%" href="/blog/programming">Программирование</a></div></div><div class=""><div class="menucline"><a title="Статьи блога про безопасность." style="width: 100%" href="/blog/security">Безопасность</a></div></div><div class=""><div class="menucline"><a title="Статьи блога на психологическую тематику." style="width: 100%" href="/blog/psychology">Психология</a></div></div><div class=""><div class="menucline"><a title="Статьи блога про веб дизайн." style="width: 100%" href="/blog/web-design">Веб дизайн</a></div></div><div class=""><div class="menucline"><a title="Статьи блога про бизнес." style="width: 100%" href="/blog/business">Бизнес</a></div></div><div class=""><div class="menucline"><a title="Статьи блога о движках для сайта." style="width: 100%" href="/blog/cms">CMS</a></div></div><div class=""><div class="menucline"><a title="Статьи блога про оптимизацию проектов под поисковые системы." style="width: 100%" href="/blog/seo">SEO</a></div></div></div>
+</div>
+
+<div class="menublockbottom"></div>
+
+</div>
+
+
+<div style="alpha(opacity=50);" id="block-poll-0" class="block block-poll dddd">
+<div class="JustBlockTop">
+
+  <div>Голосование</div>
+
+</div>
+<div class="JustBlockCenter">
+<div id="placeReview">
+
+	<form action="/blog/cms/drupal_simple_module_part1.html"  accept-charset="UTF-8" method="post" id="poll-view-voting">
+<div><div class="poll">
+  <div class="vote-form">
+    <div class="choices">
+              <div class="title">Вам нравиться фон сайта?:</div>
+            <div class="form-radios"><div class="form-item" id="edit-choice-0-wrapper">
+ <label class="option" for="edit-choice-0"><input type="radio" id="edit-choice-0" name="choice" value="0"   class="form-radio" /> Да</label>
+</div>
+<div class="form-item" id="edit-choice-1-wrapper">
+ <label class="option" for="edit-choice-1"><input type="radio" id="edit-choice-1" name="choice" value="1"   class="form-radio" /> Нет</label>
+</div>
+<div class="form-item" id="edit-choice-2-wrapper">
+ <label class="option" for="edit-choice-2"><input type="radio" id="edit-choice-2" name="choice" value="2"   class="form-radio" /> Мне все равно</label>
+</div>
+</div>    </div>
+    <input type="submit" name="op" id="edit-vote" value="Голосование"  class="form-submit" />
+  </div>
+    <input type="hidden" name="form_build_id" id="form-9a1644aa81005b56d72933049426db2b" value="form-9a1644aa81005b56d72933049426db2b"  />
+<input type="hidden" name="form_id" id="edit-poll-view-voting" value="poll_view_voting"  />
+</div>
+
+</div></form>
+	<div style="clear:both;"></div>
+</div>
+</div>
+<div class="JustBlockBottom"></div>
+</div>
+
+
+
+<div style="alpha(opacity=50);" id="block-block-2" class="block block-block dddd">
+<div class="JustBlockTop">
+
+  <div>Полезные сервисы</div>
+
+</div>
+<div class="JustBlockCenter">
+<div class="placeReview">
+
+	 <table class="feedlinks">
+<tr>
+<td rowspan="4" class="rssiconcell">
+<a href="/external.php?link=http://feeds.feedburner.com/webialru" title="Подписаться на получение новостей блога">
+<img alt="rss feed" src="/sites/default/files/RSS_Icon.png" width="100" height="138" />
+</a>
+</td>
+<td class="getrsscell"><a title="Подписаться на получение новостей блога" href="/external.php?link=http://feeds.feedburner.com/webialru">Подписаться на RSS</a></td>
+</tr><tr><td class="yanrsscell"><a title="Подписаться на RSS через Яндекс.Ленты" href="/external.php?link=http://lenta.yandex.ru/settings.xml?name=feed&amp;url=http://feeds.feedburner.com/webialru">Читать через Яндекс</a></td></tr>
+<tr><td class="gogrsscell"><a title="Подписаться на RSS через Google Reader" href="/external.php?link=http://fusion.google.com/add?feedurl=http://feeds.feedburner.com/webialru">Читать через Google</a></td></tr>
+<tr><td class="cntrsscell">
+<a title="Количество подписчиков новостей" href="/external.php?link=http://feeds.feedburner.com/webialru"><img src="http://feeds.feedburner.com/~fc/webialru?bg=333333&amp;fg=FFFFFF&amp;anim=0" height="26" width="88" style="border:0" alt="" /></a>
+</td></tr>
+</table>
+<hr class="linksbreak" />
+
+<table class="feedlinks2">
+<tr>
+<td rowspan="4" class="twiticoncell">
+<a title="Следуй за нами на Twitter" href="/external.php?link=http://twitter.com/webialru">
+<img  alt="twitter logo" src="/sites/default/files/twitt.png" width="100" height="125" />
+</a>
+</td>
+<td class="facecell"><a title="Компания Webial Russia на Facebook" href="/external.php?link=http://www.facebook.com/pages/Webial_ru/111048578979808">Мы на Facebook</a></td>
+</tr>
+<tr><td class="vkcell"><a title="Компания Webial Russia Вконтакте" href="/external.php?link=http://vkontakte.ru/webial_ru">Мы Вконтакте</a></td></tr><tr>
+<td class="gettwitcell"><a title="Следуй за нами на Twitter" href="/external.php?link=http://twitter.com/webialru">Мы на Twitter</a></td></tr>
+<tr>
+<td class="twitcnter"><script type="text/javascript" src="http://twittercounter.com/embed/webialru/ffffff/111111"></script><noscript><a title="Количество последователей на Twitter" href="/external.php?link=http://twittercounter.com/webialru">Webial.ru on Twitter Counter.com</a></noscript></td></tr>
+</table>
+<hr class="linksbreak" />
+<div class="counterimg">
+<!--LiveInternet logo--><a href="http://www.liveinternet.ru/click"
+target="_blank"><img src="//counter.yadro.ru/logo?14.5"
+title="LiveInternet: показано число просмотров за 24 часа, посетителей за 24 часа и за сегодня"
+alt="" border="0" width="88" height="31"/></a><!--/LiveInternet-->
+</div> 	<div style="clear:both;"></div>
+</div>
+</div>
+<div class="JustBlockBottom"></div>
+</div>
+
+    </div>
+  </div> <!-- /#sidebar-first -->
+
+
+    </div> <!-- /#main-columns -->
+  </div> <!-- /#main-columns-wrapper -->
+  
+  <script type="text/javascript" src="/sites/all/modules/google_cse/google_cse.js?r"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, { "googleCSE": { "language": "ru" } });
+//--><!]]>
+</script>
+  
+  <script type="text/javascript">
+  if(location.href.indexOf('/blog')!=-1 || location.href.indexOf('/freesites')!=-1) {
+	socializ(encodeURIComponent(location.href),encodeURIComponent(document.title))
+  }
+</script>
+ 
+<script type="text/javascript">
+reformal_wdg_domain    = "webial";
+reformal_wdg_mode    = 0;
+reformal_wdg_title   = "Webial.ru - блог компании Webial";
+reformal_wdg_ltitle  = "Оставьте свой отзыв";
+reformal_wdg_lfont   = "";
+reformal_wdg_lsize   = "";
+reformal_wdg_color   = "#ab7a42";
+reformal_wdg_bcolor  = "#516683";
+reformal_wdg_tcolor  = "#FFFFFF";
+reformal_wdg_align   = "right";
+reformal_wdg_charset = "utf-8";
+reformal_wdg_waction = 0;
+reformal_wdg_vcolor  = "#9FCE54";
+reformal_wdg_cmline  = "#E0E0E0";
+reformal_wdg_glcolor  = "#105895";
+reformal_wdg_tbcolor  = "#FFFFFF";
+ 
+reformal_wdg_bimage = "7688f5685f7701e97daa5497d3d9c745.png";
+ 
+</script>
+
+<script type="text/javascript" language="JavaScript" src="http://reformal.ru/tab6.js"></script><noscript><a class="addref" href="/external.php?link=http://webial.reformal.ru">Webial.ru - блог компании Webial feedback </a> <a href="http://reformal.ru"><img alt="" src="http://reformal.ru/i/logo.gif" /></a></noscript>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22626447-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<script type="text/javascript" src="http://webial.ru/clickheat/js/clickheat.js"></script><noscript><p><a href="http://www.labsmedia.com/clickheat/index.html">Ergonomy optimization</a></p></noscript><script type="text/javascript"><!--
+clickHeatSite = 'webial.ru';clickHeatGroup = encodeURIComponent(window.location.pathname+window.location.search);clickHeatServer = 'http://webial.ru/clickheat/click.php';initClickHeat(); //-->
+</script>
+</body>
+</html>

@@ -1,0 +1,2683 @@
+
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta content='width=1024' name='viewport'>
+    
+    
+    <title>Машина времени в git / Хабрахабр</title>
+    
+    <meta name='yandex-verification' content='67d46b975fa41645' /> <!-- яндекс вебмастер - верификация -->
+
+    <meta name="description" content="В последнее время мои коллеги начинают знакомство с git&#039;ом. И один из интересующих их вопросов — как откатиться до определённой ревизии. В интернете можно найти набор команд, но хочется, чтобы было..." />    
+    <meta name="keywords" content="git" />
+    
+    	<meta property="fb:app_id"      content="444736788986613" /> 
+<meta property="og:type"        content="article" /> 
+<meta property="og:url"         content="http://habrahabr.ru/post/157175/" /> 
+<meta property="og:title"       content="Машина времени в git" /> 
+	<meta property="og:image"       content="http://habrastorage.org/storage2/412/572/540/4125725403e3d037e7a5f3ffd1e5b4f5.png" />
+	<link rel="image_src" href="http://habrastorage.org/storage2/412/572/540/4125725403e3d037e7a5f3ffd1e5b4f5.png" /><meta property="og:image"       content="http://habrastorage.org/storage2/969/a7c/637/969a7c637ed1670d8e0ff48d35165d18.png" />
+	<link rel="image_src" href="http://habrastorage.org/storage2/969/a7c/637/969a7c637ed1670d8e0ff48d35165d18.png" /><meta property="og:image"       content="http://habrastorage.org/storage2/80a/b8e/201/80ab8e201c91bbb229d04ca3d90db83a.png" />
+	<link rel="image_src" href="http://habrastorage.org/storage2/80a/b8e/201/80ab8e201c91bbb229d04ca3d90db83a.png" /><meta property="og:image"       content="http://habrastorage.org/storage2/177/010/09f/17701009f12912c6f90bc2c9364d3777.png" />
+	<link rel="image_src" href="http://habrastorage.org/storage2/177/010/09f/17701009f12912c6f90bc2c9364d3777.png" /><meta property="og:image"       content="http://habrastorage.org/storage2/a15/da7/bfd/a15da7bfd320c021e17df24a8b9f0894.png" />
+	<link rel="image_src" href="http://habrastorage.org/storage2/a15/da7/bfd/a15da7bfd320c021e17df24a8b9f0894.png" /><meta property="og:image"       content="http://habrastorage.org/storage2/e9d/f09/fee/e9df09fee306874b1096744737b0a719.png" />
+	<link rel="image_src" href="http://habrastorage.org/storage2/e9d/f09/fee/e9df09fee306874b1096744737b0a719.png" /><meta property="og:image"       content="http://habrastorage.org/storage2/c5d/7f8/38a/c5d7f838a0fb7cc4e77d17229f5beeda.png" />
+	<link rel="image_src" href="http://habrastorage.org/storage2/c5d/7f8/38a/c5d7f838a0fb7cc4e77d17229f5beeda.png" /><meta property="og:image"       content="http://habrastorage.org/storage2/e48/249/df8/e48249df85e1e6a224b7aabc315ebe73.png" />
+	<link rel="image_src" href="http://habrastorage.org/storage2/e48/249/df8/e48249df85e1e6a224b7aabc315ebe73.png" /><meta property="og:image"       content="http://habrastorage.org/storage2/8dd/0ba/d19/8dd0bad198815bc4f9c438931e73b828.png" />
+	<link rel="image_src" href="http://habrastorage.org/storage2/8dd/0ba/d19/8dd0bad198815bc4f9c438931e73b828.png" /><meta property="og:image"       content="http://habrastorage.org/storage2/902/a5e/015/902a5e015a0c88bbfa6db781bab8c76c.png" />
+	<link rel="image_src" href="http://habrastorage.org/storage2/902/a5e/015/902a5e015a0c88bbfa6db781bab8c76c.png" /><meta property="og:image"       content="http://habrastorage.org/storage2/5d9/e13/c00/5d9e13c0094c218d508b9931a88a3821.png" />
+	<link rel="image_src" href="http://habrastorage.org/storage2/5d9/e13/c00/5d9e13c0094c218d508b9931a88a3821.png" />
+	
+<meta property="og:description" content="В последнее время мои коллеги начинают знакомство с git'ом. И один из интересующих их вопросов &mdash; как откатиться до определённой ревизии. В интернете можно найти..." />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@habrahabr" />
+	<meta property="al:ios:url" content="habrahabr://post/157175" />
+<meta property="al:ios:app_store_id" content="778613673" />
+<meta property="al:ios:app_name" content="Habrahabr" />
+<meta property="al:android:url" content="habrahabr://post/157175" />
+<meta property="al:android:app_name" content="Habrahabr" />
+<meta property="al:android:package" content="ru.habrahabr" />
+<meta property="al:windows_phone:url" content="habrahabr://post/157175" />
+<meta property="al:windows_phone:app_name" content="Habrahabr" />
+<meta property="al:windows_phone:app_id" content="460a6bd6-8955-470f-935e-9ea1726a6060" />
+
+
+
+    <link href="/styles/1411134820/assets/global_main.css" rel="stylesheet" media="all" />
+    <script type="text/javascript" src="/javascripts/1411134820/assets/global_main.js"></script>
+      <link href="/styles/1411134820/assets/post_common_css.css" rel="stylesheet" media="all" />
+
+    <link href="/styles/1411134820/printer.css" rel="stylesheet" media="print" />
+
+    
+    
+
+    
+
+
+      <script type="text/javascript" src="/javascripts/1411134820/assets/post_common_js.js"></script>
+
+
+      <!-- www.criteo.com/ru -->
+<script type='text/javascript'>
+  var crtg_nid="2580";
+  var crtg_cookiename="cto_rtt";
+  var crtg_varname="crtg_content";
+  function crtg_getCookie(c_name){
+    var i,x,y,ARRCookies=document.cookie.split(";");
+    for(i=0;i<ARRCookies.length;i++){
+      x=ARRCookies[i].substr(0,ARRCookies[i].indexOf("="));
+      y=ARRCookies[i].substr(ARRCookies[i].indexOf("=")+1);
+      x=x.replace(/^\s+|\s+$/g,"");
+      if(x==c_name){return unescape(y);}
+    }
+    return'';
+  }
+  var crtg_content = crtg_getCookie(crtg_cookiename);var crtg_rnd=Math.floor(Math.random()*99999999999);
+  var crtg_url=location.protocol+'//rtax.criteo.com/delivery/rta/rta.js?netId='+escape(crtg_nid);crtg_url+='&cookieName='+escape(crtg_cookiename);crtg_url+='&rnd='+crtg_rnd;crtg_url+='&varName=' + escape(crtg_varname);
+  var crtg_script=document.createElement('script');crtg_script.type='text/javascript';crtg_script.src=crtg_url;crtg_script.async=true;
+  if(document.getElementsByTagName("head").length>0)document.getElementsByTagName("head")[0].appendChild(crtg_script);
+  else
+  if(document.getElementsByTagName("body").length>0)document.getElementsByTagName("body")[0].appendChild(crtg_script);
+</script>
+      <script >
+        var N = 5;
+        var ar_duo1 = Math.floor(Math.random()*N+1);
+      </script>
+      <script type="text/javascript" src="/javascripts/1411134820/adriver.core.2.js"></script>
+
+    <link title="Хабрахабр / Комментарии к публикации «Машина времени в git»" type="application/rss+xml" rel="alternate" href="http://habrahabr.ru/rss/post/157175/"/>
+    
+    
+<script type="text/javascript">
+
+    var user_type = "guest";
+    var username = 'guest';
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+    ga('create', 'UA-726094-1',  'auto' ); 
+
+  ga('require', 'displayfeatures');
+  ga('set', 'dimension1', user_type); // user type - guest/readonly/habrauser
+  ga('set', 'dimension2', username); // username
+
+
+  ga('send', 'pageview');
+  
+</script>
+
+
+
+<script type="text/javascript">
+var pp_gemius_identifier = new String('p8zr4.NqiIZJgD2cnP2s5fWWnIQFHrAvZ280B955gIr.f7');
+</script>
+<script src="/javascripts/1411134820/gemius.js"></script>
+
+
+
+
+
+
+
+    <meta content='Хабрахабр' name='apple-mobile-web-app-title'>
+<link href='/images/apple-touch-icon_142x142.png' rel='apple-touch-icon' type='image/png'>
+  </head>
+
+  <body>
+    
+    <div id="layout">
+      <div id="navbar_overlay" class="hidden"></div>
+<div id="navbar">
+    <div class="nav_panel">
+        <a href="http://habrahabr.ru/" class="logo"></a>
+
+            <a href="/posts/" class="tab tab_menu" data-tab="menu_tab" title="Меню"></a>
+            <a href="https://habrahabr.ru/auth/login/" class="tab tab_login" id="login" title="Войти"></a>
+
+        
+            <a href="http://special.habrahabr.ru/kyocera/p/157175/" class="tab tab_print " id="print_tab" title="Распечатать страницу"></a>
+            
+        
+
+
+        <a href="#" class="scroll_to_up hidden scroll_to_up_for_guest" id="scroll_to_top" title="Наверх"></a>
+        <script>
+            $(function(){
+                if($('#print_tab:visible').length){
+                    var view = new Image();
+                        view.src = 'http://ad.adriver.ru/cgi-bin/rle.cgi?sid=1&ad=480349&bt=21&pid=1710695&bid=3474805&bn=3474805&rnd=1189362215';                        
+                    $('#print_tab').on('click', function(){
+                        ga('send', 'event', 'Print Button', 'click', '157175');
+                    })
+                }
+            });
+        </script>
+    </div>
+    <div class="nav_tabs_content ">
+
+        <div class="nav_tab hidden" id="menu_tab">
+            <div class="title">Разделы</div>
+            <form action="/search/" method="get" class="global_search_form">
+                <div>
+                    <input type="text" name="q" placeholder="Поиск" />
+                </div>
+            </form>
+            <div class="menu">
+                <a href="/posts/top/">Публикации</a>
+                <a href="/hubs/">Хабы</a>
+                <a href="/companies/">Компании</a>
+                <a href="/users/">Пользователи</a>
+                <a href="http://toster.ru/?utm_source=tm_habrahabr&utm_medium=tm_menu&utm_campaign=tm_promo"    class="new_window">Q&A</a>
+                <a href="/sandbox/">Песочница</a>
+                <a href="/exchange/">Биржа авторов</a>
+
+
+
+            </div>
+
+            
+
+                    <div class="line"></div>
+                    <div class="title">Спецпроекты</div>
+                    <div class="menu">
+
+                    <a href="/lnk/59/" target="_blank">Скидка на отдых</a>
+
+                    <a href="/lnk/55/" target="_blank">HighLoad++</a>
+
+                    <a href="/lnk/61/" target="_blank">Интеграция данных</a>
+                    </div>
+
+
+        </div>
+
+
+    </div>
+</div>
+
+      <div class="inner">
+        
+                
+        
+
+        	
+  <div class="content_left">
+  	
+
+
+
+
+
+    <div class="post_show">
+  	  
+  <div class="post shortcuts_item" id="post_157175">
+  	<div class="published"> 2 ноября 2012 в 17:39</div>  
+    <h1 class="title">
+    
+      
+      
+
+      
+        <span class="post_title">Машина времени в git</span>
+			
+  		<a href="/sandbox/" class="flag flag_sandbox" title="Перейти в песочницу">из песочницы</a>
+			
+			
+
+  	</h1>
+  	
+  	<div class="hubs">
+		<a href="http://habrahabr.ru/hub/Git/" class="hub " title="Вы не подписаны на этот хаб" >Git</a><span class="profiled_hub" title="Профильный хаб">*</span>
+</div>
+
+  	
+    <div class="content html_format">
+			В последнее время мои коллеги начинают знакомство с git'ом. И один из интересующих их вопросов — как откатиться до определённой ревизии. В интернете можно найти набор команд, но хочется, чтобы было понимание каждой из них. Баловство с комадами git'а без понимания может привести к потере истории разработки.<br/>
+<br/>
+В этой статье я хочу рассказать о командах <code>git checkout</code> и <code>git reset</code> с ключами <code>--soft</code> и <code>--hard</code>.<br/>
+<a name="habracut"></a><br/>
+Итак, начнём краткий ликбез по машине времени, предоставляемой git'ом. Сперва проиллюстрируем историю:<br/>
+<br/>
+<img src="http://habrastorage.org/storage2/412/572/540/4125725403e3d037e7a5f3ffd1e5b4f5.png"/><br/>
+<br/>
+Здесь кружочками обозначены коммиты. Чем правее коммит, тем он новее. Коммит с хэшем 6e04e..-это самый первый коммит. Одно из основных понятий, которое стоит уяснить себе новичку, — это указатели на коммиты, а точнее некоторое «прозвище» того или иного коммита. Их тьма тьмущая, например:<i> HEAD, master, FETCH_HEAD, ORIG_HEAD</i> и т.д. Это я перечислил крупицу стандартных прозвищ. Их можно создавать и самим, но об этом впереди.<br/>
+<br/>
+Заострим наше внимание на двух указателях: <i>master</i> и <i>HEAD</i>. <i>master</i> указывает на самый старший коммит в ветке под названием <i>master</i> (эта ветка создаётся при инициализации репозитория). <i>HEAD</i> указывает на указатель master (читай, текущее состояние файлов). После появления первого коммита в репозитории, <i>HEAD</i> и <i>master</i> указывают на один и тот же коммит. И так будет продолжать до тех пор, пока не переключимся на другую ветку, не откатимся по истории, либо не совершим ряд необдуманных действий. Итак, проиллюстрируем нашу историю с указателями:<br/>
+<br/>
+<img src="http://habrastorage.org/storage2/969/a7c/637/969a7c637ed1670d8e0ff48d35165d18.png"/><br/>
+<br/>
+Указатель <i>HEAD</i> в нашем случае указывает на <i>master</i>, а <i>master</i> — на коммит d79fb… Архиважно понять, что текущее состояние неизменённых файлов, находящихся под контролем версий, есть тот коммит, на который указывает <i>HEAD</i>. То есть, если <i>HEAD</i> будет указывать на коммит с хэшем 6e04e.., то файлы окажутся в первоначальном своём состоянии. Для «движения» указателя <i>HEAD</i> существует команда: git checkout . Те, кто знаком хоть чуть-чуть с git'ом, узнали в этой команде переключение на другую ветку. Всё совершенно верно — при переключении на другую ветку мы просто переносим указатель <i>HEAD</i> на последний коммит ветки. <br/>
+<br/>
+<h4>Перенос указателя HEAD (<code>git checkout</code>)</h4><br/>
+Откат по истории коммитов:<br/>
+<br/>
+<img src="http://habrastorage.org/storage2/80a/b8e/201/80ab8e201c91bbb229d04ca3d90db83a.png"/><br/>
+<br/>
+После завершения операции checkout мы будем находится в состоянии, в котором были два коммита назад. Это всё прекрасно — мы сделали шажок в прошлое, что-то там подглядели, но как вернуться назад? Я вот, например, не обладаю сверхпамятью, и не помню хэш самого последнего коммита (тот, который самый правый — d79fb..). Если написать <code>git log</code>, то увидим историю, состоящую из трёх коммитов:<br/>
+<pre><code class="bash">[user@localhost project]$ git log --pretty=oneline
+6741a69bd121c295413be95d7597cd7409e713a0 add unit test
+b3e74f50c3cc48e6b335014b6dc7e301b382a903 add readme
+6e04e39d0952a2d6022502d56aaa05d5a064bea Initial commit
+</code></pre><br/>
+Неужели мы потеряли всю историю? Как узнать самый «новый» коммит? Это не проблема — есть выход, и их несколько:<br/>
+<br/>
+<ol>
+<li> Написать команду <code>git log --all</code>. Данная команда напечатает нам всю историю, вплоть до современности, т.е. в нашем случае историю из пяти коммитов:<br/>
+<pre><code class="bash">[user@localhost project]$ git log --pretty=oneline --all
+d79fb5688af71b4577f450919535e7177e9d74e8 fix bug
+478927e3a088d3cec489ca8810eaaca97c6ce0ff documentation
+6741a69bd121c295413be95d7597cd7409e713a0 add unit test
+b3e74f50c3cc48e6b335014b6dc7e301b382a903 add readme
+6e04ee39d0952a2d6022502d56aaa05d5a064bea Initial commit
+</code></pre><br/>
+Далее остаётся скопировать нужный нам хэш и вновь запустить машину времени: <code>git checkout</code>. Но данный способ не рекомендую, так как он требует слишком много действий.</li>
+<li>Git позволяет отслеживать все изменения указателя <i>HEAD</i>. Это возможно командой <code>git reflog</code>, но это уже не для новичков и используется не для поставленных нами целей. Самое грамотное — это поступить следующим образом:</li>
+<li>Вспомнить, что указатель master указывает на самый свеженький коммит. Таким образом, возврат в исходное состояние выполняется одной командой: <code>git checkout master</code>. Вуа-ля:</li>
+</ol><br/>
+<br/>
+<img src="http://habrastorage.org/storage2/177/010/09f/17701009f12912c6f90bc2c9364d3777.png"/><br/>
+<br/>
+Для прояснения механизма <code>git checkout</code> создадим новую ветку devel:<br/>
+<pre><code class="bash">[user@localhost project]$ git checkout -b devel
+</code></pre><br/>
+*флаг -b означает, что необходимо создать ветку с указанным именем и сразу переключится на неё.<br/>
+Проиллюстрируем совершённое нами действие:<br/>
+<br/>
+<img src="http://habrastorage.org/storage2/a15/da7/bfd/a15da7bfd320c021e17df24a8b9f0894.png"/><br/>
+<br/>
+Заметим, что указатель <i>HEAD</i> указывает на вершину ветки <i>devel</i>.<br/>
+<br/>
+Породим в новой ветке несколько коммитов. История репозитория будет выглядеть следующим образом:<br/>
+<br/>
+<img src="http://habrastorage.org/storage2/e9d/f09/fee/e9df09fee306874b1096744737b0a719.png"/><br/>
+<br/>
+Возвращение в ветку master происходит также безболезненно:<br/>
+<pre><code class="bash">[user@localhost project]$ git checkout master
+</code></pre><br/>
+<br/>
+<img src="http://habrastorage.org/storage2/c5d/7f8/38a/c5d7f838a0fb7cc4e77d17229f5beeda.png"/><br/>
+<br/>
+Итак, запоминаем первый пункт:<br/>
+<ul>
+<li>Комнда git checkout передвигает указатель <i>HEAD</i></li>
+</ul><br/>
+<h4>Перенос указателя на вершину ветки (<code>git reset ...</code>)</h4><br/>
+Кроме того, git позволяет двигать не только <i>HEAD</i>, но и <strike>континеты</strike> указатели на вершины веток. Для этого существует команда <code>git reset </code> с ключами либо <code>--soft</code>, либо <code>--hard</code>.<br/>
+<ul>
+<li>Ключ <code>--hard</code> означает, что мы теряем текущее состояние файлов и приобретаем состояние того коммита, куда был сделан reset. </li>
+<li>Ключ <code>--soft</code> означает, что мы НЕ теряем текущее состояние проекта, но указатель на текущую ветку уже передвинут, т.е. git status нам выдаст разницу между текущим состоянием проекта (от которого мы сделали reset) и тем, на который мы сделали reset. </li>
+</ul><br/>
+В обоих случаях появляется «прозвище» для коммита, с которого был совершён reset — <i>ORIG_HEAD</i>.<br/>
+<br/>
+<code>git reset --hard HEAD~2</code>:<br/>
+<img src="http://habrastorage.org/storage2/e48/249/df8/e48249df85e1e6a224b7aabc315ebe73.png"/><br/>
+<br/>
+<code>git reset --soft HEAD~2</code>:<br/>
+<img src="http://habrastorage.org/storage2/8dd/0ba/d19/8dd0bad198815bc4f9c438931e73b828.png"/><br/>
+<br/>
+<i>ORIG_HEAD</i> полезен для редактирования неверных коммитов на локальной машине (!). Предположим, что мы хотим объединить два последних коммита в единый. Для этого, сохраняя текущее состояние файлов, переводим указатель master на два коммита назад:<br/>
+<pre><code class="bash">[user@localhost project]$ git reset --soft  HEAD~2
+</code></pre><br/>
+Посмотрим на изменения:<br/>
+<pre><code class="bash">[user@localhost project]$ git status
+# On branch master
+# Changes to be committed:
+#   (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+#
+#	ЧТО-ТО ТАМ ДЛЯ КОММИТА
+#
+</code></pre><br/>
+Ну а теперь сделаем трюк — объединяем коммиты<br/>
+<pre><code class="bash">[user@localhost project]$ git commit -c ORIG_HEAD
+</code></pre><br/>
+Вводим сообщение, сохраняемся. Теперь наша история выглядит вот так:<br/>
+<br/>
+<img src="http://habrastorage.org/storage2/902/a5e/015/902a5e015a0c88bbfa6db781bab8c76c.png"/><br/>
+<br/>
+Важное замечание — <i>ORIG_HEAD</i> по-прежнему указывает на коммит d79fb… Если мы сейчас выполним команду git checkout <i>ORIG_HEAD</i>, то мы получим так называемое состояние detach <i>HEAD</i>. Оно характеризуется тем, что <i>HEAD</i> указывает не на вершину ветки, а просто на коммит. <i>HEAD</i> всегда должен указывать только на вершину какой-либо ветки!<br/>
+<br/>
+<img src="http://habrastorage.org/storage2/5d9/e13/c00/5d9e13c0094c218d508b9931a88a3821.png"/><br/>
+<br/>
+Чтобы «выйти» из состояния detach <i>HEAD</i> достаточно просто переключиться на какую-либо ветку или создать новую ветку командой <code>git checkout -b new_branch_name</code><br/>
+Итак, запоминаем второй пункт:<br/>
+<ul>
+<li><code>git reset</code> с ключами <code>--soft</code> или <code>--hard</code> двигает указатель на вершину ветки, а вместе с ним и указатель <i>HEAD</i>. </li>
+</ul><br/>
+И самое главное! Самая частая операция из вышеперечисленных при работе с git`ом — это переключение между ветками. Все остальные рассмотренные случаи встречаются редко, но тем не менее необходимо понимать всё, что происходит при их использовании!<br/>
+<br/>
+Удачных вам путешествий по истории своего репозитория!<br/>
+<br/>
+При подготовке материала использовались следующие источники:<br/>
+Самый лучший manual — книга: <a href="http://git-scm.com/book">ProGit</a><br/>
+Наглядная справка по git: <a href="http://marklodato.github.com/visual-git-guide/index-en.html">A Visual Git Reference</a> (<a href="http://marklodato.github.com/visual-git-guide/index-ru.html">Русская версия</a>)<br/>
+<br/>
+UPD:<br/>
+В комментариях посоветовали ещё один полезный ресурс по git`у: <a href="http://githowto.com/ru">githowto</a><br/>
+<br/>
+P.S. Благодарю за инвайт и всем желаю приятных выходных!
+			<div class="clear"></div>
+    </div>
+
+    
+<ul class="tags">
+	<li ><a href="http://habrahabr.ru/search/?q=%5Bgit%5D&target_type=posts" rel="tag">git</a></li>
+</ul>
+
+		<div class="infopanel_wrapper">
+	<div class="infopanel " id="infopanel_post_157175">
+	
+				<div class="voting   ">
+	
+						<span class="plus" title="Голосовать могут только зарегистрированные пользователи."></span>
+	
+					<div class="mark positive ">
+							<span class="score" title="Всего 127: &uarr;122 и &darr;5">+117</span>
+					</div>
+					
+						<span class="minus" title="Голосовать могут только зарегистрированные пользователи."></span>
+		
+				</div>
+	
+		<div class="pageviews" title="Просмотры поста">46226</div>
+			
+		<div class="favorite">
+				<a class="guest"	href="#" onclick="return false;" title="Только зарегистрированные пользователи могут добавлять посты в избранное"></a>
+		</div>
+		<div class="favs_count" title="Количество пользователей, добавивших пост в избранное">612</div>
+		
+		
+		
+	
+	
+	
+	
+				<div class="author">
+					<a title="Автор текста" href="http://habrahabr.ru/users/yse/" >yse</a>
+					<span class="rating" title="рейтинг пользователя">20,0</span>
+				</div>
+		
+	
+	
+		
+			<div class="share">
+				<div class="twitter">
+					<a href="http://twitter.com/intent/tweet?text=%D0%9C%D0%B0%D1%88%D0%B8%D0%BD%D0%B0+%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%B8+%D0%B2+git+http://habr.ru/p/157175/+via+%40habrahabr+%23habr" title="Опубликовать ссылку в Twitter" target="_blank"></a>
+				</div>
+				<div class="vkontakte">
+					<a href="http://vk.com/share.php?url=http://habrahabr.ru/post/157175/" title="Опубликовать ссылку во ВКонтакте" onclick="window.open(this.href, 'Опубликовать ссылку во Вконтакте', 'width=800,height=300'); return false"></a>
+				</div>
+				<div class="facebook">
+					<a href="https://www.facebook.com/sharer/sharer.php?u=http://habrahabr.ru/post/157175/" title="Опубликовать ссылку в Facebook" onclick="window.open(this.href, 'Опубликовать ссылку в Facebook', 'width=640,height=436,toolbar=0,status=0'); return false"></a>
+				</div>
+				<div class="googleplus">
+					<a href="https://plus.google.com/share?url=http://habrahabr.ru/post/157175/" title="Опубликовать ссылку в Google Plus" onclick="window.open(this.href, 'Опубликовать ссылку в Google Plus', 'width=800,height=300'); return false"></a>
+				</div>
+			</div>
+	
+	</div>
+	<div class="clear"></div>
+</div>
+
+
+
+
+    
+		
+	</div>
+
+    </div>
+
+  	    
+    <div id="adriver_banner_132032996"></div>  
+
+  <script type="text/javascript">
+      /** Для блоков гугла **/
+      function requireAdsafe(file){
+          var head = document.getElementsByTagName("head")[0];
+          var script = document.createElement('script');
+          script.src = file;
+          script.type = 'text/javascript';
+          head.appendChild(script);
+      }
+
+      function show_inner_banner_block(name, url){
+          if( typeof(name) !== 'undefined'){
+              $.get('/html/'+name+'/1411134820/', function(html){
+                  $('#adriver_banner_132032996').html(html);
+                  $('.'+name+'_inner_banner').removeClass('hidden');
+                  if( typeof(url) !== 'undefined'){
+                      $('.'+name+'_inner_banner .block_url').attr('href', url);
+                  }
+
+                  if (name == 'google') {
+                      new Image().src = 'http://ad.doubleclick.net/jump/N5295.197836HABRAHABR.RU/B8185867.109918092;sz=1x1;ord=![rnd]';
+                      requireAdsafe('http://pixel.adsafeprotected.com/rjss/st/28047/2559986/skeleton.js');
+                  }
+
+                  if (name == 'google2') {
+                      new Image().src = 'https://ad.doubleclick.net/ad/N5295.197836HABRAHABR.RU/B8064776.109574175;sz=1x1;ord=![rnd]';
+                      requireAdsafe('https://pixel.adsafeprotected.com/rjss/st/25624/2476044/skeleton.js');
+                  }
+
+                  if (name == 'google3') {
+                      new Image().src = 'http://ad.doubleclick.net/jump/N5295.197836HABRAHABR.RU/B8185867.109918090;sz=1x1;ord=![rnd]';
+                      requireAdsafe('http://pixel.adsafeprotected.com/rjss/st/28047/2559984/skeleton.js');
+                  }
+
+                  if (name == 'google4') {
+                      new Image().src = 'https://ad.doubleclick.net/ad/N5295.197836HABRAHABR.RU/B8064776.109574176;sz=1x1;ord=![rnd]';
+                      requireAdsafe('https://pixel.adsafeprotected.com/rjss/st/25624/2476046/skeleton.js');
+                  }
+              })
+          }
+      }
+
+        $(function(){
+            var keyword = '';
+            if (typeof crtg_content !== 'undefined' && crtg_content) { keyword = crtg_content; }
+            var custom = { 4:ar_duo1 };
+                custom[1] = 'Git';
+
+            /* Антоша не удаляй это условие блеать! Как я тестить буду? */
+            //if (true)
+            //    show_inner_banner_block('nokia_lumia930_3');
+            //else
+                new adriver("adriver_banner_132032996", {sid: 176776, bt: 52, bn: 3, custom: custom, keyword: keyword});
+        });
+    </script>
+    
+
+
+  	
+      
+      <div class="block_after_post">
+        
+
+
+<div class="block similar_posts">
+
+    <div class="title">Похожие публикации</div>
+    <div class="posts_list">
+        <div class="post_item">
+            <a class="post_name"
+               onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'similar_posts', $(this).parents('.similar_posts').hasClass('float_block') ? 'float' : 'common'); }"
+               href="/post/205888/">Валидация Sql кода с помощью .net и git-hook</a>
+            <span class="when">13 декабря 2013 в 12:25</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name"
+               onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'similar_posts', $(this).parents('.similar_posts').hasClass('float_block') ? 'float' : 'common'); }"
+               href="/post/203282/">3 режима команды git reset: --soft, --mixed(по умолчанию), --hard</a>
+            <span class="when">22 ноября 2013 в 19:26</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name"
+               onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'similar_posts', $(this).parents('.similar_posts').hasClass('float_block') ? 'float' : 'common'); }"
+               href="/post/201922/">Изменение коммитов в Git</a>
+            <span class="when">13 ноября 2013 в 02:25</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name"
+               onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'similar_posts', $(this).parents('.similar_posts').hasClass('float_block') ? 'float' : 'common'); }"
+               href="/post/195674/">Тонкости благополучного git-merge</a>
+            <span class="when">30 сентября 2013 в 15:52</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name"
+               onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'similar_posts', $(this).parents('.similar_posts').hasClass('float_block') ? 'float' : 'common'); }"
+               href="/post/174467/">Ежедневная работа с Git</a>
+            <span class="when">15 мая 2013 в 20:15</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name"
+               onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'similar_posts', $(this).parents('.similar_posts').hasClass('float_block') ? 'float' : 'common'); }"
+               href="/post/164019/">Drupal + Git submodules: рецепты</a>
+            <span class="when"> 7 января 2013 в 12:08</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name"
+               onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'similar_posts', $(this).parents('.similar_posts').hasClass('float_block') ? 'float' : 'common'); }"
+               href="/post/155391/">Git up и все все все</a>
+            <span class="when">19 октября 2012 в 15:34</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name"
+               onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'similar_posts', $(this).parents('.similar_posts').hasClass('float_block') ? 'float' : 'common'); }"
+               href="/post/151646/">Поднимаем собственный git сервер GitBlit на хостинге Openshift</a>
+            <span class="when">18 сентября 2012 в 18:08</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name"
+               onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'similar_posts', $(this).parents('.similar_posts').hasClass('float_block') ? 'float' : 'common'); }"
+               href="/post/147260/">Почему вы до сих пор не используете git-flow?</a>
+            <span class="when"> 6 июля 2012 в 15:47</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name"
+               onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'similar_posts', $(this).parents('.similar_posts').hasClass('float_block') ? 'float' : 'common'); }"
+               href="/post/74839/">Особенности настройки git под windows</a>
+            <span class="when">10 ноября 2009 в 16:11</span>
+        </div>
+    </div>
+</div>
+
+
+
+      </div>
+
+  		<div class="comments_list " id="comments">
+
+  <h2 class="title ">Комментарии (<span id="comments_count">39</span>)
+  
+  
+  </h2>
+
+    <div class="comment_item" id="comment_5374825" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="5374825">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5374825" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 5: &uarr;4 и &darr;1">+3</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/abiruba/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/48e/3ee/a5d/48e3eea5dedfacaaf3a1800b72300a7f_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/abiruba/" class="username">abiruba</a><span class="comma">,</span>
+            <time> 2 ноября 2012 в 18:00</time>
+
+            <a href="#comment_5374825" class="link_to_comment">#</a>
+            
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Гит отличная штука. За прогит — отдельное спасибо авторам. Здорово помог, когда начинал пользоваться git-ом
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5374825">
+        <div class="comment_item" id="comment_5374895" >
+
+    <span class="parent_id" data-parent_id="5374825"></span>
+    <div class="comment_body ">
+        <div class="info  is_topic_starter  " rel="5374895">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5374895" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 1: &uarr;1 и &darr;0">+1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/yse/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/623/126/15a/62312615a9bb216995f0d2aa4e4379ce_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/yse/" class="username">yse</a><span class="comma">,</span>
+            <time> 2 ноября 2012 в 18:13</time>
+
+            <a href="#comment_5374895" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="5374895" data-parent_id="5374825" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_5374825" data-id="5374895" data-parent_id="5374825" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Да, книга великолепна. После прочтения появляетя не просто набор интрукция и workflow, а понимание механизмов работы git'а.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5374895">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_5374903" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="5374903">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5374903" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 2: &uarr;2 и &darr;0">+2</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/ferasinka/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/013/62b/cb7/01362bcb7b06b79c5694dc62e29d00b9_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/ferasinka/" class="username">ferasinka</a><span class="comma">,</span>
+            <time> 2 ноября 2012 в 18:14</time>
+
+            <a href="#comment_5374903" class="link_to_comment">#</a>
+            
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Я бы в ссылки еще добавил: <a href="http://githowto.com/ru">githowto.com/ru</a>
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5374903">
+        <div class="comment_item" id="comment_5375071" >
+
+    <span class="parent_id" data-parent_id="5374903"></span>
+    <div class="comment_body ">
+        <div class="info  is_topic_starter  " rel="5375071">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5375071" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/yse/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/623/126/15a/62312615a9bb216995f0d2aa4e4379ce_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/yse/" class="username">yse</a><span class="comma">,</span>
+            <time> 2 ноября 2012 в 18:43</time>
+
+            <a href="#comment_5375071" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="5375071" data-parent_id="5374903" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_5374903" data-id="5375071" data-parent_id="5374903" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Спасибо за совет. Раньше не знал этого ресурса. Возьму на заметку.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5375071">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_5374947" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="5374947">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5374947" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 1: &uarr;1 и &darr;0">+1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/amaslenn/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+            <a href="http://habrahabr.ru/users/amaslenn/" class="username">amaslenn</a><span class="comma">,</span>
+            <time> 2 ноября 2012 в 18:20</time>
+
+            <a href="#comment_5374947" class="link_to_comment">#</a>
+            
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Спасибо за статью. И отдельное спасибо за иллюстрации.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5374947">
+        <div class="comment_item" id="comment_5374975" >
+
+    <span class="parent_id" data-parent_id="5374947"></span>
+    <div class="comment_body ">
+        <div class="info  is_topic_starter  " rel="5374975">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5374975" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 1: &uarr;1 и &darr;0">+1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/yse/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/623/126/15a/62312615a9bb216995f0d2aa4e4379ce_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/yse/" class="username">yse</a><span class="comma">,</span>
+            <time> 2 ноября 2012 в 18:24</time>
+
+            <a href="#comment_5374975" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="5374975" data-parent_id="5374947" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_5374947" data-id="5374975" data-parent_id="5374947" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Пожалуйста =) я эти картинки сперва рисовал на бумаге, объясняя коллегам команды, затем надоело — решил написать статью и кидать ссылку.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5374975">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_5375221" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="5375221">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5375221" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 1: &uarr;1 и &darr;0">+1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Goder/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/444/83b/c8d/44483bc8d11fe722ca8f1fec89799603_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/Goder/" class="username">Goder</a><span class="comma">,</span>
+            <time> 2 ноября 2012 в 19:17</time>
+
+            <a href="#comment_5375221" class="link_to_comment">#</a>
+            
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Погубить историю в гите — это надо попотеть. :)<br/>
+git reflog поможет заблудившимся. Главное — не усердствовать с git gc.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5375221">
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_5375413" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="5375413">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5375413" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 1: &uarr;1 и &darr;0">+1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Vayun/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/fc0/a8c/b96/fc0a8cb96beaa689c1b629d5935ffed3_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/Vayun/" class="username">Vayun</a><span class="comma">,</span>
+            <time> 2 ноября 2012 в 20:06</time>
+
+            <a href="#comment_5375413" class="link_to_comment">#</a>
+            
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            gitk --all
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5375413">
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_5375621" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="5375621">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5375621" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 3: &uarr;3 и &darr;0">+3</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/PQR/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/3d9/f80/15a/3d9f8015a4fd71a892c7a9455d74b5be_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/PQR/" class="username">PQR</a><span class="comma">,</span>
+            <time> 2 ноября 2012 в 21:06</time>
+
+            <a href="#comment_5375621" class="link_to_comment">#</a>
+            
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Отличная статья на помнимание указателей с отличными иллюстрациями, спасибо!
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5375621">
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_5375777" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="5375777">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5375777" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 5: &uarr;3 и &darr;2">+1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/SilentBrain/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+            <a href="http://habrahabr.ru/users/SilentBrain/" class="username">SilentBrain</a><span class="comma">,</span>
+            <time> 2 ноября 2012 в 21:59</time>
+
+            <a href="#comment_5375777" class="link_to_comment">#</a>
+            
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            И в самом конце статьи нужно напомнить про GitFlow. <a href="http://habrahabr.ru/post/106912">Теория</a> и <a href="https://github.com/nvie/gitflow">практика</a>.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5375777">
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_5376119" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="5376119">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5376119" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 4: &uarr;4 и &darr;0">+4</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/janatem/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+            <a href="http://habrahabr.ru/users/janatem/" class="username">janatem</a><span class="comma">,</span>
+            <time> 2 ноября 2012 в 23:15</time>
+
+            <a href="#comment_5376119" class="link_to_comment">#</a>
+            
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Для редактирования локальной истории (считаю это дело полезным, чтобы во внешнем репе была чисто и красиво) использую git rebase. В частности, для описанного примера со слиянием пары комитов в один удобен интерактивный rebase:<br/>
+<br/>
+<code>$ git rebase -i HEAD~2</code><br/>
+<br/>
+и далее в редакторе помечаем последний комит буквой s (squash). А вот git reset так давно не использовал, что успел забыть, зачем он нужен. Впрочем, картинка в посте вполне освежает память.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5376119">
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_5376237" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="5376237">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5376237" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/funca/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/fe9/470/b48/fe9470b482ca92ee7a8ce6e1fdad9d70_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/funca/" class="username">funca</a><span class="comma">,</span>
+            <time> 2 ноября 2012 в 23:54</time>
+
+            <a href="#comment_5376237" class="link_to_comment">#</a>
+            
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            какие-то еще операции, кроме git reset влияют на ORIG_HEAD и что произойдет с веткой коммитов на который указывал ORIG_HEAD после того, как он изменится?
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5376237">
+        <div class="comment_item" id="comment_5376411" >
+
+    <span class="parent_id" data-parent_id="5376237"></span>
+    <div class="comment_body ">
+        <div class="info  is_topic_starter  " rel="5376411">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5376411" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 1: &uarr;1 и &darr;0">+1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/yse/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/623/126/15a/62312615a9bb216995f0d2aa4e4379ce_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/yse/" class="username">yse</a><span class="comma">,</span>
+            <time> 3 ноября 2012 в 00:45</time>
+
+            <a href="#comment_5376411" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="5376411" data-parent_id="5376237" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_5376237" data-id="5376411" data-parent_id="5376237" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            <i>ORIG_HEAD</i> появляется после так называемых «опасных» команда, к которым и относится <code>git reset</code> с набором определённых флагов. <br/>
+А ветка коммитов, на который указывал <i>ORIG_HEAD</i> никуда не девается — я на самом деле немного слукавил, сказав, что возможно потерять историю. Все «неоприходаванные» коммиты (читай — не принадлежащие ни одной ветке) можно выцепить командой <code>git log --all</code>, либо <code>git reflog</code>. <code>git reflog</code>, если в кратце, отражает историю движения указателя <i>HEAD</i>. Обладая этой информацией вполне можно восстановить «потерянные» коммиты, но, если честно, извините, слегка геморрой. Лучше этого избегать.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5376411">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_5376257" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="5376257">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5376257" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/sitox/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+            <a href="http://habrahabr.ru/users/sitox/" class="username">sitox</a><span class="comma">,</span>
+            <time> 3 ноября 2012 в 00:01</time>
+
+            <a href="#comment_5376257" class="link_to_comment">#</a>
+            
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Как Я понимаю это все меняет только указатели, но не сами файлы? или Я запутался?
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5376257">
+        <div class="comment_item" id="comment_5376379" >
+
+    <span class="parent_id" data-parent_id="5376257"></span>
+    <div class="comment_body ">
+        <div class="info  is_topic_starter  " rel="5376379">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5376379" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/yse/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/623/126/15a/62312615a9bb216995f0d2aa4e4379ce_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/yse/" class="username">yse</a><span class="comma">,</span>
+            <time> 3 ноября 2012 в 00:33</time>
+
+            <a href="#comment_5376379" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="5376379" data-parent_id="5376257" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_5376257" data-id="5376379" data-parent_id="5376257" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Да, Вы запутались. Со сменой указателей (а конкретно — указателя <i>HEAD</i>) меняется и состояние файлов (за исключением <code>git reset --soft</code>). Файлы приобретают то состояние, куда указывает <i>HEAD</i>. Это важный и немного странный на первый взгляд момент, который обычно и вводит в заблуждение новичков.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5376379">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_5377045" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="5377045">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5377045" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  negative">
+                    <span class="score" title="Всего 3: &uarr;1 и &darr;2">–1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/StopDesign/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/736/df8/83e/736df883e946d424e4c573fa351703e1_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/StopDesign/" class="username">StopDesign</a><span class="comma">,</span>
+            <time> 3 ноября 2012 в 06:21</time>
+
+            <a href="#comment_5377045" class="link_to_comment">#</a>
+            
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format bad bad1">
+            Из всех этих howto я понял, что git — такая штука, на изучение которой придется потратить приличное время. Нельзя просто так взять и начать использовать git.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5377045">
+        <div class="comment_item" id="comment_5377149" >
+
+    <span class="parent_id" data-parent_id="5377045"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="5377149">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5377149" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/azverin/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/1c1/72f/165/1c172f165a4e7cf842878fbd66bbf38e_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/azverin/" class="username">azverin</a><span class="comma">,</span>
+            <time> 3 ноября 2012 в 09:06</time>
+
+            <a href="#comment_5377149" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="5377149" data-parent_id="5377045" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_5377045" data-id="5377149" data-parent_id="5377045" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Можно начать использовать GIT в «визуальном режиме» в любимой IDE, а потом уже разбираться с нюансами и доп.возможностями. Это будет лучше, чем вообще не начинать.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5377149">
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_5377155" >
+
+    <span class="parent_id" data-parent_id="5377045"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="5377155">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5377155" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 2: &uarr;1 и &darr;1">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/amosk/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+            <a href="http://habrahabr.ru/users/amosk/" class="username">amosk</a><span class="comma">,</span>
+            <time> 3 ноября 2012 в 09:09</time>
+
+            <a href="#comment_5377155" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="5377155" data-parent_id="5377045" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_5377045" data-id="5377155" data-parent_id="5377045" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Как раз начать использовать можно сразу и довольно просто.<br/>
+Я в свое время так и перешел с svn на git когда в очередном проекте все на него перевели.<br/>
+В гите конечно куча функций, но их вас никто не обязывает изучать. И вы можете вполне пользоваться базовой функциональностью, не задумываясь про остальное.<br/>
+Например, я регулярно пользуюсь git rebase для слияниея коммитов перез отправкой их на публичный репо.<br/>
+А у этой команды есть опция --onto про которую я знаю из мануалов, но никак не могу запомнить что она делает, т.к. она мне ни разу не нужна была. Что говорить про остальные опции о которых я вообще не подозреваю :)<br/>
+И ничего — живу :)<br/>
+<br/>
+Кстати из описанных команд, для новичков я считаю нужно знать только<br/>
+git checkout ветка (переключиться на ветку)<br/>
+git checkout -b ветка (создать ветку из текущей и переключиться)<br/>
+git reset --hard (отменить все незакоммиченное)<br/>
+git reset --hard HEAD~n (отменить все незакоммиченное и откатиться на n коммитов)<br/>
+<br/>
+А git reset --soft это честно говоря уже из разряда извращений, тем более пример приведенный для этой опции надуманный, гораздо проще и надежнее сливать коммиты через git rebase -i HEAD~n (и не только сливать, но и переупорядочивать, менять комменты, выборочно удалять и прочее)<br/>
+<br/>
+
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5377155">
+        <div class="comment_item" id="comment_5381763" >
+
+    <span class="parent_id" data-parent_id="5377155"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="5381763">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5381763" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/int03e/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/846/a8a/ce9/846a8ace9d41482f3b53f665a07f1ccd_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/int03e/" class="username">int03e</a><span class="comma">,</span>
+            <time> 4 ноября 2012 в 23:16</time>
+
+            <a href="#comment_5381763" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="5381763" data-parent_id="5377155" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_5377155" data-id="5381763" data-parent_id="5377155" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Вместо git reset --hard отмену можно делать с помощью «git stash», «git stash apply» делать никто не обязывает :-)
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5381763">
+        <div class="comment_item" id="comment_5381777" >
+
+    <span class="parent_id" data-parent_id="5381763"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="5381777">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5381777" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/amosk/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+            <a href="http://habrahabr.ru/users/amosk/" class="username">amosk</a><span class="comma">,</span>
+            <time> 4 ноября 2012 в 23:21</time>
+
+            <a href="#comment_5381777" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="5381777" data-parent_id="5381763" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_5381763" data-id="5381777" data-parent_id="5381763" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Можно.<br/>
+Только зачем замусоривать репо файлами которые не нужны?<br/>
+stash предназначена для совсем другого — для сохранения, а не удаления.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5381777">
+        <div class="comment_item" id="comment_5381787" >
+
+    <span class="parent_id" data-parent_id="5381777"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="5381787">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5381787" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/int03e/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/846/a8a/ce9/846a8ace9d41482f3b53f665a07f1ccd_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/int03e/" class="username">int03e</a><span class="comma">,</span>
+            <time> 4 ноября 2012 в 23:25</time>
+
+            <a href="#comment_5381787" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="5381787" data-parent_id="5381777" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_5381777" data-id="5381787" data-parent_id="5381777" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Замусоривание минимальное, да и перетирается в следующий раз. Я не говорю что это оптимальный путь, просто как вариант.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5381787">
+        <div class="comment_item" id="comment_5383835" >
+
+    <span class="parent_id" data-parent_id="5381787"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="5383835">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5383835" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 1: &uarr;1 и &darr;0">+1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/fobos/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/d8f/30a/509/d8f30a509fb77277465ba2ec9fefa378_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/fobos/" class="username">fobos</a><span class="comma">,</span>
+            <time> 5 ноября 2012 в 15:38</time>
+
+            <a href="#comment_5383835" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="5383835" data-parent_id="5381787" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_5381787" data-id="5383835" data-parent_id="5381787" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Что значит «перетирается в следующий раз»? Хранилище у stash организовано на основе стека. И при очередном git stash мы добавляем в стек новое состояние. И если не чистить stash, то стек будет только расти.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5383835">
+        <div class="comment_item" id="comment_5511049" >
+
+    <span class="parent_id" data-parent_id="5383835"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="5511049">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5511049" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/malkolm/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/43e/bea/6d7/43ebea6d7f62292f6cf6a332b95ced64_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/malkolm/" class="username">malkolm</a><span class="comma">,</span>
+            <time>29 ноября 2012 в 03:06</time>
+
+            <a href="#comment_5511049" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="5511049" data-parent_id="5383835" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_5383835" data-id="5511049" data-parent_id="5383835" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Не стек, а лог.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5511049">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_5381845" >
+
+    <span class="parent_id" data-parent_id="5381777"></span>
+    <div class="comment_body ">
+        <div class="info  is_topic_starter  " rel="5381845">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5381845" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/yse/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/623/126/15a/62312615a9bb216995f0d2aa4e4379ce_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/yse/" class="username">yse</a><span class="comma">,</span>
+            <time> 4 ноября 2012 в 23:41</time>
+
+            <a href="#comment_5381845" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="5381845" data-parent_id="5381777" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_5381777" data-id="5381845" data-parent_id="5381777" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            git это как tex, или vim — один и тот же результат получить несколькими путями. Это из-за гибкости. Из-за гибкости, кстати, и геморрой при первичном знакомстве. Отсюда формула — за гибкость приходится платить геморроем при обучении =) Зато если привынуть — можно горы сворачивать =) Мощны инструменты.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5381845">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_5377145" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="5377145">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5377145" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 1: &uarr;1 и &darr;0">+1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/azverin/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/1c1/72f/165/1c172f165a4e7cf842878fbd66bbf38e_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/azverin/" class="username">azverin</a><span class="comma">,</span>
+            <time> 3 ноября 2012 в 09:05</time>
+
+            <a href="#comment_5377145" class="link_to_comment">#</a>
+            
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            <blockquote>Наглядная справка по git: A Visual Git Reference (Русская версия)</blockquote><br/>
+Ссылка на русскую версию ведет на английскую, правильная ссылка: <a href="http://marklodato.github.com/visual-git-guide/index-ru.html">marklodato.github.com/visual-git-guide/index-ru.html</a>
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5377145">
+        <div class="comment_item" id="comment_5377337" >
+
+    <span class="parent_id" data-parent_id="5377145"></span>
+    <div class="comment_body ">
+        <div class="info  is_topic_starter  " rel="5377337">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5377337" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/yse/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/623/126/15a/62312615a9bb216995f0d2aa4e4379ce_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/yse/" class="username">yse</a><span class="comma">,</span>
+            <time> 3 ноября 2012 в 11:45</time>
+
+            <a href="#comment_5377337" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="5377337" data-parent_id="5377145" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_5377145" data-id="5377337" data-parent_id="5377145" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Спасибо, поправил.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5377337">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_5377227" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="5377227">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5377227" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/elw00d/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/1cf/013/9be/1cf0139be971da73c35c5548b91dfc1b_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/elw00d/" class="username">elw00d</a><span class="comma">,</span>
+            <time> 3 ноября 2012 в 10:34</time>
+
+            <a href="#comment_5377227" class="link_to_comment">#</a>
+            
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Как-то сложновато всё, имхо. А штуки типа detach HEAD производят впечатление текущей абстракции. Но сама статья супер, спасибо, теперь более или менее разобрался.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5377227">
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_5377873" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="5377873">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5377873" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 1: &uarr;1 и &darr;0">+1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Ganesh/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/056/3f5/f55/0563f5f55d406f727f1b994fba8c1c25_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/Ganesh/" class="username">Ganesh</a><span class="comma">,</span>
+            <time> 3 ноября 2012 в 16:09</time>
+
+            <a href="#comment_5377873" class="link_to_comment">#</a>
+            
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            &gt;&gt; «master указывает на самый старший коммит в ветке под названием master „<br/>
+&gt;&gt; “Вспомнить, что указатель master указывает на самый свеженький коммит.»<br/>
+<br/>
+Так самый старший или самый младший?
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5377873">
+        <div class="comment_item" id="comment_5378845" >
+
+    <span class="parent_id" data-parent_id="5377873"></span>
+    <div class="comment_body ">
+        <div class="info  is_topic_starter  " rel="5378845">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5378845" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/yse/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/623/126/15a/62312615a9bb216995f0d2aa4e4379ce_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/yse/" class="username">yse</a><span class="comma">,</span>
+            <time> 3 ноября 2012 в 23:15</time>
+
+            <a href="#comment_5378845" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="5378845" data-parent_id="5377873" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_5377873" data-id="5378845" data-parent_id="5377873" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            гм, великий и могучий русский язык. С одной стороны Вы правы, безусловно. Но вот с другой стороны — более старший коммит — более старшая ревизия <i>по номеру</i>, а не по возрасту =) вот такая вот дилемма
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5378845">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_5379111" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="5379111">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5379111" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/AdvanTiSS/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+            <a href="http://habrahabr.ru/users/AdvanTiSS/" class="username">AdvanTiSS</a><span class="comma">,</span>
+            <time> 4 ноября 2012 в 01:30</time>
+
+            <a href="#comment_5379111" class="link_to_comment">#</a>
+            
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Подскажите плз толковый git GUI. Сам всегда использую HG + TortoiseHg, но сейчас возникла необходимость работы с GitHub — после TortoiseHG хочется чего нибудь такого же удобного.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5379111">
+        <div class="comment_item" id="comment_5379455" >
+
+    <span class="parent_id" data-parent_id="5379111"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="5379455">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5379455" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/xvoland/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/867/3d9/b96/8673d9b964af7697bf0fa279de0572be_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/xvoland/" class="username">xvoland</a><span class="comma">,</span>
+            <time> 4 ноября 2012 в 05:33</time>
+
+            <a href="#comment_5379455" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="5379455" data-parent_id="5379111" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_5379111" data-id="5379455" data-parent_id="5379111" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Используйте то, к чему привыкли, только Git+TortoiseGit 
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5379455">
+        <div class="comment_item" id="comment_5384625" >
+
+    <span class="parent_id" data-parent_id="5379455"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="5384625">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5384625" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/AdvanTiSS/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+            <a href="http://habrahabr.ru/users/AdvanTiSS/" class="username">AdvanTiSS</a><span class="comma">,</span>
+            <time> 5 ноября 2012 в 19:39</time>
+
+            <a href="#comment_5384625" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="5384625" data-parent_id="5379455" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_5379455" data-id="5384625" data-parent_id="5379455" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            попробовал… к моему сожалению tortoiseHg и tortoiseGit схожи только префиксом «tortoise» — очень странно что при практически одинаковой функциональности Git и Hg, эти tortoise клиенты так сильно отличаются. 
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5384625">
+    </div>
+</div>
+
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_5379879" >
+
+    <span class="parent_id" data-parent_id="5379111"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="5379879">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5379879" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Agent_Smith/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/b29/461/09d/b2946109d5f6187a65ea844257aac78e_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/Agent_Smith/" class="username">Agent_Smith</a><span class="comma">,</span>
+            <time> 4 ноября 2012 в 12:46</time>
+
+            <a href="#comment_5379879" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="5379879" data-parent_id="5379111" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_5379111" data-id="5379879" data-parent_id="5379111" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Еще есть нативный клиент GitHub
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5379879">
+        <div class="comment_item" id="comment_5380909" >
+
+    <span class="parent_id" data-parent_id="5379879"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="5380909">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5380909" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/AdvanTiSS/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+            <a href="http://habrahabr.ru/users/AdvanTiSS/" class="username">AdvanTiSS</a><span class="comma">,</span>
+            <time> 4 ноября 2012 в 19:15</time>
+
+            <a href="#comment_5380909" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="5380909" data-parent_id="5379879" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_5379879" data-id="5380909" data-parent_id="5379879" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Извините, но это не GUI клиент, а какое-то гламурное убожество… самый базовый набор команд завернутый в неюзабельный интерфейс.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5380909">
+    </div>
+</div>
+
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_5380749" >
+
+    <span class="parent_id" data-parent_id="5379111"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="5380749">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5380749" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Goder/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/444/83b/c8d/44483bc8d11fe722ca8f1fec89799603_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/Goder/" class="username">Goder</a><span class="comma">,</span>
+            <time> 4 ноября 2012 в 18:00</time>
+
+            <a href="#comment_5380749" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="5380749" data-parent_id="5379111" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_5379111" data-id="5380749" data-parent_id="5379111" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            <a href="http://git-scm.com/downloads/guis">http://git-scm.com/downloads/guis</a><br/>
+На мой взгляд, самый удачный — Tower.<br/>
+<br/>
+P.S. Маленький совет: настройте себе удобную консоль и используете её. Все мои знакомые, которые пользуются разными git GUI, испытывают проблемы с каким-нибудь функционалом гита. Гит сделан для удобной работы в консоли, так что любой гуи — это ограничение.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5380749">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_5397417" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="5397417">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5397417" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/andrewleshchynskyy/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/816/12b/483/81612b4836d77cad48361817f67c48ce_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/andrewleshchynskyy/" class="username">andrewleshchynskyy</a><span class="comma">,</span>
+            <time> 7 ноября 2012 в 23:49</time>
+
+            <a href="#comment_5397417" class="link_to_comment">#</a>
+            
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            А как можно проделывать подобные вещи с bare репозиторием?
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5397417">
+        <div class="comment_item" id="comment_5397455" >
+
+    <span class="parent_id" data-parent_id="5397417"></span>
+    <div class="comment_body ">
+        <div class="info  is_topic_starter  " rel="5397455">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5397455" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/yse/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/623/126/15a/62312615a9bb216995f0d2aa4e4379ce_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/yse/" class="username">yse</a><span class="comma">,</span>
+            <time> 7 ноября 2012 в 23:59</time>
+
+            <a href="#comment_5397455" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="5397455" data-parent_id="5397417" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_5397417" data-id="5397455" data-parent_id="5397417" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            а bare-репозиторий ничем от «обычного» не отличается в этом плане. Но тут есть два тонких момента:<br/>
+1) Если с этого репозитория никто ничего не брал и брать не планирует, т.е. с него не было сделано клонов, тогда можно гонять указатель по всей истории как вздумается. НО:<br/>
+2) Если кто-то клонировал этот репозиторий, тогда откатывать нет никакого смысла, ибо когда тот, кто отклонировал, будет в него «пушить», то он всё равно восстановит этим действием откаченную историю. Для того, чтобы отменить тот или иной коммит в истории bare-репозитория необходимо породить новый коммит. Обычно для этого используют <code>git revert</code><br/>
+<br/>
+я надеюсь правильно понял Ваш вопрос.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5397455">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_5398157" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="5398157">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5398157" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/andrewleshchynskyy/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/816/12b/483/81612b4836d77cad48361817f67c48ce_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/andrewleshchynskyy/" class="username">andrewleshchynskyy</a><span class="comma">,</span>
+            <time> 8 ноября 2012 в 03:15</time>
+
+            <a href="#comment_5398157" class="link_to_comment">#</a>
+            
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            я о том, что bare репозиторий вроде как не воспринимает прямые команды <br/>
+%mkdir temp<br/>
+%cd temp<br/>
+%git init --bare<br/>
+Initialized empty Git repository in /www/github/data/temp/<br/>
+%git status<br/>
+fatal: This operation must be run in a work tree<br/>
+
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5398157">
+        <div class="comment_item" id="comment_5398663" >
+
+    <span class="parent_id" data-parent_id="5398157"></span>
+    <div class="comment_body ">
+        <div class="info  is_topic_starter  " rel="5398663">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_5398663" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/yse/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/623/126/15a/62312615a9bb216995f0d2aa4e4379ce_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/yse/" class="username">yse</a><span class="comma">,</span>
+            <time> 8 ноября 2012 в 09:11</time>
+
+            <a href="#comment_5398663" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="5398663" data-parent_id="5398157" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_5398157" data-id="5398663" data-parent_id="5398157" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Как я понимаю, <code>git status</code> обращается к файлам, находящимся под контролем. В bare-репозитории их, естесственно нет — там только так называемые <i>snapshots</i> файловой системы. К файлам обращается и <code>git checkout</code> и <code>git reset --hard</code>, но <code>git reset --soft</code> спокойно двигает веточку, так как результат этой операции лишь изменение значений указателей, а не самой файловой системы. Но опять же повторю, в bare-репозитории этим лучше не заниматься по указанной мною выше причине.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_5398663">
+    </div>
+</div>
+
+    </div>
+</div>
+
+</div>
+
+  					<p class="for_users_only_msg">Только зарегистрированные пользователи могут оставлять комментарии. <a href="https://habrahabr.ru/auth/login/">Войдите</a>, пожалуйста.</p>
+
+
+  	
+<form action="/json/favorites/" method="post" id="edit_tags_form" class="hidden">
+  <input type="hidden" name="action" value="add" />
+  <input type="hidden" name="ti" value="0" />
+  <input type="hidden" name="tt" value="0" />
+  <label>Пометьте топик понятными вам метками, если хотите</label>
+  <input type="text" name="tags_string" class="tags_string" />
+  <div class="description">Метки лучше разделять запятой. Например: <i>общение, социальные сети, myspace.com, подростки, мердок</i></div>
+  <input type="submit" value="Сохранить" class="submit" /> или <a href="#" class="close" onclick="return close_edit_tags()">закрыть</a>
+</form>
+    
+    
+
+  </div>
+  <div class="sidebar_right">
+      	<div class="banner_300x100">
+		<!--  AdRiver code START. Type:AjaxJS Site: habrahabr PZ: 0 BN: 5 -->
+		<div id="adriver_banner_2100516578"></div>
+		<script type="text/javascript">
+			$(function(){
+				var keyword = '';
+				if (typeof crtg_content !== 'undefined' && crtg_content) { keyword = crtg_content; }
+
+				var custom = {4:ar_duo1};
+					custom[1] = 'Git';
+
+				new adriver("adriver_banner_2100516578", {sid: 176776, bt: 52, bn: 5, custom: custom, keyword: keyword});
+			}());
+		</script>
+	</div>
+
+
+  			<div class="banner_300x500">
+		<div id="adriver_banner_1863387959"></div>
+		<script type="text/javascript">
+            function show_bn1_block(name, url){
+                console.log('show' + name);
+                if( typeof(name) !== 'undefined'){
+                    $.get('/html/'+name+'/1411134820/', function(html){
+                        $('#adriver_banner_1863387959').html(html);
+                        if( typeof(url) !== 'undefined'){
+                            $('.'+name+'_inner_banner .block_url').attr('href', url);
+                        }
+                    })
+                }
+            }
+
+			$(function(){
+
+				var keyword = '';
+				if (typeof crtg_content !== 'undefined' && crtg_content) { keyword = crtg_content; }
+
+				var custom = {4:ar_duo1};
+					custom[1] = 'Git';
+
+                 new adriver("adriver_banner_1863387959", {sid: 176776, bt: 52, bn: 1, custom: custom, keyword: keyword});
+			}());
+		</script>
+	</div>
+
+  		
+  		
+<div class="block daily_best_posts">
+  <div class="title">Популярное за сутки</div>
+  <div class="posts_list">
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/237487/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">Делаем универсальный ключ для домофона</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/company/vilianov_inc/blog/237483/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">iPhone 6: разбираем в Москве, оцениваем ремонтопригодность и сравниваем с iPhone 5s</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/237491/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">Google глазами инсайдера</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/237497/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">Popcorn Time — обновление до версии 0.3.3</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/company/mailru/blog/237025/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">День свободы программного обеспечения</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/235105/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">Програмируем символы валют для дисплея покупателя</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/company/theonlypage/blog/237473/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">Презентация с помощью impress.js – просто и элегантно</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/237489/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">Мега-Учебник Flask, Часть 17: Развертывание на Linux (и даже на Raspberry Pi!)</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/237503/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">Использовать Lua c С++ легче, чем вы думаете. Tutorial по LuaBridge</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/237499/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">Тестирование для мобильных устройств: эмуляторы, симуляторы и удалённая отладка</a>
+      </div>
+  </div>
+  <div class="all"><a href="/top/">все лучшие</a></div>
+</div>
+
+
+  	  
+<div class="block similar_questions">
+	<div class="title">Вопросы по теме</div>
+
+	<div class="posts_list">
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/132525?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Как сделать,что бы автоматически при коммите изменения выливались на хостинг?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/132343?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Почему в Git не могу сделать push в свой проект?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/132163?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Как тестировать symfony проект в teamcity?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/132037?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Как скачать свой же шаблон с github и одновременно создать новую ветку?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/131791?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Git: Как слить продакшн с девелоп логично, git-правильно и чисто?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/131671?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Git submodules reference is not a tree как решить?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/131667?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Git: Как запретить изменение файла при мердже?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/131637?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Git: Почему merge=ours не срабатывает при слиянии?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/131559?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Как обновлять  продакшин сервер без конфликтов, git ?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/130975?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Графики общих изменений в gitlist?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/130945?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Как в laravel добавить файл в .gitignore?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/130943?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Как разделить доступ к git репозиторию, чтобы разные пользователи могли клонировать и пушить только разрешённые им папки?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/130919?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Почему не фиксируется папка в git?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/130827?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Что использовать для контроля целостности файлов сайта?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/130207?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Как правильно организовать GIT репозиторий(и) для нескольких проектов с множеством общих фалов?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/130131?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Как примирить репозиторий github с github pages?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/130043?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Как настроить ssh для git?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/129281?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Какой есть инструмент наподобие diff для наглядного просмотра различий между проектами?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/129193?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Как уменьшить размер GIT ?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/129031?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Git, красивое отображение репозитория и коммитов, есть ли что-нибудь?</a>
+		</div>
+  </div>			
+		
+</div>
+
+  		
+  		
+
+	<div class="block live_broadcast">
+		<div class="title">Что обсуждают? </div>
+
+		<div class="live_broadcast_activity">
+				<div class="posts_list">
+							<div class="post_item">
+								<a href="/post/237491#comments" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'post'); }" class="post_name">Google глазами инсайдера</a>&nbsp;<span class="count">28</span>
+							</div>
+							<div class="post_item">
+								<a href="/post/236967#comments" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'post'); }" class="post_name">Домашний почти сервер или сказ про All-in-one, который смог</a>&nbsp;<span class="count">55</span>
+							</div>
+							<div class="post_item">
+								<a href="/post/235105#comments" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'post'); }" class="post_name">Програмируем символы валют для дисплея покупателя</a>&nbsp;<span class="count">5</span>
+							</div>
+							<div class="post_item">
+								<a href="/post/237439#comments" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'post'); }" class="post_name">Как разблокировать iPad 3G, заблокированный в iCloud</a>&nbsp;<span class="count">78</span>
+							</div>
+							<div class="post_item">
+								<a href="/post/237489#comments" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'post'); }" class="post_name">Мега-Учебник Flask, Часть 17: Развертывание на Linux (и даже на Raspberry Pi!)</a>&nbsp;<span class="count">2</span>
+							</div>
+							<div class="post_item">
+								<a href="/post/237473#comments" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'post'); }" class="post_name">Презентация с помощью impress.js – просто и элегантно</a>&nbsp;<span class="count">18</span>
+							</div>
+							<div class="post_item">
+								<a href="/post/237257#comments" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'post'); }" class="post_name">Centrifuge — я больше не буду обновлять страницу перед отправкой комментария</a>&nbsp;<span class="count">16</span>
+							</div>
+							<div class="post_item">
+								<a href="/post/237287#comments" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'post'); }" class="post_name">От парусов до кракена, или как я фреймворк выбирал</a>&nbsp;<span class="count">20</span>
+							</div>
+							<div class="post_item">
+								<a href="/post/237503#comments" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'post'); }" class="post_name">Использовать Lua c С++ легче, чем вы думаете. Tutorial по LuaBridge</a>&nbsp;<span class="count">6</span>
+							</div>
+							<div class="post_item">
+								<a href="/post/237497#comments" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'post'); }" class="post_name">Popcorn Time — обновление до версии 0.3.3</a>&nbsp;<span class="count">22</span>
+							</div>
+				</div>
+				<div class="all"><a href="/posts/" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'all_posts'); }">все публикации</a></div>
+		</div>
+
+	</div>
+  
+  		<!--  AdRiver code START. Type:AjaxJS Site: habrahabr PZ: 0 BN: 2 -->
+
+<div id="adriver_banner_480931290" class="adbanner"></div>
+
+
+<script type="text/javascript">
+    function show_bn2_block(name, url){
+        if( typeof(name) !== 'undefined'){
+            $.get('/html/'+name+'/1411134820/', function(html){
+                $('#adriver_banner_480931290').html(html);
+                if( typeof(url) !== 'undefined'){
+                    $('.'+name+'_inner_banner .block_url').attr('href', url);
+                }
+            })
+        }
+    }
+
+    $(function(){
+
+        var check_scroll_position = function() {
+            var height = $(window).height();
+            var scrollTop = $(window).scrollTop();
+            var scrollBottom = $(window).scrollTop() + height;
+            var blockTop = $('#adriver_banner_480931290').position().top;
+            var show = scrollTop < blockTop && blockTop < scrollBottom;
+            //console.log('scroll', scrollTop, blockTop, scrollBottom, show)
+            if( show ){
+                //console.log('show bn2');
+                $( window ).off('scroll', check_scroll_position);
+                $( window ).trigger('show_bn2');
+            }
+        };
+        $( window ).on('scroll', check_scroll_position);
+
+        $( window ).on('show_bn2', function(){
+            var keyword = '';
+            if (typeof crtg_content !== 'undefined' && crtg_content) { keyword = crtg_content; }
+            var custom = {4:ar_duo1};
+            custom[1] = 'Git';
+            new adriver("adriver_banner_480931290", {sid: 176776, bt: 52, bn: 2, custom: custom, keyword: keyword});
+        });
+    });
+    </script>
+<!--  AdRiver code END  -->
+
+  		
+<div class="block best_company">
+
+		<div class="title">Компания дня <img src="/images/bg_cicle_help.png" title="
+Компания, чья публикация набрала максимальное количество баллов<br>
+среди всех опубликованных в корпоративных блогах публикаций за <br>
+прошедшие сутки. Учитываются публикации, для которых истек срок голосования <br>(3 дня с момента публикации)." class="help-tip"></div>
+
+		<div class="company_info">
+			<div class="name">
+			 <img class="favicon" src="//habrastorage.org/getpro/habr/company/cfb/5b4/286/cfb5b42866ccf78b85ac9fd9778983f8_small.jpg" alt="Madrobots" height="16" width="16" />
+			 <div class="company_name"><a href="http://habrahabr.ru/company/madrobots/" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'best_company', 'title'); }" class="title">Madrobots</a></div>
+			</div>
+
+			<p>Последняя публикация:
+				<a href="http://habrahabr.ru/company/madrobots/blog/236989/" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'best_company', 'post'); }">10 новинок электроники с #IFA2014 (без смартфонов и планшетов)</a>
+			</p>
+
+			<div class="buttons">
+  			<div id="fans_count">813 подписчиков</div>
+			</div>
+		</div>
+
+	</div>
+
+
+  		
+  		
+  		
+  </div>
+  <div class="clear"></div>
+
+  <script>
+    // hubs to GA
+      ga('send', 'event', 'Post_view', 'Git (Git)',  window.location.pathname + window.location.search);
+  </script>
+
+
+
+        
+        	
+	<div class="rotated_posts">
+			<div class="rotated_post ">
+				<a href="http://habrahabr.ru/company/dauria/blog/234121/" class="grey" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'posts_rotation_block'); }">О космическом тепле и холоде</a>
+			</div>
+			<div class="rotated_post ">
+				<a href="http://habrahabr.ru/post/224785/" class="grey" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'posts_rotation_block'); }">Уроки космических аварий: жесткая дорога к мягкой посадке программы Е-6</a>
+			</div>
+			<div class="rotated_post last">
+				<a href="http://habrahabr.ru/post/232755/" class="grey" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'posts_rotation_block'); }">20 самых популярных выступлений всех времен на конференции TED</a>
+			</div>
+		<div class="clear"></div>
+	</div>
+
+        <div class="bottom_promo_blocks">
+    <div class="left">
+            
+	<div class="block new_vacanies">
+  <a href="http://brainstorage.me/jobs?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo" class="title">Brainstorage</a>
+  <div class="vacancies">
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/23067?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">2D-художник векторной графики (Playrix) </a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/23065?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">UI-художник (Playrix) </a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/23061?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Тестировщик алгоритмов</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/22733?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Программист С++</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/20529?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">PHP разработчик </a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/23055?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Специалист по тестированию-разработчик</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/22845?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Python Data Miner</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/22093?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Младший инженер по нагрузочному тестированию</a>
+		</div>
+		<div class="job_item marked">
+			<a href="http://brainstorage.me/jobs/21931?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Разработчик распределенной системы хранения и обработки данных </a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/22095?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Стажёр-тестировщик (нагрузочное тестирование)</a>
+		</div>
+  </div>
+  <div class="all"><a href="http://brainstorage.me/jobs?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">все вакансии</a></div>
+</div>
+
+    </div>
+    <div class="right">
+        
+	<div class="block freelansim">
+	  <a href="http://freelansim.ru?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo" class="title"></a>
+	  <div class="tasks">
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/83317?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Доработать JWplayer для нужд видеосервиса</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/84455?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Разработка отдельных задач разной сложности для одного проекта</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/84453?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Доделать дизайн и сверстать</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/84449?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Разработка портала для музыкантов</a>
+				</div>
+				<div class="task marked">
+					<a href="http://freelansim.ru/tasks/84445?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Доработать плагин Wordpress, сделать шаблон</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/84437?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Сделать ТЗ по микроразметке</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/84433?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Админка для Лэндинга</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/84429?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Разработка под ключ приложений для РЦ</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/84425?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Разработка логотипа</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/84423?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Интегрировать Django и SlickGrid</a>
+				</div>
+
+	  </div>
+	  <div class="all"><a href="http://freelansim.ru/tasks?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">все заказы</a></div>
+	</div>
+
+    </div>
+    <div class="clear"></div>
+</div>
+
+
+        
+        <div class="clear"></div>
+
+        <div class="footer_panel">
+          <div id="footer">
+	<dl>
+		<dd><a href="https://habrahabr.ru/auth/login/">Войти</a></dd>
+		<dd><a href="https://habrahabr.ru/auth/register/">Регистрация</a></dd>
+	</dl>
+	<dl>
+		<dt>Разделы</dt>
+		<dd><a href="http://habrahabr.ru/posts/top/">Публикации</a></dd>
+		<dd><a href="http://habrahabr.ru/hubs/">Хабы</a></dd>
+		<dd><a href="http://habrahabr.ru/companies/">Компании</a></dd>
+		<dd><a href="http://habrahabr.ru/users/">Пользователи</a></dd>
+		<dd><a href="http://toster.ru/?_aa=press_anykey">Q&amp;A</a></dd>
+		<dd><a href="http://habrahabr.ru/sandbox/">Песочница</a></dd>
+		
+	</dl>	
+	<dl>
+		<dt>Инфо</dt>
+		<dd><a href="/info/about/">О сайте</a></dd>
+		<dd><a href="/info/help/rules/">Правила</a></dd>
+		<dd><a href="/info/help/">Помощь</a></dd>
+		<dd><a href="/info/agreement/">Соглашение</a></dd>
+	</dl>
+	<dl>
+		<dt>Услуги</dt>
+		<dd><a href="/info/advertising/">Реклама</a></dd>
+		<dd><a href="/info/advertising/corporate/">Тарифы</a></dd>
+		<dd><a href="/info/advertising/workshops/">Семинары</a></dd>
+		<dd><a href="/special/">Спецпроекты</a></dd>
+	</dl>
+	<dl>
+		<dt>Разное</dt>
+		<dd><a href="/apps/">Приложения</a></dd>
+		<dd><a href="/special/testdrive/">Тест-драйвы</a></dd>
+		<dd><a href="http://special.habrahabr.ru/hello_startup/bizspark/">Помощь стартапам</a></dd>
+	</dl>
+	<div class="copyright">
+
+		<div class="about">
+			<a href="http://tmtm.ru/">TM</a>
+			© 2006&#8211;2014
+			<br><br>
+			<a href="http://habrahabr.ru/feedback/">Служба поддержки</a><br><br>
+			    <a href="http://m.habrahabr.ru?mobile=yes">Мобильная версия</a><br><br>
+			
+
+			<div class="social_accounts">
+				<a href="https://twitter.com/habrahabr" class="tw"></a>
+				<a href="https://www.facebook.com/habrahabr.ru" class="fb"></a>
+				<a href="http://vk.com/habr" class="vk"></a>
+				<!-- <a href="" class="gp"></a> //-->
+			</div>
+
+		</div>
+	</div>
+
+</div>    
+          <div class="footer_logos">
+		
+		<div class="project brainstorage">
+			<a href="http://brainstorage.ru/?utm_source=tm_habrahabr&utm_medium=tm_footer&utm_campaign=tm_promo" class="icon "></a>
+			<div class="text">Все мозги в одном месте</div>
+		</div>
+
+		<div class="project toster">
+			<a href="http://toster.ru/?utm_source=tm_habrahabr&utm_medium=tm_footer&utm_campaign=tm_promo" class="icon "></a>
+			<div class="text">Q&A-сервис для разработчиков</div>
+		</div>
+		
+		<div class="project freelansim">
+			<a href="http://freelansim.ru/?utm_source=tm_habrahabr&utm_medium=tm_footer&utm_campaign=tm_promo" class="icon "></a>
+			<div class="text">Заказы для фрилансеров</div>
+		</div>
+		
+		<div class="project autokadabra">
+			<a href="http://autokadabra.ru/?utm_source=tm_habrahabr&utm_medium=tm_footer&utm_campaign=tm_promo" class="icon "></a>
+			<div class="text ">Уютная и дружелюбная</div>
+		</div>
+		
+</div>
+
+        </div>
+      </div>
+    </div>
+  
+
+      <script type="text/javascript" src="/javascripts/1411134820/libs/jquery.cookie.js"></script>
+      <script type="text/javascript">
+        $(document).ready( function(){
+          window.tmidLogin = function(){ return false; };
+          if( $.cookie('tmid_no_check') == undefined ) {
+            var expire = new Date();
+            expire.setMinutes(expire.getMinutes() + 10 );
+            $.cookie('tmid_no_check', 1, { expires: expire } );
+            $.getScript("https://id.tmtm.ru/checklogin", function(){
+              if( window.tmidLogin() ) {
+
+                  var href = $('#login').attr('href');
+
+                  if( href !== undefined ) {
+                      window.location.href = href;
+                  }
+              }
+            });
+          }
+        });
+      </script>
+
+    <script type="text/javascript">
+  // global vars
+  var g_base_url = 'habrahabr.ru';
+  var g_show_xpanel = false;
+  var g_base_fullurl = 'http://habrahabr.ru/';
+  var g_is_guest = false;
+</script> 
+
+      <script type="text/javascript" src="/javascripts/1411134820/assets/shortcuts.js"></script>
+    
+    <script type="text/javascript" src="/javascripts/1411134820/assets/global_footer_main.js"></script>
+
+    	<script type="text/javascript" src="http://habrahabr.ru/viewcount/post/157175/"></script>
+
+    
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+(function (d, w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter24049213 = new Ya.Metrika({id:24049213,
+                    webvisor:true,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true});
+        } catch(e) { }
+    });
+
+    var n = d.getElementsByTagName("script")[0],
+        s = d.createElement("script"),
+        f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f, false);
+    } else { f(); }
+})(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="//mc.yandex.ru/watch/24049213" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+    
+
+    <!-- Хабр не резиновый! -->
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<?php
+	function form_plus_menu() {
+		$items = array();
+
+		$items['form_plus'] = array(
+			'title' => 'form_plus',
+			'description' => 'form_plus module',
+			'page callback' => 'drupal_get_form',
+			'page arguments' => array('form_plus_settings'),
+			'access callback'  => TRUE,
+			'type' => MENU_NORMAL_ITEM,
+			'menu_name' => 'main-menu'
+		);
+		return
+
+		$items;
+	} 		
+	
+	function form_plus_settings() {
+		$form['name'] = array(
+			'#title' =>  t('name'),
+			'#description' => t('name desc'),
+			'#required' => TRUE,
+			'#type' => 'textfield'
+		);
+		
+		$form['email'] = array(
+			'#title' =>  t('email'),
+			'#description' => t('email desc'),
+			'#required' => TRUE,
+			'#type' => 'textfield'
+		);
+		
+		$form['message'] = array(
+			'#title' =>  t('message'),
+			'#description' => t('message desc'),
+			'#type' => 'textarea'
+		);
+
+		//кнопка отправки данных формы
+		$form['submit'] = array(
+			'#type' => 'submit',
+			'#value' => t('Save')
+		);
+		
+		$form["#validate"] = array('test_validate_first', 'test_validate_second');		
+
+		return $form;
+	}
+	
+	//min lenght check
+	function test_validate_first($form, &$form_state) {
+	  if(mb_strlen($form_state['values']['name']) < 3) {
+		form_set_error('name', t('Text must contain more then 3 symbols'));
+	  }
+	}
+	
+	// email valid check
+	function test_validate_second($form, &$form_state) {
+		if(!valid_email_address($form_state['values']['email'])){
+			form_set_error('email', t('email no valid'));
+		}
+	}	
+
+	

@@ -1,0 +1,328 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="/misc/favicon.ico" type="image/x-icon" />
+<meta name="keywords" content="Разработка сайтов, Web-программирование, CMS Drupal, CMS 1C-Bitrix, программирование Drupal, программирование 1C-Bitrix, event.stopPropagation(), jquery, скрыть меню по щелчку на пустутю область, JavaScript/AJAX" />
+<meta name="description" content="В данной заметке приведу пример использования event.stopPropagation () для решения простой задачи - скрыть объект по щелчку на области за пределами объекта, например меню.  Щелкнули - появилось выпадающее меню, щелкнули вне области - меню исчезло." />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/node/node.css?Y" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/system/defaults.css?Y" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/system/system.css?Y" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/system/system-menus.css?Y" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/user/user.css?Y" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/cck/theme/content-module.css?Y" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/fckeditor/fckeditor.css?Y" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/filefield/filefield.css?Y" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/lightbox2/css/lightbox.css?Y" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/tagadelic/tagadelic.css?Y" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/cck/modules/fieldgroup/fieldgroup.css?Y" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/comment/comment.css?Y" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/themes/tastelessly/style.css?Y" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/themes/tastelessly/more.css?3" />
+<script type="text/javascript" src="/misc/jquery.js?Y"></script>
+<script type="text/javascript" src="/misc/drupal.js?Y"></script>
+<script type="text/javascript" src="/sites/default/files/languages/ru_c06e15479071acd08dfc301e9bef4d9d.js?Y"></script>
+<script type="text/javascript" src="/sites/all/modules/lightbox2/js/auto_image_handling.js?Y"></script>
+<script type="text/javascript" src="/sites/all/modules/lightbox2/js/lightbox.js?Y"></script>
+<script type="text/javascript" src="/modules/comment/comment.js?Y"></script>
+<script type="text/javascript" src="/misc/textarea.js?Y"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, { "basePath": "/", "lightbox2": { "rtl": "0", "file_path": "/(\\w\\w/)sites/default/files", "default_image": "/sites/all/modules/lightbox2/images/brokenimage.jpg", "border_size": 10, "font_color": "000", "box_color": "fff", "top_position": "", "overlay_opacity": 0.8, "overlay_color": "000", "disable_close_click": true, "resize_sequence": 0, "resize_speed": 400, "fade_in_speed": 400, "slide_down_speed": 600, "use_alt_layout": false, "disable_resize": false, "disable_zoom": false, "force_show_nav": false, "loop_items": false, "node_link_text": "View Image Details", "node_link_target": false, "image_count": "Image !current of !total", "video_count": "Video !current of !total", "page_count": "Page !current of !total", "lite_press_x_close": "press \x3ca href=\"#\" onclick=\"hideLightbox(); return FALSE;\"\x3e\x3ckbd\x3ex\x3c/kbd\x3e\x3c/a\x3e to close", "download_link_text": "", "enable_login": false, "enable_contact": false, "keys_close": "c x 27", "keys_previous": "p 37", "keys_next": "n 39", "keys_zoom": "z", "keys_play_pause": "32", "display_image_size": "preview", "image_node_sizes": "(\\.thumbnail)", "trigger_lightbox_classes": "", "trigger_lightbox_group_classes": "img.thumbnail, img.image-thumbnail", "trigger_slideshow_classes": "", "trigger_lightframe_classes": "", "trigger_lightframe_group_classes": "", "custom_class_handler": "lightbox", "custom_trigger_classes": "img.\x3cbr /\x3e", "disable_for_gallery_lists": 1, "disable_for_acidfree_gallery_lists": true, "enable_acidfree_videos": true, "slideshow_interval": 5000, "slideshow_automatic_start": true, "slideshow_automatic_exit": true, "show_play_pause": true, "pause_on_next_click": false, "pause_on_previous_click": true, "loop_slides": false, "iframe_width": 600, "iframe_height": 400, "iframe_border": 1, "enable_video": false } });
+//--><!]]>
+</script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+  	
+			$(document).ready(function(){
+			  $(".info-head, .info-head-close").click(function(){
+			    $(".panel").toggle("fast");
+			    return false;
+			  });
+			});
+  	
+//--><!]]>
+</script>
+<!--[if IE 6]>
+	<script type="text/javascript">	
+	var IE6UPDATE_OPTIONS = {
+				icons_path: "sites/all/themes/tastelessly/images/"
+			}
+	</script>
+	<script type="text/javascript" src="sites/all/themes/tastelessly/js/ie6update.js"></script>
+	<![endif]-->
+<title>event.stopPropagation() пример использования | www.ivanpopov.ru | Разработка сайтов, Web - программирование, Drupal, 1C - Bitrix, Творчество</title>
+
+</head>
+<body>
+<div id="head-border">
+	<div id="head-border-wrapper">
+		<a href='' class="info-head"></a>
+		  <div class="panel" style="display: none;">
+              <div style="float:right;">
+                <a href='#' class="info-head-close">&nbsp;</a>
+              </div>
+              <h3>Нужели это кому-то инетресно?</h3>
+              <img src="/sites/all/themes/tastelessly/images/ivanpopov.jpg" alt="Ivan Popov" title="Ivan Popov" width="120" height="166" class="left" />              <p>Но если Вы нажали на эту красную кнопочку, значит действительно кому-то интересно.
+              Что я могу рассказать о себе? Зовут меня Иван Попов.Я, как Вы уже поняли, веб-программист. Профессионально занимаюсь этим с 2009 года.
+              Знаю, знаю, кто-то скажет, что опыта маловато.<br/> Конечно, на Вселенский разум я не претендую, но, как мне кажется, за это время я узнал многое,
+              а самое главное продолжаю пополнять свои знания и тем самым развиваться. Мое главное качество: мне просто безумно интересно все, что связано с вебом.
+              Я нахожу в этом развлечение, творчество, отдых и работу. А это на мой взгляд очень и очень важно, поэтому, уверен, что буду и дальше продолжать разиваваться в этом
+              направлении. </p>
+              <h3>Немного сухих фактов</h3>
+              <p>Родился, вырос и продолжаю жить в России. После школы, закончил с красным дипломом "Московский техникум железнодорожного транспорта",
+              затем "Московский Государственный Университет Путей Сообщения (МИИТ)". Работал инженером, программистом С++, и вот теперь веб-программистом.<br/>
+              Люблю кино, особенно фантастику, компьютерные игры. Cчитаю хитами всех времен и народов следующие игры: Fallout 2 (3 тоже ничего),Heroes of Might and Magic 2/3 (особенно 3), Warcraft 3, Starcraft.
+              Думаю, кто играл в эти игрушки - меня поймет, остальных просьба не обижаться, ибо это только мое ИМХО.<br/> Занимаюсь спортом (иногда), жаль, но раньше это было чаще, читаю книжки. В общем, стараюсь нигде ничего не упустить, чего желаю и Вам.<br/>
+              Ну а самые свои интересные знания и впечатленя, я буду стараться оставлять на этом сайте (опять таки по мере налия этого "вечно нехватающего" времени).
+              Удачи Вам и спасибо за внимание!</p>
+              <div style="clear: both;"></div>
+          </div>
+	</div>
+</div>
+<div id="page"> 
+<!-- start header -->
+<div id="header">
+<div id="top1">
+<a href="/" title="Главная" rel="home">
+	<div id="logo">
+		<h1></h1>
+			</div>
+</a>
+	<div class="block search-wrapper"><form action="/eventstoppropagation-primer-ispolzovaniya"  accept-charset="UTF-8" method="post" id="search-theme-form">
+<div><div id="search" class="container-inline">
+  <div class="form-item" id="edit-search-theme-form-1-wrapper">
+ <label for="edit-search-theme-form-1"></label>
+ <input type="text" maxlength="128" name="search_theme_form" id="edit-search-theme-form-1" size="15" value="" title="Enter the terms you wish to search for." class="form-text" />
+</div>
+<input type="submit" name="op" id="edit-submit-1" value="Поиск"  class="form-submit" />
+<input type="hidden" name="form_build_id" id="form-08a9c9621c8a6d7dfbd2079540e0e13d" value="form-08a9c9621c8a6d7dfbd2079540e0e13d"  />
+<input type="hidden" name="form_id" id="edit-search-theme-form" value="search_theme_form"  />
+</div>
+
+</div></form>
+</div>
+</div>
+	<div id="menu">
+    <div id="block-menu-primary-links" class="block block-menu">
+
+  <div class="content">
+    <ul class="menu"><li class="expanded first"><a href="/publication" title="Публикации">Публикации</a><ul class="menu"><li class="leaf first"><a href="/publication/drupal" title="">Drupal</a></li>
+<li class="leaf"><a href="/publication/1c-bitrix" title="">1С-Битрикс</a></li>
+<li class="leaf"><a href="/publication/php" title="">PHP</a></li>
+<li class="leaf"><a href="/publication/html-css" title="">HTML/CSS</a></li>
+<li class="leaf"><a href="/publication/javascriptajax" title="">JavaScript/AJAX</a></li>
+<li class="leaf"><a href="/publication/mysql" title="">MySQL</a></li>
+<li class="leaf"><a href="/publication/blog" title="">Блог</a></li>
+<li class="leaf last"><a href="/publication/tvorchestvo" title="">Творчество</a></li>
+</ul></li>
+<li class="leaf"><a href="/portfolio" title="">Портфель</a></li>
+<li class="leaf"><a href="/dekoder" title="Декодер">Декодер</a></li>
+<li class="leaf last"><a href="/about" title="">О сайте</a></li>
+</ul>  </div>
+</div>
+			</div>	
+</div>
+<!-- end header -->
+
+<!-- start page -->
+	<!-- start content -->
+	<div id="content">
+		
+		<span class="drupal-breadcrumb"><div class="breadcrumb"><a href="/">Главная</a></div></span>		                                        <div class="post" id="post-94">
+			<h1 class="title"><a href="/eventstoppropagation-primer-ispolzovaniya" title="event.stopPropagation() пример использования">event.stopPropagation() пример использования</a></h1>
+			<p class="meta"><small>04 Август 2011</small></p>
+			<div class="entry"><p>Сегодня столкнулся с простым решением задачки вроде: скрыть какой-то объект по нажатию на любую область вне объекта. Например, для меню. Щелкнули - появилось выпадающее меню, щелкнули вне области - меню исчезло.</p>
+<p>Прежде, чем привести пример кода, а он очень прост! Хотелось бы рассказать про главную фишку, благодаря которой он работает, а именно <strong><em>event.stopPropagation()</em></strong>. Итак, что же делает данный метод:&nbsp;данный метод предотвращает всплытие объекта события на родительских элементах по дереву <strong><em>DOM</em></strong>.<br />
+Иными словами, если у вас есть код вроде:</p>
+<p><code> $('#myelement').click(function(){<br />
+//здесь какие-то действия<br />
+});<br />
+$('body').click(function(){<br />
+//здесь какие-то действия<br />
+});<br />
+</code></p>
+<p>То при щелчке на<em> #myelement</em> сначала выполнятся действия, по событию<em> &quot;щелчок на #myelement&quot;</em>, а затем действия по событию <em>&quot;щелчок на body&quot;</em>. Чтобы предотвратить выполнение второй части кода (щелчок по body) необходимо использовать <strong><em>event.stopPropagation()</em></strong>.</p>
+<p>Теперь само решение задачи:<br />
+<code> $('html').click(function() {<br />
+&nbsp; if ($('#my_menu').is(':visible'))<br />
+&nbsp;&nbsp;&nbsp;&nbsp; $('#my_menu').hide();<br />
+});<br />
+$('#show_menu').click(function(event){<br />
+&nbsp; $('#my_menu').show();<br />
+&nbsp; event.stopPropagation();<br />
+});<br />
+</code></p>
+<p>Вот и все решение. Как видите все просто, но без<strong><em> event.stopPropagation() </em></strong>данное решение бы не работало, т.к. сначала бы при щелчке на элементе <em>#show_menu </em>- элемент <em>#my_menu</em> становился видимым, однако тут же вызывалось событие при щелчке на элементе <em>html</em> , которое бы делало элемент <em>#my_menu</em> невидимым.Однако, благодаря вызову <strong><em>event.stopPropagation()</em></strong>, второе событие не вызывается.</p>
+       		<div class="tags">Теги: <ul class="links inline"><li class="taxonomy_term_16 first last"><a href="/publication/javascriptajax" rel="tag" title="">JavaScript/AJAX</a></li>
+</ul></div>
+    	</div>
+      <div style="clear:both;"></div>
+              <div class="block">
+			      <span class="links"><ul class="links inline"><li class="statistics_counter first last"><span>5072 просмотров</span></li>
+</ul></span>
+        </div>
+      		</div><div id="comments">
+  <ol class="commentlist">
+ <div class="box">
+
+  <h2>Отправить комментарий</h2>
+
+  <div class="content"><form action="/comment/reply/94"  accept-charset="UTF-8" method="post" id="comment-form">
+<div><div class="form-item" id="edit-name-wrapper">
+ <label for="edit-name">Ваше имя: <span class="form-required" title="Обязательное поле">*</span></label>
+ <input type="text" maxlength="60" name="name" id="edit-name" size="30" value="Гость" class="form-text required" />
+</div>
+<div class="form-item" id="edit-mail-wrapper">
+ <label for="edit-mail">E-mail: <span class="form-required" title="Обязательное поле">*</span></label>
+ <input type="text" maxlength="64" name="mail" id="edit-mail" size="30" value="" class="form-text required" />
+ <div class="description">Содержание этого поля является приватным и не предназначено к показу.</div>
+</div>
+<div class="form-item" id="edit-comment-wrapper">
+ <label for="edit-comment">Комментарий: <span class="form-required" title="Обязательное поле">*</span></label>
+ <textarea cols="60" rows="15" name="comment" id="edit-comment"  class="form-textarea resizable required"></textarea>
+</div>
+<input type="hidden" name="form_build_id" id="form-7b9c240fda85f6338d8b4aa3c1b03156" value="form-7b9c240fda85f6338d8b4aa3c1b03156"  />
+<input type="hidden" name="form_id" id="edit-comment-form" value="comment_form"  />
+<div class="captcha"><input type="hidden" name="captcha_sid" id="edit-captcha-sid" value="183968"  />
+<img src="/image_captcha/183968/1356257774" alt="Image CAPTCHA" title="Image CAPTCHA" /><div class="form-item" id="edit-captcha-response-wrapper">
+ <label for="edit-captcha-response">Какой код на картинке?: <span class="form-required" title="Обязательное поле">*</span></label>
+ <input type="text" maxlength="128" name="captcha_response" id="edit-captcha-response" size="15" value="" class="form-text required" />
+ <div class="description">Введите символы изображенные на картинке.</div>
+</div>
+</div><input type="submit" name="op" id="edit-submit" value="Сохранить"  class="form-submit" />
+
+</div></form>
+</div>
+</div>
+
+  </ol>
+</div>	</div>
+	<!-- end content -->
+	<!-- start sidebar one -->
+	<div id="sidebar1" class="sidebar">
+		<ul>
+        </li>
+			<li>
+				<div id="block-ip_wisdom-0" class="block block-ip_wisdom">
+  <h2>Мудрость дня</h2>
+
+  <div class="content">
+    <blockquote class='wisdom-block'><div>Непросто сказать, в чём заключается истина, но ложь очень часто легко распознать.</div></blockquote><div class='wisdom-author'>Альберт Эйнштейн</div>  </div>
+</div>
+<div id="block-block-1" class="block block-block">
+  <h2>Категории</h2>
+
+  <div class="content">
+    <ul>
+<li><a href="/publication/drupal">Drupal</a> (7)</li>
+<li><a href="/category/kategorii-statei/linux">Linux</a> (1)</li>
+<li><a href="/publication/1c-bitrix">1C-Битрикс</a> (9)</li>
+<li><a href="/publication/php">PHP</a> (3)</li>
+<li><a href="/publication/html-css">HTML/CSS</a> (12)</li>
+<li><a href="/publication/javascriptajax">JavaScript/AJAX</a> (5)</li>
+<li><a href="/publication/mysql">MySQL</a> (1)</li>
+<li><a href="/publication/blog">Блог</a> (5)</li>
+<li><a href="/publication/tvorchestvo">Творчество</a> (3)</li>
+</ul>  </div>
+</div>
+<div id="block-block-2" class="block block-block">
+  <h2>Популярные</h2>
+
+  <div class="content">
+    <ol style='margin:0;'>
+<li><a href="/kak-vstavit-video-na-sait-drupal-chast-1">Как вставить видео на сайт Drupal?  Часть 1.</a></li>
+<li><a href="/1c-bitrix-breadcrumb">1С-Битрикс. Кастомизация bitrix:breadcrumb.</a></li>
+<li><a href="/kak-sozdat-fotogalereyu-na-saite-drupal">Как создать фотогалерею на сайте drupal ?</a></li>
+<li><a href="/1s-bitriksprostoi-slaider-elementov-infobloka">1С-Битрикс.Простой слайдер элементов инфоблока.</a></li>
+<li><a href="/kak-vstavit-shablon-saita-v-cms-1s-bitriks-chast-1">Как вставить шаблон сайта в CMS 1С-Битрикс. Часть 1.</a></li>
+</ol>  </div>
+</div>
+<div id="block-block-5" class="block block-block">
+  <h2>Случайные</h2>
+
+  <div class="content">
+    <ol style='margin:0px;'><li><a href="/sozdanie-gadzheta-kto-na-saite">Создание гаджета &quot;Кто на сайте?&quot;</a></li><li><a href="/kak-sozdat-mobilnyi-veb-sait-vstuplenie">Как создать мобильный веб-сайт. Вступление.</a></li><li><a href="/svoistvo-opacity-v-ie">Свойство opacity в IE.</a></li><li><a href="/1s-bitriks-poluchenie-polzovatelskikh-svoistv-obekta-user">1С-Битрикс. Получение пользовательских свойств объекта USER.</a></li><li><a href="/10-luchshikh-resursov-po-ajaxjavascript">10 лучших ресурсов по AJAX/JavaScript.</a></li></ol>  </div>
+</div>
+<div id="block-tagadelic-1" class="block block-tagadelic">
+  <h2>Облако тегов</h2>
+
+  <div class="content">
+    <a href="/publication/1c-bitrix" class="tagadelic level6" rel="tag">1C-Битрикс</a> 
+<a href="/publication/drupal" class="tagadelic level5" rel="tag">Drupal</a> 
+<a href="/publication/html-css" class="tagadelic level6" rel="tag">HTML/CSS</a> 
+<a href="/publication/javascriptajax" class="tagadelic level4" rel="tag">JavaScript/AJAX</a> 
+<a href="/category/kategorii-statei/linux" class="tagadelic level1" rel="tag">Linux</a> 
+<a href="/publication/mysql" class="tagadelic level1" rel="tag">MySQL</a> 
+<a href="/publication/php" class="tagadelic level3" rel="tag">PHP</a> 
+<a href="/publication/blog" class="tagadelic level4" rel="tag">Блог</a> 
+<a href="/publication/tvorchestvo" class="tagadelic level3" rel="tag">Творчество</a> 
+  </div>
+</div>
+			</li>
+
+		</ul>
+	</div>
+	<!-- end sidebar one -->
+	<!-- start sidebar two -->
+	<!--<div id="sidebar2" class="sidebar">
+		<ul>-->
+					<!--</ul>
+	</div>-->
+	<!-- end sidebar two -->
+	<div style="clear: both;"> </div>
+<div id="footer">
+  <p> 
+     &copy; www.ivanpopov.ru 2012 
+    | <a href="/">Главная</a> 
+    | <a href="/sitemap">Карта сайта</a>    |  <a href="/about">О сайте</a>         </p> 
+    <div id="counter">
+    
+        <!-- begin of Top100 logo -->
+            <a href="http://top100.rambler.ru/home?id=2161462">
+            <img src="http://top100-images.rambler.ru/top100/banner-88x31-rambler-gray2.gif" alt="Rambler's Top100" width="88" height="31" border="0" />
+            </a>
+        <!-- end of Top100 logo -->
+        
+        <!--LiveInternet counter--><script type="text/javascript"><!--
+        document.write("<a href='http://www.liveinternet.ru/click' "+
+        "target=_blank><img src='//counter.yadro.ru/hit?t38.2;r"+
+        escape(document.referrer)+((typeof(screen)=="undefined")?"":
+        ";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+        screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+        ";"+Math.random()+
+        "' alt='' title='LiveInternet' "+
+        "border='0' width='31' height='31'><\/a>")
+        //--></script><!--/LiveInternet-->
+        
+        <!--Rating@Mail.ru counter-->
+        <script language="javascript"><!--
+        d=document;var a='';a+=';r='+escape(d.referrer);js=10;//--></script>
+        <script language="javascript1.1"><!--
+        a+=';j='+navigator.javaEnabled();js=11;//--></script>
+        <script language="javascript1.2"><!--
+        s=screen;a+=';s='+s.width+'*'+s.height;
+        a+=';d='+(s.colorDepth?s.colorDepth:s.pixelDepth);js=12;//--></script>
+        <script language="javascript1.3"><!--
+        js=13;//--></script><script language="javascript" type="text/javascript"><!--
+        d.write('<a href="http://top.mail.ru/jump?from=1845946" target="_top">'+
+        '<img src="http://da.c2.bc.a1.top.mail.ru/counter?id=1845946;t=130;js='+js+
+        a+';rand='+Math.random()+'" alt="Рейтинг@Mail.ru" border="0" '+
+        'height="40" width="88"><\/a>');if(11<js)d.write('<'+'!-- ');//--></script>
+        <noscript><a target="_top" href="http://top.mail.ru/jump?from=1845946">
+        <img src="http://da.c2.bc.a1.top.mail.ru/counter?js=na;id=1845946;t=130" 
+        height="40" width="88" border="0" alt="Рейтинг@Mail.ru"></a></noscript>
+        <script language="javascript" type="text/javascript"><!--
+        if(11<js)d.write('--'+'>');//--></script>
+        <!--// Rating@Mail.ru counter-->
+    </div>
+</div>
+</div>
+<!-- end page -->
+<!--<hr />-->
+<!-- start footer -->
+<!-- end footer -->
+</body>
+</html>

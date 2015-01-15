@@ -1,0 +1,143 @@
+Обновление значений полей
+Иногда вам может понадобиться выполнить простые арифметические операции над полями, такие как увеличить или уменьшить текущее значение. Очевидный способ сделать это:
+
+>>> product = Product.objects.get(name='Venezuelan Beaver Cheese')
+>>> product.number_sold += 1
+>>> product.save()
+Если старое значение number_sold, полученное из базы данных, равно 10, в базу данных будет записано значение 11.
+
+Этот код отображает распространенную проблему “гонки”. Если другой поток сохранил обновленное значение после того, как текущий поток прочитал старое значение, текущий поток сохранит просто старое значение плюс один, а не новое(текущее) значение плюс один.
+
+Этот процесс может быть надежным и немного быстрее, если выполнить обновление значение поля, а не явное присвоение нового значения. Django предоставляет объект F() для выполнения обновления. Используя F(), следующий пример будет выглядеть таким образом:
+
+>>> from django.db.models import F
+>>> product = Product.objects.get(name='Venezuelan Beaver Cheese')
+>>> product.number_sold = F('number_sold') + 1
+>>> product.save()
+Такой подход не использует начальное значение из базы данных. Вместо этого, база данных выполнит обновление текущего значения при вызове метода save().
+
+Как только объект был сохранен, необходимо перезагрузить объект для доступа к значению, которое было установлено при обновлении поля:
+
+>>> product = Products.objects.get(pk=product.pk)
+>>> print product.number_sold
+42
+Подробности смотрите в описании объекта F() и его использование в запросах обновления.
+
+http://djbook.ru/rel1.4/ref/models/instances.html
+
+
+пример
+
+view:
+def video_detail(request, id):	
+	'''
+	page detail for video
+	and increment views
+	'''
+	Entry.increment_views(id)
+
+	video_obj = Entry.get_video(id=id)
+        		
+	t = loader.get_template('video_detail.html')
+	c = RequestContext(request, {
+		'video_obj': video_obj,
+	}, [custom_proc])	
+	
+	return HttpResponse(t.render(c)) 	
+	
+
+model:
+# -*- coding: utf-8 -*-
+from django.db import models
+from django.contrib.auth.models import User
+from datetime import datetime  
+import re
+from django.db.models import F
+
+class Entry(models.Model):
+	user = models.ForeignKey(
+		User, 
+		verbose_name=u"Пользователь", 
+		blank=True, 
+		null=True,
+	)
+	title = models.CharField(
+		verbose_name=u"Название", 
+		max_length=100,
+	)
+	video_url = models.URLField(
+		verbose_name=u"Адрес видео", 
+		max_length=100,
+		null=True,
+		blank=False,
+	)	
+	description = models.TextField(
+		verbose_name=u'Описание',
+		max_length=50000, 
+		default=None,
+		blank=True,
+	)
+	views = models.IntegerField(
+		verbose_name=u'Количество просмотров',
+		default=0,
+		null=False,
+		blank=True,
+	)	
+	likes = models.IntegerField(
+		verbose_name=u'Количество лайков',
+		default=0,
+		null=False,
+		blank=True,
+	)				
+	date = models.DateTimeField(
+		verbose_name=u'Дата создания',
+		default=datetime.now(),
+		auto_now=True,
+	)
+	last_edit_date = models.DateTimeField(
+		verbose_name=u'Дата последнего редактирования',
+		default=datetime.now(),
+		auto_now=True,
+	)		
+	is_active = models.BooleanField(
+		verbose_name=u'Активно',
+		default=True,
+	)					
+	is_delete = models.BooleanField(
+		verbose_name=u'Удалено админом',
+		default=False,
+	)	
+
+	def __unicode__(self):
+		result = False
+
+		if 'watch' in str(self.video_url):
+			search = re.search(u'.*?(watch.v=)(.*)$', str(self.video_url))
+			result = str(search.group(2))	
+		else:
+			result = 'Error link'	
+
+		return result
+
+	class Meta:
+		verbose_name = u"""видео"""
+		verbose_name_plural = u"""видео"""
+
+	@classmethod
+	def get_all_entries_video(self):
+		return self.objects.filter(is_active=True, is_delete=False).order_by('-date')		
+
+	@classmethod
+	def get_video(self, id):
+		return self.objects.get(is_active=True, is_delete=False, id=id)					
+		
+	@classmethod
+	def increment_views(self, video_id):
+		view = self.objects.get(id=video_id)
+		view.views = F('views') + 1
+		view.save()
+		
+		return				
+
+		
+	

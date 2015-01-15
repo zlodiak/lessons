@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+{% load staticfiles custom_tags reviews_fancy_form %}
+
+<html>
+	<head>
+		<meta charset="utf-8" />
+		
+		<title>{% block title %}{% endblock %}</title>
+
+		<link rel="icon" href='{% static "images/favicon.ico" %}' type="image/x-icon" />
+
+		<link rel="stylesheet" href='{% static "mysite/css/styles.css" %}' />  		
+
+		<!--[if lt IE 9]>
+			<script src="js/html5/html5.js"></script>
+		<![endif]-->			
+	</head>
+	
+	<body>		
+		<div class="wrap">	{{ slug }}
+			<header class="header">
+				<div class="header_inner wrapped">
+					<h1 class="hide">Golden City</h1>
+					
+					<div class="auth_zone">
+						<div class="auth_zone_inner">
+							{% if user.is_authenticated %}
+								user: {{ full_name }} <a href="/accounts/logout/"> (logout)</a>
+							{% else %}
+								<a href="/accounts/login/">Login</a>
+								<br />
+								or <a href="/accounts/registration/">registration</a> 								
+							{% endif %}
+						</div>
+					</div>
+					
+					<a href="/" class="logo left">
+						<img class="logo_pic" width="323" height="120" alt="Golden City" src="{% static 'mysite/images/logo.png' %}" />
+					</a>
+					
+					{% part_nav_top user.is_authenticated %}
+				</div>
+			</header>
+			
+			<div class="content_site">
+				{% block content %}{% endblock %}
+			</div>
+			
+			<div class="footer_correct"></div>
+		</div>
+		
+		<footer class="footer">
+			<div class="footer_inner wrapped">
+				<div class="left">
+					<p class="copyright">© 2011-2013 Golden City Mall. <br />design by yoband.ru</p>					
+				</div>
+				
+				<div class="right">
+					<div class="logo_bottom">
+						<img class="logo_pic" width="203" height="53" alt="Golden City" src="{% static 'mysite/images/logo_bottom.png' %}" />
+					</div>
+				
+					<div class="phone_bottom">
+						<strong class="title">Консультации по телефону</strong>
+						
+						<p>8 800 0000 000</p>
+					</div>
+					
+					<div class="social_bottom">
+						<ul>
+							<li class="vk">
+								<a href="#">
+									<img class="social_pic vk" width="34" height="33" alt="VKontakte" src="{% static 'mysite/images/social_icons/vk.png' %}" />
+								</a>
+							</li>
+							
+							<li class="fb">
+								<a href="#">
+									<img class="social_pic fb" width="46" height="47" alt="Facebook" src="{% static 'mysite/images/social_icons/facebook.png' %}" />
+								</a>
+							</li>
+
+							<li class="tw">
+								<a href="#">
+									<img class="social_pic tw" width="33" height="33" alt="Twitter" src="{% static 'mysite/images/social_icons/twitter.png' %}" />
+								</a>
+							</li>						
+						</ul>
+					</div>
+					
+					<p class="post_text">Лицензия на осуществление образовательной деятельности 29ЛО1 №0000233 от 30 января 2013 г.<p>
+				</div>				
+			</div>
+		</footer>
+		
+		<div class="reviews_fancy hide">
+			{% reviews_fancy_form %}
+		</div>
+
+		<!-- jquery -->
+		<script src="{% static 'mysite/js/jquery/jquery.2.min.js' %}"></script>		
+		
+		<!-- helper -->
+		<script src="{% static 'mysite/js/helper/helper.js' %}"></script>		
+	</body>
+</html>

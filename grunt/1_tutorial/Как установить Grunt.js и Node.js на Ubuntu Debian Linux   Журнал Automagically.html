@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ru-RU" prefix="og: http://ogp.me/ns#">
+
+<head>
+<meta charset="UTF-8" />
+<title>Как установить Grunt.js и Node.js на Ubuntu/Debian Linux : Журнал Automagically</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="template" content="Stargazer 1.0.0" />
+<meta name="generator" content="WordPress 4.1" />
+
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.5.4.2 - https://yoast.com/wordpress/plugins/seo/ -->
+<link rel="canonical" href="http://automagically.ru/2014/01/21/grunt-js-i-node-js-na-ubuntu-debian-linux/" />
+<meta property="og:locale" content="ru_RU" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Как установить Grunt.js и Node.js на Ubuntu/Debian Linux - Журнал Automagically" />
+<meta property="og:description" content="Grunt.js это утилита для выполнения задач с вашими веб-проектами, например минификация CSS и JS файлов, компиляция стилей LESS и Sass, линтинг для различных языков и многое, многое другое. Grunt.js пользуются &hellip;" />
+<meta property="og:url" content="http://automagically.ru/2014/01/21/grunt-js-i-node-js-na-ubuntu-debian-linux/" />
+<meta property="og:site_name" content="Журнал Automagically" />
+<meta property="article:tag" content="debian" />
+<meta property="article:tag" content="grunt" />
+<meta property="article:tag" content="linux" />
+<meta property="article:tag" content="node.js" />
+<meta property="article:tag" content="ubuntu" />
+<meta property="article:tag" content="WordPress" />
+<meta property="article:section" content="Разное" />
+<meta property="article:published_time" content="2014-01-21T13:00:28+00:00" />
+<meta property="og:image" content="http://automagically.ru/files/2014/01/grunt-js.png" />
+<meta property="og:image" content="http://automagically.network.kovshenin.com/files/2014/01/grunt-js.png" />
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel="alternate" type="application/rss+xml" title="Журнал Automagically &raquo; Лента" href="http://automagically.ru/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Журнал Automagically &raquo; Лента комментариев" href="http://automagically.ru/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Журнал Automagically &raquo; Лента комментариев к &laquo;Как установить Grunt.js и Node.js на Ubuntu/Debian Linux&raquo;" href="http://automagically.ru/2014/01/21/grunt-js-i-node-js-na-ubuntu-debian-linux/feed/" />
+<link rel="pingback" href="http://automagically.ru/xmlrpc.php" />
+<link rel='stylesheet' id='stargazer-fonts-css'  href='//fonts.googleapis.com/css?family=Open+Sans%3A300%2C600&#038;subset=cyrillic%2Clatin&#038;ver=4.1' type='text/css' media='all' />
+<link rel='stylesheet' id='one-five-css'  href='http://automagically.ru/wp-content/themes/stargazer/library/css/one-five.min.css?ver=20131105' type='text/css' media='all' />
+<link rel='stylesheet' id='gallery-css'  href='http://automagically.ru/wp-content/themes/stargazer/library/css/gallery.min.css?ver=20130526' type='text/css' media='all' />
+<link rel='stylesheet' id='stargazer-mediaelement-css'  href='http://automagically.ru/wp-content/themes/stargazer/css/mediaelement/mediaelement.min.css?ver=4.1' type='text/css' media='all' />
+<link rel='stylesheet' id='parent-css'  href='http://automagically.ru/wp-content/themes/stargazer/style.min.css?ver=1.0.0' type='text/css' media='all' />
+<link rel='stylesheet' id='style-css'  href='http://automagically.ru/wp-content/themes/automagically/style.css?ver=4.1' type='text/css' media='all' />
+<link rel='stylesheet' id='jetpack_css-css'  href='http://automagically.ru/wp-content/plugins/jetpack/css/jetpack.css?ver=3.2' type='text/css' media='all' />
+<script type='text/javascript' src='http://automagically.ru/wp-includes/js/jquery/jquery.js?ver=1.11.1'></script>
+<script type='text/javascript' src='http://automagically.ru/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://automagically.ru/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://automagically.ru/wp-includes/wlwmanifest.xml" /> 
+<link rel='shortlink' href='http://automagically.ru/?p=239' />
+	<link rel="shortcut icon" href="http://automagically.ru/wp-content/plugins/automagically-hacks/favicon.ico" />
+	
+<style type="text/css" id="custom-colors-css">a { color: rgba( 30, 115, 190, 0.75 ); } a:hover, legend, mark, .comment-respond .required, pre, .form-allowed-tags code, pre code, .mejs-button button:hover::after, .mejs-overlay-button:hover::after { color: #1e73be; } input[type='submit'], input[type='reset'], input[type='button'], button, .page-links a, .comment-reply-link, .comment-reply-login, .wp-calendar td.has-posts a, #menu-sub-terms li a { background-color: rgba( 30, 115, 190, 0.8 ); } legend, mark, pre, .form-allowed-tags code { background-color: rgba( 30, 115, 190, 0.1 ); } input[type='submit']:hover, input[type='submit']:focus, input[type='reset']:hover, input[type='reset']:focus, input[type='button']:hover, input[type='button']:focus, button:focus, button:hover,.page-links a:hover, .wp-calendar td.has-posts a:hover, .widget-title > .wrap,#comments-number > .wrap, #reply-title > .wrap, .attachment-meta-title > .wrap, .widget-search > .search-form, #menu-sub-terms li a:hover, .comment-reply-link:hover, .comment-reply-login:hover, .mejs-time-rail .mejs-time-loaded{ background-color: #1e73be; } ::selection { background-color: #1e73be; } legend { border-color: rgba( 30, 115, 190, 0.15 ); } body { border-top-color: #1e73be; } .entry-content a, .entry-summary a, .comment-content a { border-bottom-color: rgba( 30, 115, 190, 0.15 ); } .entry-content a:hover, .entry-summary a:hover, .comment-content a:hover { border-bottom-color: rgba( 30, 115, 190, 0.75 ); } body, .widget-title, #comments-number, #reply-title,.attachment-meta-title { border-bottom-color: #1e73be; } blockquote { background-color: rgba( 30, 115, 190, 0.85 ); } blockquote blockquote { background-color: rgba( 30, 115, 190, 0.9 ); } blockquote { outline-color: rgba( 30, 115, 190, 0.85); }</style>
+
+<style type="text/css" id="custom-header-css">body.custom-header #site-title a { color: #252525; }</style>
+<style type="text/css" id="custom-background-css">body.custom-background { background: #1e73be; }</style>
+<!--
+	generated in 0.415 seconds
+	25786 bytes batcached for 300 seconds
+-->
+</head>
+
+<body class="wordpress ltr ru ru-ru child-theme multisite blog-18 y2014 m12 d24 h14 wednesday logged-out custom-background custom-header display-header-text singular singular-post singular-post-239 post-format-standard custom-colors layout-2c-l" dir="ltr" itemscope="itemscope" itemtype="http://schema.org/WebPage">
+
+	<div id="container">
+
+		
+	<nav id="menu-primary" class="menu" role="navigation" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+
+		<div class="assistive-text skip-link">
+			<a href="#content">Skip to content</a>
+		</div><!-- .skip-link -->
+
+		<h3 class="menu-toggle">
+			<span class="screen-reader-text">Navigation</span>
+		</h3><!-- .menu-toggle -->
+
+		<div class="wrap"><ul id="menu-primary-items" class="menu-items"><li id="menu-item-430" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-430"><a href="http://automagically.ru/">Свежее</a></li>
+<li id="menu-item-433" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-433"><a href="http://automagically.ru/category/besplatnosti/">Бесплатности</a></li>
+<li id="menu-item-432" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-432"><a href="http://automagically.ru/category/trends/">Тренды</a></li>
+<li id="menu-item-431" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-431"><a href="http://automagically.ru/category/raznoe/">Разное</a></li>
+<li id="menu-item-448" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-448"><a href="http://automagically.ru/about/">О проекте</a></li>
+</ul><form role="search" method="get" class="search-form" action="http://automagically.ru/">
+				<label>
+					<span class="screen-reader-text">Найти:</span>
+					<input type="search" class="search-field" placeholder="Поиск&hellip;" value="" name="s" title="Найти:" />
+				</label>
+				<input type="submit" class="search-submit" value="Поиск" />
+			</form></div>
+	</nav><!-- #menu-primary -->
+
+
+		<div class="wrap">
+
+			<header id="header" role="banner" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
+
+				
+					<div id="branding">
+						<h1 id="site-title" itemprop="headline"><a href="http://automagically.ru" rel="home">Журнал Automagically</a></h1>						<h2 id="site-description" itemprop="description">Автомагический журнал про веб-дизайн и программирование</h2>					</div><!-- #branding -->
+
+				
+				
+			</header><!-- #header -->
+
+			
+			<div id="main" class="main">
+
+				
+	
+		<nav class="breadcrumb-trail breadcrumbs" itemprop="breadcrumb"><span class="trail-begin"><a href="http://automagically.ru" title="Журнал Automagically" rel="home">Home</a></span>
+			 <span class="sep">></span> <a href="http://automagically.ru/2014/">2014</a>
+			 <span class="sep">></span> <a href="http://automagically.ru/2014/01/">Январь</a>
+			 <span class="sep">></span> <a href="http://automagically.ru/2014/01/21/">21</a>
+			 <span class="sep">></span> <span class="trail-end">Как установить Grunt.js и Node.js на Ubuntu/Debian Linux</span>
+		</nav>
+
+<main id="content" class="content" role="main" itemprop="mainContentOfPage" itemscope itemtype="http://schema.org/Blog">
+
+	
+	
+		
+			
+			<article id="post-239" class="entry post publish author-automagically post-239 format-standard has-post-thumbnail category-raznoe post_tag-debian post_tag-grunt post_tag-linux post_tag-node-js post_tag-ubuntu post_tag-wordpress" itemscope="itemscope" itemtype="http://schema.org/BlogPosting" itemprop="blogPost">
+
+	
+		<header class="entry-header">
+
+			<h1 class="entry-title" itemprop="headline">Как установить Grunt.js и Node.js на Ubuntu/Debian Linux</h1>
+
+			<div class="entry-byline">
+				<span class="entry-author" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person"><a href="http://automagically.ru/author/automagically/" title="Записи Саша Дмитриев" rel="author" class="url fn n" itemprop="url"><span itemprop="name">Саша Дмитриев</span></a></span>
+				<time class="entry-published updated" datetime="2014-01-21T13:00:28+00:00" title="Вторник, Январь 21, 2014, 1:00 пп">21.01.2014</time>
+				<a href="http://automagically.ru/2014/01/21/grunt-js-i-node-js-na-ubuntu-debian-linux/#respond" class="comments-link" itemprop="discussionURL" title="Прокомментировать запись &laquo;Как установить Grunt.js и Node.js на Ubuntu/Debian Linux&raquo;">0</a>							</div><!-- .entry-byline -->
+
+		</header><!-- .entry-header -->
+
+		<div class="entry-content" itemprop="articleBody">
+			<p><a href="http://gruntjs.com/">Grunt.js</a> это утилита для выполнения задач с вашими веб-проектами, например минификация CSS и JS файлов, компиляция стилей LESS и Sass, линтинг для различных языков и многое, многое другое. Grunt.js пользуются уже многие крупные проекты, включая Twitter, WordPress и jQuery.</p>
+<p><img src="http://automagically.ru/files/2014/01/grunt-js.png" alt="Установка Grunt.js и Node.js" width="750" height="434" class="alignnone size-full wp-image-248" /></p>
+<p>Grunt написан на языке JavaScript, и для его работы на вашей системе, вам потребуется менеджер пакетов <code>npm</code>, поэтому придется установить Node.js.</p>
+<p>Для многих систем существуют уже скомпилированные пакеты Node.js, которые можно установить с помощью средств типа apt-get, yum и т.д., но мы советуем вам этого не делать, поскольку Node.js активно развивается и наверняка та версия, которая доступна в вашей системе с помощью менеджера приложений, уже устарела.</p>
+<h2>Установка Node.js и npm</h2>
+<p>Мы будем компилировать Node.js с исходного кода. Вот как это делается на Ubuntu или Debian Linux. Сперва установим пакеты, которые нам нужны для компиляции Node.js:</p>
+<pre>$ sudo apt-get update
+$ sudo apt-get install git-core curl build-essential openssl libssl-dev
+</pre>
+<p>Дальше, делаем копию Git-репозитория проекта Node.js:</p>
+<pre>$ git clone https://github.com/joyent/node.git
+$ cd node
+</pre>
+<p>С помощью команды <code>git tag</code> можно увидеть полный список версий. На момент написания статьи, v0.11.10 является самой свежей, поэтому ее мы и будем компилировать:</p>
+<pre>$ git checkout v0.11.10
+Note: checking out 'v0.11.10'.
+</pre>
+<p>Конфигурируем, тестируем, компилируем и устанавливаем:</p>
+<pre>$ ./configure --openssl-libpath=/usr/lib/ssl
+$ make
+$ make test
+$ sudo make install
+</pre>
+<p>В зависимости от ресурсов вашей системы, компиляция и тесты (их можно пропустить) может занять некоторе время. У нас это заняло порядка 15 минут. Проверяем <code>node</code> и менеджер пакетов <code>npm</code>:</p>
+<pre>$ node --version
+v0.11.10
+$ npm --version
+1.3.22
+</pre>
+<h2>Установка Grunt.js</h2>
+<p>Для начала вам потребуется всего два пакета: grunt и grunt-cli, с которыми npm знаком, так что все другие требуемые пакеты он подтянет самостоятельно:</p>
+<pre>$ sudo npm install -g grunt grunt-cli
+$ grunt --version
+grunt-cli v0.1.11
+grunt v0.4.2
+</pre>
+<p>Для испытания Grunt.js давайте попробуем запустить его на примере проекта WordPress, исходный код которого вы можете скачать с репозитория Subversion или с зеркала на GitHub:</p>
+<pre>$ git clone git://develop.git.wordpress.org/ wordpress
+$ cd wordpress
+</pre>
+<p>Поскольку WordPress пользуется большим количеством дополнительных плагинов для Grunt.js, их нужно сперва установить находясь в директории <code>wordpress</code>:</p>
+<pre>$ sudo npm install
+</pre>
+<p>А теперь мы можем смело запускать задачу <code>build</code> через Grunt.js, которая выполнит все подзадачи (минификация CSS, JS, обработка Sass и т.д.) и разместит готовое, чисто приложение в директории <code>build</code>:</p>
+<pre>$ grunt build
+...
+Done, without errors.
+</pre>
+<p>Получить список всех доступных задач в данном проекте можно с помощью команды <code>grunt --help</code>.</p>
+<p>Если вы хотите использовать Grunt.js в своем собственном проекте, вам потребуется лишь создать Gruntfile.js и package.json. Подробности на английском <a href="http://gruntjs.com/getting-started">на сайте Grunt.js</a>.</p>
+
+
+<div class="yandex-share yashare-auto-init" data-yashareL10n="ru" data-yashareTheme="default" data-yashareType="icon" data-yashareQuickServices="yaru,vkontakte,facebook,twitter" data-yashareTitle="Как установить Grunt.js и Node.js на Ubuntu/Debian Linux" data-yashareLink="http://automagically.ru/2014/01/21/grunt-js-i-node-js-na-ubuntu-debian-linux/"></div>					</div><!-- .entry-content -->
+
+		<div class="am-newsletter">
+			<h3 class="widget-title">Бесплатная рассылка</h3>
+			<p>Подпишитесь на бесплатную еженедельную автомагическую рассылку нашего журнала. Только самые крутые подборки и никакого спама! <a href="http://eepurl.com/MDdV9" target="_blank">Подписаться &rarr;</a></p>
+		</div>
+
+		<footer class="entry-footer">
+			<span class="entry-terms category" itemprop="articleSection">Posted in <a href="http://automagically.ru/category/raznoe/" rel="tag">Разное</a></span>			<br /><span class="entry-terms post_tag" itemprop="keywords">Tagged <a href="http://automagically.ru/tag/debian/" rel="tag">debian</a>, <a href="http://automagically.ru/tag/grunt/" rel="tag">grunt</a>, <a href="http://automagically.ru/tag/linux/" rel="tag">linux</a>, <a href="http://automagically.ru/tag/node-js/" rel="tag">node.js</a>, <a href="http://automagically.ru/tag/ubuntu/" rel="tag">ubuntu</a>, <a href="http://automagically.ru/tag/wordpress/" rel="tag">WordPress</a></span>		</footer><!-- .entry-footer -->
+
+	
+</article><!-- .entry -->
+
+			
+				
+<section id="comments-template">
+
+	
+	
+									<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">Добавить комментарий <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2014/01/21/grunt-js-i-node-js-na-ubuntu-debian-linux/#respond" style="display:none;">Отменить ответ</a></small></h3>
+									<form action="http://automagically.ru/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate>
+																			<p class="comment-notes"><span id="email-notes">Ваш e-mail не будет опубликован.</span> Обязательные поля помечены <span class="required">*</span></p>							<p class="comment-form-author"><label for="author">Имя <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" aria-required='true' /></p>
+<p class="comment-form-email"><label for="email">E-mail <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" aria-describedby="email-notes" aria-required='true' /></p>
+<p class="comment-form-url"><label for="url">Сайт</label> <input id="url" name="url" type="url" value="" size="30" /></p>
+												<p class="comment-form-comment"><label for="comment">Комментарий</label> <textarea id="comment" name="comment" cols="45" rows="8" aria-describedby="form-allowed-tags" aria-required="true"></textarea></p>						<p class="form-allowed-tags" id="form-allowed-tags">Можно использовать следующие <abbr title="HyperText Markup Language">HTML</abbr>-теги и атрибуты:  <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; </code></p>						<p class="form-submit">
+							<input name="submit" type="submit" id="submit" class="submit" value="Отправить комментарий" />
+							<input type='hidden' name='comment_post_ID' value='239' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+						</p>
+						<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="6438648f3f" /></p><p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="107"/></p>					</form>
+							</div><!-- #respond -->
+			
+</section><!-- #comments-template -->
+			
+		
+		
+	<div class="loop-nav">
+		<div class="prev">Previous Post: <a href="http://automagically.ru/2014/01/21/element-picture/" rel="prev">Улучшаем адаптивные изображения при помощи элемента &lt;picture&gt;</a></div>		<div class="next">Next Post: <a href="http://automagically.ru/2014/01/22/drupal/" rel="next">Стоит ли использовать Drupal</a></div>	</div><!-- .loop-nav -->
+
+
+	
+</main><!-- #content -->
+
+<script type='text/javascript'>
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-47275603-1']);
+_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+</script>
+				
+	<aside id="sidebar-primary" class="sidebar" role="complementary" itemscope="itemscope" itemtype="http://schema.org/WPSideBar">
+
+		
+			<section id="text-2" class="widget widget_text"><h3 class="widget-title">Автомагическая рассылка</h3>			<div class="textwidget"><p>Подпишитесь на бесплатную автомагическую еженедельную рассылку нашего журнала. Всё кроме спама:</p>
+
+<p><a href="http://eepurl.com/MDdV9" target="_blank">Подписаться &rarr;</a></p></div>
+		</section>		<section id="recent-posts-2" class="widget widget_recent_entries">		<h3 class="widget-title">Свежие записи</h3>		<ul>
+					<li>
+				<a href="http://automagically.ru/2014/10/13/ploskie-logotipy/">25 плоских и креативных лого для вдохновения</a>
+						</li>
+					<li>
+				<a href="http://automagically.ru/2014/04/24/free-icons-psd/">Бесплатные тонкие иконки в формате PSD</a>
+						</li>
+					<li>
+				<a href="http://automagically.ru/2014/04/10/12-tsvetnyih-logotipov-dlya-vdohnoveniya/">12 цветных логотипов для вдохновения</a>
+						</li>
+					<li>
+				<a href="http://automagically.ru/2014/04/10/comic-neue-kak-alternativa-comic-sans/">Comic Neue как альтернатива Comic Sans</a>
+						</li>
+					<li>
+				<a href="http://automagically.ru/2014/04/09/css-animate-effects/">Более 60 эффектов CSS с помощью Animate.css</a>
+						</li>
+				</ul>
+		</section>
+		
+	</aside><!-- #sidebar-primary -->
+
+
+			</div><!-- #main -->
+
+			
+		</div><!-- .wrap -->
+
+		<footer id="footer" role="contentinfo" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
+
+			<div class="wrap">
+
+				
+	<div id="menu-social" class="menu"><ul id="menu-social-items" class="menu-items"><li id="menu-item-434" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-434"><a href="http://twitter.com/automagicallyru"><span class="screen-reader-text">Twitter</span></a></li>
+<li id="menu-item-435" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-435"><a href="http://facebook.com/automagically.ru"><span class="screen-reader-text">Facebook</span></a></li>
+<li id="menu-item-436" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-436"><a href="http://plus.google.com/105642792933784036267"><span class="screen-reader-text">Google+</span></a></li>
+<li id="menu-item-437" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-437"><a href="http://automagically.ru/feed/"><span class="screen-reader-text">RSS лента</span></a></li>
+</ul></div>
+
+				<p class="credit">
+					Automagically &mdash; автомагический журнал про веб-дизайн и программирование
+				</p><!-- .credit -->
+
+			</div><!-- .wrap -->
+
+		</footer><!-- #footer -->
+
+	</div><!-- #container -->
+
+	<script type='text/javascript' src='http://automagically.network.kovshenin.com/wp-content/plugins/akismet/_inc/form.js?ver=3.0.4'></script>
+<script type='text/javascript' src='http://automagically.ru/wp-includes/js/comment-reply.min.js?ver=4.1'></script>
+<script type='text/javascript' src='http://automagically.ru/wp-content/themes/stargazer/js/stargazer.min.js'></script>
+<script type='text/javascript' src='//yandex.st/share/share.js?ver=4.1'></script>
+
+</body>
+</html>

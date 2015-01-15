@@ -1,0 +1,21 @@
+<?php
+
+	function form_bd_uninstall() {
+	  cache_clear_all('form_bd','cache',TRUE);
+	  
+	  //dropTable('form_bd');
+	  
+	  menu_rebuild();
+	}
+
+	function form_bd_schema() {
+	  $schema['form_bd'] = array(
+		'fields' => array(
+		  'id' => array('type' => 'serial', 'not null' => TRUE),
+		  'email' => array('type' => 'varchar', 'length' => 255, 'not null' => TRUE)
+		),
+	   'primary key' => array('id'),
+	  );
+	  
+	  return $schema;
+	}

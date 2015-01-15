@@ -1,0 +1,416 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0110)http://my-it-notes.com/2011/10/how-to-execute-bash-script-in-current-console-environment-using-source-command/ -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" class="wf-pontanosans-n4-active wf-active"><head profile="http://gmpg.org/xfn/11"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>Команда source – как выполнить bash-скрипт не запуская второй процесс bash | Мои IT-заметки</title>
+    <link rel="pingback" href="http://my-it-notes.com/xmlrpc.php"> 
+    <link rel="alternate" type="application/rss+xml" title="Мои IT-заметки » Feed" href="http://my-it-notes.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Мои IT-заметки » Comments Feed" href="http://my-it-notes.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Мои IT-заметки » Команда source – как выполнить bash-скрипт не запуская второй процесс bash Comments Feed" href="http://my-it-notes.com/2011/10/how-to-execute-bash-script-in-current-console-environment-using-source-command/feed/">
+	<script type="text/javascript" async="" src="./Команда source – как выполнить bash-скрипт не запуская второй процесс bash   Мои IT-заметки_files/ga.js"></script><script src="./Команда source – как выполнить bash-скрипт не запуская второй процесс bash   Мои IT-заметки_files/webfont.js" type="text/javascript" async=""></script><script type="text/javascript">
+	WebFontConfig = {
+		google: { families: ['Pontano+Sans::latin'] }
+	};
+	(function() {
+		var wf = document.createElement('script');
+		wf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+		wf.type = 'text/javascript';
+		wf.async = 'true';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(wf, s);
+	})(); 
+    </script>
+    <link rel="stylesheet" id="contact-form-7-css" href="./Команда source – как выполнить bash-скрипт не запуская второй процесс bash   Мои IT-заметки_files/styles.css" type="text/css" media="all">
+<link rel="stylesheet" id="graphene-stylesheet-css" href="./Команда source – как выполнить bash-скрипт не запуская второй процесс bash   Мои IT-заметки_files/style.css" type="text/css" media="screen">
+<link rel="stylesheet" id="qoate_scs_style-css" href="./Команда source – как выполнить bash-скрипт не запуская второй процесс bash   Мои IT-заметки_files/scs-style.css" type="text/css" media="all">
+<!-- This site uses the Yoast Google Analytics plugin v5.0.5 - Universal disabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Pontano+Sans&subset=latin"><script type="text/javascript">
+
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-19876099-2']);
+	_gaq.push(['_gat._forceSSL']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+
+</script>
+<!-- / Yoast Google Analytics -->
+<script type="text/javascript" src="./Команда source – как выполнить bash-скрипт не запуская второй процесс bash   Мои IT-заметки_files/jquery.js"></script>
+<script type="text/javascript" src="./Команда source – как выполнить bash-скрипт не запуская второй процесс bash   Мои IT-заметки_files/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="./Команда source – как выполнить bash-скрипт не запуская второй процесс bash   Мои IT-заметки_files/jquery.tools.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var grapheneJS = {"templateUrl":"http:\/\/my-it-notes.com\/wp-content\/themes\/graphene","isSingular":"1","shouldShowComments":"1","commentsOrder":"newest","sliderDisable":"","sliderAnimation":"horizontal-slide","sliderTransSpeed":"400","sliderInterval":"7000","sliderDisplay":"thumbnail-excerpt","infScroll":"","infScrollClick":"","infScrollComments":"","totalPosts":"1","postsPerPage":"10","isPageNavi":"","infScrollMsgText":"Fetching window.grapheneInfScrollItemsPerPage more item from window.grapheneInfScrollItemsLeft left ...","infScrollMsgTextPlural":"Fetching window.grapheneInfScrollItemsPerPage more items from window.grapheneInfScrollItemsLeft left ...","infScrollFinishedText":"No more items to fetch","commentsPerPage":"50","totalComments":"0","infScrollCommentsMsg":"Fetching window.grapheneInfScrollCommentsPerPage more top level comment from window.grapheneInfScrollCommentsLeft left ...","infScrollCommentsMsgPlural":"Fetching window.grapheneInfScrollCommentsPerPage more top level comments from window.grapheneInfScrollCommentsLeft left ...","infScrollCommentsFinishedMsg":"No more comments to fetch"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Команда source – как выполнить bash-скрипт не запуская второй процесс bash   Мои IT-заметки_files/graphene.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://my-it-notes.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://my-it-notes.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Java – как доверять всем ssl сертификатам" href="http://my-it-notes.com/2011/10/android-how-to-verify-all-ssl-certificate/">
+<link rel="next" title="Бесплатные online ресурсы для самообразования" href="http://my-it-notes.com/2011/10/free-online-cources-for-self-education/">
+<meta name="generator" content="WordPress 4.0">
+<link rel="shortlink" href="http://my-it-notes.com/?p=486">
+<style type="text/css">
+#sidebar_bottom .sidebar-wrap{width:301px}#nav li ul{width:200px} #nav li ul ul{margin-left:200px}#header-menu ul li a, #secondary-menu ul li a{width:180px}.container_16 {width:1025px}.container_16 .grid_1{width:44.0625px}.container_16 .prefix_1{padding-left:64.0625px}.container_16 .suffix_1{padding-right:64.0625px}.container_16 .push_1{left:64.0625px}.container_16 .pull_1{left:-64.0625px}.container_16 .grid_2{width:108.125px}.container_16 .prefix_2{padding-left:128.125px}.container_16 .suffix_2{padding-right:128.125px}.container_16 .push_2{left:128.125px}.container_16 .pull_2{left:-128.125px}.container_16 .grid_3{width:172.1875px}.container_16 .prefix_3{padding-left:192.1875px}.container_16 .suffix_3{padding-right:192.1875px}.container_16 .push_3{left:192.1875px}.container_16 .pull_3{left:-192.1875px}.container_16 .grid_4{width:236.25px}.container_16 .prefix_4{padding-left:256.25px}.container_16 .suffix_4{padding-right:256.25px}.container_16 .push_4{left:256.25px}.container_16 .pull_4{left:-256.25px}.container_16 .grid_5{width:300.3125px}.container_16 .prefix_5{padding-left:320.3125px}.container_16 .suffix_5{padding-right:320.3125px}.container_16 .push_5{left:320.3125px}.container_16 .pull_5{left:-320.3125px}.container_16 .grid_6{width:364.375px}.container_16 .prefix_6{padding-left:384.375px}.container_16 .suffix_6{padding-right:384.375px}.container_16 .push_6{left:384.375px}.container_16 .pull_6{left:-384.375px}.container_16 .grid_7{width:428.4375px}.container_16 .prefix_7{padding-left:448.4375px}.container_16 .suffix_7{padding-right:448.4375px}.container_16 .push_7{left:448.4375px}.container_16 .pull_7{left:-448.4375px}.container_16 .grid_8{width:492.5px}.container_16 .prefix_8{padding-left:512.5px}.container_16 .suffix_8{padding-right:512.5px}.container_16 .push_8{left:512.5px}.container_16 .pull_8{left:-512.5px}.container_16 .grid_9{width:556.5625px}.container_16 .prefix_9{padding-left:576.5625px}.container_16 .suffix_9{padding-right:576.5625px}.container_16 .push_9{left:576.5625px}.container_16 .pull_9{left:-576.5625px}.container_16 .grid_10{width:620.625px}.container_16 .prefix_10{padding-left:640.625px}.container_16 .suffix_10{padding-right:640.625px}.container_16 .push_10{left:640.625px}.container_16 .pull_10{left:-640.625px}.container_16 .grid_11{width:684.6875px}.container_16 .prefix_11{padding-left:704.6875px}.container_16 .suffix_11{padding-right:704.6875px}.container_16 .push_11{left:704.6875px}.container_16 .pull_11{left:-704.6875px}.container_16 .grid_12{width:748.75px}.container_16 .prefix_12{padding-left:768.75px}.container_16 .suffix_12{padding-right:768.75px}.container_16 .push_12{left:768.75px}.container_16 .pull_12{left:-768.75px}.container_16 .grid_13{width:812.8125px}.container_16 .prefix_13{padding-left:832.8125px}.container_16 .suffix_13{padding-right:832.8125px}.container_16 .push_13{left:832.8125px}.container_16 .pull_13{left:-832.8125px}.container_16 .grid_14{width:876.875px}.container_16 .prefix_14{padding-left:896.875px}.container_16 .suffix_14{padding-right:896.875px}.container_16 .push_14{left:896.875px}.container_16 .pull_14{left:-896.875px}.container_16 .grid_15{width:940.9375px}.container_16 .prefix_15{padding-left:960.9375px}.container_16 .suffix_15{padding-right:960.9375px}.container_16 .push_15{left:960.9375px}.container_16 .pull_15{left:-960.9375px}.container_16 .grid_16{width:1005px}.container_16 .prefix_16{padding-left:1025px}.container_16 .suffix_16{padding-right:1025px}.container_16 .push_16{left:1025px}.container_16 .pull_16{left:-1025px}.header-img {margin-left: -512.5px}#content-main, #content-main .grid_11, .container_16 .slider_post, #comments #respond {width:685px}#sidebar1, #sidebar2 {width:300px}.comment-form-author, .comment-form-email, .comment-form-url {width:208.33333333333px}.graphene-form-field {width:200.33333333333px}#commentform textarea {width:657px}
+</style>
+	<!--[if lte IE 7]>
+      <style type="text/css" media="screen">
+      	#footer, div.sidebar-wrap, .block-button, .featured_slider, #slider_root, #nav li ul, .pie{behavior: url(http://my-it-notes.com/wp-content/themes/graphene/js/PIE.php);}
+        .featured_slider{margin-top:0 !important;}
+        #header-menu-wrap {z-index:5}
+      </style>
+    <![endif]-->
+    
+<!-- All in One SEO Pack 2.2.3.1 by Michael Torbert of Semper Fi Web Designob_start_detected [-1,-1] -->
+<meta name="keywords" content="bash,linux,shell">
+
+<link rel="canonical" href="./Команда source – как выполнить bash-скрипт не запуская второй процесс bash   Мои IT-заметки_files/Команда source – как выполнить bash-скрипт не запуская второй процесс bash   Мои IT-заметки.html">
+<!-- /all in one seo pack -->
+<style type="text/css" id="syntaxhighlighteranchor"></style>
+</head>
+<body class="single single-post postid-486 single-format-standard two_col_left two-columns">
+
+<div class="bg-gradient">
+
+
+<div id="container" class="container_16">
+    
+    
+        <div id="header">
+    	
+        <img src="./Команда source – как выполнить bash-скрипт не запуская второй процесс bash   Мои IT-заметки_files/flow.jpg" alt="" width="1025" height="198" class="header-img">        	       
+        		
+        			<h2 class="header_title push_1 grid_15">				<a href="http://my-it-notes.com/" title="Go back to the front page">					Мои IT-заметки				</a>			</h2>			
+            <h3 class="header_desc push_1 grid_15">				…и не только			</h3>                
+		    </div>
+    <div id="nav">
+                <div id="header-menu-wrap" class="clearfix">
+			<ul id="header-menu" class="menu clearfix"><li id="menu-item-969" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://my-it-notes.com/"><strong>Главная</strong></a></li>
+<li id="menu-item-968" class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent"><a href="http://my-it-notes.com/it-notes/"><strong>IT-заметки</strong></a></li>
+<li id="menu-item-966" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://my-it-notes.com/management-notes/"><strong>Management</strong></a></li>
+<li id="menu-item-967" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://my-it-notes.com/for-investigate-notes/"><strong>Интереса для и только</strong></a></li>
+<li id="menu-item-965" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://my-it-notes.com/contacts/"><strong>Контакты, ежели что</strong></a></li>
+</ul>            
+            <div class="clear"></div>
+            
+			            
+                    
+        </div>
+		
+                
+        <div class="menu-bottom-shadow">&nbsp;</div>
+
+
+        
+    </div>
+
+    
+    <div id="content" class="clearfix hfeed">
+                
+                
+        <div id="content-main" class="clearfix grid_11">
+        <div class="breadcrumb breadcrumb-navxt"><!-- Breadcrumb NavXT 5.1.1 -->
+<a title="Вернуться к Мои IT-заметки." href="http://my-it-notes.com/">Мои IT-заметки</a> &gt; <a title="Вернуться к IT-заметки." href="http://my-it-notes.com/it-notes/">IT-заметки</a> &gt; <span typeof="v:Breadcrumb"><a rel="v:url" property="v:title" title="Go to the IT-Заметки category archives." href="http://my-it-notes.com/category/it-notes/" class="taxonomy category">IT-Заметки</a></span> &gt; <span typeof="v:Breadcrumb"><a rel="v:url" property="v:title" title="Go to the linux category archives." href="http://my-it-notes.com/category/it-notes/linux/" class="taxonomy category">linux</a></span> &gt; Команда source – как выполнить bash-скрипт не запуская второй процесс bash</div>
+	
+	<div class="post-nav clearfix">
+		<p class="previous">« <a href="http://my-it-notes.com/2011/10/android-how-to-verify-all-ssl-certificate/" rel="prev">Java – как доверять всем ssl сертификатам</a></p>
+		<p class="next-post"><a href="http://my-it-notes.com/2011/10/free-online-cources-for-self-education/" rel="next">Бесплатные online ресурсы для самообразования</a> »</p>
+			</div>
+	        
+<div id="post-486" class="post-486 post type-post status-publish format-standard hentry category-linux tag-bash tag-linux tag-shell clearfix">
+	
+		
+	<div class="entry clearfix">
+    	
+                    	<div class="date updated alpha ">
+        	<span class="value-title" title="2011-10-03T12:58">
+            <p class="default_date">
+            	<span class="month">Oct</span>
+                <span class="day">03</span>
+                            </p>
+                    </span></div>
+    		
+                
+                
+                
+		        <h1 class="post-title entry-title">
+			Команда source – как выполнить bash-скрипт не запуская второй процесс bash			        </h1>
+		
+				<div class="post-meta clearfix">
+			
+									<span class="printonly">Categories: </span>
+			<p class="meta_categories"><a href="http://my-it-notes.com/category/it-notes/linux/" rel="category tag">linux</a></p>
+						
+									
+									
+									<p class="post-author author vcard">
+				by <span class="fn nickname"><a href="http://my-it-notes.com/author/dkruglov/" class="url">admin</a></span>			</p>
+											
+						
+					</div>
+		
+				<div class="entry-content clearfix">
+							
+										
+						<p>В линукс-системах, в консоли, каждый скрипт запускается следующим образом:</p>
+<p>1) определяется необходимый интерпретатор для его выполнения (на основе указания-подсказки внутри самого файла, по расширению, и т.п.)<br>
+2) запускается новый процесс командного интерпретатора, в рамках которого и выполняются инструкции из скрипта<br>
+3) процесс-родитель, из которого была запущена новая копия интерпретатора приостанавливает свою работу<br>
+4) по выполнении всех инструкций дочерний процесс интерпретатора завершает свою работу<br>
+5) процесс-родитель возобновляет свою работу</p>
+<p>Почему это имеет значение? Представьте что у вас есть некоторая иерархическая система скриптов использующих одну переменную, значение которой определяется динамически, на основе нескольких параметров. Почему после запуска скрипта должным образом инициализированная и экспортированная переменная не доступна из консоли, из которой производился запуск и не может быть использована другими скприптами?</p>
+<p>У каждого процесса есть своя собственная среда окружения (в <span style="color: #000080;"><strong><a href="http://ru.wikipedia.org/wiki/%D0%A1%D1%80%D0%B5%D0%B4%D0%B0_%D0%BE%D0%BA%D1%80%D1%83%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F" onclick="_gaq.push([&#39;_trackEvent&#39;, &#39;outbound-article&#39;, &#39;http://ru.wikipedia.org/wiki/%D0%A1%D1%80%D0%B5%D0%B4%D0%B0_%D0%BE%D0%BA%D1%80%D1%83%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F&#39;, &#39;это&#39;]);" target="_blank">это</a></strong></span> понятие, кроме всего прочего, входят и переменные окружения).&nbsp;Когда мы в контексте дочернего процесса экспортировали переменную, она успешно сохранялась в переменных окружения дочернего процесса и существовала все время пока существовал сам дочерний процесс. По завершению дочернего процесса – когда были выполнены все команды из файла-скрипта, дочерний процесс завершился, вместе с чем его рабочее пространство со всеми экспортируемыми переменными также перестало существовать.</p>
+<p>В результате, если у вас есть скрипт test_export.sh следующего содержания<br>
+<span style="color: #000080;"><em>#!/bin/sh</em></span><br>
+<span style="color: #000080;"> <em> export MYVAR=”some value”;</em></span><br>
+то результатом следующей последовательности команд:</p>
+<p><span style="color: #000080;"><em>1) &nbsp;./test_export.sh</em></span><br>
+<span style="color: #000080;"> <em> 2) &nbsp;echo $MYVAR</em></span></p>
+<p>будет пустая строка – текущему экземпляру интерпретатора ничего не известно о только что завершившемся процессе интерпретатора, выполнявшего какие-то экспорты в свою среду окружения.</p>
+<p>Для того чтобы команды скрипта выполнялись в контексте текущего экземпляра интерпретатора необходимо<br>
+использовать команду “<span style="color: #000080;">source</span>” или его аналог команду “.” – да, команда точка.</p>
+<p><span style="color: #000080;"><em>1) . ./test_export.sh или&nbsp;source ./test_export.sh</em></span><br>
+<span style="color: #000080;"> <em> 2) echo $MYVAR</em></span></p>
+<p>Таким образом мы указываем интерпретатору не запускать дополнительный экземпляр для обработки комманд скрипта,а заняться им самому.</p>
+<p>А вообще, по-хорошему, переменные окружения должны устанавливаться специальными startup или pre-load-скриптами, выполняющимися при&nbsp;загрузке самой системы, x-window или нового экземпляра консоли – в зависимост от наших конкретных задач. Есть специальные утилиты для управления скриптами, выполняемыми при загрузке системы – update-rc.d, file-rc.&nbsp;Но, при острой необходимости управлять скриптами можно и голыми руками: гуглить “.bashrc”, “.bash_profile”, “.profile”, /etc/rc?.d/rc.N ).</p>
+			
+						
+						
+		</div>
+		
+				<div class="entry-footer clearfix">
+										<p class="post-tags">Tags: <a href="http://my-it-notes.com/tag/bash/" rel="tag">bash</a>, <a href="http://my-it-notes.com/tag/linux/" rel="tag">linux</a>, <a href="http://my-it-notes.com/tag/shell/" rel="tag">shell</a></p>
+						
+						
+					</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<div id="comment-form-wrap" class="clearfix">
+										<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://my-it-notes.com/2011/10/how-to-execute-bash-script-in-current-console-environment-using-source-command/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://my-it-notes.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																			<p class="comment-notes">Your email address will not be published. Required fields are marked <span class="required">*</span></p>							<p class="comment-form-author clearfix">
+						<label for="author" class="graphene_form_label">Name: <span class="required">*</span></label>
+						<input id="author" name="author" type="text" class="graphene-form-field" aria-required="true" value="">
+					</p>
+<p class="comment-form-email clearfix">
+						<label for="email" class="graphene_form_label">Email: <span class="required">*</span></label>
+						<input id="email" name="email" type="text" class="graphene-form-field" aria-required="true" value="">
+					</p>
+<p class="comment-form-url clearfix">
+						<label for="url" class="graphene_form_label">Website: </label>
+						<input id="url" name="url" type="text" class="graphene-form-field" value="">
+					</p>
+												<p class="comment-form-message comment-form-comment clearfix">
+										<label class="graphene_form_label" for="comment">Message: <span class="required">*</span></label>
+										<textarea name="7a5fb-comment" id="comment" cols="40" rows="20" class="graphene-form-field" aria-required="true"></textarea><textarea name="comment" style="display:none" rows="1" cols="1"></textarea>
+									 </p>						<p class="form-allowed-tags">You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes: <code>&lt;a href="" title=""&gt; &lt;abbr title=""&gt; &lt;acronym title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;strike&gt; &lt;strong&gt; </code></p>						<p class="form-submit">
+							<input name="submit" type="submit" id="submit" value="Submit Comment">
+							<input type="hidden" name="comment_post_ID" value="486" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+						</p>
+						<div class="clear"></div>					</form>
+							</div><!-- #respond -->
+				</div>
+    
+
+            
+  
+    </div><!-- #content-main -->
+    
+    	
+    
+<div id="sidebar1" class="sidebar grid_5">
+
+	
+    <div id="search-3" class="sidebar-wrap clearfix widget_search"><h3>Поиск</h3><form id="searchform" class="searchform" method="get" action="http://my-it-notes.com/">
+    <p class="clearfix default_searchform">
+        <input type="text" name="s" onblur="if (this.value == &#39;&#39;) {this.value = &#39;Search&#39;;}" onfocus="if (this.value == &#39;Search&#39;) {this.value = &#39;&#39;;}" value="Search">
+        <button type="submit"><span>Search</span></button>
+    </p>
+    </form></div><div id="categories-3" class="sidebar-wrap clearfix widget_categories"><h3>Категории</h3>		<ul>
+	<li class="cat-item cat-item-73"><a href="http://my-it-notes.com/category/it-notes/">IT-Заметки</a> (72)
+<ul class="children">
+	<li class="cat-item cat-item-8"><a href="http://my-it-notes.com/category/it-notes/linux/">linux</a> (10)
+</li>
+	<li class="cat-item cat-item-58"><a href="http://my-it-notes.com/category/it-notes/mac-2/">Mac</a> (1)
+</li>
+	<li class="cat-item cat-item-18"><a href="http://my-it-notes.com/category/it-notes/windows/">windows</a> (3)
+</li>
+	<li class="cat-item cat-item-3"><a href="http://my-it-notes.com/category/it-notes/%d0%bf%d1%80%d0%be%d0%b3%d1%80%d0%b0%d0%bc%d0%bc%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5/">Программирование</a> (60)
+	<ul class="children">
+	<li class="cat-item cat-item-48"><a href="http://my-it-notes.com/category/it-notes/%d0%bf%d1%80%d0%be%d0%b3%d1%80%d0%b0%d0%bc%d0%bc%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5/c-sharp/">c sharp</a> (2)
+</li>
+	<li class="cat-item cat-item-7"><a href="http://my-it-notes.com/category/it-notes/%d0%bf%d1%80%d0%be%d0%b3%d1%80%d0%b0%d0%bc%d0%bc%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5/c/">c++</a> (4)
+</li>
+	<li class="cat-item cat-item-4"><a href="http://my-it-notes.com/category/it-notes/%d0%bf%d1%80%d0%be%d0%b3%d1%80%d0%b0%d0%bc%d0%bc%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5/java/">Java</a> (16)
+		<ul class="children">
+	<li class="cat-item cat-item-5"><a href="http://my-it-notes.com/category/it-notes/%d0%bf%d1%80%d0%be%d0%b3%d1%80%d0%b0%d0%bc%d0%bc%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5/java/android/">android</a> (11)
+</li>
+	<li class="cat-item cat-item-6"><a href="http://my-it-notes.com/category/it-notes/%d0%bf%d1%80%d0%be%d0%b3%d1%80%d0%b0%d0%bc%d0%bc%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5/java/openoffice/">openoffice</a> (3)
+</li>
+		</ul>
+</li>
+	<li class="cat-item cat-item-52"><a href="http://my-it-notes.com/category/it-notes/%d0%bf%d1%80%d0%be%d0%b3%d1%80%d0%b0%d0%bc%d0%bc%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5/%d0%b0%d0%bb%d0%b3%d0%be%d1%80%d0%b8%d1%82%d0%bc%d1%8b/">Алгоритмы</a> (2)
+</li>
+	<li class="cat-item cat-item-123"><a href="http://my-it-notes.com/category/it-notes/%d0%bf%d1%80%d0%be%d0%b3%d1%80%d0%b0%d0%bc%d0%bc%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5/computer-vision-%d0%bf%d1%80%d0%be%d0%b3%d1%80%d0%b0%d0%bc%d0%bc%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5/">компьютерное зрение</a> (9)
+</li>
+	<li class="cat-item cat-item-13"><a href="http://my-it-notes.com/category/it-notes/%d0%bf%d1%80%d0%be%d0%b3%d1%80%d0%b0%d0%bc%d0%bc%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5/%d0%ba%d1%80%d0%be%d1%81%d1%81%d0%bf%d0%bb%d0%b0%d1%82%d1%84%d0%be%d1%80%d0%bc%d0%b5%d0%bd%d0%bd%d0%b0%d1%8f-%d1%80%d0%b0%d0%b7%d1%80%d0%b0%d0%b1%d0%be%d1%82%d0%ba%d0%b0/">кроссплатформенная разработка</a> (2)
+</li>
+	</ul>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-1"><a href="http://my-it-notes.com/category/uncategorized/">Uncategorized</a> (11)
+</li>
+	<li class="cat-item cat-item-15"><a href="http://my-it-notes.com/category/%d0%bf%d1%80%d0%be%d1%86%d0%b5%d1%81%d1%81-%d1%80%d0%b0%d0%b7%d1%80%d0%b0%d0%b1%d0%be%d1%82%d0%ba%d0%b8/">Процесс разработки</a> (3)
+</li>
+		</ul>
+</div>		<div id="recent-posts-3" class="sidebar-wrap clearfix widget_recent_entries">		<h3>Последние заметки</h3>		<ul>
+					<li>
+				<a href="http://my-it-notes.com/2013/11/templates-in-plain-c/">Templates in plain C</a>
+							<span class="post-date">November 10, 2013</span>
+						</li>
+					<li>
+				<a href="http://my-it-notes.com/2013/10/list-of-books-for-grow-as-programmer/">Что почитать для проф развития программисту</a>
+							<span class="post-date">October 12, 2013</span>
+						</li>
+					<li>
+				<a href="http://my-it-notes.com/2013/10/programmer-newbie-book-set/">Что почитать начинающему программисту</a>
+							<span class="post-date">October 11, 2013</span>
+						</li>
+					<li>
+				<a href="http://my-it-notes.com/2013/06/bases-of-gpu-optimisation/">GPU-оптимизация – прописные истины</a>
+							<span class="post-date">June 28, 2013</span>
+						</li>
+					<li>
+				<a href="http://my-it-notes.com/2013/06/gpu-processing-intro-cuda-opencl/">Введение в GPU-вычисления – CUDA/OpenCL</a>
+							<span class="post-date">June 16, 2013</span>
+						</li>
+				</ul>
+		</div><div id="tag_cloud-4" class="sidebar-wrap clearfix widget_tag_cloud"><h3>Облако тегов</h3><div class="tagcloud"><a href="http://my-it-notes.com/tag/android/" class="tag-link-5" title="12 topics" style="font-size: 17.295081967213pt;">android</a>
+<a href="http://my-it-notes.com/tag/bash/" class="tag-link-11" title="2 topics" style="font-size: 10.065573770492pt;">bash</a>
+<a href="http://my-it-notes.com/tag/browser/" class="tag-link-25" title="1 topic" style="font-size: 8pt;">browser</a>
+<a href="http://my-it-notes.com/tag/build-tricks/" class="tag-link-119" title="2 topics" style="font-size: 10.065573770492pt;">build tricks</a>
+<a href="http://my-it-notes.com/tag/c/" class="tag-link-7" title="5 topics" style="font-size: 13.508196721311pt;">c++</a>
+<a href="http://my-it-notes.com/tag/codesys/" class="tag-link-27" title="1 topic" style="font-size: 8pt;">codesys</a>
+<a href="http://my-it-notes.com/tag/computer-vision/" class="tag-link-88" title="10 topics" style="font-size: 16.491803278689pt;">computer vision</a>
+<a href="http://my-it-notes.com/tag/c-sharp/" class="tag-link-48" title="2 topics" style="font-size: 10.065573770492pt;">c sharp</a>
+<a href="http://my-it-notes.com/tag/data-recovery/" class="tag-link-41" title="1 topic" style="font-size: 8pt;">data recovery</a>
+<a href="http://my-it-notes.com/tag/education/" class="tag-link-37" title="1 topic" style="font-size: 8pt;">education</a>
+<a href="http://my-it-notes.com/tag/free-fonts/" class="tag-link-31" title="1 topic" style="font-size: 8pt;">free fonts</a>
+<a href="http://my-it-notes.com/tag/google-map/" class="tag-link-30" title="1 topic" style="font-size: 8pt;">google map</a>
+<a href="http://my-it-notes.com/tag/gpu/" class="tag-link-124" title="2 topics" style="font-size: 10.065573770492pt;">GPU</a>
+<a href="http://my-it-notes.com/tag/java/" class="tag-link-4" title="12 topics" style="font-size: 17.295081967213pt;">Java</a>
+<a href="http://my-it-notes.com/tag/java-script/" class="tag-link-33" title="1 topic" style="font-size: 8pt;">java-script</a>
+<a href="http://my-it-notes.com/tag/keytool/" class="tag-link-29" title="1 topic" style="font-size: 8pt;">keytool</a>
+<a href="http://my-it-notes.com/tag/kindle/" class="tag-link-70" title="2 topics" style="font-size: 10.065573770492pt;">kindle</a>
+<a href="http://my-it-notes.com/tag/kinect/" class="tag-link-86" title="4 topics" style="font-size: 12.590163934426pt;">kinect</a>
+<a href="http://my-it-notes.com/tag/kinect-fusion/" class="tag-link-101" title="2 topics" style="font-size: 10.065573770492pt;">kinect fusion</a>
+<a href="http://my-it-notes.com/tag/linux/" class="tag-link-8" title="7 topics" style="font-size: 14.885245901639pt;">linux</a>
+<a href="http://my-it-notes.com/tag/online-cources/" class="tag-link-38" title="1 topic" style="font-size: 8pt;">online cources</a>
+<a href="http://my-it-notes.com/tag/online-tools/" class="tag-link-26" title="1 topic" style="font-size: 8pt;">online tools</a>
+<a href="http://my-it-notes.com/tag/openoffice/" class="tag-link-6" title="3 topics" style="font-size: 11.44262295082pt;">openoffice</a>
+<a href="http://my-it-notes.com/tag/oracle/" class="tag-link-61" title="2 topics" style="font-size: 10.065573770492pt;">oracle</a>
+<a href="http://my-it-notes.com/tag/parallel-computing/" class="tag-link-125" title="2 topics" style="font-size: 10.065573770492pt;">parallel computing</a>
+<a href="http://my-it-notes.com/tag/programming/" class="tag-link-10" title="30 topics" style="font-size: 21.655737704918pt;">programming</a>
+<a href="http://my-it-notes.com/tag/pure-c/" class="tag-link-95" title="4 topics" style="font-size: 12.590163934426pt;">Pure C</a>
+<a href="http://my-it-notes.com/tag/remote/" class="tag-link-21" title="1 topic" style="font-size: 8pt;">remote</a>
+<a href="http://my-it-notes.com/tag/shell/" class="tag-link-36" title="1 topic" style="font-size: 8pt;">shell</a>
+<a href="http://my-it-notes.com/tag/snmp/" class="tag-link-22" title="1 topic" style="font-size: 8pt;">snmp</a>
+<a href="http://my-it-notes.com/tag/ssh/" class="tag-link-40" title="1 topic" style="font-size: 8pt;">ssh</a>
+<a href="http://my-it-notes.com/tag/ssl/" class="tag-link-35" title="2 topics" style="font-size: 10.065573770492pt;">ssl</a>
+<a href="http://my-it-notes.com/tag/trap/" class="tag-link-23" title="1 topic" style="font-size: 8pt;">trap</a>
+<a href="http://my-it-notes.com/tag/user-agent/" class="tag-link-24" title="1 topic" style="font-size: 8pt;">user-agent</a>
+<a href="http://my-it-notes.com/tag/vim/" class="tag-link-19" title="1 topic" style="font-size: 8pt;">vim</a>
+<a href="http://my-it-notes.com/tag/virtualization/" class="tag-link-50" title="2 topics" style="font-size: 10.065573770492pt;">virtualization</a>
+<a href="http://my-it-notes.com/tag/windows/" class="tag-link-18" title="4 topics" style="font-size: 12.590163934426pt;">windows</a>
+<a href="http://my-it-notes.com/tag/x-server/" class="tag-link-20" title="1 topic" style="font-size: 8pt;">x-server</a>
+<a href="http://my-it-notes.com/tag/%d0%ba%d0%be%d0%bc%d0%bf%d1%8c%d1%8e%d1%82%d0%b5%d1%80%d0%bd%d0%be%d0%b5-%d0%b7%d1%80%d0%b5%d0%bd%d0%b8%d0%b5/" class="tag-link-87" title="10 topics" style="font-size: 16.491803278689pt;">компьютерное зрение</a>
+<a href="http://my-it-notes.com/tag/%d0%ba%d1%80%d0%be%d1%81%d1%81%d0%bf%d0%bb%d0%b0%d1%82%d1%84%d0%be%d1%80%d0%bc%d0%b5%d0%bd%d0%bd%d0%be%d1%81%d1%82%d1%8c/" class="tag-link-81" title="3 topics" style="font-size: 11.44262295082pt;">кроссплатформенность</a>
+<a href="http://my-it-notes.com/tag/%d0%be-%d0%bc%d0%be%d0%b9-%d0%bc%d0%be%d1%81%d0%ba/" class="tag-link-104" title="3 topics" style="font-size: 11.44262295082pt;">о мой моск</a>
+<a href="http://my-it-notes.com/tag/%d0%bf%d0%bb%d0%ba/" class="tag-link-28" title="1 topic" style="font-size: 8pt;">плк</a>
+<a href="http://my-it-notes.com/tag/%d0%bf%d1%80%d0%be%d0%b3%d1%80%d0%b0%d0%bc%d0%bc%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5-2/" class="tag-link-9" title="32 topics" style="font-size: 22pt;">программирование</a>
+<a href="http://my-it-notes.com/tag/%d1%81%d0%b0%d0%bc%d0%be%d0%be%d0%b1%d1%80%d0%b0%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5/" class="tag-link-39" title="2 topics" style="font-size: 10.065573770492pt;">самообразование</a>
+<a href="http://my-it-notes.com/tag/%d1%81%d1%81%d1%8b%d0%bb%d0%ba%d0%b8/" class="tag-link-55" title="2 topics" style="font-size: 10.065573770492pt;">ссылки</a></div>
+</div>    
+        
+    
+</div><!-- #sidebar1 -->    
+    
+</div><!-- #content -->
+
+
+
+<div id="footer" class="clearfix">
+    
+        <div id="copyright">
+    	<h3>Copyright</h3>
+		        	<p>© 2011-2013 Мои IT-заметки.</p>
+ 	            
+        
+    	    </div>
+
+		<div class="footer-menu-wrap">
+    	<ul id="footer-menu" class="clearfix">
+			                    	<li class="menu-item return-top"><a href="http://my-it-notes.com/2011/10/how-to-execute-bash-script-in-current-console-environment-using-source-command/#">Return to top</a></li>
+                    </ul>
+    </div>
+    	
+        <div id="developer" class="grid_7">
+        <p>
+        Powered by <a href="http://wordpress.org/">WordPress</a> and the <a href="http://www.graphene-theme.com/">Graphene Theme</a>.        </p>
+
+	    </div>
+        
+    </div><!-- #footer -->
+
+
+</div><!-- #container -->
+
+    </div><!-- .bg-gradient -->
+
+	<!--[if IE 8]>
+    <script type="text/javascript">
+        (function($) {
+            var imgs, i, w;
+            var imgs = document.getElementsByTagName( 'img' );
+            maxwidth = 0.98 * $( '.entry-content' ).width();
+            for( i = 0; i < imgs.length; i++ ) {
+                w = imgs[i].getAttribute( 'width' );
+                if ( w > maxwidth ) {
+                    imgs[i].removeAttribute( 'width' );
+                    imgs[i].removeAttribute( 'height' );
+                }
+            }
+        })(jQuery);
+    </script>
+    <![endif]-->
+<script type="text/javascript" src="./Команда source – как выполнить bash-скрипт не запуская второй процесс bash   Мои IT-заметки_files/jquery.form.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var _wpcf7 = {"loaderUrl":"http:\/\/my-it-notes.com\/wp-content\/plugins\/contact-form-7\/images\/ajax-loader.gif","sending":"Sending ..."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Команда source – как выполнить bash-скрипт не запуская второй процесс bash   Мои IT-заметки_files/scripts.js"></script>
+<script type="text/javascript" src="./Команда source – как выполнить bash-скрипт не запуская второй процесс bash   Мои IT-заметки_files/comment-reply.min.js"></script>
+
+</body></html>

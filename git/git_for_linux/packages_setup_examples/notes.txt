@@ -1,0 +1,27 @@
+пример конфига для grunt-contrib-cssmin
+
+здесь после ручного запуска грунт берёт файл из dev и помещает в prod. при этом добавляет расширение min
+
+module.exports = function(grunt) {
+    'use strict';
+
+    grunt.initConfig({
+        cssmin: {
+          target: {
+            files: [{
+              expand: true,
+              cwd: 'dev/css',           // catalog source
+              src: ['styles.css'],    // filename
+              dest: 'prod/css',          // catalog destination
+              ext: '.min.css'       //extension add 
+            }]
+          }
+        } 
+    });
+
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+
+    grunt.registerTask('default', [
+        'cssmin'
+    ]);
+}

@@ -1,0 +1,63 @@
+<html>
+	<head>
+		<script language="JavaScript">
+
+			var source;
+			var style;
+
+			//Функция инициализации необходимых объектов. В этой же функции выводится первоначальный вариант на экран. 
+			function init() {
+
+			//Создаем объект для файла - источника данных. 
+			source = new ActiveXObject("Microsoft.XMLDOM");
+			source.async = false;
+
+			//Создаем объект для файла с шаблоном преобразования (для файла стиля). 
+			style = new ActiveXObject("Microsoft.XMLDOM");
+			style.async = false;
+
+			//Загружаем записи в файл - источник данных.Записи берем из существующего XML-файла. 
+			source.load("ex05-1.xml");
+
+			//Загружаем файл стиля. Первоначальная сортировка - по цвету. 
+			style.load("ex05-1c.xsl");
+
+			//Теперь нам нужно вывести информацию на экран. Внимательно проанализируйте синтаксис и запомните его. 
+			document.all.item("xslresult").innerHTML = source.transformNode(style); return true; } 
+
+			//Сортируем записи по кличке. 
+			function orderByNick() {
+			style.load("ex05-1a.xsl");
+			document.all.item("xslresult").innerHTML = source.transformNode(style);
+			return true;
+			}
+
+			//Сортируем записи по весу. 
+			function orderByWeight() {
+			style.load("ex05-1b.xsl");
+			document.all.item("xslresult").innerHTML = source.transformNode(style);
+			return true;
+			}
+
+			//Сортируем записи по цвету. 
+			function orderByColor() {
+			style.load("ex05-1c.xsl");
+			document.all.item("xslresult").innerHTML = source.transformNode(style);
+			return true;
+			}
+
+		</script>
+	</head>
+
+
+	<body onLoad="init()">
+		<span onclick="orderByNick()">ccc</span>
+		<span onclick="orderByColor()">ccc</span>
+		<span onclick="orderByWeight()">ccc</span>
+		
+		<div id="xslresult">
+			<!-- Здесь будет размещаться окончательный вариант HTML-содержимого  -->
+			
+		</div>
+	</body>
+</html>

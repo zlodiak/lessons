@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head><meta http-equiv="content-type" content="text/html; charset=utf-8" /><meta http-equiv="content-language" content="ru" /><title>Jquery Ajax отправка и валидация формы</title><meta name="Keywords" content="ajax, jquery, валидация, формы, капча" /><meta name="Description" content="Отправка данных из формы, без перезагрузки страницы с проверкой отправляемых данных и выводом ошибок при неудачной проверке" />
+<script type="text/javascript" src="/files/fancy/jquery-1.10.1.min.js"></script>
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" /><link rel="shortcut icon" type="image/vnd.microsoft.icon" href="/favicon.ico" />
+<link rel="stylesheet" type="text/css" href="/design/style.css" media="all" />
+<script src="/files/jquery-1.11.1.min.js" type="text/javascript"></script>
+<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script><![endif]-->
+<script type="text/javascript">
+$(function(){
+	var n = Math.floor(Math.random() * (27 - 1 + 1)) + 1;
+	$('body').css('background-image','url("/design/day/ (' + n + ').png")');
+	$("header select.phone-menu").change(function() {
+	window.location = $(this).find("option:selected").val();
+});
+});
+</script>
+</head>
+<body><noscript class="noscript cf">Для корректного отображения сайта в вашем браузере необходимо включить JavaScript. <a target="_blank" href="http://www.enable-javascript.com/ru/">Как включить? Инструкция!</a></noscript>
+<header class="cf"><div class="search"><form method="get" action="/search/"><input type="text" name="q" /><input type="submit" value="Искать" /></form></div><a href="/"><div class="logotype"></div></a><select class="phone-menu"> 
+    <option selected="selected">Навигация по сайту</option> 
+    <option value="/">Главная</option>
+    <option value="/helloworld/">Услуги</option>
+    <option value="/torrent-search/">Поиск торрентов</option>
+    <option value="/showtime/">ShowTime</option>
+    <option value="/icq-anonymous/">Анонимные ICQ</option>
+    <option value="/sitemap/">Карта сайта</option>
+    <option disabled>-- Рубрики блога</option>
+    <option value="/article/www/">CSS, HTML, PHP, JS</option>
+    <option value="/article/unix/">Unix-системы</option>
+    <option value="/article/enlightening/">ПсихоБиоЛогия</option>
+    <option value="/article/goodknow/">Полезно знать</option>
+    <option value="/article/seo/">Seo продвижение</option>
+    <option value="/article/kratko/">По мелочи</option>
+  </select></header>
+<div class="width-wrapper cf">
+<main><h1><a title="Jquery Ajax отправка и валидация формы" rel="bookmark" href="">Jquery Ajax отправка и валидация формы</h1></a><article><div style="text-align:center;"><a title="Jquery Ajax отправка и валидация формы" href="/article/jquery-ajax-submit-validate-form/"><img src="/upload/dir1/jquery-ajax-submit-validate-form.jpg" alt="Jquery Ajax" title="Jquery Ajax отправка и валидация формы"></a></div><br />
+В этой статье Вы узнаете, как отправлять данные из формы методом post, с помощью jquery, используя плагин jquery.form. Также я покажу, как провести предварительную проверку данных, с помощью плагина jquery.validate. Ваши пользователи будут довольны, больше не будет лишней перезагрузки страниц.<br /><br />
+Для работы понадобится библиотека <a title="jquery" href="/go.php?http://jquery.com/download/" target="_blank">Jquery</a>, плагины <a title="jquery form" href="/go.php?http://plugins.jquery.com/form/" target="_blank">Jquery.form</a> и <a title="jquery validation" href="/go.php?http://docs.jquery.com/Plugins/Validation" target="_blank">Jquery.validate</a>. Подключите их между тегами &lt;head&gt; и &lt;/head&gt;.<br /><br />
+<h2>Готовый пример будет выглядить так</h2>
+<pre><code class="language-javascript">
+&lt;script type=&quot;text/javascript&quot; src=&quot;jquery.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;jquery.form.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;jquery.validate.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+	$(&apos;document&apos;).ready(function(){
+		$(&apos;#form&apos;).validate(
+		{	
+			//Правила
+			rules:{
+				&quot;title&quot;:{ required:true, maxlength:40 },
+				&quot;text&quot;:{ required:true }
+			},
+			//Текста предупреждений
+			messages:{
+				&quot;title&quot;:{ required:&quot;&lt;br/&gt;&lt;span style=&apos;color:red;&apos;&gt;Обязательное поле!&lt;/a&gt;&quot;, 
+maxlength: &quot;&lt;br/&gt;&lt;span style=&apos;color:red;&apos;&gt;Максимальное кол-во символов 40 единиц!&lt;/a&gt;&quot; },
+				&quot;text&quot;:{ required:&quot;&lt;br/&gt;&lt;span style=&apos;color:red;&apos;&gt;Обязательное поле!&lt;/a&gt;&quot; }
+			},
+			//Обработчик и отправка данных
+			submitHandler: function(form){
+				$(form).ajaxSubmit({
+					target: &apos;#result&apos;, 
+					success: function() { 
+						$(&apos;#FormBox&apos;).slideUp(&apos;fast&apos;); 
+					} 
+				}); 
+			}
+
+
+		})
+	});
+&lt;/script&gt;
+
+
+&lt;div id=&quot;result&quot;&gt;&lt;/div&gt;
+&lt;div id=&quot;FormBox&quot;&gt; 
+	&lt;form id=&quot;form&quot; action=&quot;php-obrabotka.php&quot; method=&quot;post&quot;&gt;
+		&lt;p&gt;&lt;label&gt;Заголовок&lt;/label&gt;&lt;br/&gt;
+			&lt;input type=&quot;text&quot; name=&quot;title&quot; /&gt;&lt;/p&gt;
+		&lt;p&gt;&lt;label&gt;Текст&lt;/label&gt;&lt;br/&gt;
+			&lt;textarea name=&quot;text&quot;&gt;&lt;/textarea&gt;&lt;/p&gt;
+		&lt;p&gt;&lt;input type=&quot;submit&quot; value=&quot; Отправить &quot; /&gt;&lt;/p&gt;
+	&lt;/form&gt;
+&lt;/div&gt;
+</code></pre><br />
+<h2>Разбор примера</h2>
+В данном примере, я завернул инициализацию отправки &quot;$(form).ajaxSubmit()&quot;, в функцию валидации(проверки) &quot;$('#form').validate()&quot; формы. Если проверка будет пройдена, то форма отправится.<br /><br />
+1. Для начала нам нужно настроить &quot;rules:{...}&quot; (правила), для этого нужно использовать имена элементов формы, т.е. содержимое атрибута name у input, textarea и т.д., а также методы валидации. Как видно в примере, для элемента &quot;title&quot;, установлены методы &quot;required&quot; и &quot;maxlength&quot;, первый обязывает использовать элемент, а второй указывает на максимальное количество введённых символов.<br /><br />
+2. Далее смотрим на messages:{...} (текста предупреждений). На каждый элемент формы, к каждому методу валидации, можно настроить сообщение указывающее на причину провала проверки. К примеру, на элементе &quot;text&quot;, на метод проверки &quot;maxlength&quot;, установлено сообщение &quot;Максимальное кол-во символов 40 едениц!&quot;. Это сообщение появится рядом с элементом, при неудачной проверке отправляемых данных.<br /><br />
+3. В примере есть div с id равным &quot;FormBox&quot;, это нужно для того, чтобы при удачной отправке данных скрыть содержимое div, а точнее форму отправки. Тег div с id равным &quot;result&quot;, напротив, покажет результат после удачной отправки формы. Результат будет отображением вывода из файла &quot;php-obrabotka.php&quot;, которому мы пошлём прошедшие валидацию данные, указав название файла в атрбибуте &quot;action&quot;, тега &quot;form&quot;.<br /><br />
+4. Файл &quot;php-obrabotka.php&quot;, получит данные методом POST, после чего их можно обработать, записать в базу и вывести сообщение об удачном действии пользователя.<br /><br />
+<h2>Методы валидации</h2>
+Плагин Jquery.validate, имеет несколько методов проверки, вот некоторые из них:<br />required - обязательно для заполнения<br />minlength - максимальное кол-во введённых символов<br />maxlength - минимальное кол-во введённых символов<br />email - проверка введённого email<br />url - проверка введённого веб-адреса<br />number - поле только для цифр<br /><br />Это лишь малая часть методов, полный список смотрите на оффициальном сайте jquery, на <a target="_blank" title="jquery.validate" href="/go.php?http://docs.jquery.com/Plugins/Validation">странице плагина</a>.
+<div class="article-info cf">
+<div class="box"><div><p>Опубликовано</p>19&nbsp;Марта&nbsp;2013</div><div><p>Рубрика</p><a href="/article/www/" rel="chapter" title="Рубрика Веб Программирование">Веб Программирование</div><div><p>Теги</p></div></div>
+<div class="box"><div><p>Похожие материалы</p><ul></ul></div></div>
+<div data-description="Отправка данных из формы, без перезагрузки страницы с проверкой отправляемых данных и выводом ошибок при неудачной проверке" data-title="Jquery Ajax отправка и валидация формы" data-url="http://makefuture.net/article/jquery-ajax-submit-validate-form/" class="pluso" data-background="#7cdaf3" data-options="medium,round,line,horizontal,nocounter,theme=01" data-services="vkontakte,odnoklassniki,facebook,twitter,google,blogger,moimir,email" data-user="874840852"></div>
+</div><a name="article_cmnt"></a>
+<div class="article-cmnt"><h2>Комментарии и отзывы к материалу</h2><div class="title"><p>26.04.2013</p>вадим пишет:</div><div class="content">коммент</div><div class="title"><p>17.07.2013</p>Володя пишет:</div><div class="content">отличная статья</div><div class="title"><p>22.07.2013</p>Валентина пишет:</div><div class="content">Что означает &quot;слово с картинки&quot;, как эту картинку расшифровывать?3</div><div class="title"><p>22.07.2013</p>Сергей пишет:</div><div class="content">Хорошая статья</div><div class="title"><p>26.07.2013</p>Guest пишет:</div><div class="content">Исправь ошибку во фразе &quot;В данном примИре&quot;</div><div class="title"><p>27.07.2013</p>Григорий (MakeFuture) пишет:</div><div class="content">Спасибо, исправил!</div><div class="title"><p>15.10.2013</p>Re пишет:</div><div class="content">Eeeeeeeeeeeee</div><div class="title"><p>19.12.2013</p>это я пишет:</div><div class="content">Я проверил комментарий</div><div class="title"><p>13.03.2014</p>Дмитрий пишет:</div><div class="content">Проверка связи!</div><div class="title"><p>15.05.2014</p>Тарлан пишет:</div><div class="content">А как проверить с регулярными выражениями? Где pattern</div></div>
+<!--noindex-->
+<div class="article-sendcmnt"><h2>Отправить комментарий</h2>
+<p>Как зовут?</p>
+<input type="text" value="" required />
+<p>Сообщение</p>
+<textarea required></textarea><br />
+<button>ОТПРАВИТЬ</button><div class="result"></div>
+</div>
+<!--/noindex-->
+<script type="text/javascript">
+$(function(){
+	$('.article-sendcmnt').on('click', 'button:not(.current)', function(){
+	var i = $(".article-sendcmnt textarea").val().length;
+	if ( i < 5) return false;
+	$('.article-sendcmnt button').hide();$('.article-sendcmnt .result').addClass('loading');
+	$.ajax({
+		url: "/ajax/articlesendcmnt.php",
+		global: false,
+		type: "POST",
+		data: ({author : $('.article-sendcmnt input').val(),content :$('.article-sendcmnt textarea').val(),'id':'45'}),
+		dataType: "html",
+		success: function(msg){$('.article-sendcmnt input,textarea').attr('disabled','disabled');$('.article-sendcmnt .result').removeClass('loading').addClass('current').animate({width:'400px'},500).html(msg);}
+		});
+	});
+});
+</script></article></main>
+<aside>
+	<nav class="block">
+		<div class="title">Меню</div>
+		<a href="/"><div>Главная</div></a>
+		<a href="/helloworld/"><div>Услуги</div></a>
+		<a href="/torrent-search/"><div>Поиск торрентов</div></a>
+		<a href="/showtime/"><div>ShowTime</div></a>
+		<a href="/icq-anonymous/"><div>Анонимные ICQ</div></a>
+		<a href="/sitemap/"><div>Карта сайта</div></a>
+	</nav>
+	<nav class="block">
+		<div class="title">Рубрики</div>
+		<a href="/article/www/"><div>CSS, HTML, PHP, JS</div></a>
+		<a href="/article/unix/"><div>Unix-системы</div></a>
+		<a href="/article/enlightening/"><div>ПсихоБиоЛогия</div></a>
+		<a href="/article/goodknow/"><div>Полезно знать</div></a>
+		<a href="/article/seo/"><div>Seo продвижение</div></a>
+		<a href="/article/kratko/"><div>По мелочи</div></a>
+	</nav>
+	<ul class="block subscribe-block">
+		<li class="rss"><a href="http://feeds.feedburner.com/makefuture">Подписаться на RSS</a></li>
+		<li class="email"><a href="http://feedburner.google.com/fb/a/mailverify?uri=makefuture&amp;loc=ru_RU">Получать на E-mail</a></li>
+		<li class="twitter"><a href="https://twitter.com/MakeFutureBlog">Следить в Twitter</a></li>
+		<li class="gplus"><a title="Я на Google Plus" href="https://plus.google.com/104442013901179877985" rel="author">Я на Google Plus</a></li>
+	</ul>
+</aside>
+</div>
+<footer>Written on makefuture.net in 2012-2014<br /><a href="mailto:webmaster@makefuture.net" title="Связь со мной">webmaster@makefuture.net</a></footer>
+<script type="text/javascript">(function() {
+  if (window.pluso)if (typeof window.pluso.start == "function") return;
+  if (window.ifpluso==undefined) { window.ifpluso = 1;
+    var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+    s.type = 'text/javascript'; s.charset='UTF-8'; s.async = true;
+    s.src = ('https:' == window.location.protocol ? 'https' : 'http')  + '://share.pluso.ru/pluso-like.js';
+    var h=d[g]('body')[0];
+    h.appendChild(s);
+  }})();</script>
+<script src="/files/prism.js" type="text/javascript"></script>
+<script src="/files/rem.min.js" type="text/javascript"></script>
+<!-- Yandex.Metrika counter --><script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter25407377 = new Ya.Metrika({id:25407377, webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true, ut:"noindex"}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/25407377?ut=noindex" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter --></body></html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html>
+	<head>    
+		<meta charset="utf-8" />
+		
+		<title></title>
+		
+		<!--[if lt IE 9]>
+			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->	
+
+		<!--<link rel="icon" href="favicon.ico" type="image/x-icon" />-->	
+
+		<link rel="stylesheet" href="css/style.css" />			
+		<link rel="stylesheet" href="css/jquery-ui-1.9.2.custom.css" />	
+		
+		<style>
+			.ui-icon-plus{
+				background: red;
+			}
+			
+			
+			.ui-icon-minus{
+				background: lime;
+			}			
+		</style>
+	</head>
+
+	<body>		
+		<div id="slider"></div>
+		
+		<hr />
+		
+		<div id="slider2"></div>
+
+		<hr />	
+		
+		<p>
+		  <label for="amount">Price range:</label>
+		  <input type="text" id="amount" style="border: 0; color: #f6931f; font-weight: bold;" />
+		</p>
+		 
+		<div id="slider-range"></div>
+
+		<hr />			
+
+		<script src="js/jquery-1.8.3.js"></script>
+		<script src="js/jquery-ui-1.9.2.custom.min.js"></script>
+
+		
+		<script>
+			$( "#slider" ).slider();
+			
+			$( "#slider2" ).slider({
+				orientation: 'vertical'
+			});
+			
+			$(function() {
+				$( "#slider-range" ).slider({
+				  range: true,
+				  min: 0,
+				  max: 500,
+				  values: [ 75, 300 ],
+				  slide: function( event, ui ) {
+					$( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+				  }
+				});
+				$( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+				  " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+			});			
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,353 @@
+﻿==============================
+чанки
+	- это куски статичного кода, в них могут встречаться динамические участки(плэйсхольдеры). обычно чанки встраивают в шаблон напрямую
+
+==============================
+TV (переменные шаблона)
+	- это кастромные переменные, привязанные к шаблону. тип входных и выходных данных указывается. так же указывается  доступный шаблон.
+	например с помощью них можно сделать несколько областей контента на одной странице и вывести их.
+	выводятся в самом шаблоне примерно так:
+			[[*content]]	
+
+			[[*welcome]]
+
+			[[*news]]
+			
+			[[*image]]		
+			
+	TV можно использовать не только в шаблоне, но и в документе!		
+
+==============================
+getResources
+
+создать шаблон для страницы со списком статей
+создать шаблон для конкретной статьи
+создать чанк, для страницы со списком статей
+создать страницу для раздела блог, назначить ей шаблон для страницы со списком статей
+создать несколько статей(лучше, если они будут дочерними страницами страницы блог). назначить им шаблон для конкретной статьи
+в область контента создать страницы для раздела блог добавить сниппет. примерно такой [[!getResources? &tpl=`articleTpl` &includeContent=`1` &showHidden=`1` ]]
+
+не забыть разобраться с галочками к "опубликовано", "показывать в меню"
+
+ещё один базовый вызов:
+	[[!getResources?
+		&showHidden=`1`
+		&tpl=`spisokTpl`
+		&limit=`100`
+		&includeContent=`1`
+		&includeTVs=`1`
+		&processTVs=`1`
+		&parents=`28`
+		&depth=`1`
+	]]
+
+==============================
+formIt
+
+поместить в область контента целевой страницы примерно такой код
+
+				[[!FormIt?
+					&hooks=`email`
+					&emailTpl=`sentEmailTpl`
+					&emailSubject=`Message from Learn MODx Revo Website`
+					&emailTo=`prozaik81-2@yandex.ru`
+					&validate=`contact_name:required:minLength=`2`
+					&redirectTo=`1`
+				]]		
+				
+				<form id="contactForm" method="post" action="[[~[[*id]]]]"><fieldset>
+					<label class="namelabel">Name:</label>
+					<input type="text" class="namefield" name="contact_name"  value="[[!+fi.contact_name]]" />
+					<span class="error">[[!+fi.error.contact_name]]</span>
+					
+					<label class="emaillabel">E-mail:</label>
+					<input type="text" class="emailfield" name="contact_email" value="[[!+fi.contact_email]]" />
+					
+					<label class="faxlabel">Fax:</label>
+					<input type="text" class="faxfield" name="contact_fax" value="[[!+fi.contact_fax]]" />
+					
+					<div class="messagefield_outer">
+						<label class="messagelabel">Message:</label>
+						<textarea class="messagefield" name="contact_message" rows="4" cols="4">[[!+fi.contact_message]]</textarea>
+					</div>
+					
+					<input type="submit" class="sendbutton" value="send" />
+					<input type="reset" class="clearbutton" value="clear" />								
+				</fieldset></form>
+				
+				
+принципиально важно следующее:
+name="contact_name"  value="[[!+fi.contact_name]]"
+
+хуки выполняются в порядке следования. если порядок прерывается, то оставшиеся не выполняются. поэтому последним обычно прописываю редирект
+
+сообщения валидации:
+<span class="error">[[!+fi.error.contact_name]]</span>
+
+если их нет, то возвращается пустой тэг
+				
+==============================
+wayFinder
+
+для него создаются чанки. затем их имена прописываются в вызове:
+		<div class="menuT">		
+			[[!Wayfinder? 
+			&startId=`0` 
+			&outerTpl=`7in1menuOuter` 
+			&rowTpl=`7in1menuRow` 
+			&hereClass=`current_page_item`]]
+		</div>	
+		
+вызов вставляется в шаблон		
+
+==============================
+getPage
+
+это обёртка для сниппета, который предоставляет агрегированный контент. если речь идёт о getResources , то необходимо заменить вызов getResources примерно так:
+[[!getResources? 
+	&tpl=`articleTpl` 
+	&includeContent=`1` 
+	&showHidden=`1`
+	&limit=`3`
+]]	
+
+TO:
+
+[[!getPage@custom?
+	&elementClass=`modSnippet`
+	&element=`getResources`
+	&tpl=`articleTpl` 
+	&includeContent=`1` 
+	&showHidden=`1`
+	&limit=`3`
+	&pageLimit=`5`
+	&pageNavVar=`page.nav`	
+]]	
+
+<span class="pages">Page [[+page]] of [[+pageCount]]</span>
+
+<ul class="ololo">
+	[[!+page.nav]]
+</ul>
+
+
+откуда взялось @custom:
+это набор свойств, привязынный к сниппету. чтобы его изменить идём на вкладку элементы. выбираем сниппут getPage. редактируем параметры(свойства). причем не трогаем свойства, которые идут по умлочанию, но добавляем свой набор(дайм название - custom, например). меняем что нужно, сохраняемся и custom дописываем в вызов getPage. профит
+
+==============================
+wysiwyg
+
+чтобы установить редактор для контента нужно просто загрузить и установить пакет tinymce
+
+==============================
+bannerY
+
+устанавливаем пакет. устанавливаем дополнение PDOчтототам.
+в верхнем меню "компоненты" заходим в bannerY. создаём рекламное мессто. добавляем картинки с привязкой к этому месту. создаём чанк, использую плейсхольдеры. подключаем jquery м лююбой слайдер(nivo, flexslider и т д). в шаблоне или в области контента(визивиг отключить) прописываем примерно такой код:
+<section class="slider">
+	<div class="flexslider">
+	  <ul class="slides">
+		[[BannerY? &position=`1` &sortby=`RAND()` &limit=`20` &tpl=`flexS`]]
+	  </ul>
+	</div>
+</section>	
+
+
+==============================
+MIGX gallery
+
+загрузить MIGX.
+загрузить phpthumbof.
+создать шаблон galleryTpl.
+создать документ для этого шаблона.
+создать TV gallery. тип ввода MIGX. поля:
+[
+      {"caption":"Info", "fields": [
+         {"field":"title","caption":"Name"}
+      ]
+   },
+   {"caption":"Image", "fields":[
+      {"field":"image","caption":"Image","inputTVtype":"image"}
+   ]
+}
+
+[
+   {"header": "Name", "width": "160", "sortable": "true", "dataIndex": "title"},
+   {"header": "Image", "width": "50", "sortable":
+   "false","dataIndex":"image","renderer":"this.renderImage"}
+]
+
+создать чанк blog_gallery:
+<a class='gallery_thumbnail_link fancybox' href="[[+image:phpthumbof=`w=640&h=425&zc=1&q=85`]]" title="[[+title:default=`[[*pagetitle]]`]]">
+	<img src='[[+image:phpthumbof=`w=110&h=70&zc=1&q=75`]]'>
+</a>
+
+добавить картинки с названиями в документе через переменную шаблона.
+прописать вызов галереи в шаблоне или области контента: [[!getImageList? &tvname=`gallery` &tpl=`blog_gallery`]] . визивиг отключить при этом.
+встроить в страницу fancybox или любой другой  подобный плагин. навесить его на ссылку каждой миниатюры галереи.
+
+
+==============================
+phpthumbof
+
+позволяет создавать превью(миниатюры) разного размера, разной формы и т.д. (уточнить в документации). 
+используется примерно так: <img src='uploads/img4_b.png:phpthumbof=`w=110&h=70&zc=1&q=75`'>
+
+==============================
+simple search
+
+создать материал на основе нужного шаблона. в контент прописать: [[!SimpleSearch]]. это страница для результатов поиска.
+поместить вызов формы поиска в нужную часть шаблона: [[!SimpleSearchForm? &landing=`1` &tpl=`MySForm`]]
+создать чанк MySForm и скопировать в него изменённое содержимое чанка core/components/simplesearch/elements/chunks/searchform.chunk.tpl этоизменённая форма поиска.
+так же в этом каталоге есть чанки для темизации остальных составляющих поиска, например вывода страницы результатов.
+ВНИМАНИЕ! нужно искать эти чанки в папке core. это важно
+
+==============================
+тизеры статей
+
+чтобы вывести статьи в виде тизеров нужно интротекст вводит в области "Аннотация (введение)", а основной текст в области "контент/содержание".
+выводить тизеры как обычно через getResources.
+чанк при ерно такой:
+<article class="article">
+	<h2><a href="[[~[[+id]]]]" rel="bookmark" title="Permanent Link to [[+pagetitle]]">[[+pagetitle]]</a></h2>
+
+	<div>
+		[[+introtext]]
+	</div>
+</article>
+
+
+или можно оставлять поле "Аннотация (введение)" пустым и делать аннотацию из первых нескольких символов основного контента. для этого содержимое чанка нужно заменить на такое:
+<article class="article">
+	<h2><a href="[[~[[+id]]]]" rel="bookmark" title="Permanent Link to [[+pagetitle]]">[[+pagetitle]]</a></h2>
+
+	<div>
+		[[+content:ellipsis=`35`]]
+	</div>
+</article>
+
+==============================
+гостевая книга
+
+создать самый обычный шаблон для страницы(должен быть вывод [[*content]]).
+создать документ.
+в документе прописать:
+1. любой текст
+2. вызов комментариев
+3. вызов формы добавления нового комментария
+выглядят примерно так:
+<div class="guestbook">
+	[[!Quip? 
+		&thread=`46` 
+		&replyResourceId=`46`
+		&tplComments=`tplComments`
+		&dateFormat=`%m.%d.%Y %H:%M`
+		&limit=`3`
+		&tplPagination=`tplPagination`
+	]]
+	
+	<br />
+	
+	[[!QuipReply? 
+		&thread=`46`
+		&closeAfter=`3000`
+		&tplAddComment=`tplAddComment`
+	]]
+	
+	<br />
+</div>
+
+создать чанки для:
+1. комментария(tplComments)
+<div class="quip">
+<hr />тут комменты!!!!<hr />
+    <strong>[[%quip.comments]] ([[+total]])</strong>
+     
+    <div id="quip-topofcomments-[[+idprefix]]"></div>
+ 
+    [[+comments:notempty=`<ol class="quip-comment-list">
+		[[+comments]]
+		</ol>`
+	]]
+ 
+    [[+pagination]]
+</div>
+
+2. пагинации(tplPagination)
+<ul class="guestbook_pagination"><li>[[+pages]]</li></ul>
+
+3. формы обавления нового комментария(tplAddComment)
+<div class="block_add_comment">
+	[[+preview]]
+	<span class="quip-success" id="quip-success-[[+idprefix]]">[[+successMsg]]</span>
+	 
+	<hr /> <hr /> <hr /> 
+	 
+	<form id="quip-add-comment-[[+idprefix]]" action="[[+url]]#quip-comment-preview-box-[[+idprefix]]" method="post">
+		<div class="quip-comment quip-add-comment">
+			<input type="hidden" name="nospam" value="" />
+			<input type="hidden" name="thread" value="[[+thread]]" />
+			<input type="hidden" name="parent" value="[[+parent]]" />
+			<input type="hidden" name="auth_nonce" value="[[+auth_nonce]]" />
+			<input type="hidden" name="preview_mode" value="[[+preview_mode]]" />
+		 
+			 <div class="quip-fld">
+				<label for="quip-comment-name-[[+idprefix]]">ИМЯ КАКОЕ?:<span class="quip-error">[[+error.name]]</span></label>
+				<input type="text" name="name" id="quip-comment-name-[[+idprefix]]" value="[[+name]]" />
+				<br />
+			</div>
+			 
+			<div class="quip-fld">
+				<label for="quip-comment-email-[[+idprefix]]">НУ ВВЕДИТЕ ЖЕ ВАШ EMAIL:<span class="quip-error">[[+error.email]]</span></label>
+				<input type="text" name="email" id="quip-comment-email-[[+idprefix]]" value="[[+email]]" />
+				<br />
+			</div>
+			 
+			<div class="quip-fld">
+				<label for="quip-comment-website-[[+idprefix]]">А САЙТ ИМЕЕТСЯ?:<span class="quip-error">[[+error.website]]</span></label>
+				<input type="text" name="website" id="quip-comment-website-[[+idprefix]]" value="[[+website]]" />
+				<br />
+			</div>
+		 
+			<div class="quip-fld">
+				<label for="quip-comment-notify-[[+idprefix]]">[[%quip.notify_me]]:<span class="quip-error">[[+error.notify]]</span></label>
+				<input type="checkbox" value="1" name="notify" id="quip-comment-notify-[[+idprefix]]" [[+notify:if=`[[+notify]]`:eq=`1`:then=`checked="checked"`]] />
+				<br />
+			</div>
+		 
+			нахер капчу
+			<div class="quip-fld recaptcha">
+			[[+quip.recaptcha_html]]
+			<span class="quip-error">[[+error.recaptcha]]</span>
+			</div>
+			 
+			вводи комментарий!	
+			<textarea name="comment" rows="10" cols="10" id="quip-comment-box-[[+idprefix]]" rows="5">[[+comment]]</textarea>
+			 
+			<button type="submit" name="[[+preview_action]]" value="1">[[%quip.preview]]</button>
+			[[+can_post:is=`1`:then=`<button type="submit" name="[[+post_action]]" value="1">[[%quip.post]]</button>`]]
+			 
+			<br class="clear" />
+		</div>
+	</form>
+</div>
+
+
+
+
+==============================
+breadcrumbs
+
+просто установить и настроить в соответствии с документацией
+
+==============================
+phpthumbof
+
+можно ресайзить и кропать картинки на лету так:
+<img src='[[phpthumbof? &input=`assets/templates/solutions/images/img4_b.png` &options=`w=110&h=70&zc=1&q=75`]]'>
+
+
+==============================
+==============================
+==============================
+==============================

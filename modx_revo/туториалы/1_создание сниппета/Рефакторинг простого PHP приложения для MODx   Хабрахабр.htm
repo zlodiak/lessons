@@ -1,0 +1,2255 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru">
+	<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<title>Рефакторинг простого PHP приложения для MODx / Хабрахабр</title>
+		<meta name="description" content="Posted on Sep 02, 2011 by James Rotering
+PHP Skill Level: средний
+MODx Skill Level: новичок
+Описание: В этом руководстве показано, как переделать для MODx Revolution файл со смешанным кодом..." />		
+		<meta name="keywords" content="MODx" />
+		
+		
+	<meta property="fb:app_id"      content="437464306275519" /> 
+<meta property="og:type"        content="article" /> 
+<meta property="og:url"         content="http://habrahabr.ru/post/128088/" /> 
+<meta property="og:title"       content="Рефакторинг простого PHP приложения для MODx" /> 
+
+	
+	<meta property="og:image"       content="http://habrahabr.ru/i/habralogo.jpg" />
+
+<meta property="og:description" content="Posted on Sep 02, 2011 by James Rotering PHP Skill Level: средний MODx Skill Level: новичок Описание: В этом руководстве показано, как переделать для MODx..." /> 
+
+
+		
+		
+			<link href="/styles/1346413177/all.css" rel="stylesheet" media="all" />
+		
+
+		<link rel="stylesheet" href="/styles/fontello/css/habr.css?r=1346413177">
+		<!--[if IE 7]><link rel="stylesheet" href="/styles/fontello/css/habr-ie7.css?r=1346413177"><![endif]-->
+    
+		
+  <link href="/styles/1346413177/_parts/posts.css" rel="stylesheet" media="all" />
+  <link href="/styles/1346413177/_parts/comments.css" rel="stylesheet" media="all" />
+  <link href="/styles/1346413177/forms.css" rel="stylesheet" media="all" />
+  <link href="/styles/1346413177/highlight.css" rel="stylesheet" media="all" />
+  <link href="/styles/1346413177/posts/all.css" rel="stylesheet" media="all" />
+  
+
+
+	
+
+		
+		
+			<script type="text/javascript" src="/javascripts/1346413177/all.js"></script>
+		
+		
+		
+			<link href="/styles/1346413177/facebook_reader.css" rel="stylesheet" type="text/css" />
+			<script src="/javascripts/1346413177/facebook_reader.js" type="text/javascript"></script>
+		
+		
+		
+
+	
+	
+	
+	
+		
+  <script type="text/javascript" src="/javascripts/1346413177/libs/jquery.form.js"></script>
+  <script type="text/javascript" src="/javascripts/1346413177/libs/jquery.cookie.js"></script>
+  <script type="text/javascript" src="/javascripts/1346413177/libs/wysiwyg.js"></script>
+  <script type="text/javascript" src="/javascripts/1346413177/libs/highlight.js"></script>
+  <script type="text/javascript" src="/javascripts/1346413177/_parts/posts.js"></script>
+  <script type="text/javascript" src="/javascripts/1346413177/_parts/comments.js"></script>
+  <script type="text/javascript" src="/javascripts/1346413177/posts/all.js"></script>
+
+		
+		<script type="text/javascript" src="/js/1346413177/adriver.core.2.js"></script>
+		
+		
+		
+		<link title="Хабрахабр / Комментарии к публикации «Рефакторинг простого PHP приложения для MODx»" type="application/rss+xml" rel="alternate" href="http://habrahabr.ru/rss/post/128088/"/>
+				
+		<script>
+		var _gaq = window._gaq || [];
+		window.onerror = function(msg, url, line) {
+		    var preventErrorAlert = true;
+		    _gaq.push(['_trackEvent', 'JS Error', msg, navigator.userAgent + ' -> ' + url + " : " + line]);
+		    return preventErrorAlert;
+		};
+		
+		jQuery.error = function (message) {
+		    _gaq.push(['_trackEvent', 'jQuery Error', message, navigator.userAgent]);
+		}
+		</script>
+		
+	</head>
+
+	<body>
+	  
+
+
+
+
+
+
+	<div id="topline"></div>
+	<script type="text/javascript">
+	(function(){
+		var custom = {};
+		
+			custom[1]	= 'modx';
+		
+		new adriver("topline", {sid:176776, bt:52, bn:1, custom: custom});
+	})();
+	</script>
+
+
+
+
+		<div id="layout">	    
+		  <div id="header">
+  <div class="userpanel silver">
+    
+    
+      <a href="http://habrahabr.ru/login/" class="login">войти</a> <a href="http://habrahabr.ru/register/">зарегистрироваться</a>
+    
+  </div>
+  <a class="logo" href="http://habrahabr.ru/" title="На главную страницу"></a>
+  <div class="search">
+    <form id="search_form" name="search" method="get" action="/search/" >
+      <input type="submit" value="" />
+      <input type="text" name="q" x-webkit-speech speech  >
+    </form>
+  </div>
+
+
+	<div class="main_menu">
+		<a href="http://habrahabr.ru/posts/top/" class="active">посты</a><a href="http://habrahabr.ru/qa/">q&amp;a</a><a href="http://habrahabr.ru/events/coming/">события</a><a href="http://habrahabr.ru/hubs/">хабы</a><a href="http://habrahabr.ru/companies/">компании</a>
+		<div class="banner_special">
+
+	 
+
+	 
+
+	
+	
+		<!--  AdRiver code START. Type:135x35 Site: habrahabr PZ: 0 BN: 0 -->
+		<script language="javascript" type="text/javascript"><!--
+		var RndNum4NoCash = Math.round(Math.random() * 1000000000);
+		var ar_Tail='unknown'; if (document.referrer) ar_Tail = escape(document.referrer);
+		document.write(
+		'<iframe src="http://ad.adriver.ru/cgi-bin/erle.cgi?'
+		+ 'sid=176776&target=top&w=135&h=35&bt=25&pz=0&rnd=' + RndNum4NoCash + '&tail256=' + ar_Tail
+		+ '" frameborder=0 vspace=0 hspace=0 width=135 height=35 marginwidth=0'
+		+ ' marginheight=0 scrolling=no></iframe>');
+		//--></script>
+		<noscript>
+		<a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=176776&bt=25&pz=0&rnd=795668059" target=_top>
+		<img src="http://ad.adriver.ru/cgi-bin/rle.cgi?sid=176776&bt=25&pz=0&rnd=795668059" alt="-AdRiver-" border=0 width=135 height=35></a>
+		</noscript>
+
+		<!--  AdRiver code END  -->
+	
+	
+
+</div>
+		
+	</div>
+
+
+</div>
+
+
+	
+		  
+	  
+		  
+
+
+	
+  <div class="content_left">
+
+	
+
+
+
+
+
+
+
+
+
+	
+
+		
+  <div class="post shortcuts_item" id="post_128088">
+    <h1 class="title">
+    
+      
+      
+
+      
+      
+        <span class="post_title">Рефакторинг простого PHP приложения для MODx</span>
+      
+      
+      
+
+
+  		<a href="/sandbox/" style="font-size: 14px; background: #F0F0E7; padding: 0 5px;vertical-align:super;color:#767676;text-decoration:none;" title="Перейти в песочницу">из песочницы</a>
+  		
+  	</h1>
+  	
+  	
+<div class="hubs">
+	
+		<a href="http://habrahabr.ru/hub/modx/" class="hub " title="Вы не подписаны на этот хаб" >MODx</a><span class="profiled_hub" title="Профильный хаб">*</span>
+	
+</div>
+
+  	
+    <div class="content html_format">
+			<h6><a href="http://www.cmslesstraveled.com/index/tutorials/refactoring-a-simple-php-application-for-modx.html">Posted on Sep 02, 2011 by James Rotering</a><br/>
+PHP Skill Level: средний<br/>
+MODx Skill Level: новичок</h6><br/>
+<blockquote><b>Описание:</b> В этом руководстве показано, как переделать для MODx Revolution файл со смешанным кодом PHP/HTML. Оно для людей, которым комфортно работать с PHP, но они все еще учатся основам MODx.</blockquote><br/>
+Если Вы подходите под большинство следующих описаний, это руководство должно быть Вам полезным:<br/>
+ — Вы писали скрипты, которые сочетают PHP код и HTML<br/>
+ — Вы понимаете циклы и массивы PHP<br/>
+ — Вы писали PHP код, который подключается к базе данных и извлекает записи<br/>
+ — У вас есть общее представление о том, как работают MODx сниппеты и другие элементы<br/>
+<a name="habracut"></a><br/>
+Для примера я рассмотрю упрощенную версию реального проекта, который я недавно закончил. <br/>
+Приложение было разработано на PHP/HTML и делает следующее:<br/>
+ — получает список записей из таблицы базы данных<br/>
+ — отображает записи в HTML-таблице<br/>
+ — отображает два выпадающих поля выбора для фильтрации результатов по определенным значениям столбцов.<br/>
+<br/>
+Если Вам интересно, работу приложения Вы можете увидеть <a href="http://web.uwsa.edu/fadmin/sfs/acctcodes/?fiscalYear=2012">здесь</a>.<br/>
+<br/>
+<h3>Начинаем со смешанного PHP/HTML-файла</h3><br/>
+<br/>
+Исходный код для этого приложения выглядел примерно так (упрощен для ясности):<br/>
+<br/>
+<b>Файл: acctCodes.php (оригинальная версия)</b><br/>
+<pre><code class="html">&lt;html&gt; 
+&lt;head&gt; 
+    &lt;title&gt;Номера счетов и определения SFS&lt;/title&gt; 
+&lt;/head&gt; 
+&lt;body&gt; 
+    &lt;h1&gt;Номера счетов и определения SFS&lt;/title&gt; 
+    &lt;form&gt; 
+        &lt;!-- Первый SELECT box --&gt;
+        &lt;div&gt; 
+            &lt;label for=&quot;byCategory&quot;&gt;Поиск по категории:&lt;/label&gt; 
+            &lt;select name=&quot;byCategory&quot; id=&quot;byCategory&quot;&gt; 
+                &lt;option&gt;Выберите категорию&lt;/option&gt;</code></pre><pre><code class="php">                &lt;?php 
+                    // некий код - подключается к базе данных 
+                    $values = // некий код - выполняет запрос для получения значений первого выпадающего списка 
+                    foreach ($values as $value) { 
+                        echo '&lt;option value=&quot;' . $value . '&quot;&gt;' . $value . '&lt;/option&gt;'; 
+                    } 
+                ?&gt;</code></pre><pre><code class="html">            &lt;/select&gt; 
+        &lt;/div&gt; 
+        &lt;!-- Второй SELECT box --&gt;
+        &lt;div&gt; 
+            &lt;label for=&quot;byType&quot;&gt;Поиск по типу:&lt;/label&gt; 
+            &lt;select name=&quot;byType&quot; id=&quot;byType&quot;&gt; 
+                &lt;option&gt;Выберите тип&lt;/option&gt;</code></pre><pre><code class="php">                &lt;?php 
+                    $values = // некий код - выполняет запрос для получения значений второго выпадающего списка 
+                    foreach ($values as $value) { 
+                        echo '&lt;option value=&quot;' . $value . '&quot;&gt;' . $value . '&lt;/option&gt;'; 
+                    } 
+                ?&gt;</code></pre><pre><code class="html">            &lt;/select&gt; 
+        &lt;/div&gt; 
+    &lt;/form&gt; 
+    &lt;!-- Таблица номеров счетов --&gt;
+    &lt;table id=&quot;acctCodes&quot;&gt; 
+        &lt;thead&gt; 
+            &lt;!-- Вы знаете, как выглядят ячейки &lt;th&gt;. Я здесь упрощаю --&gt;
+        &lt;/thead&gt; 
+        &lt;tbody&gt;</code></pre><pre><code class="php">            &lt;?php 
+                $records = // некий код - выполняет запрос для получения записей для таблицы 
+                foreach ($records as $record) { 
+            ?&gt;</code></pre><pre><code class="html">            &lt;tr&gt; 
+                &lt;td&gt;&lt;?php echo $record['category']; ?&gt;&lt;/td&gt; 
+                &lt;td&gt;&lt;?php echo $record['status']; ?&gt;&lt;/td&gt; 
+                &lt;td&gt;&lt;?php echo $record['account']; ?&gt;&lt;/td&gt; 
+                &lt;td&gt;&lt;?php echo $record['acctType']; ?&gt;&lt;/td&gt; 
+                &lt;td&gt;&lt;?php echo $record['title']; ?&gt;&lt;/td&gt; 
+                &lt;td&gt;&lt;?php echo $record['definition']; ?&gt;&lt;/td&gt; 
+            &lt;/tr&gt;</code></pre><pre><code class="php">            &lt;?php
+                } 
+            ?&gt;</code></pre><pre><code class="html">        &lt;/tbody&gt; 
+    &lt;/table&gt; 
+&lt;/body&gt; 
+&lt;/html&gt;</code></pre><br/>
+PHP здесь довольно прост. Есть три отдельных блока кода, где выполняется запрос, затем результаты обрамляются в подходящие HTML-теги и отображаются на странице. Третий блок несколько причудлив — PHP код прерывается, чтобы внутри цикла использовать нормальный HTML код, а не громоздкие неприятные операторы «echo». <br/>
+Но ничего ужасно сложного здесь не происходит.<br/>
+<br/>
+Тем не менее, мы должны будем сделать некоторую чистку, чтобы подготовиться к переходу в MODx.<br/>
+<br/>
+<h3>Часть первая: Чистка (Сначала получаем значения, а затем вывод)</h3><br/>
+<br/>
+Первый шаг к чистке этого PHP кода для MODx (да и в целом) — это уход от смешивания логики приложения с разметкой страницы. Вместо выполнения каждого запроса перед тем как его использовать, мы запустим все запросы, а затем по необходимости просто выведем результаты с помощью echo.<br/>
+<br/>
+В результате получаем что-то вроде этого (опять же, очень упрощено для ясности):<br/>
+<br/>
+<b>Файл: acctCodes.php (очищенная версия)</b><br/>
+<pre><code class="php">&lt;?php 
+     // некий код - подключается к базе данных 
+     $values = // некий код - выполняет запрос для получения значений первого выпадающего списка 
+     $options1 = ''; 
+     foreach ($values as $value) { 
+         $options1 .= '&lt;option value=&quot;' . $value . '&quot;&gt;' . $value . '&lt;/option&gt;'; 
+     } 
+     $values = // некий код - выполняет запрос для получения значений второго выпадающего списка 
+     $options2 = ''; 
+     foreach ($values as $value) { 
+         $options2 .= '&lt;option value=&quot;' . $value . '&quot;&gt;' . $value . '&lt;/option&gt;'; 
+     } 
+     $records = // некий код - выполняет запрос для получения записей для таблицы 
+     $trrows = ''; 
+     foreach ($records as $record) { 
+         $trrows .= '&lt;tr&gt;&lt;td&gt;'  . $record['category'] .  
+                    '&lt;/td&gt;&lt;td&gt;' . $record['status'] . 
+                    '&lt;/td&gt;&lt;td&gt;' . $record['account'] .  
+                    '&lt;/td&gt;&lt;td&gt;' . $record['acctType'] . 
+                    '&lt;/td&gt;&lt;td&gt;' . $record['title'] . 
+                    '&lt;/td&gt;&lt;td&gt;' . $record['definition'] .  
+                    '&lt;/td&gt;&lt;/tr&gt;'; 
+     } 
+?&gt;</code></pre><pre><code class="html">&lt;html&gt; 
+&lt;head&gt; 
+     &lt;title&gt;Номера счетов и определения SFS&lt;/title&gt; 
+&lt;/head&gt; 
+&lt;body&gt; 
+     &lt;h1&gt;Номера счетов и определения SFS&lt;/h1&gt; 
+     &lt;form&gt; 
+         &lt;!-- Первый SELECT box --&gt;
+         &lt;div&gt; 
+             &lt;label for=&quot;byCategory&quot;&gt;Поиск по категории:&lt;/label&gt; 
+             &lt;select name=&quot;byCategory&quot; id=&quot;byCategory&quot;&gt; 
+                  &lt;option&gt;Выберите категорию&lt;/option&gt; 
+                  &lt;?php echo $options1; ?&gt; 
+             &lt;/select&gt; 
+         &lt;/div&gt; 
+         &lt;!-- Второй SELECT box --&gt;
+         &lt;div&gt; 
+             &lt;label for=&quot;byType&quot;&gt;Поиск по типу:&lt;/label&gt; 
+             &lt;&lt;font color=&quot;#006699&quot;&gt;select name=&quot;byType&quot; id=&quot;byType&quot;&gt; 
+                 &lt;option&gt;Выберите тип&lt;/option&gt; 
+                 &lt;?php echo $options2; ?&gt; 
+             &lt;/select&gt; 
+         &lt;/div&gt; 
+     &lt;/form&gt; 
+     &lt;!-- Таблица номеров счетов --&gt;
+     &lt;table id=&quot;acctCodes&quot;&gt; 
+         &lt;thead&gt; 
+             &lt;!-- Вы знаете, как выглядят ячейки &lt;th&gt;. Я здесь упрощаю --&gt;
+         &lt;/thead&gt; 
+         &lt;tbody&gt; 
+             &lt;?php echo $trrows; ?&gt; 
+         &lt;/tbody&gt; 
+     &lt;/table&gt; 
+&lt;/body&gt; 
+&lt;/html&gt;</code></pre><br/>
+<br/>
+Это делает разметку гораздо более легкой для просмотра и редактирования. Весь код PHP содержится в четырех блоках: первый же запрос устанавливает значения, а следующие три простыми командами echo выводят эти значения на экран.<br/>
+Это уже более приемлемо для переноса этого небольшого веб-приложения в MODx.<br/>
+<br/>
+<h3>Часть вторая: Сниппеты и плейсхолдеры</h3><br/>
+<br/>
+Чтобы перенести наш очищенный код в MODx, нам нужно сделать несколько дополнительных изменений. <br/>
+Наш HTML код можно сразу копировать в ресурс MODx. <font color="#968e5b">(Ресурс более не изменится! — прим. пер.) </font><br/>
+Но код PHP нам необходимо заменить сниппетами и некоторыми плейсхолдерами.<br/>
+<br/>
+Содержимое нашего ресурса MODx будет выглядеть следующим образом:<br/>
+<b>Ресурс MODx: 'acctCodes'</b><br/>
+<pre><code class="html">[[accountCodes]]
+&lt;html&gt;
+&lt;head&gt;
+     &lt;title&gt;Номера счетов и определения SFS&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+     &lt;h1&gt;Номера счетов и определения SFS&lt;/h1&gt;
+     &lt;form&gt;
+         &lt;!-- Первый SELECT box --&gt;
+         &lt;div&gt;
+             &lt;label for=&quot;byCategory&quot;&gt;Поиск по категории:&lt;/label&gt;
+             &lt;select name=&quot;byCategory&quot; id=&quot;byCategory&quot;&gt;
+                 &lt;option&gt;Выберите категорию&lt;/option&gt;
+                 [[+options1]] 
+             &lt;/select&gt;
+         &lt;/div&gt;
+         &lt;!-- Второй SELECT box --&gt;
+         &lt;div&gt;
+             &lt;label for=&quot;byType&quot;&gt;Поиск по типу:&lt;/label&gt;
+             &lt;select name=&quot;byType&quot; id=&quot;byType&quot;&gt;
+                 &lt;option&gt;Выберите тип&lt;/option&gt;
+                 [[+options2]] 
+             &lt;/select&gt;
+         &lt;/div&gt;
+     &lt;/form&gt;
+     &lt;!-- Таблица номеров счетов --&gt;
+     &lt;table id=&quot;acctCodes&quot;&gt;
+         &lt;thead&gt;
+             &lt;!-- Вы знаете, как выглядят ячейки &lt;th&gt;. Я здесь упрощаю --&gt;
+         &lt;/thead&gt;
+         &lt;tbody&gt;
+             [[+trrows]] 
+         &lt;/tbody&gt;
+     &lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre><br/>
+В нашем ресурсе четыре блока кода PHP были заменены тегами MODx. Первый, <b>[[accountCodes]]</b>, будет вызывать сниппет <b>accountCodes</b> (который мы еще не написали). Следующие три тега — плейсхолдеры, которые будут заменены на значения, заданые нашим сниппетом.<br/>
+Теперь нам нужно написать этот сниппет<br/>
+<br/>
+<h3>Часть третья: Сниппет</h3><br/>
+<br/>
+Наш сниппет <b>«accountCodes»</b> будет содержать код из этого первого блока PHP — все запросы и цикл. Единственное, что мы собираемся добавить — несколько строк кода API MODx для создания плейсхолдеров.<br/>
+<br/>
+<b>Сниппет: «accountCodes»</b><br/>
+<pre><code class="php">&lt;?php 
+     // некий код - подключается к базе данных 
+     $values = // некий код - выполняет запрос для получения значений первого выпадающего списка 
+     $options1 = ''; 
+     foreach ($values as $value) { 
+         $options1 .='&lt;option value=&quot;' . $value . '&quot;&gt;' . $value . '&lt;/option&gt;'; 
+     } 
+     $values = // некий код - выполняет запрос для получения значений второго выпадающего списка 
+     $options2 = ''; 
+     foreach ($values as $value) { 
+         $options2 .= '&lt;option value=&quot;' . $value . '&quot;&gt;' . $value . '&lt;/option&gt;'; 
+     } 
+     $records = // некий код - выполняет запрос для получения записей для таблицы 
+     $trrows = ''; 
+     foreach ($records as $record) { 
+         $trrows .= '&lt;tr&gt;&lt;td&gt;'  . $record['category'] .  
+      &nbsp;&amp;nbsp;            '&lt;/td&gt;&lt;td&gt;' . $record['status'] . 
+                    '&lt;/td&gt;&lt;td&gt;' . $record['account'] .  
+                    '&lt;/td&gt;&lt;td&gt;' . $record['acctType'] . 
+                    '&lt;/td&gt;&lt;td&gt;' . $record['title'] . 
+                    '&lt;/td&gt;&lt;td&gt;' . $record['definition'] .  
+                    '&lt;/td&gt;&lt;/tr&gt;'; 
+     } 
+     $modx-&gt;setPlaceholder('options1', $options1); 
+     $modx-&gt;setPlaceholder('options2', $options2); 
+     $modx-&gt;setPlaceholder('trrows', $trrows);</code></pre><br/>
+<br/>
+Это наш сниппет. По сравнению с нашим оригинальным PHP кодом он дополнен тремя строками «setPlaceholder» в нижней части. Они просто говорят MODx, что если и когда он встретит ниже на странице плейсхолдер <b>[[+options1]]</b>, он должен заменить его на значение <b>$options1</b>. Плейсхолдеры — простой и элегантный способ для обработки выходных значений из сниппетов.<br/>
+<br/>
+Теперь мы сделали всё, что нам нужно, чтобы веб-приложение работало внутри MODx. Однако мы можем предпринять несколько дополнительных шагов, которые сделают наше приложение гораздо сексуальнее, используя больше функций API в MODx. Я оценил бы нашу текущую реализацию на «удовлетворительно» <font color="#968e5b">(в оригинале — «C»</font>. Давайте продолжим работу.<br/>
+<br/>
+<h3>Часть четвертая: Используем чанки как шаблоны вывода</h3><br/>
+<br/>
+Одним из критических замечаний, которые могут быть сделаны нашему текущему коду PHP является то, что он по-прежнему смешивает разметку с логикой. Наш цикл 'foreach' по-прежнему содержит куски HTML разметки:<br/>
+<pre><code class="php">foreach ($values as $value) { 
+    $options1 .= '&lt;option value=&quot;' . $value . '&quot;&gt;' . $value . '/option&gt;';  
+}</code></pre><br/>
+Эта стратегия далека от идеала: предположим, босс просит HTML кодера Скиппи <font color="#968e5b">(в ориг. — «Skippy the HTML code monkey» — прим. пер.)</font>, изменить HTML код этого приложения, добавив несколько дополнительных атрибутов для каждого тега &lt;option&gt;. Но мы же не хотим, чтобы Скиппи <font color="#968e5b">(«Skippy the HTML code monkey»)</font> оказался где-нибудь возле нашего PHP скрипта, не так ли?<br/>
+<br/>
+Есть несколько способов исправить эту ситуацию в PHP — на ум приходит подтягивание HTML кода из внешних файлов и замена строк. Тем не менее нам не нужно беспокоиться и выяснять подходящее решение. Для этой задачи MODx предлагает другое простое и элегантное решение: <b>чанки с плейсхолдерами</b>.<br/>
+<br/>
+Код «option» из приведенного выше сниппета может быть переписан в виде чанка, названного «option»:<br/>
+<br/>
+<b>Чанк: «option»</b><br/>
+<pre><code class="xml">&lt;option value=&quot;[[+value]]&quot;&gt;[[+value]]&lt;/option&gt;</code></pre><br/>
+В этом чанке нет ничего особенного — немного HTML с парой плейсхолдеров. «Option» — простой, полезный чанк, который можно использовать в любом месте — в нескольких сниппетах в разных ресурсах.<br/>
+<br/>
+Теперь мы можем изменить наш сниппет, добавив немного больше кода API MODx, чтобы использовать значение этого чанка в нашем цикле:<br/>
+<pre><code class="php">&lt;?php 
+     // некий код - подключается к базе данных 
+     $values = // некий код - выполняет запрос для получения значений первого выпадающего списка 
+     $options1 = ''; 
+     foreach ($values as $value) { 
+         $modx-&gt;setPlaceholder('value', $value); 
+         $options1 .= $modx-&gt;getChunk('option'); 
+     }</code></pre><br/>
+Теперь наш цикл создаёт плейсхолдер для $value и добавляет значение чанка 'option' в выходную строку.<br/>
+Это позволяет полностью отделить весь HTML код от PHP. Если Скиппи <font color="#968e5b">(«Skippy the HTML code monkey»)</font> необходимо добавить атрибут к элементам &lt;option&gt;, он может сделать это путем редактирования чанка «option». (Просто скажите ему не трогать эти плейсхолдеры!)<br/>
+<br/>
+Строки таблицы можно сделать аналогично:<br/>
+<b>Чанк: «trrows»</b><br/>
+<pre><code class="html">&lt;tr&gt; 
+     &lt;td&gt;[[+category]]&lt;/td&gt; 
+     &lt;td&gt;[[+status]]&lt;/td&gt; 
+     &lt;td&gt;[[+account]]&lt;/td&gt; 
+     &lt;td&gt;[[+acctType]]&lt;/td&gt; 
+     &lt;td&gt;[[+title]]&lt;/td&gt; 
+     &lt;td&gt;[[+definition]]&lt;/td&gt; 
+&lt;/tr&gt;</code></pre><br/>
+и PHP код для его вызова<br/>
+<pre><code class="php">each ($records as $record) { 
+     $trrows .= $modx-&gt;getChunk('trrows', $record); 
+}</code></pre><br/>
+Отметим, что в этом примере нам даже не придется устанавливать какие-либо плейсхолдеры! <br/>
+Ассоциативный массив <b>$record</b> мы можем передать в GetChunk() в качестве аргумента, и плейсхолдеры будут автоматически** установлены для каждой пары ключ/значение в массиве!<br/>
+(**MODX Awesomeness! You're soaking in it!**) <font color="#968e5b">(Аналогия со слоганом какого-то стирального порошка? — прим. пер.)</font><br/>
+<br/>
+Так что теперь мы можем сохранить все наши куски HTML в чанках и переписать наш сниппет вот так:<br/>
+<pre><code class="php">&lt;?php 
+     // некий код - подключается к базе данных 
+     $values = // некий код - выполняет запрос для получения значений первого выпадающего списка 
+     $options1 = ''; 
+     foreach ($values as $value) { 
+         $modx-&gt;setPlaceholder('value', $value); 
+         $options1 .= $modx-&gt;getChunk('option'); 
+     } 
+     $values = // некий код - выполняет запрос для получения значений второго выпадающего списка 
+     $options2 = ''; 
+     foreach ($values as $value) { 
+         $modx-&gt;setPlaceholder('value', $value); 
+         $options2 .= $modx-&gt;getChunk('option'); 
+     } 
+   
+     $records = // некий код - выполняет запрос для получения записей для таблицы 
+     $trrows = ''; 
+     foreach ($records as $record) { 
+         $trrows .= $modx-&gt;getChunk('trrows', $record); 
+     } 
+     $modx-&gt;setPlaceholder('options1', $options1); 
+     $modx-&gt;setPlaceholder('options2', $options2); 
+     $modx-&gt;setPlaceholder('trrows', $trrows);</code></pre><br/>
+Это уже начинает выглядеть очень хорошо. Мы использовали API MODx для шаблона вывода результата и наш сниппет выглядит действительно чистым. Тем не менее есть одна вещь, которая беспокоит меня, и может быть потенциально проблематична — теперь у нас вызовы MODx API приобщены к логике нашего приложения. Если мы на 100% уверены, что нам только когда-нибудь понадобятся данные, напечатанные на этой веб-странице и в этом формате, то это действительно не проблема. Но если есть вероятность, что эти данные, возможно, необходимо использовать по-другому — где-то за пределами MODx — было бы лучше держать основную логику приложения отдельно от сущностей MODx.<br/>
+<br/>
+В настоящий момент приложение получает оценку «хорошо» <font color="#968e5b">(в оригинале — «B»)</font>. Давайте сделаем последний шаг и повысим нашу оценку до «отлично» <font color="#968e5b">(в оригинале — «A»)</font>.<br/>
+<br/>
+<h3>Часть пятая: Отделение логики Вашего приложения</h3><br/>
+<br/>
+Все, что нам нужно сделать для последнего шага — разделить наш сниппет на две части. Первая часть будет содержать нашу логику приложения и вернёт все массивы как члены одного большого массива. <br/>
+Это будет сделано на чистом PHP и в идеале должно быть сохранено в виде файла на нашем сервере.<br/>
+<br/>
+Вторая часть — непосредственно сниппет. Он сначала получит массив, возвращаемый файлом логики, затем использует чанки для шаблонизации строк результата, и, наконец, установит плейсхолдеры для отображения результатов в ресурсах.<br/>
+<br/>
+Вот чем это всё заканчивается:<br/>
+<br/>
+<b>Файл: acctCodes.php</b><br/>
+<pre><code class="php">&lt;?php 
+     // некий код - подключается к базе данных 
+     $values = // некий код - выполняет запрос для получения значений первого выпадающего списка 
+     $values2 = // некий код - выполняет запрос для получения значений второго выпадающего списка 
+     $records = // некий код - выполняет запрос для получения записей для таблицы 
+     return array('values'=&gt;$values, 
+                  'values2'=&gt;$values2, 
+                  'records'=&gt;$records); 
+?&gt;</code></pre><br/>
+<br/>
+<b>Сниппет: 'acctCodes'</b><br/>
+<pre><code class="php">&lt;?php 
+     $data = include_once(MY_INCLUDE_PATH . 'acctCodes.php'); 
+   
+     $options1 = ''; 
+     foreach ($data['values'] as $value) { 
+         $modx-&gt;setPlaceholder('value', $value); 
+         $options1 .= $modx-&gt;getChunk('option'); 
+     }  
+   
+     $options2 = ''; 
+     foreach ($data['values2'] as $value) { 
+         $modx-&gt;setPlaceholder('value', $value); 
+         $options2 .= $modx-&gt;getChunk('option'); 
+     } 
+   
+     $trrows = ''; 
+     foreach ($data['records'] as $record) { 
+         $trrows .= $modx-&gt;getChunk('trrows', $record); 
+     } 
+   
+     $modx-&gt;setPlaceholder('options1', $options1); 
+     $modx-&gt;setPlaceholder('options2', $options2); 
+     $modx-&gt;setPlaceholder('trrows', $trrows);</code></pre><br/>
+Теперь наши утки в ряд <font color="#968e5b">(Now we have our ducks in a row — прим. пер.)</font>. Давайте рассмотрим, что мы сделали:<br/>
+ — У нас есть логика приложения в файле на сервере (полностью за пределами MODx).<br/>
+ — Мы передаем данные напрямую (без какой-бы то ни было HTML разметки) в наш MODx сниппет.<br/>
+ — Мы позволяем MODx управлять шаблонизацией наших выходных записей.<br/>
+ — Мы устанавливаем все значения плейсхолдеров в одном сниппете в верхней части ресурса.<br/>
+ — Где это необходимо, мы выводим наши данные на страницу с помощью плейсхолдеров.<br/>
+<br/>
+Мы прошли долгий путь от нашего первоначального смешанного PHP/HTML-файла, не так ли? Я бы оценил эту окончательную реализацию на «отлично» <font color="#968e5b">(в оригинале — «A»)</font>. Тем не менее, у кого-то, вероятно, есть лучшие идеи, как разделить различные проблемные области. Но для знатоков PHP <font color="#968e5b">(в ориг. — PHP hacks — прим. пер.)</font> подобно мне, это хорошее место для начала.<br/>
+<br/>
+Надеюсь, вы узнали некоторые из ключевых проблем при написании простых приложений PHP для использования в MODx. Не стесняйтесь оставлять какие-нибудь мысли, вопросы или предложения по поводу этого руководства в комментариях <a href="http://www.cmslesstraveled.com/index/archive/2011/php-for-modx.html">здесь</a>.<br/>
+<br/>
+<font color="#968e5b">Прим. пер. — в результате были созданы:<br/>
+ — ресурс <b>acctCodes</b> (ч.2)<br/>
+ — сниппет <b>accountCodes</b> (ч.5)<br/>
+ — файл <b>acctCodes.php</b> (ч.5)<br/>
+ — чанк <b>option</b> (ч.4)<br/>
+ — чанк <b>trrows</b> (ч.4)</font>
+			
+			<div class="clear"></div>
+    </div>
+
+    
+<ul class="tags">
+	<li ><a href="http://habrahabr.ru/search/?q=%5BMODx%5D&target_type=posts" rel="tag">MODx</a></li>
+</ul>
+
+		<div class="infopanel" id="infopanel_post_128088">
+	
+        
+	
+	<div class="voting   ">
+
+		
+		
+		<span class="plus" title="Голосовать могут только зарегистрированные пользователи."></span>
+		<span class="minus" title="Голосовать могут только зарегистрированные пользователи."></span>
+		
+
+		<div class="mark positive ">
+			
+			<span class="score" title="Всего 22: &uarr;15 и &darr;7">+8</span>
+			
+			
+		</div>
+
+	</div>
+	
+	
+
+
+
+	<div class="published">10 сентября 2011 в 18:46</div>
+
+	<div class="favorite">
+		
+		
+		<a class="guest"  href="#" onclick="return false;" title="Только зарегистрированные пользователи могут добавлять посты в избранное"></a>
+		
+	</div>
+
+	<div class="favs_count" title="Количество пользователей, добавивших пост в избранное">18</div>
+
+	
+		
+		
+		<div class="twitter">
+			<a href="http://twitter.com/intent/tweet?text=%D0%A0%D0%B5%D1%84%D0%B0%D0%BA%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B3+%D0%BF%D1%80%D0%BE%D1%81%D1%82%D0%BE%D0%B3%D0%BE+PHP+%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F+%D0%B4%D0%BB%D1%8F+MODx+%23habr+http://habr.ru/p/128088/" title="Опубликовать ссылку в Twitter" target="_blank"></a>
+		</div>
+		<div class="vkontakte">
+			<a href="http://vkontakte.ru/share.php?url=http://habr.ru/p/128088/" title="Опубликовать ссылку во ВКонтакте" onclick="window.open(this.href, 'Опубликовать ссылку во Вконтакте', 'width=800,height=300'); return false"></a>
+		</div>
+		<div class="facebook">
+			<a href="https://www.facebook.com/sharer/sharer.php?u=http://habr.ru/p/128088/" title="Опубликовать ссылку в Facebook" onclick="window.open(this.href, 'Опубликовать ссылку в Facebook', 'width=640,height=436,toolbar=0,status=0'); return false"></a>
+		</div>
+		<div class="googleplus">
+			<a href="https://plus.google.com/share?url=http://habr.ru/p/128088/" title="Опубликовать ссылку в Google Plus" onclick="window.open(this.href, 'Опубликовать ссылку в Google Plus', 'width=800,height=300'); return false"></a>
+		</div>
+		
+	
+
+	
+
+	
+
+	
+	
+
+	
+	
+	<div class="author">
+
+		<a title="Автор текста" href="http://habrahabr.ru/users/AlexKostin/" >AlexKostin</a>
+		<span class="rating" title="рейтинг пользователя">3,0</span>
+		
+	</div>
+	
+	
+
+	
+
+	
+	
+
+	
+
+</div>
+<div class="clear"></div>
+
+
+	
+
+    
+		
+	</div>
+
+		
+		
+<div class="comments_list " id="comments">
+
+  <h2 class="title ">комментарии (<span id="comments_count">16</span>)
+  
+
+  </h2>
+
+   
+    
+<div class="comment_item" id="comment_4234400" >
+	
+	<span class="parent_id" data-parent_id="0"></span>
+	
+	
+	
+		<div class="info  " rel="4234400">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_4234400" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 8: &uarr;4 и &darr;4">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/1amer/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/e9/9c/cb/17380/small_17380.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/1amer/" class="username">1amer</a>
+			<time datetime="2011-09-10T20:05:47+04:00">10 сентября 2011 в 20:05</time>
+			<a href="#comment_4234400" class="link_to_comment">#</a>
+			
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Блин, почему в мире PHP никто не использует XSLT? 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_4234400">
+	 
+		
+<div class="comment_item" id="comment_4234473" >
+	
+	<span class="parent_id" data-parent_id="4234400"></span>
+	
+	
+	
+		<div class="info  " rel="4234473">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_4234473" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  negative">
+						<span class="score" title="Всего 6: &uarr;1 и &darr;5">–4</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/RiderSx/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/ca/aa/ac/20267/small_20267.png" alt="" /></a>
+			<a href="http://habrahabr.ru/users/RiderSx/" class="username">RiderSx</a>
+			<time datetime="2011-09-10T20:46:31+04:00">10 сентября 2011 в 20:46</time>
+			<a href="#comment_4234473" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="4234473" data-parent_id="4234400" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_4234400" data-id="4234473" data-parent_id="4234400" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format bad bad4">
+			тормозной он уж больно 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_4234473">
+	
+	</div>
+</div>
+
+	 
+		
+<div class="comment_item" id="comment_4234700" >
+	
+	<span class="parent_id" data-parent_id="4234400"></span>
+	
+	
+	
+		<div class="info  " rel="4234700">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_4234700" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark positive ">
+						<span class="score" title="Всего 8: &uarr;7 и &darr;1">+6</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/knekrasov/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/c7/75/55/26151/small_26151.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/knekrasov/" class="username">knekrasov</a>
+			<time datetime="2011-09-10T22:08:26+04:00">10 сентября 2011 в 22:08</time>
+			<a href="#comment_4234700" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="4234700" data-parent_id="4234400" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_4234400" data-id="4234700" data-parent_id="4234400" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Как говорится, если у вас есть проблема и XSLT, то у вас уже две проблемы :) Недавно кстати был повод в этом убедиться. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_4234700">
+	 
+		
+<div class="comment_item" id="comment_4234928" >
+	
+	<span class="parent_id" data-parent_id="4234700"></span>
+	
+	
+	
+		<div class="info  " rel="4234928">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_4234928" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  negative">
+						<span class="score" title="Всего 1: &uarr;0 и &darr;1">–1</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/1amer/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/e9/9c/cb/17380/small_17380.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/1amer/" class="username">1amer</a>
+			<time datetime="2011-09-10T23:26:56+04:00">10 сентября 2011 в 23:26</time>
+			<a href="#comment_4234928" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="4234928" data-parent_id="4234700" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_4234700" data-id="4234928" data-parent_id="4234700" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format bad bad1">
+			Я плююсь от XSLT, но альтернатив не вижу. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_4234928">
+	
+	</div>
+</div>
+
+	 
+		
+<div class="comment_item" id="comment_4241504" >
+	
+	<span class="parent_id" data-parent_id="4234700"></span>
+	
+	
+	
+		<div class="info  " rel="4241504">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_4241504" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/FB3/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+			<a href="http://habrahabr.ru/users/FB3/" class="username">FB3</a>
+			<time datetime="2011-09-13T13:12:37+04:00">13 сентября 2011 в 13:12</time>
+			<a href="#comment_4241504" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="4241504" data-parent_id="4234700" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_4234700" data-id="4241504" data-parent_id="4234700" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Послушал бы про повод убедиться :) 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_4241504">
+	 
+		
+<div class="comment_item" id="comment_4241981" >
+	
+	<span class="parent_id" data-parent_id="4241504"></span>
+	
+	
+	
+		<div class="info  " rel="4241981">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_4241981" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/knekrasov/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/c7/75/55/26151/small_26151.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/knekrasov/" class="username">knekrasov</a>
+			<time datetime="2011-09-13T14:57:13+04:00">13 сентября 2011 в 14:57</time>
+			<a href="#comment_4241981" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="4241981" data-parent_id="4241504" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_4241504" data-id="4241981" data-parent_id="4241504" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			От XSLT смешанное ощущение. Вещь наверняка хорошая в хороших руках, но пользуются ей видимо чаще <s>му</s> не очень хорошие люди.<br/>
+<br/>
+Как-то отлаживал проект на PHP+XSLT+AJAX. Все круто, кроме SQL injection и неэкранированных xml entities в пользовательских. Ну и плюс каша из кода.<br/>
+<br/>
+А проект кстати известный. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_4241981">
+	 
+		
+<div class="comment_item" id="comment_4242894" >
+	
+	<span class="parent_id" data-parent_id="4241981"></span>
+	
+	
+	
+		<div class="info  " rel="4242894">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_4242894" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/1amer/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/e9/9c/cb/17380/small_17380.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/1amer/" class="username">1amer</a>
+			<time datetime="2011-09-13T18:36:03+04:00">13 сентября 2011 в 18:36</time>
+			<a href="#comment_4242894" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="4242894" data-parent_id="4241981" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_4241981" data-id="4242894" data-parent_id="4241981" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			А где в вашем примере про XSLT?<br/>
+Да он многосновный, да чтобы задать переменную по условию пригходится иногда писать много кода,<br/>
+но вместе с этим XSL позволяет оверрайдить шаблоны, в нем есть функции и экранирование специальных символов, а самое главное это XML, что недопускает мешанины из разных по природе языков в одном файле, а еще, как бонус, результатом работы XSLT-процессора будет валидный XML. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_4242894">
+	 
+		
+<div class="comment_item" id="comment_4243655" >
+	
+	<span class="parent_id" data-parent_id="4242894"></span>
+	
+	
+	
+		<div class="info  " rel="4243655">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_4243655" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/knekrasov/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/c7/75/55/26151/small_26151.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/knekrasov/" class="username">knekrasov</a>
+			<time datetime="2011-09-13T22:46:56+04:00">13 сентября 2011 в 22:46</time>
+			<a href="#comment_4243655" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="4243655" data-parent_id="4242894" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_4242894" data-id="4243655" data-parent_id="4242894" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Не спорю, все можно. Можно и микроскопом гвозди забивать.<br/>
+«Оверрайдить» функциональность, как вы выразились, можно на любом другом языке шаблонов или разметки (шаблоны в ZF, JSP, Freemarker etc). Про возможность экранирования я вообще молчу — это базовая функциональность для подобных средств.<br/>
+<br/>
+А на самом деле мешанина кода реально есть. XML в пхпшном проекте, который генерирует HTML с хитропривязанным яваскриптом — тот еще треш для отладки.<br/>
+<br/>
+Да и вообще, имхо возможность преобразования XML в корректный XHTML — это скорее побочный эффект технологии. Поэтому и применять надо с осторожностью. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_4243655">
+	 
+		
+<div class="comment_item" id="comment_4244145" >
+	
+	<span class="parent_id" data-parent_id="4243655"></span>
+	
+	
+	
+		<div class="info  " rel="4244145">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_4244145" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/1amer/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/e9/9c/cb/17380/small_17380.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/1amer/" class="username">1amer</a>
+			<time datetime="2011-09-14T01:23:06+04:00">14 сентября 2011 в 01:23</time>
+			<a href="#comment_4244145" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="4244145" data-parent_id="4243655" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_4243655" data-id="4244145" data-parent_id="4243655" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			XSL(T) предназначен для генирации XML, как это может быть побочным эффектом? Ведь XHTML это XML, разве нет?  
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_4244145">
+	 
+		
+<div class="comment_item" id="comment_4244458" >
+	
+	<span class="parent_id" data-parent_id="4244145"></span>
+	
+	
+	
+		<div class="info  " rel="4244458">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_4244458" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/knekrasov/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/c7/75/55/26151/small_26151.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/knekrasov/" class="username">knekrasov</a>
+			<time datetime="2011-09-14T07:19:12+04:00">14 сентября 2011 в 07:19</time>
+			<a href="#comment_4244458" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="4244458" data-parent_id="4244145" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_4244145" data-id="4244458" data-parent_id="4244145" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Я имел в виду использование XSL вообще в вебе. То, что результат преобразования можно подсунуть браузеру для отрисовки (XHTML) — вот это уже скорее побочный эффект. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_4244458">
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+	 
+		
+<div class="comment_item" id="comment_4241503" >
+	
+	<span class="parent_id" data-parent_id="4234400"></span>
+	
+	
+	
+		<div class="info  " rel="4241503">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_4241503" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/FB3/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+			<a href="http://habrahabr.ru/users/FB3/" class="username">FB3</a>
+			<time datetime="2011-09-13T13:12:12+04:00">13 сентября 2011 в 13:12</time>
+			<a href="#comment_4241503" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="4241503" data-parent_id="4234400" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_4234400" data-id="4241503" data-parent_id="4234400" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Я бы сказал, что не часто, но используют.<br/>
+<br/>
+Гораздо более интересный вопрос: почему в мире PHP так много говнокодеров? 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_4241503">
+	 
+		
+<div class="comment_item" id="comment_4242858" >
+	
+	<span class="parent_id" data-parent_id="4241503"></span>
+	
+	
+	
+		<div class="info  " rel="4242858">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_4242858" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark positive ">
+						<span class="score" title="Всего 1: &uarr;1 и &darr;0">+1</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/1amer/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/e9/9c/cb/17380/small_17380.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/1amer/" class="username">1amer</a>
+			<time datetime="2011-09-13T18:26:32+04:00">13 сентября 2011 в 18:26</time>
+			<a href="#comment_4242858" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="4242858" data-parent_id="4241503" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_4241503" data-id="4242858" data-parent_id="4241503" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Это какраз уже пережевано мульйон раз: огромный спрос и низкий порог вхождения. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_4242858">
+	 
+		
+<div class="comment_item" id="comment_4243665" >
+	
+	<span class="parent_id" data-parent_id="4242858"></span>
+	
+	
+	
+		<div class="info  " rel="4243665">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_4243665" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/knekrasov/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/c7/75/55/26151/small_26151.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/knekrasov/" class="username">knekrasov</a>
+			<time datetime="2011-09-13T22:50:31+04:00">13 сентября 2011 в 22:50</time>
+			<a href="#comment_4243665" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="4243665" data-parent_id="4242858" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_4242858" data-id="4243665" data-parent_id="4242858" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Интересно, а спрос чем рождается? Низкой ценой разработки? Тогда это вообще замкнутый круг. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_4243665">
+	 
+		
+<div class="comment_item" id="comment_4244117" >
+	
+	<span class="parent_id" data-parent_id="4243665"></span>
+	
+	
+	
+		<div class="info  " rel="4244117">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_4244117" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/1amer/" class="avatar"><img src="http://media.habrahabr.ru/images/thumbs/avatars/e9/9c/cb/17380/small_17380.jpg" alt="" /></a>
+			<a href="http://habrahabr.ru/users/1amer/" class="username">1amer</a>
+			<time datetime="2011-09-14T01:09:01+04:00">14 сентября 2011 в 01:09</time>
+			<a href="#comment_4244117" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="4244117" data-parent_id="4243665" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_4243665" data-id="4244117" data-parent_id="4243665" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Клиент, не айтишник, приходит и говорит «Дайте мне сайт на Bitrix/Magento/Drupal...!». Чем это рождается? Очевидно, что у него есть знакомый, возможно успешный бизнесмен, возможно партнер, который, в беседе за бокалом бренди, сказал «У меня был сайт на технологии N — такое говно, щас мне сделали на технологии K, и я счаслив» 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_4244117">
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+   
+    
+<div class="comment_item" id="comment_4239588" >
+	
+	<span class="parent_id" data-parent_id="0"></span>
+	
+	
+	
+		<div class="info  " rel="4239588">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_4239588" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/andrian/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+			<a href="http://habrahabr.ru/users/andrian/" class="username">andrian</a>
+			<time datetime="2011-09-12T22:40:43+04:00">12 сентября 2011 в 22:40</time>
+			<a href="#comment_4239588" class="link_to_comment">#</a>
+			
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			«snippet itself?» — «непосредственно сниппет» 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_4239588">
+	 
+		
+<div class="comment_item" id="comment_4246230" >
+	
+	<span class="parent_id" data-parent_id="4239588"></span>
+	
+	
+	
+		<div class="info  " rel="4246230">
+			<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+			
+			<div id="voting_4246230" class="voting   ">
+										
+				
+					<span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+					<span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+				
+				<div class="mark  ">
+						<span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span> 
+				</div>	 
+			</div>
+			
+			<a href="http://habrahabr.ru/users/AlexKostin/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+			<a href="http://habrahabr.ru/users/AlexKostin/" class="username">AlexKostin</a>
+			<time datetime="2011-09-14T15:49:52+04:00">14 сентября 2011 в 15:49</time>
+			<a href="#comment_4246230" class="link_to_comment">#</a>
+			
+			
+				<div class="show_tree" data-id="4246230" data-parent_id="4239588" title="Показать ветку комментариев">&#8629;</div>
+				
+				<a href="#comment_4239588" data-id="4246230" data-parent_id="4239588" class="to_parent">&uarr;</a>
+			
+			<span class="to_chidren"></span>
+			<div class="clear"></div>
+		</div>
+		<div class="message html_format ">
+			Спасибо, поправил. 
+		</div>
+		<div class="reply">
+			
+		</div>
+	
+	<div class="reply_comments" id="reply_comments_4246230">
+	
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+  
+</div>
+
+		
+	
+		
+			<p class="for_users_only_msg">Только зарегистрированные пользователи могут оставлять комментарии. <a href="http://habrahabr.ru/login/">Войдите</a>, пожалуйста.</p>
+		
+		
+	
+
+
+
+		
+<form action="/json/favorites/" method="post" id="edit_tags_form" class="hidden">
+  <input type="hidden" name="action" value="add" />
+  <input type="hidden" name="ti" value="0" />
+  <input type="hidden" name="tt" value="0" />
+  <label>Пометьте топик понятными вам метками, если хотите</label>
+  <input type="text" name="tags_string" class="tags_string" />
+  <div class="description">Метки лучше разделять запятой. Например: <i>общение, социальные сети, myspace.com, подростки, мердок</i></div>
+  <input type="submit" value="Сохранить" class="submit" /> или <a href="#" class="close" onclick="return close_edit_tags()">закрыть</a>
+</form>
+    
+	
+	
+
+  </div>
+  <div class="sidebar_right">
+	
+		
+
+
+
+
+	<div class="banner_240x400">
+
+		<script type="text/javascript">
+			(function(){
+				var custom = [];
+			/* custom params */
+			
+				custom[1]	= 'modx';
+			
+				
+
+			/* end of custom params */
+				custom.getStd = function(){for(var i=0,j,s=[];i<this.length;i++){if(this[i])s.push((!j?(j=1,i+'='):'')+escape(this[i]));else j=0}return s.length?'&custom='+s.join(';'):''};
+
+				var RndNum4NoCash = Math.round(Math.random() * 1000000000),
+					ar_Tail = escape(document.referrer || 'unknown');
+				document.write('<iframe src="http://ad.adriver.ru/cgi-bin/erle.cgi?'
+					+ 'sid=176776&target=top&bt=22&pz=0&rnd=' + RndNum4NoCash + '&tail256=' + ar_Tail + custom.getStd()
+					+ '" frameborder=0 vspace=0 hspace=0 width=240 height=400 marginwidth=0'
+					+ ' marginheight=0 scrolling=no></iframe>');
+			})();
+		</script>
+
+	</div>
+
+
+
+
+
+		
+	<div id="facebook_reader_wrapper">
+		<div id="facebook_reader" class="block" ></div>
+	</div>
+
+		
+
+<div class="block daily_best_posts">
+  <div class="title">Лучшее <sup>за 24 часа</sup> &darr; </div>
+  <div class="posts_list">
+    
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="/post/150683/" class="post_name">О сортировке контента на основе оценок пользователей</a>
+      </div>
+    
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="/post/150676/" class="post_name">Рунет 90х</a>
+      </div>
+    
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="/post/150691/" class="post_name">Black Mesa Source — спустя 8 лет</a>
+      </div>
+    
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="/post/150678/" class="post_name">Мини-станок из палочек от мороженого #1</a>
+      </div>
+    
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="/post/150684/" class="post_name">Родной Sinclair ZX Spectrum</a>
+      </div>
+    
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="/post/150689/" class="post_name">Разработка плагина для PhoneGap</a>
+      </div>
+    
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="/post/150693/" class="post_name">«Пользовательские скрипты могут быть добавлены только из Интернет-магазина Chrome»? Нет, не только</a>
+      </div>
+    
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="/post/150698/" class="post_name">Релиз Ubuntu 12.04.1</a>
+      </div>
+    
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="/post/150308/" class="post_name">Недооценённый флагман</a>
+      </div>
+    
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="/post/150694/" class="post_name">Мировая агрессия не растёт. Исследование одного программиста</a>
+      </div>
+    
+  </div>
+  <div class="all">&laquo; <a href="/top/">все лучшие</a></div>
+</div>
+
+		
+
+
+<div class="block similar_posts">
+
+	<div class="title">Похожие посты &darr; </div>
+  <div class="posts_list">
+  	
+    	<div class="post_item">
+    				<a class="post_name" href="/post/111448/">Заметки программиста о новых возможностях MODx Revolution</a>
+    				<span class="when">08.01.2011</span>
+      </div>
+  	
+    	<div class="post_item">
+    				<a class="post_name" href="/post/132111/">Modx и «ограничение» в 5000 документов</a>
+    				<span class="when">08.11.2011</span>
+      </div>
+  	
+    	<div class="post_item">
+    				<a class="post_name" href="/post/121264/">Безопасность и проблемы с ней в MODx Revolution</a>
+    				<span class="when">14.06.2011</span>
+      </div>
+  	
+    	<div class="post_item">
+    				<a class="post_name" href="/post/120282/">MODX выпускает Revolution 2.1 с полной поддержкой SQL Server</a>
+    				<span class="when">31.05.2011</span>
+      </div>
+  	
+    	<div class="post_item">
+    				<a class="post_name" href="/post/122289/">MODx: Ресурсы, чанки и какие-то телевизоры</a>
+    				<span class="when">20.06.2011</span>
+      </div>
+  	
+    	<div class="post_item">
+    				<a class="post_name" href="/post/110316/">MODx — Интеграция Sypex Dumper</a>
+    				<span class="when">20.12.2010</span>
+      </div>
+  	
+    	<div class="post_item">
+    				<a class="post_name" href="/post/142124/">Релиз SBShop 1.0 — интернет-магазин на MODX Evolution</a>
+    				<span class="when">15.04.2012</span>
+      </div>
+  	
+    	<div class="post_item">
+    				<a class="post_name" href="/post/104303/">Shopkeeper — модуль интернет-магазина для MODx</a>
+    				<span class="when">15.09.2010</span>
+      </div>
+  	
+    	<div class="post_item">
+    				<a class="post_name" href="/post/65988/">Новая версия CMS/CMF MODx Evolution 1.0</a>
+    				<span class="when">02.08.2009</span>
+      </div>
+  	
+    	<div class="post_item">
+    				<a class="post_name" href="/post/149478/">MODX Cloud: первый обзор</a>
+    				<span class="when">13.08.2012</span>
+      </div>
+  	
+  </div>			
+</div>
+
+
+
+
+		
+
+
+<div class="block live_broadcast_activity">
+  <div class="title">Прямой эфир &darr; </div>
+  <div class="posts_list">
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/cyberaxe/" class="user_name">cyberaxe</a> &rarr;
+      <a href="/post/150625/#comment_5104886" class="post_name">Synology объявляет об официальном выпуске DiskStation Manager 4.1</a>&nbsp;<span class="count">33</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/giner/" class="user_name">giner</a> &rarr;
+      <a href="/post/150687/#comment_5104885" class="post_name">Windows 7 стала самой популярной операционной системой. OS X в целом третья</a>&nbsp;<span class="count">42</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/kekekeks/" class="user_name">kekekeks</a> &rarr;
+      <a href="/post/150662/#comment_5104884" class="post_name">Есть ли жизнь без Windows?</a>&nbsp;<span class="count">245</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/difiso/" class="user_name">difiso</a> &rarr;
+      <a href="/post/150608/#comment_5104881" class="post_name">Возвращаемся на раздачу или как сделать невозможное</a>&nbsp;<span class="count">67</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/RankoR/" class="user_name">RankoR</a> &rarr;
+      <a href="/post/150308/#comment_5104879" class="post_name">Недооценённый флагман</a>&nbsp;<span class="count">24</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/Sicness/" class="user_name">Sicness</a> &rarr;
+      <a href="/post/150701/#comment_5104876" class="post_name">Два гиганта в одной программе — Nvidia CUDA и MPI</a>&nbsp;<span class="count">1</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/iFrolov/" class="user_name">iFrolov</a> &rarr;
+      <a href="/post/150690/#comment_5104875" class="post_name">Вывод уведомления об устаревшем браузере с помощью jReject</a>&nbsp;<span class="count">29</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/maschingan/" class="user_name">maschingan</a> &rarr;
+      <a href="/post/146473/#comment_5104874" class="post_name">Разделение конфигураций в Yii по взрослому</a>&nbsp;<span class="count">22</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/MTonly/" class="user_name">MTonly</a> &rarr;
+      <a href="/post/150631/#comment_5104873" class="post_name">Samsung на IFA 2012</a>&nbsp;<span class="count">7</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/SpiritOfVox/" class="user_name">SpiritOfVox</a> &rarr;
+      <a href="/post/150693/#comment_5104872" class="post_name">«Пользовательские скрипты могут быть добавлены только из Интернет-магазина Chrome»? Нет, не только</a>&nbsp;<span class="count">14</span>
+    </div>
+
+  </div>
+  
+</div>
+
+
+
+  
+		
+<!--  AdRiver code START. Type:AjaxJS Site: habrahabr SZ: embarcadero PZ: 0 BN: 2 -->
+
+<div id="adriver_banner_1991549925" style="margin-bottom:20px;"></div>
+
+<script type="text/javascript">
+new adriver("adriver_banner_1991549925", {sid:176776, bt:52, sz:'embarcadero', bn:2});
+</script>
+
+<!--  AdRiver code END  -->
+
+
+
+   
+
+
+
+
+
+   
+		
+
+<div class="block best_company">
+
+		<div class="title">Компания дня <img src="/i/bg_cicle_help.png" title="
+Компания, чей пост набрал максимальное количество баллов<br>
+среди всех опубликованных в корпоративных блогах постах за <br>
+прошедшие сутки. Учитываются посты, для которых истек срок голосования <br>(3 дня с момента публикации)." class="help-tip"></div>
+
+		<div class="company_info">
+			<div class="name">
+			 <img class="favicon" src="/media/company/favicon/16/favicon_1618.ico" alt="Twins" height="16" width="16" />
+			 <div class="company_name"><a href="http://habrahabr.ru/company/twins/" class="title">Twins</a></div>
+			</div>
+
+			<p>Последний пост:
+				<a href="http://habrahabr.ru/company/twins/blog/150406/">Одно предложение, которое делает нас сильнее</a>
+			</p>
+
+			<div class="buttons">
+  			<div id="fans_count">143 подписчика</div>
+  			
+			</div>
+		</div>
+
+	</div>
+
+
+		
+
+<div class="block qa_activity">
+  <div class="title">Q&A &darr; </div>
+  <div class="posts_list">
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/WerewolfPrankster/" class="user_name">WerewolfPrankster</a> &rarr;
+      <a href="http://habrahabr.ru/qa/23452/#comment_113770" class="post_name">Как джуниору уехать на работу заграницей?</a>&nbsp;<span class="count">7</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/WarP/" class="user_name">WarP</a> &rarr;
+      <a href="http://habrahabr.ru/qa/23446/#answer_96147" class="post_name">Что бы вы переделали в этой корзине интернет-магазина?</a>&nbsp;<span class="count">10</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/gnoul/" class="user_name">gnoul</a> &rarr;
+      <a href="http://habrahabr.ru/qa/23453/#answer_96146" class="post_name">Как лучше хранить гео-точки (для последующего отображения на карте)?</a>&nbsp;<span class="count">4</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/ScratchBoom/" class="user_name">ScratchBoom</a> &rarr;
+      <a href="http://habrahabr.ru/qa/23459/#answer_96144" class="post_name">Как справится с проблемой в Eclipse ?</a>&nbsp;<span class="count">1</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/nazarpc/" class="user_name">nazarpc</a> &rarr;
+      <a href="http://habrahabr.ru/qa/23454/#comment_113768" class="post_name">Таблица сравнения CMS</a>&nbsp;<span class="count">3</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/opium/" class="user_name">opium</a> &rarr;
+      <a href="http://habrahabr.ru/qa/23455/#answer_96143" class="post_name">Squeeze+ISPmanager плагин переключения версий php для VirtualHost. Есть решение?</a>&nbsp;<span class="count">3</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/Ceiceron/" class="user_name">Ceiceron</a> &rarr;
+      <a href="http://habrahabr.ru/qa/23403/#answer_96142" class="post_name">Антивирус для слабого ноутбука ?</a>&nbsp;<span class="count">15</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/NoorBall/" class="user_name">NoorBall</a> &rarr;
+      <a href="http://habrahabr.ru/qa/23438/#answer_96141" class="post_name">Как сделать чтобы USB-модем ZTE MF 190 работал с 3G (сейчас работает только EDGE)?</a>&nbsp;<span class="count">3</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/igoravr/" class="user_name">igoravr</a> &rarr;
+      <a href="http://habrahabr.ru/qa/23457/#comment_113765" class="post_name">Как растянуть блок на весь viewport?</a>&nbsp;<span class="count">1</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/jarvis/" class="user_name">jarvis</a> &rarr;
+      <a href="http://habrahabr.ru/qa/23315/#comment_113763" class="post_name">Как поделить большую таблицу личных сообщений?</a>&nbsp;<span class="count">6</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/Alex_Popov/" class="user_name">Alex_Popov</a> &rarr;
+      <a href="http://habrahabr.ru/qa/23456/#comment_113760" class="post_name">Как называет стартап по автоматическому eye-tracking анализу изображений?</a>&nbsp;<span class="count">1</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/AR1ES/" class="user_name">AR1ES</a> &rarr;
+      <a href="http://habrahabr.ru/qa/23298/#comment_113757" class="post_name">Как в Eclipse можно определить все связи между классами?</a>&nbsp;<span class="count">1</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/Killy/" class="user_name">Killy</a> &rarr;
+      <a href="http://habrahabr.ru/qa/23450/#comment_113756" class="post_name">Где в Москве достать поликапролактон?</a>&nbsp;<span class="count">2</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/feligz/" class="user_name">feligz</a> &rarr;
+      <a href="http://habrahabr.ru/qa/23425/#comment_113754" class="post_name">Есть ли способ перегружать страницу сразу после сохранения изменений в файле (VS 2012 - APS.NET MVC) ?</a>&nbsp;<span class="count">2</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/klu4ik/" class="user_name">klu4ik</a> &rarr;
+      <a href="http://habrahabr.ru/qa/23418/#comment_113744" class="post_name">MSSQL-запрос в PHP</a>&nbsp;<span class="count">4</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/bugman/" class="user_name">bugman</a> &rarr;
+      <a href="http://habrahabr.ru/qa/23329/#answer_96130" class="post_name">А какие приемы маркетинга больше всего раздражают вас?</a>&nbsp;<span class="count">18</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/nickme/" class="user_name">nickme</a> &rarr;
+      <a href="http://habrahabr.ru/qa/23437/#comment_113739" class="post_name">Посоветуйте книги по нейросетям</a>&nbsp;<span class="count">1</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/Antares19/" class="user_name">Antares19</a> &rarr;
+      <a href="http://habrahabr.ru/qa/23413/#comment_113737" class="post_name">Какой нетбук выбрать?</a>&nbsp;<span class="count">13</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/Riateche/" class="user_name">Riateche</a> &rarr;
+      <a href="http://habrahabr.ru/qa/23388/#comment_113734" class="post_name">Qt и OpenGL</a>&nbsp;<span class="count">4</span>
+    </div>
+
+    <div class="post_item">
+      <a href="http://habrahabr.ru/users/dr013/" class="user_name">dr013</a> &rarr;
+      <a href="http://habrahabr.ru/qa/6831/#answer_96125" class="post_name">django test client 404, 301 != 200</a>&nbsp;<span class="count">2</span>
+    </div>
+
+  </div>
+  <div class="all">&laquo; <a href="/qa/">все вопросы</a></div>
+  
+</div>
+
+
+		
+
+<div class="block new_vacanies">
+  <div class="title">О, работа! &darr; </div>
+  <div class="vacancies">
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10371-web-tehnolog">Web-технолог</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10370-veduschiy-inzhener-po-obespecheniyu-kachestva">Ведущий инженер по обеспечению качества</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10369-php-programmist">PHP-программист</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10368-php-programmist">PHP-программист</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10367-web-programmist">Web-программист</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10366-php-programmist">PHP-программист</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10364-front-end-razrabotchik">Front-end разработчик</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10362-js-razrabotchik">JS-разработчик</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10360-razrabotchik-na-livestreet">Разработчик на LiveStreet</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10356-opytnyy-verstalschik-v-ofis">Опытный верстальщик в офис</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10359-verstalschik">Верстальщик</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10357-veduschiy-java-programmist">Ведущий Java программист</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10355-veduschiy-programmist-objective-c">Ведущий программист Objective-C</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10352-lead-developer">Lead Developer</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/8937-junior-web-developer">Junior Web Developer</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/8938-senior-web-developer">Senior Web Developer</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10349-administrator-subd-oracle">Администратор СУБД Oracle</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10344-php-programmist">PHP программист</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10348-testirovschik">Тестировщик</a>
+		</div>
+		
+		<div class="job_item">
+			<a href="http://hantim.ru/jobs/10347-javascript-razrabotchik-v-krupnyy-internet-magazin">JavaScript-разработчик в крупный интернет-магазин</a>
+		</div>
+		
+  </div>
+  <div class="all">&#171; <a href="http://hantim.ru/">все вакансии</a></div>
+
+	</div>
+
+		
+		
+
+		
+
+
+<div class="block similar_events">
+	<div class="title">Ближайшие события</div>
+		<div class="events_items">
+			
+				<div class="event_item">
+					
+						<div class="date">
+						<div class="dayname dayname_1"></div>
+						<div class="day">03</div>
+						<div class="month">сен</div>
+						</div>
+					
+					<div class="title">
+						<a href="/events/862/">Start-Up Nation Таглит: израильская индустрия инноваций</a>
+					</div>
+				</div>
+			
+				<div class="event_item">
+					
+						<div class="date">
+						<div class="dayname dayname_2"></div>
+						<div class="day">04</div>
+						<div class="month">сен</div>
+						</div>
+					
+					<div class="title">
+						<a href="/events/934/">Электронный замок «Соболь» - настоящее и будущее</a>
+					</div>
+				</div>
+			
+				<div class="event_item">
+					
+						<div class="date">
+						<div class="dayname dayname_3"></div>
+						<div class="day">05</div>
+						<div class="month">сен</div>
+						</div>
+					
+					<div class="title">
+						<a href="/events/911/">Конференция IBM PureSystems</a>
+					</div>
+				</div>
+			
+				<div class="event_item">
+					
+						<div class="date">
+						<div class="dayname dayname_4"></div>
+						<div class="day">06</div>
+						<div class="month">сен</div>
+						</div>
+					
+					<div class="title">
+						<a href="/events/894/">Семинар: «Решения для управления проектами. Об информационных технологиях простыми словами» .</a>
+					</div>
+				</div>
+			
+				<div class="event_item">
+					
+						<div class="date">
+						<div class="dayname dayname_4"></div>
+						<div class="day">06</div>
+						<div class="month">сен</div>
+						</div>
+					
+					<div class="title">
+						<a href="/events/929/">Изменения законодательства в области ИБ и практики его правоприменения</a>
+					</div>
+				</div>
+			
+		</div>
+	<div class="all">&laquo; <a href="/events/">все события</a></div>
+</div>
+
+
+		
+	
+  </div>
+  <div class="clear"></div>
+
+			
+	
+	
+	<div class="rotated_posts">
+		
+			<div class="rotated_post ">
+				<a href="http://habrahabr.ru/post/143617/" class="grey">Профессиональная иммиграция в Австралию, IT и жизнь на другом континенте</a>
+			</div>
+		
+			<div class="rotated_post ">
+				<a href="http://habrahabr.ru/post/150224/" class="grey">Как я делал нотную капчу</a>
+			</div>
+		
+			<div class="rotated_post last">
+				<a href="http://habrahabr.ru/post/143974/" class="grey">Судья Алсуп умеет программировать и поучает адвоката Oracle</a>
+			</div>
+		
+	</div>
+	
+
+		  <div id="footer">
+      
+			
+			<dl>
+				<dd><a href="http://habrahabr.ru/login/">Войти</a></dd>
+				<dd><a href="http://habrahabr.ru/register/">Регистрация</a></dd>
+			</dl>
+			
+			<dl>
+				<dt>Разделы</dt>
+
+				<dd><a href="http://habrahabr.ru/qa/">Q&A</a></dd>
+				<dd><a href="http://habrahabr.ru/hubs/">Хабы</a></dd>
+				<dd><a href="http://habrahabr.ru/events/">События</a></dd>
+				<dd><a href="http://habrahabr.ru/companies/">Компании</a></dd>
+				<dd><a href="http://habrahabr.ru/job/">Работа</a></dd>
+				<dd><a href="http://habrahabr.ru/users/">Пользователи</a></dd>
+			</dl>
+			<dl>
+				<dt>Посты</dt>
+				
+				<dd><a href="http://habrahabr.ru/posts/top/">Лучшие</a></dd>
+				<dd><a href="http://habrahabr.ru/posts/collective/">Тематические</a></dd>
+				<dd><a href="http://habrahabr.ru/posts/corporative/">Корпоративные</a></dd>
+				<dd><a href="http://habrahabr.ru/sandbox/">Песочница</a></dd>
+			</dl>
+			<dl>
+				<dt>Инфо</dt>
+				<dd><a href="http://habrahabr.ru/info/about/">О сайте</a></dd>
+				<dd><a href="http://habrahabr.ru/info/help/rules/">Правила</a></dd>
+				<dd><a href="http://habrahabr.ru/info/help/">Помощь</a></dd>
+				<dd><a href="http://habrahabr.ru/info/agreement/">Соглашение</a></dd>
+				<dd><a href="http://habrahabr.ru/info/stats/">Статистика</a></dd>
+			</dl>
+			<dl>
+				<dt>Услуги</dt>
+				<dd><a href="http://habrahabr.ru/info/advertising/">Реклама</a></dd>
+				<dd><a href="http://habrahabr.ru/info/advertising/corporate/">Корпоративные пакеты</a></dd>
+				<dd><a href="http://habrahabr.ru/info/advertising/workshops/">Семинары</a></dd>
+			</dl>
+      <div class="copyright">
+    		<a class="footer_logo" href="http://thematicmedia.ru/">Тематические Медиа</a>
+    		<div class="about">
+    			© 2006&#8211;2012<br>
+    			«<a href="http://www.thematicmedia.ru/">Тематические Медиа</a>»
+			<br><br>
+			<a href="/feedback/">Служба поддержки</a><br><br>
+			<a href="http://m.habrahabr.ru">Мобильная версия</a>
+		</div>
+      </div>
+
+</div>
+		</div>
+	 	
+		
+    
+		
+		
+		<script type="text/javascript">
+			$(function () {
+				new FacebookReader(
+					$('#facebook_reader'),
+					'437464306275519'
+				);
+			});
+		</script>
+		
+    <script type="text/javascript">
+      $(document).ready(function(){
+        // test gggg
+        // настройки всплывающих уведомлений
+        $.jGrowl.defaults.closerTemplate = '<div>Закрыть все уведомления</div>';         
+        
+        // настройки тултипов
+        $(".help-tip").tipTip({maxWidth: "300px", edgeOffset: 10});  
+        
+      });
+      // global vars
+      var g_base_url = 'habrahabr.ru';
+      var g_show_xpanel = false;
+      var g_base_fullurl = 'http://habrahabr.ru/';
+      var g_is_guest = false;
+       
+    </script>
+		
+    <script type="text/javascript" src="/javascripts/1346413177/_parts/shortcuts.js"></script>
+		<script type="text/javascript" src="/javascripts/1346413177/_parts/to_top.js"></script>
+		<link href="/styles/1346413177/_parts/_to_top.css" rel="stylesheet" media="all" />
+		
+		<!-- <script type="text/javascript" src="/javascripts/1346413177/_parts/float_block.js"></script> //-->
+				
+		
+<script type="text/javascript">
+	/*<![CDATA[*/
+	var ga = document.createElement('script');
+		ga.setAttribute('async', 'true');
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	/* ]]>*/
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(
+	    ['_setAccount', 'UA-726094-1'],
+	    ['_setDomainName', '.habrahabr.ru'],
+	    ["_addOrganic", "mail.ru", "q"],
+	    ["_addOrganic","rambler.ru", "words"],
+	    ["_addOrganic","nigma.ru", "s"],
+	    ["_addOrganic","blogs.yandex.ru", "text"],
+	    ["_addOrganic","webalta.ru", "q"],
+	    ["_addOrganic","aport.ru", "r"],
+	    ["_addOrganic","akavita.by", "z"],
+	    ["_addOrganic","meta.ua", "q"],
+	    ["_addOrganic","bigmir.net", "q"],
+	    ["_addOrganic","tut.by", "query"],
+	    ["_addOrganic","all.by", "query"],
+	    ["_addOrganic","i.ua", "q"],
+	    ["_addOrganic","online.ua", "q"],
+	    ["_addOrganic","a.ua", "s"],
+	    ["_addOrganic","ukr.net", "search_query"],
+	    ["_addOrganic","search.com.ua", "q"],
+	    ["_addOrganic","search.ua", "query"],
+	    ["_addOrganic","poisk.ru", "text"],
+	    ["_addOrganic","km.ru", "sq"],
+	    ["_addOrganic","liveinternet.ru", "ask"],
+	    ["_addOrganic","gogo.ru", "q"],
+	    ["_addOrganic","gde.ru", "keywords"],
+	    ["_addOrganic","quintura.ru", "request"],
+	    ['_trackPageview']
+	);
+	document.documentElement.firstChild.appendChild(ga);
+</script>	
+		
+		
+	</body>
+</html>

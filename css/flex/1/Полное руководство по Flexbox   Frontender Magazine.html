@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="ru-RU"  xmlns="//www.w3.org/1999/xhtml"
+                    xmlns:og="//ogp.me/ns#"
+                    xmlns:fb="//www.facebook.com/2008/fbml">
+  <head prefix="og: http://ogp.me/ns#
+                fb: http://ogp.me/ns/fb#
+                article: http://ogp.me/ns/article#">
+    <meta charset="UTF-8">
+    <meta http-equiv = "X-UA-Compatible" content="IE=edge;chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <meta name="msapplication-TileColor" content="#ffffff"/>
+    <meta name="msapplication-TileImage" content="http://frontender.info/img/fr.png"/>
+
+    <meta property="fb:app_id" content="302140436578036"/>
+    <meta property="fb:admins" content="100002475344806"/>
+
+    <meta property="og:type"                  content="article"/>
+    <meta property="og:url"                   content="http://frontender.info/a-guide-to-flexbox/"/>
+    <meta property="og:site_name"             content="Frontender Magazine">
+    <meta property="og:image"                 content="http://frontender.info/img/frsqr.png"/>
+    <meta property="og:title"                 content="Полное руководство по Flexbox"/>
+    <meta property="og:description"
+          content="Модуль *Flexbox-лейаута* ставит задачу предложить более эффективный способ 
+вёрстки, выравнивания и распределения свободного места между элементами в 
+контейнере, даже когда их размер неизвестен и/или динамический.
+"/>
+    <meta property="article:published_time"   content="2013-09-06">
+    
+    
+
+    <meta name="description" content="Модуль *Flexbox-лейаута* ставит задачу предложить более эффективный способ 
+вёрстки, выравнивания и распределения свободного места между элементами в 
+контейнере, даже когда их размер неизвестен и/или динамический.
+">
+
+    <link rel="alternate" type="application/rss+xml" title="Frontender Magazine" href="http://feeds.frontender.info/FrontenderMagazine" />
+    <link rel="alternate" type="application/atom+xml" title="Frontender Magazine | Полнотекстовый" href="http://feeds.frontender.info/FrontenderMagazineArticles" />
+    <link rel="alternate" type="application/rss+xml" title="Frontender Magazine | Куча" href="http://feeds.frontender.info/FrontenderMagazineHEAP" />
+
+    <link rel="shortcut icon" type="image/ico" href="//frontender.info/favicon.ico"/>
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="//frontender.info/apple-touch-icon-144x144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="//frontender.info/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="//frontender.info/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="//frontender.info/apple-touch-icon-precomposed.png">
+
+
+    <link rel="stylesheet" href="/css/common.css">
+
+    <title>Полное руководство по Flexbox | Frontender Magazine</title>
+  </head>
+  <body>
+    <div id="fb-root"></div>
+    <header class="columns-59">
+      <a href="http://frontender.info/">
+       <h1 class="logotype">Frontender Magazine</h1>
+      </a>
+      <nav class="social">
+        <a href="http://twitter.com/frontenderinfo" title="Подпишитесь на твиттер" class="twitter icon-twitter">@frontenderinfo</a>
+        <a href="https://github.com/FrontenderMagazine/" title="Мы на гитхабе" class="github icon-github">GitHub</a>
+        <a href="http://feeds.frontender.info/FrontenderMagazineArticles/" title="Читайте наш RSS" class="rss icon-rss">rss-канал</a>
+      </nav>
+    </header>
+    <article class="columns-59 content">
+      
+<h1 id="polnoerukovodstvopoflexbox"><a href="#polnoerukovodstvopoflexbox">Полное руководство по Flexbox</a></h1>
+
+<p>Модуль <em>Flexbox-лейаута</em> (flexible box — «гибкий блок», на данный момент W3C 
+Candidate Recommendation) ставит задачу предложить более эффективный способ 
+вёрстки, выравнивания и распределения свободного места между элементами в 
+контейнере, даже когда их размер неизвестен и/или динамический (отсюда слово 
+«гибкий»).</p>
+
+<p>Главная задумка flex-вёрстки в наделении контейнера способностью изменять 
+ширину/высоту (и порядок) своих элементов для наилучшего заполнения 
+пространства (в большинстве случаев — для поддержки всех видов дисплеев и 
+размеров экранов). Flex-контейнер растягивает элементы для заполнения 
+свободного места или сжимает их, чтобы предотвратить выход за границы.</p>
+
+<p>Самое важное, flexbox-лейаут не зависит от направления в отличие от обычных 
+лейаутов (блоки, располагащиеся вертикально, и инлайн-элементы, 
+располагающиеся горизонтально). В то время, как обычный лейаут отлично 
+подходит для веб-страниц, ему не хватает гибкости (никакого каламбура) для 
+поддержки больших или сложных приложений (особенно когда дело доходит до 
+смены ориентации экрана, изменения размера, растягивания, сжатия и т.п.).</p>
+
+<p><strong>Замечание</strong>: Flexbox-лейаут лучше всего подходит для составных частей 
+приложения и мелкомасштабных лейаутов, в то время как <a href="http://css-tricks.com/almanac/properties/g/grid/">Grid</a>-лейаут больше 
+используется для лейаутов большого масштаба.</p>
+
+<h2 id="osnov"><a href="#osnov">Основы</a></h2>
+
+<p>Т.к. flexbox — это целый модуль, а не просто единичное свойство, он 
+объединяет в себе множество свойств. Некоторые из них должны применяться к 
+контейнеру (родительскому элементу, так называемому <em>flex-контейнеру</em>), в то 
+время как другие свойства применяются к дочерним элементам, или 
+<em>flex-элементам</em>.</p>
+
+<p>Если обычный лейаут основывается на направлениях потоков блочных и 
+инлайн-элементов, то flex-лейаут основывается на «направлениях flex-потока». 
+Ознакомьтесь с этой схемой из спецификации, разъясняющей основную идею 
+flex-лейаутов.</p>
+
+<p><img src="img/flexbox.png" alt="Flexbox"></p>
+
+<p>В основном элементы будут распределяться либо вдоль <em>главной оси</em> 
+(от <em>main-start</em> до <em>main-end</em>), либо вдоль <em>поперечной оси</em> 
+(от <em>cross-start</em> до <em>cross-end</em>).</p>
+
+<ul>
+<li>
+<strong>main-axis</strong> - главная ось, вдоль которой располагаются flex-элементы. 
+Обратите внимание, она необязательно должна быть горизонтальной, всё зависит 
+от свойства <code>justify-content</code> (см. ниже).</li>
+<li>
+<strong>main-start</strong> | <strong>main-end</strong> - flex-элементы размещаются в контейнере от 
+позиции main-start до позиции main-end.</li>
+<li>
+<strong>main size</strong> - ширина или высота flex-элемента в зависимости от выбранной 
+основной величины. Основная величина может быть либо шириной, либо высотой 
+элемента.</li>
+<li>
+<strong>cross axis</strong> - поперечная ось, перпендикулярная к главной. Её направление 
+зависит о тнаправления главной оси.</li>
+<li>
+<strong>cross-start</strong> | <strong>cross-end</strong> - flex-строки заполняются элементами и 
+размещаются в контейнере от позиции <code>cross-start</code> и до позиции <code>cross-end</code>.</li>
+<li>
+<strong>cross size</strong> - ширина или высота flex-элемента в зависимости от выбранной 
+размерности равняется этой величине. Это свойство совпадает с <code>width</code> или 
+<code>height</code> элемента в зависимости от выбранной размерности.</li>
+</ul>
+<h2 id="svoystva"><a href="#svoystva">Свойства</a></h2>
+
+<h4 id="codedisplayflexinlineflexcode"><a href="#codedisplayflexinlineflexcode"><code>display: flex | inline-flex;</code></a></h4>
+
+<p><strong>Применяется к:</strong> родительскому элементу flex-контейнера.</p>
+
+<p>Определяет flex-контейнер (инлайновый или блочный в зависимости от выбранного 
+значения), подключает flex-контекст для всех его непосредственных потомков.</p>
+
+<pre><code>display: other values | flex | inline-flex;
+</code></pre>
+
+<p>Имейте в виду:</p>
+
+<ul>
+<li>CSS-столбцы <code>columns</code> не работают с flex-контейнером</li>
+<li>
+<code>float</code>, <code>clear</code> и <code>vertical-align</code> не работают с flex-элементами</li>
+</ul>
+<h4 id="codeflexdirectioncode"><a href="#codeflexdirectioncode"><code>flex-direction</code></a></h4>
+
+<p><strong>Применяется к:</strong> родительскому элементу flex-контейнера.</p>
+
+<p>Устанавливает главную ось <code>main-axis</code>, определяя тем самым направление для 
+flex-элементов, размещаемых в контейнере.</p>
+
+<pre><code>flex-direction: row | row-reverse | column | column-reverse
+</code></pre>
+
+<ul>
+<li>
+<code>row</code> (по умолчанию): слева направо для <code>ltr</code>, справа налево для <code>rtl</code>;</li>
+<li>
+<code>row-reverse</code>: справа налево для <code>ltr</code>, слева направо для <code>rtl</code>;</li>
+<li>
+<code>column</code>: аналогично <code>row</code>, сверху вниз;</li>
+<li>
+<code>column-reverse</code>: аналогично <code>row-reverse</code>, снизу вверх.</li>
+</ul>
+<h4 id="codeflexwrapcode"><a href="#codeflexwrapcode"><code>flex-wrap</code></a></h4>
+
+<p><strong>Применяется к:</strong> родительскому элементу flex-контейнера.</p>
+
+<p>Определяет, будет ли контейнер однострочным или многострочным, а также 
+направление поперечной оси, определяющей направление, в котором будут 
+располагаться новые строки.</p>
+
+<pre><code>flex-wrap: nowrap | wrap | wrap-reverse
+</code></pre>
+
+<ul>
+<li>
+<code>nowrap</code> (по умолчанию): однострочный / слева направо для <code>ltr</code>, справа 
+налево для <code>rtl</code>;</li>
+<li>
+<code>wrap</code>: многострочный / слева направо для <code>ltr</code>, справа налево для <code>rtl</code>;</li>
+<li>
+<code>wrap-reverse</code>: многострочный / справа налево для <code>ltr</code>, слева направо 
+для <code>rtl</code>.</li>
+</ul>
+<h4 id="codeflexflowcode"><a href="#codeflexflowcode"><code>flex-flow</code></a></h4>
+
+<p><strong>Применяется к:</strong> родительскому элементу flex-контейнера.</p>
+
+<p>Это сокращение для свойств <code>flex-direction</code> и <code>flex-wrap</code>, вместе 
+определяющих главную и поперечную оси. По умолчанию принимает 
+значение <code>row nowrap</code>.</p>
+
+<pre><code>flex-flow: &lt;'flex-direction'&gt; || &lt;'flex-wrap'&gt;
+</code></pre>
+
+<h4 id="codejustifycontentcode"><a href="#codejustifycontentcode"><code>justify-content</code></a></h4>
+
+<p><strong>Применяется к:</strong> родительскому элементу flex-контейнера.</p>
+
+<p>Определяет выравнивание относительно главной оси. Помогает распределить 
+оставшееся свободное место в случае, когда элементы строки не «тянутся», 
+либо тянутся, но уже достигли своего максимального размера. Также позволяет в 
+некотором роде управлять выравниванием элементов при выходе за границы строки.</p>
+
+<pre><code>justify-content: flex-start | flex-end | center | space-between | space-around
+</code></pre>
+
+<ul>
+<li>
+<code>flex-start</code> (по умолчанию): элементы сдвигаются к началу строки;</li>
+<li>
+<code>flex-end</code>: элементы сдвигаются к концу строки;</li>
+<li>
+<code>center</code>: элементы выравниваются по центру строки;</li>
+<li>
+<code>space-between</code>: элементы распределяются равномерно (первый элемент в 
+начале строки, последний — в конце);</li>
+<li>
+<code>space-around</code>: элементы распределяются равномерно с равным расстоянием 
+между собой и границами строки.</li>
+</ul>
+<p><img src="img/justify-content.png" alt="justify-content"></p>
+
+<h4 id="codealignitemscode"><a href="#codealignitemscode"><code>align-items</code></a></h4>
+
+<p><strong>Применяется к:</strong> родительскому элементу flex-контейнера.</p>
+
+<p>Определяет поведение по умолчанию для того, как flex-элементы располагаются 
+относительно поперечной оси на текущей строке. Считайте это 
+версией <code>justify-content</code> для поперечной оси (перпендикулярной к основной).</p>
+
+<pre><code>align-items: flex-start | flex-end | center | baseline | stretch
+</code></pre>
+
+<ul>
+<li>
+<code>flex-start</code>: граница <code>cross-start</code> для элементов располагается на 
+позиции <code>cross-start</code>;</li>
+<li>
+<code>flex-end</code>: граница <code>cross-end</code> для элементов располагается на 
+позиции <code>cross-end</code>;</li>
+<li>
+<code>center</code>: элементы выравниваются по центру поперечной оси;</li>
+<li>
+<code>baseline</code>: элементы выравниваются по своей базовой линии;</li>
+<li>
+<code>stretch</code> (по умолчанию): элементы растягиваютcя, заполняя контейнер 
+(с учётом <code>min-width</code>/<code>max-width</code>).</li>
+</ul>
+<p><img src="img/align-items.png" alt="align-items"></p>
+
+<h4 id="codealigncontentcode"><a href="#codealigncontentcode"><code>align-content</code></a></h4>
+
+<p><strong>Применяется к:</strong> родительскому элементу flex-контейнера.</p>
+
+<p>Выравнивает строки flex-контейнера при наличии свободного места на поперечной 
+оси аналогично тому, как это делает <code>justify-content</code> на главной оси.</p>
+
+<p><strong>Замечание</strong>: это свойство не работает с однострочным flexbox.</p>
+
+<pre><code>align-content: flex-start | flex-end | center | space-between | space-around | stretch
+</code></pre>
+
+<ul>
+<li>
+<code>flex-start</code>: строки выравниваются относительно начала контейнера;</li>
+<li>
+<code>flex-end</code>: строки выравниваются относительно конца контейнера;</li>
+<li>
+<code>center</code>: строки выравниваются по центру контейнера;</li>
+<li>
+<code>space-between</code>: строки распределяются равномерно (первая строка в начале 
+строки, последняя — в конце);</li>
+<li>
+<code>space-around</code>: строки распределяются равномерно с равным расстоянием 
+между собой;</li>
+<li>
+<code>stretch</code> (по умолчанию): строки растягиваются, заполняя свободное 
+пространство.</li>
+</ul>
+<p><img src="img/align-content.png" alt="align-content"></p>
+
+<h4 id="codeordercode"><a href="#codeordercode"><code>order</code></a></h4>
+
+<p><strong>Применяется к:</strong> дочернему элементу / flex-элементу.</p>
+
+<p>По умолчанию flex-элементы располагаются в исходном порядке. Тем не менее, 
+свойство <code>order</code> может управлять порядком их расположения в контейнере.</p>
+
+<pre><code>order: &lt;integer&gt;
+</code></pre>
+
+<h4 id="codeflexgrowcode"><a href="#codeflexgrowcode"><code>flex-grow</code></a></h4>
+
+<p><strong>Применяется к:</strong> дочернему элементу / flex-элементу.</p>
+
+<p>Определяет для flex-элемента возможность «вырастать» при необходимости. 
+Принимает безразмерное значение, служащее в качестве пропорции. Оно 
+определяет, какую долю свободного места внутри контейнера элемент может занять.</p>
+
+<p>Если у всех элементов свойство <code>flex-grow</code> задано как <code>1</code>, то каждый потомок 
+получит внутри контейнера одинаковый размер. Если вы задали одному из 
+потомков значение <code>2</code>, то он заберёт в два раза больше места, чем другие.</p>
+
+<pre><code>flex-grow: &lt;number&gt; (по умолчанию 0)
+</code></pre>
+
+<p>Отрицательные числа не принимаются.</p>
+
+<h4 id="codeflexshrinkcode"><a href="#codeflexshrinkcode"><code>flex-shrink</code></a></h4>
+
+<p><strong>Применяется к:</strong> дочернему элементу / flex-элементу.</p>
+
+<p>Определяет для flex-элемента возможность сжиматься при необходимости.</p>
+
+<pre><code>flex-shrink: &lt;number&gt; (default 1)
+</code></pre>
+
+<p>Отрицательные числа не принимаются.</p>
+
+<h4 id="codeflexbasiscode"><a href="#codeflexbasiscode"><code>flex-basis</code></a></h4>
+
+<p><strong>Применяется к:</strong> дочернему элементу / flex-элементу.</p>
+
+<p>Определяет размер по умолчанию для элемента перед распределением пространства 
+в контейнере.</p>
+
+<pre><code>flex-basis: &lt;length&gt; | auto (default auto)
+</code></pre>
+
+<h4 id="codeflexcode"><a href="#codeflexcode"><code>flex</code></a></h4>
+
+<p><strong>Применяется к:</strong> дочернему элементу / flex-элементу.</p>
+
+<p>Это сокращение для <code>flex-grow</code>, <code>flex-shrink</code> и <code>flex-basis</code>. Второй и третий 
+параметры (<code>flex-shrink</code>, <code>flex-basis</code>) необязательны. 
+Значение по умолчанию — <code>0 1 auto</code>.</p>
+
+<pre><code>flex: none | [ &lt;'flex-grow'&gt; &lt;'flex-shrink'&gt;? || &lt;'flex-basis'&gt; ]
+</code></pre>
+
+<h4 id="codealignselfcode"><a href="#codealignselfcode"><code>align-self</code></a></h4>
+
+<p><strong>Применяется к:</strong> дочернему элементу / flex-элементу.</p>
+
+<p>Позволяет переопределить выравнивание, заданное по умолчанию или 
+в <code>align-items</code>, для отдельных flex-элементов.</p>
+
+<p>Обратитесь к описанию свойства <code>align-items</code> для лучшего понимания доступных 
+значений.</p>
+
+<pre><code>align-self: auto | flex-start | flex-end | center | baseline | stretch
+</code></pre>
+
+<h2 id="primer"><a href="#primer">Примеры</a></h2>
+
+<p>Начнём с очень-очень простого примера, встречающегося практически каждый день: 
+выравнивание точно по центру. Нет ничего проще, если использовать flexbox.</p>
+
+<pre><code>.parent {
+  display: flex;
+  height: 300px; /* Или что угодно */
+}
+
+.child {
+  width: 100px;  /* Или что угодно */
+  height: 100px; /* Или что угодно */
+  margin: auto;  /* Магия! */
+}
+</code></pre>
+
+<p>Этот пример основывается на том, что <code>margin</code> во flex-контейнере, заданный 
+как <code>auto</code>, поглощает лишнее пространство, поэтому задание отступа таким 
+образом выровняет элемент ровно по центру по обеим осям.</p>
+
+<p>Теперь давайте используем какие-нибудь свойства. Представьте набор из 6 
+элементов фиксированного размера (для красоты), но с возможностью изменения 
+размера контейнера. Мы хотим равномерно распределить их по горизонтали, чтобы 
+при изменении размера окна браузера всё выглядело хорошо (без <code>@media</code>-запросов!).</p>
+
+<pre><code>.flex-container {
+  /* Сначала создадим flex-контекст */
+  display: flex;
+
+  /* Теперь определим направление потока и хотим ли мы, чтобы элементы 
+  переносились на новую строку
+   * Помните, что это тоже самое, что и:
+   * flex-direction: row;
+   * flex-wrap: wrap;
+   */
+  flex-flow: row wrap;
+
+  /* Теперь определим, как будет распределяться пространство */
+  justify-content: space-around;
+}
+</code></pre>
+
+<p>Готово. Всё остальное — уже дело оформления. Ниже размещён CodePen, 
+демонстрирующий этот пример. Обязательно попробуйте растянуть/сжать окно 
+браузера и посмотрите, что произойдёт.</p>
+
+<pre class="codepen" data-height="400" data-type="result" data-href="LklCv" data-user="HugoGiraudel" data-safe="false"><code></code><a href="http://codepen.io/HugoGiraudel/pen/LklCv">Check out this Pen!</a></pre>
+
+<script async src="http://codepen.io/assets/embed/ei.js"></script><p>Давайте попробуем что-нибудь ещё. Представьте, что нам нужна выровненная по 
+правому краю навигация в самом верху нашего сайта, но мы хотим, чтобы она 
+выравнивалась по центру для экранов среднего размера и превращалась в один 
+столбец на маленьких. Всё достаточно просто.</p>
+
+<pre><code>/* Большие экраны */
+.navigation {
+  display: flex;
+  flex-flow: row wrap;
+  /* Сдвигает элементы к концу строки по главной оси */
+  justify-content: flex-end;
+}
+
+/* Экраны среднего размера */
+@media all and (max-width: 800px) {
+  .navigation {
+    /* Для экранов среднего размера мы выравниваем навигацию по центру, 
+    равномерно распредляя свободное место между элементами */
+    justify-content: space-around;
+  }
+}
+
+/* Маленькие экраны */
+@media all and (max-width: 500px) {
+  .navigation {
+    /* На маленьких экранах вместо строки мы располагаем элементы в столбце */
+    flex-direction: column;
+  }
+}
+</code></pre>
+
+<pre class="codepen" data-height="100" data-type="result" data-href="pkwqH" data-user="HugoGiraudel" data-safe="false"><code></code><a href="http://codepen.io/HugoGiraudel/pen/pkwqH">Check out this Pen!</a></pre>
+
+<script async src="http://codepen.io/assets/embed/ei.js"></script><p>Давайте попробуем кое-что получше и поиграем с гибкостью flex-элементов! Как 
+насчёт ориентированного на мобильные устройства трёхколоночного макета с 
+полноширинной шапкой и подвалом? И другим порядком расположения.</p>
+
+<pre><code>.wrapper {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+/* Задаём всем элеметам ширину в 100% */
+.header, .main, .nav, .aside, .footer {
+  flex: 1 100%;
+}
+
+/* В этом случае мы полагаемся на исходный порядок для ориентации на 
+ * мобильные устройства:
+ * 1. header
+ * 2. nav
+ * 3. main
+ * 4. aside
+ * 5. footer
+ */
+
+/* Экраны среднего размера */
+@media all and (min-width: 600px) {
+  /* Оба сайдбара располагаются в одной строке */
+  .aside { flex: 1 auto; }
+}
+
+/* Большие экраны */
+@media all and (min-width: 800px) {
+  /* Мы меняем местами элементы .aside-1 и .main, а также сообщаем
+   * элементу .main забирать в два раза больше места, чем сайдбары.
+   */
+  .main { flex: 2 0px; }
+
+  .aside-1 { order: 1; }
+  .main    { order: 2; }
+  .aside-2 { order: 3; }
+  .footer  { order: 4; }
+}
+</code></pre>
+
+<pre class="codepen" data-height="300" data-type="result" data-href="qIAwr" data-user="HugoGiraudel" data-safe="false"><code></code><a href="http://codepen.io/HugoGiraudel/pen/qIAwr">Check out this Pen!</a></pre>
+
+<script async src="http://codepen.io/assets/embed/ei.js"></script><h2 id="pohozhiesvoystva"><a href="#pohozhiesvoystva">Похожие свойства</a></h2>
+
+<ul>
+<li><a href="http://css-tricks.com/almanac/properties/g/grid/">Grid</a></li>
+</ul>
+<h2 id="drugieresurs"><a href="#drugieresurs">Другие ресурсы</a></h2>
+
+<ul>
+<li><a href="http://www.w3.org/TR/css3-flexbox/">Flexbox in the CSS specifications</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/CSS/Tutorials/Using_CSS_flexible_boxes">Flexbox at MDN</a></li>
+<li><a href="http://dev.opera.com/articles/view/flexbox-basics/">Flexbox at Opera</a></li>
+<li><a href="http://weblog.bocoup.com/dive-into-flexbox/">Diving into Flexbox by Bocoup</a></li>
+<li><a href="http://css-tricks.com/using-flexbox/">Mixing syntaxes for best browser support on CSS-Tricks</a></li>
+<li><a href="http://www.alsacreations.com/tuto/lire/1493-css3-flexbox-layout-module.html">Flexbox by Raphael Goetter (FR)</a></li>
+<li><a href="http://bennettfeely.com/flexplorer/">Flexplorer by Bennett Feely</a></li>
+</ul>
+<h2 id="podderzhkabrauzerami"><a href="#podderzhkabrauzerami">Поддержка браузерами</a></h2>
+
+<ul>
+<li>
+<code>(modern)</code> означает поддержку нового синтаксиса из спецификации (<code>display: flex;</code>)</li>
+<li>
+<code>(hybrid)</code> означает поддержку старого неофициального синтаксиса из 2011 (<code>display: flexbox;</code>)</li>
+<li>
+<code>(old)</code> означает поддержку старого синтаксиса из 2009 (<code>display: box;</code>)</li>
+</ul>
+<table>
+<thead><tr>
+<th>Chrome</th>
+      <th>Safari</th>
+      <th>Firefox</th>
+      <th>Opera</th>
+      <th>IE</th>
+      <th>Android</th>
+      <th>iOS</th>
+    </tr></thead>
+<tbody><tr>
+<td>21+ (modern)<br>20- (old)</td>
+      <td>3.1+ (old)</td>
+      <td>2-21 (old)<br>22+ (new)</td>
+      <td>12.1+ (modern)</td>
+      <td>10+ (hybrid)</td>
+      <td>2.1+ (old)</td>
+      <td>3.2+ (old)</td>
+    </tr></tbody>
+</table>
+<p>Браузер Blackberry версии 10+ поддерживает новый синтаксис.</p>
+
+<p>Для более подробной информации о том, как и когда использовать различные 
+синтаксисы для обеспечения лучшей поддержки браузерами, обратитесь 
+к <a href="http://css-tricks.com/using-flexbox/">этой статье (CSS-Tricks)</a> или <a href="http://dev.opera.com/articles/view/advanced-cross-browser-flexbox/#fallbacks">этой статье (DevOpera)</a>.</p>
+
+<p>SASS-<code>@mixin</code> для облегчения боли:</p>
+
+<pre><code>@mixin flexbox() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin flex($values) {
+  -webkit-box-flex: $values;
+  -moz-box-flex:  $values;
+  -webkit-flex:  $values;
+  -ms-flex:  $values;
+  flex:  $values;
+}
+
+@mixin order($val) {
+  -webkit-box-ordinal-group: $val;  
+  -moz-box-ordinal-group: $val;     
+  -ms-flex-order: $val;     
+  -webkit-order: $val;  
+  order: $val;
+}
+
+.wrapper {
+  @include flexbox();
+}
+
+.item {
+  @include flex(1 200px);
+  @include order(2);
+}
+</code></pre>
+
+      <section class="prose-editor">
+<p>Если вы заметили ошибку, вы всегда можете <a class="prose-edit" href="http://prose.io/#FrontenderMagazine/a-guide-to-flexbox/edit/master/rus.md">отредактировать статью</a>, <a href="https://github.com/FrontenderMagazine/a-guide-to-flexbox/issues/new">создать issue</a> или просто написать об этом Антону Немцеву в skype <a href="skype:ravencry?chat">ravencry</a>.</p>
+</section>
+    </article>
+        <nav class="article-source columns-29">
+      <h3>Оригинальная статья:</h3>
+      <a href="http://css-tricks.com/snippets/css/a-guide-to-flexbox/">A Complete Guide to Flexbox</a>
+    </nav>
+    <nav class="article-social columns-29">
+      <h3>Поделиться в:</h3>
+      <a class="icon-twitter-sign" href="http://twitter.com/intent/tweet?url=http://frontender.info/a-guide-to-flexbox/&amp;text=Полное руководство по Flexbox&amp;via=frontenderinfo" class="tw">Twitter</a>
+      <a class="icon-facebook-sign" href="http://www.facebook.com/sharer.php?u=http://frontender.info/a-guide-to-flexbox/&amp;t=Полное руководство по Flexbox">Facebook</a>
+      <a class="icon-google-plus-sign" href="https://plus.google.com/share?url=http://frontender.info/a-guide-to-flexbox/">Google+</a>
+    </nav>
+    <section class="users">
+      <section class="user columns-29">
+  <a href="http://chriscoyier.net/"><img class="avatar" src="https://secure.gravatar.com/avatar/8081b26e05bb4354f7d65ffc34cbbd67?s=160" alt="Chris Coyier"></a>
+  <div class="details">
+    <dl>
+      <dt>Автор:</dt>
+      <dd><a href="http://chriscoyier.net/">Chris Coyier</a></dd>
+    </dl>
+              <dl>
+            <dt>Twitter:</dt>
+            <dd><a href="http://twitter.com/chriscoyier">@chriscoyier</a></dd>
+          </dl>          <dl>
+            <dt>GitHub:</dt>
+            <dd><a href="http://github.com/chriscoyier">chriscoyier</a></dd>
+          </dl>          <dl>
+            <dt>Сaйт:</dt>
+            <dd><a href="http://chriscoyier.net/">http://chriscoyier.net/</a></dd>
+          </dl>          <dl>
+            <dt>Email:</dt>
+            <dd><a href="mailto:chriscoyier@gmail.com">chriscoyier@gmail.com</a></dd>
+          </dl>
+  </div>
+</section><section class="user columns-29">
+  <a href="http://rodweb.ru/"><img class="avatar" src="https://secure.gravatar.com/avatar/aa11707145d262cd5c8455789410501a?s=160" alt="Игорь Дерябин"></a>
+  <div class="details">
+    <dl>
+      <dt>Переводчик:</dt>
+      <dd><a href="http://rodweb.ru/">Игорь Дерябин</a></dd>
+    </dl>
+              <dl>
+            <dt>Сaйт:</dt>
+            <dd><a href="http://rodweb.ru/">http://rodweb.ru/</a></dd>
+          </dl>          <dl>
+            <dt>Twitter:</dt>
+            <dd><a href="http://twitter.com/ru_rodweb">@ru_rodweb</a></dd>
+          </dl>
+  </div>
+</section>
+    </section>
+    <nav class='editor-block'>Вычитка: <a href='https://twitter.com/silentimp'>Антон Немцев</a>.</nav>
+    
+    <section class="comments" id="comments">
+      <h3 class="no-auth"><a href="https://github.com/login/oauth/authorize?client_id=1295b0c39150f38ee008&amp;state=1084997308&amp;redirect_uri=http%3A%2F%2Ffrontender.info%2Fa-guide-to-flexbox%2F&amp;scope=public_repo" class="login">Начать обсуждение</a></h3>
+    </section>
+    <section class="donate" id="donate">
+      <iframe style="float:right;" frameborder="0" allowtransparency="true" scrolling="no" src="https://money.yandex.ru/embed/donate.xml?account=410011262111925&quickpay=donate&payment-type-choice=on&default-sum=40&targets=%D0%94%D0%B5%D0%BD%D1%8C%D0%B3%D0%B8+%D0%B1%D1%83%D0%B4%D1%83%D1%82+%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D1%8B+%D0%B4%D0%BB%D1%8F+%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D1%8B+%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B+%D1%81%D0%BF%D0%B5%D1%86%D0%B8%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%BE%D0%B2%2C+%D0%B1%D0%BB%D0%B0%D0%B3%D0%BE%D0%B4%D0%B0%D1%80%D1%8F+%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B5+%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85+%D1%80%D0%B5%D0%B3%D1%83%D0%BB%D1%8F%D1%80%D0%BD%D0%BE+%D0%BF%D0%BE%D1%8F%D0%B2%D0%BB%D1%8F%D1%8E%D1%82%D1%81%D1%8F+%D0%BD%D0%BE%D0%B2%D1%8B%D0%B5+%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D0%B8.&project-name=Frontender+Magazine&project-site=http%3A%2F%2Ffrontender.info%2F&button-text=05" width="520" height="105"></iframe>
+      <section class="abstract">
+        <h3>Поддержите журнал!</h3>
+        <p>Деньги будут использованы для оплаты работы над новыми публикациями.</p>
+      </section>
+    </section>
+    <footer>
+      <a href="http://frontender.info/" class="logotype">fr.</a>
+      <nav>
+        <p class="social">
+          <a href="http://twitter.com/frontenderinfo" class="tw icon-twitter">@frontenderinfo</a>
+          <a href="http://feeds.frontender.info/FrontenderMagazine" class="rss icon-rss">rss-канал журнала</a>
+          <a href="http://feeds.frontender.info/FrontenderMagazineArticles" class="rss icon-rss">полнотекстовый rss-канал журнала</a>
+          <a href="http://feeds.frontender.info/FrontenderMagazineHEAP" class="rss icon-rss">rss-канал кучи</a>
+          <a href="http://github.com/FrontenderMagazine/" class="github icon-github">GitHub</a>
+        </p>
+      </nav>
+      <nav>
+        <p>
+          <a href="/heap/">Куча</a>
+          <a href="/about.html">О проекте</a>
+          <a href="/team.html">Редакция</a>
+          <a href="/team.html#partners">Наши партнеры</a>
+        </p>
+      </nav>
+      <p class="copy">&copy; 2013 Frontender Magazine</p>
+    </footer>
+    <div class="templates">
+      <div id="comment-template">
+<article class="comment preview" data-issue="{{issue}}" data-comment="">
+  <a class="user" href="{{user}}">
+    <img class="avatar" src="{{img}}" alt="Автар пользователя">
+  </a>
+  <div class="wrapper">
+    <a class="author" href="{{user}}">{{login}}</a><time datetime="{{mashinetime}}">{{time}}</time>
+    <div class="body">
+      {{{comment}}}
+    </div>
+  </div>
+</article>
+      </div>
+    </div>
+    <script src="/js/side/jquery.min.js"></script>
+    <script async src="//codepen.io/assets/embed/ei.js"></script>
+    <script src="/js/side/marked.js"></script>
+    <script src="/js/side/moment.min.js"></script>
+    <script src="/js/side/ru.js"></script>
+    <script src="/js/side/handlebars.min.js"></script>
+    <script src="/js/side/highlight.pack.js"></script>
+    <script src="/js/CommentsController.js"></script>
+    <script src="/js/social.js"></script>
+  </body>
+</html>

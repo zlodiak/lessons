@@ -1,0 +1,393 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
+  "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" version="XHTML+RDFa 1.0" dir="ltr"
+  xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml" 
+                    xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" 
+                    lang="ru" dir="ltr">
+<head profile="http://www.w3.org/1999/xhtml/vocab">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="InternetDevels - Drupal development shop" />
+<meta property="og:image" content="http://internetdevels.ru/sites/default/files/public/building_queries_using_database_api.jpg" />
+<meta property="og:url" content="http://internetdevels.ru/blog/database-api" />
+<script type="text/javascript">var NREUMQ=NREUMQ||[];NREUMQ.push(["mark","firstbyte",new Date().getTime()]);</script><link rel="shortcut icon" href="http://internetdevels.ru/sites/default/files/public/favicon.ico" type="image/vnd.microsoft.icon" />
+<meta property="og:title" content="Построение запросов с использованием Database API" />
+<meta name="generator" content="Drupal 7 (http://drupal.org)" />
+<meta name="description" content="Одним из весомых преимуществ Drupal 7 перед его предшественниками есть его гибкость в отношении настроек и систем. Разработчики не обошли стороной и запросы к БД. В седьмом релизе они стали объектно-ориентированными и не привязанными к конкретной базе дынных, поскольку теперь сам Drupal генерирует синтаксис запроса. Задача программиста - как и прежде -  всего лишь указать условия выборки. Эту статью я посвящаю анализу Database API, в ходе которого приведу конкретные примеры новшеств в “общение” с БД." />
+<link rel="shortlink" href="http://internetdevels.ru/node/499" />
+<link rel="canonical" href="http://internetdevels.ru/blog/database-api" />
+<meta name="keywords" content="Database API,Drupal 7" />
+<meta property="og:title" content="Построение запросов с использованием Database API" />
+<meta property="fb:app_id" content="187113294793346" />
+<meta property="og:site_name" content="InternetDevels - Drupal development shop" />
+<meta name="keywords" content="drupal, development, theme development, module development, SEO, support, Community web portals, E-commerce applications, Social Networking sites, Corporate web sites, Intranet applications, Personal web sites or blogs, Resource directories" />
+  <title>Построение запросов с использованием Database API | InternetDevels - Drupal development shop</title>
+  <style type="text/css" media="all">@import url("http://internetdevels.ru/modules/system/system.base.css?mv0dho");
+@import url("http://internetdevels.ru/modules/system/system.menus.css?mv0dho");
+@import url("http://internetdevels.ru/modules/system/system.messages.css?mv0dho");
+@import url("http://internetdevels.ru/modules/system/system.theme.css?mv0dho");</style>
+<style type="text/css" media="all">@import url("http://internetdevels.ru/misc/ui/jquery.ui.core.css?mv0dho");
+@import url("http://internetdevels.ru/misc/ui/jquery.ui.theme.css?mv0dho");
+@import url("http://internetdevels.ru/misc/ui/jquery.ui.slider.css?mv0dho");</style>
+<style type="text/css" media="all">@import url("http://internetdevels.ru/sites/all/modules/date/date_api/date.css?mv0dho");
+@import url("http://internetdevels.ru/sites/all/modules/date/date_popup/themes/datepicker.1.7.css?mv0dho");
+@import url("http://internetdevels.ru/modules/field/theme/field.css?mv0dho");
+@import url("http://internetdevels.ru/modules/node/node.css?mv0dho");
+@import url("http://internetdevels.ru/modules/user/user.css?mv0dho");
+@import url("http://internetdevels.ru/sites/all/modules/views/css/views.css?mv0dho");</style>
+<style type="text/css" media="all">@import url("http://internetdevels.ru/sites/all/modules/ctools/css/ctools.css?mv0dho");
+@import url("http://internetdevels.ru/sites/all/modules/internetdevels_vacancy/css/jobs.css?mv0dho");
+@import url("http://internetdevels.ru/sites/all/modules/panels/css/panels.css?mv0dho");
+@import url("http://internetdevels.ru/sites/all/libraries/syntaxhighlighter_3.0.83/styles/shThemeEclipse.css?mv0dho");
+@import url("http://internetdevels.ru/sites/all/modules/easy_social/css/easy_social.css?mv0dho");
+@import url("http://internetdevels.ru/modules/locale/locale.css?mv0dho");</style>
+<style type="text/css" media="all">@import url("http://internetdevels.ru/sites/all/themes/internetdevels/styles/styles.css?mv0dho");
+@import url("http://internetdevels.ru/sites/all/themes/internetdevels/js/prettyPhoto/css/prettyPhoto.css?mv0dho");</style>
+
+<!--[if lte IE 6]>
+<link type="text/css" rel="stylesheet" href="http://internetdevels.ru/sites/all/themes/internetdevels/styles/ie6.css?mv0dho" media="all" />
+<![endif]-->
+
+<!--[if IE 7]>
+<link type="text/css" rel="stylesheet" href="http://internetdevels.ru/sites/all/themes/internetdevels/styles/ie7.css?mv0dho" media="all" />
+<![endif]-->
+
+<!--[if IE 8]>
+<link type="text/css" rel="stylesheet" href="http://internetdevels.ru/sites/all/themes/internetdevels/styles/ie8.css?mv0dho" media="all" />
+<![endif]-->
+  <script type="text/javascript" src="http://internetdevels.ru/misc/jquery.js?v=1.4.4"></script>
+<script type="text/javascript" src="http://internetdevels.ru/misc/jquery.once.js?v=1.2"></script>
+<script type="text/javascript" src="http://internetdevels.ru/misc/drupal.js?mv0dho"></script>
+<script type="text/javascript" src="http://internetdevels.ru/misc/ui/jquery.ui.core.min.js?v=1.8.7"></script>
+<script type="text/javascript" src="http://internetdevels.ru/misc/ui/jquery.ui.widget.min.js?v=1.8.7"></script>
+<script type="text/javascript" src="http://internetdevels.ru/misc/ui/jquery.ui.mouse.min.js?v=1.8.7"></script>
+<script type="text/javascript" src="http://internetdevels.ru/misc/ui/jquery.ui.slider.min.js?v=1.8.7"></script>
+<script type="text/javascript" src="http://internetdevels.ru/sites/all/libraries/syntaxhighlighter_3.0.83/scripts/shCore.js?mv0dho"></script>
+<script type="text/javascript" src="http://internetdevels.ru/sites/all/libraries/syntaxhighlighter_3.0.83/scripts/shLegacy.js?mv0dho"></script>
+<script type="text/javascript" src="http://internetdevels.ru/sites/all/libraries/syntaxhighlighter_3.0.83/scripts/shAutoloader.js?mv0dho"></script>
+<script type="text/javascript" src="http://internetdevels.ru/sites/default/files/public/syntaxhighlighter.autoloader.js?mv0dho"></script>
+<script type="text/javascript" src="http://internetdevels.ru/sites/default/files/public/languages/ru_59GfF223T6j2o5hpIs3OzctDyo7tkaVhhVldBmy3-K8.js?mv0dho"></script>
+<script type="text/javascript" src="http://internetdevels.ru/sites/all/modules/internetdevels_vacancy/js/jobs.js?mv0dho"></script>
+<script type="text/javascript" src="http://internetdevels.ru/sites/all/modules/panels/js/panels.js?mv0dho"></script>
+<script type="text/javascript" src="http://internetdevels.ru/sites/all/modules/internetdevels/js/internetdevels.js?mv0dho"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1&appId=";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+//--><!]]>
+</script>
+<script type="text/javascript" src="//apis.google.com/js/plusone.js"></script>
+<script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+<script type="text/javascript" src="//vk.com/js/api/openapi.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+VK.init({apiId: 3898029, onlyWidgets: true});
+//--><!]]>
+</script>
+<script type="text/javascript" src="http://internetdevels.ru/misc/form.js?mv0dho"></script>
+<script type="text/javascript" src="http://internetdevels.ru/misc/collapse.js?mv0dho"></script>
+<script type="text/javascript" src="http://internetdevels.ru/sites/all/themes/internetdevels/js/jquery.cycle.all.min.js?mv0dho"></script>
+<script type="text/javascript" src="http://internetdevels.ru/sites/all/themes/internetdevels/js/prettyPhoto/js/jquery.prettyPhoto.js?mv0dho"></script>
+<script type="text/javascript" src="http://internetdevels.ru/sites/all/themes/internetdevels/js/jquery.carouFredSel-5.5.5-packed.js?mv0dho"></script>
+<script type="text/javascript" src="http://internetdevels.ru/sites/all/themes/internetdevels/js/jquery.easing.1.3.js?mv0dho"></script>
+<script type="text/javascript" src="http://internetdevels.ru/sites/all/themes/internetdevels/js/jquery.touchwipe.min.js?mv0dho"></script>
+<script type="text/javascript" src="http://internetdevels.ru/sites/all/themes/internetdevels/js/jquery.cookie.js?mv0dho"></script>
+<script type="text/javascript" src="http://internetdevels.ru/sites/all/themes/internetdevels/js/main.js?mv0dho"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"internetdevels","theme_token":"hbHjxx0W22oRbyfNZhFkuqz25NsKcbQQ85RfVnrElUk","js":{"sites\/all\/modules\/syntaxhighlighter\/syntaxhighlighter.min.js":1,"misc\/jquery.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"misc\/ui\/jquery.ui.core.min.js":1,"misc\/ui\/jquery.ui.widget.min.js":1,"misc\/ui\/jquery.ui.mouse.min.js":1,"misc\/ui\/jquery.ui.slider.min.js":1,"sites\/all\/libraries\/syntaxhighlighter_3.0.83\/scripts\/shCore.js":1,"sites\/all\/libraries\/syntaxhighlighter_3.0.83\/scripts\/shLegacy.js":1,"sites\/all\/libraries\/syntaxhighlighter_3.0.83\/scripts\/shAutoloader.js":1,"sites\/default\/files\/public\/syntaxhighlighter.autoloader.js":1,"public:\/\/languages\/ru_59GfF223T6j2o5hpIs3OzctDyo7tkaVhhVldBmy3-K8.js":1,"sites\/all\/modules\/internetdevels_vacancy\/js\/jobs.js":1,"sites\/all\/modules\/panels\/js\/panels.js":1,"sites\/all\/modules\/internetdevels\/js\/internetdevels.js":1,"0":1,"\/\/apis.google.com\/js\/plusone.js":1,"\/\/platform.twitter.com\/widgets.js":1,"\/\/vk.com\/js\/api\/openapi.js":1,"1":1,"misc\/form.js":1,"misc\/collapse.js":1,"sites\/all\/themes\/internetdevels\/js\/jquery.cycle.all.min.js":1,"sites\/all\/themes\/internetdevels\/js\/prettyPhoto\/js\/jquery.prettyPhoto.js":1,"sites\/all\/themes\/internetdevels\/js\/jquery.carouFredSel-5.5.5-packed.js":1,"sites\/all\/themes\/internetdevels\/js\/jquery.easing.1.3.js":1,"sites\/all\/themes\/internetdevels\/js\/jquery.touchwipe.min.js":1,"sites\/all\/themes\/internetdevels\/js\/jquery.cookie.js":1,"sites\/all\/themes\/internetdevels\/js\/main.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"misc\/ui\/jquery.ui.core.css":1,"misc\/ui\/jquery.ui.theme.css":1,"misc\/ui\/jquery.ui.slider.css":1,"sites\/all\/modules\/date\/date_api\/date.css":1,"sites\/all\/modules\/date\/date_popup\/themes\/datepicker.1.7.css":1,"modules\/field\/theme\/field.css":1,"modules\/node\/node.css":1,"modules\/user\/user.css":1,"sites\/all\/modules\/views\/css\/views.css":1,"sites\/all\/modules\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/internetdevels_vacancy\/css\/jobs.css":1,"sites\/all\/modules\/panels\/css\/panels.css":1,"sites\/all\/libraries\/syntaxhighlighter_3.0.83\/styles\/shThemeEclipse.css":1,"sites\/all\/modules\/easy_social\/css\/easy_social.css":1,"modules\/locale\/locale.css":1,"sites\/all\/themes\/internetdevels\/styles\/styles.css":1,"sites\/all\/themes\/internetdevels\/js\/prettyPhoto\/css\/prettyPhoto.css":1,"sites\/all\/themes\/internetdevels\/styles\/ie6.css":1,"sites\/all\/themes\/internetdevels\/styles\/ie7.css":1,"sites\/all\/themes\/internetdevels\/styles\/ie8.css":1}},"syntaxhighlighter":{"useAutoloader":true,"legacyMode":true}});
+//--><!]]>
+</script>
+  </head>
+<body class="html not-front not-logged-in one-sidebar sidebar-second page-node page-node- page-node-499 node-type-blog i18n-ru no-js" >
+  <div id="skip-link">
+    <a href="#main-content" class="element-invisible element-focusable">Перейти к основному содержанию</a>
+  </div>
+    <div class="region region-page-top">
+    <div id="fb-root"></div><script type="text/javascript">
+     window.fbAsyncInit = function() {
+       FB.init({
+         appId: "187113294793346",
+         status: true,
+         cookie: true,
+         xfbml: true,
+         oauth : true,
+         channelUrl: "http:\/\/internetdevels.ru\/fb_social\/channel"
+         });
+  
+         
+     };
+     (function() {
+       var e = document.createElement('script');
+       e.async = true;
+       e.src = document.location.protocol + '//connect.facebook.net/ru_RU/all.js';
+       document.getElementById('fb-root').appendChild(e);
+     }());
+  </script>  </div>
+  <div id="megawrap">
+  <div id="page" class="clearfix">
+    <div id="header" class="clearfix">
+      <div id="header-wrapper">
+                <div id="header-first">
+                      <div id="logo"><a href="http://internetdevels.ru/" rel="home" title="Главная"><img src="http://internetdevels.ru/sites/default/files/public/logo_0.png" alt="Главная" title="Главная" /></a></div>
+                                      </div>
+        <div id="header-last">
+                        <div class="region region-header-last">
+    <div id="block-locale-language" class="block block-locale">
+
+    
+  <div class="content">
+    <ul class="language-switcher-locale-url"><li class="en first"><a href="http://internetdevels.com/blog/database-api" class="language-link" lang="en" title="Building queries using Database API">eng</a></li>
+<li class="ru active"><a href="http://internetdevels.ru/blog/database-api" class="language-link active" lang="ru" title="Построение запросов с использованием Database API">rus</a></li>
+<li class="uk last"><a href="http://internetdevels.ua/blog/database-api" class="language-link" lang="uk" title="Побудова запитів з використанням Database API">ukr</a></li>
+</ul>  </div>
+</div><div id="block-menu-block-2" class="block block-menu-block">
+
+    
+  <div class="content">
+    <div class="menu-block-wrapper menu-block-2 menu-name-main-menu parent-mlid-0 menu-level-1">
+  <ul class="menu"><li class="first leaf menu-mlid-1123"><a href="http://internetdevels.ru/about" title="">О нас</a></li>
+<li class="leaf has-children menu-mlid-1126"><a href="http://internetdevels.ru/services" title="">Услуги</a></li>
+<li class="leaf menu-mlid-387"><a href="http://internetdevels.ru/portfolio" title="">Портфолио</a></li>
+<li class="leaf menu-mlid-388"><a href="http://internetdevels.ru/blog" title="">Блог</a></li>
+<li class="leaf menu-mlid-391"><a href="http://internetdevels.ru/references" title="">Отзывы</a></li>
+<li class="last leaf menu-mlid-1406"><a href="http://internetdevels.ru/contacts">Контакты</a></li>
+</ul></div>
+  </div>
+</div>  </div>
+                </div>
+      </div>
+    </div>
+    <div id="preface">
+                      </div>
+    <div id="main">
+      <div id="main-wrapper" class="clearfix">
+        <div id="inmain-wrapper">
+                <div id="content-wrapper">
+                              <div id="content">
+                          <div id="content-tabs" class="tabs"></div>
+                        <div id="content-inner">
+              <div class="breadcrumb"><a href="http://internetdevels.ru/">Главная</a> > <a href="http://internetdevels.ru/blog">Блог</a></div>                                            <h1 class="title" id="page-title">Построение запросов с использованием Database API</h1>
+                                          <div id="content-content">
+                  <div class="region region-content">
+    <div id="block-system-main" class="block block-system">
+
+    
+  <div class="content">
+    <div id="node-499" class="node node-blog">
+    
+      
+      <span class="submitted">запостил: AragorN</span>
+          <div class="drupal-version"><div class="field field-name-field-drupal-ver field-type-taxonomy-term-reference field-label-inline clearfix"><div class="field-label">Версия Drupal:&nbsp;</div><div class="field-items"><div class="field-item even">7.x</div></div></div></div>
+      <div class="blog-fb-like"></div>
+       
+  
+  <div class="content clearfix">
+    <div class="easy_social_box clearfix horizontal easy_social_lang_ru">
+            <div class="easy_social-widget easy_social-widget-facebook first"><fb:like href="http://internetdevels.ru/blog/database-api" send="false" layout="button_count" width="88" show_faces="false" action="like" colorscheme="light" font=""></fb:like></div>
+          <div class="easy_social-widget easy_social-widget-googleplus"><div class="g-plusone" data-size="medium" data-annotation="bubble" data-href="http://internetdevels.ru/blog/database-api"></div></div>
+          <div class="easy_social-widget easy_social-widget-twitter"><a href="http://twitter.com/share" class="twitter-share-button"
+data-url="http://internetdevels.ru/blog/database-api"
+data-count="horizontal"
+data-lang = "ru"
+data-via="InternetDevels"
+data-related=":InternetDevels - Drupal development shop"
+data-text="Построение запросов с использованием Database API">Tweet</a></div>
+          <div class="easy_social-widget easy_social-widget-internetdevels_vkontakte_like_button last"><div id="vk_like"></div><script type="text/javascript">VK.Widgets.Like("vk_like", {"type":"mini","verb":"0","height":"20","pageTitle":"\u041f\u043e\u0441\u0442\u0440\u043e\u0435\u043d\u0438\u0435 \u0437\u0430\u043f\u0440\u043e\u0441\u043e\u0432 \u0441 \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u043d\u0438\u0435\u043c Database API","pageUrl":"http:\/\/internetdevels.ru\/blog\/database-api"});</script></div>
+  </div> <!-- /.easy_social_box --><div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p><span style="font-size: 13px;">Одним из весомых преимуществ Drupal 7 перед его предшественниками есть его гибкость в отношении настроек и систем. Разработчики не обошли стороной и запросы к БД. В седьмом релизе они стали объектно-ориентированными и не привязанными к конкретной базе дынных, поскольку теперь сам Drupal генерирует синтаксис запроса. Задача программиста - как и прежде - &nbsp;всего лишь указать условия выборки. Эту статью я посвящаю анализу Database API, в ходе которого приведу конкретные примеры новшеств в “общение” с БД.</span></p><div><p>Первым делом стоило бы обратить внимание на изменения синтаксиса подключения сайта к базе. В частности переход от привычного нам</p></div><pre class="brush: php; auto-links: true; collapse: false; first-line: 1; html-script: false; smart-tabs: true; tab-size: 4; toolbar: true; codetag">php $db_url = 'mysqli://username:password@localhost/basename';</pre><p>к более читабельному</p><pre class="brush: php; auto-links: true; collapse: false; first-line: 1; html-script: false; smart-tabs: true; tab-size: 4; toolbar: true; codetag">php
+$databases['default']['default'] = array( 
+  'driver'   =&gt; 'mysql', 
+  'database' =&gt; 'basename', 
+  'username' =&gt; 'username', 
+  'password' =&gt; 'password', 
+  'host'     =&gt; 'localhost', 
+);</pre><p>Хочу заметить, что Drupal 7 все еще поддерживает db_query(), но и его коснулись кое-какие изменения - изменились заменители (placeholders). Одним из вариантов есть использования знака ? вместо %d, ’%s’. В этом случае значения таких заменителей указываются в массиве после запроса в таком же порядке, в каком они расположены в запросе:</p><pre class="brush: php; auto-links: true; collapse: false; first-line: 1; html-script: false; smart-tabs: true; tab-size: 4; toolbar: true; codetag">php
+db_query("SELECT `title` FROM {node} WHERE `uid` = ? AND `type` = ?", array(1, 'page'));</pre><p>Другой вариант - использование так называемых “именных” заменителей. Подстановка значений происходит в ассоциативном массиве. Один и тот же заменитель не может быть описан дважды, даже если он будет иметь то же значение. Им принято<span style="font-size: small;">&nbsp;присваивать имена</span><span style="font-size: 0.9em;"><span style="font-size: small;">&nbsp;соответствующих колонок таблиц, значения которых они определяют:</span></span></p><pre class="brush: php; auto-links: true; collapse: false; first-line: 1; html-script: false; smart-tabs: true; tab-size: 4; toolbar: true; codetag"> php
+db_query("SELECT `title` FROM {node} WHERE `uid`= :uid AND `type` = :type", array(':uid' =&gt; 1, ':type' =&gt; 'page'));
+?&gt;</pre><p>Но вернемся, все же, к нашей теме и рассмотрим новшества в данной области. Если раньше мы использовали db_query(), внутри которого прописывали необходимый тип запроса (select, insert, update, delete), то теперь каждому из них соответствует своя функция (db_select(), db_insert(), db_update(), db_delete()), на основе которой и генерируется необходимый синтаксис. Список допустимых функций ниже:</p><p>&nbsp;</p><table border="0"><tbody><tr><td><ul><li>db_and</li><li>db_close</li><li>db_condition</li><li>db_delete</li><li>db_driver</li><li>db_escape_field</li><li>db_escape_table</li><li>db_insert</li><li>db_like</li><li>db_merge</li><li>db_next_id</li></ul></td><td><ul><li>db_or</li><li>db_query&nbsp;</li><li>db_query_range</li><li>db_query_temporary</li><li>db_select</li><li>db_set_active</li><li>db_transaction</li><li>db_truncate</li><li>db_update</li><li>db_xor</li>&nbsp;</ul></td></tr></tbody></table><p>Определение формата данных, полученных в ходе выполнения обращения к базе, тоже претерпело изменения. На смену таким функциям как db_result(), db_fetch_array(), db_fetch_object() и т. д. пришли&nbsp;методы класса DatabaseStatementInterface:</p><ol><li><ul><li><p>execute - выполнение запроса;</p></li></ul><ul><li>fetchAllAssoc - возвращает результат запроса в виде ассоциативного массива ключей заданного поля;</li><li>fetchAllKeyed - возвращает результат как единый ассоциативный массив;</li><li>fetchAssoc - выбирает следующую строку и возвращает её в качестве ассоциативного массива;</li><li>fetchCol - возвращает один столбец результирующего набора, как индексированный массив;</li><li>fetchField - возвращает одно поле из следующей записи из результирующего набора;</li><li>getQueryString - возвращает строку запроса;</li><li>rowCount - возвращает число строк, которые возвращает запрос.</li></ul><p>&nbsp;Необходимым условием выполнения запроса является присутствие execute(). Он должен быть использован перед определением формата.</p><p>&nbsp;Теперь рассмотрим как все это работает. Создадим запрос, который вернет нам содержимое таблицы `node`:</p></li></ol><pre class="brush: php; auto-links: true; collapse: false; first-line: 1; html-script: false; smart-tabs: true; tab-size: 4; toolbar: true; codetag">php
+$result = db_select('node', 'n') 
+  -&gt;fields('n') 
+  -&gt;execute() 
+  -&gt;fetchAssoc();</pre><p>В db_select необходимо указать таблицу (и при необходимости ее сокращение), с которой будет осуществляться выборка. Далее, добавляем метод fields(), в котором указываем таблицу и поля для выборки. Если поля не указанны, то запрос вернет все поля таблицы (аналог *). Execute() обеспечит выполнение нашего запроса, а fetchAssoc() вернет результат в виде ассоциативного массива. Указывая необходимые поля, нужно учесть одну особенность - они должны быть перечислены в массиве, даже если указывается лишь одно поле!</p><p>Если же в нашем запросе необходимо указать некое условие, то для этого нам необходимо использовать метод conditions(). Он принимает три значения - поле, значение поля, параметр сравнения. Если не указан последний, то по-умолчанию он определиться как “=”.</p><pre class="brush: php; auto-links: true; collapse: false; first-line: 1; html-script: false; smart-tabs: true; tab-size: 4; toolbar: true; codetag">php
+$result = db_select('node', 'n') 
+  -&gt;fields('n', array('type', 'tittle')) 
+  -&gt;condition('nid', $node-&gt;nid, '=') 
+  -&gt;condition('status', 0, '&gt;') 
+  -&gt;condition('uid', array(1, 5, 7), 'IN') 
+  -&gt;execute() 
+  -&gt;fetchAssoc();</pre><p>Есть, также, и другие методы запроса, которые позволяют делать сложение таблиц (join), группировку значений (groupBy), их сортировку (orderBy), ограничение количества результатов (range) и др. Все они, в своем сочетании, позволяют строить сложные запросы к БД.</p><p>Приведем пример создания запроса для выборки значений из нескольких таблиц, используя группировку и сортировку, ограничив число результатов:</p><pre class="brush: php; auto-links: true; collapse: false; first-line: 1; html-script: false; smart-tabs: true; tab-size: 4; toolbar: true; codetag">php
+$query = db_select('node', 'n'); 
+$query-&gt;join('users', 'u', 'n.uid = u.uid'); 
+$query-&gt;groupBy('u.uid'); 
+$query-&gt;fields('n', array('title', 'created')) 
+  -&gt;fields('u', array('name')) 
+  -&gt;orderBy('created', 'DESC') 
+  -&gt;range(0, 10); 
+$result = $query-&gt;execute(); 
+while ($record = $result-&gt;fetchAssoc()) { 
+   print_r ($record); 
+}</pre><p>Вот по такому принципу и работают все запросы. В подтверждение этих слов приведем примеры использования запросов для вставки и удаления записей:</p><pre class="brush: php; auto-links: true; collapse: false; first-line: 1; html-script: false; smart-tabs: true; tab-size: 4; toolbar: true; codetag">php
+$id = db_insert('node')-&gt;fields(array( 
+  'title'        =&gt; 'Title', 
+  'uid'         =&gt; 1, 
+  'created' =&gt; REQUEST_TIME, 
+))-&gt;execute();</pre><p>&nbsp;</p><pre class="brush: php; auto-links: true; collapse: false; first-line: 1; html-script: false; smart-tabs: true; tab-size: 4; toolbar: true; codetag"> php
+db_delete('node') 
+  -&gt;condition('uid', 5) 
+  -&gt;condition('created', time() - 3600, '&lt;') 
+  -&gt;execute();</pre><p>Database API, реализованный в Drupal 7, позволяет строить объемные запросы, имеет большую скорость их обработки, лучшую читабельность и возможность внесения изменений, а также самостоятельно строит синтаксис запроса,&nbsp;<span style="font-size: 13px;">сводя</span><span style="font-size: 13px;">&nbsp;</span><span style="font-size: 13px;">таким образом&nbsp;</span><span style="font-size: small;">к минимуму возможность пользовательской ошибки в структуре, и не привязывается к одной базе данных, что гарантирует возможность выполнения запроса для разных БД.</span></p><p><span style="font-size: small;">&nbsp;</span></p><p>Вы можете ознакомиться со сравнениями построения запросов&nbsp;в Drupal 6 и 7, на основе презентации.&nbsp;<a href="http://www.slideshare.net/InternetDevels/database-api" rel="nofollow">Смотреть</a></p></div></div></div><div class="blog-see-also-wrapper"><div class="title-item-list">Смотрите также:</div><div class="item-list-field"><div class="item-list"><ul><li class="first"><a href="http://internetdevels.ru/blog/creating-feeds-parser-plugin">Написание Parser-плагина для Feeds</a></li>
+<li><a href="http://internetdevels.ru/blog/oracle-install">Установка Oracle Database 11g + Drupal 7</a></li>
+<li><a href="http://internetdevels.ru/blog/using-http-and-https-in-drupal">Использование http и https в Drupal</a></li>
+<li><a href="http://internetdevels.ru/blog/facebook-crosspost-to-public-page">Facebook + Drupal - кросспостинг в публичные страницы</a></li>
+<li class="last"><a href="http://internetdevels.ru/blog/drupal-7-queue-api">Queue API в Drupal 7</a></li>
+</ul></div></div></div><div class="fb-social-comments-plugin">
+  <div  class="fb-comments" data-numposts="10" data-width="550" data-colorscheme="light" data-migrated="1" data-href="http://internetdevels.ru/blog/database-api"></div>
+</div>
+
+  </div>
+
+  <div class="clearfix">
+          <div class="links"></div>
+    
+      </div>
+
+</div>
+  </div>
+</div>  </div>
+
+              </div>
+            </div>
+          </div>
+                          </div>
+              <div id="sidebar-right" class="sidebar">
+            <div class="region region-sidebar-second">
+    <div id="block-views-blog-posts-block-2" class="block block-views">
+
+    <h2 class="title block-title">Популярные статьи</h2>
+  
+  <div class="content">
+    <div class="view view-blog-posts view-id-blog_posts view-display-id-block_2 view-dom-id-60ccbc83bf2d9e03483d21336abffd2d">
+  
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+  <div class="views-field views-field-title">      <div class="field-content"><a href="http://internetdevels.ru/blog/integration-with-taobao-api">Интеграция с taobao API </a></div>  </div></li>
+          <li class="views-row views-row-2 views-row-even">  
+  <div class="views-field views-field-title">      <div class="field-content"><a href="http://internetdevels.ru/blog/titanium-appcelerator-mobile-for-android-1">Создание приложения для Android OS на платформе Titanium Appcelerator. Часть 1. Первое знакомство</a></div>  </div></li>
+          <li class="views-row views-row-3 views-row-odd">  
+  <div class="views-field views-field-title">      <div class="field-content"><a href="http://internetdevels.ru/blog/commercebox">CommerceBox — бесплатный дистрибутив интернет-магазина на основе Drupal 7 и Drupal Commerce</a></div>  </div></li>
+          <li class="views-row views-row-4 views-row-even">  
+  <div class="views-field views-field-title">      <div class="field-content"><a href="http://internetdevels.ru/blog/module-with-field-api-drupal-7">Создание простого модуля с использованием Field API в Drupal 7</a></div>  </div></li>
+          <li class="views-row views-row-5 views-row-odd">  
+  <div class="views-field views-field-title">      <div class="field-content"><a href="http://internetdevels.ru/blog/ctools-modal-api">Ctools modal API.  Опыт применения</a></div>  </div></li>
+          <li class="views-row views-row-6 views-row-even">  
+  <div class="views-field views-field-title">      <div class="field-content"><a href="http://internetdevels.ru/blog/profiler_XHprof">Профилирование PHP – кода. XHprof – иерархический профайлер c html-интерфейсом</a></div>  </div></li>
+          <li class="views-row views-row-7 views-row-odd">  
+  <div class="views-field views-field-title">      <div class="field-content"><a href="http://internetdevels.ru/blog/database-api" class="active">Построение запросов с использованием Database API</a></div>  </div></li>
+          <li class="views-row views-row-8 views-row-even views-row-last">  
+  <div class="views-field views-field-title">      <div class="field-content"><a href="http://internetdevels.ru/blog/display-pdf-file">Отображение PDF-файла</a></div>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+  
+  
+  
+</div>   </div>
+</div><div id="block-views-blog-posts-block-3" class="block block-views">
+
+    <h2 class="title block-title">Последние статьи</h2>
+  
+  <div class="content">
+    <div class="view view-blog-posts view-id-blog_posts view-display-id-block_3 view-dom-id-b047d8a2e3dfc76b1e330476c7141917">
+  
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+  <div class="views-field views-field-title">      <div class="field-content"><a href="http://internetdevels.ru/blog/LEDC2013">12-13 октября Lviv Euro Drupal Camp 2013 пройдёт во Львове</a></div>  </div></li>
+          <li class="views-row views-row-2 views-row-even">  
+  <div class="views-field views-field-title">      <div class="field-content"><a href="http://internetdevels.ru/blog/creating-feeds-parser-plugin">Написание Parser-плагина для Feeds</a></div>  </div></li>
+          <li class="views-row views-row-3 views-row-odd">  
+  <div class="views-field views-field-title">      <div class="field-content"><a href="http://internetdevels.ru/blog/oracle-install">Установка Oracle Database 11g + Drupal 7</a></div>  </div></li>
+          <li class="views-row views-row-4 views-row-even">  
+  <div class="views-field views-field-title">      <div class="field-content"><a href="http://internetdevels.ru/blog/using-http-and-https-in-drupal">Использование http и https в Drupal</a></div>  </div></li>
+          <li class="views-row views-row-5 views-row-odd views-row-last">  
+  <div class="views-field views-field-title">      <div class="field-content"><a href="http://internetdevels.ru/blog/photoshop-on-ubuntu">Установка Photoshop на Ubuntu</a></div>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+  
+  
+  
+</div>   </div>
+</div>  </div>
+        </div>
+                                </div>
+      </div>
+    </div>
+  </div>
+    <div id="footer">
+    <div class="our-clients-block"><div class="row"><a href="http://www.chiq.com/" alt="Chiq" target="_blank" class="cli Chiq" title="Chiq" rel="nofollow">Chiq</a><a href="http://globein.com/" alt="GlobeIn" target="_blank" class="cli cli-GI" title="GlobeIn" rel="nofollow">GlobeIn</a><a href="http://zyxel.ru/" alt="Zyxel" target="_blank" class="cli cli-Z" title="Zyxel" rel="nofollow">Zyxel</a><a href="http://minjust.ru/" alt="Ministry of Justice of Russian Federation" target="_blank" class="cli cli-MJ" title="Ministry of Justice of Russian Federation" rel="nofollow">Ministry of Justice of Russian Federation</a><span class='cli cli-GG' title='Global Gathering'>'Global Gathering'</span><a href="http://lavkalavka.com/" alt="LavkaLavka" target="_blank" class="cli cli-LL" title="LavkaLavka" rel="nofollow">LavkaLavka</a><a href="http://news.tj/" alt="Asia-Plus" target="_blank" class="cli cli-AZ" title="Asia-Plus" rel="nofollow">Asia-Plus</a></div></div>    <div id="infooter" class="clearfix every">
+                <div class="region region-footer">
+    <div id="block-block-1" class="block block-block">
+
+    
+  <div class="content">
+    <p>© 2007-2013 Internetdevels <sup>®</sup></p>  </div>
+</div><div id="block-block-11" class="block block-block">
+
+    
+  <div class="content">
+    <p><a class="front-rss" href="/rss.xml">RSS</a><a href="http://twitter.com/#!/InternetDevels" class="front-twitter" target="_blank" rel="nofollow">Twitter</a><a href="https://www.facebook.com/internetdevels" class="front-facebook" target="_blank" rel="nofollow">Facebook</a><a href="http://www.linkedin.com/company/internetdevels.com" class="front-in" target="_blank" rel="nofollow">IN</a></p>  </div>
+</div><div id="block-menu-block-32" class="block block-menu-block">
+
+    
+  <div class="content">
+    <div class="menu-block-wrapper menu-block-32 menu-name-main-menu parent-mlid-0 menu-level-1">
+  <ul class="menu"><li class="first leaf menu-mlid-1123"><a href="http://internetdevels.ru/about" title="">О нас</a></li>
+<li class="leaf has-children menu-mlid-1126"><a href="http://internetdevels.ru/services" title="">Услуги</a></li>
+<li class="leaf menu-mlid-387"><a href="http://internetdevels.ru/portfolio" title="">Портфолио</a></li>
+<li class="leaf menu-mlid-388"><a href="http://internetdevels.ru/blog" title="">Блог</a></li>
+<li class="leaf menu-mlid-391"><a href="http://internetdevels.ru/references" title="">Отзывы</a></li>
+<li class="last leaf menu-mlid-1406"><a href="http://internetdevels.ru/contacts">Контакты</a></li>
+</ul></div>
+  </div>
+</div>  </div>
+        <div id="fb-root">&nbsp;</div>
+          </div>
+  </div>
+  </div>
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-1222507-39']);
+  _gaq.push(['_trackPageview']);
+  _gaq.push(['b._setAccount', 'UA-1222507-54']);
+  _gaq.push(['b._trackPageview']);
+  _gaq.push(['c._setAccount', 'UA-1222507-50']);
+  _gaq.push(['c._setDomainName', 'auto']);
+  _gaq.push(['c._setAllowLinker', true]);
+  _gaq.push(['c._trackPageview']);
+  if (102) {
+    _gaq.push(['c._trackPageLoadTime']);
+    _gaq.push(['c._trackEvent', 'Response time (ms)', 'node/499', 'InternetDevels - Drupal development shop', 102]);
+    _gaq.push(['c._trackEvent', 'Peak memory usage (KB)', 'node/499', 'InternetDevels - Drupal development shop', 52480]);
+  }
+      _gaq.push(['_trackEvent', 'Blog author', 'AragorN', 'Построение запросов с использованием Database API']);
+    _gaq.push(['b._trackEvent', 'Blog author', 'AragorN', 'Построение запросов с использованием Database API']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+  <script type="text/javascript" src="http://internetdevels.ru/sites/all/modules/syntaxhighlighter/syntaxhighlighter.min.js?mv0dho"></script>
+<script type="text/javascript">if(!NREUMQ.f){NREUMQ.f=function(){NREUMQ.push(["load",new Date().getTime()]);var e=document.createElement("script");e.type="text/javascript";e.src=(("http:"===document.location.protocol)?"http:":"https:")+"//"+"js-agent.newrelic.com/nr-100.js";document.body.appendChild(e);if(NREUMQ.a)NREUMQ.a();};NREUMQ.a=window.onload;window.onload=NREUMQ.f;};NREUMQ.push(["nrfj","beacon-1.newrelic.com","1152f9a367","3007556","NlJXbBNRWUtVBUALWw8YdFsVWVhWGwhbBlE+R1RfBG9BUVER",0,353,new Date().getTime(),"","","","",""]);</script></body>
+</html>

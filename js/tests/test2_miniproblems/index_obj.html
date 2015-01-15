@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <title>вотер</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" type="text/css" href="css/styles.css" id="styles" />		
+				
+</head>
+<body>		
+	<script type="text/javascript">						
+
+
+	
+	
+		function calculator () {
+			var arr = [];
+			
+			this.readValues = function(n){
+				for(i=0; i<n; i++){
+					arr[i] = Math.floor(Math.random()*111);
+					console.log(arr[i]);
+				}
+				
+			}
+			
+			this.sum = function(){			
+				var sum = 0;
+					
+				for(i=0; i<arr.length; i++){					
+					//console.log(arr[i]+'__');
+					//console.log(sum+'===');
+					sum = sum + arr[i];					
+				}				
+				
+				alert('сумма: ' + sum);
+			}
+			
+			this.mul = function(){
+				var mul = 1;
+					
+				for(i=0; i<arr.length; i++){					
+					
+					
+					mul = mul * arr[i];					
+					console.log(mul + '__');
+				}				
+				
+				alert('произведение: ' + mul);				
+			}
+		}	
+		
+		var obj	= new calculator();	
+		obj.readValues(3);	
+		obj.sum();
+		obj.mul();
+		
+		
+		/* или так
+			var calculator = {
+				readValues: function(n) {
+					this.mas = [];
+					for(var i=0; i<n; i++){
+						values = +prompt('Введите значение?', '');
+						this.mas.push(values);
+					}
+				},
+				sum: function() {
+					var res = 0;
+					for(var i=0;i<=this.mas.length-1; i++){
+						res += this.mas[i];
+					}
+					return res;
+				},
+				mn: function() {
+					var res=1;
+					for(var i=0; i<=this.mas.length-1; i++){
+						res *= this.mas[i];
+					}
+					return res;
+				}
+			}
+			calculator.readValues(2);
+			alert( calculator.sum() );
+			alert( calculator.mn() );		
+		*/
+	</script>	
+</body>
+</html>

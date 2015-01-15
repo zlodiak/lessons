@@ -1,0 +1,997 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>Вертикальное выравнивание в CSS (css выравнивание по центру), часть 2. | Sribna</title>
+<meta name="verify-v1" content="r2LgtTTB6G75N5EAcuz0fNH6vBuVKBgQzwoCkU+SjwQ=" />
+<meta name='yandex-verification' content='7f3841ba52247561' />
+<meta name="generator" content="WordPress 2.0.6" />
+<link rel="stylesheet" href="http://blog.sribna.com/wp-content/themes/default/style.css" type="text/css" media="screen" />
+
+<link rel="alternate" type="application/rss+xml" title="Sribna RSS Feed" href="http://blog.sribna.com/feed/" />
+<link rel="pingback" href="http://blog.sribna.com/xmlrpc.php" />
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://blog.sribna.com/xmlrpc.php?rsd" />
+
+<!-- all in one seo pack 1.4.6.15 [278,474] -->
+<meta name="description" content="Статья рассказывает о вертикальном выравнивании элементов, выравнивании блоков с помощью CSS в различных браузерах" />
+<meta name="keywords" content="������������ ������������,css ������������ ������,������������ ������ css, css, vertical align, div,css" />
+<!-- /all in one seo pack -->
+<script src="http://blog.sribna.com/wp-content/plugins/threaded.php" type="text/javascript"></script>
+<style type="text/css">
+.comment {position:	relative;margin: 3px;margin-top: 6px;padding:4px 4px 4px 8px;
+	background-color:		#fff;
+}
+</style>
+<link rel="stylesheet" href="http://blog.sribna.com/wp-content/plugins/ig_syntax_hilite/css/syntax_hilite_css.css" type="text/css" media="all" />
+	<script language="javascript" type="text/javascript" src="http://blog.sribna.com/wp-content/plugins/ig_syntax_hilite/js/syntax_hilite_js.js"></script>
+	<script language="javascript" type="text/javascript">
+	var arrCode = new Array();
+	</script>
+	<script type="text/javascript" src="http://blog.sribna.com/wp-content/plugins/wp-lightboxJS/lightbox.js"></script>
+	<script type="text/javascript">
+		var loadingImage = "http://blog.sribna.com/wp-content/plugins/wp-lightboxJS/images/loading.gif";
+		var closeButton = "http://blog.sribna.com/wp-content/plugins/wp-lightboxJS/images/close.gif";
+	</script>	
+</head>
+<body>
+<div id="page">
+
+
+<div id="header">
+	<div id="headerimg">
+		<h1><a id="nhead" href="http://blog.sribna.com/">Sribna</a></h1>
+		<div class="description" id="ndescr">Web программирование и не только</div>
+	</div>
+</div>
+<hr />
+
+	<div id="content" class="narrowcolumn">
+				
+  	   <div><a href="http://blog.sribna.com">На Главную</a></div>
+		<div class="navigation">
+			<div class="alignleft">&laquo; <a href="http://blog.sribna.com/rasshirenie-dlya-wordpress-brians-threaded-comments.htm">Расширение для WordPress - Brians Threaded Comments</a></div>
+			<div class="alignright"><a href="http://blog.sribna.com/end-of-product-lifecycle.htm">End of Product Lifecycle.</a> &raquo;</div>
+		</div>
+
+		<div class="post" id="post-16">
+			<h2><a href="http://blog.sribna.com/vertikalnoe-vyiravnivanie-v-css-chast-2.htm" rel="bookmark" title="Пермалинк: Вертикальное выравнивание в CSS, часть 2.">Вертикальное выравнивание в CSS, часть 2.</a></h2>
+	        <small>February 23rd, 2007 by Yuriy Drozdov </small>
+			<div class="entrytext">
+				
+
+
+
+<p>Как и обещал, продолжаю. Если брать метод, описанный в <a title="vertical-align" href="http://blog.sribna.com/chto-takoe-vertical-align-i-s-chem-ego-edyat.htm">Что такое vertical-align и с чем его едят?</a>, то он хорош только в том случае, если контейнер (в нашем случае был <strong>div</strong>) имеет достаточную ширину и вся строка поместится в один линейный блок. Если строка не влазит в ширину контейнера, она разбивается на несколько линейных блоков. И каждый линейный блок наследует <strong>line-height</strong>. Получаем в этом случае, мягко говоря, не совсем то, что ожидали.<a id="more-16"></a></p>
+<p><img title="css выравнивание по центру" alt="css выравнивание по центру" src="http://blog.sribna.com/images/css%20vertical%20align.jpg" /></p>
+<p>Вертикальное выравнивание по стандарту <strong>CSS</strong> можно выполнить так:</p>
+<div class="igBar"><span id="lhtml-1"><a href="#" onclick="javascript:showPlainTxt('html-1'); return false;">PLAIN TEXT</a></span></div>
+<div class="syntax_hilite"><span class="langName">HTML:</span>
+<div id="html-1">
+<div class="html">
+<ol>
+<li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;color:#3A6A8B;">
+<div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;"><span style="color: #009900;"><a href="http://december.com/html/4/element/style.html"><span style="color: #000000; font-weight: bold;">&lt;style&gt;</span></a></span></div>
+</li>
+<li style="font-weight: bold;color:#26536A;">
+<div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">&nbsp;</div>
+</li>
+<li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;color:#3A6A8B;">
+<div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">div#valign { display: table-cell; vertical-align: middle }</div>
+</li>
+<li style="font-weight: bold;color:#26536A;">
+<div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">&nbsp;</div>
+</li>
+<li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;color:#3A6A8B;">
+<div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;"><span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;/style&gt;</span></span></div>
+</li>
+<li style="font-weight: bold;color:#26536A;">
+<div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">&nbsp;</div>
+</li>
+<li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;color:#3A6A8B;">
+<div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;"><span style="color: #009900;"><a href="http://december.com/html/4/element/div.html"><span style="color: #000000; font-weight: bold;">&lt;div</span></a> <span style="color: #000066;">id</span>=<span style="color: #ff0000;">"valign"</span><span style="color: #000000; font-weight: bold;">&gt;</span></a></span>Строка выравненная по вертикали <span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;/div&gt;</span></span> </div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<p>
+Например, в <strong>Firefox 2</strong> это выглядит вот так (я  добавил к свойствам border:solid red 1px; height: 100px;):</p>
+<p><img alt="css выравнивание по центру in Firefox 2" title="css vertical align in Firefox 2" src="http://blog.sribna.com/images/css_vertical_align2.JPG" /></p>
+<p>Выставим ширину для <strong>div</strong>, так чтобы строка не помещалась без разбиения на несколько линейных блоков. Получаем:</p>
+<p><img alt="Вертикальное выравнивание в css" title="Вертикальное выравнивание в css" src="http://blog.sribna.com/images/valign3.jpg" /></p>
+<p>Наивный читатель подумает что это уже все, задача вертикального выравнивания решена. Но, к сожалению, в <strong>IE </strong>отсутствует поддержка значения<strong> table-cell</strong> для свойства <strong>display</strong>. Поэтому, применить выше описанный метод для вертикального выравнивания в нем нельзя.</p>
+<p>Для того, чтобы вертикальное выравнивание коснулось и браузера <strong>Internet Explorer</strong> немного изменим <strong>HTML</strong> код и <strong>CSS</strong>, а также воспользуемся <a title="Условные комментарии" href="http://blog.sribna.com/uslovnyie-kommentarii-v-css.htm/trackback/">условными комментариями</a>. <strong>CSS </strong>код представлен ниже:</p>
+<div class="igBar"><span id="lcss-2"><a href="#" onclick="javascript:showPlainTxt('css-2'); return false;">PLAIN TEXT</a></span></div>
+<div class="syntax_hilite"><span class="langName">CSS:</span>
+<div id="css-2">
+<div class="css">
+<ol>
+<li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;color:#3A6A8B;">
+<div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">#outer<span style="color: #66cc66;">&#123;</span></div>
+</li>
+<li style="font-weight: bold;color:#26536A;">
+<div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">&nbsp; <span style="color: #000000; font-weight: bold;">height</span>:100px;</div>
+</li>
+<li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;color:#3A6A8B;">
+<div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">&nbsp; <span style="color: #000000; font-weight: bold;">width</span>:150px;</div>
+</li>
+<li style="font-weight: bold;color:#26536A;">
+<div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">&nbsp; <span style="color: #000000; font-weight: bold;">display</span>:table;</div>
+</li>
+<li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;color:#3A6A8B;">
+<div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">&nbsp; border<span style="color: #3333ff;">:<span style="color: #993333;">solid</span> </span>#f00 1px;</div>
+</li>
+<li style="font-weight: bold;color:#26536A;">
+<div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;"><span style="color: #66cc66;">&#125;</span></div>
+</li>
+<li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;color:#3A6A8B;">
+<div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;"><span style="color: #cc00cc;">#container <span style="color: #66cc66;">&#123;</span></span></div>
+</li>
+<li style="font-weight: bold;color:#26536A;">
+<div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">&nbsp; <span style="color: #000000; font-weight: bold;">display</span>:<span style="color: #993333;">table-cell</span>;</div>
+</li>
+<li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;color:#3A6A8B;">
+<div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">&nbsp; <span style="color: #000000; font-weight: bold;">vertical-align</span>:<span style="color: #993333;">middle</span>;</div>
+</li>
+<li style="font-weight: bold;color:#26536A;">
+<div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;"><span style="color: #66cc66;">&#125;</span> </div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<p></p>
+<p>Представленный выше код применяется для браузеров, корректно поддерживающих стандарты <strong>CSS</strong>. С помощью  <a title="Условные комментарии в CSS" href="http://blog.sribna.com/uslovnyie-kommentarii-v-css.htm">условных комментариев</a>, делаем код работоспособным в <strong>Internet Explorer</strong>. Вставляем следующее.</p>
+<div class="igBar"><span id="lhtml-3"><a href="#" onclick="javascript:showPlainTxt('html-3'); return false;">PLAIN TEXT</a></span></div>
+<div class="syntax_hilite"><span class="langName">HTML:</span>
+<div id="html-3">
+<div class="html">
+<ol>
+<li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;color:#3A6A8B;">
+<div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;"><span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;</span></a>!––<span style="color: #66cc66;">&#91;</span>if IE <span style="color: #66cc66;">&#93;</span><span style="color: #000000; font-weight: bold;">&gt;</span></a></span></div>
+</li>
+<li style="font-weight: bold;color:#26536A;">
+<div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;"><span style="color: #009900;"><a href="http://december.com/html/4/element/style.html"><span style="color: #000000; font-weight: bold;">&lt;style</span></a> <span style="color: #000066;">type</span>=<span style="color: #ff0000;">"text/css"</span><span style="color: #000000; font-weight: bold;">&gt;</span></a></span></div>
+</li>
+<li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;color:#3A6A8B;">
+<div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">&nbsp; #container {top:50%;position: absolute;}</div>
+</li>
+<li style="font-weight: bold;color:#26536A;">
+<div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">&nbsp; #inner {top:-50%;position:relative;}</div>
+</li>
+<li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;color:#3A6A8B;">
+<div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;"><span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;/style&gt;</span></span></div>
+</li>
+<li style="font-weight: bold;color:#26536A;">
+<div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;"><span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;</span></a>!<span style="color: #66cc66;">&#91;</span>endif<span style="color: #66cc66;">&#93;</span>––<span style="color: #000000; font-weight: bold;">&gt;</span></a></span> </div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<p></p>
+<p>И, собственно, сам <strong>HTML</strong> выглядит так:</p>
+<div class="igBar"><span id="lhtml-4"><a href="#" onclick="javascript:showPlainTxt('html-4'); return false;">PLAIN TEXT</a></span></div>
+<div class="syntax_hilite"><span class="langName">HTML:</span>
+<div id="html-4">
+<div class="html">
+<ol>
+<li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;color:#3A6A8B;">
+<div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;"><span style="color: #009900;"><a href="http://december.com/html/4/element/div.html"><span style="color: #000000; font-weight: bold;">&lt;div</span></a> <span style="color: #000066;">id</span>=<span style="color: #ff0000;">"outer"</span><span style="color: #000000; font-weight: bold;">&gt;</span></a></span></div>
+</li>
+<li style="font-weight: bold;color:#26536A;">
+<div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">&nbsp;<span style="color: #009900;"><a href="http://december.com/html/4/element/div.html"><span style="color: #000000; font-weight: bold;">&lt;div</span></a> <span style="color: #000066;">id</span>=<span style="color: #ff0000;">"container"</span><span style="color: #000000; font-weight: bold;">&gt;</span></a></span></div>
+</li>
+<li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;color:#3A6A8B;">
+<div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">&nbsp; &nbsp;<span style="color: #009900;"><a href="http://december.com/html/4/element/div.html"><span style="color: #000000; font-weight: bold;">&lt;div</span></a>&nbsp; <span style="color: #000066;">id</span>=<span style="color: #ff0000;">"inner"</span><span style="color: #000000; font-weight: bold;">&gt;</span></a></span>Строка выравненная по вертикали<span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;/div&gt;</span></span></div>
+</li>
+<li style="font-weight: bold;color:#26536A;">
+<div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">&nbsp;<span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;/div&gt;</span></span></div>
+</li>
+<li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;color:#3A6A8B;">
+<div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;"><span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;/div&gt;</span></span> </div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<p>
+Внизу можно увидеть весь код в деле:</p>
+<div><style type="text/css"> DIV#valign {     display: table-cell;     vertical-align: middle;     border:solid red 1px;  	height: 100px; 	width: 150px; 	}    #outer{ height:100px; width:150px; display:table; border:solid #f00 1px; } #container { display:table-cell; vertical-align:middle; }    </style> <!--[if IE ]> <style type="text/css"> #outer {position:relative;} #container {top:50%;position: absolute;} #inner {top:-50%;position:relative;} </style> <![endif]--></p>
+<div id="outer">
+<div id="container">
+<div id="inner">Строка выравненная по вертикали</div>
+</div>
+</div>
+</div>
+				<p class="author"><strong>Автор:</strong> <i>Yuriy Drozdov</i></p>
+				<h3>Похожие статьи:</h3>
+				<ul><li><a href="http://blog.sribna.com/opyat-pro-css-vyiravnivanie.htm" rel="bookmark" title="Permanent Link: Опять про css выравнивание">Опять про css выравнивание</a></li></ul>
+				
+ 
+
+<p class="social">
+
+<script>
+
+
+function so(u,t) {
+
+   for (i=0; i< s.length; i=i+2) document.write(
+
+      '<a target="blank" href="http://'+s[i]+'/'+s[i+1].replace('{u}',u).replace('{t}',t)+'">'+
+
+      '<img src="/wp-content/themes/default/social/'+s[i]+'.ico" border="0" width="16" height="16" alt="Добавить в '+s[i]+'">  </a>'
+
+      );
+
+}
+
+var s=new Array(
+
+   "del.icio.us","post?url={u}&title={t}",
+
+   "news2.ru","add_story.php?url={u}",
+
+   "google.com","bookmarks/mark?op=edit&bkmk={u}&title={t}",
+
+   "bobrdobr.ru","add.html?url={u}&title={t}",
+
+   "memori.ru","link/?sm=1&u_data[url]={u}&u_data[name]={t}",
+
+   "moemesto.ru","post.php?url={u}&title={t}",
+
+   "mister-wong.ru","add_url/?bm_url={u}&bm_description={t}",
+
+   "rumarkz.ru","bookmarks/?action=add&popup=1&address={u}&title={t}&description={t}",
+
+   "rucity.com","bookmarks.php?action=add&address={u}&title={t}&description=",
+
+   "linkstore.ru","servlet/LinkStore?a=add&url={u}&title={t}",
+
+   "myscoop.ru","add/?title={t}&URL={u}",
+
+   "vaau.ru","submit/?action=step2&url={u}",
+
+   "newsland.ru","News/Add/type/news/"
+
+);
+
+ 
+ so (
+
+      'http%3A%2F%2Fblog.sribna.com%2Fvertikalnoe-vyiravnivanie-v-css-chast-2.htm',
+
+      encodeURIComponent('Вертикальное выравнивание в CSS, часть 2.')
+
+   );
+
+</script>
+
+</p>
+
+ 
+								<p class="postmetadata alt">
+					<small>
+						Эта запись опубликована
+						 
+						Friday, February 23rd, 2007 в 9:17 pm						Рубрики: <a href="http://blog.sribna.com/category/css/" title="View all posts in CSS" rel="category tag">CSS</a>.
+						Подпишитесь на <a href='http://blog.sribna.com/vertikalnoe-vyiravnivanie-v-css-chast-2.htm/feed/'>RSS 2.0 ленту</a> комментариев.
+						
+													Комментирование запрещено, но Вы можете поставить <a href="http://blog.sribna.com/vertikalnoe-vyiravnivanie-v-css-chast-2.htm/trackback/ " rel="trackback">трекбек</a> со своего сайта.
+						
+												
+					</small>
+				</p>
+			</div>
+		</div>
+    
+	
+<!-- You can start editing here. -->
+
+<p><a href='http://blog.sribna.com/vertikalnoe-vyiravnivanie-v-css-chast-2.htm/feed/'><abbr title="Really Simple Syndication">RSS</abbr> комментариев</a> 
+| <a href="http://blog.sribna.com/vertikalnoe-vyiravnivanie-v-css-chast-2.htm/trackback/">Trackback <acronym title="Uniform Resource Identifier">URI</acronym></a>
+</p>
+
+<h2 id="comments">21 Комментариев 
+</h2>
+<div class="#commentlist">
+			<div  id="div-comment-58" class='comment'>
+				<a name='comment-58' id='comment-58'></a>
+				<div class="title">
+					<img class="collapseicon" src="http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=spacer.png" onclick='collapseThread("div-comment-58")' alt=""/>
+					<cite>Comment by <noindex><a href='http://rmc.net.ru/' rel='external nofollow'>Sam</a></noindex><a href="#comment-58"></a></cite> 
+														
+				</div>
+				<div class='body'>
+					<div class='meta'>
+						2007-02-26 12:11:46 						
+					</div>					
+					<div class='content'>
+						<p>Чтобы не портить валидность:<br />
+* html #container {top:50%;position: absolute;}<br />
+* html #inner {top:-50%;position:relative;}
+</p>
+					</div>
+					<div class='reply'>
+						 
+						<a href='#' onclick='moveAddCommentBelow("div-comment-58", 58, true); return false;'>Ответить на этот комментарий</a>
+											</div>
+				</div>
+			<div  id="div-comment-60" class='comment odd'>
+				<a name='comment-60' id='comment-60'></a>
+				<div class="title">
+					<img class="collapseicon" src="http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=spacer.png" onclick='collapseThread("div-comment-60")' alt=""/>
+					<cite>Comment by <noindex><a href='http://blog.sribna.com' rel='external nofollow'>y.drozdov</a></noindex><a href="#comment-60"></a></cite> 
+														
+				</div>
+				<div class='body'>
+					<div class='meta'>
+						2007-02-26 15:59:17 						
+					</div>					
+					<div class='content'>
+						<p>Спасибо за комментарий. Но код и так валидный. A * html - это CSS хак, который уже не поддерживается IE7(подробнее об этом хаке и других на блоге MSDN - <a href="http://blogs.msdn.com/ie/archive/2005/10/12/480242.aspx" rel="nofollow">http://blogs.msdn.com/ie/archive/2005/10/12/480242.aspx</a>). Рекомендуют вместо этого использовать условные комментарии.Что я и сделал.
+</p>
+					</div>
+					<div class='reply'>
+						 
+						<a href='#' onclick='moveAddCommentBelow("div-comment-60", 60, true); return false;'>Ответить на этот комментарий</a>
+											</div>
+				</div>
+					
+
+			</div>
+			<!-- This has to be here because of Internet Explorers plethora of layout bugs -->
+			<div style="height: 1px; overflow: hidden;">&nbsp;</div>
+					
+
+			</div>
+			<!-- This has to be here because of Internet Explorers plethora of layout bugs -->
+			<div style="height: 1px; overflow: hidden;">&nbsp;</div>
+			<div  id="div-comment-496" class='comment'>
+				<a name='comment-496' id='comment-496'></a>
+				<div class="title">
+					<img class="collapseicon" src="http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=spacer.png" onclick='collapseThread("div-comment-496")' alt=""/>
+					<cite>Comment by <noindex><a href='http://extreme.lviv.ua/' rel='external nofollow'>kastorskiy</a></noindex><a href="#comment-496"></a></cite> 
+					<img alt='Subscribed to comments via email' src='http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=subscribed.png' />									
+				</div>
+				<div class='body'>
+					<div class='meta'>
+						2007-04-11 11:47:42 						
+					</div>					
+					<div class='content'>
+						<p>если содержимое блока inner достаточно большое по высоте (половина высоты окна броузера), то появляется вертикальный скроллбар <img src='http://blog.sribna.com/wp-includes/images/smilies/icon_sad.gif' alt=':(' class='wp-smiley' />
+</p>
+					</div>
+					<div class='reply'>
+						 
+						<a href='#' onclick='moveAddCommentBelow("div-comment-496", 496, true); return false;'>Ответить на этот комментарий</a>
+											</div>
+				</div>
+			<div  id="div-comment-568" class='comment odd'>
+				<a name='comment-568' id='comment-568'></a>
+				<div class="title">
+					<img class="collapseicon" src="http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=spacer.png" onclick='collapseThread("div-comment-568")' alt=""/>
+					<cite>Comment by <noindex><a href='http://blog.sribna.com' rel='external nofollow'>y.drozdov</a></noindex><a href="#comment-568"></a></cite> 
+														
+				</div>
+				<div class='body'>
+					<div class='meta'>
+						2007-04-13 16:51:42 						
+					</div>					
+					<div class='content'>
+						<p>Да, только что попробовал имеет место для IE, чтобы убрать скролбар ставим overflow:hidden для #outer
+</p>
+					</div>
+					<div class='reply'>
+						 
+						<a href='#' onclick='moveAddCommentBelow("div-comment-568", 568, true); return false;'>Ответить на этот комментарий</a>
+											</div>
+				</div>
+					
+
+			</div>
+			<!-- This has to be here because of Internet Explorers plethora of layout bugs -->
+			<div style="height: 1px; overflow: hidden;">&nbsp;</div>
+					
+
+			</div>
+			<!-- This has to be here because of Internet Explorers plethora of layout bugs -->
+			<div style="height: 1px; overflow: hidden;">&nbsp;</div>
+			<div  id="div-comment-569" class='comment'>
+				<a name='comment-569' id='comment-569'></a>
+				<div class="title">
+					<img class="collapseicon" src="http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=spacer.png" onclick='collapseThread("div-comment-569")' alt=""/>
+					<cite>Comment by <noindex><a href='http://extreme.lviv.ua/' rel='external nofollow'>kastorskiy</a></noindex><a href="#comment-569"></a></cite> 
+					<img alt='Subscribed to comments via email' src='http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=subscribed.png' />									
+				</div>
+				<div class='body'>
+					<div class='meta'>
+						2007-04-13 17:19:10 						
+					</div>					
+					<div class='content'>
+						<p>Да, имеет месо именно для ИЕ.<br />
+Мне нужно центровать относительно в  окна броузера. И кол-во контента зарание неизвестно, и возможен случай, когда контент не будет вмещаться в окно. Тогда overflow:hidden не подходит. Хотя я счас слабо соображаю, и сейчас не проверю, т.к. убегаю. Может я не прав.
+</p>
+					</div>
+					<div class='reply'>
+						 
+						<a href='#' onclick='moveAddCommentBelow("div-comment-569", 569, true); return false;'>Ответить на этот комментарий</a>
+											</div>
+				</div>
+					
+
+			</div>
+			<!-- This has to be here because of Internet Explorers plethora of layout bugs -->
+			<div style="height: 1px; overflow: hidden;">&nbsp;</div>
+			<div  id="div-comment-644" class='comment'>
+				<a name='comment-644' id='comment-644'></a>
+				<div class="title">
+					<img class="collapseicon" src="http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=spacer.png" onclick='collapseThread("div-comment-644")' alt=""/>
+					<cite>Comment by <noindex><a href='http://extreme.lviv.ua/' rel='external nofollow'>kastorskiy</a></noindex><a href="#comment-644"></a></cite> 
+					<img alt='Subscribed to comments via email' src='http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=subscribed.png' />									
+				</div>
+				<div class='body'>
+					<div class='meta'>
+						2007-04-17 14:36:10 						
+					</div>					
+					<div class='content'>
+						<p>Короче, попробовал, если контент влазит в окно, то overflow:hidden подоходит, в случае же, если контент может не вмещаться в окно, то этот метод для ИЕ не подходит.
+</p>
+					</div>
+					<div class='reply'>
+						 
+						<a href='#' onclick='moveAddCommentBelow("div-comment-644", 644, true); return false;'>Ответить на этот комментарий</a>
+											</div>
+				</div>
+			<div  id="div-comment-645" class='comment odd'>
+				<a name='comment-645' id='comment-645'></a>
+				<div class="title">
+					<img class="collapseicon" src="http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=spacer.png" onclick='collapseThread("div-comment-645")' alt=""/>
+					<cite>Comment by <noindex><a href='http://blog.sribna.com' rel='external nofollow'>y.drozdov</a></noindex><a href="#comment-645"></a></cite> 
+														
+				</div>
+				<div class='body'>
+					<div class='meta'>
+						2007-04-17 14:50:23 						
+					</div>					
+					<div class='content'>
+						<p>а у #outer и #container какая высота стоит?
+</p>
+					</div>
+					<div class='reply'>
+						 
+						<a href='#' onclick='moveAddCommentBelow("div-comment-645", 645, true); return false;'>Ответить на этот комментарий</a>
+											</div>
+				</div>
+			<div  id="div-comment-646" class='comment'>
+				<a name='comment-646' id='comment-646'></a>
+				<div class="title">
+					<img class="collapseicon" src="http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=spacer.png" onclick='collapseThread("div-comment-646")' alt=""/>
+					<cite>Comment by <noindex><a href='http://extreme.lviv.ua/' rel='external nofollow'>kastorskiy</a></noindex><a href="#comment-646"></a></cite> 
+					<img alt='Subscribed to comments via email' src='http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=subscribed.png' />									
+				</div>
+				<div class='body'>
+					<div class='meta'>
+						2007-04-17 14:52:48 						
+					</div>					
+					<div class='content'>
+						<p>100%
+</p>
+					</div>
+					<div class='reply'>
+						 
+						<a href='#' onclick='moveAddCommentBelow("div-comment-646", 646, true); return false;'>Ответить на этот комментарий</a>
+											</div>
+				</div>
+			<div  id="div-comment-647" class='comment odd'>
+				<a name='comment-647' id='comment-647'></a>
+				<div class="title">
+					<img class="collapseicon" src="http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=spacer.png" onclick='collapseThread("div-comment-647")' alt=""/>
+					<cite>Comment by <noindex><a href='http://extreme.lviv.ua/' rel='external nofollow'>kastorskiy</a></noindex><a href="#comment-647"></a></cite> 
+					<img alt='Subscribed to comments via email' src='http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=subscribed.png' />									
+				</div>
+				<div class='body'>
+					<div class='meta'>
+						2007-04-17 15:00:40 						
+					</div>					
+					<div class='content'>
+						<p>А, нет, соврал, у #outer  стоит 100%, а у #container не задана
+</p>
+					</div>
+				<small>(Вложеность комментариев заканчивается на этом уровне)</small>
+				</div>
+
+					<div class='reply'>
+						 
+						<a href='#' onclick='moveAddCommentBelow("div-comment-647", 647, false); return false;'>Ответить на комментарий</a>
+											</div>
+					
+
+			</div>
+			<!-- This has to be here because of Internet Explorers plethora of layout bugs -->
+			<div style="height: 1px; overflow: hidden;">&nbsp;</div>
+			<div  id="div-comment-648" class='comment odd'>
+				<a name='comment-648' id='comment-648'></a>
+				<div class="title">
+					<img class="collapseicon" src="http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=spacer.png" onclick='collapseThread("div-comment-648")' alt=""/>
+					<cite>Comment by <noindex><a href='http://blog.sribna.com' rel='external nofollow'>y.drozdov</a></noindex><a href="#comment-648"></a></cite> 
+														
+				</div>
+				<div class='body'>
+					<div class='meta'>
+						2007-04-17 15:44:14 						
+					</div>					
+					<div class='content'>
+						<p>Видимо прийдется ждать когда ие начнет поддерживать свойство display:table-cell
+</p>
+					</div>
+				<small>(Вложеность комментариев заканчивается на этом уровне)</small>
+				</div>
+
+					<div class='reply'>
+						 
+						<a href='#' onclick='moveAddCommentBelow("div-comment-648", 648, false); return false;'>Ответить на комментарий</a>
+											</div>
+					
+
+			</div>
+			<!-- This has to be here because of Internet Explorers plethora of layout bugs -->
+			<div style="height: 1px; overflow: hidden;">&nbsp;</div>
+					
+
+			</div>
+			<!-- This has to be here because of Internet Explorers plethora of layout bugs -->
+			<div style="height: 1px; overflow: hidden;">&nbsp;</div>
+					
+
+			</div>
+			<!-- This has to be here because of Internet Explorers plethora of layout bugs -->
+			<div style="height: 1px; overflow: hidden;">&nbsp;</div>
+					
+
+			</div>
+			<!-- This has to be here because of Internet Explorers plethora of layout bugs -->
+			<div style="height: 1px; overflow: hidden;">&nbsp;</div>
+			<div  id="div-comment-2336" class='comment'>
+				<a name='comment-2336' id='comment-2336'></a>
+				<div class="title">
+					<img class="collapseicon" src="http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=spacer.png" onclick='collapseThread("div-comment-2336")' alt=""/>
+					<cite>Pingback by <noindex><a href='http://www.sexhtml.ru/free-temy/47/' rel='external nofollow'>Источники знаний и их использование</a></noindex><a href="#comment-2336"></a></cite> 
+														
+				</div>
+				<div class='body'>
+					<div class='meta'>
+						2007-10-21 17:06:09 						
+					</div>					
+					<div class='content'>
+						<p>[...] И вот сегодня меня занесло на страницу <a href="http://blog.sribna.com/vertikalnoe-vyiravnivanie-v-css-chast-2.htm" rel="nofollow">http://blog.sribna.com/vertikalnoe-vyiravnivanie-v-css-chast-2.htm</a> [...]
+</p>
+					</div>
+					<div class='reply'>
+						 
+						<a href='#' onclick='moveAddCommentBelow("div-comment-2336", 2336, true); return false;'>Ответить на этот комментарий</a>
+											</div>
+				</div>
+					
+
+			</div>
+			<!-- This has to be here because of Internet Explorers plethora of layout bugs -->
+			<div style="height: 1px; overflow: hidden;">&nbsp;</div>
+			<div  id="div-comment-2369" class='comment'>
+				<a name='comment-2369' id='comment-2369'></a>
+				<div class="title">
+					<img class="collapseicon" src="http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=spacer.png" onclick='collapseThread("div-comment-2369")' alt=""/>
+					<cite>Pingback by <noindex><a href='http://blog.sribna.com/opyat-pro-css-vyiravnivanie.htm' rel='external nofollow'>Sribna &raquo; Опять про css выравнивание</a></noindex><a href="#comment-2369"></a></cite> 
+														
+				</div>
+				<div class='body'>
+					<div class='meta'>
+						2007-10-24 15:51:42 						
+					</div>					
+					<div class='content'>
+						<p>[...] Про вертикальное выравнивание я уже писал, можно почитать тут и тут. Написать снова меня натолкнула статья Артема Курапова - Element alignment. [...]
+</p>
+					</div>
+					<div class='reply'>
+						 
+						<a href='#' onclick='moveAddCommentBelow("div-comment-2369", 2369, true); return false;'>Ответить на этот комментарий</a>
+											</div>
+				</div>
+					
+
+			</div>
+			<!-- This has to be here because of Internet Explorers plethora of layout bugs -->
+			<div style="height: 1px; overflow: hidden;">&nbsp;</div>
+			<div  id="div-comment-3559" class='comment'>
+				<a name='comment-3559' id='comment-3559'></a>
+				<div class="title">
+					<img class="collapseicon" src="http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=spacer.png" onclick='collapseThread("div-comment-3559")' alt=""/>
+					<cite>Comment by gum<a href="#comment-3559"></a></cite> 
+														
+				</div>
+				<div class='body'>
+					<div class='meta'>
+						2007-12-27 11:38:24 						
+					</div>					
+					<div class='content'>
+						<p>Так как же все это обединить ?&#8230; на страничке&#8230; что бы, допустим, небольшая картинка  внедренная в HTML, находилась точно по центру, горизонтальному и вертикальному, вне зависимости от масштабирования окна браузера FF и IE7<br />
+___</p>
+<p>Кого-нибудь не затруднить набросать примерный полный код HTML страницы&#8230; пожалуйста&#8230;.</p>
+<p>И с наступающим:)
+</p>
+					</div>
+					<div class='reply'>
+						 
+						<a href='#' onclick='moveAddCommentBelow("div-comment-3559", 3559, true); return false;'>Ответить на этот комментарий</a>
+											</div>
+				</div>
+			<div  id="div-comment-3560" class='comment odd'>
+				<a name='comment-3560' id='comment-3560'></a>
+				<div class="title">
+					<img class="collapseicon" src="http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=spacer.png" onclick='collapseThread("div-comment-3560")' alt=""/>
+					<cite>Comment by <noindex><a href='http://blog.sribna.com' rel='external nofollow'>y.drozdov</a></noindex><a href="#comment-3560"></a></cite> 
+														
+				</div>
+				<div class='body'>
+					<div class='meta'>
+						2007-12-27 13:55:57 						
+					</div>					
+					<div class='content'>
+						<p>Посмотрите исходный код страницы <a href="http://sribna.com," rel="nofollow">http://sribna.com,</a> вот Вам и пример <img src='http://blog.sribna.com/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /><br />
+Спасибо, Вас тоже с наступающим!
+</p>
+					</div>
+					<div class='reply'>
+						 
+						<a href='#' onclick='moveAddCommentBelow("div-comment-3560", 3560, true); return false;'>Ответить на этот комментарий</a>
+											</div>
+				</div>
+					
+
+			</div>
+			<!-- This has to be here because of Internet Explorers plethora of layout bugs -->
+			<div style="height: 1px; overflow: hidden;">&nbsp;</div>
+					
+
+			</div>
+			<!-- This has to be here because of Internet Explorers plethora of layout bugs -->
+			<div style="height: 1px; overflow: hidden;">&nbsp;</div>
+			<div  id="div-comment-3562" class='comment'>
+				<a name='comment-3562' id='comment-3562'></a>
+				<div class="title">
+					<img class="collapseicon" src="http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=spacer.png" onclick='collapseThread("div-comment-3562")' alt=""/>
+					<cite>Comment by <noindex><a href='http://vr.enews.kz' rel='external nofollow'>gum</a></noindex><a href="#comment-3562"></a></cite> 
+														
+				</div>
+				<div class='body'>
+					<div class='meta'>
+						2007-12-27 15:45:26 						
+					</div>					
+					<div class='content'>
+						<p>Спасибо&#8230;<br />
+я здесь нашел неплохой наглядный пример<br />
+<a href="http://xhtml.ru/2005/05/24/vertical_centerbox/" rel="nofollow">http://xhtml.ru/2005/05/24/vertical_centerbox/</a>
+</p>
+					</div>
+					<div class='reply'>
+						 
+						<a href='#' onclick='moveAddCommentBelow("div-comment-3562", 3562, true); return false;'>Ответить на этот комментарий</a>
+											</div>
+				</div>
+					
+
+			</div>
+			<!-- This has to be here because of Internet Explorers plethora of layout bugs -->
+			<div style="height: 1px; overflow: hidden;">&nbsp;</div>
+			<div  id="div-comment-3915" class='comment'>
+				<a name='comment-3915' id='comment-3915'></a>
+				<div class="title">
+					<img class="collapseicon" src="http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=spacer.png" onclick='collapseThread("div-comment-3915")' alt=""/>
+					<cite>Comment by master<a href="#comment-3915"></a></cite> 
+					<img alt='Subscribed to comments via email' src='http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=subscribed.png' />									
+				</div>
+				<div class='body'>
+					<div class='meta'>
+						2008-02-06 12:58:09 						
+					</div>					
+					<div class='content'>
+						<p>что за привычка, постоянно рассматривать один див. хех,<br />
+это что ж получается у тебя страница состоит из одного дива?<br />
+а если див зафлотирован или еще что-то?..<br />
+вообщем это больше похоже на бестолковые заметки, чем на полезный совет! ЗРЯ ПИСАЛ МНОГА БУКАФ! КГ/АМ!
+</p>
+					</div>
+					<div class='reply'>
+						 
+						<a href='#' onclick='moveAddCommentBelow("div-comment-3915", 3915, true); return false;'>Ответить на этот комментарий</a>
+											</div>
+				</div>
+			<div  id="div-comment-3916" class='comment odd'>
+				<a name='comment-3916' id='comment-3916'></a>
+				<div class="title">
+					<img class="collapseicon" src="http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=spacer.png" onclick='collapseThread("div-comment-3916")' alt=""/>
+					<cite>Comment by <noindex><a href='http://blog.sribna.com' rel='external nofollow'>Yuriy Drozdov</a></noindex><a href="#comment-3916"></a></cite> 
+														
+				</div>
+				<div class='body'>
+					<div class='meta'>
+						2008-02-06 13:03:11 						
+					</div>					
+					<div class='content'>
+						<p>В данном примере 3 дива. Причем последний див может служить контейнером для других элементов. Чтобы свести задачу к рассмотрению именно вертикального выравнивания и не усложнять лишними элементами, используются только дивы.
+</p>
+					</div>
+					<div class='reply'>
+						 
+						<a href='#' onclick='moveAddCommentBelow("div-comment-3916", 3916, true); return false;'>Ответить на этот комментарий</a>
+											</div>
+				</div>
+			<div  id="div-comment-4292" class='comment'>
+				<a name='comment-4292' id='comment-4292'></a>
+				<div class="title">
+					<img class="collapseicon" src="http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=spacer.png" onclick='collapseThread("div-comment-4292")' alt=""/>
+					<cite>Comment by master<a href="#comment-4292"></a></cite> 
+					<img alt='Subscribed to comments via email' src='http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=subscribed.png' />									
+				</div>
+				<div class='body'>
+					<div class='meta'>
+						2008-03-25 18:19:12 						
+					</div>					
+					<div class='content'>
+						<p>где можно применить это выравнивание?? покажите мне сайт где сделано!!!<br />
+или это только для того чтобы вешать надпись &#8220;сайт на реконструкции&#8221; в центре экрана <img src='http://blog.sribna.com/wp-includes/images/smilies/icon_biggrin.gif' alt=':D' class='wp-smiley' />
+</p>
+					</div>
+					<div class='reply'>
+						 
+						<a href='#' onclick='moveAddCommentBelow("div-comment-4292", 4292, true); return false;'>Ответить на этот комментарий</a>
+											</div>
+				</div>
+					
+
+			</div>
+			<!-- This has to be here because of Internet Explorers plethora of layout bugs -->
+			<div style="height: 1px; overflow: hidden;">&nbsp;</div>
+					
+
+			</div>
+			<!-- This has to be here because of Internet Explorers plethora of layout bugs -->
+			<div style="height: 1px; overflow: hidden;">&nbsp;</div>
+					
+
+			</div>
+			<!-- This has to be here because of Internet Explorers plethora of layout bugs -->
+			<div style="height: 1px; overflow: hidden;">&nbsp;</div>
+			<div  id="div-comment-4289" class='comment'>
+				<a name='comment-4289' id='comment-4289'></a>
+				<div class="title">
+					<img class="collapseicon" src="http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=spacer.png" onclick='collapseThread("div-comment-4289")' alt=""/>
+					<cite>Comment by OZet<a href="#comment-4289"></a></cite> 
+														
+				</div>
+				<div class='body'>
+					<div class='meta'>
+						2008-03-25 13:48:15 						
+					</div>					
+					<div class='content'>
+						<p>А если к #container применить например float:left то вообще выравнивание перестает работать
+</p>
+					</div>
+					<div class='reply'>
+						 
+						<a href='#' onclick='moveAddCommentBelow("div-comment-4289", 4289, true); return false;'>Ответить на этот комментарий</a>
+											</div>
+				</div>
+			<div  id="div-comment-4293" class='comment odd'>
+				<a name='comment-4293' id='comment-4293'></a>
+				<div class="title">
+					<img class="collapseicon" src="http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=spacer.png" onclick='collapseThread("div-comment-4293")' alt=""/>
+					<cite>Comment by <noindex><a href='http://blog.sribna.com' rel='external nofollow'>Yuriy Drozdov</a></noindex><a href="#comment-4293"></a></cite> 
+														
+				</div>
+				<div class='body'>
+					<div class='meta'>
+						2008-03-25 19:07:48 						
+					</div>					
+					<div class='content'>
+						<p>Применяйте float:left к диву обертке, т.е. к #outer
+</p>
+					</div>
+					<div class='reply'>
+						 
+						<a href='#' onclick='moveAddCommentBelow("div-comment-4293", 4293, true); return false;'>Ответить на этот комментарий</a>
+											</div>
+				</div>
+					
+
+			</div>
+			<!-- This has to be here because of Internet Explorers plethora of layout bugs -->
+			<div style="height: 1px; overflow: hidden;">&nbsp;</div>
+					
+
+			</div>
+			<!-- This has to be here because of Internet Explorers plethora of layout bugs -->
+			<div style="height: 1px; overflow: hidden;">&nbsp;</div>
+			<div  id="div-comment-5991" class='comment'>
+				<a name='comment-5991' id='comment-5991'></a>
+				<div class="title">
+					<img class="collapseicon" src="http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=spacer.png" onclick='collapseThread("div-comment-5991")' alt=""/>
+					<cite>Comment by Александр<a href="#comment-5991"></a></cite> 
+					<img alt='Subscribed to comments via email' src='http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=subscribed.png' />									
+				</div>
+				<div class='body'>
+					<div class='meta'>
+						2008-09-05 13:38:52 						
+					</div>					
+					<div class='content'>
+						<p>не знаю как у вас а у меня дыннй код в ИЕ работает криво а конкретно текст не по середине дива располагается а выше него как я думаю влияет какраз вот эта строчка в css<br />
+#inner {top:-50%;position:relative;}
+</p>
+					</div>
+					<div class='reply'>
+						 
+						<a href='#' onclick='moveAddCommentBelow("div-comment-5991", 5991, true); return false;'>Ответить на этот комментарий</a>
+											</div>
+				</div>
+					
+
+			</div>
+			<!-- This has to be here because of Internet Explorers plethora of layout bugs -->
+			<div style="height: 1px; overflow: hidden;">&nbsp;</div>
+</div>
+<p>Извините, комментарии закрыты.</p>
+	
+		
+	</div>
+	<div id="sidebar">
+		<ul>
+			<li>
+				<form method="get" id="searchform" action="http://blog.sribna.com/">
+<div><input type="text" value="" name="s" id="s" />
+<input type="submit" id="searchsubmit" value="Поиск" />
+</div>
+</form>
+			</li>
+
+			<li><noindex><a href="http://feeds2.feedburner.com/~r/Sribna/~6/2"><img src="http://feeds2.feedburner.com/Sribna.2.gif" alt="Sribna" style="border:0"></a></noindex></li>
+			<li>
+						</li>
+			
+			<li class="pagenav"><h2>Страницы</h2><ul><li class="page_item"><a href="http://blog.sribna.com/about/" title="О сайте">О сайте</a></li>
+<li class="page_item"><a href="http://blog.sribna.com/avtoryi/" title="Авторы">Авторы</a></li>
+<li class="page_item"><a href="http://blog.sribna.com/readers/" title="Читатели">Читатели</a></li>
+<li class="page_item"><a href="http://blog.sribna.com/map/" title="Карта сайта">Карта сайта</a></li>
+</ul></li>			<li>
+				<h2>Самое популярное</h2>
+				<ul>
+				    <li><a href="http://blog.sribna.com/vertikalnoe-vyiravnivanie-v-css-chast-2.htm">Вертикальное выравнивание в CSS, часть 2</a></li>
+					<li><a href="http://blog.sribna.com/uslovnyie-kommentarii-v-css.htm">Условные комментарии в CSS</a></li>
+					<li><a href="http://blog.sribna.com/ukrashaem-input-s-pomoschyu-css.htm">Украшаем input с помощью CSS</a></li>
+					<li><a href="http://blog.sribna.com/krizis-i-ya.htm">Кризис и я</a></li>
+					<li><a href="http://blog.sribna.com/kak-ochistit-kesh-brauzera-firefox.htm">Как очистить кеш браузера Firefox</a></li>
+				</ul>
+			</li>
+                                    <li><h2>Реклама</h2>
+						<script type="text/javascript"><!--
+google_ad_client = "ca-pub-5530407177278166";
+/* button */
+google_ad_slot = "8065476964";
+google_ad_width = 125;
+google_ad_height = 125;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+                    </li>
+			     			<li><h2>Рубрики</h2>
+				<ul>
+					<li><a href="http://blog.sribna.com/category/adodb/" title="View all posts filed under ADODB">ADODB</a> (1)
+</li>
+	<li><a href="http://blog.sribna.com/category/css/" title="View all posts filed under CSS">CSS</a> (27)
+</li>
+	<li><a href="http://blog.sribna.com/category/google/" title="View all posts filed under Google">Google</a> (10)
+</li>
+	<li><a href="http://blog.sribna.com/category/html/" title="View all posts filed under Html">Html</a> (2)
+</li>
+	<li><a href="http://blog.sribna.com/category/javascript/" title="View all posts filed under JavaScript">JavaScript</a> (5)
+</li>
+	<li><a href="http://blog.sribna.com/category/lights-stories/" title="Light&#8217;s stories">Light&#8217;s stories</a> (5)
+</li>
+	<li><a href="http://blog.sribna.com/category/mysql/" title="View all posts filed under MySQL">MySQL</a> (4)
+</li>
+	<li><a href="http://blog.sribna.com/category/php/" title="View all posts filed under PHP">PHP</a> (12)
+</li>
+	<li><a href="http://blog.sribna.com/category/software/" title="View all posts filed under Software">Software</a> (1)
+</li>
+	<li><a href="http://blog.sribna.com/category/testing/" title="View all posts filed under Testing">Testing</a> (3)
+</li>
+	<li><a href="http://blog.sribna.com/category/web/" title="View all posts filed under Web">Web</a> (12)
+</li>
+	<li><a href="http://blog.sribna.com/category/wordpress/" title="View all posts filed under WordPress">WordPress</a> (4)
+</li>
+	<li><a href="http://blog.sribna.com/category/iz-zhizni/" title="View all posts filed under Из жизни">Из жизни</a> (14)
+</li>
+	<li><a href="http://blog.sribna.com/category/nablyudeniya/" title="View all posts filed under Наблюдения">Наблюдения</a> (2)
+</li>
+	<li><a href="http://blog.sribna.com/category/uncategorized/" title="View all posts filed under Разное">Разное</a> (29)
+</li>
+	<li><a href="http://blog.sribna.com/category/yumor-v-it/" title="View all posts filed under Юмор в IT">Юмор в IT</a> (7)
+</li>
+				</ul>
+			</li>
+
+                <li><h2>Последние записи <a href="http://blog.sribna.com/feed/" title="RSS"><img src="http://blog.sribna.com/images/xml-medium.png" alt="RSS" /></a></h2>
+                <ul><li><a href='http://blog.sribna.com/codeigniter_and_godaddy.htm'>CodeIgniter на Godaddy</a></li><li><a href='http://blog.sribna.com/nemnogo-o-programmnom-obespechenii.htm'>Немного о программном обеспечении</a></li><li><a href='http://blog.sribna.com/po-eto-nastoyaschaya-magiya.htm'>ПО - это настоящая магия</a></li><li><a href='http://blog.sribna.com/obschie-printsipyi-testirovaniya.htm'>Общие принципы тестирования</a></li><li><a href='http://blog.sribna.com/list_ul_with_disapered_backgrround_image.htm'>Список ul c исчезающей фоновой картинкой в IE 6</a></li></ul>
+                </li>
+                                
+			<li><h2>Архив</h2>
+				<ul>
+					<li><a href='http://blog.sribna.com/2009/07/' title='July 2009'>July 2009</a></li>
+	<li><a href='http://blog.sribna.com/2009/02/' title='February 2009'>February 2009</a></li>
+	<li><a href='http://blog.sribna.com/2008/12/' title='December 2008'>December 2008</a></li>
+	<li><a href='http://blog.sribna.com/2008/11/' title='November 2008'>November 2008</a></li>
+	<li><a href='http://blog.sribna.com/2008/10/' title='October 2008'>October 2008</a></li>
+	<li><a href='http://blog.sribna.com/2008/09/' title='September 2008'>September 2008</a></li>
+	<li><a href='http://blog.sribna.com/2008/08/' title='August 2008'>August 2008</a></li>
+	<li><a href='http://blog.sribna.com/2008/07/' title='July 2008'>July 2008</a></li>
+	<li><a href='http://blog.sribna.com/2008/06/' title='June 2008'>June 2008</a></li>
+	<li><a href='http://blog.sribna.com/2008/05/' title='May 2008'>May 2008</a></li>
+	<li><a href='http://blog.sribna.com/2008/04/' title='April 2008'>April 2008</a></li>
+	<li><a href='http://blog.sribna.com/2008/03/' title='March 2008'>March 2008</a></li>
+	<li><a href='http://blog.sribna.com/2008/02/' title='February 2008'>February 2008</a></li>
+	<li><a href='http://blog.sribna.com/2008/01/' title='January 2008'>January 2008</a></li>
+	<li><a href='http://blog.sribna.com/2007/12/' title='December 2007'>December 2007</a></li>
+	<li><a href='http://blog.sribna.com/2007/11/' title='November 2007'>November 2007</a></li>
+	<li><a href='http://blog.sribna.com/2007/10/' title='October 2007'>October 2007</a></li>
+	<li><a href='http://blog.sribna.com/2007/09/' title='September 2007'>September 2007</a></li>
+	<li><a href='http://blog.sribna.com/2007/08/' title='August 2007'>August 2007</a></li>
+	<li><a href='http://blog.sribna.com/2007/07/' title='July 2007'>July 2007</a></li>
+	<li><a href='http://blog.sribna.com/2007/06/' title='June 2007'>June 2007</a></li>
+	<li><a href='http://blog.sribna.com/2007/05/' title='May 2007'>May 2007</a></li>
+	<li><a href='http://blog.sribna.com/2007/04/' title='April 2007'>April 2007</a></li>
+	<li><a href='http://blog.sribna.com/2007/03/' title='March 2007'>March 2007</a></li>
+	<li><a href='http://blog.sribna.com/2007/02/' title='February 2007'>February 2007</a></li>
+	<li><a href='http://blog.sribna.com/2007/01/' title='January 2007'>January 2007</a></li>
+				</ul>
+			</li>
+
+                                
+				<li><h2>Мета</h2>
+				<ul>
+										<li><a rel="nofollow" href="http://blog.sribna.com/wp-login.php">Login</a></li>
+					<li><a href="http://validator.w3.org/check/referer" title="This page validates as XHTML 1.0 Transitional">Valid <abbr title="eXtensible HyperText Markup Language">XHTML</abbr></a></li>
+					<li><a href="http://blog.sribna.com/feed/"><img src="http://feeds2.feedburner.com/~fc/Sribna?bg=99CCFF&amp;fg=444444&amp;anim=0" height="26" width="88" style="border:0" alt="" /></a></li>
+										<li><!-- code here --><!--845861064--><!-- end code here -->
+					</li>
+				</ul>
+				</li>
+		</ul>
+	</div><hr />
+<div id="footer">
+	<p>
+		Sribna работает на 
+		<a href="http://wordpress.org/">WordPress</a> |
+		<br /><a href="http://blog.sribna.com/feed/" rel="nofollow">Записи (RSS)</a>
+		и <a href="http://blog.sribna.com/comments/feed/" rel="nofollow">Комментарии (RSS)</a>.
+		<!-- 169 queries. 0.347 seconds. -->
+	</p>
+</div>
+</div>
+
+
+
+		<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-1185146-1";
+urchinTracker();
+</script>
+</body>
+</html>

@@ -1,0 +1,2054 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Справочник Forms API | Drupal API</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="Этот документ является полным справочник к Forms API Друпала. Если вас интересует пошаговая интрукция о том, как создавать собственные формы, вам лучше начать с быстрого введения в Forms API." />
+<link rel="shortcut icon" href="/sites/all/themes/api_drupal_ru/favicon.png" type="image/x-icon" />
+  <link type="text/css" rel="stylesheet" media="all" href="/files/css/css_06819d91a366fbe7277a9e93197b725d.css" />
+  <script type="text/javascript" src="/files/js/js_18dd07b752ef2e9859ec5a81632a5e22.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, { "basePath": "/" });
+//--><!]]>
+</script>
+  <!--[if lt IE 7]>
+    <link type="text/css" rel="stylesheet" media="all" href="/sites/all/themes/sm3/styles/ie6.css" />
+  <![endif]-->
+  <!--[if IE 7]>
+    <link type="text/css" rel="stylesheet" media="all" href="/sites/all/themes/sm3/styles/ie.css" />
+  <![endif]-->
+</head>
+<body class="home">
+  
+  <div class="wrapper">
+    <div class="container"><!--end container-->
+
+      <div class="header">
+        <div class="title"><a href="/">Drupal API</a></div>
+                      <ul class="links primary-links"><li class="menu-655 first"><a href="/api/top" title="">TOP</a></li>
+<li class="menu-63"><a href="/lost-in-translation">Трудности перевода</a></li>
+<li class="menu-54 last"><a href="/help">Помощь</a></li>
+</ul>            <div class="search"><form action="/api/file/developer/topics/forms_api_reference.html/6"  accept-charset="UTF-8" method="post" id="api-search-form">
+<div><div class="form-item" id="edit-search-wrapper">
+ <label for="edit-search">Функция, файл или раздел: <span class="form-required" title="Обязательное поле">*</span></label>
+ <input type="text" maxlength="128" name="search" id="edit-search" size="60" value="" class="form-text form-autocomplete required" />
+</div>
+<input class="autocomplete" type="hidden" id="edit-search-autocomplete" value="http://api.drupal.ru/api/autocomplete/6" disabled="disabled" /><input type="submit" name="op" id="edit-submit-1" value="Поиск"  class="form-submit" />
+<input type="hidden" name="form_build_id" id="form-3f0e2b99b02d90aa136a5e64ff89ccb0" value="form-3f0e2b99b02d90aa136a5e64ff89ccb0"  />
+<input type="hidden" name="form_id" id="edit-api-search-form" value="api_search_form"  />
+
+</div></form>
+<div id="searchcontrol"></div><div id="searchcontrol-results"></div><script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAA5K0ecxf29CdGf0jCSGwwBhRUGqS5xr_iQ5HQbbZHAsPbj-uEiRRueIFQpz5QCsWnl3Em0Uafe8m_VA"></script>
+    <script type="text/javascript" src="/sites/all/modules/custom/search_utils.js"></script></div>
+                </div>
+      <div class="content-wrapper">
+        <div class="content-main">
+                              
+          
+                              <h1>Справочник Forms API</h1>                                                  <div style="clear:both"></div>
+          
+
+          <div class="messages status">
+Тебя еще не убедили эти надписи? <a href="/user/register">Присоединяйся</a> к нам, вместе мы все здесь переведем!</div>
+                              <div class="content">
+            <div class="node">
+  
+    
+  
+  
+    <div class="content">
+	    <p>Этот документ является полным справочник к Forms API Друпала. Если вас интересует пошаговая интрукция о том, как создавать собственные формы, вам лучше начать с <a href="/api/file/developer/topics/forms_api.html/6">быстрого введения в Forms API</a>.</p>
+<p>Перейти к: <a href="#properties">параметрам</a> | <a href="#element_default_values">значениям по-умолчанию</a> | <a href="#elements">элементам</a> </p>
+
+<h3>Элементы формы</h3>
+<p><strong>Легенда:</strong><br />
+<strong>X</strong> = используется с этим элементом<br />
+<strong>-</strong> = не используется с этим элементом</p>
+
+  <table class="bigtb">
+    <tr>
+      <th scope="col"><a href="#type"><strong>#type</strong></a></th>
+      <th scope="col"><a href="#checkbox">checkbox</a></th>
+      <th scope="col"><a href="#checkboxes">checkboxes</a></th>
+      <th scope="col"><a href="#date">date</a></th>
+      <th scope="col"><a href="#fieldset">fieldset</a></th>
+      <th scope="col"><a href="#file">file</a></th>
+      <th scope="col"><a href="#password">password</a></th>
+      <th scope="col"><a href="#radio">radio</a></th>
+      <th scope="col"><a href="#radios">radios</a></th>
+      <th scope="col"><a href="#select">select</a></th>
+      <th scope="col"><a href="#textarea">textarea</a></th>
+      <th scope="col"><a href="#textfield">textfield</a></th>
+      <th scope="col"><a href="#weight">weight</a></th>
+    </tr>
+    <tr>
+      <th scope="row"><a href="#access">#access</a></th>
+      <td class="x"><strong>X</strong></td>  <!-- checkbox -->
+      <td class="x"><strong>X</strong></td>  <!-- checkboxes -->
+      <td class="x"><strong>X</strong></td>  <!-- date -->
+      <td class="x"><strong>X</strong></td>  <!-- fieldset -->
+      <td class="x"><strong>X</strong></td>  <!-- file -->
+      <td class="x"><strong>X</strong></td>  <!-- password -->
+      <td class="x"><strong>X</strong></td>  <!-- radio -->
+      <td class="x"><strong>X</strong></td>  <!-- radios -->
+      <td class="x"><strong>X</strong></td>  <!-- select -->
+      <td class="x"><strong>X</strong></td>  <!-- textarea -->
+      <td class="x"><strong>X</strong></td>  <!-- textfield -->
+      <td class="x"><strong>X</strong></td>  <!-- weight -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#ahah">#ahah</a></th>
+      <td class="x"><strong>X</strong></td>  <!-- checkbox -->
+      <td>-</td>  <!-- checkboxes -->
+      <td>-</td>  <!-- date -->
+      <td>-</td>  <!-- fieldset -->
+      <td>-</td>  <!-- file -->
+      <td class="x"><strong>X</strong></td>  <!-- password -->
+      <td class="x"><strong>X</strong></td>  <!-- radio -->
+      <td>-</td>  <!-- radios -->
+      <td class="x"><strong>X</strong></td>  <!-- select -->
+      <td class="x"><strong>X</strong></td>  <!-- textarea -->
+      <td class="x"><strong>X</strong></td>  <!-- textfield -->
+      <td>-</td>  <!-- weight -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#after_build">#after_build</a></th>
+      <td class="x"><strong>X</strong></td>  <!-- checkbox -->
+      <td class="x"><strong>X</strong></td>  <!-- checkboxes -->
+      <td class="x"><strong>X</strong></td>  <!-- date -->
+      <td class="x"><strong>X</strong></td>  <!-- fieldset -->
+      <td class="x"><strong>X</strong></td>  <!-- file -->
+      <td class="x"><strong>X</strong></td>  <!-- password -->
+      <td class="x"><strong>X</strong></td>  <!-- radio -->
+      <td class="x"><strong>X</strong></td>  <!-- radios -->
+      <td class="x"><strong>X</strong></td>  <!-- select -->
+      <td class="x"><strong>X</strong></td>  <!-- textarea -->
+      <td class="x"><strong>X</strong></td>  <!-- textfield -->
+      <td class="x"><strong>X</strong></td>  <!-- weight -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#attributes">#attributes</a></th>
+      <td class="x"><strong>X</strong></td>  <!-- checkbox -->
+      <td class="x"><strong>X</strong></td>  <!-- checkboxes -->
+      <td class="x"><strong>X</strong></td>  <!-- date -->
+      <td class="x"><strong>X</strong></td>  <!-- fieldset -->
+      <td class="x"><strong>X</strong></td>  <!-- file -->
+      <td class="x"><strong>X</strong></td>  <!-- password -->
+      <td class="x"><strong>X</strong></td>  <!-- radio -->
+      <td class="x"><strong>X</strong></td>  <!-- radios -->
+      <td class="x"><strong>X</strong></td>  <!-- select -->
+      <td class="x"><strong>X</strong></td>  <!-- textarea -->
+      <td class="x"><strong>X</strong></td>  <!-- textfield -->
+      <td class="x"><strong>X</strong></td>  <!-- weight -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#autocomplete_path">#autocomplete_path</a></th>
+      <td>-</td>  <!-- checkbox -->
+      <td>-</td>  <!-- checkboxes -->
+      <td>-</td>  <!-- date -->
+      <td>-</td>  <!-- fieldset -->
+      <td>-</td>  <!-- file -->
+      <td>-</td>  <!-- password -->
+      <td>-</td>  <!-- radio -->
+      <td>-</td>  <!-- radios -->
+      <td>-</td>  <!-- select -->
+      <td>-</td>  <!-- textarea -->
+      <td class="x"><strong>X</strong></td>  <!-- textfield -->
+      <td>-</td>  <!-- weight -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#collapsed">#collapsed</a></th>
+      <td>-</td>  <!-- checkbox -->
+      <td>-</td>  <!-- checkboxes -->
+      <td>-</td>  <!-- date -->
+      <td class="x"><strong>X</strong></td>  <!-- fieldset -->
+      <td>-</td>  <!-- file -->
+      <td>-</td>  <!-- password -->
+      <td>-</td>  <!-- radio -->
+      <td>-</td>  <!-- radios -->
+      <td>-</td>  <!-- select -->
+      <td>-</td>  <!-- textarea -->
+      <td>-</td>  <!-- textfield -->
+      <td>-</td>  <!-- weight -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#collapsible">#collapsible</a></th>
+      <td>-</td>  <!-- checkbox -->
+      <td>-</td>  <!-- checkboxes -->
+      <td>-</td>  <!-- date -->
+      <td class="x"><strong>X</strong></td>  <!-- fieldset -->
+      <td>-</td>  <!-- file -->
+      <td>-</td>  <!-- password -->
+      <td>-</td>  <!-- radio -->
+      <td>-</td>  <!-- radios -->
+      <td>-</td>  <!-- select -->
+      <td>-</td>  <!-- textarea -->
+      <td>-</td>  <!-- textfield -->
+      <td>-</td>  <!-- weight -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#cols">#cols</a></th>
+      <td>-</td>  <!-- checkbox -->
+      <td>-</td>  <!-- checkboxes -->
+      <td>-</td>  <!-- date -->
+      <td>-</td>  <!-- fieldset -->
+      <td>-</td>  <!-- file -->
+      <td>-</td>  <!-- password -->
+      <td>-</td>  <!-- radio -->
+      <td>-</td>  <!-- radios -->
+      <td>-</td>  <!-- select -->
+      <td class="x"><strong>X</strong></td>  <!-- textarea -->
+      <td>-</td>  <!-- textfield -->
+      <td>-</td>  <!-- weight -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#default_value">#default_value</a></th>
+      <td class="x"><strong>X</strong></td>  <!-- checkbox -->
+      <td class="x"><strong>X</strong></td>  <!-- checkboxes -->
+      <td class="x"><strong>X</strong></td>  <!-- date -->
+      <td>-</td>  <!-- fieldset -->
+      <td>-</td>  <!-- file -->
+      <td>-</td>  <!-- password -->
+      <td class="x"><strong>X</strong></td>  <!-- radio -->
+      <td class="x"><strong>X</strong></td>  <!-- radios -->
+      <td class="x"><strong>X</strong></td>  <!-- select -->
+      <td class="x"><strong>X</strong></td>  <!-- textarea -->
+      <td class="x"><strong>X</strong></td>  <!-- textfield -->
+      <td class="x"><strong>X</strong></td>  <!-- weight -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#delta">#delta</a></th>
+      <td>-</td>  <!-- checkbox -->
+      <td>-</td>  <!-- checkboxes -->
+      <td>-</td>  <!-- date -->
+      <td>-</td>  <!-- fieldset -->
+      <td>-</td>  <!-- file -->
+      <td>-</td>  <!-- password -->
+      <td>-</td>  <!-- radio -->
+      <td>-</td>  <!-- radios -->
+      <td>-</td>  <!-- select -->
+      <td>-</td>  <!-- textarea -->
+      <td>-</td>  <!-- textfield -->
+      <td class="x"><strong>X</strong></td>  <!-- weight -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#description">#description</a></th>
+      <td class="x"><strong>X</strong></td>  <!-- checkbox -->
+      <td class="x"><strong>X</strong></td>  <!-- checkboxes -->
+      <td class="x"><strong>X</strong></td>  <!-- date -->
+      <td class="x"><strong>X</strong></td>  <!-- fieldset -->
+      <td class="x"><strong>X</strong></td>  <!-- file -->
+      <td class="x"><strong>X</strong></td>  <!-- password -->
+      <td class="x"><strong>X</strong></td>  <!-- radio -->
+      <td class="x"><strong>X</strong></td>  <!-- radios -->
+      <td class="x"><strong>X</strong></td>  <!-- select -->
+      <td class="x"><strong>X</strong></td>  <!-- textarea -->
+      <td class="x"><strong>X</strong></td>  <!-- textfield -->
+      <td class="x"><strong>X</strong></td>  <!-- weight -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#disabled">#disabled</a></th>
+      <td class="x"><strong>X</strong></td>  <!-- checkbox -->
+      <td class="x"><strong>X</strong></td>  <!-- checkboxes -->
+      <td class="x"><strong>X</strong></td>  <!-- date -->
+      <td><strong>-</strong></td>  <!-- fieldset -->
+      <td class="x"><strong>X</strong></td>  <!-- file -->
+      <td class="x"><strong>X</strong></td>  <!-- password -->
+      <td class="x"><strong>X</strong></td>  <!-- radio -->
+      <td class="x"><strong>X</strong></td>  <!-- radios -->
+      <td class="x"><strong>X</strong></td>  <!-- select -->
+      <td class="x"><strong>X</strong></td>  <!-- textarea -->
+      <td class="x"><strong>X</strong></td>  <!-- textfield -->
+      <td class="x"><strong>X</strong></td>  <!-- weight -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#element_validate">#element_validate</a></th>
+      <td class="x"><strong>X</strong></td>  <!-- checkbox -->
+      <td class="x"><strong>X</strong></td>  <!-- checkboxes -->
+      <td class="x"><strong>X</strong></td>  <!-- date -->
+      <td class="x"><strong>X</strong></td>  <!-- fieldset -->
+      <td class="x"><strong>X</strong></td>  <!-- file -->
+      <td class="x"><strong>X</strong></td>  <!-- password -->
+      <td class="x"><strong>X</strong></td>  <!-- radio -->
+      <td class="x"><strong>X</strong></td>  <!-- radios -->
+      <td class="x"><strong>X</strong></td>  <!-- select -->
+      <td class="x"><strong>X</strong></td>  <!-- textarea -->
+      <td class="x"><strong>X</strong></td>  <!-- textfield -->
+      <td class="x"><strong>X</strong></td>  <!-- weight -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#field_prefix">#field_prefix</a></th>
+      <td>-</td>  <!-- checkbox -->
+      <td>-</td>  <!-- checkboxes -->
+      <td>-</td>  <!-- date -->
+      <td>-</td>  <!-- fieldset -->
+      <td>-</td>  <!-- file -->
+      <td>-</td>  <!-- password -->
+      <td>-</td>  <!-- radio -->
+      <td>-</td>  <!-- radios -->
+      <td>-</td>  <!-- select -->
+      <td>-</td>  <!-- textarea -->
+      <td class="x"><strong>X</strong></td>  <!-- textfield -->
+      <td>-</td>  <!-- weight -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#field_suffix">#field_suffix</a></th>
+      <td>-</td>  <!-- checkbox -->
+      <td>-</td>  <!-- checkboxes -->
+      <td>-</td>  <!-- date -->
+      <td>-</td>  <!-- fieldset -->
+      <td>-</td>  <!-- file -->
+      <td>-</td>  <!-- password -->
+      <td>-</td>  <!-- radio -->
+      <td>-</td>  <!-- radios -->
+      <td>-</td>  <!-- select -->
+      <td>-</td>  <!-- textarea -->
+      <td class="x"><strong>X</strong></td>  <!-- textfield -->
+      <td>-</td>  <!-- weight -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#maxlength">#maxlength</a></th>
+      <td>-</td>  <!-- checkbox -->
+      <td>-</td>  <!-- checkboxes -->
+      <td>-</td>  <!-- date -->
+      <td>-</td>  <!-- fieldset -->
+      <td>-</td>  <!-- file -->
+      <td>-</td>  <!-- password -->
+      <td>-</td>  <!-- radio -->
+      <td>-</td>  <!-- radios -->
+      <td>-</td>  <!-- select -->
+      <td>-</td>  <!-- textarea -->
+      <td class="x"><strong>X</strong></td>  <!-- textfield -->
+      <td>-</td>  <!-- weight -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#multiple">#multiple</a></th>
+      <td>-</td>  <!-- checkbox -->
+      <td>-</td>  <!-- checkboxes -->
+      <td>-</td>  <!-- date -->
+      <td>-</td>  <!-- fieldset -->
+      <td>-</td>  <!-- file -->
+      <td>-</td>  <!-- password -->
+      <td>-</td>  <!-- radio -->
+      <td>-</td>  <!-- radios -->
+      <td class="x"><strong>X</strong></td>  <!-- select -->
+      <td>-</td>  <!-- textarea -->
+      <td>-</td>  <!-- textfield -->
+      <td>-</td>  <!-- weight -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#options">#options</a></th>
+      <td>-</td>  <!-- checkbox -->
+      <td class="x"><strong>X</strong></td>  <!-- checkboxes -->
+      <td>-</td>  <!-- date -->
+      <td>-</td>  <!-- fieldset -->
+      <td>-</td>  <!-- file -->
+      <td>-</td>  <!-- password -->
+      <td>-</td>  <!-- radio -->
+      <td class="x"><strong>X</strong></td>  <!-- radios -->
+      <td class="x"><strong>X</strong></td>  <!-- select -->
+      <td>-</td>  <!-- textarea -->
+      <td>-</td>  <!-- textfield -->
+      <td>-</td>  <!-- weight -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#parents">#parents</a></th>
+      <td class="x"><strong>X</strong></td>  <!-- checkbox -->
+      <td class="x"><strong>X</strong></td>  <!-- checkboxes -->
+      <td class="x"><strong>X</strong></td>  <!-- date -->
+      <td class="x"><strong>X</strong></td>  <!-- fieldset -->
+      <td class="x"><strong>X</strong></td>  <!-- file -->
+      <td class="x"><strong>X</strong></td>  <!-- password -->
+      <td class="x"><strong>X</strong></td>  <!-- radio -->
+      <td class="x"><strong>X</strong></td>  <!-- radios -->
+      <td class="x"><strong>X</strong></td>  <!-- select -->
+      <td class="x"><strong>X</strong></td>  <!-- textarea -->
+      <td class="x"><strong>X</strong></td>  <!-- textfield -->
+      <td class="x"><strong>X</strong></td>  <!-- weight -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#prefix">#prefix</a></th>
+      <td class="x"><strong>X</strong></td>  <!-- checkbox -->
+      <td class="x"><strong>X</strong></td>  <!-- checkboxes -->
+      <td class="x"><strong>X</strong></td>  <!-- date -->
+      <td class="x"><strong>X</strong></td>  <!-- fieldset -->
+      <td class="x"><strong>X</strong></td>  <!-- file -->
+      <td class="x"><strong>X</strong></td>  <!-- password -->
+      <td class="x"><strong>X</strong></td>  <!-- radio -->
+      <td class="x"><strong>X</strong></td>  <!-- radios -->
+      <td class="x"><strong>X</strong></td>  <!-- select -->
+      <td class="x"><strong>X</strong></td>  <!-- textarea -->
+      <td class="x"><strong>X</strong></td>  <!-- textfield -->
+      <td class="x"><strong>X</strong></td>  <!-- weight -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#required">#required</a></th>
+      <td class="x"><strong>X</strong></td>  <!-- checkbox -->
+      <td class="x"><strong>X</strong></td>  <!-- checkboxes -->
+      <td class="x"><strong>X</strong></td>  <!-- date -->
+      <td>-</td>  <!-- fieldset -->
+      <td>-</td>  <!-- file -->
+      <td class="x"><strong>X</strong></td>  <!-- password -->
+      <td class="x"><strong>X</strong></td>  <!-- radio -->
+      <td class="x"><strong>X</strong></td>  <!-- radios -->
+      <td class="x"><strong>X</strong></td>  <!-- select -->
+      <td class="x"><strong>X</strong></td>  <!-- textarea -->
+      <td class="x"><strong>X</strong></td>  <!-- textfield -->
+      <td class="x"><strong>X</strong></td>  <!-- weight -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#return_value">#return_value</a></th>
+      <td class="x"><strong>X</strong></td>  <!-- checkbox -->
+      <td class="x"><strong>X</strong></td>  <!-- checkboxes -->
+      <td>-</td>  <!-- date -->
+      <td>-</td>  <!-- fieldset -->
+      <td>-</td>  <!-- file -->
+      <td>-</td>  <!-- password -->
+      <td class="x"><strong>X</strong></td>  <!-- radio -->
+      <td class="x"><strong>X</strong></td>  <!-- radios -->
+      <td>-</td>  <!-- select -->
+      <td>-</td>  <!-- textarea -->
+      <td>-</td>  <!-- textfield -->
+      <td>-</td>  <!-- weight -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#rows">#rows</a></th>
+      <td>-</td>  <!-- checkbox -->
+      <td>-</td>  <!-- checkboxes -->
+      <td>-</td>  <!-- date -->
+      <td>-</td>  <!-- fieldset -->
+      <td>-</td>  <!-- file -->
+      <td>-</td>  <!-- password -->
+      <td>-</td>  <!-- radio -->
+      <td>-</td>  <!-- radios -->
+      <td>-</td>  <!-- select -->
+      <td class="x"><strong>X</strong></td>  <!-- textarea -->
+      <td>-</td>  <!-- textfield -->
+      <td>-</td>  <!-- weight -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#size">#size</a></th>
+      <td>-</td>  <!-- checkbox -->
+      <td>-</td>  <!-- checkboxes -->
+      <td>-</td>  <!-- date -->
+      <td>-</td>  <!-- fieldset -->
+      <td>-</td>  <!-- file -->
+      <td>-</td>  <!-- password -->
+      <td>-</td>  <!-- radio -->
+      <td>-</td>  <!-- radios -->
+      <td class="x"><strong>X</strong></td>  <!-- select -->
+      <td>-</td>  <!-- textarea -->
+      <td class="x"><strong>X</strong></td>  <!-- textfield -->
+      <td>-</td>  <!-- weight -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#suffix">#suffix</a></th>
+      <td class="x"><strong>X</strong></td>  <!-- checkbox -->
+      <td class="x"><strong>X</strong></td>  <!-- checkboxes -->
+      <td class="x"><strong>X</strong></td>  <!-- date -->
+      <td class="x"><strong>X</strong></td>  <!-- fieldset -->
+      <td class="x"><strong>X</strong></td>  <!-- file -->
+      <td class="x"><strong>X</strong></td>  <!-- password -->
+      <td class="x"><strong>X</strong></td>  <!-- radio -->
+      <td class="x"><strong>X</strong></td>  <!-- radios -->
+      <td class="x"><strong>X</strong></td>  <!-- select -->
+      <td class="x"><strong>X</strong></td>  <!-- textarea -->
+      <td class="x"><strong>X</strong></td>  <!-- textfield -->
+      <td class="x"><strong>X</strong></td>  <!-- weight -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#theme">#theme</a></th>
+      <td class="x"><strong>X</strong></td>  <!-- checkbox -->
+      <td class="x"><strong>X</strong></td>  <!-- checkboxes -->
+      <td class="x"><strong>X</strong></td>  <!-- date -->
+      <td class="x"><strong>X</strong></td>  <!-- fieldset -->
+      <td class="x"><strong>X</strong></td>  <!-- file -->
+      <td class="x"><strong>X</strong></td>  <!-- password -->
+      <td class="x"><strong>X</strong></td>  <!-- radio -->
+      <td class="x"><strong>X</strong></td>  <!-- radios -->
+      <td class="x"><strong>X</strong></td>  <!-- select -->
+      <td class="x"><strong>X</strong></td>  <!-- textarea -->
+      <td class="x"><strong>X</strong></td>  <!-- textfield -->
+      <td class="x"><strong>X</strong></td>  <!-- weight -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#title"><strong>#title</strong></a></th>
+      <td class="x"><strong>X</strong></td>  <!-- checkbox -->
+      <td class="x"><strong>X</strong></td>  <!-- checkboxes -->
+      <td class="x"><strong>X</strong></td>  <!-- date -->
+      <td class="x"><strong>X</strong></td>  <!-- fieldset -->
+      <td class="x"><strong>X</strong></td>  <!-- file -->
+      <td class="x"><strong>X</strong></td>  <!-- password -->
+      <td class="x"><strong>X</strong></td>  <!-- radio -->
+      <td class="x"><strong>X</strong></td>  <!-- radios -->
+      <td class="x"><strong>X</strong></td>  <!-- select -->
+      <td class="x"><strong>X</strong></td>  <!-- textarea -->
+      <td class="x"><strong>X</strong></td>  <!-- textfield -->
+      <td class="x"><strong>X</strong></td>  <!-- weight -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#tree">#tree</a></th>
+      <td class="x"><strong>X</strong></td>  <!-- checkbox -->
+      <td class="x"><strong>X</strong></td>  <!-- checkboxes -->
+      <td class="x"><strong>X</strong></td>  <!-- date -->
+      <td class="x"><strong>X</strong></td>  <!-- fieldset -->
+      <td class="x"><strong>X</strong></td>  <!-- file -->
+      <td class="x"><strong>X</strong></td>  <!-- password -->
+      <td class="x"><strong>X</strong></td>  <!-- radio -->
+      <td class="x"><strong>X</strong></td>  <!-- radios -->
+      <td class="x"><strong>X</strong></td>  <!-- select -->
+      <td class="x"><strong>X</strong></td>  <!-- textarea -->
+      <td class="x"><strong>X</strong></td>  <!-- textfield -->
+      <td class="x"><strong>X</strong></td>  <!-- weight -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#weightval">#weight</a></th>
+      <td class="x"><strong>X</strong></td>  <!-- checkbox -->
+      <td class="x"><strong>X</strong></td>  <!-- checkboxes -->
+      <td class="x"><strong>X</strong></td>  <!-- date -->
+      <td class="x"><strong>X</strong></td>  <!-- fieldset -->
+      <td class="x"><strong>X</strong></td>  <!-- file -->
+      <td class="x"><strong>X</strong></td>  <!-- password -->
+      <td class="x"><strong>X</strong></td>  <!-- radio -->
+      <td class="x"><strong>X</strong></td>  <!-- radios -->
+      <td class="x"><strong>X</strong></td>  <!-- select -->
+      <td class="x"><strong>X</strong></td>  <!-- textarea -->
+      <td class="x"><strong>X</strong></td>  <!-- textfield -->
+      <td class="x"><strong>X</strong></td>  <!-- weight -->
+    </tr>
+  </table>
+
+  <h2>Особые элементы</h2>
+  <table class="bigtb">
+    <tr>
+      <th scope="col"><a href="#type">#</a><a href="#type">type</a></th>
+      <th scope="col"><a href="#button">button</a></th>
+      <th scope="col"><a href="#image_button">image_button</a></th>
+      <th scope="col"><a href="#submit">submit</a></th>
+      <th scope="col"><a href="#form">form</a></th>
+      <th scope="col"><a href="#hidden">hidden</a></th>
+      <th scope="col"><a href="#markup">markup</a></th>
+      <th scope="col"><a href="#item">item</a></th>
+      <th scope="col"><a href="#val">value</a></th>
+    </tr>
+    <tr>
+      <th scope="row"><a href="#after_build">#after_build</a></th>
+      <td class="x"><strong>X</strong></td><!-- button -->
+      <td class="x"><strong>X</strong></td><!-- image_button -->
+      <td class="x"><strong>X</strong></td><!-- submit -->
+      <td class="x"><strong>X</strong></td><!-- form -->
+      <td class="x"><strong>X</strong></td><!-- hidden -->
+      <td class="x"><strong>X</strong></td><!-- markup -->
+      <td class="x"><strong>X</strong></td><!-- item -->
+      <td>-</td><!-- value -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#ahah">#ahah</a></th>
+      <td class="x"><strong>X</strong></td><!-- button -->
+      <td class="x"><strong>X</strong></td><!-- image_button -->
+      <td class="x"><strong>X</strong></td><!-- submit -->
+      <td>-</td><!-- form -->
+      <td>-</td><!-- hidden -->
+      <td>-</td><!-- markup -->
+      <td>-</td><!-- item -->
+      <td>-</td><!-- value -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#action">#action</a></th>
+      <td>-</td><!-- button -->
+      <td>-</td><!-- image_button -->
+      <td>-</td><!-- submit -->
+      <td class="x"><strong>X</strong></td><!-- form -->
+      <td>-</td><!-- hidden -->
+      <td>-</td><!-- markup -->
+      <td>-</td><!-- item -->
+      <td>-</td><!-- value -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#attributes">#attributes</a></th>
+      <td class="x"><strong>X</strong></td><!-- button -->
+      <td class="x"><strong>X</strong></td><!-- image_button -->
+      <td class="x"><strong>X</strong></td><!-- submit -->
+      <td class="x"><strong>X</strong></td><!-- form -->
+      <td class="x"><strong>X</strong></td><!-- hidden -->
+      <td class="x"><strong>X</strong></td><!-- markup -->
+      <td class="x"><strong>X</strong></td><!-- item -->
+      <td>-</td><!-- value -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#button_type">#button_type</a></th>
+      <td class="x"><strong>X</strong></td><!-- button -->
+      <td class="x"><strong>X</strong></td><!-- image_button -->
+      <td class="x"><strong>X</strong></td><!-- submit -->
+      <td>-</td><!-- form -->
+      <td>-</td><!-- hidden -->
+      <td>-</td><!-- markup -->
+      <td>-</td><!-- item -->
+      <td>-</td><!-- value -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#default_value">#default_value</a></th>
+      <td>-</td><!-- button -->
+      <td>-</td><!-- image_button -->
+      <td>-</td><!-- submit -->
+      <td>-</td><!-- form -->
+      <td class="x"><strong>X</strong></td><!-- hidden -->
+      <td>-</td><!-- markup -->
+      <td>-</td><!-- item -->
+      <td>-</td><!-- value -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#description">#description</a></th>
+      <td>-</td><!-- button -->
+      <td>-</td><!-- image_button -->
+      <td>-</td><!-- submit -->
+      <td>-</td><!-- form -->
+      <td>-</td><!-- hidden -->
+      <td>-</td><!-- markup -->
+      <td class="x"><strong>X</strong></td><!-- item -->
+      <td>-</td><!-- value -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#element_validate">#element_validate</a></th>
+      <td class="x"><strong>X</strong></td><!-- button -->
+      <td class="x"><strong>X</strong></td><!-- image_button -->
+      <td class="x"><strong>X</strong></td><!-- submit -->
+      <td>-</td><!-- form -->
+      <td class="x"><strong>X</strong></td><!-- hidden -->
+      <td class="x"><strong>X</strong></td><!-- markup -->
+      <td class="x"><strong>X</strong></td><!-- item -->
+      <td class="x"><strong>X</strong></td><!-- value -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#executes_submit_callback">#executes_submit_callback</a></th>
+      <td class="x"><strong>X</strong></td><!-- button -->
+      <td class="x"><strong>X</strong></td><!-- image_button -->
+      <td class="x"><strong>X</strong></td><!-- submit -->
+      <td>-</td><!-- form -->
+      <td>-</td><!-- hidden -->
+      <td>-</td><!-- markup -->
+      <td>-</td><!-- item -->
+      <td>-</td><!-- value -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#method">#method</a></th>
+      <td>-</td><!-- button -->
+      <td>-</td><!-- image_button -->
+      <td>-</td><!-- submit -->
+      <td class="x"><strong>X</strong></td><!-- form -->
+      <td>-</td><!-- hidden -->
+      <td>-</td><!-- markup -->
+      <td>-</td><!-- item -->
+      <td>-</td><!-- value -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#parents">#parents</a></th>
+      <td class="x"><strong>X</strong></td><!-- button -->
+      <td class="x"><strong>X</strong></td><!-- image_button -->
+      <td class="x"><strong>X</strong></td><!-- submit -->
+      <td>-</td><!-- form -->
+      <td class="x"><strong>X</strong></td><!-- hidden -->
+      <td>-</td><!-- markup -->
+      <td>-</td><!-- item -->
+      <td class="x"><strong>X</strong></td><!-- value -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#prefix">#prefix</a></th>
+      <td class="x"><strong>X</strong></td><!-- button -->
+      <td class="x"><strong>X</strong></td><!-- image_button -->
+      <td class="x"><strong>X</strong></td><!-- submit -->
+      <td class="x"><strong>X</strong></td><!-- form -->
+      <td class="x"><strong>X</strong></td><!-- hidden -->
+      <td class="x"><strong>X</strong></td><!-- markup -->
+      <td class="x"><strong>X</strong></td><!-- item -->
+      <td>-</td><!-- value -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#redirect">#redirect</a></th>
+      <td>-</td><!-- button -->
+      <td>-</td><!-- image_button -->
+      <td>-</td><!-- submit -->
+      <td class="x"><strong>X</strong></td><!-- form -->
+      <td>-</td><!-- hidden -->
+      <td>-</td><!-- markup -->
+      <td>-</td><!-- item -->
+      <td>-</td><!-- value -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#required">#required</a></th>
+      <td>-</td><!-- button -->
+      <td>-</td><!-- image_button -->
+      <td>-</td><!-- submit -->
+      <td>-</td><!-- form -->
+      <td class="x"><strong>X</strong></td><!-- hidden -->
+      <td>-</td><!-- markup -->
+      <td>-</td><!-- item -->
+      <td>-</td><!-- value -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#src">#src</a></th>
+      <td>-</td><!-- button -->
+      <td class="x"><strong>X</strong></td><!-- image_button -->
+      <td>-</td><!-- submit -->
+      <td>-</td><!-- form -->
+      <td>-</td><!-- hidden -->
+      <td>-</td><!-- markup -->
+      <td>-</td><!-- item -->
+      <td>-</td><!-- value -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="##submit">#submit</a></th>
+      <td class="x"><strong>X</strong></td><!-- button -->
+      <td class="x"><strong>X</strong></td><!-- image_button -->
+      <td class="x"><strong>X</strong></td><!-- submit -->
+      <td class="x"><strong>X</strong></td><!-- form -->
+      <td>-</td><!-- hidden -->
+      <td>-</td><!-- markup -->
+      <td>-</td><!-- item -->
+      <td>-</td><!-- value -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#suffix">#suffix</a></th>
+      <td class="x"><strong>X</strong></td><!-- button -->
+      <td class="x"><strong>X</strong></td><!-- image_button -->
+      <td class="x"><strong>X</strong></td><!-- submit -->
+      <td class="x"><strong>X</strong></td><!-- form -->
+      <td class="x"><strong>X</strong></td><!-- hidden -->
+      <td class="x"><strong>X</strong></td><!-- markup -->
+      <td class="x"><strong>X</strong></td><!-- item -->
+      <td>-</td><!-- value -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#theme">#theme</a></th>
+      <td class="x"><strong>X</strong></td><!-- button -->
+      <td class="x"><strong>X</strong></td><!-- image_button -->
+      <td class="x"><strong>X</strong></td><!-- submit -->
+      <td class="x"><strong>X</strong></td><!-- form -->
+      <td class="x"><strong>X</strong></td><!-- hidden -->
+      <td class="x"><strong>X</strong></td><!-- markup -->
+      <td class="x"><strong>X</strong></td><!-- item -->
+      <td>-</td><!-- value -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#title"><strong>#title</strong></a></th>
+      <td>-</td><!-- button -->
+      <td>-</td><!-- image_button -->
+      <td>-</td><!-- submit -->
+      <td>-</td><!-- form -->
+      <td>-</td><!-- hidden -->
+      <td>-</td><!-- markup -->
+      <td class="x"><strong>X</strong></td><!-- item -->
+      <td>-</td><!-- value -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#tree">#tree</a></th>
+      <td class="x"><strong>X</strong></td><!-- button -->
+      <td class="x"><strong>X</strong></td><!-- image_button -->
+      <td class="x"><strong>X</strong></td><!-- submit -->
+      <td class="x"><strong>X</strong></td><!-- form -->
+      <td class="x"><strong>X</strong></td><!-- hidden -->
+      <td>-</td><!-- markup -->
+      <td>-</td><!-- item -->
+      <td class="x"><strong>X</strong></td><!-- value -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#validate">#validate</a></th>
+      <td class="x"><strong>X</strong></td><!-- button -->
+      <td class="x"><strong>X</strong></td><!-- image_button -->
+      <td class="x"><strong>X</strong></td><!-- submit -->
+      <td class="x"><strong>X</strong></td><!-- form -->
+      <td>-</td><!-- hidden -->
+      <td>-</td><!-- markup -->
+      <td>-</td><!-- item -->
+      <td>-</td><!-- value -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#value">#value</a></th>
+      <td class="x"><strong>X</strong></td><!-- button -->
+      <td class="x"><strong>X</strong></td><!-- image_button -->
+      <td class="x"><strong>X</strong></td><!-- submit -->
+      <td>-</td><!-- form -->
+      <td>-</td><!-- hidden -->
+      <td class="x"><strong>X</strong></td><!-- markup -->
+      <td class="x"><strong>X</strong></td><!-- item -->
+      <td class="x"><strong>X</strong></td><!-- value -->
+    </tr>
+    <tr>
+      <th scope="row"><a href="#weightval">#weight</a></th>
+      <td class="x"><strong>X</strong></td><!-- button -->
+      <td class="x"><strong>X</strong></td><!-- image_button -->
+      <td class="x"><strong>X</strong></td><!-- submit -->
+      <td>-</td><!-- form -->
+      <td>-</td><!-- hidden -->
+      <td class="x"><strong>X</strong></td><!-- markup -->
+      <td class="x"><strong>X</strong></td><!-- item -->
+      <td>-</td><!-- value -->
+    </tr>
+  </table>
+
+  <h2><a name="element_default_values" id="element_default_values"></a>Значения по-умолчанию</h2>
+  <p>Каждый элемент автоматически получает эти значения (см. _element_info):</p>
+  <ul>
+    <li><a href="#description">#description</a> = NULL</li>
+    <li><a href="#attributes">#attributes</a> = array()</li>
+    <li><a href="#required">#required</a> = FALSE</li>
+    <li><a href="#tree">#tree</a> = FALSE</li>
+    <li><a href="#parents">#parents</a> = array()</li>
+  </ul>
+  <p>Список умолчаний для различных элементов (см. <a href="/api/function/system_elements/6">system_elements()</a>):</p>
+  <ul>
+    <li>
+      <strong><a href="#button">button</a></strong>
+      <ul>
+        <li><a href="#name">#name</a> = 'op'</li>
+        <li><a href="#button_type">#button_type</a> = 'submit'</li>
+        <li><a href="#executes_submit_callback">#executes_submit_callback</a> = FALSE</li>
+        <li><a href="#ahah_event">#ahah['event']</a> = 'click' </li>
+      </ul>
+    </li>
+    <li>
+      <strong><a href="#checkbox">checkbox</a></strong>
+      <ul>
+        <li><a href="#return_value">#return_value</a> = 1</li>
+        <li><a href="#ahah_event">#ahah['event']</a> = 'change' </li>
+      </ul>
+    </li>
+    <li>
+      <strong><a href="#checkboxes">checkboxes</a></strong>
+      <ul>
+        <li><a href="#tree">#tree</a> = 1</li>
+      </ul>
+    </li>
+    <li>
+      <a href="#fieldset"><strong>fieldset</strong></a>
+      <ul>
+        <li><a href="#collapsible">#collapsible</a> = FALSE</li>
+        <li><a href="#collapsed">#collapsed</a> = FALSE</li>
+      </ul>
+    </li>
+    <li>
+      <strong><a href="#file">file</a></strong>
+      <ul>
+        <li><a href="#size">#size</a> = 60</li>
+      </ul>
+    </li>
+    <li><strong><a href="#form">form</a></strong></li>
+    <li style="list-style: none">
+      <ul>
+        <li><a href="#method">#method</a> = 'post'</li>
+        <li><a href="#action">#action</a> = request_uri()</li>
+      </ul>
+    </li>
+    <li>
+      <strong><a href="#image_button">image_button</a></strong>
+      <ul>
+        <li><a href="#button_type">#button_type</a> = 'submit'</li>
+        <li><a href="#executes_submit_callback">#executes_submit_callback</a> = TRUE</li>
+        <li><a href="#ahah_event">#ahah['event']</a> = 'click' </li>
+      </ul>
+    </li>
+    <li>
+      <a href="#item"><strong>item</strong></a>
+      <ul>
+        <li><a href="#prefix">#prefix</a> = ''</li>
+        <li><a href="#suffix">#suffix</a> = ''</li>
+      </ul>
+    </li>
+    <li>
+      <a href="#markup"><strong>markup</strong></a>
+      <ul>
+        <li><a href="#prefix">#prefix</a> = ''</li>
+        <li><a href="#suffix">#suffix</a> = ''</li>
+      </ul>
+    </li>
+    <li><strong><a href="#radio">radio</a></strong></li>
+    <li style="list-style: none">
+      <ul>
+        <li><a href="#ahah_event">#ahah['event']</a> = 'change' </li>
+      </ul>
+    </li>
+    <li><strong><a href="#password">password</a></strong></li>
+    <li style="list-style: none">
+      <ul>
+        <li><a href="#size">#size</a> = 30</li>
+        <li><a href="#maxlength">#maxlength</a> = 64</li>
+        <li><a href="#ahah_event">#ahah['event']</a> = 'blur' </li>
+      </ul>
+    </li>
+    <li><strong><a href="#submit">submit</a></strong></li>
+    <li style="list-style: none">
+      <ul>
+        <li><a href="#name">#name</a> = 'op'</li>
+        <li><a href="#button_type">#button_type</a> = 'submit'</li>
+        <li><a href="#executes_submit_callback">#executes_submit_callback</a> = TRUE</li>
+        <li><a href="#ahah_event">#ahah['event']</a> = 'click' </li>
+      </ul>
+    </li>
+    <li>
+      <strong><a href="#textarea">textarea</a></strong>
+      <ul>
+        <li><a href="#cols">#cols</a> = 60</li>
+        <li><a href="#rows">#rows</a> = 5</li>
+        <li><a href="#ahah_event">#ahah['event']</a> = 'blur' </li>
+      </ul>
+    </li>
+    <li><strong><a href="#textfield">textfield</a></strong></li>
+    <li style="list-style: none">
+      <ul>
+        <li><a href="#size">#size</a> = 60</li>
+        <li><a href="#maxlength">#maxlength</a> = 128</li>
+        <li><a href="#autocomplete_path">#autocomplete_path</a> = FALSE</li>
+        <li><a href="#ahah_event">#ahah['event']</a> = 'blur' </li>
+      </ul>
+    </li>
+    <li>
+      <strong><a href="#weight">weight</a></strong>
+      <ul>
+        <li><a href="#delta">#delta</a> = 10</li>
+      </ul>
+    </li>
+  </ul>
+
+  <p>&nbsp;</p>
+
+  <h2><a name="elements" id="elements"></a>Элементы</h2>
+<p><strong>Жирным</strong> шрифтом помечены параметры, которые, в большинстве случаев, <strong>обязательно</strong> стоит заполнить при создании элемента.</p>
+
+  <h3><a name="button" id="button"></a>button</h3>
+<p><strong>Описание</strong>: Обычная кнопка. При нажатии, форма передается в обработчик Друпала, где она проходит валидацию и перестройку. Submit-обработчик формы не выполняется по-умолчанию, но можно использовать <a href="#executes_submit_callback">#executes_submit_callback</a>, чтобы это изменить.</p>
+
+  <p><strong>Параметры</strong>: <a href="#ahah">#ahah</a>, <a href="#attributes">#attributes</a>, <a href="#button_type">#button_type</a> (по-умолчанию: submit), <a href="#executes_submit_callback">#executes_submit_callback</a> (по-умолчанию: FALSE), <a href="#name">#name</a> (по-умолчанию: op), <a href="#prefix">#prefix</a>, <a href="#suffix">#suffix</a>, <a href="#type"><strong>#type</strong></a>. <a href="#value"><strong>#value</strong></a>, <a href="#weightval">#weight</a></p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/node/node.module/6">node.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'preview'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'button'</span>, 
+  <span class="st0">'#value'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Preview'</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#weight'</span> =<span class="sy0">&gt;</span> <span class="nu0">19</span>,
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="checkbox" id="checkbox"></a>checkbox</h3>
+  <p><strong>Описание</strong>: Чекбокс (галочка).</p>
+  <p><strong>Параметры</strong>: <a href="#ahah">#ahah</a>, <a href="#attributes">#attributes</a>, <a href="#default_value"><strong>#default_value</strong></a>, <a href="#description">#description</a>, <a href="#prefix">#prefix</a>, <a href="#required">#required</a>, <a href="#return_value"><strong>#return_value</strong></a> (по-умолчанию: 1), <a href="#suffix">#suffix</a>, <a href="#title"><strong>#title</strong></a>, <a href="#type"><strong>#type</strong></a>. <a href="#weightval">#weight</a></p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/contact/contact.module/6">contact.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'copy'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'checkbox'</span>, 
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Send me a copy.'</span><span class="br0">&#41;</span>,
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="checkboxes" id="checkboxes"></a>checkboxes</h3>
+<p><strong>Описание</strong>: Группа чекбоксов. Здесь, <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="co2">#options</span></code></span> — это ассоциативный массив. При обработке, форма возвратит в параметре <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="co2">#return_value</span></code></span> значение, которое находится в ключах массива. На самой форме отображаются значения этого массива. Массив <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="co2">#options</span></code></span> не может содержать элементов с ключем равным <span class="geshifilter"><code class="geshifilter-drupal6_ru">&nbsp;</code></span>.</p>
+  <p><strong>Параметры</strong>: <a href="#attributes">#attributes</a>, <a href="#default_value"><strong>#default_value</strong></a>, <a href="#description">#description</a>, <a href="#options"><strong>#options</strong></a>, <a href="#prefix">#prefix</a>, <a href="#required">#required</a>, <a href="#suffix"></a><a href="#suffix">#suffix</a>, <a href="#title"><strong>#title</strong></a>, <a href="#tree"><strong>#tree</strong></a> (по-умолчанию: TRUE), <a href="#type"><strong>#type</strong></a>. <a href="#weightval">#weight</a></p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/node/node.module/6">node.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'node_options_'</span>. <span class="re0">$node</span>-<span class="sy0">&gt;</span><span class="me1">type</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'checkboxes'</span>, 
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Default options'</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#default_value'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/variable_get/6"><span class="kw5">variable_get</span></a><span class="br0">&#40;</span><span class="st0">'node_options_'</span>. <span class="re0">$node</span>-<span class="sy0">&gt;</span><span class="me1">type</span>, <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><span class="st0">'status'</span>, <span class="st0">'promote'</span><span class="br0">&#41;</span><span class="br0">&#41;</span>,
+  <span class="st0">'#options'</span> =<span class="sy0">&gt;</span> <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+    <span class="st0">'status'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Published'</span><span class="br0">&#41;</span>, 
+    <span class="st0">'moderate'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'In moderation queue'</span><span class="br0">&#41;</span>, 
+    <span class="st0">'promote'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Promoted to front page'</span><span class="br0">&#41;</span>,
+    <span class="st0">'sticky'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Sticky at top of lists'</span><span class="br0">&#41;</span>,
+    <span class="st0">'revision'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Create new revision'</span><span class="br0">&#41;</span>,
+  <span class="br0">&#41;</span>,
+  <span class="st0">'#description'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Users with the &lt;em&gt;administer nodes&lt;/em&gt; permission will be able to override these options.'</span><span class="br0">&#41;</span>,
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+<h3><a name="date" id="date"></a>date</h3>
+  <p><strong>Описание</strong>: Поле выбора даты. В параметре <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="co2">#default_value</span></code></span> будет стоять сегодняшняя дата, если не указать другого. Форматом параметров <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="co2">#default_value</span></code></span> и <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="co2">#return_value</span></code></span> является массив с ключами <span title="год" class="tooltip">'year'</span>, <span class="tooltip" title="месяц">'month'</span>, and <span class="tooltip" title="день">'day'</span>:
+<span class="geshifilter"><code class="geshifilter-drupal6_ru"><a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><span class="st0">'year'</span> =<span class="sy0">&gt;</span> <span class="nu0">2007</span>, <span class="st0">'month'</span> =<span class="sy0">&gt;</span> <span class="nu0">2</span>, <span class="st0">'day'</span> =<span class="sy0">&gt;</span> <span class="nu0">15</span><span class="br0">&#41;</span></code></span>
+</p>
+
+  <p><strong>Параметры</strong>: <a href="#attributes">#attributes</a>, <a href="#default_value"><strong>#default_value</strong></a>, <a href="#description">#description</a>, <a href="#prefix">#prefix</a>, <a href="#required">#required</a>, <a href="#suffix"></a><a href="#suffix">#suffix</a>, <a href="#title"><strong>#title</strong></a>, <a href="#type"><strong>#type</strong></a>. <a href="#weightval">#weight</a></p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/profile/profile.module/6">profile.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$fields</span><span class="br0">&#91;</span><span class="re0">$category</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="re0">$field</span>-<span class="sy0">&gt;</span><span class="me1">name</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'date'</span>, 
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/check_plain/6"><span class="kw5">check_plain</span></a><span class="br0">&#40;</span><span class="re0">$field</span>-<span class="sy0">&gt;</span><span class="me1">title</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#default_value'</span> =<span class="sy0">&gt;</span> <span class="re0">$edit</span><span class="br0">&#91;</span><span class="re0">$field</span>-<span class="sy0">&gt;</span><span class="me1">name</span><span class="br0">&#93;</span>, 
+  <span class="st0">'#description'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/_profile_form_explanation/6"><span class="kw5">_profile_form_explanation</span></a><span class="br0">&#40;</span><span class="re0">$field</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#required'</span> =<span class="sy0">&gt;</span> <span class="re0">$field</span>-<span class="sy0">&gt;</span><span class="me1">required</span>
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="fieldset" id="fieldset"></a>fieldset</h3>
+<p><strong>Описание</strong>: Группа элементов. Служит только для группировки нескольких элементов в одну панельку (те, что могут разворачиваться и схлопываться)</p>
+  <p><strong>Параметры</strong>: <a href="#attributes">#attributes</a>, <a href="#collapsed"><strong>#collapsed</strong></a> (по-умолчанию: FALSE), <a href="#collapsible"><strong>#collapsible</strong></a> (по-умолчанию: FALSE), <a href="#description">#description</a>, <a href="#prefix">#prefix</a>, <a href="#suffix">#suffix</a>, <a href="#title"><strong>#title</strong></a>, <a href="#type"><strong>#type</strong></a>. <a href="#weightval">#weight</a></p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/contact/contact.module/6">contact.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'contact'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'fieldset'</span>, 
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Contact settings'</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#weight'</span> =<span class="sy0">&gt;</span> <span class="nu0">5</span>, 
+  <span class="st0">'#collapsible'</span> =<span class="sy0">&gt;</span> <span class="kw2">TRUE</span>, 
+  <span class="st0">'#collapsed'</span> =<span class="sy0">&gt;</span> <span class="kw2">FALSE</span>,
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="file" id="file"></a>file</h3>
+  <p><strong>Описание</strong>: Поле для загрузки файла.</p>
+  <p>Примечание: следует включать <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'#attributes'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><span class="st0">'enctype'</span> =<span class="sy0">&gt;</span> <span class="st0">&quot;multipart/form-data&quot;</span><span class="br0">&#41;</span>;</code></span> в описание формы. См. <a href="http://drupal.org/node/111782">http://drupal.org/node/111782</a>.</p>
+  <p>Примечание: Параметр <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="co2">#required</span></code></span> этим элементом не поддерживается (его установка в <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="kw2">TRUE</span></code></span> будет всегда вызывать ошибки валидации). Вместо этого, используйте собственную функцию валидации для проверки массива <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="re0">$_FILES</span></code></span> (но с #required должен быть FALSE). Кроме того, вам нужно самостоятельно позаботиться о выводе звездочки или другой пометки «обязательности» поля, если это необходимо. Это можно реализовать темизацией элемента (см <a href="#theme">#theme</a>).</p>
+  <p><strong>Параметры</strong>: <a href="#attributes">#attributes</a>, <a href="#description">#description</a>, <a href="#prefix">#prefix</a>, <a href="#size"><strong>#size</strong></a> (по-умолчанию: 60), <a href="#suffix">#suffix</a>, <a href="#title"><strong>#title</strong></a>, <a href="#type"><strong>#type</strong></a>. <a href="#weightval">#weight</a></p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/upload/upload.module/6">upload.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'new'</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="st0">'upload'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'file'</span>, 
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Attach new file'</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#size'</span> =<span class="sy0">&gt;</span> <span class="nu0">40</span>,
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="form" id="form"></a>form</h3>
+<p><strong>Описание</strong>: Форма.</p>
+  <p><strong>Параметры</strong>: <a href="#action">#action</a> (по-умолчанию: request_uri()), <a href="#attributes">#attributes</a>, <a href="#method">#method</a> (по-умолчанию: 'post'), <a href="#prefix">#prefix</a>,  <a href="##submit">#submit</a>, <a href="#suffix">#suffix</a>,  <a href="#theme">#theme</a>,  <a href="#validate">#validate</a></p>
+  <p><strong>Пример использования</strong>:</p>
+  <p class="help">N/A</p>
+
+  <h3><a name="hidden" id="hidden"></a>hidden</h3>
+<p><strong>Описание</strong>: Скрытое поле, которое не отображается пользователю на форме.</p>
+  <p><strong>Параметры</strong>: <a href="#prefix">#prefix</a>, <a href="#suffix">#suffix</a>, <a href="#type"><strong>#type</strong></a>, <a href="#value"><strong>#value</strong></a></p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/block/block.module/6">block.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'bid'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'hidden'</span>, <span class="st0">'#value'</span> =<span class="sy0">&gt;</span> <span class="re0">$bid</span><span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="image_button" id="image_button"></a>image_button</h3>
+  <p><strong>Описание</strong>: Кнопка-картинка. Функционал аналогичен <a href="#submit">кнопке отправки формы</a>.</p>
+  <p><strong>Параметры</strong>: <a href="#ahah">#ahah</a>, <a href="#attributes">#attributes</a>, <a href="#button_type">#button_type</a> (по-умолчанию: 'submit'), <a href="#executes_submit_callback">#executes_submit_callback</a> (по-умолчанию: TRUE), <a href="#name">#name</a> (по-умолчанию: 'op'), <a href="#prefix">#prefix</a>, <a href="#src">#src</a>, <a href="#suffix">#suffix</a>,  <a href="##submit">#submit</a>, <a href="#type"><strong>#type</strong></a>. <a href="#value"><strong>#value</strong></a>, <a href="#weightval">#weight</a></p>
+
+  <h3><a name="markup" id="markup"></a>markup</h3>
+<p><strong>Описание</strong>: Элемент разметки. Служит для разметки внутри форм. При создании этого элемента нет нужды заполнять параметр <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="co2">#type = 'markup'</span></code></span>, так как это тип &mdash; по-умолчанию для всех элементов.</p>
+<p>Обратите внимание: этот элемент не обертывается в html-теги вообще, поэтому не удивляйтесь если вдруг внутренние элементы этого поля криво вылезут на форме.</p>
+  <p><strong>Параметры</strong>: <a href="#attributes">#attributes</a>, <a href="#description"></a> <a href="#prefix">#prefix</a> (по-умолчанию: ''), <a href="#suffix">#suffix</a> (по-умолчанию: ''), <a href="#type">#type</a>. <a href="#value"><strong>#value</strong></a>, <a href="#weightval">#weight</a></p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/contact/contact.module/6">contact.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'contact_information'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#value'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/variable_get/6"><span class="kw5">variable_get</span></a><span class="br0">&#40;</span><span class="st0">'contact_form_information'</span>, <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'You can leave us a message using the contact form below.'</span><span class="br0">&#41;</span><span class="br0">&#41;</span>,
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="item" id="item"></a>item</h3>
+  <p><strong>Описание</strong>: Поле с неменяющимся значением, заголовком и описанием.</p>
+  <p>Примечание: так как это поле «только для чтения», установка параметра <a href="#required">#required</a> повлияет только на вид этого поля (красная звездочка подле заголовка).</p>
+  <p><strong>Параметры</strong>: <a href="#attributes">#attributes</a>, <a href="#description">#description</a>, <a href="#prefix">#prefix</a> (по-умолчанию: ''), <a href="#required">#required</a>, <a href="#suffix">#suffix</a> (по-умолчанию: ''), <a href="#title"><strong>#title</strong></a>, <a href="#type"><strong>#type</strong></a>, <a href="#value"><strong>#value</strong></a>, <a href="#weightval">#weight</a></p>
+  <p><strong>Пример использования</strong> (<a href="/api/head/file/modules/contact.module/6">contact.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'from'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'item'</span>,
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'From'</span><span class="br0">&#41;</span>,
+  <span class="st0">'#value'</span> =<span class="sy0">&gt;</span> <span class="re0">$user</span>-<span class="sy0">&gt;</span><span class="me1">name</span> .<span class="st0">' &amp;lt;'</span>. <span class="re0">$user</span>-<span class="sy0">&gt;</span><span class="me1">mail</span> .<span class="st0">'&amp;gt;'</span>,
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="password" id="password"></a>password</h3>
+<p><strong>Описание</strong>: Однострочное текстовое поле, в котором символы отображаются звездочками.</p>
+  <p><strong>Параметры</strong>: <a href="#ahah">#ahah</a>, <a href="#attributes">#attributes</a>, <a href="#description">#description</a>, <a href="#maxlength"><strong>#maxlength</strong></a> (по-умолчанию: 30), <a href="#prefix">#prefix</a>, <a href="#required">#required</a>, <a href="#size"><strong>#size</strong></a> (по-умолчанию: 64), <a href="#suffix">#suffix</a>, <a href="#title"><strong>#title</strong></a>, <a href="#type"><strong>#type</strong></a>. <a href="#weightval">#weight</a></p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/user/user.module/6">user.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'pass'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'password'</span>, 
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Password'</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#maxlength'</span> =<span class="sy0">&gt;</span> <span class="nu0">64</span>, 
+  <span class="st0">'#size'</span> =<span class="sy0">&gt;</span> <span class="nu0">15</span>,
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="radio" id="radio"></a>radio</h3>
+  <p><strong>Описание</strong>: Переключатель («круглая галочка»).</p>
+  <p><strong>Параметры</strong>: <a href="#ahah">#ahah</a>, <a href="#attributes">#attributes</a>, <a href="#default_value"><strong>#default_value</strong></a>, <a href="#description">#description</a>, <a href="#prefix">#prefix</a>, <a href="#required">#required</a>, <a href="#suffix">#suffix</a>, <a href="#title"><strong>#title</strong></a>, <a href="#type"><strong>#type</strong></a>. <a href="#weightval">#weight</a></p>
+  <p><strong>Пример использования</strong>:</p>
+  <p class="help">N/A</p>
+
+  <h3><a name="radios" id="radios"></a>radios</h3>
+  <p><strong>Описание</strong>: Группа переключателей.</p>
+  <p><strong>Параметры</strong>: <a href="#attributes">#attributes</a>, <a href="#default_value"><strong>#default_value</strong></a>, <a href="#description">#description</a>, <a href="#options"><strong>#options</strong></a>, <a href="#prefix">#prefix</a>, <a href="#required">#required</a>, <a href="#suffix"></a><a href="#suffix">#suffix</a>, <a href="#title"><strong>#title</strong></a>, <a href="#type"><strong>#type</strong></a>. <a href="#weightval">#weight</a></p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/system/system.module/6">comment.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'posting_settings'</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="st0">'comment_preview'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'radios'</span>, 
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Preview comment'</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#default_value'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/variable_get/6"><span class="kw5">variable_get</span></a><span class="br0">&#40;</span><span class="st0">'comment_preview'</span>, <span class="nu0">1</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#options'</span> =<span class="sy0">&gt;</span> <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Optional'</span><span class="br0">&#41;</span>, <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Required'</span><span class="br0">&#41;</span><span class="br0">&#41;</span>,
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="select" id="select"></a>select</h3>
+  <p><strong>Описание</strong>: Простой или выпадающий список.</p>
+  <p><strong>Параметры</strong>: <a href="#ahah">#ahah</a>, <a href="#attributes">#attributes</a>, <a href="#default_value"><strong>#default_value</strong></a>, <a href="#description">#description</a>, <a href="#multiple"><strong>#multiple</strong></a>, <a href="#options"><strong>#options</strong></a>, <a href="#prefix">#prefix</a>, <a href="#required">#required</a>, <a href="#suffix"></a><a href="#suffix">#suffix</a>, <a href="#title"><strong>#title</strong></a>, <a href="#type"><strong>#type</strong></a>. <a href="#weightval">#weight</a></p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/system/system.module/6">system.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'feed'</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="st0">'feed_item_length'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'select'</span>, 
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Display of XML feed items'</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#default_value'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/variable_get/6"><span class="kw5">variable_get</span></a><span class="br0">&#40;</span><span class="st0">'feed_item_length'</span>,<span class="st0">'teaser'</span><span class="br0">&#41;</span>,
+  <span class="st0">'#options'</span> =<span class="sy0">&gt;</span> <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+    <span class="st0">'title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Titles only'</span><span class="br0">&#41;</span>, 
+    <span class="st0">'teaser'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Titles plus teaser'</span><span class="br0">&#41;</span>, 
+    <span class="st0">'fulltext'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Full text'</span><span class="br0">&#41;</span>,
+  <span class="br0">&#41;</span>,
+  <span class="st0">'#description'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Global setting for the length of XML feed items that are output by default.'</span><span class="br0">&#41;</span>,
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="submit" id="submit"></a>submit</h3>
+  <p><strong>Описание</strong>: Кнопка отправки формы.</p>
+  <p><strong>Параметры</strong>: <a href="#ahah">#ahah</a>, <a href="#attributes">#attributes</a>, <a href="#button_type">#button_type</a> (по-умолчанию: 'submit'), <a href="#executes_submit_callback">#executes_submit_callback</a> (по-умолчанию: TRUE), <a href="#name">#name</a> (по-умолчанию: 'op'), <a href="#prefix">#prefix</a>, <a href="#suffix">#suffix</a>, <a href="#type"><strong>#type</strong></a>. <a href="#value"><strong>#value</strong></a>, <a href="#weightval">#weight</a></p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/locale/locale.module/6">locale.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'submit'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'submit'</span>, <span class="st0">'#value'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Import'</span><span class="br0">&#41;</span><span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="textarea" id="textarea"></a>textarea</h3>
+<p><strong>Описание</strong>: Многострочное текстовое поле.</p>
+  <p><strong>Параметры</strong>: <a href="#ahah">#ahah</a>, <a href="#attributes">#attributes</a>, <a href="#cols"><strong>#cols</strong></a> (по-умолчанию: 60), <a href="#default_value"><strong>#default_value</strong></a>, <a href="#description">#description</a>, <a href="#prefix">#prefix</a>, <a href="#required">#required</a>, <a href="#suffix"></a><a href="#suffix">#suffix</a>, <a href="#title"><strong>#title</strong></a>, <a href="#type"><strong>#type</strong></a>. <a href="#rows"><strong>#rows</strong></a> (по-умолчанию: 5), <a href="#weightval">#weight</a></p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/forum/forum.module/6">forum.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'body'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'textarea'</span>, 
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Body'</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#default_value'</span> =<span class="sy0">&gt;</span> <span class="re0">$node</span>-<span class="sy0">&gt;</span><span class="me1">body</span>, 
+  <span class="st0">'#required'</span> =<span class="sy0">&gt;</span> <span class="kw2">TRUE</span>
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="textfield" id="textfield"></a>textfield</h3>
+<p><strong>Описание</strong>: Однострочное тестовое поле.</p>
+  <p><strong>Параметры</strong>: <a href="#ahah">#ahah</a>, <a href="#attributes">#attributes</a>, <a href="#autocomplete_path">#autocomplete_path</a> (по-умолчанию: FALSE), <a href="#default_value"><strong>#default_value</strong></a>, <a href="#description">#description</a>, <a href="#field_prefix">#field_prefix</a>, <a href="#field_suffix">#field_suffix</a>, <a href="#maxlength"><strong>#maxlength</strong></a> (по-умолчанию: 128), <a href="#prefix">#prefix</a>, <a href="#required">#required</a>, <a href="#size"><strong>#size</strong></a> (по-умолчанию: 60), <a href="#suffix">#suffix</a>, <a href="#title"><strong>#title</strong></a>, <a href="#type"><strong>#type</strong></a>. <a href="#weightval">#weight</a></p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/forum/forum.module/6">forum.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'title'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'textfield'</span>, 
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Subject'</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#default_value'</span> =<span class="sy0">&gt;</span> <span class="re0">$node</span>-<span class="sy0">&gt;</span><span class="me1">title</span>, 
+  <span class="st0">'#size'</span> =<span class="sy0">&gt;</span> <span class="nu0">60</span>, 
+  <span class="st0">'#maxlength'</span> =<span class="sy0">&gt;</span> <span class="nu0">128</span>, 
+  <span class="st0">'#required'</span> =<span class="sy0">&gt;</span> <span class="kw2">TRUE</span>,
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="val" id="val"></a>value</h3>
+<p><strong>Описание</strong>: Значение формы, используемое для внутренних целей. Внешне никак не отображается на форме.</p>
+  <p><strong>Параметры</strong>: <a href="#type"><strong>#type</strong></a>, <a href="#value"><strong>#value</strong></a></p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/node/node.module/6">node.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'vid'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'value'</span>, <span class="st0">'#value'</span> =<span class="sy0">&gt;</span> <span class="re0">$node</span>-<span class="sy0">&gt;</span><span class="me1">vid</span><span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="weight" id="weight"></a>weight</h3>
+<p><strong>Описание</strong>: Поле для выбора <span class="tooltip" title="например, веса пункта меню">веса</span></p>
+  <p><strong>Параметры</strong>: <a href="#attributes">#attributes</a>, <a href="#delta"><strong>#delta</strong></a> (по-умолчанию: 10), <a href="#default_value"><strong>#default_value</strong></a>, <a href="#description">#description</a>, <a href="#prefix">#prefix</a>, <a href="#required">#required</a>, <a href="#suffix"></a><a href="#suffix">#suffix</a>, <a href="#title"><strong>#title</strong></a>, <a href="#type"><strong>#type</strong></a>. <a href="#weightval">#weight</a></p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/menu/menu.module/6">menu.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'weight'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'weight'</span>, 
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Weight'</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#default_value'</span> =<span class="sy0">&gt;</span> <span class="re0">$edit</span><span class="br0">&#91;</span><span class="st0">'weight'</span><span class="br0">&#93;</span>, 
+  <span class="st0">'#delta'</span> =<span class="sy0">&gt;</span> <span class="nu0">10</span>, 
+  <span class="st0">'#description'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Optional. In the menu, the heavier items will sink and the lighter items will be positioned nearer the top.'</span><span class="br0">&#41;</span>,
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h2><a name="properties" id="properties"></a>Параметры</h2>
+
+  <h3><a name="access" id="access"></a>#access</h3>
+  <p><strong>Описание</strong>: Будет ли элемент доступен на форме. Если равен <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="kw2">FALSE</span></code></span>, элемент не будет выведен на форме вообще.</p>
+  <p><strong>Допустимые значения</strong>: <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="kw2">TRUE</span></code></span> или <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="kw2">FALSE</span></code></span>.</p>
+
+  <h3><a name="action" id="action"></a>#action</h3>
+  <p><strong>Используется в</strong>: <a href="#form">form</a></p>
+  <p><strong>Описание</strong>: Адрес, на который будет отправлена форма (HTML аттрибут <span class="geshifilter"><code class="geshifilter-drupal6_ru">action</code></span>).</p>
+  <p><strong>Допустимые значения</strong>: Внутренний путь</p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/comment/comment.module/6">comment.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'#action'</span><span class="br0">&#93;</span> = <a href="http://api.drupal.ru/api/function/url/6"><span class="kw5">url</span></a><span class="br0">&#40;</span><span class="st0">'comment/reply/'</span>. <span class="re0">$edit</span><span class="br0">&#91;</span><span class="st0">'nid'</span><span class="br0">&#93;</span><span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="after_build" id="after_build"></a>#after_build</h3>
+<p>Массив названий функций, которые будут вызваны после <span class="tooltip" title="build">построения</span> формы (например, для обработки предпросмотра ноды).</p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/system/system.module/6">system.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'files'</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="st0">'file_directory_path'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'textfield'</span>,
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'File system path'</span><span class="br0">&#41;</span>,
+  <span class="st0">'#default_value'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/file_directory_path/6"><span class="kw5">file_directory_path</span></a><span class="br0">&#40;</span><span class="br0">&#41;</span>,
+  <span class="st0">'#maxlength'</span> =<span class="sy0">&gt;</span> <span class="nu0">255</span>,
+  <span class="st0">'#description'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'A file system path where the files will be stored. This directory has to exist and be writable by Drupal. If the download method is set to public this directory has to be relative to Drupal installation directory, and be accessible over the web. When download method is set to private this directory should not be accessible over the web. Changing this location after the site has been in use will cause problems so only change this setting on an existing site if you know what you are doing.'</span><span class="br0">&#41;</span>,
+<span class="br0">&#41;</span>;
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'#after_build'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><span class="st0">'system_check_directory'</span><span class="br0">&#41;</span>;
+&nbsp;
+...
+&nbsp;
+<span class="kw2">function</span> <a href="http://api.drupal.ru/api/function/system_check_directory/6"><span class="kw5">system_check_directory</span></a><span class="br0">&#40;</span><span class="re0">$form</span>, <span class="re0">$form_element</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <a href="http://api.drupal.ru/api/function/file_check_directory/6"><span class="kw5">file_check_directory</span></a><span class="br0">&#40;</span><span class="re0">$form_element</span><span class="br0">&#91;</span><span class="st0">'#value'</span><span class="br0">&#93;</span>, <a href="http://api.drupal.ru/api/constant/FILE_CREATE_DIRECTORY/6"><span class="kw6">FILE_CREATE_DIRECTORY</span></a>, <span class="re0">$form_element</span><span class="br0">&#91;</span><span class="st0">'#parents'</span><span class="br0">&#93;</span><span class="br0">&#91;</span>0<span class="br0">&#93;</span><span class="br0">&#41;</span>;
+  <span class="kw1">return</span> <span class="re0">$form_element</span>;
+<span class="br0">&#125;</span>
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="ahah" id="ahah"></a>#ahah</h3>
+  <p><strong>Используется в</strong>: 
+    <a href="#button">button</a>, 
+    <a href="#checkbox">checkbox</a>,  
+    <a href="#image_button">image button</a>, 
+    <a href="#password">password</a>, 
+    <a href="#radio">radio</a>,   
+    <a href="#select">select</a>,  
+    <a href="#submit">submit</a>,
+    <a href="#textarea">textarea</a>, 
+    <a href="#textfield">textfield</a>  
+  </p>
+  <p>Массив, который определяет вид и поведение элемента с AHAH функциональностью.</p>
+  <p>Параметр #ahah обеспечивает <a href="http://en.wikipedia.org/wiki/AHAH">AHAH</a> (Асинхронный HTML и HTTP) —  родственный AJAX'у подходу для динамического обновления веб-страниц. AHAH прост и функционален — ответы сервера возвращают HTML код, который вcтавляется в нужное место страницы.</p>
+    <p>Корректная работа AHAH обеспечивается исполнением этих шагов:</p>
+  <ol>
+    <li>Друпал конструирует и выводит элемент с #ahah параметрами. К странице автоматически цепляется JavaScript файл <span class="geshifilter"><code class="geshifilter-drupal6_ru">misc<span class="sy0">/</span>ahah.js</code></span>.</li>
+    <li><span class="geshifilter"><code class="geshifilter-drupal6_ru">ahah.js</code></span> ищет на странице все элементы, у которых выставлен параметр <a href="#ahah_path">#ahah['path']</a> и навешивает свой обработчик на событие <a href="#ahah_event">#ahah['event']</a> элемента.</li>
+    <li>Когда происходит данное событие (напр. <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="st0">'click'</span></code></span>), обработчик отсылает запрос на путь, указанный в <a href="#ahah_path">#ahah['path']</a> (это путь из меню Друпала).
+    </li>
+    <li>Друпал генерирует HTML и отдает его этому запросу. Пока все это происходит, пользователь видит на форме прогресс-бар или анимированную иконку, что определяется в <a href="#ahah_progress">#ahah['progress']</a>.</li>
+    <li>Когда <span class="geshifilter"><code class="geshifilter-drupal6_ru">ahah.js</code></span> получает ответ от друпала, он вставляет возвращенный HTML в <a href="#ahah_wrapper">#ahah['wrapper']</a>. Метод вставки результата на страницу определяется в <a href="#ahah_method">#ahah['method']</a>.</li>
+  </ol>
+
+
+  <h3><a name="ahah_effect" id="ahah_effect"></a>#ahah['effect']</h3>
+
+  <p><strong>Описание</strong>: Определяет эффект, используемы для вставки контента из AHAH запроса.</p>
+  <p><strong>Допустимые значения</strong>: Строка. Возможные значения: <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="st0">'none'</span></code></span> (по-умолчанию), <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="st0">'fade'</span></code></span>, <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="st0">'slide'</span></code></span>. При установленной JQuery библиотеке <a href="http://interface.eyecon.ro/">Interface elements</a>, любые эффекты с названием <em>effect</em>Toggle могут быть также использованы.</p>
+   <p><strong>Пример использования</strong> (<a href="/api/file/modules/poll/poll.module/6">poll.module</a>):</p>
+
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span> 
+  <span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'choice_wrapper'</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="st0">'poll_more'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+    <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'submit'</span>,
+    <span class="st0">'#value'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'More choices'</span><span class="br0">&#41;</span>,
+    <span class="st0">'#description'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">&quot;If the amount of boxes above isn't enough, click here to add more choices.&quot;</span><span class="br0">&#41;</span>,
+    <span class="st0">'#weight'</span> =<span class="sy0">&gt;</span> <span class="nu0">1</span>,
+    <span class="st0">'#submit'</span> =<span class="sy0">&gt;</span> <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><span class="st0">'poll_more_choices_submit'</span><span class="br0">&#41;</span>, <span class="co1">// If no javascript action.</span>
+    <span class="st0">'#ahah'</span> =<span class="sy0">&gt;</span> <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+      <span class="st0">'path'</span> =<span class="sy0">&gt;</span> <span class="st0">'poll/js'</span>,
+      <span class="st0">'wrapper'</span> =<span class="sy0">&gt;</span> <span class="st0">'poll-choices'</span>,
+      <span class="st0">'method'</span> =<span class="sy0">&gt;</span> <span class="st0">'replace'</span>,
+      <span class="st0">'effect'</span> =<span class="sy0">&gt;</span> <span class="st0">'fade'</span>,
+    <span class="br0">&#41;</span>,
+<span class="kw2">?&gt;</span></pre></div>
+
+   <h3><a name="ahah_event" id="ahah_event"></a>#ahah['event']</h3>
+
+  <p><strong>Описание</strong>: Когда это событие происходит, Друпал отправляет HTTP запрос посредством JavaScript к пути, указанному в <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="co2">#ahah['path']</span></code></span>.</p>
+
+  <p><strong>Допустимые значения</strong>: Строка. Возможные значения: <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="st0">'click'</span></code></span>, <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="st0">'blur'</span></code></span>, <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="st0">'change'</span></code></span>. Имейте в виду, что <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="co2">#ahah['event']</span></code></span> не обязательно заполнять, так как каждому элементу присваивается свое <a href="#element_default_values">событие по-умолчанию</a>.</p>
+
+  <h3><a name="ahah_method" id="ahah_method"></a>#ahah['method']</h3>
+  <p><strong>Описание</strong>: Определяет метод вставки возвращенного запросом HTML кода в селекторе <a href="#ahah_wrapper">#ahah_wrapper</a>. Если ничего не выставлено, возвращенный HTML просто заменяет содержание элемента с аттрибутом <span class="geshifilter"><code class="geshifilter-drupal6_ru">id</code></span> равным <a href="#ahah_wrapper">#ahah_wrapper</a>. Кроме того, можно использовать любые <a href="http://docs.jquery.com/DOM/Manipulation">методы операций с DOM в JQuery</a>.</p>
+  <p><strong>Допустимые значения</strong>: Строка. Возможные значения: <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="st0">'replace'</span></code></span> (по-умолчанию), <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="st0">'after'</span></code></span>, <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="st0">'append'</span></code></span>, <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="st0">'before'</span></code></span>, <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="st0">'prepend'</span></code></span>.</p>
+
+  <h3><a name="ahah_path" id="ahah_path"></a>#ahah['path']</h3>
+
+  <p><strong>Описание</strong>: Если выставлен, параметр включает AHAH-поведение элемента. Значение этого параметра — друпаловский путь, с коллбэк-функцией, генерирующей HTML код и возвращающей этот код Друпалу. Результат будет помещен в место на странице, которое соответствует селектору <a href="#ahah_wrapper">#ahah['wrapper']</a>.</p>
+  <p><strong>Допустимые значения</strong>: Строка, содержащая путь в меню Друпала.</p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/upload/upload.module/6">upload.module</a>):</p>
+
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="coMULTI">/**
+* Implementation of hook_menu().
+*/</span>
+<span class="kw2">function</span> <a href="http://api.drupal.ru/api/function/upload_menu/6"><span class="kw5">upload_menu</span></a><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="re0">$items</span><span class="br0">&#91;</span><span class="st0">'upload/js'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+    <span class="st0">'page callback'</span> =<span class="sy0">&gt;</span> <span class="st0">'upload_js'</span>,
+    <span class="st0">'access arguments'</span> =<span class="sy0">&gt;</span> <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><span class="st0">'upload files'</span><span class="br0">&#41;</span>,
+    <span class="st0">'type'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/constant/MENU_CALLBACK/6"><span class="kw6">MENU_CALLBACK</span></a>,
+  <span class="br0">&#41;</span>;
+  ...
+  <span class="kw1">return</span> <span class="re0">$items</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+...
+&nbsp;
+<span class="kw2">function</span> <a href="http://api.drupal.ru/api/function/_upload_form/6"><span class="kw5">_upload_form</span></a><span class="br0">&#40;</span><span class="re0">$node</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  ...
+    <span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'new'</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="st0">'attach'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+      <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'submit'</span>,
+      <span class="st0">'#value'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Attach'</span><span class="br0">&#41;</span>,
+      <span class="st0">'#name'</span> =<span class="sy0">&gt;</span> <span class="st0">'attach'</span>,
+      <span class="st0">'#ahah'</span> =<span class="sy0">&gt;</span> <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+        <span class="st0">'path'</span> =<span class="sy0">&gt;</span> <span class="st0">'upload/js'</span>,
+        <span class="st0">'wrapper'</span> =<span class="sy0">&gt;</span> <span class="st0">'attach-wrapper'</span>,
+        <span class="st0">'progress'</span> =<span class="sy0">&gt;</span> <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><span class="st0">'type'</span> =<span class="sy0">&gt;</span> <span class="st0">'bar'</span>, <span class="st0">'message'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Please wait...'</span><span class="br0">&#41;</span><span class="br0">&#41;</span>,
+      <span class="br0">&#41;</span>,
+      <span class="st0">'#submit'</span> =<span class="sy0">&gt;</span> <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><span class="st0">'node_form_submit_build_node'</span><span class="br0">&#41;</span>,
+    <span class="br0">&#41;</span>;
+  ...
+<span class="kw1">return</span> <span class="re0">$form</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <p>В этом примере <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="co2">#ahah['path']</span></code></span> заполнено путем <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="st0">'upload/js'</span></code></span>, который определяется в этом же модуле (<span class="geshifilter"><code class="geshifilter-drupal6_ru"><a href="http://api.drupal.ru/api/function/upload_menu/6"><span class="kw5">upload_menu</span></a></code></span>). При обращении к <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="st0">'upload/js'</span></code></span>, будет выполнена функция <span class="geshifilter"><code class="geshifilter-drupal6_ru"><a href="http://api.drupal.ru/api/function/upload_js/6"><span class="kw5">upload_js</span></a></code></span>, которая сгенерирует HTML и возвратит его запрашивающей странице.</p>
+
+  <h3><a name="ahah_progress" id="ahah_progress"></a>#ahah['progress']</h3>
+  
+  <p><strong>Описание</strong>: Выбирает прогресс-бар или анимированную иконку (опционально, текст), которые будут показываться во время ожидания ответа от AHAH запроса.</p>
+  
+  <p><strong>Допустимые значения</strong>: Массив.<p>
+  <p>Возможные ключи массива: <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="st0">'type'</span></code></span>, <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="st0">'message'</span></code></span>, <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="st0">'url'</span></code></span>, <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="st0">'interval'</span></code></span>.</p>
+  <p>Возможные значения:</p>
+  <ul>
+    <li><strong>#ahah['progress']['type']</strong> Строка. Возможные значения: <span class="tooltip" title="анимированная иконка"><span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="st0">'throbber'</span></code></span></span> (по-умолчанию), <span class="tooltip" title="прогресс-бар"><span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="st0">'bar'</span></code></span></span>.
+    </li>
+    <li><strong>#ahah['progress']['message']</strong> Строка. Опциональное сообщение; должно быть пропущено через <a href="/api/function/t/6">t()</a>.
+    </li>
+    <li><strong>#ahah['progress']['url']</strong> Строка. Опциональный коллбэк для выяснения позиции прогресс-бара (по описанию из progress.js). Используется если <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="st0">'type'</span></code></span> равен <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="st0">'progress'</span></code></span>.
+    </li>
+    <li><strong>#ahah['progress']['interval']</strong> Строка. Интервал запросов обновления прогресс-бара (по описанию из progress.js). Используется если установлен <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="st0">'url'</span></code></span> и <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="st0">'type'</span></code></span> равен <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="st0">'progress'</span></code></span>.
+    </li>
+  </ul>
+  
+  <p><strong>Пример использования</strong>: см. <a href="#ahah_path">выше пример из upload.module</a></p>
+
+  <h3><a name="ahah_wrapper" id="ahah_wrapper"></a>#ahah['wrapper']</h3>
+  <p><strong>Описание</strong>: Этот параметр определяет значение HTML аттрибута <span class="geshifilter"><code class="geshifilter-drupal6_ru">id</code></span>, в элемент с которым (обычно <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="sy0">&lt;</span>div<span class="sy0">&gt;</span></code></span>), будет вставлен результат AHAH запроса.</p>
+  <p><strong>Допустимые значения</strong>: Строка, содержащая аттрибут <span class="geshifilter"><code class="geshifilter-drupal6_ru">id</code></span> HTML элемента, который находится на данной странице.</p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/upload/upload.module/6">upload.module</a>):</p>
+
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+  <span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'new'</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="st0">'attach'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+    <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'submit'</span>,
+    <span class="st0">'#value'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Attach'</span><span class="br0">&#41;</span>,
+    <span class="st0">'#name'</span> =<span class="sy0">&gt;</span> <span class="st0">'attach'</span>,
+    <span class="st0">'#ahah'</span> =<span class="sy0">&gt;</span> <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+      <span class="st0">'path'</span> =<span class="sy0">&gt;</span> <span class="st0">'upload/js'</span>,
+      <span class="st0">'wrapper'</span> =<span class="sy0">&gt;</span> <span class="st0">'attach-wrapper'</span>,
+      <span class="st0">'progress'</span> =<span class="sy0">&gt;</span> <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><span class="st0">'type'</span> =<span class="sy0">&gt;</span> <span class="st0">'bar'</span>, <span class="st0">'message'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Please wait...'</span><span class="br0">&#41;</span><span class="br0">&#41;</span>,
+    <span class="br0">&#41;</span>,
+    <span class="st0">'#submit'</span> =<span class="sy0">&gt;</span> <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><span class="st0">'node_form_submit_build_node'</span><span class="br0">&#41;</span>,
+  <span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+
+  <h3><a name="attributes" id="attributes"></a>#attributes</h3>
+  <p><strong>Используется в</strong>: <a href="#button">button</a>, <a href="#checkbox">checkbox</a>, <a href="#checkboxes">checkboxes</a>, <a href="#date">date</a>, <a href="#fieldset">fieldset</a>, <a href="#file">file</a>, <a href="#form">form</a>, <a href="#markup">markup</a>, <a href="#password">password</a>, <a href="#radio">radio</a>, <a href="#radios">radios</a>, <a href="#select">select</a>, <a href="#submit">submit</a>, <a href="#textarea">textarea</a>, <a href="#textfield">textfield</a>, <a href="#weight">weight</a></p>
+<p><strong>Описание</strong>: Используется для установки дополнительных HTML-атрибутов, таких как <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="st0">&quot;class&quot;</span></code></span>.</p>
+<p><strong>Допустимые значения</strong>: Любые HTML атрибуты, которые не затрагиваются остальными параметрами (<span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="kw2">class</span></code></span> (для элементов), <span class="geshifilter"><code class="geshifilter-drupal6_ru">enctype</code></span> (для форм)).</p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/search/search.module/6">search.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'#attributes'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><span class="st0">'class'</span> =<span class="sy0">&gt;</span> <span class="st0">'search-form'</span><span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="autocomplete_path" id="autocomplete_path"></a>#autocomplete_path</h3>
+  <p><strong>Используется в</strong>: <a href="#textfield">textfield</a></p>
+<p><strong>Описание</strong>: Путь к AJAX обработчику, выводящему варианты автозаполнения.</p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/node/node.module/6">node.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'author'</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="st0">'name'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'textfield'</span>, 
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Authored by'</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#maxlength'</span> =<span class="sy0">&gt;</span> <span class="nu0">60</span>, 
+  <span class="st0">'#autocomplete_path'</span> =<span class="sy0">&gt;</span> <span class="st0">'user/autocomplete'</span>, 
+  <span class="st0">'#default_value'</span> =<span class="sy0">&gt;</span> <span class="re0">$node</span>-<span class="sy0">&gt;</span><span class="me1">name</span>, 
+  <span class="st0">'#weight'</span> =<span class="sy0">&gt;</span> -<span class="nu0">1</span>,
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="built" id="built"></a>#built</h3>
+  <p><strong>Используется в</strong>: <a href="#form">form</a></p>
+  <p><strong>Описание</strong>: Используется для определения, построена форма или нет.</p>
+  <p><strong>Допустимые значения</strong>: <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="kw2">TRUE</span></code></span> или <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="kw2">FALSE</span></code></span></p>
+  <p><strong>Пример использования</strong>: ДЛЯ ВНУТРЕННЕГО ИСПОЛЬЗОВАНИЯ. См. функцию <a href="/api/function/_form_builder/6">_form_builder</a> в <a href="/api/file/includes/form.inc/6">form.inc</a>.</p>
+
+
+  <h3><a name="button_type" id="button_type"></a>#button_type</h3>
+  <p><strong>Используется в</strong>: <a href="#button">button</a>, <a href="#submit">submit</a></p>
+  <p><strong>Описание</strong>: Устанавливает CSS класс кнопки (<strong>form-<em>button_type</em></strong>)</p>
+  <p class="help"><strong>Допустимые значения</strong>: submit, ???</p>
+  <p><strong>Пример использования</strong>: (<a href="/api/file/modules/system/system.module/6">system.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$type</span><span class="br0">&#91;</span><span class="st0">'submit'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#input'</span> =<span class="sy0">&gt;</span> <span class="kw2">TRUE</span>, 
+  <span class="st0">'#name'</span> =<span class="sy0">&gt;</span> <span class="st0">'op'</span>, 
+  <span class="st0">'#button_type'</span> =<span class="sy0">&gt;</span> <span class="st0">'submit'</span>, 
+  <span class="st0">'#submit'</span> =<span class="sy0">&gt;</span> <span class="kw2">TRUE</span>,
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="collapsed" id="collapsed"></a>#collapsed</h3>
+<p><strong>Используется в</strong>: <a href="#fieldset">fieldset</a></p>
+<p><strong>Описание</strong>: Указывает будет ли развернута группа элементов по-умолчанию. Смотрите также параметр <a href="#collapsible">#collapsible</a>.</p>
+<p><strong>Допустимые значения</strong>: <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="kw2">TRUE</span></code></span> или <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="kw2">FALSE</span></code></span></p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/block/block.module/6">block.module</a>) :</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'block'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'fieldset'</span>, 
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Block configuration'</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#weight'</span> =<span class="sy0">&gt;</span> <span class="nu0">3</span>, 
+  <span class="st0">'#collapsible'</span> =<span class="sy0">&gt;</span> <span class="kw2">TRUE</span>, 
+  <span class="st0">'#collapsed'</span> =<span class="sy0">&gt;</span> <span class="kw2">FALSE</span>, 
+  <span class="st0">'#tree'</span> =<span class="sy0">&gt;</span> <span class="kw2">TRUE</span>,
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="collapsible" id="collapsible"></a>#collapsible</h3>
+  <p><strong>Используется в</strong>: <a href="#fieldset">fieldset</a></p>
+<p><strong>Описание</strong>: Задает возможность группе сворачиваться при помощи JavaScript. Смотрите также параметр <a href="#collapsed">#collapsed</a>.</p>
+  <p><strong>Допустимые значения</strong>: <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="kw2">TRUE</span></code></span> или <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="kw2">FALSE</span></code></span></p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/block/block.module/6">block.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'block'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'fieldset'</span>, 
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Block configuration'</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#weight'</span> =<span class="sy0">&gt;</span> <span class="nu0">3</span>, 
+  <span class="st0">'#collapsible'</span> =<span class="sy0">&gt;</span> <span class="kw2">TRUE</span>, 
+  <span class="st0">'#collapsed'</span> =<span class="sy0">&gt;</span> <span class="kw2">FALSE</span>, 
+  <span class="st0">'#tree'</span> =<span class="sy0">&gt;</span> <span class="kw2">TRUE</span>,
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="cols" id="cols"></a>#cols</h3>
+  <p><strong>Используется в</strong>: <a href="#textarea">textarea</a></p>
+<p><strong>Описание</strong>: Определяет количество колонок в текстовом поле (смотрите также параметр <a href="#rows">#rows</a>)</p>
+<p><strong>Допустимое значение</strong>: Положительное число</p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/aggregator/aggregator.module/6">aggregator.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'description'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'textarea'</span>, 
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Description'</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#default_value'</span> =<span class="sy0">&gt;</span> <span class="re0">$edit</span><span class="br0">&#91;</span><span class="st0">'description'</span><span class="br0">&#93;</span>, 
+  <span class="st0">'#cols'</span> =<span class="sy0">&gt;</span> <span class="nu0">60</span>, 
+  <span class="st0">'#rows'</span> =<span class="sy0">&gt;</span> <span class="nu0">5</span>,
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="default_value" id="default_value"></a>#default_value</h3>
+  <p><strong>Используется в</strong>: <a href="#button">button</a>, <a href="#checkbox">checkbox</a>, <a href="#checkboxes">checkboxes</a>, <a href="#date">date</a>, <a href="#file">file</a>, <a href="#markup">markup</a>, <a href="#password">password</a>, <a href="#radio">radio</a>, <a href="#radios">radios</a>, <a href="#select">select</a>, <a href="#submit">submit</a>, <a href="#textarea">textarea</a>, <a href="#textfield">textfield</a>, <a href="#weight">weight</a></p>
+<p><strong>Описание</strong>: Значение поля по-умолчанию. <strong>Не путать с <a href="#value">#value</a>!</strong></p>.
+<p><strong>Допустимые значения</strong>: Разные</p>
+  <p><strong>Допустимые значения</strong>: Mixed</p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/forum/forum.module/6">forum.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'body'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'textarea'</span>, 
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Body'</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#default_value'</span> =<span class="sy0">&gt;</span> <span class="re0">$node</span>-<span class="sy0">&gt;</span><span class="me1">body</span>, 
+  <span class="st0">'#required'</span> =<span class="sy0">&gt;</span> <span class="kw2">TRUE</span>,
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="delta" id="delta"></a>#delta</h3>
+  <p><strong>Используется в</strong>: <a href="#weight">weight</a></p>
+  <p><strong>Описание</strong>: Число весов, из которых можно выбирать в поле выбора весов. К примеру, если <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="re0">$delta</span> =<span class="sy0">&gt;</span> <span class="nu0">10</span></code></span>, в поле выбора весов будут значения от <span class="geshifilter"><code class="geshifilter-drupal6_ru">-<span class="nu0">10</span></code></span> до <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="nu0">10</span></code></span>. </p>
+  <p><strong>Допустимое значение</strong>: Положительное число</p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/menu/menu.module/6">menu.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'weight'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'weight'</span>, 
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Weight'</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#default_value'</span> =<span class="sy0">&gt;</span> <span class="re0">$edit</span><span class="br0">&#91;</span><span class="st0">'weight'</span><span class="br0">&#93;</span>, 
+  <span class="st0">'#delta'</span> =<span class="sy0">&gt;</span> <span class="nu0">10</span>, 
+  <span class="st0">'#description'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Optional. In the menu, the heavier items will sink and the lighter items will be positioned nearer the top.'</span><span class="br0">&#41;</span>,
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="description" id="description"></a>#description</h3>
+  <p><strong>Используется в</strong>: <a href="#checkbox">checkbox</a>, <a href="#checkboxes">checkboxes</a>, <a href="#date">date</a>, <a href="#fieldset">fieldset</a>, <a href="#file">file</a>, <a href="#markup">markup</a>, <a href="#password">password</a>, <a href="#radio">radio</a>, <a href="#radios">radios</a>, <a href="#select">select</a>, <a href="#textarea">textarea</a>, <a href="#textfield">textfield</a>, <a href="#weight">weight</a></p>
+  <p><strong>Описание</strong>: Текстовое описание или подсказка к элементу формы. Настоятельно рекомендуется сперва помещать эти значения в функцию <a href="/api/function/t/6">t</a>() для того, чтобы не терять возможности локализации формы.</p>
+  <p><strong>Допустимые значения</strong>: Разные</p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/menu/menu.module/6">menu.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'weight'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'weight'</span>, 
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Weight'</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#default_value'</span> =<span class="sy0">&gt;</span> <span class="re0">$edit</span><span class="br0">&#91;</span><span class="st0">'weight'</span><span class="br0">&#93;</span>, 
+  <span class="st0">'#delta'</span> =<span class="sy0">&gt;</span> <span class="nu0">10</span>, 
+  <span class="st0">'#description'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Optional. In the menu, the heavier items will sink and the lighter items will be positioned nearer the top.'</span><span class="br0">&#41;</span>,
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="disabled" id="disabled"></a>#disabled</h3>
+  <p><strong>Используется в</strong>: <a href="#checkbox">checkbox</a>, <a href="#checkboxes">checkboxes</a>, <a href="#date">date</a>, <a href="#file">file</a>, <a href="#password">password</a>, <a href="#radio">radio</a>, <a href="#radios">radios</a>, <a href="#select">select</a>, <a href="#textarea">textarea</a>, <a href="#textfield">textfield</a>, <a href="#weight">weight</a></p>
+<p><strong>Описание</strong>: Выключает (дизактивирует) элемент формы.</p>
+<p><strong>Допустимые значения</strong>: <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="kw2">TRUE</span></code></span> или <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="kw2">FALSE</span></code></span></p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/system/system.module/6">system.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+      <span class="kw1">if</span> <span class="br0">&#40;</span><a href="http://www.php.net/isset"><span class="kw3">isset</span></a><span class="br0">&#40;</span><span class="re0">$disabled</span><span class="br0">&#91;</span><span class="re0">$name</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'theme_settings'</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="re0">$name</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="st0">'#disabled'</span><span class="br0">&#93;</span> = <span class="kw2">TRUE</span>;
+      <span class="br0">&#125;</span>
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="element_validate" id="element_validate"></a>#element_validate</h3>
+  <p class="help"><strong>Используется в</strong>: любых элементах</p>
+  <p><strong>Описание</strong>: Массив функций валидации значения элемента. Эти функции должны вызывать <a href="/api/function/form_error/6">form_error()</a> или <a href="/api/function/form_set_error/6">form_set_error()</a> если поле не проходит валидацию.</p>
+  <p><strong>Допустимые значения</strong>: Массив названий функций.</p>
+  <p>Эти функции должны принимать в параметрах сам элемент и <span class="tooltip" title="form state">состояние формы</a>:</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">function</span> myelement_validate<span class="br0">&#40;</span><span class="re0">$element</span>, <span class="sy0">&amp;</span><span class="re0">$form_state</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+   <span class="kw1">if</span> <span class="br0">&#40;</span><a href="http://www.php.net/empty"><span class="kw3">empty</span></a><span class="br0">&#40;</span><span class="re0">$element</span><span class="br0">&#91;</span><span class="st0">'#value'</span><span class="br0">&#93;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+     <a href="http://api.drupal.ru/api/function/form_error/6"><span class="kw5">form_error</span></a><span class="br0">&#40;</span><span class="re0">$element</span>, <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'This field is required.'</span><span class="br0">&#41;</span><span class="br0">&#41;</span>;
+   <span class="br0">&#125;</span>
+<span class="br0">&#125;</span>    </pre></div>
+
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/filter/filter.module/6">filter.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+  <span class="kw1">if</span> <span class="br0">&#40;</span><a href="http://www.php.net/count"><span class="kw3">count</span></a><span class="br0">&#40;</span><span class="re0">$formats</span><span class="br0">&#41;</span> <span class="sy0">&gt;</span> <span class="nu0">1</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="re0">$form</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+      <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'fieldset'</span>,
+      <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Input format'</span><span class="br0">&#41;</span>,
+      <span class="st0">'#collapsible'</span> =<span class="sy0">&gt;</span> <span class="kw2">TRUE</span>,
+      <span class="st0">'#collapsed'</span> =<span class="sy0">&gt;</span> <span class="kw2">TRUE</span>,
+      <span class="st0">'#weight'</span> =<span class="sy0">&gt;</span> <span class="re0">$weight</span>,
+      <span class="st0">'#element_validate'</span> =<span class="sy0">&gt;</span> <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><span class="st0">'filter_form_validate'</span><span class="br0">&#41;</span>,
+    <span class="br0">&#41;</span>;
+   ...
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3 class="help"><a name="error" id="error"></a>#error</h3>
+  <p>INTERNAL. Indicates whether or not a form element has been flagged as having an error.</p>
+
+  <h3><a name="executes_submit_callback" id="executes_submit_callback"></a>#executes_submit_callback</h3>
+  <p><strong>Используется в</strong>: <a href="#button">button</a>, <a href="#submit">submit</a>, <a href="#image_button">image_button</a></p>
+  <p><strong>Описание</strong>: Определяет, будет ли кнопка отправлять форму на submit-обработчик.</p>
+  <p><strong>Допустимые значения</strong>: <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="kw2">TRUE</span></code></span> или <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="kw2">FALSE</span></code></span></p>
+
+  <h3 class="help"><a name="id" id="id"></a>#id</h3>
+  <p>ДЛЯ ВНУТРЕННЕГО ИСПОЛЬЗОВАНИЯ. Устаналивает HTML аттрибут <span class="geshifilter"><code class="geshifilter-drupal6_ru">id</code></span> элемента.</p>
+
+  <h3 class="help"><a name="input" id="input"></a>#input</h3>
+  <p>ДЛЯ ВНУТРЕННЕГО ИСПОЛЬЗОВАНИЯ. Определяет, возможен ли пользовательский ввод данных в элементе.</p>
+
+  <h3><a name="field_prefix" id="field_prefix"></a>#field_prefix</h3>
+  <p><strong>Используется в</strong>: <a href="#textfield">textfield</a></p>
+<p><strong>Описание</strong>: Текст или код, который помещается прямо перед текстовым полем.</p>
+<p><strong>Допустимые значения</strong>: Разные</p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/system/system.module/6">system.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'site_403'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'textfield'</span>,
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Default 403 (access denied) page'</span><span class="br0">&#41;</span>,
+  <span class="st0">'#default_value'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/variable_get/6"><span class="kw5">variable_get</span></a><span class="br0">&#40;</span><span class="st0">'site_403'</span>, <span class="st0">''</span><span class="br0">&#41;</span>,
+  <span class="st0">'#size'</span> =<span class="sy0">&gt;</span> <span class="nu0">40</span>,
+  <span class="st0">'#description'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'This page is displayed when the requested document is denied to the current user. If unsure, specify nothing.'</span><span class="br0">&#41;</span>,
+  <span class="st0">'#field_prefix'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/url/6"><span class="kw5">url</span></a><span class="br0">&#40;</span><span class="kw2">NULL</span>, <span class="kw2">NULL</span>, <span class="kw2">NULL</span>, <span class="kw2">TRUE</span><span class="br0">&#41;</span> . <span class="br0">&#40;</span><a href="http://api.drupal.ru/api/function/variable_get/6"><span class="kw5">variable_get</span></a><span class="br0">&#40;</span><span class="st0">'clean_url'</span>, 0<span class="br0">&#41;</span> ? <span class="st0">''</span> : <span class="st0">'?q='</span><span class="br0">&#41;</span>
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="field_suffix" id="field_suffix"></a>#field_suffix</h3>
+  <p><strong>Используется в</strong>: <a href="#textfield">textfield</a></p>
+  <p><strong>Описание</strong>: Текст или код, который помещается сразу за текстовым полем.</p>
+  <p><strong>Допустимые значения</strong>: Разные</p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/upload/upload.module/6">system.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'settings_general'</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="st0">'upload_usersize_default'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'textfield'</span>,
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Default total file size per user'</span><span class="br0">&#41;</span>,
+  <span class="st0">'#default_value'</span> =<span class="sy0">&gt;</span> <span class="re0">$upload_usersize_default</span>,
+  <span class="st0">'#size'</span> =<span class="sy0">&gt;</span> <span class="nu0">5</span>,
+  <span class="st0">'#maxlength'</span> =<span class="sy0">&gt;</span> <span class="nu0">5</span>,
+  <span class="st0">'#description'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'The default maximum size of all files a user can have on the site.'</span><span class="br0">&#41;</span>,
+  <span class="st0">'#field_suffix'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'MB'</span><span class="br0">&#41;</span>
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="maxlength" id="maxlength"></a>#maxlength</h3>
+  <p><strong>Используется в</strong>: <a href="#textfield">textfield</a></p>
+<p><strong>Описание</strong>: Максимальное количество символов, которые сможет принять текстовое поле.</p>
+<p><strong>Допустимое значение</strong>: Положительное число</p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/forum/forum.module/6">forum.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'title'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'textfield'</span>, 
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Subject'</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#default_value'</span> =<span class="sy0">&gt;</span> <span class="re0">$node</span>-<span class="sy0">&gt;</span><span class="me1">title</span>, 
+  <span class="st0">'#size'</span> =<span class="sy0">&gt;</span> <span class="nu0">60</span>, 
+  <span class="st0">'#maxlength'</span> =<span class="sy0">&gt;</span> <span class="nu0">128</span>, 
+  <span class="st0">'#required'</span> =<span class="sy0">&gt;</span> <span class="kw2">TRUE</span>,
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+  
+
+  <h3><a name="method" id="method"></a>#method</h3>
+  <p><strong>Используется в</strong>: <a href="#form">form</a></p>
+  <p><strong>Описание</strong>: Метод отправки формы (HTML аттрибут формы <span class="geshifilter"><code class="geshifilter-drupal6_ru">method</code></span>).</p>
+  <p><strong>Допустимые значения</strong>: <span class="geshifilter"><code class="geshifilter-drupal6_ru">GET</code></span> или <span class="geshifilter"><code class="geshifilter-drupal6_ru">POST</code></span>. По-умолчанию — <span class="geshifilter"><code class="geshifilter-drupal6_ru">POST</code></span>.</p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/node/node.module/6">node.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'#method'</span><span class="br0">&#93;</span> = <span class="st0">'post'</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="multiple" id="multiple"></a>#multiple</h3>
+  <p><strong>Используется в</strong>: <a href="#select">select</a></p>
+  <p><strong>Описание</strong>: Определяет возможность выбора более одого значения в элементе.</p>
+  <p><strong>Допустимые значения</strong>: <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="kw2">TRUE</span></code></span> или <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="kw2">FALSE</span></code></span></p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/taxonomy/taxonomy.module/6">taxonomy.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="kw1">return</span> <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'select'</span>, 
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <span class="re0">$title</span>, 
+  <span class="st0">'#default_value'</span> =<span class="sy0">&gt;</span> <span class="re0">$value</span>, 
+  <span class="st0">'#options'</span> =<span class="sy0">&gt;</span> <span class="re0">$options</span>, 
+  <span class="st0">'#description'</span> =<span class="sy0">&gt;</span> <span class="re0">$description</span>, 
+  <span class="st0">'#multiple'</span> =<span class="sy0">&gt;</span> <span class="re0">$multiple</span>, 
+  <span class="st0">'#size'</span> =<span class="sy0">&gt;</span> <span class="re0">$multiple</span> ? <a href="http://www.php.net/min"><span class="kw3">min</span></a><span class="br0">&#40;</span><span class="nu0">12</span>, <a href="http://www.php.net/count"><span class="kw3">count</span></a><span class="br0">&#40;</span><span class="re0">$options</span><span class="br0">&#41;</span><span class="br0">&#41;</span> : 0,
+  <span class="st0">'#weight'</span> =<span class="sy0">&gt;</span> -<span class="nu0">15</span>,
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+
+  <h3 class="help"><a name="name" id="name"></a>#name</h3>
+  <p>ДЛЯ ВНУТРЕННЕГО ИСПОЛЬЗОВАНИЯ. Устаналивает HTML аттрибут <span class="geshifilter"><code class="geshifilter-drupal6_ru">name</code></span> элемента.</p>
+
+
+  <h3><a name="options" id="options"></a>#options</h3>
+  <p><strong>Используется в</strong>: <a href="#checkboxes">checkboxes</a>, <a href="#radios">radios</a>, <a href="#select">select</a></p>
+<p><strong>Описание</strong>: Варианты выбора в списках (выпадающих, обычных, а также списках чекбоксов и переключателей).</p>
+<p><strong>Допустимые значения</strong>: Массив вида <span class="geshifilter"><code class="geshifilter-drupal6_ru"><a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Значение 1'</span><span class="br0">&#41;</span>, <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Значение 2'</span><span class="br0">&#41;</span><span class="br0">&#41;</span></code></span> или <span class="geshifilter"><code class="geshifilter-drupal6_ru"><a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><span class="st0">'return_value1'</span> =<span class="sy0">&amp;</span>gt; <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Значение 1'</span><span class="br0">&#41;</span>, <span class="st0">'return_value2'</span> =<span class="sy0">&amp;</span>gt; <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Значение 2'</span><span class="br0">&#41;</span><span class="br0">&#41;</span></code></span> если элемент должен возвращать определенные значения.</p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/comment/comment.module/6">comment.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'posting_settings'</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="st0">'comment_preview'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'radios'</span>, 
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Preview comment'</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#default_value'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/variable_get/6"><span class="kw5">variable_get</span></a><span class="br0">&#40;</span><span class="st0">'comment_preview'</span>, <span class="nu0">1</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#options'</span> =<span class="sy0">&gt;</span> <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Optional'</span><span class="br0">&#41;</span>, <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Required'</span><span class="br0">&#41;</span><span class="br0">&#41;</span>,
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="parents" id="parents"></a>#parents</h3>
+  <p class="help"><strong>Используется в</strong>: All</p>
+  <p><strong>Описание</strong>: Определяет «родителя» элемента. Смотрите статью<a href="http://drupal.org/node/48643">#tree and #parents</a> для получения деталей.</p>
+  <p class="help"><strong>Допустимые значения</strong>: Массив имен элементов.</p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/comment/comment.module/6">comment.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'admin'</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="st0">'status'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'radios'</span>, 
+  <span class="st0">'#parents'</span> =<span class="sy0">&gt;</span> <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><span class="st0">'status'</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Status'</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#default_value'</span> =<span class="sy0">&gt;</span> <span class="re0">$status</span>, 
+  <span class="st0">'#options'</span> =<span class="sy0">&gt;</span> <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Published'</span><span class="br0">&#41;</span>, <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Not published'</span><span class="br0">&#41;</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#weight'</span> =<span class="sy0">&gt;</span> -<span class="nu0">1</span>,
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="prefix" id="prefix"></a>#prefix</h3>
+  <p><strong>Используется в</strong>: <a href="#button">button</a>, <a href="#checkbox">checkbox</a>, <a href="#checkboxes">checkboxes</a>, <a href="#date">date</a>, <a href="#fieldset">fieldset</a>, <a href="#file">file</a>, <a href="#form">form</a>, <a href="#hidden">hidden</a>, <a href="#markup">markup</a>, <a href="#password">password</a>, <a href="#radio">radio</a>, <a href="#radios">radios</a>, <a href="#select">select</a>, <a href="#submit">submit</a>, <a href="#textarea">textarea</a>, <a href="#textfield">textfield</a>, <a href="#weight">weight</a></p>
+<p><strong>Описание</strong>: Текст или код, который отобразится перед элементом. Смотрите также <a href="#suffix">#suffix</a>.</p>
+<p><strong>Допустимые значения</strong>: Разные</p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/poll/poll.module/6">poll.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'choice'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'fieldset'</span>, 
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Choices'</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#prefix'</span> =<span class="sy0">&gt;</span> <span class="st0">'&lt;div class=&quot;poll-form&quot;&gt;'</span>, 
+  <span class="st0">'#suffix'</span> =<span class="sy0">&gt;</span> <span class="st0">'&lt;/div&gt;'</span>, 
+  <span class="st0">'#tree'</span> =<span class="sy0">&gt;</span> <span class="kw2">TRUE</span>,
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+  
+
+  <h3 class="help"><a name="printed" id="printed"></a>#printed</h3>
+  <p>ДЛЯ ВНУТРЕННЕГО ИСПОЛЬЗОВАНИЯ. Определяет, отрисован ли элемент уже.</p>
+  
+  <h3>#process</h3>
+  <p><strong>Описание</strong>: Массив функций (каждая вместе с массивом аргументов), которые будут вызваны при процессинге (обработке) формы. Часто используется для <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="sy0">&lt;</span>a href=<span class="st0">&quot;#ahah&quot;</span><span class="sy0">&gt;</span><span class="co2">#ahah&lt;/a&gt;</span></code></span> обработчиков. Используя этот параметр, модули могут навешивать дополнительные действия над элементом, например, тип "radios" расширяется дополнительными переключателями, используя функции процессинга.</p>
+  <p><strong>Допустимые значения</strong>: Массив масивов</p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/system/system.module/6">system.module</a>) в <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="sy0">&lt;</span>a href=<span class="st0">&quot;/api/function/system_elements/6&quot;</span><span class="sy0">&gt;</span>system_elements<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">&lt;/</span>a<span class="sy0">&gt;</span></code></span>:</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$type</span><span class="br0">&#91;</span><span class="st0">'radios'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#input'</span> =<span class="sy0">&gt;</span> <span class="kw2">TRUE</span>,
+  <span class="st0">'#process'</span> =<span class="sy0">&gt;</span> <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><span class="st0">'expand_radios'</span> =<span class="sy0">&gt;</span> <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+<p>В этом примере, вызывается без аргументов функция <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="sy0">&lt;</span>a href=<span class="st0">&quot;/api/function/expand_radios/6&quot;</span><span class="sy0">&gt;</span>expand_radios<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">&lt;/</span>a<span class="sy0">&gt;</span></code></span>. Эта функция добавляет новые элементы типа <span class="geshifilter"><code class="geshifilter-drupal6_ru">radio</code></span> посредством добавления значений в массив <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="co2">#options</span></code></span> обрабатываемого элемента (<span class="geshifilter"><code class="geshifilter-drupal6_ru">radios</code></span>).</p>
+
+
+  <h3 class="help"><a name="processed" id="processed"></a>#processed</h3>
+  <p>ДЛЯ ВНУТРЕННЕГО ИСПОЛЬЗОВАНИЯ. Определяет, обработана ли форма или элемент.</p>
+
+  <h3><a name="redirect" id="redirect"></a>#redirect</h3>
+  <p><strong>Используется в</strong>: <a href="#form">form</a></p>
+<p><strong>Описание</strong>: Адрес, на который попадает пользователь после обработки формы. Это значение по-умолчанию возвращается обработчиком формы (начиная с шестого Друпала, в <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="re0">$form_state</span><span class="br0">&#91;</span><span class="st0">'redirect'</span><span class="br0">&#93;</span></code></span>), но вы можете задавать произвольное значение используя параметр <a href="#redirect">#redirect</a> в <a href="/api/function/hook_form_alter/6" class="local">hook_form_alter</a>(). Смотрите также <a href="#action">#action</a>.</p>
+p><strong>Допустимые значения</strong>: Внутренний путь или массив аргументов для функции <a href="/api/function/url/6" class="local">url</a>(). параметр также может быть установлен в <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="kw2">FALSE</span></code></span>, что приведет к отмене редиректа после обработки формы.</p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/includes/locale.inc/6">locale.inc</a>):</p>
+
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'#redirect'</span><span class="br0">&#93;</span> = <span class="st0">'node'</span>;
+<span class="kw2">?&gt;</span> 
+&nbsp;
+<span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'#redirect'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><span class="st0">'user/login'</span>, <span class="st0">'destination=node'</span><span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span>
+&nbsp;
+<span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'#redirect'</span><span class="br0">&#93;</span> = <span class="kw2">FALSE</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+
+  <h3><a name="required" id="required"></a>#required</h3>
+  <p><strong>Используется в</strong>: <a href="#checkbox">checkbox</a>, <a href="#checkboxes">checkboxes</a>, <a href="#date">date</a>, <a href="#file">file</a>, <a href="#password">password</a>, <a href="#radio">radio</a>, <a href="#radios">radios</a>, <a href="#select">select</a>, <a href="#textarea">textarea</a>, <a href="#textfield">textfield</a>, <a href="#weight">weight</a></p>
+<p><strong>Описание</strong>: Определяет обязательность элемента. Если параметр выставлен, то при валидации формы, элемент автоматически проверяется на пустое значение. Поля загрузки файлов <strong>не</strong> могут быть обязательными.</p>
+<p><strong>Допустимые значения</strong>: <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="kw2">TRUE</span></code></span> или <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="kw2">FALSE</span></code></span> </p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/forum/forum.module/6">forum.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'title'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'textfield'</span>, 
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Subject'</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#default_value'</span> =<span class="sy0">&gt;</span> <span class="re0">$node</span>-<span class="sy0">&gt;</span><span class="me1">title</span>, 
+  <span class="st0">'#size'</span> =<span class="sy0">&gt;</span> <span class="nu0">60</span>, 
+  <span class="st0">'#maxlength'</span> =<span class="sy0">&gt;</span> <span class="nu0">128</span>, 
+  <span class="st0">'#required'</span> =<span class="sy0">&gt;</span> <span class="kw2">TRUE</span>,
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="return_value" id="return_value"></a>#return_value</h3>
+  <p><strong>Используется в</strong>: <a href="#checkbox">checkbox</a>, <a href="#checkboxes">checkboxes</a>, <a href="#radio">radio</a>, <a href="#radios">radios</a></p>
+  <p><strong>Описание</strong>: Значение, которое должен возвращать элемент, когда выбран.</p>
+  <p><strong>Допустимые значения</strong>: Разные</p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/poll/poll.module/6">poll.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'morechoices'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'checkbox'</span>, 
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Need more choices'</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#return_value'</span> =<span class="sy0">&gt;</span> <span class="nu0">1</span>, 
+  <span class="st0">'#default_value'</span> =<span class="sy0">&gt;</span> 0, 
+  <span class="st0">'#description'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">&quot;If the amount of boxes above isn't enough, check this box and click the Preview button below to add some more.&quot;</span><span class="br0">&#41;</span>,
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+<p>Let's make this remark short: #</p>
+
+
+  <h3><a name="rows" id="rows"></a>#rows</h3>
+  <p><strong>Используется в</strong>: <a href="#textarea">textarea</a></p>
+  <p><strong>Описание</strong>: Определяет количество колонок в текстовом поле (смотрите также параметр <a href="#cols">#cols</a>)</p>
+  <p><strong>Допустимое значение</strong>: Положительное число</p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/aggregator/aggregator.module/6">aggregator.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'description'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'textarea'</span>, 
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Description'</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#default_value'</span> =<span class="sy0">&gt;</span> <span class="re0">$edit</span><span class="br0">&#91;</span><span class="st0">'description'</span><span class="br0">&#93;</span>, 
+  <span class="st0">'#cols'</span> =<span class="sy0">&gt;</span> <span class="nu0">60</span>, 
+  <span class="st0">'#rows'</span> =<span class="sy0">&gt;</span> <span class="nu0">5</span>,
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="size" id="size"></a>#size</h3>
+  <p><strong>Используется в</strong>: <a href="#select">select</a>, <a href="#textfield">textfield</a></p>
+  <p><strong>Описание</strong>: Ширина текстового поля (в символах) или высота списка (в строках).</p>
+  <p><strong>Допустимое значение</strong>: Положительное число</p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/comment/comment.module/6">comment.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+        <span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'admin'</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="st0">'homepage'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+          <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'textfield'</span>,
+          <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Homepage'</span><span class="br0">&#41;</span>,
+          <span class="st0">'#maxlength'</span> =<span class="sy0">&gt;</span> <span class="nu0">255</span>,
+          <span class="st0">'#size'</span> =<span class="sy0">&gt;</span> <span class="nu0">30</span>,
+          <span class="st0">'#default_value'</span> =<span class="sy0">&gt;</span> <span class="re0">$edit</span><span class="br0">&#91;</span><span class="st0">'homepage'</span><span class="br0">&#93;</span>,
+        <span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+
+  <h3><a name="src" id="src"></a>#src</h3>
+  <p><strong>Используется в</strong>: <a href="#image_button">image_button</a></p>
+  <p><strong>Описание</strong>: URL картинки кнопки.</p>
+  <p><strong>Допустимые значения</strong>: An URL.</p>
+
+
+
+  <h3><a name="#submit" id="#submit"></a>#submit</h3>
+  <p><strong>Используется в</strong>: <a href="$form">form</a>, <a href="#button">button</a>, <a href="#submit">submit</a>, <a href="#image_button">image_button</a></p>
+  <p><strong>Описание</strong>: Задает массив названий функций, которые выполняются при отправке всей формы или отправке формы определенной кнопкой.</p>
+  <p><strong>Допустимые значения</strong>: Массив имен функций</p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/menu/menu.module/6">menu.module</a>) (для всей формы):</p>
+  
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="kw2">function</span> <a href="http://api.drupal.ru/api/function/menu_form_alter/6"><span class="kw5">menu_form_alter</span></a><span class="br0">&#40;</span><span class="sy0">&amp;</span><span class="re0">$form</span>, <span class="re0">$form_state</span>, <span class="re0">$form_id</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+   ...  
+    <span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'menu'</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="st0">'parent'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+      <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'select'</span>,
+      <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Parent item'</span><span class="br0">&#41;</span>,
+      <span class="st0">'#default_value'</span> =<span class="sy0">&gt;</span> <span class="re0">$default</span>,
+      <span class="st0">'#options'</span> =<span class="sy0">&gt;</span> <span class="re0">$options</span>,
+      <span class="st0">'#attributes'</span> =<span class="sy0">&gt;</span> <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><span class="st0">'class'</span> =<span class="sy0">&gt;</span> <span class="st0">'menu-title-select'</span><span class="br0">&#41;</span>,
+    <span class="br0">&#41;</span>;
+    <span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'#submit'</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="br0">&#93;</span> = <span class="st0">'menu_node_form_submit'</span>;
+<span class="br0">&#125;</span>
+<span class="kw2">?&gt;</span></pre></div>
+
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/menu/menu.admin.inc/6">menu.module</a>) (определенная кнопка):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+    <span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'menu_name'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'value'</span>, <span class="st0">'#value'</span> =<span class="sy0">&gt;</span> <span class="re0">$menu</span><span class="br0">&#91;</span><span class="st0">'menu_name'</span><span class="br0">&#93;</span><span class="br0">&#41;</span>;
+    <span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'#insert'</span><span class="br0">&#93;</span> = <span class="kw2">FALSE</span>;
+    <span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'delete'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+      <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'submit'</span>,
+      <span class="st0">'#value'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Delete'</span><span class="br0">&#41;</span>,
+      <span class="st0">'#access'</span> =<span class="sy0">&gt;</span> <span class="sy0">!</span><a href="http://www.php.net/in_array"><span class="kw3">in_array</span></a><span class="br0">&#40;</span><span class="re0">$menu</span><span class="br0">&#91;</span><span class="st0">'menu_name'</span><span class="br0">&#93;</span>, <a href="http://api.drupal.ru/api/function/menu_list_system_menus/6"><span class="kw5">menu_list_system_menus</span></a><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>,
+      <span class="st0">'#submit'</span> =<span class="sy0">&gt;</span> <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><span class="st0">'menu_custom_delete_submit'</span><span class="br0">&#41;</span>,
+      <span class="st0">'#weight'</span> =<span class="sy0">&gt;</span> <span class="nu0">10</span>,
+    <span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  
+  <h3><a name="suffix" id="suffix"></a>#suffix</h3>
+  <p><strong>Используется в</strong>: <a href="#button">button</a>, <a href="#checkbox">checkbox</a>, <a href="#checkboxes">checkboxes</a>, <a href="#date">date</a>, <a href="#fieldset">fieldset</a>, <a href="#file">file</a>, <a href="#form">form</a>, <a href="#hidden">hidden</a>, <a href="#markup">markup</a>, <a href="#password">password</a>, <a href="#radio">radio</a>, <a href="#radios">radios</a>, <a href="#select">select</a>, <a href="#submit">submit</a>, <a href="#textarea">textarea</a>, <a href="#textfield">textfield</a>, <a href="#weight">weight</a></p>
+  <p><strong>Описание</strong>: Текст или код, который отобразится после элемента. Смотрите также <a href="#prefix">#prefix</a>.</p>
+  <p><strong>Допустимые значения</strong>: Разные</p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/poll/poll.module/6">poll.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'choice'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'fieldset'</span>, 
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Choices'</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#prefix'</span> =<span class="sy0">&gt;</span> <span class="st0">'&lt;div class=&quot;poll-form&quot;&gt;'</span>, 
+  <span class="st0">'#suffix'</span> =<span class="sy0">&gt;</span> <span class="st0">'&lt;/div&gt;'</span>, 
+  <span class="st0">'#tree'</span> =<span class="sy0">&gt;</span> <span class="kw2">TRUE</span>,
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="theme" id="theme"></a>#theme</h3>
+  <p><strong>Используется в</strong>: <a href="#button">button</a>, <a href="#checkbox">checkbox</a>, <a href="#checkboxes">checkboxes</a>, <a href="#date">date</a>, <a href="#fieldset">fieldset</a>, <a href="#file">file</a>, <a href="#form">form</a>, <a href="#hidden">hidden</a>, <a href="#markup">markup</a>, <a href="#password">password</a>, <a href="#radio">radio</a>, <a href="#radios">radios</a>, <a href="#select">select</a>, <a href="#submit">submit</a>, <a href="#textarea">textarea</a>, <a href="#textfield">textfield</a></p>
+  <p><strong>Описание</strong>: Функция темизации элемента. </p>
+  <p><strong>Допустимые значения</strong>: Имя функции темизации элемента без <span class="geshifilter"><code class="geshifilter-drupal6_ru">theme_</code></span>.</p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/upload/upload.module/6">upload.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'#theme'</span><span class="br0">&#93;</span> = <span class="st0">'upload_form_new'</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="title" id="title"></a>#title</h3>
+  <p><strong>Используется в</strong>: <a href="#checkbox">checkbox</a>, <a href="#checkboxes">checkboxes</a>, <a href="#fieldset">fieldset</a>, <a href="#date">date</a>, <a href="#file">file</a>, <a href="#password">password</a>, <a href="#radio">radio</a>, <a href="#radios">radios</a>, <a href="#select">select</a>, <a href="#textarea">textarea</a>, <a href="#textfield">textfield</a>, <a href="#weight">weight</a></p>
+  <p><strong>Описание</strong>: Заголовок элемента.  Крайне рекомендуется сперва помещать эти значения в функцию <a href="/api/function/t/6">t</a>() для того, чтобы не терять возможности локализации формы.</p>
+  <p><strong>Допустимые значения</strong>: Разные</p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/aggregator/aggregator.module/6">aggregator.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'description'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'textarea'</span>, 
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Description'</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#default_value'</span> =<span class="sy0">&gt;</span> <span class="re0">$edit</span><span class="br0">&#91;</span><span class="st0">'description'</span><span class="br0">&#93;</span>, 
+  <span class="st0">'#cols'</span> =<span class="sy0">&gt;</span> <span class="nu0">60</span>, 
+  <span class="st0">'#rows'</span> =<span class="sy0">&gt;</span> <span class="nu0">5</span>,
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="tree" id="tree"></a>#tree</h3>
+  <p><strong>Используется в</strong>: <a href="#button">button</a>, <a href="#checkbox">checkbox</a>, <a href="#checkboxes">checkboxes</a>, <a href="#date">date</a>, <a href="#fieldset">fieldset</a>, <a href="#file">file</a>, <a href="#form">form</a>, <a href="#hidden">hidden</a>, <a href="#markup">markup</a>, <a href="#password">password</a>, <a href="#radio">radio</a>, <a href="#radios">radios</a>, <a href="#select">select</a>, <a href="#submit">submit</a>, <a href="#textarea">textarea</a>, <a href="#textfield">textfield</a>, <a href="#weight">weight</a></p>
+  <p><strong>Описание</strong>: Обеспечивает создание коллекций элементов. Чаще всего используется к «родительскому элементу» (у которгого выставлен параметр <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="co2">#parent</span></code></span>). Смотрите статью <a href="http://drupal.org/node/48643">#tree and #parents</a> для подробного разбора работы этого параметра.</p>
+  <p><strong>Допустимые значения</strong>: <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="kw2">TRUE</span></code></span> или <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="kw2">FALSE</span></code></span> </p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/system/system.module/6">system.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'status'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'checkboxes'</span>, 
+  <span class="st0">'#default_value'</span> =<span class="sy0">&gt;</span> <span class="re0">$status</span>, 
+  <span class="st0">'#options'</span> =<span class="sy0">&gt;</span> <span class="re0">$options</span>, 
+  <span class="st0">'#tree'</span> =<span class="sy0">&gt;</span> <span class="kw2">TRUE</span>,
+<span class="br0">&#41;</span>;
+<span class="re0">$required</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><span class="st0">'block'</span>, <span class="st0">'filter'</span>, <span class="st0">'system'</span>, <span class="st0">'user'</span>, <span class="st0">'watchdog'</span><span class="br0">&#41;</span>;
+<span class="kw1">foreach</span> <span class="br0">&#40;</span><span class="re0">$required</span> <span class="kw1">as</span> <span class="re0">$require</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'status'</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="re0">$require</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+    <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'hidden'</span>, 
+    <span class="st0">'#value'</span> =<span class="sy0">&gt;</span> <span class="nu0">1</span>, 
+    <span class="st0">'#suffix'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'required'</span><span class="br0">&#41;</span>,
+  <span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="type" id="type"></a>#type</h3>
+  <p><strong>Используется в</strong>: All</p>
+  <p><strong>Описание</strong>: Определяет тип элемента формы. </p>
+  <p><strong>Допустимые значения</strong>: <a href="#button">button</a>, <a href="#checkbox">checkbox</a>, <a href="#checkboxes">checkboxes</a>, <a href="#date">date</a>, <a href="#fieldset">fieldset</a>, <a href="#file">file</a>, <a href="#form">form</a>, <a href="#hidden">hidden</a>, <a href="#markup">markup</a>, <a href="#password">password</a>, <a href="#radio">radio</a>, <a href="#radios">radios</a>, <a href="#select">select</a>, <a href="#submit">submit</a>, <a href="#textarea">textarea</a>, <a href="#textfield">textfield</a>, <a href="#val">value</a>, <a href="#weight">weight</a></p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/locale/locale.module/6">locale.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'submit'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'submit'</span>, <span class="st0">'#value'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Import'</span><span class="br0">&#41;</span><span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="validate" id="#validate"></a>#validate</h3>
+  <p class="help"><strong>Используется в</strong>: <a href="#button">button</a>, <a href="#form">form</a>, <a href="#submit">submit</a>, <a href="#image_button">image_button</a></p>
+<p><strong>Описание</strong>: Список функций валидации, которые должна пройти форма или элемент перед submit-обработчиком. Используется для навешивания дополнительных проверок, или для использования своей функции вместо стандартной FROM_ID<em>_validate</em>.</p>
+  <p><strong>Допустимые значения</strong>: Массив названий функций. Каждая функция должна принимать <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="re0">$form</span></code></span> и <span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="re0">$form_state</span></code></span> в своих параметрах и использовать <span class="geshifilter"><code class="geshifilter-drupal6_ru"><a href="http://api.drupal.ru/api/function/form_set_error/6"><span class="kw5">form_set_error</span></a><span class="br0">&#40;</span><span class="br0">&#41;</span></code></span>, если форма не проходит валидацию, например:</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="kw2">function</span> test_form_validate<span class="br0">&#40;</span><span class="re0">$form</span>, <span class="sy0">&amp;</span><span class="re0">$form_state</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="kw1">if</span> <span class="br0">&#40;</span><span class="re0">$form_state</span><span class="br0">&#91;</span><span class="st0">'values'</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="st0">'name'</span><span class="br0">&#93;</span> == <span class="st0">''</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <a href="http://api.drupal.ru/api/function/form_set_error/6"><span class="kw5">form_set_error</span></a><span class="br0">&#40;</span><span class="st0">'name'</span>, <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'You must select a name for this group of settings.'</span><span class="br0">&#41;</span><span class="br0">&#41;</span>;
+  <span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+<span class="kw2">?&gt;</span></pre></div>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/node/node.module/6">node.module</a>):</p>
+
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+    <span class="co1">// Node types:</span>
+    <span class="re0">$types</span> = <a href="http://www.php.net/array_map"><span class="kw3">array_map</span></a><span class="br0">&#40;</span><span class="st0">'check_plain'</span>, <a href="http://api.drupal.ru/api/function/node_get_types/6"><span class="kw5">node_get_types</span></a><span class="br0">&#40;</span><span class="st0">'names'</span><span class="br0">&#41;</span><span class="br0">&#41;</span>;
+    <span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'advanced'</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="st0">'type'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+      <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'checkboxes'</span>,
+      <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Only of the type(s)'</span><span class="br0">&#41;</span>,
+      <span class="st0">'#prefix'</span> =<span class="sy0">&gt;</span> <span class="st0">'&lt;div class=&quot;criterion&quot;&gt;'</span>,
+      <span class="st0">'#suffix'</span> =<span class="sy0">&gt;</span> <span class="st0">'&lt;/div&gt;'</span>,
+      <span class="st0">'#options'</span> =<span class="sy0">&gt;</span> <span class="re0">$types</span>,
+    <span class="br0">&#41;</span>;
+    <span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'advanced'</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="st0">'submit'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+      <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'submit'</span>,
+      <span class="st0">'#value'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Advanced search'</span><span class="br0">&#41;</span>,
+      <span class="st0">'#prefix'</span> =<span class="sy0">&gt;</span> <span class="st0">'&lt;div class=&quot;action&quot;&gt;'</span>,
+      <span class="st0">'#suffix'</span> =<span class="sy0">&gt;</span> <span class="st0">'&lt;/div&gt;'</span>,
+    <span class="br0">&#41;</span>;
+&nbsp;
+    <span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'#validate'</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="br0">&#93;</span> = <span class="st0">'node_search_validate'</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+   
+  <h3 class="help"><a name="validation" id="validation"></a>#validation_arguments</h3>
+  <p>ДЛЯ ВНУТРЕННЕГО ИСПОЛЬЗОВАНИЯ.</p>
+
+  <h3><a name="value" id="value"></a>#value</h3>
+  <p><strong>Используется в</strong>: <a href="#button">button</a>, <a href="#hidden">hidden</a>, <a href="#image_button">image_button</a>, <a href="#item">item</a>, <a href="#markup">markup</a>, <a href="#submit">submit</a>, <a href="#val">value</a></p>
+  <p><strong>Описание</strong>: Используется для установки значений, которые не могут быть изменены пользователем. <strong> Не путать с <a href="#default_value">#default_value</a></strong>, которое всего лишь устанавливает значение по-умолчанию.</p>
+  <p><strong>Допустимые значения</strong>: Разные</p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/locale/locale.module/6">locale.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'submit'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'submit'</span>, <span class="st0">'#value'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Import'</span><span class="br0">&#41;</span><span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>
+
+  <h3><a name="weightval" id="weightval"></a>#weight</h3>
+  <p><strong>Используется в</strong>: <a href="#button">button</a>, <a href="#checkbox">checkbox</a>, <a href="#checkboxes">checkboxes</a>, <a href="#date">date</a>, <a href="#fieldset">fieldset</a>, <a href="#file">file</a>, <a href="#markup">markup</a>, <a href="#password">password</a>, <a href="#radio">radio</a>, <a href="#radios">radios</a>, <a href="#select">select</a>, <a href="#submit">submit</a>, <a href="#textarea">textarea</a>, <a href="#textfield">textfield</a>, <a href="#weight">weight</a></p>
+<p><strong>Описание</strong>: Используется для сортировки списка элементов. Элементы с меньшим весом появляются на форме выше.</p>
+<p><strong>Допустимые значения</strong>: Положительные или отрицательные числа (целые или дробные) </p>
+  <p><strong>Пример использования</strong> (<a href="/api/file/modules/book/book.module/6">book.module</a>):</p>
+<div class="geshifilter"><pre class="drupal6_ru geshifilter-drupal6_ru"><span class="kw2">&lt;?php</span>
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'parent'</span><span class="br0">&#93;</span> = <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span>
+  <span class="st0">'#type'</span> =<span class="sy0">&gt;</span> <span class="st0">'select'</span>, 
+  <span class="st0">'#title'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'Parent'</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#default_value'</span> =<span class="sy0">&gt;</span> <span class="br0">&#40;</span><span class="re0">$node</span>-<span class="sy0">&gt;</span><span class="me1">parent</span> ? <span class="re0">$node</span>-<span class="sy0">&gt;</span><span class="me1">parent</span> : <a href="http://api.drupal.ru/api/function/arg/6"><span class="kw5">arg</span></a><span class="br0">&#40;</span><span class="nu0">4</span><span class="br0">&#41;</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#options'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/book_toc/6"><span class="kw5">book_toc</span></a><span class="br0">&#40;</span><span class="re0">$node</span>-<span class="sy0">&gt;</span><span class="me1">nid</span><span class="br0">&#41;</span>, 
+  <span class="st0">'#weight'</span> =<span class="sy0">&gt;</span> -<span class="nu0">15</span>,
+  <span class="st0">'#description'</span> =<span class="sy0">&gt;</span> <a href="http://api.drupal.ru/api/function/t/6"><span class="kw5">t</span></a><span class="br0">&#40;</span><span class="st0">'The parent that this page belongs in. Note that pages whose parent is &amp;lt;top-level&amp;gt; are regarded as independent, top-level books.'</span><span class="br0">&#41;</span>,
+<span class="br0">&#41;</span>;
+<span class="kw2">?&gt;</span></pre></div>  </div>
+  
+      <div class="links">
+      <ul class="links inline"><li class="comment_forbidden first last"><span><a href="/user/login?destination=node/258%2523comment-form">Войдите</a> или <a href="/user/register?destination=node/258%2523comment-form">зарегистрируйтесь</a>, чтобы получить возможность отправлять комментарии</span></li>
+</ul>    </div>
+  <div style="clear:left;"></div>
+</div>
+<div id="comments"><a id="comment-114"></a>
+<div class="comment">
+    <div class="submitted"><b><a class="comment-anchor" id="comment-1" href="#comment-1" title="">#1</a> &nbsp; 2009-07-21,  orb</b></div>
+    <div class="content"><p>имеем потери :(<br />
+<strong>textarea</strong> может иметь #resizable</p>
+</div>
+        <div class="clear"></div>
+</div>
+<a id="comment-120"></a>
+<div class="comment">
+    <div class="submitted"><b><a class="comment-anchor" id="comment-2" href="#comment-2" title="">#2</a> &nbsp; 2009-09-23,  orb</b></div>
+    <div class="content"><p>потеряли:<br />
+#pre_render<br />
+#process</p>
+</div>
+        <div class="clear"></div>
+</div>
+<a id="comment-142"></a>
+<div class="comment">
+    <div class="submitted"><b><a class="comment-anchor" id="comment-3" href="#comment-3" title="">#3</a> &nbsp; 2010-03-04,  graceman9</b></div>
+    <div class="content"><p>В описании checkboxes пропущен ноль. Должно быть так:<br />
+... Массив #options не может содержать элементов с ключем равным 0 (ноль).</p>
+<p>и ещё недостает парметров (взято из .org версии):<br />
+#access, #after_build, #disabled, #element_validate, #parents, #post_render, #pre_render, #process, #theme.</p>
+<p>насколько я заметил в других элементах формы творится что-то подобное, так что русский перевод я бы назвал "облегченной версией" документации. Но я рад что он есть :)</p>
+</div>
+        <div class="clear"></div>
+</div>
+<a id="comment-184"></a>
+<div class="comment">
+    <div class="submitted"><b><a class="comment-anchor" id="comment-4" href="#comment-4" title="">#4</a> &nbsp; 2010-08-17,  VladSavitsky</b></div>
+    <div class="content"><p>Есть ещё один тип (не документированный):<br />
+<span class="geshifilter"><code class="geshifilter-drupal6_ru"><span class="br0">&#91;</span><span class="co2">#type] =&gt; password_confirm</span></code></span><br />
+Насколько я понимаю - выводит элемент из 2х полей - пароль и подтверждение.</p>
+</div>
+        <div class="clear"></div>
+</div>
+<div class="indented"><a id="comment-362"></a>
+<div class="comment">
+    <div class="submitted"><b><a class="comment-anchor" id="comment-5" href="#comment-5" title="">#5</a> &nbsp; 2011-03-10,  goodvin</b></div>
+    <div class="content"><p>Да, то самое двойное поле + валидация.</p>
+</div>
+        <div class="clear"></div>
+</div>
+</div></div>          </div>
+        </div><!-- end content-main-->
+
+        <div class="content-secondary">
+                      <div id="block-user-0" class="block block-user">  
+<div class="blockinner">
+<h2 class="title">Вход в систему</h2>
+<div class="content">
+<form action="/api/file/developer/topics/forms_api_reference.html/6?destination=node%2F258"  accept-charset="UTF-8" method="post" id="user-login-form">
+<div><div class="form-item" id="edit-openid-identifier-wrapper">
+ <label for="edit-openid-identifier">Войти по OpenID: </label>
+ <input type="text" maxlength="255" name="openid_identifier" id="edit-openid-identifier" size="13" value="" class="form-text" />
+ <div class="description"><a href="http://openid.net/">Что такое OpenID?</a></div>
+</div>
+<div class="form-item" id="edit-name-wrapper">
+ <label for="edit-name">Имя пользователя: <span class="form-required" title="Обязательное поле">*</span></label>
+ <input type="text" maxlength="60" name="name" id="edit-name" size="15" value="" tabindex="1" class="form-text required" />
+</div>
+<div class="form-item" id="edit-pass-wrapper">
+ <label for="edit-pass">Пароль: <span class="form-required" title="Обязательное поле">*</span></label>
+ <input type="password" name="pass" id="edit-pass"  maxlength="60"  size="15"  tabindex="2" class="form-text required" />
+</div>
+<input type="submit" name="op" id="edit-submit" value="Вход в систему"  tabindex="3" class="form-submit" />
+<input type="hidden" name="form_build_id" id="form-dd7aa7df1faae8dcd1ba6b7f4e1c0823" value="form-dd7aa7df1faae8dcd1ba6b7f4e1c0823"  />
+<input type="hidden" name="form_id" id="edit-user-login-block" value="user_login_block"  />
+<input type="hidden" name="openid.return_to" id="edit-openid.return-to" value="http://api.drupal.ru/openid/authenticate?destination=node%2F258"  />
+<div class="item-list"><ul><li class="openid-link first"><a href="/%2523">Войти по OpenID</a></li>
+<li class="user-link last"><a href="/%2523">Скрыть вход по OpenID</a></li>
+</ul></div><div class="item-list"><ul><li class="first"><a href="/user/register" title="Создать новую учетную запись пользователя.">Регистрация</a></li>
+<li class="last"><a href="/user/password" title="Запросить новый пароль по электронной почте.">Забыли пароль?</a></li>
+</ul></div>
+</div></form>
+<script type="text/javascript">$('#user-login-form').parents('.blockinner').children('h2').wrapInner('<a class="ajax" href="#"></a>').click(function(){
+      $(this).siblings('.content').slideToggle();
+      return false;
+    });
+    if (!$('#user-login-form input.error').length) {
+      $('#user-login-form').parents('.blockinner').children('.content').css('display', 'none');
+    }</script></div>
+</div>
+</div>
+<div id="block-api-navigation" class="block block-api">  
+<div class="blockinner">
+<h2 class="title">Документация</h2>
+<div class="content">
+<div class="item-list"><ul><li class="first"><a href="/api">Drupal 6</a></li>
+<li><a href="/api/constants">Константы</a></li>
+<li><a href="/api/files">Файлы</a></li>
+<li><a href="/api/functions">Функции</a></li>
+<li><a href="/api/globals">Глобальные переменные</a></li>
+<li class="last"><a href="/api/groups">Разделы</a></li>
+</ul></div></div>
+</div>
+</div>
+                  </div><!-- end content-secondary-->
+      </div>
+
+      <div class="footer">
+                  <div id="block-block-3" class="block block-block">  
+<div class="blockinner">
+<h2 class="title"></h2>
+<div class="content">
+<div style="padding-top:40px;"><a rel="license" href="http://drupal.ru/license"><img style="vertical-align:middle;" alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a> &nbsp; Материалы этого сайта находятся под лицензией <a rel="license" href="http://drupal.ru/license">Creative Commons Attribution-Share Alike 3.0</a>.</div></div>
+</div>
+</div>
+              </div>
+
+    </div><!--end container-->
+  </div><!--end wrapper-->
+
+  <script type="text/javascript">if (typeof window.createCookie == 'function') { createCookie("was", "1"); }</script>
+  <script type="text/javascript">
+<!--//--><![CDATA[//><!--
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+//--><!]]>
+</script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+try{var pageTracker = _gat._getTracker("UA-4587145-1");pageTracker._trackPageview();} catch(err) {}
+//--><!]]>
+</script>
+
+  </body>
+</html>

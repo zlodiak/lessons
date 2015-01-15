@@ -1,0 +1,195 @@
+/*
+INFO: 
+project: kalininTabs
+browsers: opera/chrome/FF/ie9/safari
+resolutions: 1000px
+markup: Sergey Kalinin 07/2013 (prozaik81-2@yandex.ru)
+desc: графический компонент для преобразования списка во вкладки
+version 1.0
+
+TABLE OF CONTENTS:
+1.global reset and common settings
+2.fonts
+3.layout
+4.blocks
+*/
+
+/************************************************************************************************************** 1.global reset and common settings */
+
+html, body, div, h1, h2, h3, h4, h5, h6, a, a img, p, ul, ol, li, span, fieldset , form, dl, dd, dt, table, tr, td, img, input{ 
+	border: none;
+	margin: 0; 
+	outline: none;	
+	padding: 0;
+}
+
+html{
+    height:100%;		
+	
+}
+	
+body {
+	height:100%;
+}
+	
+ul{
+	list-style-type: none;
+}
+
+.clear{
+	clear: both;
+}	
+
+input[type="text"]:focus, input[type="password"]:focus, textarea:focus { outline: none; }
+
+textarea{
+	resize: none;
+}
+
+.clearfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+		
+/******************************************************************************************************************************* 2.fonts */		
+
+/****************************************************************************************************************************** 3.layout */	
+.tabs_wrap{
+	padding: 10px;
+	background: #ebebeb;
+	display: inline-block;
+	border: 1px solid #c2c2c2;
+}
+
+	.tabs_wrap .tab_container{
+		border: 1px solid #c2c2c2;
+		width: 300px;
+		overflow: hidden;
+		background: #fff;
+		min-height: 450px;
+	}
+
+		.tabs_wrap .tab_container .label_container{
+			overflow: hidden;
+		}
+		
+		.tabs_wrap .tab_container .tab{
+		
+		}	
+
+/****************************************************************************************************************************** 4. blocks */
+/****************************************************************************************************************************** 4.1 tab */	
+.tab{
+	padding: 12px 12px 22px 12px;
+	display: none;
+	max-height: 450px;
+	overflow: auto;
+}
+	
+	.tab > h1{
+		display: none;
+	}
+	
+	.tab > article{
+		font: 12px tahoma, arial, sans-serif;
+		color: #252525;
+		text-shadow: #FFF 1px 1px 1px;	
+		
+		overflow: hidden;
+		border-bottom: 1px solid #c2c2c2;
+		padding: 20px 0;
+		cursor: pointer;
+	}
+
+		.tab  > article > p{
+			
+		}
+		
+		.tab  > article:hover > p{
+			/*text-decoration: underline;*/
+		}
+		
+		.tab  > article .author_contaiter{
+			float: right;
+		}
+
+			.tab  > article > p .full_text{
+				display: none;
+			}
+		
+		.tab  > article .author_contaiter .author_label{
+			font-size: 11px;
+			color: #898989;
+		}
+		
+		.tab  > article .author_contaiter .author_body{
+			font-size: 11px;
+			color: #898989;
+		}	
+	
+/****************************************************************************************************************************** 4.1 label_container */		
+.label_container{
+
+	
+}
+
+	.label_container li{
+		float: left;
+		overflow: hidden;	
+		background-color: #e1e1e1;
+		background-image: -webkit-linear-gradient(top, #f7f7f7, #e1e1e1); 
+		background-image:    -moz-linear-gradient(top, #f7f7f7, #e1e1e1); 
+		background-image:     -ms-linear-gradient(top, #f7f7f7, #e1e1e1); 
+		background-image:      -o-linear-gradient(top, #f7f7f7, #e1e1e1); 
+		background-image:         linear-gradient(top, #f7f7f7, #e1e1e1); 
+		cursor: pointer;	
+	}
+	
+		.label_container li .label_container_text{
+			border-left: 1px solid #c2c2c2;		
+			border-bottom: 1px solid #c2c2c2;	
+			display: block;	
+			overflow: hidden;
+			padding: 5px;
+			
+			text-align: center;
+			font: 12px tahoma, arial, sans-serif;
+			color: #252525;
+			text-shadow: #FFF 1px 1px 1px;
+		}
+	
+		.label_container li:first-child .label_container_text{
+			border-left: none;
+		}
+
+		.label_container li.active .label_container_text{	
+			border-bottom: none;	
+			background: #fff;
+		}		
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

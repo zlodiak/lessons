@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <title>вотер</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" type="text/css" href="css/styles.css" id="styles" />		
+				
+</head>
+<body>	
+	<ul id="voter">
+		<li class="punkt1">
+			<span class="name" id="data1">пункт 1</span>						
+		</li>
+
+		<li class="punkt2">
+			<span class="name">пункт 2 </span>					
+		</li>
+		
+		<li class="punkt3">
+			<span class="name">пункт 3</span>						
+		</li>
+		
+		<li class="punkt4">
+			<span class="name">пункт 4</span>						
+		</li>				
+	</ul>
+	
+	<div class="toggleDisplay">показать результаты</div>
+	
+	<script type="text/javascript">						
+		var voter = new Voter('voter');		
+
+		function Voter(voterClass) {	
+			//определение основных элементов								
+			  var self = this;			 
+			  var elem = document.getElementById(voterClass);
+			  var punktElem = elem.getElementsByTagName('li');		
+			  //
+			  
+			  
+			  //заполнение голосовалки нулевыми значениями 			  
+				var parent = document.getElementById('voter');
+				var children = document.getElementById('voter').children;	 
+				
+				for(var i=0; i<children.length; i++) {
+					var newNode = document.createElement('span');
+					newNode.className="data"
+					newNode.innerHTML = '0';					
+					children[i].appendChild(newNode);
+				}		
+				//	  		  			  
+			  
+			  for(y=0; y<=punktElem.length; y++){
+				  console.log(punktElem[y]);
+				  
+				  (function(){
+					  punktElemSpan = punktElem[y].getElementsByTagName('span')[1];
+					  
+					  punktElemSpan.onclick = function(){
+						  //???????????????????????????????????????????????????????????????????
+					  }
+					  })
+			  }
+			  
+				
+			  
+			  //приватные функции переключения видимости результатов
+			  this.hide = function() {
+				  
+			  }
+			  
+			  this.display = function() {
+				  
+			  }			  
+			  
+
+		}						
+	</script>	
+</body>
+</html>

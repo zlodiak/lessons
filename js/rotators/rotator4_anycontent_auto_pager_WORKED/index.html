@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+
+	<title>AnythingSlider | CSS-Tricks</title>
+
+	<link rel="stylesheet" href="css/page.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="css/anythingslider.css" type="text/css" media="screen" />
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+	<script type="text/javascript" src="js/jquery.easing.1.2.js"></script>
+	<script src="js/jquery.anythingslider.js" type="text/javascript" charset="utf-8"></script>
+
+	<script type="text/javascript">
+
+		var slider2 = ['Recipe', 'Quote', 'Image', 'Quote #2', 'Image #2'];
+		function formatText(index, panel) {
+			return slider2[index - 1];
+		}
+
+		$(function () {
+
+			$('#slider1').anythingSlider({
+				width : 800,          // Override the default CSS width
+				easing: 'easeInOutExpo'
+			});
+
+			$('#slider2').anythingSlider({
+				width               : 600,       // if resizeContent is false, this is the default width if panel size is not defined
+				height              : 350,       // if resizeContent is false, this is the default height if panel size is not defined
+				resizeContents      : false,     // If true, solitary images/objects in the panel will expand to fit the viewport
+				autoPlay            : false,     // This turns off the entire slideshow FUNCTIONALY, not just if it starts running or not
+				navigationFormatter : formatText // Format navigation labels with text
+			})
+
+			$("#slide-jump").click(function(){
+				$('#slider2').anythingSlider(4);
+				return false;
+			});
+
+		});
+	</script>
+</head>
+
+<body>
+
+
+	<div id="page-wrap">
+
+
+
+			<ul id="slider1">
+
+				<li><img src="images/im1.jpg" alt="" /></li>
+
+				<li><img src="images/im2.jpg" alt="" /></li>
+
+				<li><img src="images/im3.jpg" alt="" /></li>
+
+				<li><img src="images/im2.jpg" alt="" /></li>
+
+				<li><img src="images/im1.jpg" alt="" /></li>
+
+				<li><img src="images/im6.jpg" alt="" /></li>
+
+			</ul>  
+
+
+	</div>
+</body>
+
+</html>

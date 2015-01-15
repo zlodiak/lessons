@@ -1,0 +1,1830 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Gzip сжатие&nbsp;&mdash; как включить Gzip для Js, Html, Css | KtoNaNovenkogo.ru - все для начинающих вебмастеров | Создание и продвижение сайтов, блогов, форумов, интернет-магазинов, заработок на сайте</title>
+
+<!-- leave this for stats -->
+<link rel="shortcut icon" type="image/ico" href="http://ktonanovenkogo.ru/wp-content/themes/Organic/favicon.ico" />
+<link rel="stylesheet" href="http://ktonanovenkogo.ru/wp-content/themes/Organic/style.css" type="text/css" media="screen" />
+<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://ktonanovenkogo.ru/feed" />
+<link rel="pingback" href="http://ktonanovenkogo.ru/xmlrpc.php" />
+
+
+<link rel='prev' title='Оптимизация  CSS в Page Speed&nbsp;&mdash; как сжать CSS и отключить внешние файлы стилей в WordPress для увеличения скорости загрузки сайта' href='http://ktonanovenkogo.ru/vokrug-da-okolo/programs/optimizaciya-css-obedinit-otklyuchit-css-wordpress-uvelicheniya-skorosti-zagruzki-sajta.html' />
+<link rel='next' title='Быстрый сайт&nbsp;&mdash; оптимизация (сжатие) изображений и скриптов, уменьшение числа Http запросов' href='http://ktonanovenkogo.ru/vokrug-da-okolo/programs/skorost-zagruzki-sajta-optimizaciya-szhatie-izobrazhenij-skriptov-page-speed-html-zaprosov-css-sprajty.html' />
+<link rel='shortlink' href='http://ktonanovenkogo.ru/?p=5616' />
+
+<!-- All in One SEO Pack 1.6.14.3 by Michael Torbert of Semper Fi Web Design[276,364] -->
+<meta name="description" content="Включить Gzip сжатие на сервере для файлов Js, Html и Css позволит вам существенно увеличить скорость загрузки сайта, но при это создаст дополнительную нагрузку на сервер" />
+<link rel="canonical" href="http://ktonanovenkogo.ru/vokrug-da-okolo/programs/gzip-szhatie-kak-vklyuchit-gzip-js-html-css-fajlov-povysit-skorost-zagruzki-sajta.html" />
+<!-- /all in one seo pack -->
+
+<meta id="syntaxhighlighteranchor" name="syntaxhighlighter-version" content="3.1.3" />
+<script type="text/javascript" src="https://apis.google.com/js/plusone.js">
+  {lang: 'ru'}
+</script>
+</head>
+<body>
+<noindex><!--LiveInternet counter--><script type="text/javascript"><!--
+new Image().src = "http://counter.yadro.ru/hit?r"+
+escape(document.referrer)+((typeof(screen)=="undefined")?"":
+";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+";"+Math.random();//--></script><!--/LiveInternet--></noindex>
+<div id="page">
+
+<div id="navi">
+  <div id="navi-in">
+   <ul id="nav">
+      <li   class="page_item"><a href="http://ktonanovenkogo.ru/">Главная</a></li><li class="page_item"><a target="_blank" rel="nofollow"  href="http://ktonanovenkogo.ru/navigator/">Вам повезет</a></li>
+     <li class="page_item page-item-4694"><a href="http://ktonanovenkogo.ru/reklama-na-bloge">Реклама</a></li>
+<li class="page_item page-item-2493"><a href="http://ktonanovenkogo.ru/videokursy">Видео</a></li>
+<li class="page_item page-item-3019"><a href="http://ktonanovenkogo.ru/faq">ЧаВо</a></li>
+<li class="page_item page-item-2"><a href="http://ktonanovenkogo.ru/about">О блоге</a></li>
+<li class="page_item page-item-348"><a href="http://ktonanovenkogo.ru/obratnay-svyz">Контакты</a></li>
+<li class="page_item page-item-5691"><a href="http://ktonanovenkogo.ru/uroki-sozdaniya-sajta">Секреты</a></li>
+<li class="page_item page-item-252"><a href="http://ktonanovenkogo.ru/karta-sajta">Сборник</a></li>
+	  
+</ul>
+    
+  </div>
+</div><!--navi end -->
+
+
+<div id="header" class="clearfix">
+  <div id="header-in" >
+ <div class="h_left">
+    <div class="logo-text"> <a href="http://ktonanovenkogo.ru" title="KtoNaNovenkogo.ru - блог для начинающих вебмастеров | Создание и продвижение форумов SMF, блогов WordPress, сайтов Joomla, интернет-магазинов VirtueMart, заработок на сайте">
+      KtoNaNovenkogo.ru
+      </a></div>
+ 
+ <h1>Все о создании сайтов, блогов, форумов, интернет-магазинов, их продвижении в поисковых системах и заработке на сайте</h1> 
+
+
+    </div>
+	<div class="p_left"><div id="search">
+      <div class="searchfield">
+        <form style="margin: 0 10px 0 20px;" action="http://ktonanovenkogo.ru/poisk-po-sajtu" method="get"><span class="p_with">Поиск:</span> <input type="hidden" name="searchid" value="137133"/><input name="text"/><input style="padding:5px 12px;margin:0 10px;" class="naity" type="submit" value="Найти"/></form>
+ 
+ 
+ 
+       </div>
+    </div> </div>	
+    
+    <div class="h_right">
+    	<a href="http://ktonanovenkogo.ru/"><img src="http://ktonanovenkogo.ru/image/webcamxp.png" title="Создание и продвижение сайтов, заработок на сайте" height="150" width="150" alt="KtoNaNovenkogo.ru - все для начинающих вебмастеров"/></a>
+    </div>
+     
+    <!--navi end -->
+  </div>
+  <!--header in end -->
+</div>
+<!--header end -->
+<div id="content-wrap" class="clear" >
+<!--header.php end-->
+
+<div class="breadcrumb">
+<!-- Breadcrumb NavXT 4.0.2 -->
+<a title="Перейти на главную страницу блога KtoNaNovenkogo.ru - советы по созданию, продвижению и заработку на сайтах" href="http://ktonanovenkogo.ru">KtoNaNovenkogo.ru</a> &gt; <a title="Перейти к рубрике &#39;Вебмастеру&#39;." href="http://ktonanovenkogo.ru/category/vokrug-da-okolo">Вебмастеру</a> &gt; <a title="Перейти к рубрике &#39;Полезные программы&#39;." href="http://ktonanovenkogo.ru/category/vokrug-da-okolo/programs">Полезные программы</a> &gt; <a title="Go to Gzip сжатие&nbsp;&mdash; как включить Gzip для Js, Html,&hellip;." href="http://ktonanovenkogo.ru/vokrug-da-okolo/programs/gzip-szhatie-kak-vklyuchit-gzip-js-html-css-fajlov-povysit-skorost-zagruzki-sajta.html">Gzip сжатие&nbsp;&mdash; как включить Gzip для Js, Html,&hellip;</a></div>
+<div id="content">
+<noindex><a rel="nofollow"  target="_blank"  href="http://www.bdbd.ru/trafficforyou/"><img class="banner46860" style="margin: 0 0 15px 35px;" src="http://ktonanovenkogo.ru/image/traffic_coins_banner_468x60.gif"  width="468px" height="60px" /></a></noindex>
+
+  <div class="xsnazzy"> <b class="xtop"><b class="xb1"></b><b class="xb2"></b><b class="xb3"></b><b class="xb4"></b></b>
+    <div class="xboxcontent">
+            <!--post title-->
+      <div class="posts">
+       <index> <h2>
+          Gzip сжатие&nbsp;&mdash; как включить Gzip для Js, Html, Css          </h2>
+
+        <div class="post_top"> <span class="auth">
+          
+          Рубрика:
+            <b><a href="http://ktonanovenkogo.ru/category/vokrug-da-okolo/programs" title="Просмотреть все записи в Полезные программы" rel="category tag">Полезные программы</a>,<a href="http://ktonanovenkogo.ru/category/vokrug-da-okolo/skorost-zagruzki" title="Просмотреть все записи в Скорость загрузки сайта" rel="category tag">Скорость загрузки сайта</a></b>
+          </span>  </div>
+
+</div>
+
+        <p>Здравствуйте уважаемые читатели блога <a title="KtoNaNovenkogo.ru - все для начинающих вебмастеров| Нюансы создания и продвижения сайтов, блогов, форумов, интернет-магазинов, заработка на сайте" href="http://ktonanovenkogo.ru/">KtoNaNovenkogo.ru</a>. Продолжаем начатую в двух предыдущих статьях тему <strong>повышения скорости загрузки сайта</strong>. Сегодня мы будет говорить про <strong>Gzip сжатие</strong>. В принципе, как оказалось, ответов на вопрос &laquo;как ускорить сайт?&raquo;&nbsp;&mdash; довольно много. Правда, по отдельности все эти методы не особо сказываются на производительности и скорости загрузки, но вот при комплексном подходе вполне вероятна ситуация, что страницы вашего ресурса начнут загружаться просто влет. </p>
+<p>Ну, а это, в свою очередь очень существенно может повлиять на успешность вашей <a target="_blank" title="Откроется в новом окне" href="http://ktonanovenkogo.ru/seo/search/samostoyatelnoe-prodvizhenie-sajta-kak-prodvigat-samomu-vnutrennej-optimizaciej.html">самостоятельной раскрутки сайта</a>. Скорость загрузки является одним из многих факторов, по которым поисковики <a title="Откроется в новом окне" target="_blank" href="http://ktonanovenkogo.ru/seo/search/relevantnost-ranzhirovanie-chto-eto-takoe.html">ранжируют и определяют релевантность</a> страниц вашего ресурса.</p>
+<a title="Gzip" href="http://ktonanovenkogo.ru/vokrug-da-okolo/programs/gzip-szhatie-kak-vklyuchit-gzip-js-html-css-fajlov-povysit-skorost-zagruzki-sajta.html">
+<div class="img_centerr"><img  width="500" height="306" class="img_center1" src="http://ktonanovenkogo.ru/image/sjatie-gzip.jpg" alt="Gzip" title="Включить Gzip сжатие"/></div>
+<p></a></p>
+<p>Не верите? А зря. Я уже прочувствовал на примере своего блога, что оптимизация скорости загрузки сайта в Page Speed (дополнение к <a target="_blank" title="Откроется в новом окне" href="http://ktonanovenkogo.ru/vokrug-da-okolo/programs/poleznye-rasshireniya-dlya-brauzerov-firefox-i-opera-chast-1-firebug-dlya-firefox.html">Firebug</a>) дает свои результаты. На данный момент мною устранены еще не все замечания Page Speed, но тем не менее, скорость загрузки блога ощутимо повысилась. Видно это даже невооруженным взглядом, но для большей наглядности можно воспользоваться <a title="Проверить скорость сайта" target="_blank" href="http://ktonanovenkogo.ru/web-obzory/veb-obzor-vypusk-3.html#speed">тестами проверки скорости сайта онлайн</a>. Скорость загрузки блога стала происходить за 2-3 секунды, что существенно меньше, нежели было до того, как я начал повышать <a target="_blank" title="Откроется в новом окне" href="http://ktonanovenkogo.ru/vokrug-da-okolo/programs/skorost-zagruzki-sajta-prodvizhenie-kak-uskorit-sajt-page-speed.html#skorost-zagruzki-saita">скорость загрузки сайта через Page Speed</a>.<br />
+<span id="more-5616"></span><br />
+Есть так же и небольшие подвижки в проблеме уменьшения количества посетителей, приходящих на мой блог с <a target="_blank" title="Откроется в новом окне" href="http://ktonanovenkogo.ru/seo/search/poiskovoe-prodvizhenie-sajta-seo-google-com-region-sajta-google-ru-google-ua-rabota-osnovnoj-dopolnitelnyj-indeksy.html">поисковой системы Google.ru</a>. В процентном соотношении <a target="_blank" title="Откроется в новом окне" href="http://ktonanovenkogo.ru/vokrug-da-okolo/schetchiki/schetchiki-poseshhaemosti-ustanovka-i-rabota-so-statistikoj-spylog.html">статистика посещаемости сайта</a> с Google немного улучшилась за эти несколько дней. Хочется верить, что это действительно реакция Google на улучшившуюся ситуацию со скоростью загрузки сайта, а не просто случайные флюктуации <a target="_blank" title="Откроется в новом окне" href="http://ktonanovenkogo.ru/schetchiki-poseshhenij-dlya-sajta">счетчика посещений сайта</a>. <a name="gzip"></a></p>
+<h3>Стоит ли включать Gzip сжатие для ускорения сайта и повышать нагрузку на сервер</h3>
+<div class="leftxyz"><noindex><script type="text/javascript"><!--
+yandex_partner_id = 54571;
+yandex_site_charset = 'utf-8';
+yandex_ad_format = 'direct';
+yandex_font_size = 1;
+yandex_direct_type = 'horizontal';
+yandex_direct_favicon = 'true';
+yandex_direct_border_type = 'block';
+yandex_font_family = 'verdana';
+yandex_direct_title_font_size = 3;
+yandex_direct_limit = 1;
+yandex_stat_id = 100;
+yandex_direct_title_color = '0066CC';
+yandex_direct_url_color = 'cccccc';
+yandex_direct_all_color = 'cccccc';
+yandex_direct_text_color = '555555';
+yandex_direct_hover_color = '8DAB4A';
+document.write('<sc'+'ript type="text/javascript" src="http://an.yandex.ru/system/context.js"></sc'+'ript>');
+//--></script></noindex></div>
+<p>Существенный вклад в увеличение скорости загрузки сайта внесло сжатие CSS через Page Speed, кеширование статических объектов (картинок, скриптов, CSS файлов) на стороне клиента (в браузерах посетителей), а так же очень эффективным оказалось <strong>включение Gzip сжатия</strong> на WEB сервере хостинга (<a target="_blank" title="Откроется в новом окне" href="http://ktonanovenkogo.ru/chto-takoe-domen-i-xosting">Что такое домен и хостинг</a>). Правда, сразу хочу предупредить, что Gzip сжатие имеет и негативную составляющую&nbsp;&mdash; увеличивается нагрузка вашего ресурса на web сервер хостинга (где-то прибавилось, а где-то убавилось).</p>
+<p>Но с хостингом всегда можно решить проблему, хотя бы переходом на более дорогой тарифный план. Главное были бы посетители, а они обязательно будут, если вы на забыли заранее озаботиться тем, <a target="_blank" href="http://ktonanovenkogo.ru/seo/kak-raskrutit-sajt.html"> как раскрутить сайт</a>, ну и не оставили при <a target="_blank" title="Откроется в новом окне" href="http://ktonanovenkogo.ru/seo/backlinks/besplatnaya-raskrutka-sajta.html">бесплатной раскрутке сайта</a> без внимания такой существенный аспект продвижения, как скорость загрузки сайта. Позволю напомнить вам о чем шла речь в двух первых статьях, посвященных тому, как можно увеличить скорость загрузки сайта.</p>
+<p>В первой статье я приводил примеры кода для файла .htaccess, позволяющего оптимизировать кеширование картинок, скриптов и CSS файлов в браузерах посетителей. В этом случае, как вы помните, при повторном заходе посетителя на ваш сайт, все эти статические объекты (изображения, скрипты и CSS) уже не будут заново подгружаться с вашего web сервера, а будут браться из кеша браузера пользователя. </p>
+<p>Кеширование статических объектов действительно очень удобно (т.к. довольно просто реализуется) и довольно сильно повысит среднюю скорость загрузки сайта, т.к. целая куча изображений из шаблона вашего ресурса не будет повторно подгружаться с вашего web сервера в браузеры посетителей, которые побывали хоть раз на вашем сайте в течении последнего года.</p>
+<p>Так вот, к чему я это все говорю&nbsp;&mdash; у меня так и не заработало кеширование скриптов с помощью использования приведенных в той статьей скриптов. Но сейчас я использую новую версию кода для файла .htaccess и при этом оптимально настраивается кеширование всех статических объектов, включая и скрипты. Я добавил новый в первую статью, ну и раз заговорил об этом, то приведу его пример и здесь:</p>
+<pre class="brush: php; title: ; notranslate" title="">FileETag MTime Size
+&lt;ifmodule mod_expires.c&gt;
+&lt;filesmatch &quot;.(jpg|jpeg|gif|png|ico|css|js)$&quot;&gt;
+ExpiresActive on
+ExpiresDefault &quot;access plus 1 month&quot;
+&lt;/filesmatch&gt;
+&lt;/ifmodule&gt;</pre>
+<p>Теперь в Page Speed в строке &laquo;Leverage browser caching&raquo; нет замечаний по поводу того, что кеширования скриптов в браузерах пользователей не происходит. Page Speed ругается только на скрипты Яндекса, на которые я, при всем желании, воздействовать не могу, ибо они подгружаются с серверов Яндекса вместе с объявлениями контекстной рекламы:</p>
+<p><img class="img_center1" src="http://ktonanovenkogo.ru/image/browser-caching.png" title="Browser caching в Page Speed" alt="Gzip" /></p>
+<p>В общем, в плане Browser caching я сделал все, для того чтобы по максимуму увеличить скорость загрузки сайта. Теперь пора переходить еще к одному очень эффективному и относительно простому способу увеличения скорости загрузки сайта&nbsp;&mdash;  <strong>Gzip</strong> сжатие. Вам потребуется лишь прописать маленький кусочек кода в файл .htaccess и случится чудо&nbsp;&mdash; резко уменьшится общий размер данных, передаваемых Web сервером (имеется в виду сервер хостинга, где размещен ваш проект) в браузеры посетителей вашего ресурса. </p>
+<p>Наверное, понятно, что раз уменьшится размер загружаемых данных, то пропорционально должна будет и вырасти общая скорость загрузки сайта. А идея Gzip сжатия довольно проста. Фактически это обычное архивирование всей передаваемой информации на Web сервере и последующее разархивирование этой информации в браузерах пользователей. Все современные браузеры поддерживают Gzip сжатие, поэтому проблем у посетителей при просмотре страниц вашего ресурса возникнуть не должно.</p>
+<p>Единственный минус Gzip сжатия (как, впрочем, и любого другого типа сжатия) состоит в том, что создается дополнительная нагрузка на сервер, т.к. процессор web сервера при включенном Gzip сжатии будет выполнять множество операций архивирования данных (Gzip сжатия) при каждом открытии посетителями вашего проекта любой веб страницы. </p>
+<p>Ну, что поделать, за увеличение скорости загрузки сайта приходится платить (возможно, что даже в прямом смысле&nbsp;&mdash; переходить на более дорого тариф хостинга). Хотя, одновременно с увеличением скорости загрузки вашего сайта вы можете провести и ряд мероприятий, позволяющих существенно снизить нагрузку ресурса на web сервер хостинга. Я уже писал довольно подробно о некоторых способах <strong>оптимизации WordPress, для снижения его нагрузки</strong> на сервер:</p>
+<ul>
+<li>Оптимизируем тему оформления WordPress для <a href="http://ktonanovenkogo.ru/wordpress/optimizaciya-bloga-na-wordpress-snizheniya-nagruzki-na-server-hostinga-1.html#optim" target="_blank" title="Оптимизируем тему оформления WordPress">уменьшения количества запросов к базе данных</a> при загрузке страниц блога</li>
+<li>Как узнать сколько <a href="http://ktonanovenkogo.ru/wordpress/optimizaciya-bloga-na-wordpress-snizheniya-nagruzki-na-server-hostinga-1.html#optim2" target="_blank" title="Откроется в новом окне">запросов к базе данных</a> происходит при загрузке страницы вашего блога</li>
+<li>Плагин кэширования <a href="http://ktonanovenkogo.ru/wordpress/plagini_wordpress/plagin-hyper-cache-optimizaciya-bloga-na-wordpress-2.html" target="_blank" title="Плагин кеширования Hyper Cache">Hyper Cache</a>&nbsp;&mdash; оптимизация блога на WordPress для снижения его нагрузки на сервер хостинг-провайдера
+</li>
+<li>Плагин <a href="http://ktonanovenkogo.ru/wordpress/optimizaciya-bloga-na-wordpress-snizheniya-nagruzki-na-server-hostinga.html#wp3" target="_blank" title="снижаем потребление памяти при генерации страниц блога на WordPress">WPLANG Lite</a>&nbsp;&mdash; снижаем потребление памяти при генерации страниц блога на WordPress
+</li>
+</ul>
+<p>На моем хостинге было уже включено Gzip сжатие, но, к сожалению,  не для всех объектов, которые хорошо поддаются сжатию, а включено было только Gzip сжатие документов (html файлов). В то время, как CSS файлы и файлы скриптов передавались с web сервера в браузеры пользователей не сжатыми, хотя они очень эффективно сжимаются (в несколько раз). Это владельцы хостинга, наверное, специально делают, для снижения нагрузки на сервер.<a name="gzip-1"></a></p>
+<h3>Как включить Gzip сжатие для Js, Html, Css файлов на сервере через .htaccess</h3>
+<div class="leftxyz"><noindex><script type="text/javascript"><!--
+yandex_partner_id = 54571;
+yandex_site_charset = 'utf-8';
+yandex_ad_format = 'direct';
+yandex_font_size = 1;
+yandex_direct_type = 'horizontal';
+yandex_direct_favicon = 'true';
+yandex_direct_border_type = 'block';
+yandex_font_family = 'verdana';
+yandex_direct_title_font_size = 3;
+yandex_direct_limit = 1;
+yandex_stat_id = 100;
+yandex_direct_title_color = '0066CC';
+yandex_direct_url_color = 'cccccc';
+yandex_direct_all_color = 'cccccc';
+yandex_direct_text_color = '555555';
+yandex_direct_hover_color = '8DAB4A';
+document.write('<sc'+'ript type="text/javascript" src="http://an.yandex.ru/system/context.js"></sc'+'ript>');
+//--></script></noindex></div>
+<p>В принципе, все детали Gzip сжатия можно очень четко отследить в Page Speed, но так же есть онлайн сервисы, которые способны дать вам информацию о том, <strong>включено ли на вашем сайте Gzip сжатие</strong> или нет. Например, можете воспользоваться <a rel="nofollow" title="Проверка Gzip сжатия" target="_blank" href="http://www.whatsmyip.org/http_compression/">этим</a> или <a rel="nofollow" title="Включить Gzip сжатие?" target="_blank" href="http://www.port80software.com/">этим</a> онлайн сервисом для проверки включения Gzip сжатия на вашем web сервере. Работать с ними просто&nbsp;&mdash; введите <a title="Доменное имя, whois, регистраторы доменных имен" target="_blank" href="http://ktonanovenkogo.ru/news/domennoe-imya-hosting-dlya-sajta-kak-poluchit-i-svyazat-mezhdu-soboj-1.html#domen">доменное имя</a> вашего проекта в приведенную форму и нажмите Enter.</p>
+<div class="img_centerr"><img class="img_center1" src="http://ktonanovenkogo.ru/image/gzip.png" title="Gzip сжатие" alt="Gzip"/></div>
+<p>Как видите,  web серверу nginx моего хостинга удалось с помощью Gzip сжатия уменьшить размер основного загружаемого в браузеры пользователей документа (Html) в пять раз. Здорово, не правда ли? Это существенно способно увеличить общую скорость загрузки сайта.</p>
+<p>Но вердикт о том, что Gzip сжатие у вас включено еще не означает, что вы получаете максиму эффекта от этого в плане увеличения скорости загрузки сайта. Тут вам поможет Page Speed и сейчас я расскажу о том, как <strong>проверить эффективность работы Gzip сжатия</strong> именно на вашем web сервере через Page Speed. На самом деле все просто до нельзя.</p>
+<p>Итак, активируем уже хорошо знакомый нам ускоритель Page Speed, открываем в FireFox любую страницу своего ресурса и переходим в Page Speed на вкладку &laquo;Resources&raquo;:</p>
+<p><img class="img_center1" src="http://ktonanovenkogo.ru/image/Page-Speed-gzip.png" title="Page Speed загружаемые файлы" alt="Page Speed и Gzip" /></p>
+<p>Здесь вы увидите список всех файлов, которые подгружаются в браузер пользователей с web сервера с указанием <a target="_blank" title="Откроется в новом окне" href="http://ktonanovenkogo.ru/vokrug-da-okolo/chto-takoe-url-adresa-url-uri-absolyutnye-i-otnositelnye-ssylki.html">URL</a> этих файлов (самым первым идет основной файл загружаемого документа&nbsp;&mdash; Html). Вы, наверное, помните, что несмотря на то, что многие <a target="_blank" title="Откроется в новом окне" href="http://ktonanovenkogo.ru/seo/dvizhok-dlya-sajta-cms-besplatnye-cms-sistemy-upravleniya-kontentom-sajta.html">CMS  (движки сайтов)</a>  работают на PHP (<a title="Откроется в новом окне" target="_blank" href="http://ktonanovenkogo.ru/joomla/joomla-1-5/ustanovka-joomla-1-5-v-detalyax-i-kartinkax-reshenie-vozmozhnyx-problem.html">Joomla</a>, <a title="Где можно скачать ВордПресс, установка WordPress на хостинг в деталях и картинках, вход в админку WP и смена пароля " target="_blank" href="http://ktonanovenkogo.ru/wordpress/wordpress_osnovi/ustanovka-wordpress-v-detalyax-i-kartinkax.html">установка WordPress</a>), в браузер пользователей все равно отдается сгенерированная версия страницы в формате Html (<a title="Как работают системы управления контентом" target="_blank" href="http://ktonanovenkogo.ru/joomla/joomla-principy-raboty-cms-sistema-upravleniya-sajtami.html">Принципы работы CMS Joomla</a>)</p>
+<p>Но главное не это, а то, что расположено в этом окне Page Speed справа от списка загружаемых с сервера файлов. Там в двух последних столбцах Page Speed под названием &laquo;File Size&raquo; (реальный размер файла на web сервере) и &laquo;Transfer Size&raquo; (размер файла, передаваемого в браузер) приведены размеры этих загружаемых с сервера в браузер файлов. </p>
+<p>Посмотрите на первую строку вкладки &laquo;Resources&raquo; в Page Speed,  напротив которой в столбце &laquo;Type&raquo; стоит &laquo;doc&raquo; (на приведенном ниже скриншоте выделено синим). Если в столбце &laquo;Transfer Size&raquo; для первой строчки (основного документа) размер будет меньше, чем в столбце &laquo;File Size&raquo;, то значит <strong>Gzip сжатие на вашем web сервере включено</strong> и успешно работает. Обратите внимание, что размер сжатого Gzip файла будет существенно меньше размера оригинала.</p>
+<p><img class="img_center1" src="http://ktonanovenkogo.ru/image/gzip-sjatie.png" title="Gzip сжатие в Page Speed" alt="Gzip сжатие" /></p>
+<p>Но это еще не все. Ведь кроме основного документа в браузер посетителей подгружается еще куча файлов, некоторые из которых можно очень даже эффективно сжать. Я говорю про файлы CSS и файлы скриптов (JavaScript, jQuery). Найдите  в столбце &laquo;Type&raquo; такие типы файлов и посмотрите, включено ли для них Gzip сжатие на вашем сервере. </p>
+<p>Если Gzip сжатие не включено для js и ccs, то размеры для них в столбцах &laquo;File Size&raquo; и &laquo;Transfer Size&raquo; будут одинаковы. Если <strong>Gzip сжатие включено для js и ccs</strong>, то в столбце &laquo;Transfer Size&raquo; размер файла будет существенно меньше (сжатым). Ну, как вам, повезло? У меня размеры файлов js и ccs были одинаковыми (приведенный выше скриншот был сделан уже после включения сжатия для js и ccs файлов), а значит Gzip сжатие для них не работало.</p>
+<p>Поэтому мне пришлось еще раз вносить изменения в файл .htaccess для того, чтобы Gzip сжатие было включено  для файлов js и ccs. Если вы не знаете где находится файл .htaccess и как в него вносить изменения, то почитайте об этом в первой части серии статей про увеличение скорости загрузки сайта. Правда, поначалу, используемый мною код позволил решить только половину проблемы&nbsp;&mdash; Gzip включилось для Css, но для скриптов сжатие по прежнему не применялось на сервере. Вот вариант того кода:</p>
+<pre class="brush: php; title: ; notranslate" title="">&lt;IfModule mod_deflate.c&gt;
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE text/javascript
+  AddOutputFilterByType DEFLATE text/css
+  &lt;IfModule mod_setenvif.c&gt;
+    BrowserMatch ^Mozilla/4 gzip-only-text/html
+    BrowserMatch ^Mozilla/4\.0[678] no-gzip
+    BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+  &lt;/IfModule&gt;
+&lt;/IfModule&gt;</pre>
+<p>Кстати, если ваш хостер совсем <strong>не включил Gzip сжатие</strong> даже для основного файла документа, то в приведенный выше код вам нужно будет добивать еще одну строчку в середину, включающую Gzip сжатие для файлов Html:</p>
+<pre class="brush: php; title: ; notranslate" title="">AddOutputFilterByType DEFLATE text/html</pre>
+<p>У вас заработало <em>Gzip сжатие для Html, Css и Js</em>? Если да, то поздравляю с существенным увеличением скорости загрузки сайта, а если нет, то попробуйте такой вариант кода для файла .htaccess, который помог мне добиться приведенной выше картинки в окне Page Speed:</p>
+<pre class="brush: php; title: ; notranslate" title="">
+&lt;IfModule mod_deflate.c&gt;
+AddOutputFilterByType DEFLATE text/html text/plain text/xml application/xml application/xhtml+xml text/javascript text/css application/x-javascript
+BrowserMatch ^Mozilla/4 gzip-only-text/html
+BrowserMatch ^Mozilla/4.0[678] no-gzip
+BrowserMatch bMSIE !no-gzip !gzip-only-text/html
+&lt;ifmodule mod_gzip.c&gt;
+mod_gzip_on Yes
+mod_gzip_item_include file \.js$
+mod_gzip_item_include file \.css$ &lt;/ifmodule&gt;
+&lt;/IfModule&gt;</pre>
+<p>Теперь практически все, что можно сжать, будет сжато средствами Gzip на web сервере, прежде чем быть отправленными в браузеры посетителей. Этим вы существенно увеличите скорость загрузки сайта, но в то же время существенно нагрузите сервер вашего хостинга (у меня произошло увеличение процентов на 50 средней нагрузки на сервер). Если ваши ресурсы на хостинге позволяют пойти на такие жертвы, то обязательно <strong>включайте Gzip сжатие для ускорения сайта</strong>, тем более, что сделать очень просто.  В следующей статье мы будет рассматривать <a target="_blank" title="Откроется в новом окне" href="http://ktonanovenkogo.ru/vokrug-da-okolo/programs/css-sprites-html-zaprosov-povysheniya-skorosti-zagruzki-sajta-sozdat-skachat-css-sprajty.html">CSS спрайта (sprites)</a>.</p>
+<p>У Евгения Попова имеется видекурс по <a rel="nofollow" title="Откроется в новом окне" target="_blank" href="http://1popov.ru/disc3" onClick="this.href='http://1popov.ru/ktonanovenkogo/disc3'" >PHP+MySQL</a>, который стоит того, чтобы с ним ознакомиться.  </p><p>Вы так же можете ознакомиться с другими <strong><a title="Откроется в новом окне" target="_blank" href="http://ktonanovenkogo.ru/category/vokrug-da-okolo">инструментами для вебмастеров:</a></strong></p>
+	<ul>	<li><a target="_blank" href="http://ktonanovenkogo.ru/yandeks-vebmaster-panel-google-bing-yahoo">Самое нужное для вебмастеров</a>
+<ul>
+	<li><a target="_blank" href="http://ktonanovenkogo.ru/vokrug-da-okolo/webmaster/rabota-s-panelyami-vebmasterov-yandeksa-google-yahoo-bing-sitemap-robot-txt-indeks-zaprosy-chast-1.html">Яндекс Вебмастер</a></li>
+		<li><a target="_blank" href="http://ktonanovenkogo.ru/vokrug-da-okolo/webmaster/rabota-s-panelyami-vebmasterov-yandeksa-google-yahoo-bing-chast-2.html">Гугл Вебмастер</a></li>
+	<li><a target="_blank" href="http://ktonanovenkogo.ru/vokrug-da-okolo/schetchiki/kak-uznat-proverit-poseshhaemost-sajta-statistika-poseshhenij-rejtingi-sajtov-po-poseshhaemosti-schetchiki-pokazatel-otkazov.html">Посещаемость сайта</a></li>
+	<li><a target="_blank" href="http://ktonanovenkogo.ru/seo/twitter-i-friendfeed-dlya-chego-nuzhno-kak-zaregistrirovatsya-kak-nastroit-i-nachat-obshhatsya-avtomaticheskij-posting-novostej-s-sajta-1.html">Твиттер</a></li>
+	<li><a target="_blank" href="http://ktonanovenkogo.ru/seo/smo/facebook-registraciya-v-socialnoj-seti-fejsbuk-vxod-na-moyu-stranicu-optimizacii-stranicy-raskrutka.html">Фейсбук</a></li>
+	<li><a target="_blank" href="http://ktonanovenkogo.ru/seo/smo/v-kontakte-vkontakte-socialnaya-set-registraciya-vxod-sozdanie-svoej-stranicy.html">В контакте</a></li>
+<li><a target="_blank" href="http://ktonanovenkogo.ru/vokrug-da-okolo/rss-vokrug-da-okolo/rss-lenta-fid-feed-sozdanie-i-nastrojka-feedburner-rss-agregatory-rss-ridery-chast-2.html">RSS ленты для сайта - создание и настройка</a></li>	
+<li><a  target="_blank" href="http://ktonanovenkogo.ru/seo/uluchshaem-indeksaciyu-sajta-poiskovikami-robots-txt-dlya-joomla-smf-wordpress-chast-2.html">Robots.txt и индексация сайта</a></li>
+<li><a  target="_blank" href="http://ktonanovenkogo.ru/vokrug-da-okolo/karta-sajta-sitemap-xml-dlya-yandeksa-google-kak-sozdat-kartu-sajta-joomla-wordpress-onlajn-generator-sitemap.html">Карта сайта Sitemap xml</a></li>	
+<li><a target="_blank" href="http://ktonanovenkogo.ru/seo/favicon-favikon-sozdanie-ikonki-favicon-ico-i-razmeshhenie-ee-na-svoem-sajte.html">Создание иконки Favicon (фавикон)</a></li>
+<li><a target="_blank" href="http://ktonanovenkogo.ru/vokrug-da-okolo/poisk-po-sajtu-yandeks-dobavleniya-obyavleniya-direkt-poisk-na-sajte.html">Поиск по сайту</a></li>
+<li><a target="_blank" href="http://ktonanovenkogo.ru/vokrug-da-okolo/chto-takoe-url-adresa-url-uri-absolyutnye-i-otnositelnye-ssylki.html">URL адреса, абсолютные и относительные ссылки</a></li>
+<li><a target="_blank" href="http://ktonanovenkogo.ru/vokrug-da-okolo/kodirovka-teksta-krakozyabry-ascii-yunikod-utf-8-rasshirennaya-ascii-windows-1251-cp866-koi8-r-problemy-s-kodirovkoj.html">Кодировка текста (ASCII, UTF 8, юникод) и кракозябры</a></li>
+<li><a target="_blank" href="http://ktonanovenkogo.ru/html/formaty-gif-png-jpg-jpeg-rastrovoj-grafiki-dlya-sajta-gif-animaciya-png-kartinki-s-prozrachnym-fonom-jpg-polnocvetnye-izobrazheniya.html">Gif, Png или Jpg - растровая графика для сайта или что выбрать</a></li>
+	<li><a target="_blank" href="http://ktonanovenkogo.ru/vokrug-da-okolo/programs/skorost-zagruzki-sajta-prodvizhenie-kak-uskorit-sajt-page-speed.html">Скорость загрузки сайта</a></li>
+	<li><a title="Создание и ведение E-mail рассылок на сервисах Subscribe, Content.Mail и MailList для привлечения дополнительных посетителей на ваш сайт" target="_blank" href="http://ktonanovenkogo.ru/category/vokrug-da-okolo/e-mail">E-mail рассылки для продвижения сайта</a></li></ul></li>
+		
+		
+	<li><a title="Программы для вебмастеров" target="_blank" href="http://ktonanovenkogo.ru/programmy-dlya-sajta">Полезные программы для вебмастеров</a>
+<ul>
+<li><a target="_blank" href="http://ktonanovenkogo.ru/vokrug-da-okolo/programs/kak-nastroit-dostup-k-sajtu-po-ftp-s-pomoshhyu-programmy-filezilla.html">FileZilla - доступ к сайту по FTP</a></li>
+<li><a target="_blank" href="http://ktonanovenkogo.ru/vokrug-da-okolo/programs/poleznye-rasshireniya-dlya-brauzerov-firefox-i-opera-chast-1-firebug-dlya-firefox.html">Firebug — установи и забудь о проблемах</a></li>
+<li><a  target="_blank" href="http://ktonanovenkogo.ru/vokrug-da-okolo/programs/notepad-plus-plus-tekstovyj-redaktor-podsvetkoj-sintaksisa-skachat-ustanovit-nastroit.html">Notepad ++ – лучший Html и PHP редактор</a></li>
+<li><a  target="_blank" href="http://ktonanovenkogo.ru/seo/seo-analiz-site-auditor-tic-pr-proindeksirovannyx-stranic-obratnyx-ssylok-poiskovyx-sistemax-katalogax-poseshhaemost.html">Site-Auditor — проверка позиций сайта в поисковых системах</a></li>
+<li><a  target="_blank" href="http://ktonanovenkogo.ru/vokrug-da-okolo/programs/phpmyadmin-skachat-ustanovka-nastrojka.html">PhpMyAdmin - работа с базами данных</a></li>
+<li><a  target="_blank" href="http://ktonanovenkogo.ru/vokrug-da-okolo/programs/punto-switcher-skachat-besplatnyj-pereklyuchatel-raskladki-klaviatury-bufer-obmena-punto-svitcher-clipdiary-transliteraciya.html">Punto Switcher — переключатель раскладки клавиатуры</a></li>
+<li><a  target="_blank" href="http://ktonanovenkogo.ru/vokrug-da-okolo/programs/opera-skachat-ustanovit-nastroit-brauzer-kesh-temy-opera-link-config-eksperss-panel-pochta-obnovlenie.html">Opera (опера)</a></li>
+<li><a  target="_blank" href="http://ktonanovenkogo.ru/vokrug-da-okolo/programs/google-chrome-gugl-xrom-skachat-ustanovit-nastroit-samyj-bystryj-nadezhnyj-brauzer.html">Google Chrome (Гугл Хром)</a></li>
+
+<li><a  target="_blank" href="http://ktonanovenkogo.ru/vokrug-da-okolo/programs/mozilla-firefox-mazila-faerfoks-skachat-ustanovit-nastroit-brauzer.html">Mozilla Firefox (Мазила Фаерфокс)</a></li>
+<li><a  target="_blank" href="http://ktonanovenkogo.ru/vokrug-da-okolo/programs/internet-explorer-ie-msie-skachat-obnovit-brauzer-internet-eksplorer-9.html">Internet Explorer (IE, MSIE)</a></li>
+</ul></li>
+
+</ul>
+<p>Удачи вам! До скорых встреч на страницах блога <a title="KtoNaNovenkogo.ru - все для начинающих вебмастеров| Нюансы создания и продвижения сайтов, блогов, форумов, интернет-магазинов, заработка на сайте" href="http://ktonanovenkogo.ru/">KtoNaNovenkogo.ru</a></p>
+ <noindex><a rel="nofollow"  target="_blank"  href="http://www.templatemonster.com/ru/?aff=knv"><img style="margin: 20px 0 15px 39px;" src="http://ktonanovenkogo.ru/image/banner_ktonanovenkogo.jpg" title="Шаблоны Сайтов" alt="Шаблоны Сайтов"  width="468px" height="60px" /></a></noindex><div style="margin:30px 98px 0 105px;background:#91CC41;padding:5px 0;"> <form style="margin: 0 10px 0 20px;" action="http://ktonanovenkogo.ru/poisk-po-sajtu" method="get"><span class="p_with">Поиск:</span> <input type="hidden" name="searchid" value="137133"/><input name="text"/><input style="padding:5px 12px;margin:0 10px;" class="naity" type="submit" value="Найти"/></form>
+ 
+ 
+ 
+ </div><div class="vnimanie" style="margin:30px 0;">Робот считает, что Вам это тоже может быть интересно:</div>
+<div style="margin:-20px 0 0 0;" > 
+          
+          
+ <ul style="margin-left:-30px;">
+                <li>
+                  <ol class="lampochka">
+		<li style="color:#FEFCDE;margin:25px 0;"><a style="color:#06C;" target="_blank" href="http://ktonanovenkogo.ru/vokrug-da-okolo/programs/optimizaciya-css-obedinit-otklyuchit-css-wordpress-uvelicheniya-skorosti-zagruzki-sajta.html" rel="bookmark">Оптимизация  CSS в Page Speed&nbsp;&mdash; как сжать CSS и отключить внешние файлы стилей в WordPress для увеличения скорости загрузки сайта</a></li>
+		<li style="color:#FEFCDE;margin:25px 0;"><a style="color:#06C;" target="_blank" href="http://ktonanovenkogo.ru/vokrug-da-okolo/programs/skorost-zagruzki-sajta-optimizaciya-szhatie-izobrazhenij-skriptov-page-speed-html-zaprosov-css-sprajty.html" rel="bookmark">Быстрый сайт&nbsp;&mdash; оптимизация (сжатие) изображений и скриптов, уменьшение числа Http запросов</a></li>
+		<li style="color:#FEFCDE;margin:25px 0;"><a style="color:#06C;" target="_blank" href="http://ktonanovenkogo.ru/vokrug-da-okolo/programs/css-sprites-html-zaprosov-povysheniya-skorosti-zagruzki-sajta-sozdat-skachat-css-sprajty.html" rel="bookmark">CSS спрайты (sprites), где можно создать и скачать готовые CSS спрайты</a></li>
+		<li style="color:#FEFCDE;margin:25px 0;"><a style="color:#06C;" target="_blank" href="http://ktonanovenkogo.ru/vokrug-da-okolo/programs/skorost-zagruzki-sajta-prodvizhenie-kak-uskorit-sajt-page-speed.html" rel="bookmark">Скорость загрузки сайта влияет на его продвижение, Page Speed&nbsp;&mdash; как ускорить сайт</a></li>
+		<li style="color:#FEFCDE;margin:25px 0;"><a style="color:#06C;" target="_blank" href="http://ktonanovenkogo.ru/vokrug-da-okolo/skorost-zagruzki/kak-uvelichit-skorost-zagruzki-sajta-optimizaciya-nagruzki-na-server.html" rel="bookmark">Как увеличить скорость загрузки сайта по максимуму, оптимизация нагрузки на сервер</a></li>
+		<li style="color:#FEFCDE;margin:25px 0;"><a style="color:#06C;" target="_blank" href="http://ktonanovenkogo.ru/html/html-new/html-dlya-nachinayushhix-tipy-verstki-tegi-atributy-parametry-atributov-opredelenie-cveta-na-ekrane.html" rel="bookmark">Html коды и таблица RGB цветов для сайтов, как можно подобрать и задать цвета текста в Html и CSS, Яндекс.Цвета и другие программы  палитр</a></li>
+		<li style="color:#FEFCDE;margin:25px 0;"><a style="color:#06C;" target="_blank" href="http://ktonanovenkogo.ru/web-obzory/onlajn-servisy-vebmasterov-ftp-klient-net2ftp-google-alerts-razreshenie-ekrana-dlya-sajta.html" rel="bookmark">Онлайн сервисы для вебмастеров&nbsp;&mdash; FTP клиент Net2ftp, Google Alerts, разрешение экрана для сайта</a></li>
+		</ol>
+                </li>
+              </ul>
+             
+               </div>
+         
+ </index><noindex><script type="text/javascript"><!--
+yandex_partner_id = 54571;
+yandex_site_charset = 'utf-8';
+yandex_ad_format = 'direct';
+yandex_font_size = 1;
+yandex_direct_type = 'horizontal';
+yandex_direct_favicon = 'true';
+yandex_direct_border_type = 'block';
+yandex_font_family = 'verdana';
+yandex_direct_title_font_size = 1;
+yandex_direct_limit = 3;
+yandex_stat_id = 100;
+yandex_direct_title_color = '0066CC';
+yandex_direct_url_color = 'cccccc';
+yandex_direct_all_color = 'cccccc';
+yandex_direct_text_color = '555555';
+yandex_direct_hover_color = '8DAB4A';
+document.write('<sc'+'ript type="text/javascript" src="http://an.yandex.ru/system/context.js"></sc'+'ript>');
+//--></script></noindex>
+		<div class="xsnazzy" style="margin:-25px 0 -8px 0;">
+	
+				<div style="margin:40px 0 0 0;" class="vnimanie">Очень обяжете, если воспользуетесь этим блоком кнопок:</div><div style="margin:10px 0 ;"> 
+          	<div style="float:right;margin:0 70px 0 0;"><g:plusone size="tall"></g:plusone> </div>
+<div class="toolboxx1">
+<div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="button" data-yashareQuickServices="yaru,vkontakte,facebook,twitter,odnoklassniki,moimir,lj,friendfeed,moikrug,gplus"></div></div> 
+		
+<noindex>
+<div class="subscrib">				
+				
+		<a target=_blank rel="nofollow" title="RSS лента KtoNaNovenkogo.ru" alt="RSS лента KtoNaNovenkogo.ru" href="http://feeds.feedburner.com/Ktonanovenkogoru"><img src="http://ktonanovenkogo.ru/image/rss_no_drop1.png" alt="RSS" ></a></div>
+      <div class="subscribetextbgpost">
+	
+   <form   action="http://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('http://feedburner.google.com/fb/a/mailverify?uri=Ktonanovenkogoru', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true">
+       <img style="margin:0 0 -9px 0" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABh0RVh0Q3JlYXRpb24gVGltZQAzMC4xMS4yMDA3oG4BFQAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAEkSURBVEiJtdXNasJAEAfwf8RLqichiAg5Kx4qaaUUpeQtfBAvPoIXH6Rv0VvwKj6HpI2aVmSnh+qucZO6s8aBuSRsfjuzH3GICPeOCnfA9P2FPSs24vkuG2IjAPAUNliQFUICCN7MIStEiL/sj8wgu0pI5ePwOuQQEau/nu+i1Xa158tojdl44RQi8yikZksfyI3VIh+S7SJxe/YG+a2TiKBysvusQ6VWcspOkIWqshJx23pchuerNZYIlYjEcYrJ68f9kM8vCchdptpVwo2fJDqQQZIkNf5Yvaafqc02HwCOhxGAcR3zKMSDm0V2aTEAqEpyXxYEna9f+vM/cI6w4vTH/t5fB6wRIYD9wQwALK96DmCNcABA7S5OEAcA7CphAQDwC5nt6yWmGZFNAAAAAElFTkSuQmCC"> <input name="email" type="text" value=" Введите Ваш E-mail" class="subscribe_textieldpost1" onfocus="if (this.value == ' Введите Ваш E-mail') {this.value = '';}" onblur="if (this.value == '') {this.value = ' Введите Ваш E-mail';}" />
+        <input type="hidden" value="Ktonanovenkogoru" name="uri"/>
+        <input type="hidden" value="KtoNaNovenkogo.ru - все для начинающих вебмастеров | Создание и продвижение сайтов, блогов, форумов, интернет-магазинов, заработок на сайте" name="title"/>
+        <input type="hidden" name="loc" value="ru_RU"/>
+        <input style="margin:0 0 -7px 0;padding:10px;" class="naity" type="submit" value="Ну, уговорили"/>
+      </form>
+    </div>
+	</noindex>
+          </div>
+    
+
+      
+        <div class="post_bottom">
+          <div class="post_bottom2"> 	<span class="category">Рубрика :
+            <b><a href="http://ktonanovenkogo.ru/category/vokrug-da-okolo/programs" title="Просмотреть все записи в Полезные программы" rel="category tag">Полезные программы</a>,<a href="http://ktonanovenkogo.ru/category/vokrug-da-okolo/skorost-zagruzki" title="Просмотреть все записи в Скорость загрузки сайта" rel="category tag">Скорость загрузки сайта</a></b>
+            </span>  </div>
+        </div><span style="float:right"><a class="current_page_item page_item" href="#" onClick="scroll(0,0); return false">Наверх</a></span>
+        <!--post bottom end -->
+      </div>
+    </div>
+    <b class="xbottom"><b class="xb4"></b><b class="xb3"></b><b class="xb2"></b><b class="xb1"></b></b> 
+	  
+
+	
+	</div>
+	  <p class="clear"></p>
+   
+  <div class="xsnazzy1" > <b class="xtop"><b class="xb1"></b><b class="xb2"></b><b class="xb3"></b><b class="xb4"></b></b>
+    <div class="xboxcontent">
+      <!--Post Meta-->
+      <!--post paging-->
+            <!--include comments template-->
+      <div id="comments-wrap">
+
+
+																																		</div>
+ 
+
+
+ 
+<a name="comments"></a>
+ 
+<div class="oglav1">Комментарии</div>
+
+
+
+<div id="commentlist">
+			<a name="comment-45857"></a>
+  <div class="commetmain" id="comment-45857">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             5-01-2011 в 23:09            <a href="#comment-45857"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="thecomment"> </div>
+            <div class="comment-body">
+              <p>Gzip сейчас во всех браузерах поддерживается и во многих движках включить его не составляет труда. А статья очень даже полезная, спасибо.</p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">Алексей</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-45982"></a>
+  <div class="commetmain" id="comment-45982">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             6-01-2011 в 18:17            <a href="#comment-45982"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="thecomment"> </div>
+            <div class="comment-body">
+              <p>где в файле .htaccess вставить код я вставил оба в конце страницы-при проверке сжатия не произошло?И на джумле включил функцию Gzip подскажите что нетак?</p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">олег</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-46141"></a>
+  <div class="commetmain" id="comment-46141">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             7-01-2011 в 20:36            <a href="#comment-46141"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="thecomment"> </div>
+            <div class="comment-body">
+              <p>Если я правильно понимаю, то сжатие нужно если к примеру на странице расположено много изображений, а для загрузки текста сжатие не нужно.</p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">mixac</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-46182"></a>
+  <div class="commetmain" id="comment-46182">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             8-01-2011 в 1:29            <a href="#comment-46182"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="thecomment"> </div>
+            <div class="comment-body">
+              <p>В самом деле работает, Дмитрий ваш сайт летает!</p><p>Пишите еще, очень интересно, на эту тему никто больше вразумительно не пишет.</p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">Дмитрий</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-46216"></a>
+  <div class="commetmainauthor" id="comment-46216">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             8-01-2011 в 10:49            <a href="#comment-46216"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="authorcomment"> </div>
+            <div class="comment-body">
+              <p><a href="#comment-46141"  rel="nofollow">mixac</a>: как раз наоборот, Gzip сжатие используется только для текстовых файлов (Html, Css, js), которые хорошо поддаются сжатию, а вот для изображений использовать Gzip бесполезно, ибо эффекта не будет. </p><p>Изображения уже, как правило, достаточно хорошо сжаты, хотя, если вы заранее не озаботились оптимизацией изображений, то за вас это с легкость сделает Page Speed. Планирую упомянуть об в следующей статье, посвященной увеличению скорости загрузки.</p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom2"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">Дмитрий</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-46932"></a>
+  <div class="commetmain" id="comment-46932">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             13-01-2011 в 20:52            <a href="#comment-46932"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="thecomment"> </div>
+            <div class="comment-body">
+              <p>Спасибо, статья очень информативная и полезная. Только не совсем понял эти строчки кода:</p><p><pre class="brush: php; title: ; notranslate" title="">BrowserMatch ^Mozilla/4 gzip-only-text/html
+BrowserMatch ^Mozilla/4.0[678] no-gzip
+BrowserMatch bMSIE !no-gzip !gzip-only-text/html</pre></p><p>Это только для FF включает или как?</p><p>И ещё один вопрос. Как отключить GZIP-сжатие, если оно по умолчанию включено? Ну допустим, нужно снизить нагрузку на сервер жертвуя трафиком. Ситуация противоположная той, которую Вы описали.</p><p>Буду весьма благодарен, если кто подскажет.</p><p>В первом коде</p><p><pre class="brush: php; title: ; notranslate" title="">ExpiresActive on
+ExpiresDefault &quot;access plus 1 month&quot;</pre></p><p>А здесь не надо закрыть /ifmodule?</p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">akkadites</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-46952"></a>
+  <div class="commetmainauthor" id="comment-46952">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             14-01-2011 в 1:02            <a href="#comment-46952"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="authorcomment"> </div>
+            <div class="comment-body">
+              <p><a href="#comment-46932"  rel="nofollow">akkadites</a>: да, спасибо за замечание, действительно не хватало /ifmodule в приведенном в начале статьи коде оптимизации кеширования в браузерах. По поводу первой части вашего вопроса&nbsp;&mdash; приведенные вами строки кода для .htaccess позволяют настроить корректную работу GZIP-сжатия в старых версиях браузеров, как я это понимаю.</p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom2"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">Дмитрий</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-47522"></a>
+  <div class="commetmain" id="comment-47522">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             18-01-2011 в 12:21            <a href="#comment-47522"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="thecomment"> </div>
+            <div class="comment-body">
+              <p>Пробовал все варианты кода но сжатия как не было так и нет, во всяком случае так выдает 500 ошибку.</p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">Igor</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-47526"></a>
+  <div class="commetmainauthor" id="comment-47526">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             18-01-2011 в 12:55            <a href="#comment-47526"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="authorcomment"> </div>
+            <div class="comment-body">
+              <p><a href="#comment-47522"  rel="nofollow">Igor</a>: откатитесь на предыдущий вариант вашего файла .htaccess для решения проблемы с 500 ошибкой (очистите его, в конце концов, от всего кода). Причин возникновения может быть много, но чаще всего это не правильное место вставки данного куска кода или же не полное его копирование в .htaccess. Но возможно, что ваш сервер имеет какую-либо специфику, хотя во всех правилах идет проверка на наличие нужного модуля на web сервере.</p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom2"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">Дмитрий</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-48350"></a>
+  <div class="commetmain" id="comment-48350">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             24-01-2011 в 2:46            <a href="#comment-48350"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="thecomment"> </div>
+            <div class="comment-body">
+              <p><a href="#comment-47522" rel="nofollow">Igor</a> говорит, что:</p><blockquote><p>Пробовал все варианты кода но сжатия как не было так и нет, во всяком случае так выдает 500 ошибку.</p><p></p></blockquote><p>у меня тоже ошибка 500. её вызывает вот эта часть кода</p><p>mod_gzip_on Yes</p><p>mod_gzip_item_include file \.js$</p><p>mod_gzip_item_include file \.css$ </p><p>что-то в ней не так</p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">ДЕМОН</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-50652"></a>
+  <div class="commetmain" id="comment-50652">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             9-02-2011 в 20:51            <a href="#comment-50652"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="thecomment"> </div>
+            <div class="comment-body">
+              <p>При использовании кода выдает ошибку 500. Полностью очищал .htaccess, все равно выдает ошибку. Что делать?</p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">SubonAir</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-51221"></a>
+  <div class="commetmain" id="comment-51221">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             14-02-2011 в 9:13            <a href="#comment-51221"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="thecomment"> </div>
+            <div class="comment-body">
+              <p>При первом варианте не работает, а при втором тоже выдает ошибку 500. Позвонил хостеру, просил увеличить ресурс для сервера, а мне сказали, что mod_deflate у них не поддерживается(хостинг RU-CENTER). И что же делать?</p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">Aleks</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-51517"></a>
+  <div class="commetmain" id="comment-51517">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             16-02-2011 в 19:01            <a href="#comment-51517"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="thecomment"> </div>
+            <div class="comment-body">
+              <p>ППЦ! Установил код в файл .htaccess для gzip-сжатия на лету и... сайт вообще лег <img src='http://ktonanovenkogo.ru/wp-includes/images/smilies/icon_sad.gif' alt=':(' class='wp-smiley' />  Ни грузится вообще... браузер пишет, что проблемы с соединением...</p><p>Подскажите, в чем проблема? Наверное все из-за моего хостера omp9.com</p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">Новости сегодня</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-51673"></a>
+  <div class="commetmain" id="comment-51673">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             18-02-2011 в 1:06            <a href="#comment-51673"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="thecomment"> </div>
+            <div class="comment-body">
+              <p><a href="#comment-51221" rel="nofollow">Aleks</a> говорит, что:</p><blockquote><p>При первом варианте не работает, а при втором тоже выдает ошибку 500. Позвонил хостеру, просил увеличить ресурс для сервера, а мне сказали, что mod_deflate у них не поддерживается(хостинг RU-CENTER). И что же делать?</p><p></p></blockquote><p>Проблема решена, все ок! Для тех у кого хостинг RU-CENTER через .htaccess сделать не получиться. Придется создавать mod_gzip.conf и действовать через него. Вот здесь описана суть проблемы: <a rel="nofollow" href="http://forum.nic.ru/showthread.php?t=2389">forum.nic.ru/showthread.php?t=2389</a></p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">Alex</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-60183"></a>
+  <div class="commetmain" id="comment-60183">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             13-04-2011 в 13:35            <a href="#comment-60183"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="thecomment"> </div>
+            <div class="comment-body">
+              <p>На данный момент: Page Speed Score: 77/100</p><p>Сервер Apache/2.2.15  и нет mod_deflate.</p><p>Что делать в этом случае? Все вруках провайдера? Или можно что-то сделать самим?</p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">Olga</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-64772"></a>
+  <div class="commetmain" id="comment-64772">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             20-05-2011 в 4:41            <a href="#comment-64772"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="thecomment"> </div>
+            <div class="comment-body">
+              <p>Кто нибудь подскажите как включить сжатие на хостинге TimeWeb? Суть проблемы: На наших серверах работает связка nginx+apache. Через nginx отдаются статические файлы с расширениями: jpg,jpeg,gif,png,css,zip,tgz,gz,rar,bz2,doc,xls,exe,pdf,ppt,txt,tar,mid,midi,wav,bmp,rtf,js,swf,f4v,flv,avi,wmv,mp3,mp4</p><p>Это значит файлы не обрабатываются через apache и если есть какие-то директивы в файле .htaccess, то они тоже не подействуют, чтобы apache мог обработать данные файлы нужно давать ссылки на несуществующие файлы, в этом случае, запрос будет передаваться web серверу apache, соответсвенно можно будет использовать директивы .htaccess для обработки этих запросов. </p><p>Более понятного ответа я не добился.</p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">Антон</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-84196"></a>
+  <div class="commetmain" id="comment-84196">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             22-09-2011 в 14:31            <a href="#comment-84196"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="thecomment"> </div>
+            <div class="comment-body">
+              <p>Добрый день, следую всем вашим инструкциям по оптимизации сайта, перешел к сжатию, не выходит уменьшить объем скриптов и css-файлов! Вставлял все варианты кода в начало .htaccess, эффекта сжатия page speed не показывает(</p><p>ЦМс&nbsp;&mdash; joomla, сжатие GZIP-сжатие страниц&nbsp;&mdash; включено!</p><p>Сайт&nbsp;&mdash; <a rel="nofollow" href="http://active-buy.com">active-buy.com</a></p><p>Что это может быть?</p><p>Заранее спасибо!</p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">Active-buy</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-84205"></a>
+  <div class="commetmain" id="comment-84205">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             22-09-2011 в 15:42            <a href="#comment-84205"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="thecomment"> </div>
+            <div class="comment-body">
+              <p>Вам везет. У вас все работает))))</p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">Антон</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-84218"></a>
+  <div class="commetmain" id="comment-84218">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             22-09-2011 в 17:20            <a href="#comment-84218"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="thecomment"> </div>
+            <div class="comment-body">
+              <p>Ставил кучи всяких зиперов для css и js&nbsp;&mdash; наблюдались только ухудшения( Помогите разобраться с вашим .htaccess-методом сжатия, пожалуйста!</p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">Active-buy</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-84219"></a>
+  <div class="commetmain" id="comment-84219">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             22-09-2011 в 17:32            <a href="#comment-84219"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="thecomment"> </div>
+            <div class="comment-body">
+              <p>Проверяю ваш сайт в Chrome с помощью Yslow, js и css файл у вас сжимаются.</p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">Антон</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-84220"></a>
+  <div class="commetmainauthor" id="comment-84220">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             22-09-2011 в 17:33            <a href="#comment-84220"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="authorcomment"> </div>
+            <div class="comment-body">
+              <p>Active-buy: вынужден только извиниться, ибо не сведущ во всех этих тонкостях настолько, чтобы давать советы. То что сделал у себя&nbsp;&mdash; я подробно описал, а все остальное для меня темный лес. Извините.</p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom2"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">Дмитрий</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-84222"></a>
+  <div class="commetmain" id="comment-84222">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             22-09-2011 в 17:40            <a href="#comment-84222"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="thecomment"> </div>
+            <div class="comment-body">
+              <p><a rel="nofollow" href="http://floomby.ru/content/YKKQ4hrmpU">floomby.ru/content/YKKQ4hrmpU</a></p><p>как мы видим по данным Page Speed значения css и js одинаковы(</p><p>в какое именно место в .htaccess, Дмитрий, вы вставляли свой код из данной статьи? </p><p>Вот этот собственно:</p><p>AddOutputFilterByType DEFLATE text/html text/plain text/xml application/xml application/xhtml+xml text/javascript text/css application/x-javascript</p><p>BrowserMatch ^Mozilla/4 gzip-only-text/html</p><p>BrowserMatch ^Mozilla/4.0[678] no-gzip</p><p>BrowserMatch bMSIE !no-gzip !gzip-only-text/html</p><p>mod_gzip_on Yes</p><p>mod_gzip_item_include file \.js$</p><p>mod_gzip_item_include file \.css$ </p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">Active-buy</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-89224"></a>
+  <div class="commetmain" id="comment-89224">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             21-10-2011 в 12:50            <a href="#comment-89224"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="thecomment"> </div>
+            <div class="comment-body">
+              <p>Есть одна ошибка во втором коде из-за которой выдается 500 страница. Так без ошибок:</p><p><pre class="brush: php; title: ; notranslate" title="">&lt;IfModule mod_deflate.c&gt;
+AddOutputFilterByType DEFLATE text/html text/plain text/xml application/xml application/xhtml+xml text/javascript text/css application/x-javascript
+BrowserMatch ^Mozilla/4 gzip-only-text/html
+BrowserMatch ^Mozilla/4.0[678] no-gzip
+BrowserMatch bMSIE !no-gzip !gzip-only-text/html
+&lt;IfModule mod_gzip.c&gt;
+mod_gzip_on Yes
+mod_gzip_item_include file \.js$
+mod_gzip_item_include file \.css$
+&lt;/IfModule&gt;
+&lt;/IfModule&gt;</pre></p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">Johny Kort</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-89300"></a>
+  <div class="commetmain" id="comment-89300">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             21-10-2011 в 19:47            <a href="#comment-89300"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="thecomment"> </div>
+            <div class="comment-body">
+              <p>Спасибо большое, код заработал, скрипты и цсс сжимаються)</p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">Active-buy to Johny Kort</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-98169"></a>
+  <div class="commetmain" id="comment-98169">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             8-12-2011 в 17:49            <a href="#comment-98169"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="thecomment"> </div>
+            <div class="comment-body">
+              <p>Попробовал сделать как описано в статье, спасибо все работает, кэширование дает хороший результат, но вот с сжатием css и js не выходит. У меня хостинг на таймвебе у них как я понял используются другие бибилотеки для сжатия. Если делать как вы предлогаете, то браузер принимает фалы в сжатом виде, воспринимая их как-будто они непожаты.</p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">Владимир</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-98304"></a>
+  <div class="commetmain" id="comment-98304">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             9-12-2011 в 7:40            <a href="#comment-98304"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="thecomment"> </div>
+            <div class="comment-body">
+              <p>Вот что мне ответили в тех. поддержке таймвеба: &laquo;На наших серверах работает связка nginx+apache. Через nginx отдаются статические файлы с расширениями: jpg,jpeg,gif,png,css,zip,tgz,gz,rar,bz2,doc,xls,exe,pdf,ppt,txt,tar,mid,midi,wav,bmp,rtf,js,swf,f4v,flv,avi,wmv,mp3,mp4</p><p>Это значит файлы не обрабатываются через apache и если есть какие-то директивы в файле .htaccess, то они тоже не подействуют, чтобы apache мог обработать данные файлы нужно давать ссылки на несуществующие файлы, в этом случае, запрос</p><p>будет передаваться web серверу apache, соответсвенно можно будет использовать директивы .htaccess для обработки этих запросов. </p><p>Проведенные нами тестирования выявили, что nginx отдает статичный контент быстрее, чем apache + gzip, поэтому в данном случае подобная настройка не рациональна.&raquo; Получается в моем случае css и js файлы лучше отдавать как есть, в непожатом виде.</p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">Владимир</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-98593"></a>
+  <div class="commetmain" id="comment-98593">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             10-12-2011 в 20:56            <a href="#comment-98593"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="thecomment"> </div>
+            <div class="comment-body">
+              <p>Установила код для gzip-сжатия, по вашей инструкции, но сжатия так и нет. В чем может быть проблема? в джумле оно включено, хостинг джино.</p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">Nika</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-101085"></a>
+  <div class="commetmain" id="comment-101085">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             20-12-2011 в 8:29            <a href="#comment-101085"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="thecomment"> </div>
+            <div class="comment-body">
+              <p>Присоединяюсь к последнему посту. Добавил в ктацесс первых два кода&nbsp;&mdash; скорость загрузки увеличилась. Поставил вместо второго третий&nbsp;&mdash; сайт лег.</p><p>С первым&nbsp;&mdash; вторым куском кода css и js не сжимает. Движок джумла, хостинг&nbsp;&mdash; мастерхост</p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">Alex</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-102975"></a>
+  <div class="commetmain" id="comment-102975">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             28-12-2011 в 17:01            <a href="#comment-102975"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="thecomment"> </div>
+            <div class="comment-body">
+              <p>а кому верить page speed на гугл хром или page speed на мозилле? Потому как результаты разные. К примеру мозилла говорит , что у меня почти все норм ,показывает 95 из 100 а хром всего 70 из 100?</p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">rasse1</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-118004"></a>
+  <div class="commetmain" id="comment-118004">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             10-02-2012 в 16:40            <a href="#comment-118004"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="thecomment"> </div>
+            <div class="comment-body">
+              <p>Странно, а почему у меня включено гзип сжатие и для доков, и для стилей, а Пейдж спид все равно ругается именно на сжатие?</p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">Синтия</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-126402"></a>
+  <div class="commetmain" id="comment-126402">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             8-03-2012 в 19:27            <a href="#comment-126402"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="thecomment"> </div>
+            <div class="comment-body">
+              <p>Классная статья, но куда вставлять эти строки? Самое важное вы упустили!</p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">Саша</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-127912"></a>
+  <div class="commetmain" id="comment-127912">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             14-03-2012 в 8:00            <a href="#comment-127912"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="thecomment"> </div>
+            <div class="comment-body">
+              <p>Странно, у меня ошибка 500, хостинг Majordomo, в службе поддержки говорят что mod_deflate поддерживается, смотрю error_log там говорят что неверный синтаксис .htaccess, рунаются и на 1 и на 2 коды...</p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">Mr-Shar</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-138071"></a>
+  <div class="commetmain" id="comment-138071">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             17-04-2012 в 19:32            <a href="#comment-138071"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="thecomment"> </div>
+            <div class="comment-body">
+              <p>Добавил код на сжатие gzip. А через сервисы приведенные выше все равно указывает что сжатия у меня нет&nbsp;&mdash; как это понять</p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">Дмитрий</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+				<a name="comment-140974"></a>
+  <div class="commetmain" id="comment-140974">
+    <div class="commet_top"  > 
+     <span class="comment-author">
+           
+             5-05-2012 в 15:12            <a href="#comment-140974"> </a> </span>
+            
+            
+            
+                </div>
+          
+      <!--comment left-->
+    <div>
+      <div class="thecomment"> </div>
+            <div class="comment-body">
+              <p>Вместо Page Speed и прочих я советую использовать <a rel="nofollow" href="http://unshit.com/ru/">unshit.com/ru/</a></p><p>Проще и понятней.</p>             
+      </div>
+          </div>
+      <!--comment right-->
+  </div>
+    <div class="commet_bottom"  > <span class="comment-author">
+                                    <base target="_blank">
+             <span class="bolder">Genry</span>
+            <base target="_self">
+           </span>
+  </div>
+   
+	<br>
+	</div>
+
+
+<!--
+<p><a href='http://ktonanovenkogo.ru/vokrug-da-okolo/programs/gzip-szhatie-kak-vklyuchit-gzip-js-html-css-fajlov-povysit-skorost-zagruzki-sajta.html/feed'><abbr title="RSS">RSS</abbr>.</a> 
+</p>
+-->
+<div class="oglav1">Написать</div>
+
+ 
+  <form action="http://ktonanovenkogo.ru/wp-comments-post.php" method="post" id="commentform">
+        <p>
+      <input type="text" name="author" id="author" class="textarea" value="" size="28" tabindex="1" />
+      <label for="author">
+      Имя      </label>
+      (обязательно)    </p>
+    <p>
+      <input type="text" name="email" id="email" value="" size="28" tabindex="2" class="textarea" />
+      <label for="email">
+      E-mail      </label>
+      (обязательно)    </p>
+ 
+        <p>
+      <label for="comment"><div class="oglav1">Ваш комментарий</div></label>
+	  Заключайте PHP и другой код в теги [php][/php]
+      <br />
+      <textarea name="comment" id="comment" cols="70" rows="10" tabindex="4" class="textarea1"></textarea>
+    </p>
+    <p>
+      <input name="submit" id="submit" type="submit" tabindex="5" value="Добавить" class="Cbutton" />
+      <input type="hidden" name="comment_post_ID" value="5616" />
+      <input type="hidden" name="redirect_to" value="/vokrug-da-okolo/programs/gzip-szhatie-kak-vklyuchit-gzip-js-html-css-fajlov-povysit-skorost-zagruzki-sajta.html?ver=3.0.83c" />
+    </p>
+    
+	<script language="javascript">
+	function dcaptcha_change(){
+		document.getElementById('dcaptcha_sess').value = 9088;
+
+	}
+
+		</script>
+
+	<div id="dcaptcha"><p>
+
+		<input type="checkbox" id="dcaptcha_captcha1" onclick="dcaptcha_change();" value="Это не спам.">
+		Это не спам.<br>
+		
+	</div>
+	<input type="hidden" name="dcaptcha_sess" id="dcaptcha_sess" value="155275">
+
+	<script>
+	var commentField = document.getElementById("url");
+    var submitp = commentField.parentNode;
+    var answerDiv = document.getElementById("dcaptcha");	    
+    submitp.appendChild(answerDiv, commentField);
+</script>
+	
+
+	<p style="clear: both;" class="subscribe-to-comments">
+	<input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" />
+	<label for="subscribe">Оповещать о новых комментариях по почте</label>
+	</p>
+
+
+  </form>
+  
+
+	<form action="" method="post">
+	<input type="hidden" name="solo-comment-subscribe" value="solo-comment-subscribe" />
+	<input type="hidden" name="postid" value="5616" />
+	<input type="hidden" name="ref" value="http%3A%2F%2Fktonanovenkogo.ru%2Fvokrug-da-okolo%2Fprograms%2Fgzip-szhatie-kak-vklyuchit-gzip-js-html-css-fajlov-povysit-skorost-zagruzki-sajta.html%3Fver%3D3.0.83c" />
+
+	<p class="solo-subscribe-to-comments">
+	Подписаться без комментирования		<label for="solo-subscribe-email">- E-Mail:	<input type="text" name="email" id="solo-subscribe-email" size="22" value="" /></label>
+	<input type="submit" name="submit" value="Подписаться" />
+	</p>
+	</form>
+
+
+ 
+
+  
+       <!--do not delete-->
+            <!--single.php end-->
+    </div>
+  </div>
+  <b class="xbottom"><b class="xb4"></b><b class="xb3"></b><b class="xb2"></b><b class="xb1"></b></b> 
+ 
+ 
+  
+<noindex><script type="text/javascript"><!--
+yandex_partner_id = 54571;
+yandex_site_charset = 'utf-8';
+yandex_ad_format = 'direct';
+yandex_font_size = 1;
+yandex_direct_type = 'horizontal';
+yandex_direct_favicon = 'true';
+yandex_direct_border_type = 'block';
+yandex_font_family = 'verdana';
+yandex_direct_title_font_size = 1;
+yandex_direct_limit = 1;
+yandex_stat_id = 100;
+yandex_direct_title_color = '0066CC';
+yandex_direct_url_color = 'cccccc';
+yandex_direct_all_color = 'cccccc';
+yandex_direct_text_color = '555555';
+yandex_direct_hover_color = '8DAB4A';
+document.write('<sc'+'ript type="text/javascript" src="http://an.yandex.ru/system/context.js"></sc'+'ript>');
+//--></script></noindex>
+</div>
+  
+<!--post end -->
+<!--include sidebar-->
+<div id="sidebar" class="clearfix">
+
+  <div class="sidebar_top"> 
+  <noindex>
+
+   <div class="subscribetextbg">
+	
+      <form   action="http://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('http://feedburner.google.com/fb/a/mailverify?uri=Ktonanovenkogoru', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true">
+        <img style="margin:0 0 -9px 0" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABh0RVh0Q3JlYXRpb24gVGltZQAzMC4xMS4yMDA3oG4BFQAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAEkSURBVEiJtdXNasJAEAfwf8RLqichiAg5Kx4qaaUUpeQtfBAvPoIXH6Rv0VvwKj6HpI2aVmSnh+qucZO6s8aBuSRsfjuzH3GICPeOCnfA9P2FPSs24vkuG2IjAPAUNliQFUICCN7MIStEiL/sj8wgu0pI5ePwOuQQEau/nu+i1Xa158tojdl44RQi8yikZksfyI3VIh+S7SJxe/YG+a2TiKBysvusQ6VWcspOkIWqshJx23pchuerNZYIlYjEcYrJ68f9kM8vCchdptpVwo2fJDqQQZIkNf5Yvaafqc02HwCOhxGAcR3zKMSDm0V2aTEAqEpyXxYEna9f+vM/cI6w4vTH/t5fB6wRIYD9wQwALK96DmCNcABA7S5OEAcA7CphAQDwC5nt6yWmGZFNAAAAAElFTkSuQmCC"><input name="email" type="text" value=" Введите Ваш E-mail" class="subscribe_textieldpost" onfocus="if (this.value == ' Введите Ваш E-mail') {this.value = '';}" onblur="if (this.value == '') {this.value = ' Введите Ваш E-mail';}" />
+		 <input class="naity" type="submit" value="Быть в курсе всего"/>
+        <input type="hidden" value="Ktonanovenkogoru" name="uri"/>
+        <input type="hidden" value="KtoNaNovenkogo.ru - все для начинающих вебмастеров | Создание и продвижение сайтов, блогов, форумов, интернет-магазинов, заработок на сайте" name="title"/>
+        <input type="hidden" name="loc" value="ru_RU"/>
+       
+      </form>
+    </div>
+		<g:plusone size="medium"></g:plusone> 
+	<div class="rssfeed12" style="margin:-9px 0 5px 30px;"><a TARGET=_blank rel="nofollow" title="Подписаться на обновления KtoNaNovenkogo.ru по RSS"  href="http://feeds.feedburner.com/Ktonanovenkogoru"><img src="http://ktonanovenkogo.ru/image/rss_no_drop1.png" height="65" width="80" alt="Подписаться на обновления KtoNaNovenkogo.ru по RSS"/></a></div>
+	<div class="rssfeed" style="margin:0 20px 12px 35px;"><img src="http://feeds.feedburner.com/~fc/Ktonanovenkogoru?bg=99CCFF&amp;fg=444444&amp;anim=0" height="26" width="88" style="border:0" title="Количество подписчиков на новостную ленту блога KtoNaNovenkogo.ru (щелкните для подписки по соседней иконке)" /> </div>
+	<div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="yaru,vkontakte,facebook,twitter,odnoklassniki,moimir,lj,friendfeed,moikrug,gplus"></div> 
+</noindex>
+  </div>
+
+<div class="reklama123"><a rel="nofollow" target="_blank" href="http://webeffector.ru/?invitation=bed64057e1f4263f247acc10f1bfe551"  ><img src="http://ktonanovenkogo.ru/image/360x60robot.gif" alt="WebEffector"></a></div>
+
+
+  <div class="tabermain">
+      <div class="tabber">
+	  <div class="tabbertab  clear">
+          <h6 style="padding:40px 0 10px 10px">Рубрики KtoNaNovenkogo.ru</h6>
+          
+          <div class="tabbgtop"> 
+          	<div class="tabbgbottom">
+           <div class="joklu">
+               
+                  <ul>
+                <li>
+                  <ul>
+				  
+<li><a title="Нюансы работы с Joomla, установка и настройка всех самых необходимых в работе модулей, плагинов, компонентов и многое другое." href="http://ktonanovenkogo.ru/category/joomla">Создать сайт</a>
+<ul class="children">
+	
+	<li><a title="Уроки по Joomla 1.5 для начинающих" href="http://ktonanovenkogo.ru/category/joomla/joomla-1-5">Самоучитель Joomla</a>
+</li>
+<li><a title="Все нюансы интеграции форума SMF и сайта под управлением Joomla с помощью компонента JFusion" href="http://ktonanovenkogo.ru/category/smf/integraciy">Форум SMF для Joomla</a></li>
+	<li><a title="Установка и настройка самых нужных и важных расширений (плагинов, модулей и компонентов) для Joomla" href="http://ktonanovenkogo.ru/category/joomla/rasshireniy">Расширения для Joomla</a></li>	
+<li><a title="Если нужно создать интернет-магазин и при этом не затратить ни копейки, то варианта лучше, чем Joomla, с установленным компонентом VirtueMart вы не найдете" href="http://ktonanovenkogo.ru/category/joomla/virtuemart-joomla">Интернет-магазин бесплатно</a></li>
+</ul>
+</li>
+	
+	<li><a title="Установка и настройка WordPress, самые необходимые плагины с подробным описанием их установки и настройки. Поисковая оптимизация WordPress." href="http://ktonanovenkogo.ru/category/wordpress">Создать блог</a>
+<ul class="children">
+	<li><a title="Установка, настройка и создание блога на WordPress" href="http://ktonanovenkogo.ru/category/wordpress/wordpress_osnovi">WordPress для чайников</a></li>
+	<li><a title="Установка и настройка самых полезных  и необходимых плагинов, расширяющих и без того не малые возможности WordPress" href="http://ktonanovenkogo.ru/category/wordpress/plagini_wordpress">Плагины для WordPress</a></li>
+</ul>
+</li>
+
+<li><a title="Как самому раскрутить сайт и иметь высокую посещаемость проекта за счет поисковой оптимизации, SMO продвижения и других бесплатных способов и методов" href="http://ktonanovenkogo.ru/category/seo">Раскрутка</a>
+<ul class="children">
+<li><a title="Основные показатели продвижения сайта тИЦ, PageRank (PR) и Alexa Rank&nbsp;&mdash; что они означают, для чего нужны и как их улучшить" href="http://ktonanovenkogo.ru/category/seo/tic-pr-alexa">Пузомерки</a></li>
+<li><a title="Различные способы получения бесплатных обратных ссылок (бэклинков) открытых для индексации поисковыми системами" href="http://ktonanovenkogo.ru/category/seo/backlinks">Ссылки на сайт</a></li>
+<li><a title="Всевозможные способы привлечения посетителей (трафика) с социальных медиа (форумов, социальных сетей и т.п.)" href="http://ktonanovenkogo.ru/category/seo/smo">Где взять посетителей (SMO)</a></li>
+<li><a title="Как улучшить позиции  сайта в поисковой выдаче Яндекса и Google и получать большой поисковый трафик. Внутренняя,  внешняя и поведенческая оптимизация сайта." href="http://ktonanovenkogo.ru/category/seo/search">Учимся нравиться Яндексу и Google (SEO)</a></li>	
+
+</ul>
+</li>
+	<li><a title="Различные способы получение прибыли с вашего сайта, форума или блога. Баннерная и контекстная рекламы, партнерки, продажа ссылок и статей, постовые и обзоры." href="http://ktonanovenkogo.ru/category/zarabotok_na_saite">Как на этом заработать</a>
+<ul class="children">
+<li><a title="Рассмотрение всевозможных способов получения дохода со своего сайта, блога или форума" href="http://ktonanovenkogo.ru/category/zarabotok_na_saite/monetizaciy">Способы обогащения</a></li>
+<li><a title="Системы электронных платежей ( Яндекс.Деньги, WebMoney)&nbsp;&mdash; получение кошельков, управление, настройка, ввод и вывод средств" href="http://ktonanovenkogo.ru/category/zarabotok_na_saite/dengi">Деньги в интернете</a></li>
+<li><a title="Все о работе с системами контекстной рекламы Яндекс.Директ и Google AdSense" href="http://ktonanovenkogo.ru/category/zarabotok_na_saite/context">К чему надо стремиться</a></li>		
+	
+</ul>
+</li>
+	<li><a title="Все, что имеет непосредственное отношение к сайтостроению, но не вошло в основные рубрики. Эти знания вам понадобятся при работе с любым сайтом, не зависимо от его устройства." href="http://ktonanovenkogo.ru/category/vokrug-da-okolo">Для всех вебмастеров</a>
+<ul class="children">
+<li><a title="Интервью с интересными и успешными людьми в мире вебместеринга и всего того, что с ним связано" href="http://ktonanovenkogo.ru/category/vokrug-da-okolo/intervyu-vokrug-da-okolo">Интервью</a></li>	
+	<li><a title="Как увеличить скорость загрузки сайта, которая напрямую влияет на успешность его продвижения" href="http://ktonanovenkogo.ru/category/vokrug-da-okolo/skorost-zagruzki">Ускоряем сайт</a></li>
+		<li><a title="Обзор интересных онлайн сервисов и материалов в интернете. Обо всем, что вы можете использовать при создании и продвижении сайта." href="http://ktonanovenkogo.ru/category/web-obzory">Онлайн сервисы</a></li>
+	<li><a title="Как и где можно купить или же получить бесплатно хостинг и домены" href="http://ktonanovenkogo.ru/category/vokrug-da-okolo/hosting">Хостинг и домены</a></li>
+	<li><a title="Описание и настройка программ необходимых для работы с сайтом. Все программы, которые помогают вебмастеру оптимизировать и существенно улучшить качество своей работы по созданию сайта, блога, форума, интернет-магазина." href="http://ktonanovenkogo.ru/category/vokrug-da-okolo/programs">Полезные программы</a></li>	
+	<li><a title="Работа с панелями и инструментами для вебмастеров, предоставляемыми поисковыми системами" href="http://ktonanovenkogo.ru/category/vokrug-da-okolo/webmaster">Вебмастеру на заметку</a></li>
+	<li><a title="Создание и ведение E-mail рассылок на сервисах Subscribe, Content.Mail и MailList для привлечения дополнительных посетителей на ваш сайт" href="http://ktonanovenkogo.ru/category/vokrug-da-okolo/e-mail">Рассылка новостей по почте</a></li>	
+	<li><a title="Создание и настройка RSS лент для  Joomla, WordPress и SMF, добавление в Feedburner и RSS агрегаторы" href="http://ktonanovenkogo.ru/category/vokrug-da-okolo/rss-vokrug-da-okolo">RSS канал связи с читателями</a></li>
+	<li><a title="Регистрация на сайтах счетчиков посещений, получение кода счетчиков, их установка на сайт и работа со статистикой счетчиков посещаемости (посещений)" href="http://ktonanovenkogo.ru/category/vokrug-da-okolo/schetchiki">Подсчет и анализ посещаемости</a></li>
+	
+	
+	</ul>
+</li>
+	<li><a title="Основы HTML, CSS, PHP, MySQL в объеме необходимом начинающему вебмастеру Без этих знаний вы не сможете создать действительно стоящий сайт" href="http://ktonanovenkogo.ru/category/html">Для интересующихся</a>
+<ul class="children">
+<li><a title="Уроки CSS для уверенной работы с дизайном своего сайта (изменить шрифт, выравнять, добавить изображение или кнопку, изменить шапку т.д.)" href="http://ktonanovenkogo.ru/category/html/uroki-css">Уроки CSS</a></li>
+	<li><a title="Основные понятия языка гипертекстовой разметки HTML в форме доступной начинающим вебмастерам" href="http://ktonanovenkogo.ru/category/html/html-new">Html для чайников</a></li>
+	<li><a title="Принципы блочной верстки на DIV контейнерах&nbsp;&mdash; все очень просто, подробно и понятно" href="http://ktonanovenkogo.ru/category/html/div-verstka-html">Блочная DIV верстка</a></li>
+	
+</ul>
+</li>
+
+                  </ul>
+                </li>
+</ul>
+              </div>
+               </div>
+          </div><!--tabbgtop end -->
+            
+        </div>
+		 
+
+   <div class="tabbertab  clear">
+          <h6 style="padding:50px 0 10px 10px">Уроки от KtoNaNovenkogo.ru</h6>
+          
+          <div class="tabbgtop"> 
+          	<div class="tabbgbottom">
+           <div class="joklu1">
+               <ul style="padding-left:10px">
+                <li>
+                  <ul >
+                    
+		<li><a  href="http://ktonanovenkogo.ru/gde-vzyat-vneshnie-ssylki">Где взять внешние ссылки</a></li>
+		<li><a  href="http://ktonanovenkogo.ru/kak-zarabotat-webmoney-yandeks-dengi">Как разбогатеть</a></li>
+		<li><a  href="http://ktonanovenkogo.ru/poiskovaya-optimizaciya-i-prodvizhenie-sajta">SEO (популярно)</a></li>
+		<li><a  href="http://ktonanovenkogo.ru/smo-prodvizhenie-v-socialnyx-setyax">Не SEO</a></li>
+		<li><a  href="http://ktonanovenkogo.ru/zarabotok-na-kontekstnoj-reklame">Так нужно зарабатывать</a></li>
+		<li><a  href="http://ktonanovenkogo.ru/platezhnye-sistemy">Денежки</a></li>
+		<li><a  href="http://ktonanovenkogo.ru/uroki-joomla">Уроки Joomla</a></li>
+		<li><a  href="http://ktonanovenkogo.ru/internet-magazin-na-joomla">Интернет магазин на халяву</a></li>
+		<li><a  href="http://ktonanovenkogo.ru/komponenty-moduli-i-plaginy-dlya-joomla">Все для Joomla</a></li>
+		<li><a  href="http://ktonanovenkogo.ru/forum-dlya-joomla">Форум для Joomla</a></li>
+		<li><a  href="http://ktonanovenkogo.ru/uroki-wordpress">Уроки WordPress</a></li>
+		<li><a  href="http://ktonanovenkogo.ru/plaginy-dlya-wordpress">Расширяем возможности WordPress</a></li>
+		<li><a  href="http://ktonanovenkogo.ru/uroki-html-i-css-blochnaya-verstka-sajta">Учебник Html для начинающих</a></li>
+		<li><a  href="http://ktonanovenkogo.ru/spravochnik-css">Справочник CSS для начинающих</a></li>	
+		<li><a  href="http://ktonanovenkogo.ru/poleznye-sajty-dlya-vebmasterov">Полезные сайты в интернете</a></li>
+		<li><a  href="http://ktonanovenkogo.ru/chto-takoe-domen-i-xosting">С чем едят домены и хостинг</a></li>
+		<li><a  href="http://ktonanovenkogo.ru/programmy-dlya-sajta">Программы, с которыми вы работаете</a></li>
+		<li><a   href="http://ktonanovenkogo.ru/schetchiki-poseshhenij-dlya-sajta">Посчитаем?</a></li>
+		<li><a   href="http://ktonanovenkogo.ru/yandeks-vebmaster-panel-google-bing-yahoo">Самое нужное для вебмастеров</a></li>
+		<li><a  href="http://ktonanovenkogo.ru/rss-lenty-dlya-sajta">Это нужно знать</a></li>
+			
+				                 
+			</ul>
+                </li>
+              </ul>
+              </div>
+               <!--tabbgtop end -->
+            </div></div>
+        </div>
+		
+        <div class="tabbertab clear">
+          <h6 style="padding:50px 0 10px 5px">Популярные материалы</h6>
+           <div class="tabbgtop"> 
+          	<div class="tabbgbottom">
+			   <div class="joklu1">
+               <ul >
+                <li>
+                  <ul style="padding-left:10px">
+				  
+				<li><a  href="http://ktonanovenkogo.ru/zarabotok_na_saite/monetizaciy/zarabotok-v-internete-kak-zarabotat-v-seti-bez-vlozhenie-sposob-dengi.html">Как заработать деньги в сети (15 способов)</a></li>
+				<li><a  href="http://ktonanovenkogo.ru/joomla/sozdat-sajt-besplatno-kak-sdelat-svoj-sajt-besplatnom-samostoyatelnoe-sozdanie.html">Как создать свой сайт бесплатно</a></li>
+				 <li><a  href="http://ktonanovenkogo.ru/seo/search/samostoyatelnoe-prodvizhenie-sajta-kak-prodvigat-samomu-vnutrennej-optimizaciej.html">Продвижение и раскрутка сайта самостоятельно</a></li>
+				 <li><a  href="http://ktonanovenkogo.ru/seo/kak-raskrutit-sajt.html">Как раскрутить сайт самому</a></li>
+				 <li><a  href="http://ktonanovenkogo.ru/seo/twitter-i-friendfeed-dlya-chego-nuzhno-kak-zaregistrirovatsya-kak-nastroit-i-nachat-obshhatsya-avtomaticheskij-posting-novostej-s-sajta-1.html">Твиттер - регистрация и нюансы</a></li>
+				 <li><a  href="http://ktonanovenkogo.ru/seo/smo/facebook-registraciya-v-socialnoj-seti-fejsbuk-vxod-na-moyu-stranicu-optimizacii-stranicy-raskrutka.html">Facebook для новичков и вебмастеров</a></li>
+				 <li><a  href="http://ktonanovenkogo.ru/seo/smo/v-kontakte-vkontakte-socialnaya-set-registraciya-vxod-sozdanie-svoej-stranicy.html">В контакте - социальная сеть №1 в рунете</a></li>
+				 <li><a href="http://ktonanovenkogo.ru/zarabotok_na_saite/context/reklamnaya-set-yandeksa-akciya-profit-partner.html">Рекламная сеть Яндекса и миллионы рублей</a></li>
+				 <li><a  href="http://ktonanovenkogo.ru/seo/search/yandeks-yandex-kompaniya-poiskovaya-sistema-internet-portal-poisk-runet.html">Яндекс глазами пользователя и вебмастера</a></li>
+				 <li><a  href="http://ktonanovenkogo.ru/seo/search/google-gugl-istoriya-poiskovoj-sisteme.html">Google - история одного успеха</a></li>
+								 <li><a href="http://ktonanovenkogo.ru/seo/search/baza-trastovyx-sajtov-kak-prodvinut-sajt.html">База трастовых сайтов бесплатно именно для Вас</a></li>
+								 
+
+
+<li><a  href="http://ktonanovenkogo.ru/seo/search/kak-dobavit-sajt-v-katalogi-yandeks-google-dmoz-mail-ru-rambler-rambler-top100-aport.html">Яндекс Каталог, Dmoz, майл.ру и др.</a></li>
+<li><a  href="http://ktonanovenkogo.ru/seo/tic-pr-alexa/pokazateli-prodvizheniya-sajta-google-pagerank-pr-tematicheskij-indeks-citirovaniya-alexa-rank-tic-yandeksa.html">Про пузомерки ТИЦ, Виц и  Пр на пальцах</a></li>
+
+<li><a  href="http://ktonanovenkogo.ru/seo/search/pervyj-shag-v-raskrutke-sajta-registraciya-sajta-v-poiskovyx-sistemax-i-katalogax.html">Куда добавить свой новый сайт - аддурилки</a></li>
+				 
+				  <li><a  href="http://ktonanovenkogo.ru/web-obzory/yandeks-gugl-google-kartinki-poisk-po-izobrazheniyam.html">Как использовать Яндекс и Гугл поиск по картинкам</a></li>
+				 <li><a  href="http://ktonanovenkogo.ru/vokrug-da-okolo/programs/google-chrome-gugl-xrom-skachat-ustanovit-nastroit-samyj-bystryj-nadezhnyj-brauzer.html">Google Chrome - самый быстрый браузер</a></li>
+<li><a  href="http://ktonanovenkogo.ru/vokrug-da-okolo/programs/opera-skachat-ustanovit-nastroit-brauzer-kesh-temy-opera-link-config-eksperss-panel-pochta-obnovlenie.html">Браузер Opera и его заморочки</a></li>
+<li><a  href="http://ktonanovenkogo.ru/vokrug-da-okolo/programs/mozilla-firefox-mazila-faerfoks-skachat-ustanovit-nastroit-brauzer.html">Firefox (Мазила) - самый расширяемый браузер</a></li>
+<li><a  href="http://ktonanovenkogo.ru/vokrug-da-okolo/programs/yandeks-bar-skachat-ustanovit-yandeks-bar-dlya-mozilla-firefox-internet-explorer-opera-google-chrome.html">Яндекс. Бар - учимся его готовить</a></li>
+<li><a  href="http://ktonanovenkogo.ru/vokrug-da-okolo/programs/punto-switcher-skachat-besplatnyj-pereklyuchatel-raskladki-klaviatury-bufer-obmena-punto-svitcher-clipdiary-transliteraciya.html">Punto Switcher и его возможности</a></li>
+<li><a  href="http://ktonanovenkogo.ru/zarabotok_na_saite/dengi/webmoney-elektronnymi-dengami-registraciyaa-wm-keeper-classic.html">Вебмани (WebMoney) - погружение</a></li>
+<li><a  href="http://ktonanovenkogo.ru/zarabotok_na_saite/context/dobavlenie-kontekstnoj-reklamy-yandeks-direkt-rsya-sozdanie-koshelka-yandeks-dengi.html">Яндекс.Деньги - интернет валюта №2 в рунете</a></li>
+<li><a  href="http://ktonanovenkogo.ru/zarabotok_na_saite/context/yandex-direkt.html">Яндекс.Директ - повышаем посещаемость сайта</a></li>
+
+<li><a  href="http://ktonanovenkogo.ru/joomla/joomla-1-5/vybor-shablona-joomla-1-5-platnye-besplatnye-vzlomannye-skachat-shablony-joomla-ustanovit-aktivirovat-nastroit.html">Шаблоны для сайта на Joomla</a></li>
+<li><a  href="http://ktonanovenkogo.ru/joomla/virtuemart-joomla/ustanovka-komponenta-internet-magazina-virtuemart-reshenie-vozmozhnyx-problem.html">VirtueMart - бесплатный интернет магазин</a></li>
+<li><a  href="http://ktonanovenkogo.ru/vokrug-da-okolo/programs/notepad-plus-plus-tekstovyj-redaktor-podsvetkoj-sintaksisa-skachat-ustanovit-nastroit.html">Notepad ++ - удобный Html редактор</a></li>
+<li><a  href="http://ktonanovenkogo.ru/vokrug-da-okolo/webmaster/rabota-s-panelyami-vebmasterov-yandeksa-google-yahoo-bing-sitemap-robot-txt-indeks-zaprosy-chast-1.html">Яндекс Вебмастер - Ваш сайт глазами поисковика</a></li>
+<li><a  href="http://ktonanovenkogo.ru/joomla/joomla-1-5/ustanovka-joomla-1-5-v-detalyax-i-kartinkax-reshenie-vozmozhnyx-problem.html">Joomla 1.5 - установка и нюансы</a></li>
+<li><a  href="http://ktonanovenkogo.ru/vokrug-da-okolo/hosting/denwer-ustanovka-nastrojka-rabota-s-sajtom-i-bazoj-dannyx-na-lokalnom-servere-perenos-sajta-na-xos.html">Денвер - разработка сайта на своем ПК</a></li>
+<li><a  href="http://ktonanovenkogo.ru/seo/uluchshaem-indeksaciyu-sajta-poiskovikami-robots-txt-dlya-joomla-smf-wordpress-chast-2.html">Robots.txt и индексация сайта</a></li>
+<li><a  href="http://ktonanovenkogo.ru/zarabotok_na_saite/dengi/webmoney-keeper-classic-sozdanie-koshelkov-platezhi-avtorizaciya-na-sajtax-webmoney.html">Кошелек в WebMoney (валюта №1 в рунете)</a></li>
+<li><a  href="http://ktonanovenkogo.ru/zarabotok_na_saite/dengi/paypal-registraciya-v-platezhnoj-sisteme-chto-takoe-pajpal-rossii-ukrainy-kak-polzovatsya-popolnit-schet.html">Paypal - как платить в буржунете</a></li>
+
+
+
+
+
+                  </ul>
+                </li>
+              </ul>
+              </div> 
+             </div></div>
+         </div>
+		     
+      </div>	
+    </div>
+	 
+
+
+
+<div class="reklama">
+ <div class="siddd">Использую для заработка</div>
+ <ul >
+              
+<ul class="lampochka"><noindex>
+<li>
+ 
+              
+
+
+	<a rel="nofollow" title="Откроется в новом окне" target="_blank" href="http://profite-partner.ru/" onClick="this.href='http://profit-partner.ru/about/newbie/?r=1a70ef26b71ab876bbbe475874ad4066'">Яндекс Директ (P-P)</a>  - основной источник дохода для многих проектов;
+
+</li>
+
+
+<li>
+
+
+<a rel="nofollow" title="Откроется в новом окне" target="_blank" href="http://gogetlinks.net/" onClick="this.href='http://gogetlinks.net/?inv=5nrts2'">ГоГетЛинкс</a> -   можно зарабатывать не имея посещаемости;
+</li>
+<li>
+
+
+<a rel="nofollow" title="Откроется в новом окне" target="_blank" href="http://getgoodlinks.ru/" onClick="this.href='http://getgoodlinks.ru/?inv=46gsvm'">ГетГудЛинкс</a> - можно добавлять сайты с нулевым Тиц;
+
+</li>
+
+<li>
+
+<a rel="nofollow" title="Откроется в новом окне" target="_blank" href="http://www.miralinks.ru/" onClick="this.href='http://miralinks.ru/users/registration/from:96715'">МираЛинкс</a> - вам дают готовые статьи для сайта, да еще и доплачивают за это;
+</li>
+<li>
+
+<a rel="nofollow" title="Откроется в новом окне" target="_blank" href="http://www.megaindex.ru/" onClick="this.href='http://www.megaindex.ru/index.php?from=24845&tab=siteAnalyze'" >МегаИндекс</a>- бесплатный анализ сайта;
+</li></noindex>
+<li>
+<a  href="http://ktonanovenkogo.ru/seo/search/baza-trastovyx-sajtov-kak-prodvinut-sajt.html">База трастовых сайтов</a> - для продвижения своего сайта в Яндексе и Google.</li>
+</ul></ul> 
+
+              
+
+</div>
+
+<div style="margin:30px 10px 0 15px;background:#91CC41;padding:5px 0;"><form style="margin: 0 10px 0 20px;" action="http://ktonanovenkogo.ru/poisk-po-sajtu" method="get"><span class="p_with">Поиск:</span> <input type="hidden" name="searchid" value="137133"/><input name="text"/><input style="padding:5px 12px;margin:0 10px;" class="naity" type="submit" value="Найти"/></form>
+ 
+ 
+ 
+ </div>
+<div class="reklama1234">
+
+<ul>
+    <li>
+
+	<ul >
+
+
+<li><a  target="_blank" title="Рекомендации для начинающего веб-мастера. Создание сайта &ndash; руководство к действию." href="http://www.sdelaysite.com/">Блог Андрея Морковина</a></li>
+
+	</ul>
+</li>
+
+  </ul>
+
+  
+  </div>
+
+	<noindex><div class="baner">
+	<script id="top100Counter" type="text/javascript" src="http://counter.rambler.ru/top100.jcn?1854638"></script>
+<noscript>
+<a rel="nofollow" href="http://top100.rambler.ru/navi/1854638/">
+<img src="http://counter.rambler.ru/top100.cnt?1854638" alt="Rambler's Top100" border="0" />
+</a>
+
+</noscript>
+<a target="_blank" rel="nofollow" href="http://www.liveinternet.ru/stat/ktonanovenkogo.ru/" > <img src="http://ktonanovenkogo.ru/image/logo.png" title="LiveInternet" border="0" width="31" height="31"/></a>
+
+<!--Openstat-->
+<span id="openstat2035557"></span>
+<script type="text/javascript">
+var openstat = { counter: 2035557, image: 5065, next: openstat };
+(function(d, t, p) {
+var j = d.createElement(t); j.async = true; j.type = "text/javascript";
+j.src = ("https:" == p ? "https:" : "http:") + "//openstat.net/cnt.js";
+var s = d.getElementsByTagName(t)[0]; s.parentNode.insertBefore(j, s);
+})(document, "script", document.location.protocol);
+</script>
+<!--/Openstat-->
+
+</div>
+
+</noindex> 
+
+ 
+
+    <div class="sidebar_bottom"></div>
+
+		
+
+	
+	</div>
+
+
+<!--sidebar.php end-->
+<!--include footer-->
+</div>
+<!--content-wrap end -->
+
+
+<div id="footer" class="clearfix">
+  <div id="footer-in"  >
+      <ul id="flinks">
+      <li   class="current_page_item page_item"><a href="http://ktonanovenkogo.ru/">Главная</a></li>
+     <li class="page_item page-item-4694"><a href="http://ktonanovenkogo.ru/reklama-na-bloge">Реклама</a></li>
+<li class="page_item page-item-2493"><a href="http://ktonanovenkogo.ru/videokursy">Видео</a></li>
+<li class="page_item page-item-5276"><a href="http://ktonanovenkogo.ru/poisk-po-sajtu">Поиск</a></li>
+<li class="page_item page-item-3019"><a href="http://ktonanovenkogo.ru/faq">ЧаВо</a></li>
+<li class="page_item page-item-2"><a href="http://ktonanovenkogo.ru/about">О блоге</a></li>
+<li class="page_item page-item-348"><a href="http://ktonanovenkogo.ru/obratnay-svyz">Контакты</a></li>
+<li class="page_item page-item-5691"><a href="http://ktonanovenkogo.ru/uroki-sozdaniya-sajta">Секреты</a></li>
+<li class="page_item page-item-252"><a href="http://ktonanovenkogo.ru/karta-sajta">Сборник</a></li>
+<li class="current_page_item page_item"><a target="_blank" rel="nofollow" class="current_page_item page_item" href="http://ktonanovenkogo.ru/navigator/">Вам повезет</a></li><li class="current_page_item page_item"><a class="current_page_item page_item" href="#" onClick="scroll(0,0); return false">Наверх</a></li>
+    </ul><p class="alignleft" style="margin:20px 0 -10px 0;">&copy;  2009 KtoNaNovenkogo.ru – все для начинающих вебмастеров | Создание и продвижение сайтов, блогов, форумов, интернет-магазинов, заработок на сайте  Все права защищены   </p> 
+  </div>
+  <!--footer-in end-->
+</div>
+
+  <!--footer-in end--> 
+</div>
+<!--footer end-->
+<script type='text/javascript' src='http://ktonanovenkogo.ru/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shCore.js?ver=3.0.83c'></script>
+<script type='text/javascript' src='http://ktonanovenkogo.ru/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPhp.js?ver=3.0.83c'></script>
+<script type='text/javascript'>
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var themecssurl = "?ver=3.0.83c";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['auto-links'] = false;
+	SyntaxHighlighter.defaults['pad-line-numbers'] = true;
+	SyntaxHighlighter.defaults['smart-tabs'] = false;
+	SyntaxHighlighter.defaults['tab-size'] = 8;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.defaults['wrap-lines'] = false;
+	SyntaxHighlighter.all();
+</script>
+</div>
+<script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+<!-- Yandex.Metrika counter -->
+<div style="display:none;"><script type="text/javascript">
+(function(w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter54571 = new Ya.Metrika({id:54571, enableAll: true,type:1});
+        }
+        catch(e) { }
+    });
+})(window, "yandex_metrika_callbacks");
+</script></div>
+<script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+<noscript><div><img src="//mc.yandex.ru/watch/54571?cnt-class=1" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+</body></html>

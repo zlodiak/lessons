@@ -1,0 +1,2276 @@
+<!DOCTYPE html>
+<!-- saved from url=(0032)http://habrahabr.ru/post/180857/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script type="text/javascript" async="" src="./Как я боролся с Sublime Text 2   Хабрахабр_files/watch.js"></script><script async="" src="./Как я боролся с Sublime Text 2   Хабрахабр_files/analytics.js"></script>
+    
+    <meta content="width=1024" name="viewport">
+    
+    
+    <title>Как я боролся с Sublime Text 2 / Хабрахабр</title>
+    
+    <meta name="yandex-verification" content="67d46b975fa41645"> <!-- яндекс вебмастер - верификация -->
+
+    <meta name="description" content="
+Привет! Если ты это читаешь, значит знаешь, что такое Sublime Text 2 или слышал о нем хоть, что-то.
+
+Сегодня пойдет речь о том, как я его настраивал и мучал свои мозги. Тут все будет легко, все...">    
+    <meta name="keywords" content="Sublime Text, sublime text 2">
+    
+    	<meta property="fb:app_id" content="444736788986613"> 
+<meta property="og:type" content="article"> 
+<meta property="og:url" content="http://habrahabr.ru/post/180857/"> 
+<meta property="og:title" content="Как я боролся с Sublime Text 2"> 
+	<meta property="og:image" content="http://habrastorage.org/storage2/610/4bb/4d8/6104bb4d883e0bcb07ceca9dc8210ef6.png">
+	<link rel="image_src" href="./Как я боролся с Sublime Text 2   Хабрахабр_files/6104bb4d883e0bcb07ceca9dc8210ef6.png"><meta property="og:image" content="http://habrastorage.org/storage2/90f/95c/1c0/90f95c1c0926090dcdd0e3c0b1d575fc.png">
+	<link rel="image_src" href="./Как я боролся с Sublime Text 2   Хабрахабр_files/90f95c1c0926090dcdd0e3c0b1d575fc.png"><meta property="og:image" content="http://habrastorage.org/storage2/7e7/94c/c41/7e794cc41c36d818d5a4522f16d7d7ca.png">
+	<link rel="image_src" href="./Как я боролся с Sublime Text 2   Хабрахабр_files/7e794cc41c36d818d5a4522f16d7d7ca.png"><meta property="og:image" content="http://habrastorage.org/storage2/918/bef/f22/918beff22cc31d8817dcf73c6245ae5b.png">
+	<link rel="image_src" href="./Как я боролся с Sublime Text 2   Хабрахабр_files/918beff22cc31d8817dcf73c6245ae5b.png"><meta property="og:image" content="http://habrastorage.org/storage2/4cb/3be/65a/4cb3be65ad0881d59826f96e14e33212.png">
+	<link rel="image_src" href="./Как я боролся с Sublime Text 2   Хабрахабр_files/4cb3be65ad0881d59826f96e14e33212.png"><meta property="og:image" content="http://habrastorage.org/storage2/2a8/ffe/571/2a8ffe571e443534ab4b15082fc12fd6.png">
+	<link rel="image_src" href="./Как я боролся с Sublime Text 2   Хабрахабр_files/2a8ffe571e443534ab4b15082fc12fd6.png"><meta property="og:image" content="http://habrastorage.org/storage2/442/e58/f0b/442e58f0b72f0a3bb5190a7d170c4807.png">
+	<link rel="image_src" href="./Как я боролся с Sublime Text 2   Хабрахабр_files/442e58f0b72f0a3bb5190a7d170c4807.png"><meta property="og:image" content="http://habrastorage.org/storage2/f95/882/5a8/f958825a89c5e8a68c1d840bd6288929.png">
+	<link rel="image_src" href="./Как я боролся с Sublime Text 2   Хабрахабр_files/f958825a89c5e8a68c1d840bd6288929.png"><meta property="og:image" content="http://habrastorage.org/storage2/538/b12/ecd/538b12ecd919f9afc88fdd1669e5789e.png">
+	<link rel="image_src" href="./Как я боролся с Sublime Text 2   Хабрахабр_files/538b12ecd919f9afc88fdd1669e5789e.png"><meta property="og:image" content="http://habrastorage.org/storage2/faf/e66/a2a/fafe66a2a205cf66170666057b512efc.png">
+	<link rel="image_src" href="./Как я боролся с Sublime Text 2   Хабрахабр_files/fafe66a2a205cf66170666057b512efc.png"><meta property="og:image" content="http://habrastorage.org/storage2/290/727/56d/29072756d76e5fcd5af6f7e0b76ed7d2.png">
+	<link rel="image_src" href="./Как я боролся с Sublime Text 2   Хабрахабр_files/29072756d76e5fcd5af6f7e0b76ed7d2.png"><meta property="og:image" content="http://habrastorage.org/storage2/408/115/012/40811501242b6fe3d294f20295b129b7.png">
+	<link rel="image_src" href="./Как я боролся с Sublime Text 2   Хабрахабр_files/40811501242b6fe3d294f20295b129b7.png">
+	
+<meta property="og:description" content="Привет! Если ты это читаешь, значит знаешь, что такое Sublime Text 2 или слышал о нем хоть, что-то.  Сегодня пойдет речь о том, как я его настраивал и мучал...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@habrahabr">
+	<meta property="al:ios:url" content="habrahabr://post/180857">
+<meta property="al:ios:app_store_id" content="778613673">
+<meta property="al:ios:app_name" content="Habrahabr">
+<meta property="al:android:url" content="habrahabr://post/180857">
+<meta property="al:android:app_name" content="Habrahabr">
+<meta property="al:android:package" content="ru.habrahabr">
+<meta property="al:windows_phone:url" content="habrahabr://post/180857">
+<meta property="al:windows_phone:app_name" content="Habrahabr">
+<meta property="al:windows_phone:app_id" content="460a6bd6-8955-470f-935e-9ea1726a6060">
+
+
+      <link href="http://habrahabr.ru/styles/1404995907/all.css" rel="stylesheet" media="all">
+  
+    <link href="http://habrahabr.ru/styles/1404995907/_parts/navbar.css" rel="stylesheet" media="all">
+
+      <link href="http://habrahabr.ru/styles/1404995907/_parts/posts.css" rel="stylesheet" media="all">
+  <link href="http://habrahabr.ru/styles/1404995907/_parts/comments.css" rel="stylesheet" media="all">
+  <link href="http://habrahabr.ru/styles/1404995907/forms.css" rel="stylesheet" media="all">
+  <link href="http://habrahabr.ru/styles/1404995907/highlight.css" rel="stylesheet" media="all">
+
+
+    <link href="http://habrahabr.ru/styles/1404995907/printer.css" rel="stylesheet" media="print">
+
+    
+    
+
+      <script src="./Как я боролся с Sublime Text 2   Хабрахабр_files/all.js"></script>
+    <script src="./Как я боролся с Sublime Text 2   Хабрахабр_files/_navbar.js"></script>
+
+
+      <script type="text/javascript" src="./Как я боролся с Sublime Text 2   Хабрахабр_files/jquery.form.js"></script>
+  <script type="text/javascript" src="./Как я боролся с Sublime Text 2   Хабрахабр_files/jquery.cookie.js"></script>
+  <script type="text/javascript" src="./Как я боролся с Sublime Text 2   Хабрахабр_files/wysiwyg.js"></script>
+  <script type="text/javascript" src="./Как я боролся с Sublime Text 2   Хабрахабр_files/highlight.js"></script>
+  <script type="text/javascript" src="./Как я боролся с Sublime Text 2   Хабрахабр_files/jquery-ui-highlight.js"></script>
+  <script type="text/javascript" src="./Как я боролся с Sublime Text 2   Хабрахабр_files/posts.js"></script>
+  <script type="text/javascript" src="./Как я боролся с Sublime Text 2   Хабрахабр_files/comments.js"></script>
+  <script type="text/javascript" src="./Как я боролся с Sublime Text 2   Хабрахабр_files/all(1).js"></script>
+
+
+      <!-- www.criteo.com/ru -->
+<script type="text/javascript">
+  var crtg_nid="2580";
+  var crtg_cookiename="cto_rtt";
+  var crtg_varname="crtg_content";
+  function crtg_getCookie(c_name){
+    var i,x,y,ARRCookies=document.cookie.split(";");
+    for(i=0;i<ARRCookies.length;i++){
+      x=ARRCookies[i].substr(0,ARRCookies[i].indexOf("="));
+      y=ARRCookies[i].substr(ARRCookies[i].indexOf("=")+1);
+      x=x.replace(/^\s+|\s+$/g,"");
+      if(x==c_name){return unescape(y);}
+    }
+    return'';
+  }
+  var crtg_content = crtg_getCookie(crtg_cookiename);var crtg_rnd=Math.floor(Math.random()*99999999999);
+  var crtg_url=location.protocol+'//rtax.criteo.com/delivery/rta/rta.js?netId='+escape(crtg_nid);crtg_url+='&cookieName='+escape(crtg_cookiename);crtg_url+='&rnd='+crtg_rnd;crtg_url+='&varName=' + escape(crtg_varname);
+  var crtg_script=document.createElement('script');crtg_script.type='text/javascript';crtg_script.src=crtg_url;crtg_script.async=true;
+  if(document.getElementsByTagName("head").length>0)document.getElementsByTagName("head")[0].appendChild(crtg_script);
+  else
+  if(document.getElementsByTagName("body").length>0)document.getElementsByTagName("body")[0].appendChild(crtg_script);
+</script><script type="text/javascript" src="./Как я боролся с Sublime Text 2   Хабрахабр_files/rta.js" async=""></script>
+      <script>
+        var N = 5;
+        var ar_duo1 = Math.floor(Math.random()*N+1);
+      </script>
+      <script type="text/javascript" src="./Как я боролся с Sublime Text 2   Хабрахабр_files/adriver.core.2.js"></script>
+
+    <link title="Хабрахабр / Комментарии к публикации «Как я боролся с Sublime Text 2»" type="application/rss+xml" rel="alternate" href="http://habrahabr.ru/rss/post/180857/">
+        
+    
+    
+<script type="text/javascript">
+
+    var user_type = "guest";
+    var username = 'guest';
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+    ga('create', 'UA-726094-1',  'auto' ); 
+
+  ga('require', 'displayfeatures');
+  ga('set', 'dimension1', user_type); // user type - guest/readonly/habrauser
+  ga('set', 'dimension2', username); // username
+
+
+  ga('send', 'pageview');
+  
+</script>
+
+
+
+<script type="text/javascript">
+var pp_gemius_identifier = new String('p8zr4.NqiIZJgD2cnP2s5fWWnIQFHrAvZ280B955gIr.f7');
+</script>
+<script src="./Как я боролся с Sublime Text 2   Хабрахабр_files/gemius.js"></script>
+
+
+
+
+
+
+
+    
+    <meta content="Хабрахабр" name="apple-mobile-web-app-title">
+<link href="http://habrahabr.ru/images/apple-touch-icon_142x142.png" rel="apple-touch-icon" type="image/png">
+
+
+
+  </head>
+
+  <body>
+    
+    <div id="layout">
+      <div id="navbar_overlay" class="hidden"></div>
+<div id="navbar">
+    <div class="nav_panel">
+        <a href="http://habrahabr.ru/" class="logo"></a>
+
+            <a href="http://habrahabr.ru/posts/" class="tab tab_menu" data-tab="menu_tab" title="Меню"></a>
+            <a href="https://habrahabr.ru/auth/login/" class="tab tab_login" id="login" title="Войти"></a>
+
+        <a href="http://habrahabr.ru/post/180857/#" class="scroll_to_up scroll_to_up_for_guest" id="scroll_to_top" title="Наверх"></a>
+    </div>
+    <div class="nav_tabs_content ">
+        
+        <div class="nav_tab hidden" id="menu_tab">
+            <div class="title">Разделы</div>
+            <form action="http://habrahabr.ru/search/" method="get" class="global_search_form">
+                <div>
+                    <input type="text" name="q" placeholder="Поиск">
+                </div>
+            </form>
+            <div class="menu">
+                <a href="http://habrahabr.ru/posts/top/">Посты</a>
+                <a href="http://habrahabr.ru/hubs/">Хабы</a>
+                <a href="http://habrahabr.ru/companies/">Компании</a>
+                <a href="http://habrahabr.ru/users/">Пользователи</a>
+                <a href="http://toster.ru/?utm_source=tm_habrahabr&utm_medium=tm_menu&utm_campaign=tm_promo" class="new_window">Q&amp;A</a>
+                <a href="http://habrahabr.ru/sandbox/">Песочница</a>
+                
+
+            </div>
+
+            
+
+                    <div class="line"></div>
+                    <div class="title">Спецпроекты</div>
+                    <div class="menu">
+
+                    <a href="http://habrahabr.ru/lnk/17/">LG G3</a>
+
+                    <a href="http://habrahabr.ru/lnk/15/">Nokia</a>
+
+                    <a href="http://habrahabr.ru/lnk/7/">М.Видео</a>
+                    </div>
+
+                
+        </div>
+
+        
+    </div>
+</div>
+      <div class="inner">
+        
+                
+        
+
+        	
+  <div class="content_left">
+  	
+
+
+
+
+
+    <div class="post_show">
+  	  
+  <div class="post shortcuts_item" id="post_180857">
+  	<div class="published">24 мая 2013 в 19:42</div>  
+    <h1 class="title">
+    
+      
+      
+
+      
+        <span class="post_title">Как я боролся с Sublime Text 2</span>
+			
+  		<a href="http://habrahabr.ru/sandbox/" class="flag flag_sandbox" title="Перейти в песочницу">из песочницы</a>
+			
+			<span class="flag flag_tutorial" title="Обучающий материал">tutorial</span>
+
+  	</h1>
+  	
+  	<div class="hubs">
+		<a href="http://habrahabr.ru/hub/mass_media/" class="hub " title="Вы не подписаны на этот хаб">Медиа</a>, 
+		<a href="http://habrahabr.ru/hub/compilers/" class="hub " title="Вы не подписаны на этот хаб">Компиляторы</a><span class="profiled_hub" title="Профильный хаб">*</span>, 
+		<a href="http://habrahabr.ru/hub/webdev/" class="hub " title="Вы не подписаны на этот хаб">Веб-разработка</a><span class="profiled_hub" title="Профильный хаб">*</span>
+</div>
+
+  	
+    <div class="content html_format">
+			<img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/6104bb4d883e0bcb07ceca9dc8210ef6.png"><br>
+Привет! Если ты это читаешь, значит знаешь, что такое Sublime Text 2 или слышал о нем хоть, что-то.<br>
+<br>
+Сегодня пойдет речь о том, как я его настраивал и мучал свои мозги. Тут все будет легко, все будет разложено по полочкам, но как я доставал инфу на разных зарубежных форумах, пересматривал все файлы, что бы найти эти настройки — это просто пипец, мягко говоря. Ладно, не буду больше жаловаться, приступим. <br>
+<br>
+И так, я расскажу про то, как я:<br>
+1. Боролся с кодировкой при открытии. При открытии фала с кодировкой windows-1251, русские буквы превращались в кракозябры.<br>
+2. Установка словаря, для подсветки, если не правильно написал слово.<br>
+3. Установка плагина SFTP и подключение к серверу.<br>
+<br>
+Поехали!<a name="habracut"></a><br>
+<br>
+<h4>1. Давайте разберемся кодировкой</h4><br>
+<br>
+я прочитал уйму информации в интернете как это сделать, пытался делать не получалось, не знаю, то ли версия не та, то ли слоупок, так к чему я веду, изо всей предоставленной информации которую я нашел, я извлек только, то, что нужно что-то, где-то изменить, я вот я полез по всем файлам и искать какие нибудь строчки с напоминанием про кодировку, либо название самой кодировки.<br>
+Немного пробежавшись по файлам, я наконец-то нашел, то, что мне нужно и это был файл «Preferences.sublime-settings», он находится в «C:\Users\ваш логин\AppData\Roaming\Sublime Text 2\Packages\Default», открываем его и ищем<br>
+<pre><code class="php"><span class="comment">// The encoding to use when the encoding can't be determined automatically.</span>
+<span class="comment">// ASCII, UTF-8 and UTF-16 encodings will be automatically detected.</span>
+<span class="string">"fallback_encoding"</span>: <span class="string">"Western (Windows 1251)"</span>,
+</code></pre><br>
+<br>
+я правда не помню какая там была кодировка, но вроде эта, так вот нам строчку:<br>
+<br>
+<pre><code class="php"><span class="string">"fallback_encoding"</span>: <span class="string">"Western (Windows 1251)"</span>,
+</code></pre><br>
+<br>
+надо заменить на<br>
+<br>
+<pre><code class="php"><span class="string">"fallback_encoding"</span>: <span class="string">"Cyrillic (Windows 1251)"</span>,
+</code></pre><br>
+<br>
+Нажимаем сочетания клавиш Ctrl+S, перезагружаем ST2, и радуемся жизни.<br>
+<br>
+<h4>2. Установка словарей</h4><br>
+<br>
+Тут я то же все для вас упросил, не надо качать кучу не нужных файлов изменять их, адаптировать и т.д, нужно скачать 2 файла и закинуть их в папку.<br>
+<br>
+Качаем архив — <a href="https://www.dropbox.com/s/2ry9yf1fzix3gy4/russian_english.zip?v=0swn-">Скачать</a><br>
+Два файла которые там лежат, закидываем в папку <b>%appdata%/Sublime Text 2/Packages/</b><br>
+Теперь нам их надо поставить <b>Вид → Словарь → russian_english (View→ Dictionary → russian_english)</b> и включаем режим проверки орфографии <b>F6</b><br>
+<img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/90f95c1c0926090dcdd0e3c0b1d575fc.png"><br>
+<br>
+и проверяем <img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/7e794cc41c36d818d5a4522f16d7d7ca.png"><br>
+<br>
+<b>Но есть проблема:</b> словарь не предлагает вариантов для замены, Sublime Text 2 подчеркивает, но варианты исправления не дает.<br>
+<br>
+<b>3. Установка плагина SFTP и подключение к серверу.</b><br>
+<br>
+Для того, что бы нам установить SFTP, нам понадобится "<b>Sublime Package Control</b>", давайте для начала установим его.<br>
+Открываем консоль сочетанием клавиш <b>ctrl</b>+<b>`</b> во открывшуюся консоль вставляем следующие строчки:<br>
+<br>
+<pre><code class="php">import urllib2,os; pf=<span class="string">'Package Control.sublime-package'</span>; ipp=sublime.installed_packages_path(); os.makedirs(ipp) <span class="keyword">if</span> not os.path.exists(ipp) <span class="keyword">else</span> None; urllib2.install_opener(urllib2.build_opener(urllib2.ProxyHandler())); open(os.path.join(ipp,pf),<span class="string">'wb'</span>).write(urllib2.urlopen(<span class="string">'http://sublime.wbond.net/'</span>+pf.replace(<span class="string">' '</span>,<span class="string">'%20'</span>)).read()); <span class="keyword">print</span>(<span class="string">'Please restart Sublime Text to finish installation'</span>)
+</code></pre><br>
+Эта команда создает Installed Packages папку (при необходимости), а затем загружает <b>Package Control.sublime-package</b> в него.<br>
+<br>
+Перезапускаем программу.<br>
+<br>
+Осталось немного.Запускаем программу.<br>
+<br>
+Идем сюда:<br>
+<img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/918beff22cc31d8817dcf73c6245ae5b.png"><br>
+<br>
+И нажимаем на «Package Control», далее мы видим:<br>
+<img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/4cb3be65ad0881d59826f96e14e33212.png"><br>
+<br>
+Выбираем Install Packages, у нас появляется окно с поиском, туда вводим «sftp» и выбираем первый запрос<br>
+<img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/2a8ffe571e443534ab4b15082fc12fd6.png"><br>
+<br>
+разу начнется загрузка плагина, внизу, вы сможете увидеть, что-то типо этого <img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/442e58f0b72f0a3bb5190a7d170c4807.png"><br>
+ну и потом слова о завершении операции.<br>
+Все, установили.<br>
+<br>
+Идем создавать подключение, для этого нам надо создать файл настроек для этого идем(см.карт. ниже)<br>
+<img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/f958825a89c5e8a68c1d840bd6288929.png"><br>
+<br>
+У нас откроется новая вкладка<br>
+<img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/538b12ecd919f9afc88fdd1669e5789e.png"><br>
+<br>
+1. Тут вместо «fstp» ставим «ftp»<br>
+2. Это ваш хост, к которому вы подключаетесь<br>
+3. Ваш логин для подключения<br>
+4. Если вы подключаетесь «анонимно», то оставляем как есть. Если же вам нужно ввести пароль, то раскомментируем эту строчку и пишем ваш пароль.<br>
+5. Порт, если надо, то же раскомментируем.<br>
+6. Тут у меня были проблемы с подключением, не буду объяснять, че и как, напишу просто. Вам тут нужно просто выйти на главный каталог, а для этого вместо "/example/path/", пишем "/" и все. Жмем ctrl+s и идем дальше.<br>
+<br>
+Теперь для того, что бы подключиться мы идем сюда(см.картинку ниже)<br>
+<img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/fafe66a2a205cf66170666057b512efc.png"><br>
+<br>
+У вас вылазит такое окошко и вы видите там ваш сервер, нажимаете на него и коннектитесь.<br>
+<img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/29072756d76e5fcd5af6f7e0b76ed7d2.png"><br>
+<br>
+<img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/40811501242b6fe3d294f20295b129b7.png"><br>
+<br>
+Вот это ваши папки, ну что с ними делать я думаю вы поймете.<br>
+<br>
+Спасибо!
+			<div class="clear"></div>
+    </div>
+
+    
+<ul class="tags">
+	<li><a href="http://habrahabr.ru/search/?q=%5BSublime%20Text%5D&target_type=posts" rel="tag">Sublime Text</a></li><li>, <a href="http://habrahabr.ru/search/?q=%5Bsublime%20text%202%5D&target_type=posts" rel="tag">sublime text 2</a></li>
+</ul>
+
+		<div class="infopanel_wrapper">
+	<div class="infopanel " id="infopanel_post_180857">
+	
+				<div class="voting   ">
+	
+						<span class="plus" title="Голосовать могут только зарегистрированные пользователи."></span>
+	
+					<div class="mark  negative">
+							<span class="score" title="Всего 48: ↑13 и ↓35">–22</span>
+					</div>
+					
+						<span class="minus" title="Голосовать могут только зарегистрированные пользователи."></span>
+		
+				</div>
+	
+		<div class="pageviews" title="Просмотры поста">44495</div>
+			
+		<div class="favorite">
+				<a class="guest" href="http://habrahabr.ru/post/180857/#" onclick="return false;" title="Только зарегистрированные пользователи могут добавлять посты в избранное"></a>
+		</div>
+		<div class="favs_count" title="Количество пользователей, добавивших пост в избранное">101</div>
+		
+		
+		
+	
+	
+	
+	
+				<div class="author">
+					<a title="Автор текста" href="http://habrahabr.ru/users/kaktyc0913/">kaktyc0913</a>
+					<span class="rating" title="рейтинг пользователя">–0,5</span>
+				</div>
+		
+	
+	
+		
+			<div class="share">
+				<div class="twitter">
+					<a href="http://twitter.com/intent/tweet?text=%D0%9A%D0%B0%D0%BA+%D1%8F+%D0%B1%D0%BE%D1%80%D0%BE%D0%BB%D1%81%D1%8F+%D1%81+Sublime+Text+2+http://habr.ru/p/180857/+via+%40habrahabr+%23habr" title="Опубликовать ссылку в Twitter" target="_blank"></a>
+				</div>
+				<div class="vkontakte">
+					<a href="http://vk.com/share.php?url=http://habrahabr.ru/post/180857/" title="Опубликовать ссылку во ВКонтакте" onclick="window.open(this.href, &#39;Опубликовать ссылку во Вконтакте&#39;, &#39;width=800,height=300&#39;); return false"></a>
+				</div>
+				<div class="facebook">
+					<a href="https://www.facebook.com/sharer/sharer.php?u=http://habrahabr.ru/post/180857/" title="Опубликовать ссылку в Facebook" onclick="window.open(this.href, &#39;Опубликовать ссылку в Facebook&#39;, &#39;width=640,height=436,toolbar=0,status=0&#39;); return false"></a>
+				</div>
+				<div class="googleplus">
+					<a href="https://plus.google.com/share?url=http://habrahabr.ru/post/180857/" title="Опубликовать ссылку в Google Plus" onclick="window.open(this.href, &#39;Опубликовать ссылку в Google Plus&#39;, &#39;width=800,height=300&#39;); return false"></a>
+				</div>
+			</div>
+	
+	</div>
+	<div class="clear"></div>
+</div>
+
+
+
+
+    
+		
+	</div>
+
+    </div>
+
+  	    
+    <div id="adriver_banner_132032996" title=""><style type="text/css">
+    .post_inner_banner.kaspersky3_inner_banner { display:block;overflow:hidden;text-align:center;height:69px;border:1px solid #d4d4d4;border-radius:15px;background:url(/images/posts/inner_post_banner/kaspersky/right.png) no-repeat right -80px center; }
+    .post_inner_banner.kaspersky3_inner_banner a { display:block; }
+    .post_inner_banner.kaspersky3_inner_banner div { display:block;float:left;text-align:left; }
+    .post_inner_banner.kaspersky3_inner_banner .kas_left { background:url(/images/posts/inner_post_banner/kaspersky/left2.png) no-repeat;width:174px;height:69px;}
+    .post_inner_banner.kaspersky3_inner_banner .slogan { margin:0 20px 0 20px;color:#000;padding-top:9px;height:69px;font-size:13px;line-height:22px;}
+    .post_inner_banner.kaspersky3_inner_banner .slogan span.arr { display:inline-block;vertical-align:top;width:18px;height:27px;background:url(/images/posts/inner_post_banner/kaspersky/arr.png) no-repeat 0 4px;padding-right:7px; }
+    .post_inner_banner.kaspersky3_inner_banner .slogan span.bg { display:inline-block;line-height:23px;background:#197b66;padding:2px 3px;font-size:18px;color:#fff; }
+    .post_inner_banner.kaspersky3_inner_banner .button { margin:14px 0 0 40px;display:block;float:left;background: #d22b26 url(/images/posts/inner_post_banner/kaspersky/button.arr.png) no-repeat 130px 13px;width:160px;height:40px;border-radius:5px;font:18px/38px Verdana, Arial;color:#fff;padding-left:20px;text-align:left;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box; }
+    .post_inner_banner.kaspersky3_inner_banner .button:hover { background-color: #b52420; }
+
+    @media (max-width: 1340px) {
+        .post_inner_banner.kaspersky3_inner_banner .button { margin-left: 20px;text-indent: -9999px;width: 40px;background-position: center center; }
+    }
+    @media (max-width: 1260px) {
+        .post_inner_banner.kaspersky3_inner_banner .slogan { margin:0 10px 0 10px; }
+        .post_inner_banner.kaspersky3_inner_banner .button { margin-left: 10px; }
+    }
+    @media (max-width: 1140px) {
+        .post_inner_banner.kaspersky3_inner_banner .slogan { width: 275px;line-height: 15px;padding-top:6px; }
+        .post_inner_banner.kaspersky3_inner_banner .button { margin-left: 5px; }
+    }
+</style>
+<div class="kaspersky3_inner_banner post_inner_banner">
+    <a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&ad=476918&bt=21&pid=1687278&bid=3443021&bn=3443021&rnd=1195915296" target="_blank" class="block_url">
+        <div class="kas_left"></div>
+        <div class="slogan">
+            <span class="arr"></span><span class="bg">Малина для админа!</span> –<br>
+            При регистрации с промо-кодом <b>ON305</b> — бонус 100 баллов!
+        </div>
+        <div class="button">Подробнее</div>
+    </a>
+</div></div>  
+
+  <script type="text/javascript">
+      /** Для блоков гугла **/
+      function requireAdsafe(file){
+          var head = document.getElementsByTagName("head")[0];
+          var script = document.createElement('script');
+          script.src = file;
+          script.type = 'text/javascript';
+          head.appendChild(script);
+      }
+
+      function show_inner_banner_block(name, url){
+          if( typeof(name) !== 'undefined'){
+              $.get('/html/'+name+'/1404995907/', function(html){
+                  $('#adriver_banner_132032996').html(html);
+                  $('.'+name+'_inner_banner').removeClass('hidden');
+                  if( typeof(url) !== 'undefined'){
+                      $('.'+name+'_inner_banner .block_url').attr('href', url);
+                  }
+
+                  if (name == 'google') {
+                      new Image().src = 'http://ad.doubleclick.net/jump/N5295.197836HABRAHABR.RU/B8185867.109918092;sz=1x1;ord=![rnd]';
+                      requireAdsafe('http://pixel.adsafeprotected.com/rjss/st/28047/2559986/skeleton.js');
+                  }
+
+                  if (name == 'google2') {
+                      new Image().src = 'https://ad.doubleclick.net/ad/N5295.197836HABRAHABR.RU/B8064776.109574175;sz=1x1;ord=![rnd]';
+                      requireAdsafe('https://pixel.adsafeprotected.com/rjss/st/25624/2476044/skeleton.js');
+                  }
+
+                  if (name == 'google3') {
+                      new Image().src = 'http://ad.doubleclick.net/jump/N5295.197836HABRAHABR.RU/B8185867.109918090;sz=1x1;ord=![rnd]';
+                      requireAdsafe('http://pixel.adsafeprotected.com/rjss/st/28047/2559984/skeleton.js');
+                  }
+
+                  if (name == 'google4') {
+                      new Image().src = 'https://ad.doubleclick.net/ad/N5295.197836HABRAHABR.RU/B8064776.109574176;sz=1x1;ord=![rnd]';
+                      requireAdsafe('https://pixel.adsafeprotected.com/rjss/st/25624/2476046/skeleton.js');
+                  }
+              })
+          }
+      }
+
+        $(function(){
+            var keyword = '';
+            if (typeof crtg_content !== 'undefined' && crtg_content) { keyword = crtg_content; }
+            var custom = { 4:ar_duo1 };
+                custom[1] = 'mass_media';
+                custom[2] = 'compilers';
+                custom[3] = 'webdev';
+
+            /* Антоша не удаляй это условие блеать! Как я тестить буду? */
+            //if (true)
+            //    show_inner_banner_block('beeline_ios2');
+            //else
+                new adriver("adriver_banner_132032996", {sid: 176776, bt: 52, bn: 3, custom: custom, keyword: keyword});
+        });
+    </script>
+    
+
+
+  	
+  		<div class="comments_list " id="comments">
+
+  <h2 class="title ">Комментарии (<span id="comments_count">29</span>)
+  
+  
+  </h2>
+
+    <div class="comment_item" id="comment_6279855">
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="6279855">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_6279855" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 1: ↑1 и ↓0">+1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/sdevalex/" class="avatar"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/2ef9dc9a659eece615cb5a29362e2284_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/sdevalex/" class="username">sdevalex</a><span class="comma">,</span>
+            <time>24 мая 2013 в 19:45</time>
+
+            <a href="http://habrahabr.ru/post/180857/#comment_6279855" class="link_to_comment">#</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Спалили код DLE, там лицензия не запрещает его распространение?
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_6279855">
+        <div class="comment_item" id="comment_6279859">
+
+    <span class="parent_id" data-parent_id="6279855"></span>
+    <div class="comment_body">
+        <div class="info  is_topic_starter  " rel="6279859">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_6279859" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 3: ↑2 и ↓1">+1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/kaktyc0913/" class="avatar"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/0a5c51b5fe151a2f3ad318497959ed13_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/kaktyc0913/" class="username">kaktyc0913</a><span class="comma">,</span>
+            <time>24 мая 2013 в 19:46</time>
+
+            <a href="http://habrahabr.ru/post/180857/#comment_6279859" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="6279859" data-parent_id="6279855" title="Показать ветку комментариев">↵</div>
+                <a href="http://habrahabr.ru/post/180857/#comment_6279855" data-id="6279859" data-parent_id="6279855" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Это не код DLE, это код модуля, который написан для DLE. Не путайте ;)
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_6279859">
+        <div class="comment_item" id="comment_6280227">
+
+    <span class="parent_id" data-parent_id="6279859"></span>
+    <div class="comment_body">
+        <div class="info  " rel="6280227">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_6280227" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  negative">
+                    <span class="score" title="Всего 5: ↑2 и ↓3">–1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/BR0kEN/" class="avatar"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/8c154cb71ce0664a958f0440f0698c52_small.png" alt=""></a>
+            <a href="http://habrahabr.ru/users/BR0kEN/" class="username">BR0kEN</a><span class="comma">,</span>
+            <time>24 мая 2013 в 21:53</time>
+
+            <a href="http://habrahabr.ru/post/180857/#comment_6280227" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="6280227" data-parent_id="6279859" title="Показать ветку комментариев">↵</div>
+                <a href="http://habrahabr.ru/post/180857/#comment_6279859" data-id="6280227" data-parent_id="6279859" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format bad bad1">
+            <code>&lt;зануда&gt;</code><br>
+Тогда запись:<br>
+<br>
+<pre><code class="php"><span class="keyword">elseif</span>(<span class="variable">$check_version</span>[<span class="string">'ver'</span>] &gt;= <span class="number">4</span>) {
+      <span class="variable">$defaultConfig</span> = <span class="variable">$defaultConfig</span> + <span class="variable">$check_version</span>[<span class="string">'config'</span>];
+}
+</code></pre><br>
+можно переписать так: <code>elseif ($check_version['ver'] &gt;= 4) $defaultConfig += $check_version['config'];</code><br>
+<code>&lt;/зануда&gt;</code>
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_6280227">
+        <div class="comment_item" id="comment_6280485">
+
+    <span class="parent_id" data-parent_id="6280227"></span>
+    <div class="comment_body">
+        <div class="info  " rel="6280485">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_6280485" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 10: ↑6 и ↓4">+2</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/SowingSadness/" class="avatar"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/b8c424a6ba8d9c4d4d5374a8c38d436c_small.png" alt=""></a>
+            <a href="http://habrahabr.ru/users/SowingSadness/" class="username">SowingSadness</a><span class="comma">,</span>
+            <time>24 мая 2013 в 23:12</time>
+
+            <a href="http://habrahabr.ru/post/180857/#comment_6280485" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="6280485" data-parent_id="6280227" title="Показать ветку комментариев">↵</div>
+                <a href="http://habrahabr.ru/post/180857/#comment_6280227" data-id="6280485" data-parent_id="6280227" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            За подобного рода записи нужно бить по 5 точке металлической линейкой, до тех пор, пока не научатся всегда ставить скобки в условных конструкциях, даже с одним выражением.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_6280485">
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_6280697">
+
+    <span class="parent_id" data-parent_id="6280227"></span>
+    <div class="comment_body">
+        <div class="info  " rel="6280697">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_6280697" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 2: ↑2 и ↓0">+2</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/gifted/" class="avatar"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/30ef3b4385a2afee3534eb330f3c5a09_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/gifted/" class="username">gifted</a><span class="comma">,</span>
+            <time>25 мая 2013 в 00:34</time>
+
+            <a href="http://habrahabr.ru/post/180857/#comment_6280697" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="6280697" data-parent_id="6280227" title="Показать ветку комментариев">↵</div>
+                <a href="http://habrahabr.ru/post/180857/#comment_6280227" data-id="6280697" data-parent_id="6280227" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            а можно ещё и всё в одну строку написать)
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_6280697">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_6279891">
+
+    <span class="parent_id" data-parent_id="6279855"></span>
+    <div class="comment_body">
+        <div class="info  " rel="6279891">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_6279891" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 2: ↑2 и ↓0">+2</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/JiLiZART/" class="avatar"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/554810e270d75b36fab79e4da2d25cf4_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/JiLiZART/" class="username">JiLiZART</a><span class="comma">,</span>
+            <time>24 мая 2013 в 20:03</time>
+
+            <a href="http://habrahabr.ru/post/180857/#comment_6279891" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="6279891" data-parent_id="6279855" title="Показать ветку комментариев">↵</div>
+                <a href="http://habrahabr.ru/post/180857/#comment_6279855" data-id="6279891" data-parent_id="6279855" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Он еще жив?
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_6279891">
+        <div class="comment_item" id="comment_6279943">
+
+    <span class="parent_id" data-parent_id="6279891"></span>
+    <div class="comment_body">
+        <div class="info  is_topic_starter  " rel="6279943">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_6279943" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 6: ↑3 и ↓3">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/kaktyc0913/" class="avatar"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/0a5c51b5fe151a2f3ad318497959ed13_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/kaktyc0913/" class="username">kaktyc0913</a><span class="comma">,</span>
+            <time>24 мая 2013 в 20:17</time>
+
+            <a href="http://habrahabr.ru/post/180857/#comment_6279943" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="6279943" data-parent_id="6279891" title="Показать ветку комментариев">↵</div>
+                <a href="http://habrahabr.ru/post/180857/#comment_6279891" data-id="6279943" data-parent_id="6279891" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Как гуф
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_6279943">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_6279863">
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="6279863">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_6279863" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 14: ↑12 и ↓2">+10</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/ahmpro/" class="avatar"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/4755dd10aa8099833b963db6cfc7451e_small.png" alt=""></a>
+            <a href="http://habrahabr.ru/users/ahmpro/" class="username">ahmpro</a><span class="comma">,</span>
+            <time>24 мая 2013 в 19:48</time>
+
+            <a href="http://habrahabr.ru/post/180857/#comment_6279863" class="link_to_comment">#</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Не хочу показаться грубым, но вы действительно убили уйму времени на это?<br>
+У меня это давным давно заняло 5-10 минут гугления и это без преувеличения.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_6279863">
+        <div class="comment_item" id="comment_6279871">
+
+    <span class="parent_id" data-parent_id="6279863"></span>
+    <div class="comment_body">
+        <div class="info  is_topic_starter  " rel="6279871">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_6279871" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 6: ↑4 и ↓2">+2</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/kaktyc0913/" class="avatar"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/0a5c51b5fe151a2f3ad318497959ed13_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/kaktyc0913/" class="username">kaktyc0913</a><span class="comma">,</span>
+            <time>24 мая 2013 в 19:52</time>
+
+            <a href="http://habrahabr.ru/post/180857/#comment_6279871" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="6279871" data-parent_id="6279863" title="Показать ветку комментариев">↵</div>
+                <a href="http://habrahabr.ru/post/180857/#comment_6279863" data-id="6279871" data-parent_id="6279863" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            К сожалению, это действительно так, я с этим редактором только начал знакомится и о нем нечего не знал. Особенно кодировка…
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_6279871">
+        <div class="comment_item" id="comment_6279945">
+
+    <span class="parent_id" data-parent_id="6279871"></span>
+    <div class="comment_body">
+        <div class="info  " rel="6279945">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_6279945" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 12: ↑12 и ↓0">+12</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/kekekeks/" class="avatar"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/a93d3c79d322f7b46fa5a0cee0ffe917_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/kekekeks/" class="username">kekekeks</a><span class="comma">,</span>
+            <time>24 мая 2013 в 20:17</time>
+
+            <a href="http://habrahabr.ru/post/180857/#comment_6279945" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="6279945" data-parent_id="6279871" title="Показать ветку комментариев">↵</div>
+                <a href="http://habrahabr.ru/post/180857/#comment_6279871" data-id="6279945" data-parent_id="6279871" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Если не секрет, <i>зачем</i> вам понадобилась cp1251? Весь цивилизованный мир давно использует юникод.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_6279945">
+        <div class="comment_item" id="comment_6280261">
+
+    <span class="parent_id" data-parent_id="6279945"></span>
+    <div class="comment_body">
+        <div class="info  " rel="6280261">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_6280261" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 1: ↑1 и ↓0">+1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/mayorovp/" class="avatar"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/stub-user-small.gif" alt=""></a>
+            <a href="http://habrahabr.ru/users/mayorovp/" class="username">mayorovp</a><span class="comma">,</span>
+            <time>24 мая 2013 в 22:06</time>
+
+            <a href="http://habrahabr.ru/post/180857/#comment_6280261" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="6280261" data-parent_id="6279945" title="Показать ветку комментариев">↵</div>
+                <a href="http://habrahabr.ru/post/180857/#comment_6279945" data-id="6280261" data-parent_id="6279945" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Я рад, что вы живете в цивилизованном мире… У нас лог-файлы в cp1251, потому что на объекте, если случится туда выехать, может не найтись чем открыть юникодовый файл.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_6280261">
+        <div class="comment_item" id="comment_6280273">
+
+    <span class="parent_id" data-parent_id="6280261"></span>
+    <div class="comment_body">
+        <div class="info  " rel="6280273">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_6280273" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 3: ↑2 и ↓1">+1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/kekekeks/" class="avatar"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/a93d3c79d322f7b46fa5a0cee0ffe917_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/kekekeks/" class="username">kekekeks</a><span class="comma">,</span>
+            <time>24 мая 2013 в 22:08</time>
+
+            <a href="http://habrahabr.ru/post/180857/#comment_6280273" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="6280273" data-parent_id="6280261" title="Показать ветку комментариев">↵</div>
+                <a href="http://habrahabr.ru/post/180857/#comment_6280261" data-id="6280273" data-parent_id="6280261" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Эцсамое, Блокнот (виндовый) понимает UTF-8 как минимум начиная с NT4. У вас на объектах до сих пор Windows 98?
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_6280273">
+        <div class="comment_item" id="comment_6280281">
+
+    <span class="parent_id" data-parent_id="6280273"></span>
+    <div class="comment_body">
+        <div class="info  " rel="6280281">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_6280281" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 2: ↑1 и ↓1">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/mayorovp/" class="avatar"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/stub-user-small.gif" alt=""></a>
+            <a href="http://habrahabr.ru/users/mayorovp/" class="username">mayorovp</a><span class="comma">,</span>
+            <time>24 мая 2013 в 22:10</time>
+
+            <a href="http://habrahabr.ru/post/180857/#comment_6280281" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="6280281" data-parent_id="6280273" title="Показать ветку комментариев">↵</div>
+                <a href="http://habrahabr.ru/post/180857/#comment_6280273" data-id="6280281" data-parent_id="6280273" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Блокнот (виндовый) не понимает девяностомегабайтные файлы. На объектах у нас крякнутый FAR 1.7, потому что школьные админы его любят.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_6280281">
+        <div class="comment_item" id="comment_6280855">
+
+    <span class="parent_id" data-parent_id="6280281"></span>
+    <div class="comment_body">
+        <div class="info  " rel="6280855">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_6280855" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 2: ↑1 и ↓1">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/akzhan/" class="avatar"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/479a6e98d816f8644ff18513cc26a60e_small.png" alt=""></a>
+            <a href="http://habrahabr.ru/users/akzhan/" class="username">akzhan</a><span class="comma">,</span>
+            <time>25 мая 2013 в 01:46</time>
+
+            <a href="http://habrahabr.ru/post/180857/#comment_6280855" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="6280855" data-parent_id="6280281" title="Показать ветку комментариев">↵</div>
+                <a href="http://habrahabr.ru/post/180857/#comment_6280281" data-id="6280855" data-parent_id="6280281" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            поставьте FAR 2, например :) крякать ничего не надо, btw.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_6280855">
+        <div class="comment_item" id="comment_6281279">
+
+    <span class="parent_id" data-parent_id="6280855"></span>
+    <div class="comment_body">
+        <div class="info  " rel="6281279">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_6281279" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 3: ↑3 и ↓0">+3</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/alexanderzaytsev/" class="avatar"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/stub-user-small.gif" alt=""></a>
+            <a href="http://habrahabr.ru/users/alexanderzaytsev/" class="username">alexanderzaytsev</a><span class="comma">,</span>
+            <time>25 мая 2013 в 08:54</time>
+
+            <a href="http://habrahabr.ru/post/180857/#comment_6281279" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="6281279" data-parent_id="6280855" title="Показать ветку комментариев">↵</div>
+                <a href="http://habrahabr.ru/post/180857/#comment_6280855" data-id="6281279" data-parent_id="6280855" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            А Far нужно было крякать? Там же всегда была регистрация для соотечественников.<br>
+<br>
+xUSSR-регистрация и день недели.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_6281279">
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_6281951">
+
+    <span class="parent_id" data-parent_id="6280855"></span>
+    <div class="comment_body">
+        <div class="info  " rel="6281951">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_6281951" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  negative">
+                    <span class="score" title="Всего 1: ↑0 и ↓1">–1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/mayorovp/" class="avatar"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/stub-user-small.gif" alt=""></a>
+            <a href="http://habrahabr.ru/users/mayorovp/" class="username">mayorovp</a><span class="comma">,</span>
+            <time>25 мая 2013 в 14:13</time>
+
+            <a href="http://habrahabr.ru/post/180857/#comment_6281951" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="6281951" data-parent_id="6280855" title="Показать ветку комментариев">↵</div>
+                <a href="http://habrahabr.ru/post/180857/#comment_6280855" data-id="6281951" data-parent_id="6280855" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format bad bad1">
+            Спасибо, но установка третьего FARа не входит в наши обязанности.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_6281951">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_6280477">
+
+    <span class="parent_id" data-parent_id="6279871"></span>
+    <div class="comment_body">
+        <div class="info  " rel="6280477">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_6280477" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 5: ↑4 и ↓1">+3</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/sdevalex/" class="avatar"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/2ef9dc9a659eece615cb5a29362e2284_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/sdevalex/" class="username">sdevalex</a><span class="comma">,</span>
+            <time>24 мая 2013 в 23:08<span class="time_changed"> (комментарий был изменён)</span></time>
+
+            <a href="http://habrahabr.ru/post/180857/#comment_6280477" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="6280477" data-parent_id="6279871" title="Показать ветку комментариев">↵</div>
+                <a href="http://habrahabr.ru/post/180857/#comment_6279871" data-id="6280477" data-parent_id="6279871" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Если будите изучать VIM, возможно напишите целую книгу ;)
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_6280477">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_6279903">
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="6279903">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_6279903" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 2: ↑2 и ↓0">+2</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Veseloff/" class="avatar"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/df0a404ac8fbd9a2f314347248962425_small.png" alt=""></a>
+            <a href="http://habrahabr.ru/users/Veseloff/" class="username">Veseloff</a><span class="comma">,</span>
+            <time>24 мая 2013 в 20:06</time>
+
+            <a href="http://habrahabr.ru/post/180857/#comment_6279903" class="link_to_comment">#</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Извините, но это не проблемы. Первый вопрос решается даже не через файлы, а проще — в меню Preferences. Второй вопрос меня как-то не волновал, так что я ничего не делал по этому поводу. А третий вопрос вроде же можно решить через sshfs или macfusion и не надо ничего выдумывать. И вообще есть уже Sublime Text 3.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_6279903">
+        <div class="comment_item" id="comment_6280303">
+
+    <span class="parent_id" data-parent_id="6279903"></span>
+    <div class="comment_body">
+        <div class="info  " rel="6280303">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_6280303" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/HighQuality/" class="avatar"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/075a411f451ae9322fda44eb33167839_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/HighQuality/" class="username">HighQuality</a><span class="comma">,</span>
+            <time>24 мая 2013 в 22:17</time>
+
+            <a href="http://habrahabr.ru/post/180857/#comment_6280303" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="6280303" data-parent_id="6279903" title="Показать ветку комментариев">↵</div>
+                <a href="http://habrahabr.ru/post/180857/#comment_6279903" data-id="6280303" data-parent_id="6279903" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Ходят <a href="http://www.sublimetext.com/3">слухи</a>, что еще бета.<br>
+<br>
+<i>Sublime Text 3 is currently in beta. The latest build is 3033.</i>
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_6280303">
+        <div class="comment_item" id="comment_6280375">
+
+    <span class="parent_id" data-parent_id="6280303"></span>
+    <div class="comment_body">
+        <div class="info  " rel="6280375">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_6280375" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Veseloff/" class="avatar"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/df0a404ac8fbd9a2f314347248962425_small.png" alt=""></a>
+            <a href="http://habrahabr.ru/users/Veseloff/" class="username">Veseloff</a><span class="comma">,</span>
+            <time>24 мая 2013 в 22:42</time>
+
+            <a href="http://habrahabr.ru/post/180857/#comment_6280375" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="6280375" data-parent_id="6280303" title="Показать ветку комментариев">↵</div>
+                <a href="http://habrahabr.ru/post/180857/#comment_6280303" data-id="6280375" data-parent_id="6280303" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Гм, и правда. Я вроде давненько себе уже поставил третью версию — уж думал, что за это время релиз прошёл.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_6280375">
+        <div class="comment_item" id="comment_6280857">
+
+    <span class="parent_id" data-parent_id="6280375"></span>
+    <div class="comment_body">
+        <div class="info  " rel="6280857">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_6280857" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/akzhan/" class="avatar"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/479a6e98d816f8644ff18513cc26a60e_small.png" alt=""></a>
+            <a href="http://habrahabr.ru/users/akzhan/" class="username">akzhan</a><span class="comma">,</span>
+            <time>25 мая 2013 в 01:48</time>
+
+            <a href="http://habrahabr.ru/post/180857/#comment_6280857" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="6280857" data-parent_id="6280375" title="Показать ветку комментариев">↵</div>
+                <a href="http://habrahabr.ru/post/180857/#comment_6280375" data-id="6280857" data-parent_id="6280375" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            А как там дела с плагинами обстоят? Меня интересует Soda, от остального несложно отказаться :)
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_6280857">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_6279915">
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  is_topic_starter  " rel="6279915">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_6279915" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  negative">
+                    <span class="score" title="Всего 11: ↑1 и ↓10">–9</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/kaktyc0913/" class="avatar"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/0a5c51b5fe151a2f3ad318497959ed13_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/kaktyc0913/" class="username">kaktyc0913</a><span class="comma">,</span>
+            <time>24 мая 2013 в 20:11</time>
+
+            <a href="http://habrahabr.ru/post/180857/#comment_6279915" class="link_to_comment">#</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format bad bad5">
+            Есть люди, которые и этого не знают, вы вот все такие знатоки тут, взяли бы и написали о нем, что нибудь полезное. Для новичков — само то!
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_6279915">
+        <div class="comment_item" id="comment_6279953">
+
+    <span class="parent_id" data-parent_id="6279915"></span>
+    <div class="comment_body">
+        <div class="info  " rel="6279953">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_6279953" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 9: ↑9 и ↓0">+9</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Veseloff/" class="avatar"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/df0a404ac8fbd9a2f314347248962425_small.png" alt=""></a>
+            <a href="http://habrahabr.ru/users/Veseloff/" class="username">Veseloff</a><span class="comma">,</span>
+            <time>24 мая 2013 в 20:20</time>
+
+            <a href="http://habrahabr.ru/post/180857/#comment_6279953" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="6279953" data-parent_id="6279915" title="Показать ветку комментариев">↵</div>
+                <a href="http://habrahabr.ru/post/180857/#comment_6279915" data-id="6279953" data-parent_id="6279915" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Да не то чтобы знатоки-не знатоки. Есть люди, которые не знают как выйти в интернет и вообще включить компьютер, но это же не повод писать об этом на хабре.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_6279953">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_6280005">
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="6280005">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_6280005" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 4: ↑4 и ↓0">+4</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Dharmantra/" class="avatar"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/827fd7234c81ae97a70bc1d0e431efc1_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/Dharmantra/" class="username">Dharmantra</a><span class="comma">,</span>
+            <time>24 мая 2013 в 20:40</time>
+
+            <a href="http://habrahabr.ru/post/180857/#comment_6280005" class="link_to_comment">#</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Не хочу рекламировать, но есть прекрасный видео-курс <a href="https://tutsplus.com/course/improve-workflow-in-sublime-text-2">Perfect Workflow in Sublime Text 2</a> от Jeffrey Way, после просмотра пропадают любые проблемы при работе с Sublime Text.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_6280005">
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_6280661">
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="6280661">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_6280661" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 1: ↑1 и ↓0">+1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Riateche/" class="avatar"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/158126c5f5f2125227fff295e9cd6ecb_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/Riateche/" class="username">Riateche</a><span class="comma">,</span>
+            <time>25 мая 2013 в 00:14</time>
+
+            <a href="http://habrahabr.ru/post/180857/#comment_6280661" class="link_to_comment">#</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Вряд ли там было именно «Western (Windows 1251)». Windows-1251 — это название нужной вам кодировки. А Cyrillic — ее другое название. Western — это название другой кодировки (возможно, Windows-1252).
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_6280661">
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_6281201">
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="6281201">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_6281201" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 1: ↑1 и ↓0">+1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Sky4eg/" class="avatar"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/f37d7a5b7803ecd854b453f7078799dd_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/Sky4eg/" class="username">Sky4eg</a><span class="comma">,</span>
+            <time>25 мая 2013 в 07:21</time>
+
+            <a href="http://habrahabr.ru/post/180857/#comment_6281201" class="link_to_comment">#</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Что за привычка так все усложнять. ST2 имеет специальный пункт в меню для пользовательских настроек. Зачем лезть в файлы программы, причем дефолтные. Гораздо проще и правильнее менять кодировку так: Preferences -&gt; Settings — User и туда уже вписать «fallback_encoding»: «Cyrillic (Windows 1251)»<br>
+
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_6281201">
+        <div class="comment_item" id="comment_6281689">
+
+    <span class="parent_id" data-parent_id="6281201"></span>
+    <div class="comment_body">
+        <div class="info  " rel="6281689">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_6281689" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 1: ↑1 и ↓0">+1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/dshster/" class="avatar"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/1f58b60c308b031cf02a3bcc8df1374e_small.png" alt=""></a>
+            <a href="http://habrahabr.ru/users/dshster/" class="username">dshster</a><span class="comma">,</span>
+            <time>25 мая 2013 в 12:38</time>
+
+            <a href="http://habrahabr.ru/post/180857/#comment_6281689" class="link_to_comment">#</a>
+                <div class="show_tree" data-id="6281689" data-parent_id="6281201" title="Показать ветку комментариев">↵</div>
+                <a href="http://habrahabr.ru/post/180857/#comment_6281201" data-id="6281689" data-parent_id="6281201" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Все верно, при обновлении ST2 все default конфиги перезапишутся исходными и придётся настройки забивать заново.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_6281689">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_6281959">
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="6281959">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_6281959" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 1: ↑1 и ↓0">+1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/chEbba/" class="avatar"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/42bf2d505ae10a5d2b91fc2aadeab739_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/chEbba/" class="username">chEbba</a><span class="comma">,</span>
+            <time>25 мая 2013 в 14:17</time>
+
+            <a href="http://habrahabr.ru/post/180857/#comment_6281959" class="link_to_comment">#</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            sorce-файлы в cp1251? такое еще бывает?
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_6281959">
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_7226138">
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="7226138">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7226138" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/TAIFUN/" class="avatar"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/917c539e14298578d570306d0c4935b3_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/TAIFUN/" class="username">TAIFUN</a><span class="comma">,</span>
+            <time>21 января 2014 в 18:16<span class="time_changed"> (комментарий был изменён)</span></time>
+
+            <a href="http://habrahabr.ru/post/180857/#comment_7226138" class="link_to_comment">#</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            <blockquote>я правда не помню какая там была кодировка, но вроде эта, так вот нам строчку:</blockquote><br>
+По-умолчанию там<br>
+Western (Windows 125<b>2</b>)
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7226138">
+    </div>
+</div>
+
+</div>
+
+  					<p class="for_users_only_msg">Только зарегистрированные пользователи могут оставлять комментарии.<br><a href="https://habrahabr.ru/auth/login/">Войдите</a>, пожалуйста.</p>
+
+
+  	
+<form action="http://habrahabr.ru/json/favorites/" method="post" id="edit_tags_form" class="hidden">
+  <input type="hidden" name="action" value="add">
+  <input type="hidden" name="ti" value="0">
+  <input type="hidden" name="tt" value="0">
+  <label>Пометьте топик понятными вам метками, если хотите</label>
+  <input type="text" name="tags_string" class="tags_string" autocomplete="off">
+  <div class="description">Метки лучше разделять запятой. Например: <i>общение, социальные сети, myspace.com, подростки, мердок</i></div>
+  <input type="submit" value="Сохранить" class="submit"> или <a href="http://habrahabr.ru/post/180857/#" class="close" onclick="return close_edit_tags()">закрыть</a>
+</form>
+    
+    
+
+  </div>
+  <div class="sidebar_right">
+      	<div class="banner_300x100">
+		<!--  AdRiver code START. Type:AjaxJS Site: habrahabr PZ: 0 BN: 5 -->
+		<div id="adriver_banner_2100516578" title="" style="width: 300px; height: 100px; text-align: center; margin: 0px auto;"><a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=176776&ad=458020&bid=3355067&bt=52&bn=5&pz=0&xpid=B_l_uKnullkO_aFfrBWEPs25vf7o&ref=http:%2f%2fhabrahabr.ru%2fpost%2f180857%2f&custom=1%3Dmass_media%3B2%3Dcompilers%3B3%3Dwebdev%3B4%3D5&rleurl=" onclick="adriver(&#39;adriver_banner_2100516578&#39;).sendPixel(&#39;&#39;);" target="_blank"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/300x100-yota-v2-1.jpg" alt="AdRiver" border="0"></a></div>
+		<script type="text/javascript">
+			$(function(){
+				var keyword = '';
+				if (typeof crtg_content !== 'undefined' && crtg_content) { keyword = crtg_content; }
+
+				var custom = {4:ar_duo1};
+					custom[1] = 'mass_media';
+					custom[2] = 'compilers';
+					custom[3] = 'webdev';
+
+				new adriver("adriver_banner_2100516578", {sid: 176776, bt: 52, bn: 5, custom: custom, keyword: keyword});
+			}());
+		</script>
+	</div>
+
+
+  			<div class="banner_300x500">
+		<div id="adriver_banner_1863387959" title="" style="width: 300px; height: 500px; text-align: center; margin: 0px auto;"><a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=176776&ad=476766&bid=3441634&bt=52&bn=1&pz=0&xpid=BJlriXTULmYvg3xc7Sabj-8klrYM&ref=http:%2f%2fhabrahabr.ru%2fpost%2f180857%2f&custom=1%3Dmass_media%3B2%3Dcompilers%3B3%3Dwebdev%3B4%3D5&rleurl=" onclick="adriver(&#39;adriver_banner_1863387959&#39;).sendPixel(&#39;&#39;);" target="_blank"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/bn1-bunin-1.jpg" alt="AdRiver" border="0"></a></div>
+		<script type="text/javascript">
+            function show_bn1_block(name, url){
+                console.log('show' + name);
+                if( typeof(name) !== 'undefined'){
+                    $.get('/html/'+name+'/1404995907/', function(html){
+                        $('#adriver_banner_1863387959').html(html);
+                        if( typeof(url) !== 'undefined'){
+                            $('.'+name+'_inner_banner .block_url').attr('href', url);
+                        }
+                    })
+                }
+            }
+
+			$(function(){
+
+				var keyword = '';
+				if (typeof crtg_content !== 'undefined' && crtg_content) { keyword = crtg_content; }
+
+				var custom = {4:ar_duo1};
+					custom[1] = 'mass_media';
+					custom[2] = 'compilers';
+					custom[3] = 'webdev';
+
+                 new adriver("adriver_banner_1863387959", {sid: 176776, bt: 52, bn: 1, custom: custom, keyword: keyword});
+			}());
+		</script>
+	</div>
+
+  		
+  		
+<div class="block daily_best_posts">
+  <div class="title">Популярное за сутки</div>
+  <div class="posts_list">
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/company/autodesk/blog/229297/" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;daily_best_posts&#39;, $(this).parents(&#39;.daily_best_posts&#39;).hasClass(&#39;float_block&#39;) ? &#39;float&#39; : &#39;common&#39;); }" class="post_name">Российские протезы пальцев созданные с помощью 3D-печати</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/229359/" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;daily_best_posts&#39;, $(this).parents(&#39;.daily_best_posts&#39;).hasClass(&#39;float_block&#39;) ? &#39;float&#39; : &#39;common&#39;); }" class="post_name">О размере экрана, пикселя и элемента</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/229393/" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;daily_best_posts&#39;, $(this).parents(&#39;.daily_best_posts&#39;).hasClass(&#39;float_block&#39;) ? &#39;float&#39; : &#39;common&#39;); }" class="post_name">Путешествия банковской транзакции</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/229425/" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;daily_best_posts&#39;, $(this).parents(&#39;.daily_best_posts&#39;).hasClass(&#39;float_block&#39;) ? &#39;float&#39; : &#39;common&#39;); }" class="post_name">Странное поведение компании STmicroelectronics</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/229431/" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;daily_best_posts&#39;, $(this).parents(&#39;.daily_best_posts&#39;).hasClass(&#39;float_block&#39;) ? &#39;float&#39; : &#39;common&#39;); }" class="post_name">С 1 августа интернет в России станут блокировать целыми подсетями</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/229445/" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;daily_best_posts&#39;, $(this).parents(&#39;.daily_best_posts&#39;).hasClass(&#39;float_block&#39;) ? &#39;float&#39; : &#39;common&#39;); }" class="post_name">Команда энтузиастов не смогла привести «замороженный» на 17 лет спутник ISEE-3 в рабочее состояние</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/company/yandex/blog/229411/" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;daily_best_posts&#39;, $(this).parents(&#39;.daily_best_posts&#39;).hasClass(&#39;float_block&#39;) ? &#39;float&#39; : &#39;common&#39;); }" class="post_name">Как обучить пользователя и не свести его с ума. Опыт Яндекс.Браузера</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/company/dauria/blog/229357/" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;daily_best_posts&#39;, $(this).parents(&#39;.daily_best_posts&#39;).hasClass(&#39;float_block&#39;) ? &#39;float&#39; : &#39;common&#39;); }" class="post_name">RosCanSat или «спутник» в алюминиевой банке по-русски</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/229349/" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;daily_best_posts&#39;, $(this).parents(&#39;.daily_best_posts&#39;).hasClass(&#39;float_block&#39;) ? &#39;float&#39; : &#39;common&#39;); }" class="post_name">Детальная фотография дата-центра АНБ передана в общественное достояние</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/company/lektorium/blog/229407/" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;daily_best_posts&#39;, $(this).parents(&#39;.daily_best_posts&#39;).hasClass(&#39;float_block&#39;) ? &#39;float&#39; : &#39;common&#39;); }" class="post_name">Парсек 2014: Продолжаем говорить о космосе</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/229365/" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;daily_best_posts&#39;, $(this).parents(&#39;.daily_best_posts&#39;).hasClass(&#39;float_block&#39;) ? &#39;float&#39; : &#39;common&#39;); }" class="post_name">Большая раздача бесплатных книг от Microsoft</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/229403/" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;daily_best_posts&#39;, $(this).parents(&#39;.daily_best_posts&#39;).hasClass(&#39;float_block&#39;) ? &#39;float&#39; : &#39;common&#39;); }" class="post_name">Любительский подход к компьютерной лингвистике</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/229377/" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;daily_best_posts&#39;, $(this).parents(&#39;.daily_best_posts&#39;).hasClass(&#39;float_block&#39;) ? &#39;float&#39; : &#39;common&#39;); }" class="post_name">Статистика применяемых средств блокирования сайтов</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/company/mailru/blog/229211/" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;daily_best_posts&#39;, $(this).parents(&#39;.daily_best_posts&#39;).hasClass(&#39;float_block&#39;) ? &#39;float&#39; : &#39;common&#39;); }" class="post_name">Как съесть кита или история создания линейки мобильных продуктов</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/227835/" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;daily_best_posts&#39;, $(this).parents(&#39;.daily_best_posts&#39;).hasClass(&#39;float_block&#39;) ? &#39;float&#39; : &#39;common&#39;); }" class="post_name">Программирование «для души»</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/229383/" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;daily_best_posts&#39;, $(this).parents(&#39;.daily_best_posts&#39;).hasClass(&#39;float_block&#39;) ? &#39;float&#39; : &#39;common&#39;); }" class="post_name">Летающий одноместный аппарат для миссий Apollo на Луне: история одного проекта</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/229437/" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;daily_best_posts&#39;, $(this).parents(&#39;.daily_best_posts&#39;).hasClass(&#39;float_block&#39;) ? &#39;float&#39; : &#39;common&#39;); }" class="post_name">Очередное достижение Curiosity: выход из области посадочного эллипса</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/229459/" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;daily_best_posts&#39;, $(this).parents(&#39;.daily_best_posts&#39;).hasClass(&#39;float_block&#39;) ? &#39;float&#39; : &#39;common&#39;); }" class="post_name">Визатор своими руками</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/company/devexpress/blog/229351/" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;daily_best_posts&#39;, $(this).parents(&#39;.daily_best_posts&#39;).hasClass(&#39;float_block&#39;) ? &#39;float&#39; : &#39;common&#39;); }" class="post_name">Snap — новая платформа для создания отчетов. Часть 2</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/company/trackduck/blog/229259/" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;daily_best_posts&#39;, $(this).parents(&#39;.daily_best_posts&#39;).hasClass(&#39;float_block&#39;) ? &#39;float&#39; : &#39;common&#39;); }" class="post_name">7 проблем в дизайне SaaS продуктов, и как мы их решали</a>
+      </div>
+  </div>
+  <div class="all"><a href="http://habrahabr.ru/top/">все лучшие</a></div>
+</div>
+
+  	  
+
+
+<div class="block similar_posts float_block" style="width: 260px; opacity: 1;">
+
+	<div class="title">Похожие посты</div>
+  <div class="posts_list">
+    	<div class="post_item">
+    				<a class="post_name" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;similar_posts&#39;, $(this).parents(&#39;.similar_posts&#39;).hasClass(&#39;float_block&#39;) ? &#39;float&#39; : &#39;common&#39;); }" href="http://habrahabr.ru/post/217121/">Плагин к Sublime Text для публикации статей на Хабр</a>
+    				<span class="when">26 марта в 14:58</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;similar_posts&#39;, $(this).parents(&#39;.similar_posts&#39;).hasClass(&#39;float_block&#39;) ? &#39;float&#39; : &#39;common&#39;); }" href="http://habrahabr.ru/post/167499/">Вышел sublime text 3 beta</a>
+    				<span class="when">29 января 2013 в 16:07</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;similar_posts&#39;, $(this).parents(&#39;.similar_posts&#39;).hasClass(&#39;float_block&#39;) ? &#39;float&#39; : &#39;common&#39;); }" href="http://habrahabr.ru/post/147078/">Используем DropBox для хранения настроек, тем и плагинов Sublime text 2</a>
+    				<span class="when"> 3 сентября 2012 в 18:44</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;similar_posts&#39;, $(this).parents(&#39;.similar_posts&#39;).hasClass(&#39;float_block&#39;) ? &#39;float&#39; : &#39;common&#39;); }" href="http://habrahabr.ru/post/154667/">Готовим Sublime Text 2 для front-end</a>
+    				<span class="when">13 октября 2012 в 18:32</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;similar_posts&#39;, $(this).parents(&#39;.similar_posts&#39;).hasClass(&#39;float_block&#39;) ? &#39;float&#39; : &#39;common&#39;); }" href="http://habrahabr.ru/post/149829/">Панель выбора build-вариантов Build System в Sublime Text 2. (или как изобретался велосипед)</a>
+    				<span class="when">19 августа 2012 в 01:54</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;similar_posts&#39;, $(this).parents(&#39;.similar_posts&#39;).hasClass(&#39;float_block&#39;) ? &#39;float&#39; : &#39;common&#39;); }" href="http://habrahabr.ru/post/166971/">Превращаем Sublime Text 2 в Notepad++</a>
+    				<span class="when">24 января 2013 в 20:02</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;similar_posts&#39;, $(this).parents(&#39;.similar_posts&#39;).hasClass(&#39;float_block&#39;) ? &#39;float&#39; : &#39;common&#39;); }" href="http://habrahabr.ru/post/148324/">Sublime Text 2: Как создать сниппет?</a>
+    				<span class="when">23 июля 2012 в 20:25</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;similar_posts&#39;, $(this).parents(&#39;.similar_posts&#39;).hasClass(&#39;float_block&#39;) ? &#39;float&#39; : &#39;common&#39;); }" href="http://habrahabr.ru/post/193176/">Sublime Text Vintage Mode — справочник по горячим клавишам</a>
+    				<span class="when">10 сентября 2013 в 12:01</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;similar_posts&#39;, $(this).parents(&#39;.similar_posts&#39;).hasClass(&#39;float_block&#39;) ? &#39;float&#39; : &#39;common&#39;); }" href="http://habrahabr.ru/post/167353/">Sublime Text 2 для C/C++ разработчика или SublimeClang</a>
+    				<span class="when">28 января 2013 в 14:06</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;similar_posts&#39;, $(this).parents(&#39;.similar_posts&#39;).hasClass(&#39;float_block&#39;) ? &#39;float&#39; : &#39;common&#39;); }" href="http://habrahabr.ru/post/147856/">Sublime Text 2</a>
+    				<span class="when">18 июля 2012 в 15:46</span>
+      </div>
+  </div>			
+</div>
+
+
+	
+  	  
+
+  		
+  		
+
+	<div class="block live_broadcast">
+		<div class="title">Что обсуждают? </div>
+
+		<div class="live_broadcast_activity">
+				<div class="posts_list">
+							<div class="post_item">
+								<a href="http://habrahabr.ru/post/225877#comments" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;live_broadcast_activity&#39;, &#39;post&#39;); }" class="post_name">Модульные комиксы — простой способ увлечь аудиторию</a>&nbsp;<span class="count">2</span>
+							</div>
+							<div class="post_item">
+								<a href="http://habrahabr.ru/post/229297#comments" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;live_broadcast_activity&#39;, &#39;post&#39;); }" class="post_name">Российские протезы пальцев созданные с помощью 3D-печати</a>&nbsp;<span class="count">22</span>
+							</div>
+							<div class="post_item">
+								<a href="http://habrahabr.ru/post/229459#comments" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;live_broadcast_activity&#39;, &#39;post&#39;); }" class="post_name">Визатор своими руками</a>&nbsp;<span class="count">20</span>
+							</div>
+							<div class="post_item">
+								<a href="http://habrahabr.ru/post/229431#comments" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;live_broadcast_activity&#39;, &#39;post&#39;); }" class="post_name">С 1 августа интернет в России станут блокировать целыми подсетями</a>&nbsp;<span class="count">107</span>
+							</div>
+							<div class="post_item">
+								<a href="http://habrahabr.ru/post/229115#comments" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;live_broadcast_activity&#39;, &#39;post&#39;); }" class="post_name">Как я попал в Google [перевод]</a>&nbsp;<span class="count">38</span>
+							</div>
+							<div class="post_item">
+								<a href="http://habrahabr.ru/post/229319#comments" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;live_broadcast_activity&#39;, &#39;post&#39;); }" class="post_name">Проблема Android: пользователи не хотят тратить деньги</a>&nbsp;<span class="count">194</span>
+							</div>
+							<div class="post_item">
+								<a href="http://habrahabr.ru/post/229365#comments" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;live_broadcast_activity&#39;, &#39;post&#39;); }" class="post_name">Большая раздача бесплатных книг от Microsoft</a>&nbsp;<span class="count">30</span>
+							</div>
+							<div class="post_item">
+								<a href="http://habrahabr.ru/post/229415#comments" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;live_broadcast_activity&#39;, &#39;post&#39;); }" class="post_name">5 проектов криптовалют, нацеленных на анонимность</a>&nbsp;<span class="count">26</span>
+							</div>
+							<div class="post_item">
+								<a href="http://habrahabr.ru/post/229401#comments" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;live_broadcast_activity&#39;, &#39;post&#39;); }" class="post_name">DKIM подпись в MS Exchange</a>&nbsp;<span class="count">1</span>
+							</div>
+							<div class="post_item">
+								<a href="http://habrahabr.ru/post/228969#comments" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;live_broadcast_activity&#39;, &#39;post&#39;); }" class="post_name">Радиоуправляемый шагающий робот на MG90</a>&nbsp;<span class="count">30</span>
+							</div>
+				</div>
+				<div class="all"><a href="http://habrahabr.ru/posts/" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;live_broadcast_activity&#39;, &#39;all_posts&#39;); }">все посты</a></div>
+		</div>
+
+	</div>
+  
+  		<!--  AdRiver code START. Type:AjaxJS Site: habrahabr PZ: 0 BN: 2 -->
+
+<div id="adriver_banner_480931290" class="adbanner" title="" style="width: 300px; height: 500px; text-align: center; margin: 0px auto;"><a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=176776&ad=476766&bid=3441639&bt=52&bn=2&pz=0&xpid=BzhqZIFp4dgEIIQX-IBvpzV3XKiY&ref=http:%2f%2fhabrahabr.ru%2fpost%2f180857%2f&custom=1%3Dmass_media%3B2%3Dcompilers%3B3%3Dwebdev%3B4%3D5&rleurl=" onclick="adriver(&#39;adriver_banner_480931290&#39;).sendPixel(&#39;&#39;);" target="_blank"><img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/bn2-bunin-1.jpg" alt="AdRiver" border="0"></a></div>
+
+
+<script type="text/javascript">
+    function show_bn2_block(name, url){
+        if( typeof(name) !== 'undefined'){
+            $.get('/html/'+name+'/1404995907/', function(html){
+                $('#adriver_banner_480931290').html(html);
+                if( typeof(url) !== 'undefined'){
+                    $('.'+name+'_inner_banner .block_url').attr('href', url);
+                }
+            })
+        }
+    }
+
+    $(function(){
+
+        var check_scroll_position = function() {
+            var height = $(window).height();
+            var scrollTop = $(window).scrollTop();
+            var scrollBottom = $(window).scrollTop() + height;
+            var blockTop = $('#adriver_banner_480931290').position().top;
+            var show = scrollTop < blockTop && blockTop < scrollBottom;
+            //console.log('scroll', scrollTop, blockTop, scrollBottom, show)
+            if( show ){
+                //console.log('show bn2');
+                $( window ).off('scroll', check_scroll_position);
+                $( window ).trigger('show_bn2');
+            }
+        };
+        $( window ).on('scroll', check_scroll_position);
+
+        $( window ).on('show_bn2', function(){
+            var keyword = '';
+            if (typeof crtg_content !== 'undefined' && crtg_content) { keyword = crtg_content; }
+            var custom = {4:ar_duo1};
+            custom[1] = 'mass_media';
+            custom[2] = 'compilers';
+            custom[3] = 'webdev';
+            new adriver("adriver_banner_480931290", {sid: 176776, bt: 52, bn: 2, custom: custom, keyword: keyword});
+        });
+    });
+    </script>
+<!--  AdRiver code END  -->
+
+  		
+<div class="block best_company">
+
+		<div class="title">Компания дня <img src="./Как я боролся с Sublime Text 2   Хабрахабр_files/bg_cicle_help.png" class="help-tip"></div>
+
+		<div class="company_info">
+			<div class="name">
+			 <img class="favicon" src="./Как я боролся с Sublime Text 2   Хабрахабр_files/2a745e2cc1e102f2d48774a0120048dd_small.png" alt="Box Overview" height="16" width="16">
+			 <div class="company_name"><a href="http://habrahabr.ru/company/boxowerview/" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;best_company&#39;, &#39;title&#39;); }" class="title">Box Overview</a></div>
+			</div>
+
+			<p>Последний пост:
+				<a href="http://habrahabr.ru/company/boxowerview/blog/228987/" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;best_company&#39;, &#39;post&#39;); }">Prestigio Visconte — бизнес-планшет на Windows 8.1</a>
+			</p>
+
+			<div class="buttons">
+  			<div id="fans_count">2125 подписчиков</div>
+			</div>
+		</div>
+
+	</div>
+
+
+  		
+
+  		
+	<div class="block new_vacanies">
+  <a href="http://brainstorage.me/jobs?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo" class="title">Brainstorage</a>
+  <div class="vacancies">
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/12847?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Ruby on Rails Developer</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/20805?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Разработчик систем доставки и анализа данных (Python)</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/20803?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">PHP программист</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/18973?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Backend разработчик</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/16785?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Ведущий C#, C++ программист</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/17985?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Ведущий C++, С# разработчик</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/20431?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Старший Java разработчик </a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/20799?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">.NET разработчик</a>
+		</div>
+		<div class="job_item marked">
+			<a href="http://brainstorage.me/jobs/20179?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Разработчик Pytnon / Django</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/8923?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Младший программист (PHP)</a>
+		</div>
+  </div>
+  <div class="all"><a href="http://brainstorage.me/jobs?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">все вакансии</a></div>
+</div>
+
+  		
+	<div class="block freelansim">
+	  <a href="http://freelansim.ru/?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo" class="title"></a>
+	  <div class="tasks">
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/75681?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Внести изменения в сайт (MODx REVO)</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/75679?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Натянуть вёрстку на CMS</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/75673?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Дизайн магазина коллекционных кукол</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/75667?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Создание РК в Яндекс Директ</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/75661?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">WebRTC демка (лектор и студенты)</a>
+				</div>
+				<div class="task marked">
+					<a href="http://freelansim.ru/tasks/75525?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Разработка промо сайта</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/75651?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo"> Кастомизация wordpress шаблона</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/75017?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Написать админку для сайта спорт-клуба</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/75635?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Программирование информационного портала на Битриксе</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/75325?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">SMM-менеджер на проект</a>
+				</div>
+
+	  </div>
+	  <div class="all"><a href="http://freelansim.ru/tasks?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">все заказы</a></div>
+	</div>
+
+  		
+  		
+  		
+  </div>
+  <div class="clear"></div>
+
+  <script>
+    // hubs to GA
+      ga('send', 'event', 'Post_view', 'mass_media (Медиа)',  window.location.pathname + window.location.search);
+      ga('send', 'event', 'Post_view', 'compilers (Компиляторы)',  window.location.pathname + window.location.search);
+      ga('send', 'event', 'Post_view', 'webdev (Веб-разработка)',  window.location.pathname + window.location.search);
+  </script>
+
+
+
+        	
+	<div class="rotated_posts">
+			<div class="rotated_post ">
+				<a href="http://habrahabr.ru/company/dauria/blog/228431/" class="grey" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;posts_rotation_block&#39;); }">Как построить космический аппарат не выходя из офиса</a>
+			</div>
+			<div class="rotated_post ">
+				<a href="http://habrahabr.ru/post/215637/" class="grey" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;posts_rotation_block&#39;); }">Что будет, если вы задумаете собрать 3D принтер своими руками</a>
+			</div>
+			<div class="rotated_post last">
+				<a href="http://habrahabr.ru/post/215993/" class="grey" onclick="if (typeof ga === &#39;function&#39;) { ga(&#39;send&#39;, &#39;event&#39;, &#39;tm_block&#39;, &#39;posts_rotation_block&#39;); }">Впечатления от китайской warez-сцены</a>
+			</div>
+		<div class="clear"></div>
+	</div>
+
+
+        <div class="clear"></div>
+
+        <div class="footer_panel">
+          <div id="footer">
+	<dl>
+		<dd><a href="https://habrahabr.ru/auth/login/">Войти</a></dd>
+		<dd><a href="https://habrahabr.ru/auth/register/">Регистрация</a></dd>
+	</dl>
+	<dl>
+		<dt>Разделы</dt>
+		<dd><a href="http://habrahabr.ru/posts/top/">Посты</a></dd>
+		<dd><a href="http://habrahabr.ru/hubs/">Хабы</a></dd>
+		<dd><a href="http://habrahabr.ru/companies/">Компании</a></dd>
+		<dd><a href="http://habrahabr.ru/users/">Пользователи</a></dd>
+		<dd><a href="http://toster.ru/?_aa=press_anykey">Q&amp;A</a></dd>
+		<dd><a href="http://habrahabr.ru/sandbox/">Песочница</a></dd>
+		
+	</dl>	
+	<dl>
+		<dt>Инфо</dt>
+		<dd><a href="http://habrahabr.ru/info/about/">О сайте</a></dd>
+		<dd><a href="http://habrahabr.ru/info/help/rules/">Правила</a></dd>
+		<dd><a href="http://habrahabr.ru/info/help/">Помощь</a></dd>
+		<dd><a href="http://habrahabr.ru/info/agreement/">Соглашение</a></dd>
+	</dl>
+	<dl>
+		<dt>Услуги</dt>
+		<dd><a href="http://habrahabr.ru/info/advertising/">Реклама</a></dd>
+		<dd><a href="http://habrahabr.ru/info/advertising/corporate/">Корпоративные тарифы</a></dd>
+		<dd><a href="http://habrahabr.ru/info/advertising/workshops/">Семинары</a></dd>
+		<dd><a href="http://habrahabr.ru/special/">Спецпроекты</a></dd>
+	</dl>
+	<dl>
+		<dt>Разное</dt>
+		<dd><a href="http://habrahabr.ru/apps/">Приложения</a></dd>
+		<dd><a href="http://habrahabr.ru/special/testdrive/">Тест-драйвы</a></dd>
+		<dd><a href="http://habrahabr.ru/info/hello_startup/">Помощь стартапам</a></dd>
+		<dd><a href="http://habrahabr.ru/special/minsvyaz/">Льготы стартапам</a></dd>
+	</dl>
+	<div class="copyright">
+
+		<div class="about">
+			<a href="http://tmtm.ru/">TM</a>
+			© 2006–2014
+			<br><br>
+			<a href="http://habrahabr.ru/feedback/">Служба поддержки</a><br><br>
+			    <a href="http://m.habrahabr.ru/?mobile=yes">Мобильная версия</a><br><br>
+			
+
+			<div class="social_accounts">
+				<a href="https://twitter.com/habrahabr" class="tw"></a>
+				<a href="https://www.facebook.com/habrahabr.ru" class="fb"></a>
+				<a href="http://vk.com/habr" class="vk"></a>
+				<!-- <a href="" class="gp"></a> //-->
+			</div>
+
+		</div>
+	</div>
+
+</div>    
+          <div class="footer_logos">
+		
+		<div class="project brainstorage">
+			<a href="http://brainstorage.ru/?utm_source=tm_habrahabr&utm_medium=tm_footer&utm_campaign=tm_promo" class="icon "></a>
+			<div class="text">Все мозги в одном месте</div>
+		</div>
+
+		<div class="project toster">
+			<a href="http://toster.ru/?utm_source=tm_habrahabr&utm_medium=tm_footer&utm_campaign=tm_promo" class="icon "></a>
+			<div class="text">Q&amp;A-сервис для разработчиков</div>
+		</div>
+		
+		<div class="project freelansim">
+			<a href="http://freelansim.ru/?utm_source=tm_habrahabr&utm_medium=tm_footer&utm_campaign=tm_promo" class="icon "></a>
+			<div class="text">Заказы для фрилансеров</div>
+		</div>
+		
+		<div class="project autokadabra">
+			<a href="http://autokadabra.ru/?utm_source=tm_habrahabr&utm_medium=tm_footer&utm_campaign=tm_promo" class="icon "></a>
+			<div class="text ">Уютная и дружелюбная</div>
+		</div>
+		
+</div>
+
+        </div>
+      </div>
+    </div>
+  
+
+      <script type="text/javascript" src="./Как я боролся с Sublime Text 2   Хабрахабр_files/jquery.cookie.js"></script>
+      <script type="text/javascript">
+        $(document).ready( function(){
+          window.tmidLogin = function(){ return false; };
+          if( $.cookie('tmid_no_check') == undefined ) {
+            var expire = new Date();
+            expire.setMinutes(expire.getMinutes() + 10 );
+            $.cookie('tmid_no_check', 1, { expires: expire } );
+            $.getScript("https://id.tmtm.ru/checklogin", function(){
+              if( window.tmidLogin() ) {
+
+                  var href = $('#login').attr('href');
+
+                  if( href !== undefined ) {
+                      window.location.href = href;
+                  }
+              }
+            });
+          }
+        });
+      </script>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $.jGrowl.defaults.closerTemplate = '<div>Закрыть все уведомления</div>';         
+        $(".help-tip").tipTip({maxWidth: "300px", edgeOffset: 10});  
+      });
+      // global vars
+      var g_base_url = 'habrahabr.ru';
+      var g_show_xpanel = false;
+      var g_base_fullurl = 'http://habrahabr.ru/';
+      var g_is_guest = false;
+    </script> 
+    
+    <script type="text/javascript" src="./Как я боролся с Sublime Text 2   Хабрахабр_files/shortcuts.js"></script>
+    
+    
+    <script type="text/javascript" src="./Как я боролся с Sublime Text 2   Хабрахабр_files/float_block.js"></script>
+    
+    	<script type="text/javascript" src="./Как я боролся с Sublime Text 2   Хабрахабр_files/saved_resource"></script>
+
+    
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+(function (d, w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter24049213 = new Ya.Metrika({id:24049213,
+                    webvisor:true,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true});
+        } catch(e) { }
+    });
+
+    var n = d.getElementsByTagName("script")[0],
+        s = d.createElement("script"),
+        f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f, false);
+    } else { f(); }
+})(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript>&lt;div&gt;&lt;img src="//mc.yandex.ru/watch/24049213" style="position:absolute; left:-9999px;" alt="" /&gt;&lt;/div&gt;</noscript>
+<!-- /Yandex.Metrika counter -->
+
+    
+
+  
+
+<div id="AutocompleteContainter_2e632" style="position: absolute; z-index: 9999; top: 0px; left: 0px;"><div class="autocomplete-w1"><div class="autocomplete" id="Autocomplete_2e632" style="display: none; width: 300px; max-height: 400px;"></div></div></div><div id="AutocompleteContainter_3f51b" style="position: absolute; z-index: 9999; top: 2px; left: 0px;"><div class="autocomplete-w1"><div class="autocomplete" id="Autocomplete_3f51b" style="display: none; width: 300px; max-height: 400px;"></div></div></div><div id="tiptip_holder" style="max-width:300px;"><div id="tiptip_arrow"><div id="tiptip_arrow_inner"></div></div><div id="tiptip_content"></div></div><iframe src="./Как я боролся с Sublime Text 2   Хабрахабр_files/1.htm" style="width: 10px; height: 10px; position: absolute; top: -10000px; left: -10000px;"></iframe><iframe src="./Как я боролся с Sublime Text 2   Хабрахабр_files/1(3).htm" style="width: 10px; height: 10px; position: absolute; top: -10000px; left: -10000px;"></iframe><iframe src="./Как я боролся с Sublime Text 2   Хабрахабр_files/1(2).htm" style="width: 10px; height: 10px; position: absolute; top: -10000px; left: -10000px;"></iframe><iframe src="./Как я боролся с Sublime Text 2   Хабрахабр_files/1(1).htm" style="width: 10px; height: 10px; position: absolute; top: -10000px; left: -10000px;"></iframe></body></html>

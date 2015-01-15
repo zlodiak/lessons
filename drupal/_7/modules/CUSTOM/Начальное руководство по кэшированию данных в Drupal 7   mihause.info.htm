@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="ie6 ie" lang="ru" dir="ltr"> <![endif]-->
+<!--[if IE 7]>    <html class="ie7 ie" lang="ru" dir="ltr"> <![endif]-->
+<!--[if IE 8]>    <html class="ie8 ie" lang="ru" dir="ltr"> <![endif]-->
+<!--[if gt IE 8]> <!--> <html class="" lang="ru" dir="ltr"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+<meta name="generator" content="Drupal 7 (http://drupal.org)" />
+<link rel="canonical" href="http://mihause.info/web-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0/2184" />
+<link rel="shortlink" href="http://mihause.info/node/101" />
+<link rel="shortcut icon" href="http://mihause.info/sites/all/themes/minfo/favicon.ico" type="image/vnd.microsoft.icon" />
+<meta name="description" content="Вольный перевод статьи A Beginner&#039;s Guide to Caching Data in Drupal 7.
+Основы
+
+Первое правило оптимизации и кэширования: никогда не делай трудоемкую (затратную по времени) операцию дважды если ее результаты можно сохранить и использовать в последствии. Просмотрим на простой пример этого принципа в действии:" />
+<meta about="/web-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0/2184" property="sioc:num_replies" content="0" datatype="xsd:integer" />
+<link rel="prev" href="/web-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0/2179" />
+<link rel="up" href="/web-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0/2178" />
+<link rel="next" href="/web-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0/2169" />
+<meta content="Начальное руководство по кэшированию данных в Drupal 7" about="/web-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0/2184" property="dc:title" />
+  <!-- Set the viewport width to device width for mobile -->
+  <meta name="viewport" content="width=device-width" />
+  <title>Начальное руководство по кэшированию данных в Drupal 7 | mihause.info</title>
+  <link type="text/css" rel="stylesheet" href="http://mihause.info/sites/default/files/css/css_pbm0lsQQJ7A7WCCIMgxLho6mI_kBNgznNUWmTWcnfoE.css" media="all" />
+<link type="text/css" rel="stylesheet" href="http://mihause.info/sites/default/files/css/css_O2c27M52GRE8bc8iXC-KwPYzf5PE6ddkzQFpm3Ul1r8.css" media="all" />
+<link type="text/css" rel="stylesheet" href="http://mihause.info/sites/default/files/css/css_ggwmJjnSHIyQGr6BcS46i7z-SeJR7vFJ2H8b7fsUJ1o.css" media="all" />
+<link type="text/css" rel="stylesheet" href="http://mihause.info/sites/default/files/css/css_mTFvHyJP6V2RVBqFnGG397DdofUUhrwIxWX2VskSz1U.css" media="all" />
+  <link href='http://fonts.googleapis.com/css?family=Russo+One&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Jura&subset=latin,cyrillic-ext,cyrillic' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Ubuntu+Condensed&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+  <script type="text/javascript" src="http://mihause.info/sites/default/files/js/js_xAPl0qIk9eowy_iS9tNkCWXLUVoat94SQT48UBCFkyQ.js"></script>
+<script type="text/javascript" src="http://mihause.info/sites/default/files/js/js_YSNGHgD6WVmWn6w77VIIeZf5NhKncqqhZfEHbd2RTxU.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, {"basePath":"\u002F", "pathPrefix":"", "ajaxPageState":{"theme":"minfo", "theme_token":"_DnCccFe22LxA5oGrdJpNHrYbmkDtlGExkPqZlgZ-6I", "js":{"misc\u002Fjquery.js":1, "misc\u002Fjquery.once.js":1, "misc\u002Fdrupal.js":1, "public:\u002F\u002Flanguages\u002Fru_jXj2UyY5AH8Cqz61H1cgm1U546s--ErBs-6SpUy8igk.js":1}, "css":{"modules\u002Fsystem\u002Fsystem.base.css":1, "modules\u002Fsystem\u002Fsystem.menus.css":1, "modules\u002Fsystem\u002Fsystem.messages.css":1, "modules\u002Fsystem\u002Fsystem.theme.css":1, "modules\u002Fbook\u002Fbook.css":1, "modules\u002Fcomment\u002Fcomment.css":1, "modules\u002Ffield\u002Ftheme\u002Ffield.css":1, "sites\u002Fall\u002Fmodules\u002Fmollom\u002Fmollom.css":1, "modules\u002Fnode\u002Fnode.css":1, "modules\u002Fsearch\u002Fsearch.css":1, "modules\u002Fuser\u002Fuser.css":1, "sites\u002Fall\u002Fmodules\u002Fctools\u002Fcss\u002Fctools.css":1, "sites\u002Fall\u002Fmodules\u002Fgeshifilter\u002Fgeshifilter.css":1, "sites\u002Fall\u002Fthemes\u002Fframework\u002Fstyle.css":1, "sites\u002Fall\u002Fthemes\u002Fminfo\u002Fcss\u002Fgeneral.css":1, "sites\u002Fall\u002Fthemes\u002Fminfo\u002Fcss\u002Fblocks.css":1}}});
+//--><!]]>
+</script>
+  <!-- IE Fix for HTML5 Tags -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+
+<body class="html not-front not-logged-in no-sidebars page-node page-node- page-node-101 node-type-book" >
+   <!-- /.region -->
+  <div id="container" class="clearfix">
+
+  <div id="skip-link">
+    <a href="#main-content" class="element-invisible element-focusable">Перейти к основному содержанию</a>
+          <a href="#navigation" class="element-invisible element-focusable">Skip to navigation</a>
+      </div>
+
+  <header id="header" role="banner" class="clearfix">
+	          <hgroup id="site-name-slogan">
+                  <h1 id="site-name">
+            <a href="/" title="Главная"><span>mihause.info</span></a>
+          </h1>
+                      </hgroup>
+    
+    
+          <nav id="navigation" role="navigation" class="clearfix">
+                		  <h2 class="element-invisible">Главное меню</h2><ul id="main-menu" class="links clearfix"><li class="menu-237 first"><a href="/">Главная</a></li>
+<li class="menu-345 last"><a href="/web-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0">Web-разработка</a></li>
+</ul>                        </nav> <!-- /#navigation -->
+        <nav class="breadcrumb"><h2 class="element-invisible">Вы здесь</h2><a href="/">Главная</a> » <a href="/web-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0">Web-разработка</a> » <a href="/web-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0/347">Drupal 7</a> » <a href="/web-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0/2168">Примеры, статьи</a> » <a href="/web-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0/2178">Работа с кэшем</a></nav>  </header> <!-- /#header -->
+
+  <section id="main" role="main" class="clearfix">
+        <a id="main-content"></a>
+            <h1 class="title" id="page-title">Начальное руководство по кэшированию данных в Drupal 7</h1>                    
+<div id="node-101" class="node node-book node-full node-full clearfix" about="/web-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0/2184" typeof="sioc:Item foaf:Document">
+
+  
+      
+  
+  <div class="content">
+
+          <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+      <div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="yaru,vkontakte,facebook,twitter,odnoklassniki,moimir,lj,gplus"></div> 
+    
+    <div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded"><p>Вольный перевод статьи <a href="http://www.lullabot.com/blog/article/beginners-guide-caching-data-drupal-7">A Beginner's Guide to Caching Data in Drupal 7</a>.</p>
+<h3 class="bold-header">Основы</h3>
+<p>
+Первое правило оптимизации и кэширования: никогда не делай трудоемкую (затратную по времени) операцию дважды если ее результаты можно сохранить и использовать в последствии. Просмотрим на простой пример этого принципа в действии:
+</p>
+<div class="geshifilter"><pre class="php geshifilter-php" style="font-family:monospace;"><ol><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal"><span style="color: #000000; font-weight: bold;">&lt;?php</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal"><span style="color: #000000; font-weight: bold;">function</span> my_module_function<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal">  <span style="color: #000088;">$my_data</span> <span style="color: #339933;">=</span> <span style="color: #339933;">&amp;</span>drupal_static<span style="color: #009900;">&#40;</span><span style="color: #009900; font-weight: bold;">__FUNCTION__</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal">  <span style="color: #b1b100;">if</span> <span style="color: #009900;">&#40;</span><span style="color: #339933;">!</span><a href="http://www.php.net/isset"><span style="color: #990000;">isset</span></a><span style="color: #009900;">&#40;</span><span style="color: #000088;">$my_data</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span></div></li><li style="font-family: monospace; font-weight: bold; font-style: italic;"><div style="font-family: monospace; font-weight: normal; font-style: normal">    <span style="color: #666666; font-style: italic;">// Здесь делаем ресурсозатратные вычисления</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal">    <span style="color: #666666; font-style: italic;">// и сохраняем их результат в $my_data ..</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal">  <span style="color: #009900;">&#125;</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal">  <span style="color: #b1b100;">return</span> <span style="color: #000088;">$my_data</span><span style="color: #339933;">;</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal"><span style="color: #009900;">&#125;</span></div></li><li style="font-family: monospace; font-weight: bold; font-style: italic;"><div style="font-family: monospace; font-weight: normal; font-style: normal"><span style="color: #000000; font-weight: bold;">?&gt;</span></div></li></ol></pre></div>
+<p>
+Важное, на что стоит обратить внимание в этой функции, это переменная <span class="text-emph">$my_data</span>; мы инициализируем ее значение функцией <span class="text-emph">drupal_static()</span>. Эта функция предоставляет другим функциям временное "хранилище" данных даже после того как эти данные были использованы. Функция <span class="text-emph">drupal_static()</span> вернет пустое значение после того как мы вызовем ее первый раз, но любые изменения значения переменной будут "сохранёнными" при последующих вызовах этой функции. Это означает, что в своей функции мы можем проверить имеется ли в переменной уже какое-либо значение, и вернуть его незамедлительно без дополнительных вычислений этого значения.
+</p>
+<p>
+Такой шаблон появляется повсеместно в Друпале, включая важные функции типа <span class="text-emph">node_load()</span>. Для материала с конкретным ID вызов <span class="text-emph">node_load()</span> первый раз сопутствует с обращением к базе данных, но результат этого обращения сохраняется в статичной переменной на время загрузки страницы. Поэтому, отображение материала сначала в списке, затем в блоке, и еще, например, в списке связанных ссылок не потребует трех обращений к базе данных.
+</p>
+<span class="text-emph">Функции кэширования, предоставляемые Друпалом</span>
+<p>
+Вы, наверное, обратили внимание, что метод со статичной переменной сохраняет данные только на время загрузки одной страницы. Для более лучшей производительности возможно кэширование данных на более длительные промежутки...
+</p>
+<div class="geshifilter"><pre class="php geshifilter-php" style="font-family:monospace;"><ol><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal"><span style="color: #000000; font-weight: bold;">&lt;?php</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal"><span style="color: #000000; font-weight: bold;">function</span> my_module_function<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal">  <span style="color: #000088;">$my_data</span> <span style="color: #339933;">=</span> <span style="color: #339933;">&amp;</span>drupal_static<span style="color: #009900;">&#40;</span><span style="color: #009900; font-weight: bold;">__FUNCTION__</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal">  <span style="color: #b1b100;">if</span> <span style="color: #009900;">&#40;</span><span style="color: #339933;">!</span><a href="http://www.php.net/isset"><span style="color: #990000;">isset</span></a><span style="color: #009900;">&#40;</span><span style="color: #000088;">$my_data</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span></div></li><li style="font-family: monospace; font-weight: bold; font-style: italic;"><div style="font-family: monospace; font-weight: normal; font-style: normal">    <span style="color: #b1b100;">if</span> <span style="color: #009900;">&#40;</span><span style="color: #000088;">$cache</span> <span style="color: #339933;">=</span> cache_get<span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'my_module_data'</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal">      <span style="color: #000088;">$my_data</span> <span style="color: #339933;">=</span> <span style="color: #000088;">$cache</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">data</span><span style="color: #339933;">;</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal">    <span style="color: #009900;">&#125;</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal">    <span style="color: #b1b100;">else</span> <span style="color: #009900;">&#123;</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal">      <span style="color: #666666; font-style: italic;">// Здесь делаем ресурсозатратные вычисления</span></div></li><li style="font-family: monospace; font-weight: bold; font-style: italic;"><div style="font-family: monospace; font-weight: normal; font-style: normal">      <span style="color: #666666; font-style: italic;">// и сохраняем их результат в $my_data ..</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal">      cache_set<span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'my_module_data'</span><span style="color: #339933;">,</span> <span style="color: #000088;">$my_data</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'cache'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal">    <span style="color: #009900;">&#125;</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal">  <span style="color: #009900;">&#125;</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal">  <span style="color: #b1b100;">return</span> <span style="color: #000088;">$my_data</span><span style="color: #339933;">;</span></div></li><li style="font-family: monospace; font-weight: bold; font-style: italic;"><div style="font-family: monospace; font-weight: normal; font-style: normal"><span style="color: #009900;">&#125;</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal"><span style="color: #000000; font-weight: bold;">?&gt;</span></div></li></ol></pre></div>
+<p>
+Этот вариант функции по-прежнему использует статичную переменную, но добавляет еще один слой: кэширование в базе данных. API Друпала предоставляет три ключевых функции, с которыми надо быть знакомыми: <span class="text-emph"><a href="http://api.drupal.org/cache_get">cache_get()</a></span>, <span class="text-emph"><a href="http://api.drupal.org/cache_set">cache_set()</a></span> и <span class="text-emph"><a href="http://api.drupal.org/cache_clear_all">cache_clear_all()</a></span>. Посмотрим как их используют.
+</p>
+<p>
+В вышеприведенном примере, после начальной проверки на наличие статичной переменной, функция ищет в кэше Друпала данные, сохраненные с определенным ключем. Если она их находит, то в переменную <span class="text-emph">$my_data</span> сохраняется значение <span class="text-emph">$cache->data</span> и мы ее возвращаем. В комбинации со статичной переменной, последующим вызовам этой функции в течении одной загрузки страницы не понадобится вызывать даже <span class="text-emph">cache_get()</span>!
+</p>
+<p>
+Если кэшированная версия данных не была найдена, то функция делает всю необходимую работу по их генерации. После этого она сохраняет их в кэш (БД), так что при последующих загрузках они будут найдены. Ключ, который вы передаете первым аргументом, может быть чем угодно на ваш выбор, поэтому важно избегать совпадений с ключами других модулей. Начинать название ключа с названия вашего модуля всегда неплохая идея.
+</p>
+<p>
+В результате мы получаем небольшую функцию, которая экономит время всегда когда это возможно - сначала проверяя наличие копии данных в памяти, потом проверяя кэш и, в конце концов, вычисляя их если это необходимо. Вы увидите такой шаблон, если загляните в код любого модуля Друпала, работающего с большим объемом данных.
+</p>
+<h3 class="bold-header">Своевременное обновление</h3>
+<p>
+Что делать, если закэшированные вами данные устарели и должны быть пересчитаны заново? По умолчанию кэшированная информация хранится до тех пор пока какой-либо модуль явно не вызовет функцию <span class="text-emph">cache_clear_all() </span>, удалив тем самым вашу запись. Если ваши данные изменяются регулярно, то вам просто необходимо вызывать <span class="text-emph">cache_clear_all('my_module_data', 'cache')</span> каждый раз когда вы сохраняете изменения в них. Если вы кэшируете довольно много фрагментов данных (например, версии какого-то блока для каждой роли пользователя сайта), то есть третий параметр "шаблон":
+</p>
+<div class="geshifilter"><pre class="php geshifilter-php" style="font-family:monospace;"><ol><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal"><span style="color: #000000; font-weight: bold;">&lt;?php</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal">cache_clear_all<span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'my_module'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'cache'</span><span style="color: #339933;">,</span> <span style="color: #009900; font-weight: bold;">TRUE</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal"><span style="color: #000000; font-weight: bold;">?&gt;</span></div></li></ol></pre></div>
+<p>
+Данный вызов функции удалит все элементы кэша, чьё имя (ключ) начинается строкой 'my_module'.
+</p>
+<p>
+Если необходимо кэшировать данные на какой-то определенный временной срок, то функции <span class="text-emph">cache_set()</span> в качестве аргумента можно передать дату момента истечения кэша. Например:
+</p>
+<div class="geshifilter"><pre class="php geshifilter-php" style="font-family:monospace;"><ol><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal"><span style="color: #000000; font-weight: bold;">&lt;?php</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal">cache_set<span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'my_module_data'</span><span style="color: #339933;">,</span> <span style="color: #000088;">$my_data</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'cache'</span><span style="color: #339933;">,</span> <a href="http://www.php.net/time"><span style="color: #990000;">time</span></a><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #339933;">+</span> <span style="color: #cc66cc;">360</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal"><span style="color: #000000; font-weight: bold;">?&gt;</span></div></li></ol></pre></div>
+<p>
+Последний аргумент является временной отметкой Unix, который и указывает срок истечения кэша. Наиболее простым способом его расчета является использование функции <span class="text-emph">time()</span> и добавление к ее результату срок времени жизни кэша в секундах. Просроченные элементы кэша использоваться не будут.
+</p>
+<h3 class="bold-header">Управление тем, где будут храниться кэшируемые данные</h3>
+<p>
+Вы могли заметить, что третьим параметром функции <span class="text-emph">cache_set()</span> является <span class="text-emph">'cache'</span> - имя таблицы в БД, которая хранит кэшированные данные по умолчанию. Если вам надо хранить большое количество данных в кэше, то для этого вы можете создать свою таблицу и передавать в соответствующую функцию её имя. Это может ускорить поиск в вашем кэше в независимости от того, что другие модули записывают в их собственные таблицы. Модуль Views использует такую методу для осуществления полного контроля над тем, когда его кэш-данные должны быть очищены.
+</p>
+<p>
+Самый простым местом, где можно создать и настроить свою таблицу для кэша - это в установочном <span class="text-emph">.install</span> файле вашего модуля с помощью функции <span class="text-emph">hook_schema()</span>. В ней вы определяете все таблицы, которые будет использовать ваш модуль. Также вы можете использовать одну из (helper) функций заготовок Друпала, чтобы упростить процесс определения необходимой таблицы:
+</p>
+<div class="geshifilter"><pre class="php geshifilter-php" style="font-family:monospace;"><ol><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal"><span style="color: #000000; font-weight: bold;">&lt;?php</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal"><span style="color: #000000; font-weight: bold;">function</span> mymodule_schema<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal">  <span style="color: #000088;">$schema</span><span style="color: #009900;">&#91;</span><span style="color: #0000ff;">'cache_mymodule'</span><span style="color: #009900;">&#93;</span> <span style="color: #339933;">=</span> drupal_get_schema_unprocessed<span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'system'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'cache'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal">  <span style="color: #b1b100;">return</span> <span style="color: #000088;">$schema</span><span style="color: #339933;">;</span></div></li><li style="font-family: monospace; font-weight: bold; font-style: italic;"><div style="font-family: monospace; font-weight: normal; font-style: normal"><span style="color: #009900;">&#125;</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal"><span style="color: #000000; font-weight: bold;">?&gt;</span></div></li></ol></pre></div>
+<p>
+При использование функции <span class="text-emph">drupal_get_schema_unprocessed()</span> вы получаете всю информацию для определения стандартной таблицы кэша системного модуля (или модуля ядра Друпала), и создаёте её клон с именем <span class="text-emph">'cache_mymodule'</span>. Добавление в начале имени слова <span class="text-emph">'cache'</span> есть общая практика для Друпала, которая помогает держать таблицы кэша в БД организованно.
+</p>
+<p>
+Если вы надеетесь выжать из вашего сервера максимум, Друпал поддерживает альтернативные методы кэширования. Изменяя одну строку в файле настроек вашего сайта <span class="text-emph">settings.php</span>, вы можете указать различные реализации стандартных функций <span class="text-emph">cache_set()</span>, <span class="text-emph">cache_get()</span> и <span class="text-emph">cache_clear_all()</span>. Наиболее популярна интеграция с проектом <span class="text-emph"><a href="http://drupal.org/project/memcache">memcached</a></span> (открытый исходный код), но возможны и другие методы (такие как кэш, основанный на файлах или PHP's APC). Если вы используете стандартные функции Друпала для кэширования, то код вашего модуля не придется изменять.
+</p>
+<h3 class="bold-header">Продвинутое кэширование отображаемого содержимого (материалов)</h3>
+<p>
+В Друпал 7 для построения содержимого страницы, которая будет показана пользователю, широко используются массивы отображения (renderable arrays). Модули могут определять элементы страницы, таких как блоки, таблицы, формы и даже ноды, в виде структурированных массивов; когда приходит время отображать страницу в HTML, Друпал автоматически использует функцию <span class="text-emph">drupal_render()</span> для обработки таких массивов, автоматически вызывая функции темы и другие. Но некоторые достаточно сложные элементы страницы могут потребовать заметного времени для отображения в HTML. Если отображаемому элементу добавить свойство <span class="text-emph">#cache</span>, то тем самым вы проинструктируете функцию <span class="text-emph">drupal_render()</span> о том, что полученный HTML элемента необходимо кэшировать и использовать при последующих выводах элемента на страницу.
+</p>
+<div class="geshifilter"><pre class="php geshifilter-php" style="font-family:monospace;"><ol><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal"><span style="color: #000000; font-weight: bold;">&lt;?php</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal"><span style="color: #000088;">$content</span><span style="color: #009900;">&#91;</span><span style="color: #0000ff;">'my_content'</span><span style="color: #009900;">&#93;</span> <span style="color: #339933;">=</span> <a href="http://www.php.net/array"><span style="color: #990000;">array</span></a><span style="color: #009900;">&#40;</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal">  <span style="color: #0000ff;">'#cache'</span> <span style="color: #339933;">=&gt;</span> <a href="http://www.php.net/array"><span style="color: #990000;">array</span></a><span style="color: #009900;">&#40;</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal">    <span style="color: #0000ff;">'cid'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'my_module_data'</span><span style="color: #339933;">,</span></div></li><li style="font-family: monospace; font-weight: bold; font-style: italic;"><div style="font-family: monospace; font-weight: normal; font-style: normal">    <span style="color: #0000ff;">'bin'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'cache'</span><span style="color: #339933;">,</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal">    <span style="color: #0000ff;">'expire'</span> <span style="color: #339933;">=&gt;</span> <a href="http://www.php.net/time"><span style="color: #990000;">time</span></a><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #339933;">+</span> <span style="color: #cc66cc;">360</span><span style="color: #339933;">,</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal">  <span style="color: #009900;">&#41;</span><span style="color: #339933;">,</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal">  <span style="color: #666666; font-style: italic;">// Другие свойства элемента продолжаются тут ...</span></div></li><li style="font-family: monospace; font-weight: normal;"><div style="font-family: monospace; font-weight: normal; font-style: normal"><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></li><li style="font-family: monospace; font-weight: bold; font-style: italic;"><div style="font-family: monospace; font-weight: normal; font-style: normal"><span style="color: #000000; font-weight: bold;">?&gt;</span></div></li></ol></pre></div>
+<p>
+Свойство <span class="text-emph">#cache</span> содержит все параметры необходимые для функций <span class="text-emph">cache_get()</span> и <span class="text-emph">cache_set()</span>, если бы вы вызывали их в ручную. Для больших подробностей читайте оффициальную документацию для функции <span class="text-emph"><a href="http://api.drupal.org/api/drupal/includes--common.inc/function/drupal_render/7">drupal_render()</a></span>.
+</p>
+<h3 class="bold-header">Некоторые предостережения</h3>
+<p>
+Как и с любой хорошей фишкой, с кэшем тоже можно перестараться. Не имеет смысла записывать в кэш (таблицу БД) данные, которые являются всего одной записью из другой таблицы в БД. С помощью модуля <span class="text-emph"><a href="http://drupal.org/project/devel">Devel</a></span> можно определить те функции, для которых будет полезно использовать кэширование: этот модуль может выводить журнал (log) всех запросов к БД, происходящих на вашем сайте и подсвечивать медленные или те, которые повторяются многократно в ходе создания одной страницы.
+</p>
+<p>
+Бывают ситуации, когда структура данных используемых вами просто не подходит для стандартной системы кэширования. Например, <span class="text-emph">cache_set()</span> передает в кэш строки сериализованными, что является проблемой для SQL запросов с соединением (join) кэшированных данных. В подобных случаях вам нужно какое-то специфичное решение конкретно для вашего модуля. VotingAPI (api для голосования) заводит отдельно таблицу для голосов и другую таблицу для полученных результатов (средние значения, суммы и т.п.) для быстрого соединения таблиц при сортировке и фильтрации нод (материалов).
+</p>
+<p>
+Также не стоит забывать, что кэш это <i>не</i> долгосрочное хранилище! Поскольку другие модули могут вызвать <span class="text-emph">cache_clear_all()</span> и вычистить его полностью, не стоит там хранить информацию, которую вы уже не сможете пересчитать используя исходный источник данных.
+</p></div></div></div>  <div id="book-navigation-1" class="book-navigation">
+    
+        <div class="page-links clearfix">
+              <a href="/web-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0/2179" class="page-previous" title="На предыдущую страницу">‹ Пример из модуля Cache Example</a>
+                    <a href="/web-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0/2178" class="page-up" title="Перейти к родительской странице">Вверх</a>
+                    <a href="/web-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0/2169" class="page-next" title="На следующую страницу">Работа с блоками ›</a>
+          </div>
+    
+  </div>
+    
+  </div>
+
+  <ul class="links inline"><li class="comment_forbidden first last"><span><a href="/user/login?destination=node/101%23comment-form">Войдите</a> или <a href="/user/register?destination=node/101%23comment-form">зарегистрируйтесь</a>, чтобы отправлять комментарии</span></li>
+</ul>
+  
+</div>
+  </section> <!-- /#main -->
+  
+  
+  
+  <footer id="footer" role="contentinfo" class="clearfix">
+    <div class="region region-footer">
+  <section id="block-system-powered-by" class="block block-system">
+
+      
+  <div class="content">
+    <span>Создано на <a href="http://drupal.org">Drupal</a></span>  </div>
+  
+</section> <!-- /.block -->
+<section id="block-system-user-menu" class="block block-system block-menu">
+
+      
+  <div class="content">
+    <ul class="menu"><li class="first last leaf"><a href="/user/login" title="">Вход</a></li>
+</ul>  </div>
+  
+</section> <!-- /.block -->
+<section id="block-block-2" class="block block-block">
+
+      
+  <div class="content">
+    <!-- Yandex.Metrika informer -->
+<a href="http://metrika.yandex.ru/stat/?id=14951401&amp;from=informer"
+target="_blank" rel="nofollow"><img src="//bs.yandex.ru/informer/14951401/3_0_F3FFF2FF_D3F1D2FF_0_pageviews"
+style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)" /></a>
+<!-- /Yandex.Metrika informer -->  </div>
+  
+</section> <!-- /.block -->
+</div>
+ <!-- /.region -->
+      </footer> <!-- /#footer -->
+
+</div> <!-- /#container -->
+    
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+  (function (d, w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter14951401 = new Ya.Metrika({id:14951401, enableAll: true});
+          } catch(e) {}
+      });
+      
+      var n = d.getElementsByTagName("script")[0],
+          s = d.createElement("script"),
+          f = function () { n.parentNode.insertBefore(s, n); };
+      s.type = "text/javascript";
+      s.async = true;
+      s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+      if (w.opera == "[object Opera]") {
+          d.addEventListener("DOMContentLoaded", f);
+      } else { f(); }
+  })(document, window, "yandex_metrika_callbacks");
+  </script>
+  <noscript><div><img src="//mc.yandex.ru/watch/14951401" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+  
+</body>
+
+</html>

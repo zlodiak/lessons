@@ -1,0 +1,78 @@
+
+.outer {
+    margin: 40px;
+    font-size: 30px;
+}
+
+.title {
+    padding: 5px 15px;
+    background: #ddd;
+}
+
+.inner {
+    display: none;
+}
+
+
+<ul class="outer">
+    <li>
+        <a class="title" href="#">link</a>
+        <ul class="inner">
+            <li><a href="#">link</a></li>
+            <li><a href="#">link</a></li>
+            <li><a href="#">link</a></li>
+        </ul>
+    </li>
+    <li>
+        <a class="title" href="#">link</a>
+        <ul class="inner">
+            <li><a href="#">link</a></li>
+            <li><a href="#">link</a></li>
+            <li><a href="#">link</a></li>
+        </ul>
+    </li>
+    <li>
+        <a class="title" href="#">link</a>
+        <ul class="inner">
+            <li><a href="#">link</a></li>
+            <li><a href="#">link</a></li>
+            <li><a href="#">link</a></li>
+        </ul>
+    </li>
+</ul>
+
+
+
+(function() {
+    
+    var addEvent,
+        title = document.querySelectorAll('.title'),
+        i = 0,
+        max = title.length;
+
+    if (document.addEventListener) {
+        addEvent = function(el, type, handler) {
+            el.addEventListener(type, handler, false)
+        };
+    } else {
+        addEvent = function(el, type, handler) {
+            el.attachEvent("on" + type, handler)
+        };
+    };
+   
+    
+    for (; i < max; i += 1) {
+        addEvent(title[i], "mouseover", function(e) {
+            e = e || window.event;
+            var inner = e.target.nextElementSibling;
+            inner.style.display = "block";
+        });
+        
+        addEvent(title[i], "mouseout", function(e) {
+            e = e || window.event;
+            var inner = e.target.nextElementSibling;
+            inner.style.display = "none";
+        });
+    };
+    
+})();

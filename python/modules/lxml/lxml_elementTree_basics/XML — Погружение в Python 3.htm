@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <!-- Meta -->
+        <title>XML &mdash; Погружение в Python 3</title>
+        <meta name="description" content="Сообщество python-разработчиков: форум, блоги, работа, обучающие материалы, видео, ссылки." />
+        <meta name="keywords" content="питон, python, django, программирование" />
+        <meta charset="utf-8">
+        <link rel="shortcut icon" href="/static/favicon.ico" />
+        <meta name='yandex-verification' content='7571a7389fb37d09' />
+        <meta name="google-site-verification" content="UBmwuHWunzt1rZyvB7V073D5GqAwc6iTfeEGbiDqg8g" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="verify-reformal" content="73b204804cbbf9b43fd86c44" />
+        
+
+        <!-- CSS -->
+        <link href="/static/bootstrap3/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/static/css/custom.css?4" rel="stylesheet">
+        <link href="/static/css/comment.css" rel="stylesheet">
+        <link href="/static/glyphicons/css/bootstrap-glyphicons.css" rel="stylesheet">
+        <link href="/static/css/pygments.css" rel="stylesheet">
+        
+
+        <script src="/static/js/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript">
+            USER_ID = null;
+        </script>
+
+        
+    </head>
+<body>
+    
+<div class="navbar navbar-inverse website-navbar-wrapper" role="navigation">
+    <div class="container">
+        <div class="col-md-12">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-taget=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">PEP8.RU</a>
+            </div>
+
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav website-nav-items">
+                    <li class=""><a href="/forum/">Форум</li></a>
+                    <li class=""><a href="/user">Люди</li></a>
+                    <li class=""><a href="/blog/">Блоги</li></a>
+                    <li class=""><a href="/job/">Работа</li></a>
+                    
+                    <li class=""><a href="/link/">Ссылки</li></a>
+                    <li class=""><a href="/video/">Видео</li></a>
+                    <li class="active"><a href="/doc/">Учебники</li></a>
+                    <li class=""><a href="/book/">Книги</li></a>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="glyphicon glyphicon-user"></i>
+                            Гость
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            
+                            <li><a href="/reg/login">Войти</a></li>
+                            <li><a href="/reg/signup#">Регистрация</a></li>
+                            
+                        </ul>   
+                    </li>   
+                </ul>   
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="br">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 breadcrumb-wrapper">
+<ul class="breadcrumb">
+    <li><a href="/">Начало</a></li>
+    <li><a href="/doc/">Учебники</a></li>
+    <li><a href="/doc/dive-into-python-3/">Погружение в Python 3</a></li>
+    <li class="active">Глава</li>
+</ul>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        
+    </div> <!-- /container -->
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 box">
+                <div class="row">
+                    <div class="col-md-12 header-box">
+                        
+                    </div>
+                </div>
+                
+<div id="bodyContent">
+								<h1>XML</h1>
+								
+																
+								<div id="mw-content-text" lang="ru" dir="ltr" class="mw-content-ltr">
+<p><br></p>
+
+<h2><span class="mw-headline" id=".D0.9F.D0.BE.D0.B3.D1.80.D1.83.D0.B6.D0.B5.D0.BD.D0.B8.D0.B5">Погружение</span></h2>
+<p>Большинство глав в этой книге строятся на отрывках, примерах кода. Но xml это больше данные, нежели код. Один из способов применения xml это «синдикация контента» такого, как последние статьи с блога, форума или других часто обновляемых сайтов. Большинство популярного ПО для ведения блогов может создавать ленты (фиды) и обновлять их, когда новые статьи, темы публикуются. Вы можете следить за блогом подписавшись на его канал, также вы можете следить за несколькими блогами при помощи «программ-агрегаторов» таких, как <span class="extiw" title="w:Google Reader">Google Reader</span> <a rel="nofollow" class="external autonumber" href="http://www.google.com/reader/">[1]</a></p>
+<p>Итак, ниже представлены XML данные с которыми мы будем работать в этой главе. Это фид формата <a rel="nofollow" class="external text" href="http://atompub.org/rfc4287.html">Atom syndication feed</a></p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="xml source-xml">
+<pre class="de1">
+<span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">'1.0'</span> <span class="re0">encoding</span>=<span class="st0">'utf-8'</span><span class="re2">?&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;feed</span> <span class="re0">xmlns</span>=<span class="st0">'http://www.w3.org/2005/Atom'</span> <span class="re0">xml:lang</span>=<span class="st0">'en'</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;title<span class="re2">&gt;</span></span></span>dive into mark<span class="sc3"><span class="re1">&lt;/title<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;subtitle<span class="re2">&gt;</span></span></span>currently between addictions<span class="sc3"><span class="re1">&lt;/subtitle<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;id<span class="re2">&gt;</span></span></span>tag:diveintomark.org,2001-07-29:/<span class="sc3"><span class="re1">&lt;/id<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;updated<span class="re2">&gt;</span></span></span>2009-03-27T21:56:07Z<span class="sc3"><span class="re1">&lt;/updated<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;link</span> <span class="re0">rel</span>=<span class="st0">'alternate'</span> <span class="re0">type</span>=<span class="st0">'text/html'</span> <span class="re0">href</span>=<span class="st0">'http://diveintomark.org/'</span><span class="re2">/&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;link</span> <span class="re0">rel</span>=<span class="st0">'self'</span> <span class="re0">type</span>=<span class="st0">'application/atom+xml'</span> <span class="re0">href</span>=<span class="st0">'http://diveintomark.org/feed/'</span><span class="re2">/&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;entry<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;author<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;name<span class="re2">&gt;</span></span></span>Mark<span class="sc3"><span class="re1">&lt;/name<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;uri<span class="re2">&gt;</span></span></span>http://diveintomark.org/<span class="sc3"><span class="re1">&lt;/uri<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/author<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;title<span class="re2">&gt;</span></span></span>Dive into history, 2009 edition<span class="sc3"><span class="re1">&lt;/title<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;link</span> <span class="re0">rel</span>=<span class="st0">'alternate'</span> <span class="re0">type</span>=<span class="st0">'text/html'</span></span>
+<span class="sc3">      <span class="re0">href</span>=<span class="st0">'http://diveintomark.org/archives/2009/03/27/dive-into-history-2009-edition'</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;id<span class="re2">&gt;</span></span></span>tag:diveintomark.org,2009-03-27:/archives/20090327172042<span class="sc3"><span class="re1">&lt;/id<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;updated<span class="re2">&gt;</span></span></span>2009-03-27T21:56:07Z<span class="sc3"><span class="re1">&lt;/updated<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;published<span class="re2">&gt;</span></span></span>2009-03-27T17:20:42Z<span class="sc3"><span class="re1">&lt;/published<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;category</span> <span class="re0">scheme</span>=<span class="st0">'http://diveintomark.org'</span> <span class="re0">term</span>=<span class="st0">'diveintopython'</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;category</span> <span class="re0">scheme</span>=<span class="st0">'http://diveintomark.org'</span> <span class="re0">term</span>=<span class="st0">'docbook'</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;category</span> <span class="re0">scheme</span>=<span class="st0">'http://diveintomark.org'</span> <span class="re0">term</span>=<span class="st0">'html'</span><span class="re2">/&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;summary</span> <span class="re0">type</span>=<span class="st0">'html'</span><span class="re2">&gt;</span></span>Putting an entire chapter on one page sounds
+    bloated, but consider this <span class="sc1">&amp;amp;</span>mdash; my longest chapter so far
+    would be 75 printed pages, and it loads in under 5 seconds<span class="sc1">&amp;amp;</span>hellip;
+    On dialup.<span class="sc3"><span class="re1">&lt;/summary<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/entry<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;entry<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;author<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;name<span class="re2">&gt;</span></span></span>Mark<span class="sc3"><span class="re1">&lt;/name<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;uri<span class="re2">&gt;</span></span></span>http://diveintomark.org/<span class="sc3"><span class="re1">&lt;/uri<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/author<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;title<span class="re2">&gt;</span></span></span>Accessibility is a harsh mistress<span class="sc3"><span class="re1">&lt;/title<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;link</span> <span class="re0">rel</span>=<span class="st0">'alternate'</span> <span class="re0">type</span>=<span class="st0">'text/html'</span></span>
+<span class="sc3">      <span class="re0">href</span>=<span class="st0">'http://diveintomark.org/archives/2009/03/21/accessibility-is-a-harsh-mistress'</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;id<span class="re2">&gt;</span></span></span>tag:diveintomark.org,2009-03-21:/archives/20090321200928<span class="sc3"><span class="re1">&lt;/id<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;updated<span class="re2">&gt;</span></span></span>2009-03-22T01:05:37Z<span class="sc3"><span class="re1">&lt;/updated<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;published<span class="re2">&gt;</span></span></span>2009-03-21T20:09:28Z<span class="sc3"><span class="re1">&lt;/published<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;category</span> <span class="re0">scheme</span>=<span class="st0">'http://diveintomark.org'</span> <span class="re0">term</span>=<span class="st0">'accessibility'</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;summary</span> <span class="re0">type</span>=<span class="st0">'html'</span><span class="re2">&gt;</span></span>The accessibility orthodoxy does not permit people to
+      question the value of features that are rarely useful and rarely used.<span class="sc3"><span class="re1">&lt;/summary<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/entry<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;entry<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;author<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;name<span class="re2">&gt;</span></span></span>Mark<span class="sc3"><span class="re1">&lt;/name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/author<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;title<span class="re2">&gt;</span></span></span>A gentle introduction to video encoding, part 1: container formats<span class="sc3"><span class="re1">&lt;/title<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;link</span> <span class="re0">rel</span>=<span class="st0">'alternate'</span> <span class="re0">type</span>=<span class="st0">'text/html'</span></span>
+<span class="sc3">      <span class="re0">href</span>=<span class="st0">'http://diveintomark.org/archives/2008/12/18/give-part-1-container-formats'</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;id<span class="re2">&gt;</span></span></span>tag:diveintomark.org,2008-12-18:/archives/20081218155422<span class="sc3"><span class="re1">&lt;/id<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;updated<span class="re2">&gt;</span></span></span>2009-01-11T19:39:22Z<span class="sc3"><span class="re1">&lt;/updated<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;published<span class="re2">&gt;</span></span></span>2008-12-18T15:54:22Z<span class="sc3"><span class="re1">&lt;/published<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;category</span> <span class="re0">scheme</span>=<span class="st0">'http://diveintomark.org'</span> <span class="re0">term</span>=<span class="st0">'asf'</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;category</span> <span class="re0">scheme</span>=<span class="st0">'http://diveintomark.org'</span> <span class="re0">term</span>=<span class="st0">'avi'</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;category</span> <span class="re0">scheme</span>=<span class="st0">'http://diveintomark.org'</span> <span class="re0">term</span>=<span class="st0">'encoding'</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;category</span> <span class="re0">scheme</span>=<span class="st0">'http://diveintomark.org'</span> <span class="re0">term</span>=<span class="st0">'flv'</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;category</span> <span class="re0">scheme</span>=<span class="st0">'http://diveintomark.org'</span> <span class="re0">term</span>=<span class="st0">'GIVE'</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;category</span> <span class="re0">scheme</span>=<span class="st0">'http://diveintomark.org'</span> <span class="re0">term</span>=<span class="st0">'mp4'</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;category</span> <span class="re0">scheme</span>=<span class="st0">'http://diveintomark.org'</span> <span class="re0">term</span>=<span class="st0">'ogg'</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;category</span> <span class="re0">scheme</span>=<span class="st0">'http://diveintomark.org'</span> <span class="re0">term</span>=<span class="st0">'video'</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;summary</span> <span class="re0">type</span>=<span class="st0">'html'</span><span class="re2">&gt;</span></span>These notes will eventually become part of a
+      tech talk on video encoding.<span class="sc3"><span class="re1">&lt;/summary<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/entry<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/feed<span class="re2">&gt;</span></span></span>
+</pre></div>
+</div>
+<h2><span class="mw-headline" id="5-.D0.BC.D0.B8.D0.BD.D1.83.D1.82.D0.BD.D0.BE.D0.B5_.D0.B2.D0.B2.D0.B5.D0.B4.D0.B5.D0.BD.D0.B8.D0.B5_.D0.B2_XML">5-минутное введение в XML</span></h2>
+<p>Если Вы уже знакомы с XML, то можете пропустить эту главу.</p>
+<p>XML — это язык разметки для описания иерархии структурированных данных. XML <i>документ</i> содержит один или более <i>элементов</i> разделённых <i>открывающими</i> и <i>закрывающими тегами</i>. Это правильный, хотя и неинтересный, XML документ:</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="xml source-xml">
+<pre class="de1">
+<span class="sc3"><span class="re1">&lt;foo<span class="re2">&gt;</span></span></span>   ①
+<span class="sc3"><span class="re1">&lt;/foo<span class="re2">&gt;</span></span></span>  ②
+</pre></div>
+</div>
+<p>① Это <i>открывающий (начальный)</i> тег элемента foo.</p>
+<p>② Это соответствующий <i>закрывающий (конечный)</i> тег элемента foo. Как в математике и языках программирования каждая открывающая скобка должна иметь соответствующую закрывающую, в XML каждый открывающий тег должен быть <i>закрыт</i> соответствующим закрывающим.</p>
+<p>Элементы могут быть неограниченно <i>вложены</i> друг в друга. Так как элемент bar вложен в элемент foo, то его называют <i>подэлементом</i> или <i>дочерним элементом</i> элемента foo.</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="xml source-xml">
+<pre class="de1">
+<span class="sc3"><span class="re1">&lt;foo<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;bar<span class="re2">&gt;</span></span><span class="re1">&lt;/bar<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/foo<span class="re2">&gt;</span></span></span>
+</pre></div>
+</div>
+<p>Первый элемент каждого XML документа называется корневым. XML документ может содержать только один корневой элемент. Пример представленный ниже <b>не является XML документом</b>, так как он имеет два корневых элемента:</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="xml source-xml">
+<pre class="de1">
+<span class="sc3"><span class="re1">&lt;foo<span class="re2">&gt;</span></span><span class="re1">&lt;/foo<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;bar<span class="re2">&gt;</span></span><span class="re1">&lt;/bar<span class="re2">&gt;</span></span></span>
+</pre></div>
+</div>
+<p>Элементы могут иметь <i>атрибуты</i> состоящие из пары имя-значение. Атрибуты перечисляются внутри открывающего тега элемента и разделяются пробелами. <i>Имена атрибутов</i> не могут повторяться внутри одно элемента. <i>Значения атрибутов</i> должны быть обрамлены одинарными или двойными кавычками.</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="xml source-xml">
+<pre class="de1">
+<span class="sc3"><span class="re1">&lt;foo</span> <span class="re0">lang</span>=<span class="st0">'en'</span><span class="re2">&gt;</span></span>                          ①
+  <span class="sc3"><span class="re1">&lt;bar</span> <span class="re0">id</span>=<span class="st0">'papayawhip'</span> <span class="re0">lang</span>=<span class="st0">"fr"</span><span class="re2">&gt;</span><span class="re1">&lt;/bar<span class="re2">&gt;</span></span></span>  ②
+<span class="sc3"><span class="re1">&lt;/foo<span class="re2">&gt;</span></span></span>
+</pre></div>
+</div>
+<p>① Элемент foo имеет один атрибут именованный как lang. Значению атрибута lang присваивается строка en.</p>
+<p>② Элемент bar имеет два атрибута: id и lang. Значение lang есть fr. Это не приводит к конфликту с атрибутом lang элемента foo, так как каждый элемент имеет свой набор атрибутов.</p>
+<p>Если элемент имеет больше чем один атрибут, то порядок атрибутов не играет роли. Атрибуты элементов есть неупорядоченный набор ключей и значений подобно словарям в Python. Для каждого элемента можно указать неограниченное число атрибутов.</p>
+<p>Элементы могут иметь <i>текст (текстовое содержание)</i>.</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="xml source-xml">
+<pre class="de1">
+<span class="sc3"><span class="re1">&lt;foo</span> <span class="re0">lang</span>=<span class="st0">'en'</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;bar</span> <span class="re0">lang</span>=<span class="st0">'fr'</span><span class="re2">&gt;</span></span>PapayaWhip<span class="sc3"><span class="re1">&lt;/bar<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/foo<span class="re2">&gt;</span></span></span>
+</pre></div>
+</div>
+<p>Элементы которые не содержат текста и дочерних элементов называются <i>пустыми</i>.</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="xml source-xml">
+<pre class="de1">
+<span class="sc3"><span class="re1">&lt;foo<span class="re2">&gt;</span></span><span class="re1">&lt;/foo<span class="re2">&gt;</span></span></span>
+</pre></div>
+</div>
+<p>Существует сокращённая запись пустого элемента. Поместив знак дроби / в конце открывающего тега, вы можете пропустить закрывающий тег. XML документ предыдущего примера с пустым элементов может быть записан следующим образом:</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="xml source-xml">
+<pre class="de1">
+<span class="sc3"><span class="re1">&lt;foo</span><span class="re2">/&gt;</span></span>
+</pre></div>
+</div>
+<p>Подобно тому как функции Python могут быть объявлены в разных <i>модулях</i>, XML элементы могут быть объявлены в разных <i>пространствах имён (namespaces)</i>. Пространства имён обычно выглядят как URL-пути. Для объявления <i>пространства имён по умолчанию</i> используется директива xmlns. Объявление пространства имён очень похоже на атрибут, но имеет специальное значение.</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="xml source-xml">
+<pre class="de1">
+<span class="sc3"><span class="re1">&lt;feed</span> <span class="re0">xmlns</span>=<span class="st0">'http://www.w3.org/2005/Atom'</span><span class="re2">&gt;</span></span>  ①
+  <span class="sc3"><span class="re1">&lt;title<span class="re2">&gt;</span></span></span>dive into mark<span class="sc3"><span class="re1">&lt;/title<span class="re2">&gt;</span></span></span>             ②
+<span class="sc3"><span class="re1">&lt;/feed<span class="re2">&gt;</span></span></span>
+</pre></div>
+</div>
+<p>① Элемент feed находится в пространстве имён <a rel="nofollow" class="external free" href="http://www.w3.org/2005/Atom">http://www.w3.org/2005/Atom</a>.</p>
+<p>② Элемент title также находится в пространстве имён <a rel="nofollow" class="external free" href="http://www.w3.org/2005/Atom">http://www.w3.org/2005/Atom</a>. Пространство имён применяется как к элементу в котором оно было определено так и ко всем дочерним элементам.</p>
+<p>Вы можете объявлять пространство имён xmlns:prefix и ставить ему в соответствие <i>префикс</i> prefix. Тогда каждый элемент в данном пространстве имён должен быть явно объявлен с указанием префикса prefix.</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="xml source-xml">
+<pre class="de1">
+<span class="sc3"><span class="re1">&lt;atom:feed</span> <span class="re0">xmlns:atom</span>=<span class="st0">'http://www.w3.org/2005/Atom'</span><span class="re2">&gt;</span></span>  ①
+  <span class="sc3"><span class="re1">&lt;atom:title<span class="re2">&gt;</span></span></span>dive into mark<span class="sc3"><span class="re1">&lt;/atom:title<span class="re2">&gt;</span></span></span>             ②
+<span class="sc3"><span class="re1">&lt;/atom:feed<span class="re2">&gt;</span></span></span>
+</pre></div>
+</div>
+<p>① Элемент feed находится в пространстве имён <a rel="nofollow" class="external free" href="http://www.w3.org/2005/Atom">http://www.w3.org/2005/Atom</a>.</p>
+<p>② Элемент title также находится в пространстве имён <a rel="nofollow" class="external free" href="http://www.w3.org/2005/Atom">http://www.w3.org/2005/Atom</a>.</p>
+<p>С точки зрения синтаксического анализатора XML, предыдущие два XML документа идентичны. Пара «пространство имён» + «имя элемента» задают XML идентичность. Префиксы используются только для ссылки на пространство имён, но не изменяют имени атрибута. Если пространства имён совпадают, имена элементов совпадают, атрибуты (или их отсутствие) совпадают и тексты элементов совпадают, то XML документы одинаковы.</p>
+<p>И, наконец, XML документы могут содержать информацию о <span title="Погружение в Python 3 (Пилгрим)/Строки">кодировке символов</span> в первой строке до корневого элемента. (Если Вам интересно как документ может содержать информацию которая должна быть известна XML-анализатору до анализа XML документа, то смотрите <a rel="nofollow" class="external text" href="http://www.w3.org/TR/REC-xml/#sec-guessing-no-ext-info">Catch-22 раздел F XML спецификации</a>)</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="xml source-xml">
+<pre class="de1">
+<span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">'1.0'</span> <span class="re0">encoding</span>=<span class="st0">'utf-8'</span><span class="re2">?&gt;</span></span>
+</pre></div>
+</div>
+<p>Теперь Вы знаете об XML достаточно чтобы «вынести» следующие разделы главы!</p>
+<h2><span class="mw-headline" id=".D0.A1.D1.82.D1.80.D1.83.D0.BA.D1.82.D1.83.D1.80.D0.B0_.D1.84.D0.BE.D1.80.D0.BC.D0.B0.D1.82.D0.B0_.D1.81.D0.B8.D0.BD.D0.B4.D0.B8.D0.BA.D0.B0.D1.86.D0.B8.D0.B8_.D1.84.D0.B8.D0.B4.D0.B0_Atom">Структура формата синдикации фида Atom</span></h2>
+<p>Рассмотрим блог (weblog) или любой сайт с часто обновляемым контентом, например <a rel="nofollow" class="external text" href="http://www.cnn.com/">CNN.com</a>. Сайт содержит заголовок («CNN.com»), подзаголовок («Breaking News, U.S., World, Weather, Entertainment &amp; Video News»), дату последнего изменения («обновлено 12:43 p.m. EDT, Sat May 16, 2009») и список статей опубликованных в разное время. Каждая статья в свою очередь также имеет заголовок, дату первой публикации (и, возможно, дату последнего обновления, в случае если статья была корректирована) и уникальный URL.</p>
+<p>Формат синдикации Atom разработан с целью хранить информацию подобного рода стандартным образом. Мой блог и CNN.com абсолютно разные по дизайну, содержанию и посетителям сайты, но оба имеют сходную структуру. Оба сайта имеют заголовки и публикуют статьи.</p>
+<p>На верхнем уровне фид Atom должен иметь корневой элемент по имени feed находящийся в пространстве имен <a rel="nofollow" class="external free" href="http://www.w3.org/2005/Atom">http://www.w3.org/2005/Atom</a>.</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="xml source-xml">
+<pre class="de1">
+<span class="sc3"><span class="re1">&lt;feed</span> <span class="re0">xmlns</span>=<span class="st0">'http://www.w3.org/2005/Atom'</span>  ①</span>
+<span class="sc3">      <span class="re0">xml:lang</span>=<span class="st0">'en'</span><span class="re2">&gt;</span></span>                       ②
+</pre></div>
+</div>
+<p>① <a rel="nofollow" class="external free" href="http://www.w3.org/2005/Atom">http://www.w3.org/2005/Atom</a> - пространство имён Atom</p>
+<p>② Каждый элемент может содержать атрибут xml:lang который определяет язык элемента и его дочерних элементов. В данном случае атрибут xml:lang объявленный в корневом элементе задаёт английский язык для всего фида.</p>
+<p>Фид Atom содержит дополнительную информацию о себе в дочерних элементах корневого элемента:</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="xml source-xml">
+<pre class="de1">
+<span class="sc3"><span class="re1">&lt;feed</span> <span class="re0">xmlns</span>=<span class="st0">'http://www.w3.org/2005/Atom'</span> <span class="re0">xml:lang</span>=<span class="st0">'en'</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;title<span class="re2">&gt;</span></span></span>dive into mark<span class="sc3"><span class="re1">&lt;/title<span class="re2">&gt;</span></span></span>                                             ①
+  <span class="sc3"><span class="re1">&lt;subtitle<span class="re2">&gt;</span></span></span>currently between addictions<span class="sc3"><span class="re1">&lt;/subtitle<span class="re2">&gt;</span></span></span>                         ②
+  <span class="sc3"><span class="re1">&lt;id<span class="re2">&gt;</span></span></span>tag:diveintomark.org,2001-07-29:/<span class="sc3"><span class="re1">&lt;/id<span class="re2">&gt;</span></span></span>                                ③
+  <span class="sc3"><span class="re1">&lt;updated<span class="re2">&gt;</span></span></span>2009-03-27T21:56:07Z<span class="sc3"><span class="re1">&lt;/updated<span class="re2">&gt;</span></span></span>                                   ④
+  <span class="sc3"><span class="re1">&lt;link</span> <span class="re0">rel</span>=<span class="st0">'alternate'</span> <span class="re0">type</span>=<span class="st0">'text/html'</span> <span class="re0">href</span>=<span class="st0">'http://diveintomark.org/'</span><span class="re2">/&gt;</span></span>  ⑤
+</pre></div>
+</div>
+<p>① Заголовок title содержит текст 'dive into mark'.</p>
+<p>② Подзаголовок subtitle фида есть строка 'currently between addictions'.</p>
+<p>③ Каждый фид должен иметь глобальный уникальный идентификатор. <a rel="nofollow" class="external text" href="http://www.ietf.org/rfc/rfc4151.txt">RFC 4151</a> содержит информацию как создавать такие идентификаторы.</p>
+<p>④ Данный фид был обновлён последний раз 27 марта 2009 в 21:56 GMT. Обычно элемент updated эквивалентен дате последнего изменения какой-либо из статей на сайте.</p>
+<p>⑤ А вот здесь начинается самое интересное. Элемент ссылки link не имеет текстового содержания, но имеет три атрибута: rel, type и href. Значение атрибута rel говорит о том какого типа ссылка. rel='alternate' значит, что это альтернативная ссылка этого фида. Атрибут type='text/html' говорит, что это ссылка на HTML страницу. И, собственно, путь ссылки содержится в атрибуте href.</p>
+<p>Теперь мы знаем, что представленный выше фид получен с сайта «dive into mark». Сайт доступен по адресу <a rel="nofollow" class="external free" href="http://diveintomark.org/">http://diveintomark.org/</a> и последний раз был обновлён 27 марта 2009.</p>
+<table style="margin: 1em 0;"><tr><td valign="top" style="padding: 0 .5em 0 2em;"><img alt="Start hand.svg" src="//upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Start_hand.svg/32px-Start_hand.svg.png" width="32" height="32" style="vertical-align: text-top" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Start_hand.svg/48px-Start_hand.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Start_hand.svg/64px-Start_hand.svg.png 2x"></td>
+<td valign="top" style="padding: 0;">
+<p>Хотя в некоторых XML документах порядок элементов может иметь значение, в фидах Atom порядок элементов - произвольный.</p>
+</td>
+</tr></table><p>Продолжим дальше рассматривать строение фида: после метаинформации о фиде идёт список последних статей. Статья выглядит следующим образом:</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="xml source-xml">
+<pre class="de1">
+<span class="sc3"><span class="re1">&lt;entry<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;author<span class="re2">&gt;</span></span></span>                                                                 ①
+    <span class="sc3"><span class="re1">&lt;name<span class="re2">&gt;</span></span></span>Mark<span class="sc3"><span class="re1">&lt;/name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;uri<span class="re2">&gt;</span></span></span>http://diveintomark.org/<span class="sc3"><span class="re1">&lt;/uri<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/author<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;title<span class="re2">&gt;</span></span></span>Dive into history, 2009 edition<span class="sc3"><span class="re1">&lt;/title<span class="re2">&gt;</span></span></span>                           ②
+  <span class="sc3"><span class="re1">&lt;link</span> <span class="re0">rel</span>=<span class="st0">'alternate'</span> <span class="re0">type</span>=<span class="st0">'text/html'</span>                                   ③</span>
+<span class="sc3">    <span class="re0">href</span>=<span class="st0">'http://diveintomark.org/archives/2009/03/27/dive-into-history-2009-edition'</span><span class="re2">/&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;id<span class="re2">&gt;</span></span></span>tag:diveintomark.org,2009-03-27:/archives/20090327172042<span class="sc3"><span class="re1">&lt;/id<span class="re2">&gt;</span></span></span>        ④
+  <span class="sc3"><span class="re1">&lt;updated<span class="re2">&gt;</span></span></span>2009-03-27T21:56:07Z<span class="sc3"><span class="re1">&lt;/updated<span class="re2">&gt;</span></span></span>                                  ⑤
+  <span class="sc3"><span class="re1">&lt;published<span class="re2">&gt;</span></span></span>2009-03-27T17:20:42Z<span class="sc3"><span class="re1">&lt;/published<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;category</span> <span class="re0">scheme</span>=<span class="st0">'http://diveintomark.org'</span> <span class="re0">term</span>=<span class="st0">'diveintopython'</span><span class="re2">/&gt;</span></span>       ⑥
+  <span class="sc3"><span class="re1">&lt;category</span> <span class="re0">scheme</span>=<span class="st0">'http://diveintomark.org'</span> <span class="re0">term</span>=<span class="st0">'docbook'</span><span class="re2">/&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;category</span> <span class="re0">scheme</span>=<span class="st0">'http://diveintomark.org'</span> <span class="re0">term</span>=<span class="st0">'html'</span><span class="re2">/&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;summary</span> <span class="re0">type</span>=<span class="st0">'html'</span><span class="re2">&gt;</span></span>Putting an entire chapter on one page sounds        ⑦
+    bloated, but consider this <span class="sc1">&amp;amp;</span>mdash; my longest chapter so far
+    would be 75 printed pages, and it loads in under 5 seconds<span class="sc1">&amp;amp;</span>hellip;
+    On dialup.<span class="sc3"><span class="re1">&lt;/summary<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/entry<span class="re2">&gt;</span></span></span>                                                                   ⑧
+</pre></div>
+</div>
+<p>① Элемент author сообщает о том, кто написал статью: некоторый парень по имени Марк (Mark), который валяет дурака на сайте <a rel="nofollow" class="external free" href="http://diveintomark.org/">http://diveintomark.org/</a> (В данном случае ссылка на сайт автора совпадает с альтернативной ссылкой в метаинформации о фиде, но это не всегда правда, так как многие блоги имеют несколько авторов, у каждого из которых — свой сайт.)</p>
+<p>② Элемент title содержит заголовок статьи «Dive into history, 2009 edition».</p>
+<p>③ Как и с альтернативной ссылкой на фид, в элементе link находится адрес HTML версии данной статьи.</p>
+<p>④ Элемент entry, подобно фидам, имеет уникальный идентификатор.</p>
+<p>⑤ Элемент entry имеет две даты: дату первой публикации и дату последнего изменения.</p>
+<p>⑥ Элементы entry могут иметь произвольное количество категорий category. Рассматриваемая статья попадёт в категории diveintopython, docbook и html.</p>
+<p>⑦ Элемент summary даёт краткий обзор статьи. (Бывает также не представленный здесь элемент содержания content предназначенный для включения в фид полного текста статьи.) Данный элемент summary содержит специфичный для фидов Atom атрибут type='html' указывающий что содержимое элемента есть текст в формате HTML. Это важно, так как HTML-объекты &amp;mdash; и &amp;hellip; присутствующие в элементе должны отображаться как «—» и «…», а не печататься «как есть».</p>
+<p>⑧ И, наконец, закрывающий тег элемента entry говорит о конце метаданных для этой статьи.</p>
+<h2><span class="mw-headline" id=".D0.A1.D0.B8.D0.BD.D1.82.D0.B0.D0.BA.D1.81.D0.B8.D1.87.D0.B5.D1.81.D0.BA.D0.B8.D0.B9_.D1.80.D0.B0.D0.B7.D0.B1.D0.BE.D1.80_XML">Синтаксический разбор XML</span></h2>
+<p>В Python документы XML могут быть обработаны c использованием разных библиотек. Язык имеет обычные синтаксические анализаторы <span class="extiw" title="w:DOM">DOM</span> и <span class="extiw" title="w:SAX">SAX</span>, но я буду использовать другую библиотеку ElementTree.</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="python source-python">
+<pre class="de1">
+<span class="sy0">&gt;&gt;&gt;</span> <span class="kw1">import</span> <span class="kw3">xml</span>.<span class="me1">etree</span>.<span class="me1">ElementTree</span> <span class="kw1">as</span> etree    ①
+<span class="sy0">&gt;&gt;&gt;</span> tree <span class="sy0">=</span> etree.<span class="me1">parse</span><span class="br0">(</span><span class="st0">'examples/feed.xml'</span><span class="br0">)</span>  ②
+<span class="sy0">&gt;&gt;&gt;</span> root <span class="sy0">=</span> tree.<span class="me1">getroot</span><span class="br0">(</span><span class="br0">)</span>                    ③
+<span class="sy0">&gt;&gt;&gt;</span> root                                     ④
+<span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>feed at cd1eb0<span class="sy0">&gt;</span>
+</pre></div>
+</div>
+<p>① Модуль ElementTree входит в стандартную библиотеку Python, путь для импорта xml.etree.ElementTree.</p>
+<p>② Функция parse() — это базовая функция модуля ElementTree. Функция принимает имя файла или файлоподобный объект. Эта функция выполняет синтаксическй анализ документа за раз. Если разрабатываемая программа должна экономить память, то можно анализировать XML документ частями.</p>
+<p>③ Функция parse() возращает объект, который является представлением всего документа. Однако объект tree не является корневым элементом. Чтобы получить ссылку на корневой элемент, необходимо вызвать метод getroot().</p>
+<p>④ Как и следовало ожидать, корневой элемент есть элемент фида в пространстве имён http://www.w3.org/2005/Atom. Строковое представление объекта root ещё раз подчёркивает важный момент: XML элемент — это комбинация пространства имён и его имени-тега (так же называемого локальным именем). Каждый элемент в данном документе находится в пространстве Atom, поэтому корневой элемент представлен как {http://www.w3.org/2005/Atom}feed.</p>
+<table style="margin: 1em 0;"><tr><td valign="top" style="padding: 0 .5em 0 2em;"><img alt="Start hand.svg" src="//upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Start_hand.svg/32px-Start_hand.svg.png" width="32" height="32" style="vertical-align: text-top" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Start_hand.svg/48px-Start_hand.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Start_hand.svg/64px-Start_hand.svg.png 2x"></td>
+<td valign="top" style="padding: 0;">
+<p>Модуль ElementTree всегда представляет элементы XML как '{пространство имён}локальное имя'. Вам неоднократно предстоит использовать этот формат при использовании API ElementTree.</p>
+</td>
+</tr></table><p><br></p>
+<h3><span class="mw-headline" id=".D0.AD.D0.BB.D0.B5.D0.BC.D0.B5.D0.BD.D1.82.D1.8B_XML_.D0.B5.D1.81.D1.82.D1.8C_.D1.81.D0.BF.D0.B8.D1.81.D0.BA.D0.B8_Python">Элементы XML есть списки Python</span></h3>
+<p>В API ElementTree элементы представляются встроенным типом Python - списком. Каждый из элементов списка представляет собой дочерние XML элементы.</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="python source-python">
+<pre class="de1">
+<span class="co1"># продолжение предыдущего примера</span>
+<span class="sy0">&gt;&gt;&gt;</span> root.<span class="me1">tag</span>                        ①
+<span class="st0">'{http://www.w3.org/2005/Atom}feed'</span>
+<span class="sy0">&gt;&gt;&gt;</span> <span class="kw2">len</span><span class="br0">(</span>root<span class="br0">)</span>                       ②
+<span class="nu0">8</span>
+<span class="sy0">&gt;&gt;&gt;</span> <span class="kw1">for</span> child <span class="kw1">in</span> root:              ③
+...   <span class="kw1">print</span><span class="br0">(</span>child<span class="br0">)</span>                  ④
+...
+<span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>title at e2b5d0<span class="sy0">&gt;</span>
+<span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>subtitle at e2b4e0<span class="sy0">&gt;</span>
+<span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span><span class="kw2">id</span> at e2b6c0<span class="sy0">&gt;</span>
+<span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>updated at e2b6f0<span class="sy0">&gt;</span>
+<span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>link at e2b4b0<span class="sy0">&gt;</span>
+<span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>entry at e2b720<span class="sy0">&gt;</span>
+<span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>entry at e2b510<span class="sy0">&gt;</span>
+<span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>entry at e2b750<span class="sy0">&gt;</span>
+</pre></div>
+</div>
+<p>① Продолжим предыдущий пример: корневой элемент root - {http://www.w3.org/2005/Atom}feed</p>
+<p>② "Длина" корневого элемента есть количество дочерних элементов root.</p>
+<p>③ Вы можете использовать элемент как итератор по всем дочерним элементам.</p>
+<p>④ Из сообщений видно, что в элементе root 8 дочерних элементов: 5 элементов с метаинформацией о фиде (title, subtitle, id, updated и link) и 3 элемента со статьями entry.</p>
+<p>Вы, должно быть, уже догадались, но я хочу явно указать на следующее: список дочерних элементов содержит только прямые дочерние элементы. В свою очередь каждый дочерний элемент entry может содержать свои дочерние элементы, но они не будут включены в список. Они будут включены в список элемента entry, а не в список подэлементов элемента feed. Найти определённые элементы любого уровня вложенности можно несколькими способами; ниже мы рассмотрим 2 из них.</p>
+<h3><span class="mw-headline" id=".D0.90.D1.82.D1.80.D0.B8.D0.B1.D1.83.D1.82.D1.8B_XML_.D0.B5.D1.81.D1.82.D1.8C_.D1.81.D0.BB.D0.BE.D0.B2.D0.B0.D1.80.D0.B8_Python">Атрибуты XML есть словари Python</span></h3>
+<p>Напомним, что документ XML это не только набор элементов; каждый элемент так же имеет набор атрибутов. Имея конкретный XML элемент, Вы можете легко получить его атрибуты как словарь Python.</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="python source-python">
+<pre class="de1">
+<span class="co1"># продолжение предыдущего примера</span>
+<span class="sy0">&gt;&gt;&gt;</span> root.<span class="me1">attrib</span>                           ①
+<span class="br0">{</span><span class="st0">'{http://www.w3.org/XML/1998/namespace}lang'</span>: <span class="st0">'en'</span><span class="br0">}</span>
+<span class="sy0">&gt;&gt;&gt;</span> root<span class="br0">[</span><span class="nu0">4</span><span class="br0">]</span>                               ②
+<span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>link at e181b0<span class="sy0">&gt;</span>
+<span class="sy0">&gt;&gt;&gt;</span> root<span class="br0">[</span><span class="nu0">4</span><span class="br0">]</span>.<span class="me1">attrib</span>                        ③
+<span class="br0">{</span><span class="st0">'href'</span>: <span class="st0">'http://diveintomark.org/'</span><span class="sy0">,</span>
+ <span class="st0">'type'</span>: <span class="st0">'text/html'</span><span class="sy0">,</span>
+ <span class="st0">'rel'</span>: <span class="st0">'alternate'</span><span class="br0">}</span>
+<span class="sy0">&gt;&gt;&gt;</span> root<span class="br0">[</span><span class="nu0">3</span><span class="br0">]</span>                               ④
+<span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>updated at e2b4e0<span class="sy0">&gt;</span>
+<span class="sy0">&gt;&gt;&gt;</span> root<span class="br0">[</span><span class="nu0">3</span><span class="br0">]</span>.<span class="me1">attrib</span>                        ⑤
+<span class="br0">{</span><span class="br0">}</span>
+</pre></div>
+</div>
+<p>① Свойство attrib возращает словарь атрибутов элемента. Исходная разметка XML была следующая &lt;feed xmlns='http://www.w3.org/2005/Atom' xml:lang='en'&gt;. Префикс xml: ссылается на стандартное пространство имён, которое любой XML документ может использовать без объявления.</p>
+<p>② Пятый подэлемент есть элемент link (используется индекс [4], так как списки Python индексируются начиная с 0).</p>
+<p>③ Подэлемент link имеет три атрибута href, type и rel.</p>
+<p>④ Четвёртый подэлемент (с индексом [3] в списке начинающемся с 0) — это элемент updated.</p>
+<p>⑤ Подэлемент updated не имеет атрибутов, следовательно свойство .attrib возращает пустой словарь.</p>
+<h2><span class="mw-headline" id=".D0.9F.D0.BE.D0.B8.D1.81.D0.BA_.D1.83.D0.B7.D0.BB.D0.BE.D0.B2_.D0.B2_XML_.D0.B4.D0.BE.D0.BA.D1.83.D0.BC.D0.B5.D0.BD.D1.82.D0.B5">Поиск узлов в XML документе</span></h2>
+<p>До настоящего момента мы рассматривали XML документ «сверху вниз», начиная с корневого элемента, далее к его дочерним элементы и так вглубь всего документа. Однако во многих случаях при работе с XML Вам необходимо искать конкретные элементы. Etree справится и с этой задачей.</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="python source-python">
+<pre class="de1">
+<span class="sy0">&gt;&gt;&gt;</span> <span class="kw1">import</span> <span class="kw3">xml</span>.<span class="me1">etree</span>.<span class="me1">ElementTree</span> <span class="kw1">as</span> etree
+<span class="sy0">&gt;&gt;&gt;</span> tree <span class="sy0">=</span> etree.<span class="me1">parse</span><span class="br0">(</span><span class="st0">'examples/feed.xml'</span><span class="br0">)</span>
+<span class="sy0">&gt;&gt;&gt;</span> root <span class="sy0">=</span> tree.<span class="me1">getroot</span><span class="br0">(</span><span class="br0">)</span>
+<span class="sy0">&gt;&gt;&gt;</span> root.<span class="me1">findall</span><span class="br0">(</span><span class="st0">'{http://www.w3.org/2005/Atom}entry'</span><span class="br0">)</span>    ①
+<span class="br0">[</span><span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>entry at e2b4e0<span class="sy0">&gt;,</span>
+ <span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>entry at e2b510<span class="sy0">&gt;,</span>
+ <span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>entry at e2b540<span class="sy0">&gt;</span><span class="br0">]</span>
+<span class="sy0">&gt;&gt;&gt;</span> root.<span class="me1">tag</span>
+<span class="st0">'{http://www.w3.org/2005/Atom}feed'</span>
+<span class="sy0">&gt;&gt;&gt;</span> root.<span class="me1">findall</span><span class="br0">(</span><span class="st0">'{http://www.w3.org/2005/Atom}feed'</span><span class="br0">)</span>     ②
+<span class="br0">[</span><span class="br0">]</span>
+<span class="sy0">&gt;&gt;&gt;</span> root.<span class="me1">findall</span><span class="br0">(</span><span class="st0">'{http://www.w3.org/2005/Atom}author'</span><span class="br0">)</span>   ③
+<span class="br0">[</span><span class="br0">]</span>
+</pre></div>
+</div>
+<p>① Метод findall() выполняет поиск дочерних элементов удовлетворяющих запросу. (Формат запроса рассматривается ниже.)</p>
+<p>② Все элементы (включая корневой и дочерние) имеют метод findall(). Метод находит все элементы среди дочерних соответствующие запросу. Почему же метод вернул пустой список? Хотя это может показаться неочевидным, данный запрос ищет только в дочерних элементах. Так как корневой элемент feed не имеет дочерних элементов по имени feed, то запрос возвращает пустой список.</p>
+<p>③ Этот результат также может Вас удивить. В документе XML действительно есть элемент author; на самом деле, их даже три (по одному в каждом элементе entry). Но эти элементы author не являются <i>прямыми подэлементами (direct children)</i> корневого элемента; они — «подподэлементы» (подэлементы подэлемента). Если Вам нужно найти элементы author любого уровня вложенности, то придётся изменить строку запроса.</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="python source-python">
+<pre class="de1">
+<span class="sy0">&gt;&gt;&gt;</span> tree.<span class="me1">findall</span><span class="br0">(</span><span class="st0">'{http://www.w3.org/2005/Atom}entry'</span><span class="br0">)</span>    ①
+<span class="br0">[</span><span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>entry at e2b4e0<span class="sy0">&gt;,</span>
+ <span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>entry at e2b510<span class="sy0">&gt;,</span>
+ <span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>entry at e2b540<span class="sy0">&gt;</span><span class="br0">]</span>
+<span class="sy0">&gt;&gt;&gt;</span> tree.<span class="me1">findall</span><span class="br0">(</span><span class="st0">'{http://www.w3.org/2005/Atom}author'</span><span class="br0">)</span>   ②
+<span class="br0">[</span><span class="br0">]</span>
+</pre></div>
+</div>
+<p>① Для удобства объект tree (который возвращает функция etree.parse()) имеет несколько методов идентичных методам корневого элемента. Результаты функции такие же как при вызове метода tree.getroot().findall().</p>
+<p>② Наверное, удивлены, однако этот запрос не находит элемента author в данном документе. Почему же? Потому что, этот вызов идентичен вызову tree.getroot().findall('{http://www.w3.org/2005/Atom}author'), что значит «найти все элементы author, которые являются подэлементами корневого элемента». Элементы author не являются дочерними для корневого элемента; они подэлементы элементов entry. Таким образом, при выполнении запроса совпадений не найдено.</p>
+<p>Помимо метода findall() есть метод find() который возвращает только первый найденный элемент. Метод может быть полезен в случаях когда в результате поиска Вы ожидаете только один элемент или Вам важен только первый элемент из списка найденных.</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="python source-python">
+<pre class="de1">
+<span class="sy0">&gt;&gt;&gt;</span> entries <span class="sy0">=</span> tree.<span class="me1">findall</span><span class="br0">(</span><span class="st0">'{http://www.w3.org/2005/Atom}entry'</span><span class="br0">)</span>           ①
+<span class="sy0">&gt;&gt;&gt;</span> <span class="kw2">len</span><span class="br0">(</span>entries<span class="br0">)</span>
+<span class="nu0">3</span>
+<span class="sy0">&gt;&gt;&gt;</span> title_element <span class="sy0">=</span> entries<span class="br0">[</span><span class="nu0">0</span><span class="br0">]</span>.<span class="me1">find</span><span class="br0">(</span><span class="st0">'{http://www.w3.org/2005/Atom}title'</span><span class="br0">)</span>  ②
+<span class="sy0">&gt;&gt;&gt;</span> title_element.<span class="me1">text</span>
+<span class="st0">'Dive into history, 2009 edition'</span>
+<span class="sy0">&gt;&gt;&gt;</span> foo_element <span class="sy0">=</span> entries<span class="br0">[</span><span class="nu0">0</span><span class="br0">]</span>.<span class="me1">find</span><span class="br0">(</span><span class="st0">'{http://www.w3.org/2005/Atom}foo'</span><span class="br0">)</span>      ③
+<span class="sy0">&gt;&gt;&gt;</span> foo_element
+<span class="sy0">&gt;&gt;&gt;</span> <span class="kw2">type</span><span class="br0">(</span>foo_element<span class="br0">)</span>
+<span class="sy0">&lt;</span><span class="kw1">class</span> <span class="st0">'NoneType'</span><span class="sy0">&gt;</span>
+</pre></div>
+</div>
+<p>① Как Вы видели в предыдущем примере findall() возвращает список элементов atom:entry.</p>
+<p>② Метод find() принимает запрос ElementTree и возвращает первый удовлетворяющий запросу элемент.</p>
+<p>③ Во элементе foo отсутствуют дочерние элементы, поэтому find() возвращает объект None.</p>
+<table style="margin: 1em 0;"><tr><td valign="top" style="padding: 0 .5em 0 2em;"><img alt="Start hand.svg" src="//upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Start_hand.svg/32px-Start_hand.svg.png" width="32" height="32" style="vertical-align: text-top" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Start_hand.svg/48px-Start_hand.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Start_hand.svg/64px-Start_hand.svg.png 2x"></td>
+<td valign="top" style="padding: 0;">
+<p>Здесь необходимо отметить закавыку при использовании метода find(). В логическом контексте объекты элементов ElementTree не содержащие дочерних элементов равны значению False (т.е <span class="mw-geshi python source-python"><span class="kw1">if</span> <span class="kw2">len</span><span class="br0">(</span>element<span class="br0">)</span></span> вычисляется как 0). Код <span class="mw-geshi python source-python"><span class="kw1">if</span> element.<span class="me1">find</span><span class="br0">(</span><span class="st0">'...'</span><span class="br0">)</span></span> проверяет не то, что нашёл ли метод find() удовлетворяющий запросу элемент; код проверяет содержит ли найденный элемент дочерние элементы! Для того чтобы проверить нашёл ли метод find() элемент необходимо использовать <span class="mw-geshi python source-python"><span class="kw1">if</span> element.<span class="me1">find</span><span class="br0">(</span><span class="st0">'...'</span><span class="br0">)</span> <span class="kw1">is</span> <span class="kw1">not</span> <span class="kw2">None</span></span>.</p>
+</td>
+</tr></table><p>Рассмотрим поиск внутри дочерних элементов, т.е подэлементов, подподэлементов и так далее любого уровня вложенности.</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="python source-python">
+<pre class="de1">
+<span class="sy0">&gt;&gt;&gt;</span> all_links <span class="sy0">=</span> tree.<span class="me1">findall</span><span class="br0">(</span><span class="st0">'//{http://www.w3.org/2005/Atom}link'</span><span class="br0">)</span>  ①
+<span class="sy0">&gt;&gt;&gt;</span> all_links
+<span class="br0">[</span><span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>link at e181b0<span class="sy0">&gt;,</span>
+ <span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>link at e2b570<span class="sy0">&gt;,</span>
+ <span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>link at e2b480<span class="sy0">&gt;,</span>
+ <span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>link at e2b5a0<span class="sy0">&gt;</span><span class="br0">]</span>
+<span class="sy0">&gt;&gt;&gt;</span> all_links<span class="br0">[</span><span class="nu0">0</span><span class="br0">]</span>.<span class="me1">attrib</span>                                              ②
+<span class="br0">{</span><span class="st0">'href'</span>: <span class="st0">'http://diveintomark.org/'</span><span class="sy0">,</span>
+ <span class="st0">'type'</span>: <span class="st0">'text/html'</span><span class="sy0">,</span>
+ <span class="st0">'rel'</span>: <span class="st0">'alternate'</span><span class="br0">}</span>
+<span class="sy0">&gt;&gt;&gt;</span> all_links<span class="br0">[</span><span class="nu0">1</span><span class="br0">]</span>.<span class="me1">attrib</span>                                              ③
+<span class="br0">{</span><span class="st0">'href'</span>: <span class="st0">'http://diveintomark.org/archives/2009/03/27/dive-into-history-2009-edition'</span><span class="sy0">,</span>
+ <span class="st0">'type'</span>: <span class="st0">'text/html'</span><span class="sy0">,</span>
+ <span class="st0">'rel'</span>: <span class="st0">'alternate'</span><span class="br0">}</span>
+<span class="sy0">&gt;&gt;&gt;</span> all_links<span class="br0">[</span><span class="nu0">2</span><span class="br0">]</span>.<span class="me1">attrib</span>
+<span class="br0">{</span><span class="st0">'href'</span>: <span class="st0">'http://diveintomark.org/archives/2009/03/21/accessibility-is-a-harsh-mistress'</span><span class="sy0">,</span>
+ <span class="st0">'type'</span>: <span class="st0">'text/html'</span><span class="sy0">,</span>
+ <span class="st0">'rel'</span>: <span class="st0">'alternate'</span><span class="br0">}</span>
+<span class="sy0">&gt;&gt;&gt;</span> all_links<span class="br0">[</span><span class="nu0">3</span><span class="br0">]</span>.<span class="me1">attrib</span>
+<span class="br0">{</span><span class="st0">'href'</span>: <span class="st0">'http://diveintomark.org/archives/2008/12/18/give-part-1-container-formats'</span><span class="sy0">,</span>
+ <span class="st0">'type'</span>: <span class="st0">'text/html'</span><span class="sy0">,</span>
+ <span class="st0">'rel'</span>: <span class="st0">'alternate'</span><span class="br0">}</span>
+</pre></div>
+</div>
+<p>① Этот запрос — //{http://www.w3.org/2005/Atom}link — очень похож на запросы из предыдущих примеров. Отличие заключается в двух символах косой черты // в начале строки запроса. Символы // обозначают «Я хочу найти все элементы независимо от уровня вложенности, а не только непосредственные дочерние элементы». Поэтому метод возвращает список из четырёх элементов, а не из одного.</p>
+<p>② Первый элемент результата — прямой подэлемент корневого элемента. Как мы видим из его атрибутов, это альтернативная ссылка уровня фида, которая указывает на html версию вебсайта на котором располагается фид.</p>
+<p>③ Остальные три элемента результата есть альтернативные ссылки уровня элементов entry. Каждый из элементов entry имеет по одному подэлементу link. Так как запрос findall() содержал символы двойной черты в начале запроса, то результат поиска содержит все подэлементы link.</p>
+<p>В целом, метод findall() библиотеки ElementTree довольно мощный инструмент поиска, однако формат запроса может быть немного непредсказуем. Официально формат запросов ElementTree описан как <a rel="nofollow" class="external text" href="http://effbot.org/zone/element-xpath.htm">«ограниченная поддержка выражений XPath»</a>. <a rel="nofollow" class="external text" href="http://www.w3.org/TR/xpath">XPath</a> это стандарт организации W3C для построения запросов поиска внутри XML документа. С одной стороны формат запросов ElementTree достаточно похож на формат XPath для выполнения простейших поисков. С другой стороны он отличается настолько, что может начать раздражать если Вы уже знаете XPath. Далее мы рассмотрим сторонние библиотеки XML позволяющие расширить API ElementTree до полной поддержки стандарта XPath.</p>
+<h2><span class="mw-headline" id=".D0.A0.D0.B0.D0.B1.D0.BE.D1.82.D0.B0.D0.B5.D0.BC_.D1.81_LXML">Работаем с LXML</span></h2>
+<p><a rel="nofollow" class="external text" href="http://codespeak.net/lxml/">lxml</a> это сторонняя библиотека с открытым кодом основанная на известном <a rel="nofollow" class="external text" href="http://www.xmlsoft.org/">синтаксическом анализаторе libxml2</a>. Библиотека обеспечивает стопроцентную совместимость с API ElementTree, полностью поддерживает XPath 1.0 и имеет несколько других приятных фишек. Для Windows можно <a rel="nofollow" class="external text" href="http://pypi.python.org/pypi/lxml/">скачать инсталлятор</a>; пользователям Linux следует проверить наличие скомпилированных пакетов в репозиториях дистрибутива (например, используя инструменты yum или apt-get). В противном случае придётся <a rel="nofollow" class="external text" href="http://codespeak.net/lxml/installation.html">устанавливать lxml вручную</a>.</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="python source-python">
+<pre class="de1">
+<span class="sy0">&gt;&gt;&gt;</span> <span class="kw1">from</span> lxml <span class="kw1">import</span> etree                   ①
+<span class="sy0">&gt;&gt;&gt;</span> tree <span class="sy0">=</span> etree.<span class="me1">parse</span><span class="br0">(</span><span class="st0">'examples/feed.xml'</span><span class="br0">)</span>  ②
+<span class="sy0">&gt;&gt;&gt;</span> root <span class="sy0">=</span> tree.<span class="me1">getroot</span><span class="br0">(</span><span class="br0">)</span>                    ③
+<span class="sy0">&gt;&gt;&gt;</span> root.<span class="me1">findall</span><span class="br0">(</span><span class="st0">'{http://www.w3.org/2005/Atom}entry'</span><span class="br0">)</span>  ④
+<span class="br0">[</span><span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>entry at e2b4e0<span class="sy0">&gt;,</span>
+ <span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>entry at e2b510<span class="sy0">&gt;,</span>
+ <span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>entry at e2b540<span class="sy0">&gt;</span><span class="br0">]</span>
+</pre></div>
+</div>
+<p>① При импорте lxml предоставляет абсолютно такой же API как встроенная библиотека ElementTree.</p>
+<p>② Функция parse(): такая же как в ElementTree.</p>
+<p>③ Метод getroot(): такой же.</p>
+<p>④ Метод findall(): точно такой же.</p>
+<p>При обработке больших XML документов lxml значительно быстрее чем встроенная библиотека ElementTree. Если Вы используете функции только из API ElementTree и хотите чтобы обработка выполнялась как можно быстрее, то можно попробовать импортировать библиотеку lxml и, в случае её отсутствия, использовать ElementTree.</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="python source-python">
+<pre class="de1">
+<span class="kw1">try</span>:
+    <span class="kw1">from</span> lxml <span class="kw1">import</span> etree
+<span class="kw1">except</span> <span class="kw2">ImportError</span>:
+    <span class="kw1">import</span> <span class="kw3">xml</span>.<span class="me1">etree</span>.<span class="me1">ElementTree</span> <span class="kw1">as</span> etree
+</pre></div>
+</div>
+<p>Однако, lxml не только быстрее чем ElementTree: метод findall() поддерживает более сложные запросы.</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="python source-python">
+<pre class="de1">
+<span class="sy0">&gt;&gt;&gt;</span> <span class="kw1">import</span> lxml.<span class="me1">etree</span>                                                                   ①
+<span class="sy0">&gt;&gt;&gt;</span> tree <span class="sy0">=</span> lxml.<span class="me1">etree</span>.<span class="me1">parse</span><span class="br0">(</span><span class="st0">'examples/feed.xml'</span><span class="br0">)</span>
+<span class="sy0">&gt;&gt;&gt;</span> tree.<span class="me1">findall</span><span class="br0">(</span><span class="st0">'//{http://www.w3.org/2005/Atom}*[@href]'</span><span class="br0">)</span>                             ②
+<span class="br0">[</span><span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>link at eeb8a0<span class="sy0">&gt;,</span>
+ <span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>link at eeb990<span class="sy0">&gt;,</span>
+ <span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>link at eeb960<span class="sy0">&gt;,</span>
+ <span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>link at eeb9c0<span class="sy0">&gt;</span><span class="br0">]</span>
+<span class="sy0">&gt;&gt;&gt;</span> tree.<span class="me1">findall</span><span class="br0">(</span><span class="st0">"//{http://www.w3.org/2005/Atom}*[@href='http://diveintomark.org/']"</span><span class="br0">)</span>  ③
+<span class="br0">[</span><span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>link at eeb930<span class="sy0">&gt;</span><span class="br0">]</span>
+<span class="sy0">&gt;&gt;&gt;</span> NS <span class="sy0">=</span> <span class="st0">'{http://www.w3.org/2005/Atom}'</span>
+<span class="sy0">&gt;&gt;&gt;</span> tree.<span class="me1">findall</span><span class="br0">(</span><span class="st0">'//{NS}author[{NS}uri]'</span>.<span class="me1">format</span><span class="br0">(</span>NS<span class="sy0">=</span>NS<span class="br0">)</span><span class="br0">)</span>                                 ④
+<span class="br0">[</span><span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>author at eeba80<span class="sy0">&gt;,</span>
+ <span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>author at eebba0<span class="sy0">&gt;</span><span class="br0">]</span>
+</pre></div>
+</div>
+<p>① В этом примере я импортирую объект lxml.etree (вместо объекта etree: <span class="mw-geshi python source-python"><span class="kw1">from</span> lxml <span class="kw1">import</span> etree</span>) чтобы подчеркнуть, что описываемые возможности реализуемы только с lxml.</p>
+<p>② Этот запрос найдёт все элементы в пространстве имён Atom (любой вложенности), которые имеют атрибут href. Символы // в начале запроса обозначают «элементы любой вложенности, а не только потомки корневого элемента». {http://www.w3.org/2005/Atom} обозначает «только элементы пространства имён Atom». Символ * значит «элементы с любым локальным именем». И [@href] обозначает «элемент имеет атрибут href».</p>
+<p>③ В результате запроса найдены все элементы Atom с атрибутом href равным http://diveintomark.org/.</p>
+<p>④ После <span title="Погружение в Python 3 (Пилгрим)/Строки">преобразования строки</span> (иначе эти запросы становятся неимоверно длинны) данный запрос ищет элементы Atom author имеющие подэлементы Atom uri. Запрос возвращает только 2 элемента author: в первом и во втором элементах entry. В последнем элементе entry элемент author содержит только имя name, но не uri.</p>
+<p>Вам мало? lxml имеет встроенную поддержку для выражений XPath 1.0. Мы не будем детально рассматривать синтаксис XPath, так как это тема для отдельной книги. Однако мы рассмотрим пример использования XPath в lxml.</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="python source-python">
+<pre class="de1">
+<span class="sy0">&gt;&gt;&gt;</span> <span class="kw1">import</span> lxml.<span class="me1">etree</span>
+<span class="sy0">&gt;&gt;&gt;</span> tree <span class="sy0">=</span> lxml.<span class="me1">etree</span>.<span class="me1">parse</span><span class="br0">(</span><span class="st0">'examples/feed.xml'</span><span class="br0">)</span>
+<span class="sy0">&gt;&gt;&gt;</span> NSMAP <span class="sy0">=</span> <span class="br0">{</span><span class="st0">'atom'</span>: <span class="st0">'http://www.w3.org/2005/Atom'</span><span class="br0">}</span>                    ①
+<span class="sy0">&gt;&gt;&gt;</span> entries <span class="sy0">=</span> tree.<span class="me1">xpath</span><span class="br0">(</span><span class="st0">"//atom:category[@term='accessibility']/.."</span><span class="sy0">,</span>  ②
+...     <span class="me1">namespaces</span><span class="sy0">=</span>NSMAP<span class="br0">)</span>
+<span class="sy0">&gt;&gt;&gt;</span> entries                                                            ③
+<span class="br0">[</span><span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>entry at e2b630<span class="sy0">&gt;</span><span class="br0">]</span>
+<span class="sy0">&gt;&gt;&gt;</span> entry <span class="sy0">=</span> entries<span class="br0">[</span><span class="nu0">0</span><span class="br0">]</span>
+<span class="sy0">&gt;&gt;&gt;</span> entry.<span class="me1">xpath</span><span class="br0">(</span><span class="st0">'./atom:title/text()'</span><span class="sy0">,</span> namespaces<span class="sy0">=</span>NSMAP<span class="br0">)</span>               ④
+<span class="br0">[</span><span class="st0">'Accessibility is a harsh mistress'</span><span class="br0">]</span>
+</pre></div>
+</div>
+<p>① Чтобы выполнить XPath запрос элементов из пространства имён, необходимо определить отображение префикса этого пространства. На самом деле это обычный словарь Python.</p>
+<p>② А вот и XPath запрос. Данное выражение выполняет поиск элементов category (пространства имён Atom) содержащие атрибут с парой имя-значение term='accessibility'. Но это не совсем то, что возвращает запрос. Вы заметили символы /.. в конце строки запроса? Это обозначает «верни не найденный элемент, а его родителя». И так, одним запросом мы найдём все элементы entry с дочерними элементами &lt;category term='accessibility'&gt;.</p>
+<p>③ Функция xpath() возвращает список объектов ElementTree. В анализируемом документе всего один элемент entry с атрибутом term='accessibility'.</p>
+<p>④ Выражение XPath не всегда возвращает список элементов. Формально, DOM разобранного документа XML не содержит элементов, она содержит <i>узлы (nodes)</i>. В зависимости от их типа узлы могут быть элементами, атрибутами или даже текстом. Результатом запроса XPath всегда является список узлов. Этот запрос возвращает список текстовых узлов: текст text() элемента title (atom:title) есть подэлемент текущего элемента (./).</p>
+<h2><span class="mw-headline" id=".D0.A1.D0.BE.D0.B7.D0.B4.D0.B0.D0.BD.D0.B8.D0.B5_XML">Создание XML</span></h2>
+<p>ElementTree умеет не только разбирать существующие XML документы, но и создавать их «с нуля».</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="python source-python">
+<pre class="de1">
+<span class="sy0">&gt;&gt;&gt;</span> <span class="kw1">import</span> <span class="kw3">xml</span>.<span class="me1">etree</span>.<span class="me1">ElementTree</span> <span class="kw1">as</span> etree
+<span class="sy0">&gt;&gt;&gt;</span> new_feed <span class="sy0">=</span> etree.<span class="me1">Element</span><span class="br0">(</span><span class="st0">'{http://www.w3.org/2005/Atom}feed'</span><span class="sy0">,</span>     ①
+...     <span class="me1">attrib</span><span class="sy0">=</span><span class="br0">{</span><span class="st0">'{http://www.w3.org/XML/1998/namespace}lang'</span>: <span class="st0">'en'</span><span class="br0">}</span><span class="br0">)</span>  ②
+<span class="sy0">&gt;&gt;&gt;</span> <span class="kw1">print</span><span class="br0">(</span>etree.<span class="me1">tostring</span><span class="br0">(</span>new_feed<span class="br0">)</span><span class="br0">)</span>                                   ③
+<span class="sy0">&lt;</span>ns0:feed xmlns:ns0<span class="sy0">=</span><span class="st0">'http://www.w3.org/2005/Atom'</span> <span class="kw3">xml</span>:lang<span class="sy0">=</span><span class="st0">'en'</span>/<span class="sy0">&gt;</span>
+</pre></div>
+</div>
+<p>① Для создания нового элемента необходимо создать объект класса Element. В качестве первого параметра в конструктор мы передаём имя элемента (пространство имён и локальное имя). Данное выражение создаёт элемент feed в пространстве Atom. Этот будет корневой элемент нашего нового документа XML.</p>
+<p>② Для того чтобы добавить атрибуты к создаваемому элементу мы передаём словарь имён атрибутов и их значений в втором аргументе attrib. Заметьте, что имена атрибутов должны задаваться в формате ElementTree {пространство_имён}локальное_имя.</p>
+<p>③ В любой момент Вы можете сериализовать элемент и его подэлементы используя функцию tostring() библиотеки ElementTree.</p>
+<p>Вы удивлены результату сериализации new_feed? Формально ElementTree сериализует XML элементы правильно, но не оптимально. Пример XML документа в начале главы определён в <i>пространстве по умолчанию</i> xmlns='http://www.w3.org/2005/Atom'. Определение пространства по умолчанию полезно для документов (например, фидов Atom), где все элементы принадлежат одному пространству, то есть Вы можете объявить пространство один раз, а на элементы ссылаться используя локальное имя (&lt;feed&gt;, &lt;link&gt;, &lt;entry&gt;). Если Вы не собираетесь объявлять элементы из другого пространства имён, то нет необходимости использовать префикс пространства по умолчанию.</p>
+<p>Синтаксический анализатор XML не «заметит» разницы между документом XML с пространством по умолчанию и документом с использованием префикса пространства имён перед каждым элементом. Результирующая модель DOM данной сериализации выглядит как</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="xml source-xml">
+<pre class="de1">
+<span class="sc3"><span class="re1">&lt;ns0:feed</span> <span class="re0">xmlns:ns0</span>=<span class="st0">'http://www.w3.org/2005/Atom'</span> <span class="re0">xml:lang</span>=<span class="st0">'en'</span><span class="re2">/&gt;</span></span>
+</pre></div>
+</div>
+<p>что равнозначно</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="xml source-xml">
+<pre class="de1">
+<span class="sc3"><span class="re1">&lt;feed</span> <span class="re0">xmlns</span>=<span class="st0">'http://www.w3.org/2005/Atom'</span> <span class="re0">xml:lang</span>=<span class="st0">'en'</span><span class="re2">/&gt;</span></span>
+</pre></div>
+</div>
+<p>Единственная разница в том, что второй вариант на несколько символов короче. Если мы переделаем наш пример с использованием префикса ns0: в каждом открывающем и закрывающем тэгах, это добавило бы 4 символа на открывающий тэг × 79 тэгов + 4 символа на объявление собственно пространства имён, всего 320 символов. В <span title="Погружение в Python 3 (Пилгрим)/Строки">кодировке UTF-8</span> это составило бы 320 байт. (После архивации gzip разница уменьшается до 21 байта; однако 21 байт это 21 байт). Возможно, Вы бы не обратили внимания на эти десятки байтов, но для фидов Atom, которые загружаются тысячу раз при изменении, выигрыш нескольких байт на одном запросе быстро превращается в килобайты.</p>
+<p>Ещё одно преимущество lxml: в отличие от стандартной библиотеки ElementTree lxml предоставляет более тонкое управление сериализацией элементов.</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="python source-python">
+<pre class="de1">
+<span class="sy0">&gt;&gt;&gt;</span> <span class="kw1">import</span> lxml.<span class="me1">etree</span>
+<span class="sy0">&gt;&gt;&gt;</span> NSMAP <span class="sy0">=</span> <span class="br0">{</span><span class="kw2">None</span>: <span class="st0">'http://www.w3.org/2005/Atom'</span><span class="br0">}</span>                     ①
+<span class="sy0">&gt;&gt;&gt;</span> new_feed <span class="sy0">=</span> lxml.<span class="me1">etree</span>.<span class="me1">Element</span><span class="br0">(</span><span class="st0">'feed'</span><span class="sy0">,</span> nsmap<span class="sy0">=</span>NSMAP<span class="br0">)</span>                ②
+<span class="sy0">&gt;&gt;&gt;</span> <span class="kw1">print</span><span class="br0">(</span>lxml.<span class="me1">etree</span>.<span class="me1">tounicode</span><span class="br0">(</span>new_feed<span class="br0">)</span><span class="br0">)</span>                             ③
+<span class="sy0">&lt;</span>feed xmlns<span class="sy0">=</span><span class="st0">'http://www.w3.org/2005/Atom'</span>/<span class="sy0">&gt;</span>
+<span class="sy0">&gt;&gt;&gt;</span> new_feed.<span class="kw2">set</span><span class="br0">(</span><span class="st0">'{http://www.w3.org/XML/1998/namespace}lang'</span><span class="sy0">,</span> <span class="st0">'en'</span><span class="br0">)</span>  ④
+<span class="sy0">&gt;&gt;&gt;</span> <span class="kw1">print</span><span class="br0">(</span>lxml.<span class="me1">etree</span>.<span class="me1">tounicode</span><span class="br0">(</span>new_feed<span class="br0">)</span><span class="br0">)</span>
+<span class="sy0">&lt;</span>feed xmlns<span class="sy0">=</span><span class="st0">'http://www.w3.org/2005/Atom'</span> <span class="kw3">xml</span>:lang<span class="sy0">=</span><span class="st0">'en'</span>/<span class="sy0">&gt;</span>
+</pre></div>
+</div>
+<p>① Для начала определим пространство имён используя словарь. Значения словаря и есть пространство имён; ключи словаря - задаваемый префикс. Используя объект None в качестве префикса мы задаём пространство имён по умолчанию.</p>
+<p>② При создании элемента мы передаём специфичный для lxml аргумент nsmap, используемый для передачи префиксов пространств имён.</p>
+<p>③ Как и ожидали, при сериализации определено пространство имён по умолчанию Atom и объявлен один элемент feed без префикса пространства имён.</p>
+<p>④ Опа, мы забыли добавить атрибут xml:lang. Используя метод set(), можно всегда добавить атрибут к любому элементу. Метод принимает два аргумента: имя атрибута в стандартном формате ElementTree и значение атрибута. (Данный метод есть и в библиотеке ElementTree. Единственное отличие lxml и ElementTree в данном примере это передача аргумента nsmap для указания префиксов пространств имён.)</p>
+<p>Разве наши документы ограничены только одним элементом? Конечно, нет. Мы можем запросто создать дочерние элементы.</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="python source-python">
+<pre class="de1">
+<span class="sy0">&gt;&gt;&gt;</span> title <span class="sy0">=</span> lxml.<span class="me1">etree</span>.<span class="me1">SubElement</span><span class="br0">(</span>new_feed<span class="sy0">,</span> <span class="st0">'title'</span><span class="sy0">,</span>          ①
+...     <span class="me1">attrib</span><span class="sy0">=</span><span class="br0">{</span><span class="st0">'type'</span>:<span class="st0">'html'</span><span class="br0">}</span><span class="br0">)</span>                               ②
+<span class="sy0">&gt;&gt;&gt;</span> <span class="kw1">print</span><span class="br0">(</span>lxml.<span class="me1">etree</span>.<span class="me1">tounicode</span><span class="br0">(</span>new_feed<span class="br0">)</span><span class="br0">)</span>                     ③
+<span class="sy0">&lt;</span>feed xmlns<span class="sy0">=</span><span class="st0">'http://www.w3.org/2005/Atom'</span> <span class="kw3">xml</span>:lang<span class="sy0">=</span><span class="st0">'en'</span><span class="sy0">&gt;&lt;</span>title <span class="kw2">type</span><span class="sy0">=</span><span class="st0">'html'</span>/<span class="sy0">&gt;&lt;</span>/feed<span class="sy0">&gt;</span>
+<span class="sy0">&gt;&gt;&gt;</span> title.<span class="me1">text</span> <span class="sy0">=</span> <span class="st0">'dive into &amp;hellip;'</span>                         ④
+<span class="sy0">&gt;&gt;&gt;</span> <span class="kw1">print</span><span class="br0">(</span>lxml.<span class="me1">etree</span>.<span class="me1">tounicode</span><span class="br0">(</span>new_feed<span class="br0">)</span><span class="br0">)</span>                     ⑤
+<span class="sy0">&lt;</span>feed xmlns<span class="sy0">=</span><span class="st0">'http://www.w3.org/2005/Atom'</span> <span class="kw3">xml</span>:lang<span class="sy0">=</span><span class="st0">'en'</span><span class="sy0">&gt;&lt;</span>title <span class="kw2">type</span><span class="sy0">=</span><span class="st0">'html'</span><span class="sy0">&gt;</span>dive into &amp;amp<span class="sy0">;</span>hellip<span class="sy0">;&lt;</span>/title<span class="sy0">&gt;&lt;</span>/feed<span class="sy0">&gt;</span>
+<span class="sy0">&gt;&gt;&gt;</span> <span class="kw1">print</span><span class="br0">(</span>lxml.<span class="me1">etree</span>.<span class="me1">tounicode</span><span class="br0">(</span>new_feed<span class="sy0">,</span> pretty_print<span class="sy0">=</span><span class="kw2">True</span><span class="br0">)</span><span class="br0">)</span>  ⑥
+<span class="sy0">&lt;</span>feed xmlns<span class="sy0">=</span><span class="st0">'http://www.w3.org/2005/Atom'</span> <span class="kw3">xml</span>:lang<span class="sy0">=</span><span class="st0">'en'</span><span class="sy0">&gt;</span>
+<span class="sy0">&lt;</span>title <span class="kw2">type</span><span class="sy0">=</span><span class="st0">'html'</span><span class="sy0">&gt;</span>dive into&amp;amp<span class="sy0">;</span>hellip<span class="sy0">;&lt;</span>/title<span class="sy0">&gt;</span>
+<span class="sy0">&lt;</span>/feed<span class="sy0">&gt;</span>
+</pre></div>
+</div>
+<p>① Для создания подэлемента существующего элемента необходимо создать объект класса SubElement. В конструктор класса передаются элемент родителя (в данном случае new_feed) и имя нового элемента. Мы не объявляем заново пространство имён для создаваемого потомка, так как он наследует пространство имён от родителя.</p>
+<p>② Также мы передаём словарь с атрибутами для элемента. В качестве имён атрибутов выступают ключи словаря, в качестве значений атрибутов - значения словаря.</p>
+<p>③ Неудивительно, что новый элемент title был создан в пространстве Atom и является подэлементом элемента feed. Так как элемент title не имеет текстового содержания и подэлементов, то lxml сериализует его как пустой элемент и закрывает символами /&gt;.</p>
+<p>④ Для того чтобы добавить текстовое содержание, мы задаём свойство .text.</p>
+<p>⑤ Теперь элемент title сериализуется с только что заданным текстовым содержанием. Если в тексте содержатся знаки «меньше чем» &lt; или «амперсанд» ', то при сериализации они должны быть экранированы escape-последовательностью. Такие ситуации lxml обрабатывает автоматически.</p>
+<p>⑥ При сериализации Вы можете применить «приятную печать» («pretty printing»), при которой вставляется разрыв строки после закрывающего тэга или открывающего тэга элементов с подэлементами но без текстового содержания. С технической точки зрения lxml добавляет незначащие пробелы и переносы строк («insignificant whitespace») чтобы вывести XML более читаемым.</p>
+<table style="margin: 1em 0;"><tr><td valign="top" style="padding: 0 .5em 0 2em;"><img alt="Start hand.svg" src="//upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Start_hand.svg/32px-Start_hand.svg.png" width="32" height="32" style="vertical-align: text-top" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Start_hand.svg/48px-Start_hand.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Start_hand.svg/64px-Start_hand.svg.png 2x"></td>
+<td valign="top" style="padding: 0;">
+<p>Вам, возможно, будет интересно попробовать ещё одну стороннюю библиотеку <a rel="nofollow" class="external text" href="http://github.com/galvez/xmlwitch/tree/master">xmlwitch</a>, которая повсеместно использует оператор Python <span class="mw-geshi python source-python"><span class="kw1">with</span></span> для того чтобы сделать код создания XML более читаемым.</p>
+</td>
+</tr></table><h2><span class="mw-headline" id=".D0.A1.D0.B8.D0.BD.D1.82.D0.B0.D0.BA.D1.81.D0.B8.D1.87.D0.B5.D1.81.D0.BA.D0.B8.D0.B9_.D1.80.D0.B0.D0.B7.D0.B1.D0.BE.D1.80_.D0.BD.D0.B5.D1.86.D0.B5.D0.BB.D1.8B.D1.85_XML">Синтаксический разбор нецелых XML</span></h2>
+<p>XML спецификация предписывает, что все XML синтаксические анализаторы должны выполнять «<span class="extiw" title="w:Дракон (греческий законодатель)">драконову</span> (строгую) обработку ошибок». То есть, при обнаружении в XML документе формальной ошибки или не<i>«правильнопостроенности»</i> (<i>wellformedness</i>) анализаторы должны сразу же прервать анализ и «вспыхнуть». Ошибки правильнопостроенности включают несогласованность открывающих и закрывающих тэгов, неопределённые элементы, неправильные символы Юникод и другие эзотерические ситуации. Такая обработка ошибок сильно контрастирует на фоне других известных форматов, например, HTML — браузер не останавливается отрисовывать web-страницу если в странице забыт закрывающий HTML тэг или значение атрибута тэга содержит неэкранированный амперсанд. (Существует распространённое заблуждение, что в формате HTML не оговорена обработка ошибок. На самом деле, <a rel="nofollow" class="external text" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/syntax.html#parsing%7C">обработка HTML ошибок</a> отлично документирована, но она гораздо сложнее чем просто «остановиться и загореться на первой ошибке».)</p>
+<p>Некоторые считают (и я в том числе), что это было ошибкой со стороны разработчиков формата XML заставлять так строго обрабатывать ошибки. Не поймите меня неправильно, я конечно же за упрощение правил обработки ошибок. Однако, на практике понятие «правильнопостроенности» оказывается коварнее чем кажется, особенно для XML документов которые публикуются в интернете и передаются по протоколу HTTP (например, фиды Atom). Несмотря на зрелость XML, который стандартизовал драконову обработку ошибок в 1997, исследования постоянно показывают, что значительная часть фидов Atom в интернете содержат ошибки правильнопостроенности.</p>
+<p>Итак, у меня есть и теоретические и практические причины обрабатывать XML документы «любой ценой», то есть не останавливаться и взрываться при первой ошибке. Если Вы окажетесь в похожей ситуации, то lxml может помочь.</p>
+<p>Ниже приведён фрагмент «битого» XML документа.</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="xml source-xml">
+<pre class="de1">
+<span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">'1.0'</span> <span class="re0">encoding</span>=<span class="st0">'utf-8'</span><span class="re2">?&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;feed</span> <span class="re0">xmlns</span>=<span class="st0">'http://www.w3.org/2005/Atom'</span> <span class="re0">xml:lang</span>=<span class="st0">'en'</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;title<span class="re2">&gt;</span></span></span>dive into <span class="sc1">&amp;hellip;</span><span class="sc3"><span class="re1">&lt;/title<span class="re2">&gt;</span></span></span>
+...
+<span class="sc3"><span class="re1">&lt;/feed<span class="re2">&gt;</span></span></span>
+</pre></div>
+</div>
+<p>В фиде ошибка, так как последовательность &amp;hellip; не определена в формате XML (она определена в HTML). Если попробовать разобрать битый фид с настройками по умолчанию, то lxml споткнётся на неопределённом вхождении hellip.</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="python source-python">
+<pre class="de1">
+<span class="sy0">&gt;&gt;&gt;</span> <span class="kw1">import</span> lxml.<span class="me1">etree</span>
+<span class="sy0">&gt;&gt;&gt;</span> tree <span class="sy0">=</span> lxml.<span class="me1">etree</span>.<span class="me1">parse</span><span class="br0">(</span><span class="st0">'examples/feed-broken.xml'</span><span class="br0">)</span>
+Traceback <span class="br0">(</span>most recent call last<span class="br0">)</span>:
+  File <span class="st0">"&lt;stdin&gt;"</span><span class="sy0">,</span> line <span class="nu0">1</span><span class="sy0">,</span> <span class="kw1">in</span> <span class="sy0">&lt;</span>module<span class="sy0">&gt;</span>
+  File <span class="st0">"lxml.etree.pyx"</span><span class="sy0">,</span> line <span class="nu0">2693</span><span class="sy0">,</span> <span class="kw1">in</span> lxml.<span class="me1">etree</span>.<span class="me1">parse</span> <span class="br0">(</span>src/lxml/lxml.<span class="me1">etree</span>.<span class="me1">c</span>:<span class="nu0">52591</span><span class="br0">)</span>
+  File <span class="st0">"parser.pxi"</span><span class="sy0">,</span> line <span class="nu0">1478</span><span class="sy0">,</span> <span class="kw1">in</span> lxml.<span class="me1">etree</span>._parseDocument <span class="br0">(</span>src/lxml/lxml.<span class="me1">etree</span>.<span class="me1">c</span>:<span class="nu0">75665</span><span class="br0">)</span>
+  File <span class="st0">"parser.pxi"</span><span class="sy0">,</span> line <span class="nu0">1507</span><span class="sy0">,</span> <span class="kw1">in</span> lxml.<span class="me1">etree</span>._parseDocumentFromURL <span class="br0">(</span>src/lxml/lxml.<span class="me1">etree</span>.<span class="me1">c</span>:<span class="nu0">75993</span><span class="br0">)</span>
+  File <span class="st0">"parser.pxi"</span><span class="sy0">,</span> line <span class="nu0">1407</span><span class="sy0">,</span> <span class="kw1">in</span> lxml.<span class="me1">etree</span>._parseDocFromFile <span class="br0">(</span>src/lxml/lxml.<span class="me1">etree</span>.<span class="me1">c</span>:<span class="nu0">75002</span><span class="br0">)</span>
+  File <span class="st0">"parser.pxi"</span><span class="sy0">,</span> line <span class="nu0">965</span><span class="sy0">,</span> <span class="kw1">in</span> lxml.<span class="me1">etree</span>._BaseParser._parseDocFromFile <span class="br0">(</span>src/lxml/lxml.<span class="me1">etree</span>.<span class="me1">c</span>:<span class="nu0">72023</span><span class="br0">)</span>
+  File <span class="st0">"parser.pxi"</span><span class="sy0">,</span> line <span class="nu0">539</span><span class="sy0">,</span> <span class="kw1">in</span> lxml.<span class="me1">etree</span>._ParserContext._handleParseResultDoc <span class="br0">(</span>src/lxml/lxml.<span class="me1">etree</span>.<span class="me1">c</span>:<span class="nu0">67830</span><span class="br0">)</span>
+  File <span class="st0">"parser.pxi"</span><span class="sy0">,</span> line <span class="nu0">625</span><span class="sy0">,</span> <span class="kw1">in</span> lxml.<span class="me1">etree</span>._handleParseResult <span class="br0">(</span>src/lxml/lxml.<span class="me1">etree</span>.<span class="me1">c</span>:<span class="nu0">68877</span><span class="br0">)</span>
+  File <span class="st0">"parser.pxi"</span><span class="sy0">,</span> line <span class="nu0">565</span><span class="sy0">,</span> <span class="kw1">in</span> lxml.<span class="me1">etree</span>._raiseParseError <span class="br0">(</span>src/lxml/lxml.<span class="me1">etree</span>.<span class="me1">c</span>:<span class="nu0">68125</span><span class="br0">)</span>
+lxml.<span class="me1">etree</span>.<span class="me1">XMLSyntaxError</span>: Entity <span class="st0">'hellip'</span> <span class="kw1">not</span> defined<span class="sy0">,</span> line <span class="nu0">3</span><span class="sy0">,</span> column <span class="nu0">28</span>
+</pre></div>
+</div>
+<p>Для того чтобы обрабатывать XML документ с ошибками, необходимо создать новый синтаксический анализатор XML.</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="python source-python">
+<pre class="de1">
+<span class="sy0">&gt;&gt;</span> <span class="kw3">parser</span> <span class="sy0">=</span> lxml.<span class="me1">etree</span>.<span class="me1">XMLParser</span><span class="br0">(</span>recover<span class="sy0">=</span><span class="kw2">True</span><span class="br0">)</span>                   ①
+<span class="sy0">&gt;&gt;&gt;</span> tree <span class="sy0">=</span> lxml.<span class="me1">etree</span>.<span class="me1">parse</span><span class="br0">(</span><span class="st0">'examples/feed-broken.xml'</span><span class="sy0">,</span> <span class="kw3">parser</span><span class="br0">)</span>  ②
+<span class="sy0">&gt;&gt;&gt;</span> <span class="kw3">parser</span>.<span class="me1">error_log</span>                                             ③
+examples/feed-broken.<span class="kw3">xml</span>:<span class="nu0">3</span>:<span class="nu0">28</span>:FATAL:PARSER:ERR_UNDECLARED_ENTITY: Entity <span class="st0">'hellip'</span> <span class="kw1">not</span> defined
+<span class="sy0">&gt;&gt;&gt;</span> tree.<span class="me1">findall</span><span class="br0">(</span><span class="st0">'{http://www.w3.org/2005/Atom}title'</span><span class="br0">)</span>
+<span class="br0">[</span><span class="sy0">&lt;</span>Element <span class="br0">{</span>http://www.<span class="me1">w3</span>.<span class="me1">org</span>/<span class="nu0">2005</span>/Atom<span class="br0">}</span>title at ead510<span class="sy0">&gt;</span><span class="br0">]</span>
+<span class="sy0">&gt;&gt;&gt;</span> title <span class="sy0">=</span> tree.<span class="me1">findall</span><span class="br0">(</span><span class="st0">'{http://www.w3.org/2005/Atom}title'</span><span class="br0">)</span><span class="br0">[</span><span class="nu0">0</span><span class="br0">]</span>
+<span class="sy0">&gt;&gt;&gt;</span> title.<span class="me1">text</span>                                                   ④
+<span class="st0">'dive into '</span>
+<span class="sy0">&gt;&gt;&gt;</span> <span class="kw1">print</span><span class="br0">(</span>lxml.<span class="me1">etree</span>.<span class="me1">tounicode</span><span class="br0">(</span>tree.<span class="me1">getroot</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="br0">)</span>                  ⑤
+<span class="sy0">&lt;</span>feed xmlns<span class="sy0">=</span><span class="st0">'http://www.w3.org/2005/Atom'</span> <span class="kw3">xml</span>:lang<span class="sy0">=</span><span class="st0">'en'</span><span class="sy0">&gt;</span>
+  <span class="sy0">&lt;</span>title<span class="sy0">&gt;</span>dive into <span class="sy0">&lt;</span>/title<span class="sy0">&gt;</span>
+.
+. <span class="br0">[</span>остальной вывод сериализации пропущен для краткости<span class="br0">]</span>
+.
+</pre></div>
+</div>
+<p>① Для того чтобы создать новый анализатор мы создаём новый класс lxml.etree.XMLParser. Хотя он может принимать <a rel="nofollow" class="external text" href="http://codespeak.net/lxml/parsing.html#parser-options">много разных параметров</a>, для нас представляет интерес только один — аргумент восстановления recover. При присвоении аргументу значения True lxml будет из кожи вон лезть чтобы восстановить ошибки правильнопостроенности.</p>
+<p>② Для того чтобы разобрать XML документ новым анализатором мы передаём объект parser в качестве второго аргумента в функцию parse(). На этот раз lxml не выбрасывает исключительную ситуацию при неопределённой последовательности &amp;hellip;.</p>
+<p>③ Анализатор содержит сообщения обо всех найденных ошибках. (На самом деле эти сообщения сохраняются независимо от параметра recover.)</p>
+<p>④ Так как анализатор не знает что делать с неопределённым &amp;hellip;, то он просто выбрасывает слово. Текстовое содержание элемента title превращается в 'dive into '.</p>
+<p>⑤ И ещё раз: после сериализации последовательность &amp;hellip; исчезла, lxml её выбросил.</p>
+<p>Важно отметить, что <b>нет никакой гарантии переносимости восстановления ошибок</b> у XML анализаторов. Другой анализатор может быть умнее и распознать что &amp;hellip; является валидной последовательностью HTML и восстановить её как амперсанд. «Лучше» ли это? Возможно. Является ли это «более правильным»? Нет, так как оба решения с точки зрения формата XML неверны. Правильное поведение (согласно XML спецификации) прекратить обработку и загореться. Если же необходимо не следовать спецификации, то Вы делаете это на свой страх и риск.</p>
+<h2><span class="mw-headline" id=".D0.9C.D0.B0.D1.82.D0.B5.D1.80.D0.B8.D0.B0.D0.BB.D1.8B_.D0.B4.D0.BB.D1.8F_.D0.B4.D0.B0.D0.BB.D1.8C.D0.BD.D0.B5.D0.B9.D1.88.D0.B5.D0.B3.D0.BE_.D1.87.D1.82.D0.B5.D0.BD.D0.B8.D1.8F">Материалы для дальнейшего чтения</span></h2>
+<p><a href="14.html" class="extiw" title="w:XML">XML на Википедии</a></p>
+<p><a rel="nofollow" class="external text" href="http://docs.python.org/3.1/library/xml.etree.elementtree.html">The ElementTree XML API</a><span title="на английском языке" style="font-size:85%; cursor:help; margin-left:0.2em; color:#888;">(англ.)</span></p>
+<p><a rel="nofollow" class="external text" href="http://effbot.org/zone/element.htm">Elements and Element Trees - Элементы и деревья элементов</a><span title="на английском языке" style="font-size:85%; cursor:help; margin-left:0.2em; color:#888;">(англ.)</span></p>
+<p><a rel="nofollow" class="external text" href="http://effbot.org/zone/element-xpath.htm">XPath Support in ElementTree - Поддержка XPath в ElementTree</a><span title="на английском языке" style="font-size:85%; cursor:help; margin-left:0.2em; color:#888;">(англ.)</span></p>
+<p><a rel="nofollow" class="external text" href="http://effbot.org/zone/element-iterparse.htm">The ElementTree iterparse Function - Функция iterparse в ElementTree</a><span title="на английском языке" style="font-size:85%; cursor:help; margin-left:0.2em; color:#888;">(англ.)</span></p>
+<p><a rel="nofollow" class="external text" href="http://codespeak.net/lxml/">lxml</a><span title="на английском языке" style="font-size:85%; cursor:help; margin-left:0.2em; color:#888;">(англ.)</span></p>
+<p><a rel="nofollow" class="external text" href="http://codespeak.net/lxml/1.3/parsing.html">Parsing XML and HTML with lxml - обработка XML и HTML в lxml</a><span title="на английском языке" style="font-size:85%; cursor:help; margin-left:0.2em; color:#888;">(англ.)</span></p>
+<p><a rel="nofollow" class="external text" href="http://codespeak.net/lxml/1.3/xpathxslt.html">XPath and XSLT with lxml - XPath и XSLT в lxml</a><span title="на английском языке" style="font-size:85%; cursor:help; margin-left:0.2em; color:#888;">(англ.)</span></p>
+<p><a rel="nofollow" class="external text" href="http://github.com/galvez/xmlwitch/tree/master">xmlwitch</a><span title="на английском языке" style="font-size:85%; cursor:help; margin-left:0.2em; color:#888;">(англ.)</span></p>
+
+
+<!-- 
+NewPP limit report
+Preprocessor visited node count: 1042/1000000
+Preprocessor generated node count: 10840/1500000
+Post‐expand include size: 9650/2048000 bytes
+Template argument size: 3626/2048000 bytes
+Highest expansion depth: 12/40
+Expensive parser function count: 1/500
+-->
+
+<!-- Saved in parser cache with key ruwikisource:stable-pcache:idhash:110514-0!*!0!!ru!4!* and timestamp 20130809201702 -->
+<noscript><img src="//ru.wikisource.org/w/index.php?title=%D0%A1%D0%BB%D1%83%D0%B6%D0%B5%D0%B1%D0%BD%D0%B0%D1%8F:CentralAutoLogin/start&amp;type=1x1&amp;from=ruwikisource" alt="" title="" width="1" height="1" style="border: none; position: absolute;"></noscript></div>								
+																								
+							</div>
+		
+<hr>
+
+
+
+
+
+<div class="copyright-details">
+    <p><b>Автор:</b> Марк Пилигрим (Mark Piligrim)</p>
+    <p><b>Перевод:</b> <a href="http://ru.wikisource.org/wiki/%D0%9F%D0%BE%D0%B3%D1%80%D1%83%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_%D0%B2_Python_3_(%D0%9F%D0%B8%D0%BB%D0%B3%D1%80%D0%B8%D0%BC)/%D0%9E_%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D0%B5">Инициативная группа</a></p>
+    <p><b>Источник оригинала:</b> <a href="http://ru.wikisource.org/wiki/%D0%9F%D0%BE%D0%B3%D1%80%D1%83%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_%D0%B2_Python_3_(%D0%9F%D0%B8%D0%BB%D0%B3%D1%80%D0%B8%D0%BC)">ru.wikisource.org</a></p>
+    <p><b>Лицензия:</b> данный материал распространяется <a href="http://ru.wikipedia.org/wiki/GNU_Free_Documentation_License">по лицензии GNU FDL</a>. 
+    </p>
+</div>
+
+
+
+            </div>
+            <div class="col-md-3 sidebar">
+                
+
+
+                
+                
+                
+            </div>
+        </div>
+    </div> <!-- /container -->
+    
+
+
+    <hr/>
+    <div class="container">
+    <div class="row footer">
+        <div class="col-md-10">
+            &copy; <a href="/">pep8.ru</a>
+            <span class="delimiter">|</span>
+            Контакты: <a href="mailto:lorien@lorien.name">lorien@lorien.name</a>
+            <span class="delimiter">|</span>
+            <a href="/about">О сайте</a>
+        </div>
+        <div class="col-md-2">
+
+            <!-- Yandex.Metrika counter --><script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter7544042 = new Ya.Metrika({id:7544042, webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/7544042" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
+
+            <div class="pull-right" style="height: 1px; width: 1px; overflow: hidden">
+            <!--LiveInternet counter--><script type="text/javascript"><!--
+            document.write("<a href='http://www.liveinternet.ru/click' "+
+            "target=_blank><img src='//counter.yadro.ru/hit?t44.1;r"+
+            escape(document.referrer)+((typeof(screen)=="undefined")?"":
+            ";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+            screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+            ";"+Math.random()+
+            "' alt='' title='LiveInternet' "+
+            "border='0' width='31' height='31'><\/a>")
+            //--></script><!--/LiveInternet-->
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    reformal_wdg_domain    = "pep8";
+    reformal_wdg_mode    = 0;
+    reformal_wdg_title   = "Русское Python сообщество";
+    reformal_wdg_ltitle  = "";
+    reformal_wdg_lfont   = "";
+    reformal_wdg_lsize   = "";
+    reformal_wdg_color   = "#FFA000";
+    reformal_wdg_bcolor  = "#516683";
+    reformal_wdg_tcolor  = "#FFFFFF";
+    reformal_wdg_align   = "left";
+    reformal_wdg_charset = "utf-8";
+    reformal_wdg_waction = 0;
+    reformal_wdg_vcolor  = "#9FCE54";
+    reformal_wdg_cmline  = "#E0E0E0";
+    reformal_wdg_glcolor  = "#105895";
+    reformal_wdg_tbcolor  = "#FFFFFF";
+    reformal_wdg_bimage = "http://reformal.ru/files/images/buttons/7688f5685f7701e97daa5497d3d9c745.png";
+</script>
+<script type="text/javascript" language="JavaScript" src="http://reformal.ru/tab6.js"></script>
+
+
+    <script src="/static/bootstrap3/js/bootstrap.min.js"></script>
+    <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+    <script src="/static/js/respond.min.js"></script>
+    
+
+  </body>
+</html>

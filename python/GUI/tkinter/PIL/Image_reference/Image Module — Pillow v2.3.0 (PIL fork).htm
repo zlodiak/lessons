@@ -1,0 +1,1633 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0069)http://pillow.readthedocs.org/en/latest/reference/Image.html#examples -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    
+    <title>Image Module — Pillow v2.3.0 (PIL fork)</title>
+    
+    <link rel="stylesheet" href="./Image Module — Pillow v2.3.0 (PIL fork)_files/better.css" type="text/css">
+    <link rel="stylesheet" href="./Image Module — Pillow v2.3.0 (PIL fork)_files/pygments.css" type="text/css">
+    <link rel="stylesheet" href="./Image Module — Pillow v2.3.0 (PIL fork)_files/badge_only.css" type="text/css">
+    <link rel="stylesheet" href="./Image Module — Pillow v2.3.0 (PIL fork)_files/readthedocs-doc-embed.css" type="text/css">
+    
+    <script type="text/javascript" async="" src="./Image Module — Pillow v2.3.0 (PIL fork)_files/ga.js"></script><script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="./Image Module — Pillow v2.3.0 (PIL fork)_files/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="./Image Module — Pillow v2.3.0 (PIL fork)_files/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="./Image Module — Pillow v2.3.0 (PIL fork)_files/underscore.js"></script>
+    <script type="text/javascript" src="./Image Module — Pillow v2.3.0 (PIL fork)_files/doctools.js"></script>
+    <script type="text/javascript" src="./Image Module — Pillow v2.3.0 (PIL fork)_files/readthedocs-doc-embed.js"></script>
+    <link rel="author" title="About these documents" href="http://pillow.readthedocs.org/en/latest/about.html">
+    <link rel="top" title="Pillow v2.3.0 (PIL fork)" href="http://pillow.readthedocs.org/en/latest/index.html">
+    <link rel="up" title="Reference" href="http://pillow.readthedocs.org/en/latest/reference/index.html">
+    <link rel="next" title="ImageChops (“Channel Operations”) Module" href="http://pillow.readthedocs.org/en/latest/reference/ImageChops.html">
+    <link rel="prev" title="Reference" href="http://pillow.readthedocs.org/en/latest/reference/index.html">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<!-- RTD Extra Head -->
+
+
+
+<!--
+<link rel="canonical" href="http://pillow.readthedocs.org/en/latest/reference/Image.html">
+-->
+
+<script type="text/javascript">
+  // This is included here because other places don't have access to the pagename variable.
+  var READTHEDOCS_DATA = {
+    project: "pillow",
+    version: "latest",
+    language: "en",
+    page: "reference/Image",
+    theme: "better",
+    docroot: "/docs/",
+    api_host: "http://readthedocs.org"
+  }
+  // Old variables
+  var doc_version = "latest";
+  var doc_slug = "pillow";
+  var page_name = "reference/Image";
+  var html_theme = "better";
+</script>
+<!-- RTD Analytics Code -->
+<!-- Included in the header because you don't have a footer block. -->
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-17997319-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<!-- end RTD Analytics Code -->
+
+
+<!-- end RTD <extrahead> -->
+
+  </head>
+  <body style="">
+    <header id="pageheader"><h1><a href="http://pillow.readthedocs.org/en/latest/index.html">
+        Pillow v2.3.0 (PIL fork)
+    </a></h1></header>
+  <div class="related top">
+  <nav id="rellinks">
+    <ul>
+        <li>
+          ←
+          <a href="http://pillow.readthedocs.org/en/latest/reference/index.html" title="Previous document">Reference</a>
+        </li>
+        <li>
+          <a href="http://pillow.readthedocs.org/en/latest/reference/ImageChops.html" title="Next document"><tt class="docutils literal"><span class="pre">ImageChops</span></tt> (“Channel Operations”) Module</a>
+          →
+        </li>
+    </ul>
+  </nav>
+  <nav id="breadcrumbs">
+    <ul>
+      <li><a href="http://pillow.readthedocs.org/en/latest/index.html">Home</a></li>
+      <li>
+        <a href="http://pillow.readthedocs.org/en/latest/reference/index.html">Reference</a>
+      </li> 
+    </ul>
+  </nav>
+  </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <span class="target" id="module-PIL.Image"></span><div class="section" id="image-module">
+<h1><tt class="xref py py-mod docutils literal"><span class="pre">Image</span></tt> Module<a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#image-module" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#module-PIL.Image" title="PIL.Image"><tt class="xref py py-mod docutils literal"><span class="pre">Image</span></tt></a> module provides a class with the same name which is
+used to represent a PIL image. The module also provides a number of factory
+functions, including functions to load images from files, and to create new
+images.</p>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="./Image Module — Pillow v2.3.0 (PIL fork)_files/Image Module — Pillow v2.3.0 (PIL fork).htm" title="Permalink to this headline">¶</a></h2>
+<p>The following script loads an image, rotates it 45 degrees, and displays it
+using an external viewer (usually xv on Unix, and the paint program on
+Windows).</p>
+<div class="section" id="open-rotate-and-display-an-image-using-the-default-viewer">
+<h3>Open, rotate, and display an image (using the default viewer)<a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#open-rotate-and-display-an-image-using-the-default-viewer" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">"bride.jpg"</span><span class="p">)</span>
+<span class="n">im</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The following script creates nice 128x128 thumbnails of all JPEG images in the
+current directory.</p>
+</div>
+<div class="section" id="create-thumbnails">
+<h3>Create thumbnails<a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#create-thumbnails" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">import</span> <span class="nn">glob</span><span class="o">,</span> <span class="nn">os</span>
+
+<span class="n">size</span> <span class="o">=</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span>
+
+<span class="k">for</span> <span class="n">infile</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s">"*.jpg"</span><span class="p">):</span>
+    <span class="nb">file</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>
+    <span class="n">im</span><span class="o">.</span><span class="n">thumbnail</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">Image</span><span class="o">.</span><span class="n">ANTIALIAS</span><span class="p">)</span>
+    <span class="n">im</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="nb">file</span> <span class="o">+</span> <span class="s">".thumbnail"</span><span class="p">,</span> <span class="s">"JPEG"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="PIL.Image.open">
+<tt class="descclassname">PIL.Image.</tt><tt class="descname">open</tt><big>(</big><em>fp</em>, <em>mode='r'</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#open"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.open" title="Permalink to this definition">¶</a></dt>
+<dd><p>Opens and identifies the given image file.</p>
+<p>This is a lazy operation; this function identifies the file, but the
+actual image data is not read from the file until you try to process
+the data (or call the <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.load" title="PIL.Image.Image.load"><tt class="xref py py-meth docutils literal"><span class="pre">load()</span></tt></a> method).
+See <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.new" title="PIL.Image.new"><tt class="xref py py-func docutils literal"><span class="pre">new()</span></tt></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>file</strong> – A filename (string) or a file object.  The file object
+must implement <a class="reference external" href="http://docs.python.org/2/library/stdtypes.html#file.read" title="(in Python v2.7)"><tt class="xref py py-meth docutils literal"><span class="pre">read()</span></tt></a>, <a class="reference external" href="http://docs.python.org/2/library/stdtypes.html#file.seek" title="(in Python v2.7)"><tt class="xref py py-meth docutils literal"><span class="pre">seek()</span></tt></a>, and
+<a class="reference external" href="http://docs.python.org/2/library/stdtypes.html#file.tell" title="(in Python v2.7)"><tt class="xref py py-meth docutils literal"><span class="pre">tell()</span></tt></a> methods, and be opened in binary mode.</li>
+<li><strong>mode</strong> – The mode.  If given, this argument must be “r”.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">An <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image" title="PIL.Image.Image"><tt class="xref py py-class docutils literal"><span class="pre">Image</span></tt></a> object.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises IOError:</th><td class="field-body"><p class="first last">If the file cannot be found, or the image cannot be
+opened and identified.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<div class="section" id="image-processing">
+<h3>Image processing<a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#image-processing" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="PIL.Image.alpha_composite">
+<tt class="descclassname">PIL.Image.</tt><tt class="descname">alpha_composite</tt><big>(</big><em>im1</em>, <em>im2</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#alpha_composite"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.alpha_composite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alpha composite im2 over im1.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>im1</strong> – The first image.</li>
+<li><strong>im2</strong> – The second image.  Must have the same mode and size as
+the first image.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image" title="PIL.Image.Image"><tt class="xref py py-class docutils literal"><span class="pre">Image</span></tt></a> object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="PIL.Image.blend">
+<tt class="descclassname">PIL.Image.</tt><tt class="descname">blend</tt><big>(</big><em>im1</em>, <em>im2</em>, <em>alpha</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#blend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.blend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new image by interpolating between two input images, using
+a constant alpha.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">out</span> <span class="o">=</span> <span class="n">image1</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">+</span> <span class="n">image2</span> <span class="o">*</span> <span class="n">alpha</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>im1</strong> – The first image.</li>
+<li><strong>im2</strong> – The second image.  Must have the same mode and size as
+the first image.</li>
+<li><strong>alpha</strong> – The interpolation alpha factor.  If alpha is 0.0, a
+copy of the first image is returned. If alpha is 1.0, a copy of
+the second image is returned. There are no restrictions on the
+alpha value. If necessary, the result is clipped to fit into
+the allowed output range.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image" title="PIL.Image.Image"><tt class="xref py py-class docutils literal"><span class="pre">Image</span></tt></a> object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="PIL.Image.composite">
+<tt class="descclassname">PIL.Image.</tt><tt class="descname">composite</tt><big>(</big><em>image1</em>, <em>image2</em>, <em>mask</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#composite"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.composite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create composite image by blending images using a transparency mask.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>image1</strong> – The first image.</li>
+<li><strong>image2</strong> – The second image.  Must have the same mode and
+size as the first image.</li>
+<li><strong>mask</strong> – A mask image.  This image can can have mode
+“1”, “L”, or “RGBA”, and must have the same size as the
+other two images.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="PIL.Image.eval">
+<tt class="descclassname">PIL.Image.</tt><tt class="descname">eval</tt><big>(</big><em>image</em>, <em>*args</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#eval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.eval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies the function (which should take one argument) to each pixel
+in the given image. If the image has more than one band, the same
+function is applied to each band. Note that the function is
+evaluated once for each possible pixel value, so you cannot use
+random components or other generators.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>image</strong> – The input image.</li>
+<li><strong>function</strong> – A function object, taking one integer argument.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image" title="PIL.Image.Image"><tt class="xref py py-class docutils literal"><span class="pre">Image</span></tt></a> object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="PIL.Image.merge">
+<tt class="descclassname">PIL.Image.</tt><tt class="descname">merge</tt><big>(</big><em>mode</em>, <em>bands</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#merge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.merge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge a set of single band images into a new multiband image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>mode</strong> – The mode to use for the output image.</li>
+<li><strong>bands</strong> – A sequence containing one single-band image for
+each band in the output image.  All bands must have the
+same size.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image" title="PIL.Image.Image"><tt class="xref py py-class docutils literal"><span class="pre">Image</span></tt></a> object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="constructing-images">
+<h3>Constructing images<a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#constructing-images" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="PIL.Image.new">
+<tt class="descclassname">PIL.Image.</tt><tt class="descname">new</tt><big>(</big><em>mode</em>, <em>size</em>, <em>color=0</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.new" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new image with the given mode and size.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>mode</strong> – The mode to use for the new image.</li>
+<li><strong>size</strong> – A 2-tuple, containing (width, height) in pixels.</li>
+<li><strong>color</strong> – What color to use for the image.  Default is black.
+If given, this should be a single integer or floating point value
+for single-band modes, and a tuple for multi-band modes (one value
+per band).  When creating RGB images, you can also use color
+strings as supported by the ImageColor module.  If the color is
+None, the image is not initialised.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image" title="PIL.Image.Image"><tt class="xref py py-class docutils literal"><span class="pre">Image</span></tt></a> object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="PIL.Image.fromarray">
+<tt class="descclassname">PIL.Image.</tt><tt class="descname">fromarray</tt><big>(</big><em>obj</em>, <em>mode=None</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#fromarray"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.fromarray" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an image memory from an object exporting the array interface
+(using the buffer protocol).</p>
+<p>If obj is not contiguous, then the tobytes method is called
+and <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.frombuffer" title="PIL.Image.frombuffer"><tt class="xref py py-func docutils literal"><span class="pre">frombuffer()</span></tt></a> is used.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>obj</strong> – Object with array interface</li>
+<li><strong>mode</strong> – Mode to use (will be determined from type if None)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An image memory.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="versionadded">
+<span class="versionmodified">New in version 1.1.6.</span></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="PIL.Image.frombytes">
+<tt class="descclassname">PIL.Image.</tt><tt class="descname">frombytes</tt><big>(</big><em>mode</em>, <em>size</em>, <em>data</em>, <em>decoder_name='raw'</em>, <em>*args</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#frombytes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.frombytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a copy of an image memory from pixel data in a buffer.</p>
+<p>In its simplest form, this function takes three arguments
+(mode, size, and unpacked pixel data).</p>
+<p>You can also use any pixel decoder supported by PIL.  For more
+information on available decoders, see the section
+<strong>Writing Your Own File Decoder</strong>.</p>
+<p>Note that this function decodes pixel data only, not entire images.
+If you have an entire image in a string, wrap it in a
+<a class="reference external" href="http://docs.python.org/2/library/io.html#io.BytesIO" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">BytesIO</span></tt></a> object, and use <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.open" title="PIL.Image.open"><tt class="xref py py-func docutils literal"><span class="pre">open()</span></tt></a> to load
+it.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>mode</strong> – The image mode.</li>
+<li><strong>size</strong> – The image size.</li>
+<li><strong>data</strong> – A byte buffer containing raw data for the given mode.</li>
+<li><strong>decoder_name</strong> – What decoder to use.</li>
+<li><strong>args</strong> – Additional parameters for the given decoder.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image" title="PIL.Image.Image"><tt class="xref py py-class docutils literal"><span class="pre">Image</span></tt></a> object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="PIL.Image.fromstring">
+<tt class="descclassname">PIL.Image.</tt><tt class="descname">fromstring</tt><big>(</big><em>*args</em>, <em>**kw</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#fromstring"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.fromstring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deprecated alias to frombytes.</p>
+<p class="deprecated">
+<span class="versionmodified">Deprecated since version 2.0.</span></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="PIL.Image.frombuffer">
+<tt class="descclassname">PIL.Image.</tt><tt class="descname">frombuffer</tt><big>(</big><em>mode</em>, <em>size</em>, <em>data</em>, <em>decoder_name='raw'</em>, <em>*args</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#frombuffer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.frombuffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an image memory referencing pixel data in a byte buffer.</p>
+<p>This function is similar to <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.frombytes" title="PIL.Image.frombytes"><tt class="xref py py-func docutils literal"><span class="pre">frombytes()</span></tt></a>, but uses data
+in the byte buffer, where possible.  This means that changes to the
+original buffer object are reflected in this image).  Not all modes can
+share memory; supported modes include “L”, “RGBX”, “RGBA”, and “CMYK”.</p>
+<p>Note that this function decodes pixel data only, not entire images.
+If you have an entire image file in a string, wrap it in a
+<strong>BytesIO</strong> object, and use <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.open" title="PIL.Image.open"><tt class="xref py py-func docutils literal"><span class="pre">open()</span></tt></a> to load it.</p>
+<p>In the current version, the default parameters used for the “raw” decoder
+differs from that used for <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.fromstring" title="PIL.Image.fromstring"><tt class="xref py py-func docutils literal"><span class="pre">fromstring()</span></tt></a>.  This is a
+bug, and will probably be fixed in a future release.  The current release
+issues a warning if you do this; to disable the warning, you should provide
+the full set of parameters.  See below for details.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>mode</strong> – The image mode.</li>
+<li><strong>size</strong> – The image size.</li>
+<li><strong>data</strong> – A bytes or other buffer object containing raw
+data for the given mode.</li>
+<li><strong>decoder_name</strong> – What decoder to use.</li>
+<li><strong>args</strong> – <p>Additional parameters for the given decoder.  For the
+default encoder (“raw”), it’s recommended that you provide the
+full set of parameters:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">frombuffer</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="s">"raw"</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image" title="PIL.Image.Image"><tt class="xref py py-class docutils literal"><span class="pre">Image</span></tt></a> object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="versionadded">
+<span class="versionmodified">New in version 1.1.4.</span></p>
+</dd></dl>
+
+</div>
+<div class="section" id="registering-plugins">
+<h3>Registering plugins<a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#registering-plugins" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">These functions are for use by plugin authors. Application authors can
+ignore them.</p>
+</div>
+<dl class="function">
+<dt id="PIL.Image.register_open">
+<tt class="descclassname">PIL.Image.</tt><tt class="descname">register_open</tt><big>(</big><em>id</em>, <em>factory</em>, <em>accept=None</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#register_open"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.register_open" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register an image file plugin.  This function should not be used
+in application code.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>id</strong> – An image format identifier.</li>
+<li><strong>factory</strong> – An image file factory method.</li>
+<li><strong>accept</strong> – An optional function that can be used to quickly
+reject images having another format.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="PIL.Image.register_mime">
+<tt class="descclassname">PIL.Image.</tt><tt class="descname">register_mime</tt><big>(</big><em>id</em>, <em>mimetype</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#register_mime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.register_mime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Registers an image MIME type.  This function should not be used
+in application code.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>id</strong> – An image format identifier.</li>
+<li><strong>mimetype</strong> – The image MIME type for this format.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="PIL.Image.register_save">
+<tt class="descclassname">PIL.Image.</tt><tt class="descname">register_save</tt><big>(</big><em>id</em>, <em>driver</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#register_save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.register_save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Registers an image save function.  This function should not be
+used in application code.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>id</strong> – An image format identifier.</li>
+<li><strong>driver</strong> – A function to save images in this format.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="PIL.Image.register_extension">
+<tt class="descclassname">PIL.Image.</tt><tt class="descname">register_extension</tt><big>(</big><em>id</em>, <em>extension</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#register_extension"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.register_extension" title="Permalink to this definition">¶</a></dt>
+<dd><p>Registers an image extension.  This function should not be
+used in application code.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>id</strong> – An image format identifier.</li>
+<li><strong>extension</strong> – An extension used for this format.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="the-image-class">
+<h2>The Image Class<a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#the-image-class" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="PIL.Image.Image">
+<em class="property">class </em><tt class="descclassname">PIL.Image.</tt><tt class="descname">Image</tt><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class represents an image object.  To create
+<a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image" title="PIL.Image.Image"><tt class="xref py py-class docutils literal"><span class="pre">Image</span></tt></a> objects, use the appropriate factory
+functions.  There’s hardly ever any reason to call the Image constructor
+directly.</p>
+<ul class="simple">
+<li><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.open" title="PIL.Image.open"><tt class="xref py py-func docutils literal"><span class="pre">open()</span></tt></a></li>
+<li><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.new" title="PIL.Image.new"><tt class="xref py py-func docutils literal"><span class="pre">new()</span></tt></a></li>
+<li><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.frombytes" title="PIL.Image.frombytes"><tt class="xref py py-func docutils literal"><span class="pre">frombytes()</span></tt></a></li>
+</ul>
+</dd></dl>
+
+<p>An instance of the <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image" title="PIL.Image.Image"><tt class="xref py py-class docutils literal"><span class="pre">Image</span></tt></a> class has the following
+methods. Unless otherwise stated, all methods return a new instance of the
+<a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image" title="PIL.Image.Image"><tt class="xref py py-class docutils literal"><span class="pre">Image</span></tt></a> class, holding the resulting image.</p>
+<dl class="method">
+<dt id="PIL.Image.Image.convert">
+<tt class="descclassname">Image.</tt><tt class="descname">convert</tt><big>(</big><em>mode=None</em>, <em>matrix=None</em>, <em>dither=None</em>, <em>palette=0</em>, <em>colors=256</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.convert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a converted copy of this image. For the “P” mode, this
+method translates pixels through the palette.  If mode is
+omitted, a mode is chosen so that all information in the image
+and the palette can be represented without a palette.</p>
+<p>The current version supports all possible conversions between
+“L”, “RGB” and “CMYK.” The <strong>matrix</strong> argument only supports “L”
+and “RGB”.</p>
+<p>When translating a color image to black and white (mode “L”),
+the library uses the ITU-R 601-2 luma transform:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">L</span> <span class="o">=</span> <span class="n">R</span> <span class="o">*</span> <span class="mi">299</span><span class="o">/</span><span class="mi">1000</span> <span class="o">+</span> <span class="n">G</span> <span class="o">*</span> <span class="mi">587</span><span class="o">/</span><span class="mi">1000</span> <span class="o">+</span> <span class="n">B</span> <span class="o">*</span> <span class="mi">114</span><span class="o">/</span><span class="mi">1000</span>
+</pre></div>
+</div>
+<p>The default method of converting a greyscale (“L”) or “RGB”
+image into a bilevel (mode “1”) image uses Floyd-Steinberg
+dither to approximate the original image luminosity levels. If
+dither is NONE, all non-zero values are set to 255 (white). To
+use other thresholds, use the <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.point" title="PIL.Image.Image.point"><tt class="xref py py-meth docutils literal"><span class="pre">point()</span></tt></a>
+method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>mode</strong> – The requested mode.</li>
+<li><strong>matrix</strong> – An optional conversion matrix.  If given, this
+should be 4- or 16-tuple containing floating point values.</li>
+<li><strong>dither</strong> – Dithering method, used when converting from
+mode “RGB” to “P” or from “RGB” or “L” to “1”.
+Available methods are NONE or FLOYDSTEINBERG (default).</li>
+<li><strong>palette</strong> – Palette to use when converting from mode “RGB”
+to “P”.  Available palettes are WEB or ADAPTIVE.</li>
+<li><strong>colors</strong> – Number of colors to use for the ADAPTIVE palette.
+Defaults to 256.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image" title="PIL.Image.Image"><tt class="xref py py-class docutils literal"><span class="pre">Image</span></tt></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image" title="PIL.Image.Image"><tt class="xref py py-class docutils literal"><span class="pre">Image</span></tt></a> object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>The following example converts an RGB image (linearly calibrated according to
+ITU-R 709, using the D65 luminant) to the CIE XYZ color space:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">rgb2xyz</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="mf">0.412453</span><span class="p">,</span> <span class="mf">0.357580</span><span class="p">,</span> <span class="mf">0.180423</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="mf">0.212671</span><span class="p">,</span> <span class="mf">0.715160</span><span class="p">,</span> <span class="mf">0.072169</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="mf">0.019334</span><span class="p">,</span> <span class="mf">0.119193</span><span class="p">,</span> <span class="mf">0.950227</span><span class="p">,</span> <span class="mi">0</span> <span class="p">)</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s">"RGB"</span><span class="p">,</span> <span class="n">rgb2xyz</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="PIL.Image.Image.copy">
+<tt class="descclassname">Image.</tt><tt class="descname">copy</tt><big>(</big><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copies this image. Use this method if you wish to paste things
+into an image, but still retain the original.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image" title="PIL.Image.Image"><tt class="xref py py-class docutils literal"><span class="pre">Image</span></tt></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image" title="PIL.Image.Image"><tt class="xref py py-class docutils literal"><span class="pre">Image</span></tt></a> object.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.crop">
+<tt class="descclassname">Image.</tt><tt class="descname">crop</tt><big>(</big><em>box=None</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.crop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.crop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a rectangular region from this image. The box is a
+4-tuple defining the left, upper, right, and lower pixel
+coordinate.</p>
+<p>This is a lazy operation.  Changes to the source image may or
+may not be reflected in the cropped image.  To break the
+connection, call the <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.load" title="PIL.Image.Image.load"><tt class="xref py py-meth docutils literal"><span class="pre">load()</span></tt></a> method on
+the cropped copy.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>box</strong> – The crop rectangle, as a (left, upper, right, lower)-tuple.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image" title="PIL.Image.Image"><tt class="xref py py-class docutils literal"><span class="pre">Image</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">An <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image" title="PIL.Image.Image"><tt class="xref py py-class docutils literal"><span class="pre">Image</span></tt></a> object.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.draft">
+<tt class="descclassname">Image.</tt><tt class="descname">draft</tt><big>(</big><em>mode</em>, <em>size</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.draft"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.draft" title="Permalink to this definition">¶</a></dt>
+<dd><p>NYI</p>
+<p>Configures the image file loader so it returns a version of the
+image that as closely as possible matches the given mode and
+size.  For example, you can use this method to convert a color
+JPEG to greyscale while loading it, or to extract a 128x192
+version from a PCD file.</p>
+<p>Note that this method modifies the <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image" title="PIL.Image.Image"><tt class="xref py py-class docutils literal"><span class="pre">Image</span></tt></a> object
+in place.  If the image has already been loaded, this method has no
+effect.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>mode</strong> – The requested mode.</li>
+<li><strong>size</strong> – The requested size.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.filter">
+<tt class="descclassname">Image.</tt><tt class="descname">filter</tt><big>(</big><em>filter</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.filter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filters this image using the given filter.  For a list of
+available filters, see the <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/ImageFilter.html#module-PIL.ImageFilter" title="PIL.ImageFilter"><tt class="xref py py-mod docutils literal"><span class="pre">ImageFilter</span></tt></a> module.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filter</strong> – Filter kernel.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image" title="PIL.Image.Image"><tt class="xref py py-class docutils literal"><span class="pre">Image</span></tt></a> object.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.getbands">
+<tt class="descclassname">Image.</tt><tt class="descname">getbands</tt><big>(</big><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.getbands"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.getbands" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a tuple containing the name of each band in this image.
+For example, <strong>getbands</strong> on an RGB image returns (“R”, “G”, “B”).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A tuple containing band names.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.getbbox">
+<tt class="descclassname">Image.</tt><tt class="descname">getbbox</tt><big>(</big><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.getbbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.getbbox" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the bounding box of the non-zero regions in the
+image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The bounding box is returned as a 4-tuple defining the
+left, upper, right, and lower pixel coordinate. If the image
+is completely empty, this method returns None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.getcolors">
+<tt class="descclassname">Image.</tt><tt class="descname">getcolors</tt><big>(</big><em>maxcolors=256</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.getcolors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.getcolors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of colors used in this image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>maxcolors</strong> – Maximum number of colors.  If this number is
+exceeded, this method returns None.  The default limit is
+256 colors.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An unsorted list of (count, pixel) values.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.getdata">
+<tt class="descclassname">Image.</tt><tt class="descname">getdata</tt><big>(</big><em>band=None</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.getdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.getdata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the contents of this image as a sequence object
+containing pixel values.  The sequence object is flattened, so
+that values for line one follow directly after the values of
+line zero, and so on.</p>
+<p>Note that the sequence object returned by this method is an
+internal PIL data type, which only supports certain sequence
+operations.  To convert it to an ordinary sequence (e.g. for
+printing), use <strong>list(im.getdata())</strong>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>band</strong> – What band to return.  The default is to return
+all bands.  To return a single band, pass in the index
+value (e.g. 0 to get the “R” band from an “RGB” image).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A sequence-like object.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.getextrema">
+<tt class="descclassname">Image.</tt><tt class="descname">getextrema</tt><big>(</big><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.getextrema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.getextrema" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the the minimum and maximum pixel values for each band in
+the image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">For a single-band image, a 2-tuple containing the
+minimum and maximum pixel value.  For a multi-band image,
+a tuple containing one 2-tuple for each band.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.getpixel">
+<tt class="descclassname">Image.</tt><tt class="descname">getpixel</tt><big>(</big><em>xy</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.getpixel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.getpixel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the pixel value at a given position.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>xy</strong> – The coordinate, given as (x, y).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The pixel value.  If the image is a multi-layer image,
+this method returns a tuple.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.histogram">
+<tt class="descclassname">Image.</tt><tt class="descname">histogram</tt><big>(</big><em>mask=None</em>, <em>extrema=None</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.histogram"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.histogram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a histogram for the image. The histogram is returned as
+a list of pixel counts, one for each pixel value in the source
+image. If the image has more than one band, the histograms for
+all bands are concatenated (for example, the histogram for an
+“RGB” image contains 768 values).</p>
+<p>A bilevel image (mode “1”) is treated as a greyscale (“L”) image
+by this method.</p>
+<p>If a mask is provided, the method returns a histogram for those
+parts of the image where the mask image is non-zero. The mask
+image must have the same size as the image, and be either a
+bi-level image (mode “1”) or a greyscale image (“L”).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>mask</strong> – An optional mask.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A list containing pixel counts.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.offset">
+<tt class="descclassname">Image.</tt><tt class="descname">offset</tt><big>(</big><em>xoffset</em>, <em>yoffset=None</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.offset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.offset" title="Permalink to this definition">¶</a></dt>
+<dd><p class="deprecated">
+<span class="versionmodified">Deprecated since version 2.0.</span></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">New code should use <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/ImageChops.html#PIL.ImageChops.offset" title="PIL.ImageChops.offset"><tt class="xref py py-func docutils literal"><span class="pre">PIL.ImageChops.offset()</span></tt></a>.</p>
+</div>
+<p>Returns a copy of the image where the data has been offset by the given
+distances. Data wraps around the edges. If <strong>yoffset</strong> is omitted, it
+is assumed to be equal to <strong>xoffset</strong>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>xoffset</strong> – The horizontal distance.</li>
+<li><strong>yoffset</strong> – The vertical distance.  If omitted, both
+distances are set to the same value.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image" title="PIL.Image.Image"><tt class="xref py py-class docutils literal"><span class="pre">Image</span></tt></a> object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.paste">
+<tt class="descclassname">Image.</tt><tt class="descname">paste</tt><big>(</big><em>im</em>, <em>box=None</em>, <em>mask=None</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.paste"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.paste" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pastes another image into this image. The box argument is either
+a 2-tuple giving the upper left corner, a 4-tuple defining the
+left, upper, right, and lower pixel coordinate, or None (same as
+(0, 0)).  If a 4-tuple is given, the size of the pasted image
+must match the size of the region.</p>
+<p>If the modes don’t match, the pasted image is converted to the mode of
+this image (see the <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.convert" title="PIL.Image.Image.convert"><tt class="xref py py-meth docutils literal"><span class="pre">convert()</span></tt></a> method for
+details).</p>
+<p>Instead of an image, the source can be a integer or tuple
+containing pixel values.  The method then fills the region
+with the given color.  When creating RGB images, you can
+also use color strings as supported by the ImageColor module.</p>
+<p>If a mask is given, this method updates only the regions
+indicated by the mask.  You can use either “1”, “L” or “RGBA”
+images (in the latter case, the alpha band is used as mask).
+Where the mask is 255, the given image is copied as is.  Where
+the mask is 0, the current value is preserved.  Intermediate
+values can be used for transparency effects.</p>
+<p>Note that if you paste an “RGBA” image, the alpha band is
+ignored.  You can work around this by using the same image as
+both source image and mask.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>im</strong> – Source image or pixel value (integer or tuple).</li>
+<li><strong>box</strong> – <p>An optional 4-tuple giving the region to paste into.
+If a 2-tuple is used instead, it’s treated as the upper left
+corner.  If omitted or None, the source is pasted into the
+upper left corner.</p>
+<p>If an image is given as the second argument and there is no
+third, the box defaults to (0, 0), and the second argument
+is interpreted as a mask image.</p>
+</li>
+<li><strong>mask</strong> – An optional mask image.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image" title="PIL.Image.Image"><tt class="xref py py-class docutils literal"><span class="pre">Image</span></tt></a> object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.point">
+<tt class="descclassname">Image.</tt><tt class="descname">point</tt><big>(</big><em>lut</em>, <em>mode=None</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.point"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.point" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maps this image through a lookup table or function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>lut</strong> – A lookup table, containing 256 (or 65336 if
+self.mode==”I” and mode == “L”) values per band in the
+image.  A function can be used instead, it should take a
+single argument. The function is called once for each
+possible pixel value, and the resulting table is applied to
+all bands of the image.</li>
+<li><strong>mode</strong> – Output mode (default is same as input).  In the
+current version, this can only be used if the source image
+has mode “L” or “P”, and the output has mode “1” or the
+source image mode is “I” and the output mode is “L”.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image" title="PIL.Image.Image"><tt class="xref py py-class docutils literal"><span class="pre">Image</span></tt></a> object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.putalpha">
+<tt class="descclassname">Image.</tt><tt class="descname">putalpha</tt><big>(</big><em>alpha</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.putalpha"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.putalpha" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds or replaces the alpha layer in this image.  If the image
+does not have an alpha layer, it’s converted to “LA” or “RGBA”.
+The new layer must be either “L” or “1”.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>alpha</strong> – The new alpha layer.  This can either be an “L” or “1”
+image having the same size as this image, or an integer or
+other color value.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.putdata">
+<tt class="descclassname">Image.</tt><tt class="descname">putdata</tt><big>(</big><em>data</em>, <em>scale=1.0</em>, <em>offset=0.0</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.putdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.putdata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copies pixel data to this image.  This method copies data from a
+sequence object into the image, starting at the upper left
+corner (0, 0), and continuing until either the image or the
+sequence ends.  The scale and offset values are used to adjust
+the sequence values: <strong>pixel = value*scale + offset</strong>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data</strong> – A sequence object.</li>
+<li><strong>scale</strong> – An optional scale value.  The default is 1.0.</li>
+<li><strong>offset</strong> – An optional offset value.  The default is 0.0.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.putpalette">
+<tt class="descclassname">Image.</tt><tt class="descname">putpalette</tt><big>(</big><em>data</em>, <em>rawmode='RGB'</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.putpalette"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.putpalette" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attaches a palette to this image.  The image must be a “P” or
+“L” image, and the palette sequence must contain 768 integer
+values, where each group of three values represent the red,
+green, and blue values for the corresponding pixel
+index. Instead of an integer sequence, you can use an 8-bit
+string.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> – A palette sequence (either a list or a string).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.putpixel">
+<tt class="descclassname">Image.</tt><tt class="descname">putpixel</tt><big>(</big><em>xy</em>, <em>value</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.putpixel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.putpixel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modifies the pixel at the given position. The color is given as
+a single numerical value for single-band images, and a tuple for
+multi-band images.</p>
+<p>Note that this method is relatively slow.  For more extensive changes,
+use <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.paste" title="PIL.Image.Image.paste"><tt class="xref py py-meth docutils literal"><span class="pre">paste()</span></tt></a> or the <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/ImageDraw.html#module-PIL.ImageDraw" title="PIL.ImageDraw"><tt class="xref py py-mod docutils literal"><span class="pre">ImageDraw</span></tt></a>
+module instead.</p>
+<p>See:</p>
+<ul class="simple">
+<li><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.paste" title="PIL.Image.Image.paste"><tt class="xref py py-meth docutils literal"><span class="pre">paste()</span></tt></a></li>
+<li><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.putdata" title="PIL.Image.Image.putdata"><tt class="xref py py-meth docutils literal"><span class="pre">putdata()</span></tt></a></li>
+<li><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/ImageDraw.html#module-PIL.ImageDraw" title="PIL.ImageDraw"><tt class="xref py py-mod docutils literal"><span class="pre">ImageDraw</span></tt></a></li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>xy</strong> – The pixel coordinate, given as (x, y).</li>
+<li><strong>value</strong> – The pixel value.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.quantize">
+<tt class="descclassname">Image.</tt><tt class="descname">quantize</tt><big>(</big><em>colors=256</em>, <em>method=0</em>, <em>kmeans=0</em>, <em>palette=None</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.quantize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.quantize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.resize">
+<tt class="descclassname">Image.</tt><tt class="descname">resize</tt><big>(</big><em>size</em>, <em>resample=0</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.resize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.resize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a resized copy of this image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>size</strong> – The requested size in pixels, as a 2-tuple:
+(width, height).</li>
+<li><strong>resample</strong> – An optional resampling filter.  This can be
+one of <tt class="xref py py-attr docutils literal"><span class="pre">PIL.Image.NEAREST</span></tt> (use nearest neighbour),
+<tt class="xref py py-attr docutils literal"><span class="pre">PIL.Image.BILINEAR</span></tt> (linear interpolation in a 2x2
+environment), <tt class="xref py py-attr docutils literal"><span class="pre">PIL.Image.BICUBIC</span></tt> (cubic spline
+interpolation in a 4x4 environment), or
+<tt class="xref py py-attr docutils literal"><span class="pre">PIL.Image.ANTIALIAS</span></tt> (a high-quality downsampling filter).
+If omitted, or if the image has mode “1” or “P”, it is
+set <tt class="xref py py-attr docutils literal"><span class="pre">PIL.Image.NEAREST</span></tt>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image" title="PIL.Image.Image"><tt class="xref py py-class docutils literal"><span class="pre">Image</span></tt></a> object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.rotate">
+<tt class="descclassname">Image.</tt><tt class="descname">rotate</tt><big>(</big><em>angle</em>, <em>resample=0</em>, <em>expand=0</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.rotate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.rotate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a rotated copy of this image.  This method returns a
+copy of this image, rotated the given number of degrees counter
+clockwise around its centre.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>angle</strong> – In degrees counter clockwise.</li>
+<li><strong>filter</strong> – An optional resampling filter.  This can be
+one of <tt class="xref py py-attr docutils literal"><span class="pre">PIL.Image.NEAREST</span></tt> (use nearest neighbour),
+<tt class="xref py py-attr docutils literal"><span class="pre">PIL.Image.BILINEAR</span></tt> (linear interpolation in a 2x2
+environment), or <tt class="xref py py-attr docutils literal"><span class="pre">PIL.Image.BICUBIC</span></tt>
+(cubic spline interpolation in a 4x4 environment).
+If omitted, or if the image has mode “1” or “P”, it is
+set <tt class="xref py py-attr docutils literal"><span class="pre">PIL.Image.NEAREST</span></tt>.</li>
+<li><strong>expand</strong> – Optional expansion flag.  If true, expands the output
+image to make it large enough to hold the entire rotated image.
+If false or omitted, make the output image the same size as the
+input image.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image" title="PIL.Image.Image"><tt class="xref py py-class docutils literal"><span class="pre">Image</span></tt></a> object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.save">
+<tt class="descclassname">Image.</tt><tt class="descname">save</tt><big>(</big><em>fp</em>, <em>format=None</em>, <em>**params</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves this image under the given filename.  If no format is
+specified, the format to use is determined from the filename
+extension, if possible.</p>
+<p>Keyword options can be used to provide additional instructions
+to the writer. If a writer doesn’t recognise an option, it is
+silently ignored. The available options are described later in
+this handbook.</p>
+<p>You can use a file object instead of a filename. In this case,
+you must always specify the format. The file object must
+implement the <strong>seek</strong>, <strong>tell</strong>, and <strong>write</strong>
+methods, and be opened in binary mode.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>file</strong> – File name or file object.</li>
+<li><strong>format</strong> – Optional format override.  If omitted, the
+format to use is determined from the filename extension.
+If a file object was used instead of a filename, this
+parameter should always be used.</li>
+<li><strong>options</strong> – Extra parameters to the image writer.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">None</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><strong>KeyError</strong> – If the output format could not be determined
+from the file name.  Use the format option to solve this.</li>
+<li><strong>IOError</strong> – If the file could not be written.  The file
+may have been created, and may contain partial data.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.seek">
+<tt class="descclassname">Image.</tt><tt class="descname">seek</tt><big>(</big><em>frame</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.seek"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.seek" title="Permalink to this definition">¶</a></dt>
+<dd><p>Seeks to the given frame in this sequence file. If you seek
+beyond the end of the sequence, the method raises an
+<strong>EOFError</strong> exception. When a sequence file is opened, the
+library automatically seeks to frame 0.</p>
+<p>Note that in the current version of the library, most sequence
+formats only allows you to seek to the next frame.</p>
+<p>See <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.tell" title="PIL.Image.Image.tell"><tt class="xref py py-meth docutils literal"><span class="pre">tell()</span></tt></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>frame</strong> – Frame number, starting at 0.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Raises EOFError:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">If the call attempts to seek beyond the end
+of the sequence.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.show">
+<tt class="descclassname">Image.</tt><tt class="descname">show</tt><big>(</big><em>title=None</em>, <em>command=None</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>Displays this image. This method is mainly intended for
+debugging purposes.</p>
+<p>On Unix platforms, this method saves the image to a temporary
+PPM file, and calls the <strong>xv</strong> utility.</p>
+<p>On Windows, it saves the image to a temporary BMP file, and uses
+the standard BMP display utility to show it (usually Paint).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>title</strong> – Optional title to use for the image window,
+where possible.</li>
+<li><strong>command</strong> – command used to show the image</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.split">
+<tt class="descclassname">Image.</tt><tt class="descname">split</tt><big>(</big><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.split"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.split" title="Permalink to this definition">¶</a></dt>
+<dd><p>Split this image into individual bands. This method returns a
+tuple of individual image bands from an image. For example,
+splitting an “RGB” image creates three new images each
+containing a copy of one of the original bands (red, green,
+blue).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A tuple containing bands.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.tell">
+<tt class="descclassname">Image.</tt><tt class="descname">tell</tt><big>(</big><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.tell"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.tell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the current frame number. See <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.seek" title="PIL.Image.Image.seek"><tt class="xref py py-meth docutils literal"><span class="pre">seek()</span></tt></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Frame number, starting with 0.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.thumbnail">
+<tt class="descclassname">Image.</tt><tt class="descname">thumbnail</tt><big>(</big><em>size</em>, <em>resample=0</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.thumbnail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.thumbnail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make this image into a thumbnail.  This method modifies the
+image to contain a thumbnail version of itself, no larger than
+the given size.  This method calculates an appropriate thumbnail
+size to preserve the aspect of the image, calls the
+<a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.draft" title="PIL.Image.Image.draft"><tt class="xref py py-meth docutils literal"><span class="pre">draft()</span></tt></a> method to configure the file reader
+(where applicable), and finally resizes the image.</p>
+<p>Note that the bilinear and bicubic filters in the current
+version of PIL are not well-suited for thumbnail generation.
+You should use <tt class="xref py py-attr docutils literal"><span class="pre">PIL.Image.ANTIALIAS</span></tt> unless speed is much more
+important than quality.</p>
+<p>Also note that this function modifies the <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image" title="PIL.Image.Image"><tt class="xref py py-class docutils literal"><span class="pre">Image</span></tt></a>
+object in place.  If you need to use the full resolution image as well, apply
+this method to a <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.copy" title="PIL.Image.Image.copy"><tt class="xref py py-meth docutils literal"><span class="pre">copy()</span></tt></a> of the original image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>size</strong> – Requested size.</li>
+<li><strong>resample</strong> – Optional resampling filter.  This can be one
+of <tt class="xref py py-attr docutils literal"><span class="pre">PIL.Image.NEAREST</span></tt>, <tt class="xref py py-attr docutils literal"><span class="pre">PIL.Image.BILINEAR</span></tt>,
+<tt class="xref py py-attr docutils literal"><span class="pre">PIL.Image.BICUBIC</span></tt>, or <tt class="xref py py-attr docutils literal"><span class="pre">PIL.Image.ANTIALIAS</span></tt>
+(best quality).  If omitted, it defaults to
+<tt class="xref py py-attr docutils literal"><span class="pre">PIL.Image.NEAREST</span></tt> (this will be changed to ANTIALIAS in a
+future version).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.tobitmap">
+<tt class="descclassname">Image.</tt><tt class="descname">tobitmap</tt><big>(</big><em>name='image'</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.tobitmap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.tobitmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the image converted to an X11 bitmap.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This method only works for mode “1” images.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> – The name prefix to use for the bitmap variables.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A string containing an X11 bitmap.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">Raises ValueError:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">If the mode is not “1”</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.tostring">
+<tt class="descclassname">Image.</tt><tt class="descname">tostring</tt><big>(</big><em>*args</em>, <em>**kw</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.tostring"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.tostring" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.transform">
+<tt class="descclassname">Image.</tt><tt class="descname">transform</tt><big>(</big><em>size</em>, <em>method</em>, <em>data=None</em>, <em>resample=0</em>, <em>fill=1</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transforms this image.  This method creates a new image with the
+given size, and the same mode as the original, and copies data
+to the new image using the given transform.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>size</strong> – The output size.</li>
+<li><strong>method</strong> – The transformation method.  This is one of
+<tt class="xref py py-attr docutils literal"><span class="pre">PIL.Image.EXTENT</span></tt> (cut out a rectangular subregion),
+<tt class="xref py py-attr docutils literal"><span class="pre">PIL.Image.AFFINE</span></tt> (affine transform),
+<tt class="xref py py-attr docutils literal"><span class="pre">PIL.Image.PERSPECTIVE</span></tt> (perspective transform),
+<tt class="xref py py-attr docutils literal"><span class="pre">PIL.Image.QUAD</span></tt> (map a quadrilateral to a rectangle), or
+<tt class="xref py py-attr docutils literal"><span class="pre">PIL.Image.MESH</span></tt> (map a number of source quadrilaterals
+in one operation).</li>
+<li><strong>data</strong> – Extra data to the transformation method.</li>
+<li><strong>resample</strong> – Optional resampling filter.  It can be one of
+<tt class="xref py py-attr docutils literal"><span class="pre">PIL.Image.NEAREST</span></tt> (use nearest neighbour),
+<tt class="xref py py-attr docutils literal"><span class="pre">PIL.Image.BILINEAR</span></tt> (linear interpolation in a 2x2
+environment), or <tt class="xref py py-attr docutils literal"><span class="pre">PIL.Image.BICUBIC</span></tt> (cubic spline
+interpolation in a 4x4 environment). If omitted, or if the image
+has mode “1” or “P”, it is set to <tt class="xref py py-attr docutils literal"><span class="pre">PIL.Image.NEAREST</span></tt>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image" title="PIL.Image.Image"><tt class="xref py py-class docutils literal"><span class="pre">Image</span></tt></a> object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.transpose">
+<tt class="descclassname">Image.</tt><tt class="descname">transpose</tt><big>(</big><em>method</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.transpose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.transpose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transpose image (flip or rotate in 90 degree steps)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>method</strong> – One of <tt class="xref py py-attr docutils literal"><span class="pre">PIL.Image.FLIP_LEFT_RIGHT</span></tt>,
+<tt class="xref py py-attr docutils literal"><span class="pre">PIL.Image.FLIP_TOP_BOTTOM</span></tt>, <tt class="xref py py-attr docutils literal"><span class="pre">PIL.Image.ROTATE_90</span></tt>,
+<tt class="xref py py-attr docutils literal"><span class="pre">PIL.Image.ROTATE_180</span></tt>, or <tt class="xref py py-attr docutils literal"><span class="pre">PIL.Image.ROTATE_270</span></tt>.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Returns a flipped or rotated copy of this image.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.verify">
+<tt class="descclassname">Image.</tt><tt class="descname">verify</tt><big>(</big><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.verify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.verify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verifies the contents of a file. For data read from a file, this
+method attempts to determine if the file is broken, without
+actually decoding the image data.  If this method finds any
+problems, it raises suitable exceptions.  If you need to load
+the image after using this method, you must reopen the image
+file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PIL.Image.Image.fromstring">
+<tt class="descclassname">Image.</tt><tt class="descname">fromstring</tt><big>(</big><em>*args</em>, <em>**kw</em><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.fromstring"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.fromstring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deprecated alias to frombytes.</p>
+<p class="deprecated">
+<span class="versionmodified">Deprecated since version 2.0.</span></p>
+</dd></dl>
+
+<p class="deprecated">
+<span class="versionmodified">Deprecated since version 2.0.</span></p>
+<dl class="method">
+<dt id="PIL.Image.Image.load">
+<tt class="descclassname">Image.</tt><tt class="descname">load</tt><big>(</big><big>)</big><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/_modules/PIL/Image.html#Image.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allocates storage for the image and loads the pixel data.  In
+normal cases, you don’t need to call this method, since the
+Image class automatically loads an opened image when it is
+accessed for the first time.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">An image access object.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="attributes">
+<h2>Attributes<a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#attributes" title="Permalink to this headline">¶</a></h2>
+<p>Instances of the <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.Image" title="PIL.Image.Image"><tt class="xref py py-class docutils literal"><span class="pre">Image</span></tt></a> class have the following attributes:</p>
+<dl class="attribute">
+<dt id="PIL.Image.format">
+<tt class="descclassname">PIL.Image.</tt><tt class="descname">format</tt><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.format" title="Permalink to this definition">¶</a></dt>
+<dd><p>The file format of the source file. For images created by the library
+itself (via a factory function, or by running a method on an existing
+image), this attribute is set to <tt class="docutils literal"><span class="pre">None</span></tt>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">string</span></tt> or <tt class="docutils literal"><span class="pre">None</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="PIL.Image.mode">
+<tt class="descclassname">PIL.Image.</tt><tt class="descname">mode</tt><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Image mode. This is a string specifying the pixel format used by the image.
+Typical values are “1”, “L”, “RGB”, or “CMYK.” See
+<a class="reference internal" href="http://pillow.readthedocs.org/en/latest/handbook/concepts.html"><em>Concepts</em></a> for a full list.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">string</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="PIL.Image.size">
+<tt class="descclassname">PIL.Image.</tt><tt class="descname">size</tt><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Image size, in pixels. The size is given as a 2-tuple (width, height).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body"><tt class="docutils literal"><span class="pre">(width,</span> <span class="pre">height)</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="PIL.Image.palette">
+<tt class="descclassname">PIL.Image.</tt><tt class="descname">palette</tt><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.palette" title="Permalink to this definition">¶</a></dt>
+<dd><p>Colour palette table, if any. If mode is “P”, this should be an instance of
+the <a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/ImagePalette.html#PIL.ImagePalette.ImagePalette" title="PIL.ImagePalette.ImagePalette"><tt class="xref py py-class docutils literal"><span class="pre">ImagePalette</span></tt></a> class. Otherwise, it should
+be set to <tt class="docutils literal"><span class="pre">None</span></tt>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body"><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/ImagePalette.html#PIL.ImagePalette.ImagePalette" title="PIL.ImagePalette.ImagePalette"><tt class="xref py py-class docutils literal"><span class="pre">ImagePalette</span></tt></a> or <tt class="docutils literal"><span class="pre">None</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="PIL.Image.info">
+<tt class="descclassname">PIL.Image.</tt><tt class="descname">info</tt><a class="headerlink" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#PIL.Image.info" title="Permalink to this definition">¶</a></dt>
+<dd><p>A dictionary holding data associated with the image. This dictionary is
+used by file handlers to pass on various non-image information read from
+the file. See documentation for the various file handlers for details.</p>
+<p>Most methods ignore the dictionary when returning new images; since the
+keys are not standardized, it’s not possible for a method to know if the
+operation affects the dictionary. If you need the information later on,
+keep a reference to the info dictionary returned from the open method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type :</th><td class="field-body"><a class="reference external" href="http://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="http://pillow.readthedocs.org/en/latest/index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#"><tt class="docutils literal"><span class="pre">Image</span></tt> Module</a><ul>
+<li><a class="reference internal" href="./Image Module — Pillow v2.3.0 (PIL fork)_files/Image Module — Pillow v2.3.0 (PIL fork).htm">Examples</a><ul>
+<li><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#open-rotate-and-display-an-image-using-the-default-viewer">Open, rotate, and display an image (using the default viewer)</a></li>
+<li><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#create-thumbnails">Create thumbnails</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#functions">Functions</a><ul>
+<li><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#image-processing">Image processing</a></li>
+<li><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#constructing-images">Constructing images</a></li>
+<li><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#registering-plugins">Registering plugins</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#the-image-class">The Image Class</a></li>
+<li><a class="reference internal" href="http://pillow.readthedocs.org/en/latest/reference/Image.html#attributes">Attributes</a></li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="http://pillow.readthedocs.org/en/latest/_sources/reference/Image.txt" rel="nofollow">Show Source</a></li>
+  </ul><h3>Need help?</h3>
+
+<p>
+  You can seek realtime assistance via IRC at
+  <a href="irc://irc.freenode.net#pil">irc://irc.freenode.net#pil</a>. You can
+  also post to the
+  <a href="http://mail.python.org/mailman/listinfo/image-sig">
+    Image-SIG mailing list</a>. And, of course, there's
+  <a href="http://stackoverflow.com/questions/tagged/pillow">
+    Stack Overflow</a>.
+</p>
+
+<p>
+  If you've discovered a bug, you can
+  <a href="https://github.com/python-imaging/Pillow/issues/new">open an issue
+    on Github</a>.
+</p>
+
+<form class="search" action="http://pillow.readthedocs.org/en/latest/search.html" method="get">
+  <input type="text" name="q" placeholder="type to search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="related bottom">
+  <nav id="rellinks">
+    <ul>
+        <li>
+          ←
+          <a href="http://pillow.readthedocs.org/en/latest/reference/index.html" title="Previous document">Reference</a>
+        </li>
+        <li>
+          <a href="http://pillow.readthedocs.org/en/latest/reference/ImageChops.html" title="Next document"><tt class="docutils literal"><span class="pre">ImageChops</span></tt> (“Channel Operations”) Module</a>
+          →
+        </li>
+    </ul>
+  </nav>
+  <nav id="breadcrumbs">
+    <ul>
+      <li><a href="http://pillow.readthedocs.org/en/latest/index.html">Home</a></li>
+      <li>
+        <a href="http://pillow.readthedocs.org/en/latest/reference/index.html">Reference</a>
+      </li> 
+    </ul>
+  </nav>
+  </div>
+  <footer id="pagefooter">© 1997-2011 by Secret Labs AB, 1995-2011 by Fredrik Lundh, 2010-2013 Alex Clark.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a>
+      1.1.3
+        with the <a href="http://github.com/irskep/sphinx-better-theme">
+          better</a> theme.
+
+  </footer>
+
+  
+  
+<!-- Inserted RTD Footer -->
+<div class="injected">
+
+  
+  <div class="rst-versions rst-badge" data-toggle="rst-versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book">&nbsp;</span>
+      v: latest
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+  
+
+      
+       
+      <dl>
+        <dt>Versions</dt>
+        
+           <strong> 
+              
+              <dd><a href="http://pillow.readthedocs.org/en/latest/">latest</a></dd>
+              
+           </strong> 
+        
+          
+              
+              <dd><a href="http://pillow.readthedocs.org/en/2.3.0/">2.3.0</a></dd>
+              
+          
+        
+          
+              
+              <dd><a href="http://pillow.readthedocs.org/en/1.7.8/">1.7.8</a></dd>
+              
+          
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="https://media.readthedocs.org/pdf/pillow/latest/pillow.pdf">PDF</a></dd>
+        
+          <dd><a href="https://media.readthedocs.org/htmlzip/pillow/latest/pillow.zip">HTML</a></dd>
+        
+          <dd><a href="https://media.readthedocs.org/epub/pillow/latest/pillow.epub">Epub</a></dd>
+        
+      </dl>
+      
+      <dl>
+        <!-- These are kept as relative links for internal installs that are http -->
+        <dt>On Read the Docs</dt>
+          <dd>
+            <a href="http://readthedocs.org/projects/pillow/?fromdocs=pillow">Project Home</a>
+          </dd>
+          <dd>
+            <a href="http://readthedocs.org/builds/pillow/?fromdocs=pillow">Builds</a>
+          </dd>
+      </dl>
+      
+      <dl>
+        <dt>On GitHub</dt>
+          <dd>
+            <a href="https://github.com/python-imaging/Pillow/blob/master/docs/reference/Image.rst">Edit</a>
+          </dd>
+      </dl>
+      
+      <hr>
+      Free document hosting provided by <a href="https://readthedocs.org/">Read the Docs</a>. Support us on <a href="https://www.gittip.com/readthedocs/">Gittip</a>.
+
+  
+    </div>
+  </div>
+  
+
+</div>
+</body></html>

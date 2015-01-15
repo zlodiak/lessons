@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head profile="http://www.w3.org/2005/10/profile">
+
+<title>cuSel &mdash; нестандартные select на jQuery</title>
+<link rel="icon" type="image/png" href="cuSel%20—%20нестандартные%20select%20на%20jQuery_files/favicon0.png" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8;charset=utf-8" />
+<meta name="Keywords" content="Нестандартные select, jQuery, cuSel" />
+<meta name="Description" content="Cusel &mdash; новая, более быстрая, легкая, простая и мощная версия плагина для реализации нестандартных select." />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /> 
+<link rel="stylesheet" type="text/css" href="cuSel%20—%20нестандартные%20select%20на%20jQuery_files/main-200.css" />
+<!--[if IE 7]><link rel="stylesheet" type="text/css" href="css/ie7-2.css" /><![endif]-->
+<link rel="stylesheet" type="text/css" href="cuSel%20—%20нестандартные%20select%20на%20jQuery_files/tricks00.css" />
+<script type="text/javascript" src="cuSel%20—%20нестандартные%20select%20на%20jQuery_files/jquery00.js"></script>
+<script type="text/javascript" src="cuSel%20—%20нестандартные%20select%20на%20jQuery_files/main-100.js" charset="utf-8"></script>
+<script type='text/javascript' src='cuSel%20—%20нестандартные%20select%20на%20jQuery_files/google_s.js'>
+</script>
+<script type='text/javascript'>
+GS_googleAddAdSenseService("ca-pub-2630572969936819");
+GS_googleEnableAllServices();
+</script>
+<script type='text/javascript'>
+GA_googleAddSlot("ca-pub-2630572969936819", "footer");
+GA_googleAddSlot("ca-pub-2630572969936819", "sidebar");
+GA_googleAddSlot("ca-pub-2630572969936819", "header");
+GA_googleFetchAds();
+</script>
+<script type="text/javascript" src="cuSel%20—%20нестандартные%20select%20на%20jQuery_files/sh-core-.js"></script>
+</head>
+<body>
+<!--main wrap-->
+<div class="mainWrap">
+<div class="topPanel" >
+<script type='text/javascript'>
+GA_googleFillSlot("header");
+</script>
+</div>
+<!--content-->
+<div class="contentWrap">
+<div class="content">
+<h1>cuSel &mdash; нестандартные select на jQuery</h1>
+  <div class="artInfo">
+        Подготовил: <span>Евгений Рыжков</span>
+       
+   Дата публикации: 24.06.2010     <div>Последнее обновление: 28.06.2011</div>
+      </div>
+  
+<h3>Задача</h3>
+<p>Изменить дизайн <a href="http://www.xiper.net/manuals/html/tags/select.html" title="Прочитать о теге select">select</a>. Например на такой:<br/>
+<img src="cuSel%20—%20нестандартные%20select%20на%20jQuery_files/selectPr.png" alt="пример нестандартного select" width="450" height="69" />
+</p>
+<h3>Требования</h3>
+<ul>
+<li>легкость интеграции</li>
+<li>кроссбраузерность</li>
+<li>быстрая скорость работы</li>
+<li>максимальная приближенность к работе обычного select:
+<ul>
+<li>на сервер передается значение (<a href="http://www.xiper.net/manuals/html/attributes/value.html">value</a> выбранного <a href="http://www.xiper.net/manuals/html/tags/option.html">option</a>)</li>
+<li>по клику на option выпавший список скрывается</li>
+<li>по клику вне select выпавший список скрывается</li>
+<li>в выпадающем списке показ полностью длинных значений option</li>
+<li>учет <a href="http://www.xiper.net/manuals/html/attributes/disabled.html">атрибута disabled</a></li>
+<li>учет <a href="http://www.xiper.net/manuals/html/attributes/selected.html">атрибута selected</a></li>
+<li>если явно не указан selected, select принимает значение первого в списке option</li>
+<li>учет <a href="http://www.xiper.net/manuals/html/events/onchange.html">события onchange</a></li>
+<li>скроллинг выпадающего списка прокручивается колесом мыши</li>
+<li>возможность получения фокуса (update 31.07.10)</li>
+<li>участие в tab обходе (update 31.07.10)</li>
+<li>смена значения select стрелками вверх/вниз (update 31.07.10) &mdash; после выбора нужного значения требуется нажатие enter</li>
+<li>смена значения select по нажатию клавиш букв (update 31.07.10)</li>
+<li>подсветка select при наведении и получении фокуса (update 31.07.10)</li>
+<li>закрытие списка по Esc (update 3.08.10)</li>
+</ul>
+</li>
+<li>при отключенном javascript остаются обычные select</li>
+<li>удобное динамическое обновление оптионов</li>
+<li>простота динамического добавления select</li>
+<li>дополнительные приятные возможности:
+<ul>
+<li>подсветка в выпадающем списке выбранного значения</li>
+<li>подсветка в выпадающем списке значения при наведении</li>
+<li>возможность ручного управления видом скроллинга выпадающего списка</li>
+<li>возможность оформления option с помощью CSS</li>
+<li>возможность вставки тегов в option</li>
+<li>плавное обрезание невмещающегося текста</li>
+</ul>
+</li>
+</ul>
+<p><a href="http://www.xiper.net/scripts/cusel/">Демо пример возможностей cuSel</a> (или можно <a href="http://www.xiper.net/scripts/cusel/cusel.zip" rel="nofollow">забрать архивом</a>). Проверено в:</p>
+<ul class="browserCheck">
+<li>IE 6-8</li>
+<li class="ff">Firefox 4</li>
+<li class="opera">Opera 9.5-11</li>
+<li class="safari">Safari 5</li>
+<li class="chrome">Chrome 4</li>
+</ul>
+<h2>Что качать</h2>
+<ul>
+<li><a href="http://code.jquery.com/jquery-1.6.1.min.js" rel="nofollow">библиотеку jquery</a> версии не ниже 1.6</li>
+<li><a href="http://www.xiper.net/scripts/cusel/js/cusel-min-2.4.1.js" rel="nofollow">cusel-min-2.4.1.js</a> (14.8Kb)</li>
+<li><a href="http://www.xiper.net/scripts/cusel/css/cusel.css" rel="nofollow">cusel.css</a></li>
+<li><a href="http://www.xiper.net/scripts/cusel/images/selects-2.png" rel="nofollow">спрайт для образца</a></li>
+</ul>
+<h3>Заметка</h3>
+<p>Для плавного обрезания текста спрайт должен иметь градиент, переходящий от фона селекта в прозрачность и расположенный левее правой кнопки списка:</p>
+<div class="contentImg">
+<img src="cuSel%20—%20нестандартные%20select%20на%20jQuery_files/cusel-sp.png" alt="спрайт для cusel" width="400" height="106" />
+</div>
+<p>При таком эффекте для IE6 подключаем <a href="http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/png-transparency-ie6.html">DD_belatedPNG</a>.</p>
+<h3>Если охота посмотреть код</h3>
+<ul>
+<li>библиотеки <a href="http://www.xiper.net/scripts/cusel/js/jScrollPane.js" rel="nofollow">jScrollPane.js</a> (оригинал был изменен) и <a href="http://www.xiper.net/scripts/cusel/js/jquery.mousewheel.js" rel="nofollow">jquery.mousewheel.js</a> для реализации прокрутки в выпадающем списке</li> 
+<li><a href="http://www.xiper.net/scripts/cusel/js/cusel.js" rel="nofollow">cusel.js</a></li>
+</ul>
+<h2>Быстрый старт</h2>
+<p>Подключаем необходимые стили и библиотеки:</p>
+<div class="codeExample codeHTML">
+<pre class="brush: xml">
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;path-to/cusel.css&quot; /&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;path-to/jquery-1.6.1.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;path-to/cusel-min.js&quot;&gt;&lt;/script&gt;
+&lt;!-- если требуется поддержка ie6, учим его понимать альфапрозрачность для плавного обрезания текста --&gt;
+&lt;!--[if IE 6]&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;path-to/DD_belatedPNG.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+DD_belatedPNG.fix(&quot;.cuselFrameRight&quot;); &lt;!-- именно этот элемент имеет полупрозрачность --&gt;
+jQuery(document).ready(function(){ &lt;!--делаем эмуляцию min-width: 100% для выпадающего списка для IE6 (спасибо Константину Ершову) --&gt;
+jQuery(&quot;.cusel&quot;).each(
+function(){
+	var w = parseInt(jQuery(this).width()),
+		scrollPanel = jQuery(this).find(&quot;.cusel-scroll-pane&quot;);
+	if(w>=scrollPanel.width())
+	{
+		jQuery(this).find(&quot;.jScrollPaneContainer&quot;).width(w);
+		scrollPanel.width(w);
+	}
+});
+});
+&lt;/script&gt;
+&lt;![endif]--&gt;
+</pre>
+</div>
+<p>Инициализируем cusel, указывая, где и как стилизовать select:</p>
+<div class="codeExample codeJavascript">
+<pre class="brush: css">
+jQuery(document).ready(function(){
+var params = {
+		changedEl: &quot;.lineForm select&quot;,
+		visRows: 5,
+		scrollArrows: true
+	}
+	cuSel(params);
+});
+</pre>
+</div>
+<p>А теперь подробней.</p>
+<h3>Как это работает</h3>
+<p>При загрузке страницы, если у пользователя включен javascript:</p>
+<ol>
+<li>находятся все указанные селекты на странице</li>
+<li>заменяется каждый select
+<div class="codeExample codeHTML">
+<pre class="brush:xml">
+&lt;select id=&quot;idSelect&quot; name=&quot;nameSelect&quot;&gt;
+&lt;option value=&quot;значение option 1&quot;&gt;текст option 1&lt;/option&gt;
+...
+&lt;option value=&quot;значение option N&quot;&gt;текст option N&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+</div>
+на конструкцию вида:
+<div class="codeExample codeHTML">
+<pre class="brush:xml">
+&lt;div class=&quot;cusel&quot; id=&quot;cuselFrame-idSelect&quot;&gt;
+	&lt;div class=&quot;cuselFrameRight&quot;&gt;&lt;/div&gt;
+	&lt;div class=&quot;cuselText&quot;&gt;текст option 1&lt;/div&gt;
+	&lt;div class=&quot;cusel-scroll-wrap&quot;&gt;
+		&lt;div class=&quot;cusel-scroll-pane&quot; id=&quot;cusel-scroll-idSelect&quot;&gt;
+		&lt;span class=&quot;cuselActive&quot; value=&quot;значение option 1&quot;&gt;текст option 1&lt;/span&gt;
+		...
+		&lt;span value=&quot;значение option N&quot;&gt;текст option N&lt;/span&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;input id=&quot;idSelect&quot; name=&quot;nameSelect&quot; value=&quot;значение option 1&quot; type=&quot;hidden&quot;/&gt;
+&lt;/div&gt;
+</pre>
+</div>
+</li>
+<li>обычные select удаляются</li>
+</ol>
+<h3>Заметка</h3>
+<p>Обязательным условием является указание id селекту, т.к. на основании этого уникального идентификатора гарантируется работа скроллингов в выпадающих меню.</p>
+<h2>Инициализация cuSel</h2>
+<h3>Функции</h3>
+<table>
+<tbody>
+<tr>
+<th>cuSel</th>
+<td>производит замену обычных select на стилизованные. Меняет только те, которые указаны в параметре changedEl.</td>
+</tr>
+<tr>
+<th>cuSelRefresh</th>
+<td>производит обновление селекта. Необходимо при изменении количества option в select и при показе скрытого select. Обновляет селекты, указанные в параметре refreshEl.</td>
+</tr>
+</tbody>
+</table>
+<h3>Параметры</h3>
+<table>
+<tbody>
+<tr>
+<th>changedEl</th>
+<td>указываем селекторы (за основу взяты базовые селекторы CSS1) , к которым будет применен cuSel. Можно указать элемент (тег), класс, id. <strong>Обязательный параметр. Используется только в функции cuSel</strong>.</td>
+</tr>
+<tr>
+<th>visRows</th>
+<td>количество видимых строк выпадающего списка. Если в списке элементов будет больше заданного числа, у списка появится вертикальная прокрутка. Если число не задано, все значения списка будут видимы. </td>
+</tr>
+<tr>
+<th>scrollArrows</th>
+<td>отражать или нет стрелочки в блоке с прокруткой. Возможные значения: true/false (по умолчанию false) </td>
+</tr>
+<tr>
+<th>refreshEl</th>
+<td>id селектов через запятую, которые требуется обновить. <strong>Параметр обязателен. Используется только в функции cuSelRefresh</strong>. </td>
+</tr>
+</tbody>
+</table>
+<h2>Примеры</h2>
+<p>Меняем все селекты на странице, без ограничения по высоте для выпадающих списков:</p>
+<div class="codeExample codeJavascript">
+<pre class="brush: css">
+var params = {
+		changedEl: &quot;select&quot;
+	}
+cuSel(params);
+</pre>
+</div>
+<p>Меняем один конкретный селект по id, число видимых элементов выпадающего списка 7:</p>
+<div class="codeExample codeJavascript">
+<pre class="brush: css">
+var params = {
+		changedEl: &quot;#city&quot;,
+		visRows: 7
+	}
+	cuSel(params);
+</pre>
+</div>
+<p>Цепляем onchange списку. Сusel-селект имеет структуру, построенную на <a href="http://www.xiper.net/manuals/html/tags/div.html">div</a> и <a href="http://www.xiper.net/manuals/html/tags/span.html">span</a>. Это нужно учитывать при динамическом изменении содержимого списков:</p>
+<div class="codeExample codeHTML">
+<pre class="brush: xml">
+&lt;select id=&quot;city&quot; name=&quot;city&quot; onChange=&quot;alert(&apos;произошел onchange&apos;)&quot;&gt;
+&lt;option value=&quot;1&quot;&gt;Киев&lt;/option&gt;
+&lt;option value=&quot;2&quot;&gt;Львов&lt;/option&gt;
+&lt;option value=&quot;3&quot;&gt;Дон&lt;/option&gt;
+&lt;option value=&quot;4&quot;&gt;Ялта&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+</div>
+<div class="codeExample codeJavascript">
+<pre class="brush: css">
+var params = {
+		changedEl: &quot;#city&quot;
+	}
+	cuSel(params);
+</pre>
+</div>
+<p>Если при загрузке страницы select был скрыт, то при его показе ему нужно обязательно указывать <a href="http://www.xiper.net/manuals/css/properties/width.html">width</a> и провести обновление:</p>
+<div class="codeExample codeJavascript">
+<pre class="brush: css">
+jQuery(&quot;#showSel&quot;).click(
+function()
+{
+	jQuery(&quot;#hidden-select&quot;)
+		.css(&quot;display&quot;,&quot;block&quot;)
+		.css(&quot;width&quot;,&quot;100px&quot;); /* показанному селект указываем width */
+params = {
+	refreshEl: "#hidden-select",
+	visRows: 4
+	}
+	cuSelRefresh(params);
+});
+</pre>
+</div>
+<p>Этого указания ширины можно избежать, если изначально select был присвоен класс, с заданной шириной через <a href="http://www.xiper.net/manuals/css/important.html">!important</a>. Тут же, покажу как обновить сразу два селекта, которые были скрыты:</p>
+<div class="codeExample codeHTML">
+<pre class="brush: xml">
+&lt;div id=&quot;hidden-block&quot; style=&quot;display: none&quot;&gt;
+    &lt;select id=&quot;city2&quot; name=&quot;city2&quot; class=&quot;wid100&quot;&gt;
+    &lt;option value=&quot;1&quot;&gt;Киев&lt;/option&gt;
+    &lt;option value=&quot;2&quot;&gt;Львов&lt;/option&gt;
+    &lt;option value=&quot;3&quot;&gt;Донецк&lt;/option&gt;
+    &lt;option value=&quot;4&quot;&gt;Ялта&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;select id=&quot;city3&quot; name=&quot;city3&quot; class=&quot;wid100&quot;&gt;
+    &lt;option value=&quot;1&quot;&gt;Киев&lt;/option&gt;
+    &lt;option value=&quot;2&quot;&gt;Львов&lt;/option&gt;
+    &lt;option value=&quot;3&quot;&gt;Донецк&lt;/option&gt;
+    &lt;option value=&quot;4&quot;&gt;Ялта&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+</div>
+<div class="codeExample codeCSS">
+<pre class="brush: css">
+.wid100 {
+width: 100px !important; /* !important обязателен */ 
+}
+</pre>
+</div>
+<div class="codeExample codeJavascript">
+<pre class="brush: css">
+jQuery(&quot;#hidden-block&quot;).css(&quot;display&quot;,&quot;block&quot;);
+	params = {
+	refreshEl: &quot;#city2, #city3&quot;, /* перечисляем через запятую id селектов, которые нужно обновить */
+	visRows: 4
+	}
+	cuSelRefresh(params);
+</pre>
+</div>
+
+
+<p>Динамическое добавление select:</p>
+<div class="codeExample codeJavascript">
+<pre class="brush: css">
+jQuery(&quot;#addSelect&quot;).click(
+function()
+{
+	var addedSelect =	&apos;&lt;select id=&quot;add-select&quot; name=&quot;add-select&quot;&gt;&apos;+
+						&apos;&lt;option value=&quot;1&quot;&gt;доллар США&lt;/option&gt;&apos;+
+						&apos;&lt;option value=&quot;2&quot;&gt;доллар канадский&lt;/option&gt;&apos;+
+						&apos;&lt;option value=&quot;3&quot;&gt;доллар новозеландский&lt;/option&gt;&apos;+
+						&apos;&lt;/select&gt;&apos;;
+	jQuery(this).replaceWith(addedSelect);
+	
+	var params = {
+		changedEl: "#add-select",
+		visRows: 4
+	}
+	cuSel(params);
+	
+});
+</pre>
+</div>
+<p>Динамическое добавление опционов:</p>
+<div class="codeExample codeJavascript">
+<pre class="brush: css">
+jQuery(&quot;#addAnimals&quot;).click(
+function()
+{
+    /* при добавлении следует учитывать, что option были заменены на span */
+	var newAnimals = &apos;&lt;span val=&quot;4&quot;&gt;Слон&lt;/span&gt;&lt;span val=&quot;5&quot;&gt;Жираф африканский&lt;/span&gt;&apos;;
+	
+    /* id контенера, где содержаться &quot;option&quot; получаем соединяя префикс cusel-scroll- и id select */
+	jQuery(&quot;#cusel-scroll-animals&quot;).append(newAnimals);  
+	
+			
+	
+	var params = {
+		refreshEl: &quot;#animals&quot;,
+		visRows: 4
+	}
+	cuSelRefresh(params);
+	
+});
+</pre>
+</div>
+<p>Дополнительные теги внутри option реализуются через дополнительный атрибут addTags. Если он присутствует, его содержимое добавится в соответствующий &quot;новый&quot; option:</p>
+<div class="codeExample codeHTML">
+<pre class="brush: xml">
+&lt;select id=&quot;animals&quot; name=&quot;animals&quot;&gt;
+		&lt;option value=&quot;1&quot; addTags=&quot;&lt;div class=&apos;kv&apos;&gt;&lt;/div&gt;&quot;&gt;Медведь&lt;/option&gt;
+		&lt;option value=&quot;2&quot; addTags=&quot;&lt;input type=&apos;checkbox&apos; /&gt;&quot;&gt;Волк&lt;/option&gt;
+		&lt;option value=&quot;3&quot;&gt;Заяц&lt;/option&gt;
+		&lt;option value=&quot;4&quot;&gt;Ежик&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+</div>
+<h2>Часто задаваемые вопросы</h2>
+<h3>Как на одной странице сделать два селекта разного вида</h3>
+<p>Нужно привязывать оформление селекта относительно своего родителя:</p>
+<div class="codeExample codeCSS">
+<pre class="brush: css">
+.parent1 .cusel {
+/* описываем оформление селекта первого вида */
+}
+.parent2 .cusel {
+/* описываем оформление селекта второго вида */
+}
+</pre>
+</div>
+<p>Можно подключить разные фоны, использовать разные цветовые схемы, шрифты и т.п.</p>
+<p>Или же можно использовать дополнительный класс:</p>
+<div class="codeExample codeHTML">
+<pre class="brush: xml">
+&lt;select id=&quot;select1&quot; name=&quot;select1&quot;&gt;
+...
+&lt;select id=&quot;select2&quot; name=&quot;select2&quot; class=&quot;cusel2&quot;&gt;
+...
+</pre>
+</div>
+<div class="codeExample codeCSS">
+<pre class="brush: css">
+.cusel {
+/* описываем оформление селекта первого вида */
+}
+.cusel2 {
+/* описываем оформление селекта второго вида */
+}
+</pre>
+</div>
+<h3>Как убрать выделение выбранного пункта в выпадающем списке</h3>
+<p>Из CSS удаляем класс .cuselActive.</p>
+<h3>Как задать ширину стилизированного select</h3>
+<p>В CSS указать явно ширину классу .cusel или добавить класс, с явно заданной шириной заменяемому select.</p>
+<h3>В прозрачной части cuSel виден фон, который находится под ним</h3>
+<p>Следует делать спрайт более длинным, чтобы непрозрачный фон являлся подложкой селекту, тогда прозрачный участок ляжет сверху на эту подложку и cusel просвечиваться не будет.</p>
+<h3>Как убрать подсветку select при наведении и получении фокуса (update 31.07.10)</h3>
+<p>Достаточно убрать из стилей:</p>
+<div class="codeExample codeCSS">
+<pre class="brush: css">
+/*
+	styles for focus and hover
+*/
+.cusel:hover,
+.cusel:hover .cuselFrameRight,
+.cusel:focus,
+.cusel:focus .cuselFrameRight,
+.cuselFocus,
+.cuselFocus .cuselFrameRight {
+	background-image: url(path-to/selects-focus.png);
+}
+</pre>
+</div>
+<h3>Как динамически управлять disabled</h3>
+<p><a href="http://www.xiper.net/watch/xiper-news/cusel-2.3-update.html">Пример приведен в перечне доработок версии 2.3</a>.</p>
+<h2>Улучшения по сравнению с предыдущей версией:</h2>
+<ul>
+<li>работает в разы быстрее. Даже в IE6 при довольно большом количестве селектов на странице, замена происходит достаточно быстро.</li>
+<li>скрипт стал в 2 раза легче</li>
+<li>cuSel по поведению более похож на обычный селект</li>
+<li>более прост в обращении, особенно для программистов, которым теперь не нужно ломать голову как привязать onchange</li>
+</ul>
+<h2>Предыдущая версия</h2>
+<ul>
+<li><a href="http://www.xiper.net/scripts/nice-selects/images/selects.png" rel="nofollow">selects.png</a> (370b) — составная картинка для всех частей селекта (удобно использовать в качестве примера)</li>
+<li><a href="http://www.xiper.net/scripts/nice-selects/css/selects.css" rel="nofollow">selects.css</a> (3.5 Kb) — таблица стилей для нестандартных select</li>
+<li><a href="http://www.xiper.net/scripts/nice-selects/css/selectsComments.css" rel="nofollow">selectsComments.css</a> (6.5 Kb) — таблица стилей с комментариями</li>
+<li><a href="http://jqueryjs.googlecode.com/files/jquery-1.3.2.min.js" rel="nofollow">jquery.js</a> (55.9 Kb) — библиотека jQuery версии 1.3.2</li>
+<li><a href="http://www.xiper.net/scripts/nice-selects/js/jsScroll.js" rel="nofollow">jsScroll.js</a> (8.13 Kb) — библиотека для реализации нестандартно оформленного скроллинга</li>
+<li><a href="http://www.xiper.net/scripts/nice-selects/js/jquery.selects.js" rel="nofollow" charset="utf-8">jquery.selects.js</a> (12 Kb) — библиотека замены select на нестандартные</li>
+<li><a href="http://www.xiper.net/scripts/nice-selects/js/jquery.selects_pack.js" rel="nofollow">jquery.selects_pack.js</a> (3 Kb) — сжатый скрипт</li>
+</ul>
+<h2>Баги/недостатки cuSel</h2>
+<ul>
+<li><strike>У option должен обязательно быть атрибут value, хотя бы пустой &mdash; это исправлять пока не вижу смысла, потому что нет понту от селекта, который не передает значения. А для исключений можно дописать value=&quot;&quot;.</strike> устранено</li>
+<li>список выпадает всегда вниз</li>
+<li>в IE6 есть нет реакции на :hover</li>
+<li>если по пунктам выпавшего списка пробовать перемещаться и мышью и клавиатурой, могут проскакивать некоторые глюки</li>
+<li>нет поддержки &lt;optgroup&gt;, более того, скорей всего селект, содержащий optgroup не будет функционировать.</li>
+</ul>
+<h2>Пожелания / предложения</h2>
+<ul>
+<li>by f0rmateg: раскрытие списка по нажатию на пробел, по аналогии как реализовано в Opera для обычных select</li>
+<li>by Олег Панов: предусмотреть реализацию для списков вида &lt;select multiple size=&quot;1&quot;&gt; </li>
+<li><strike>by Николай: предусмотреть возможность динамически дизэйблить и энэйблить селекты.</strike> реализовано</li>
+</ul>
+<h2>Апдейты: что было исправлено/добавлено</h2>
+<ul>
+<li><a href="http://www.xiper.net/watch/xiper-news/cusel-2-4-1-bug-fix.html">Версия 2.4.1</a> (15.08.2011)</li>
+<li><a href="http://www.xiper.net/watch/xiper-news/cusel-update-2-4.html">Версия 2.4</a> (20.07.2011)</li>
+<li><a href="http://www.xiper.net/watch/xiper-news/update-cusel-235.html">версия 2.3.5</a> (28.06.2011)</li>
+<li>версия 2.3.4 (03.06.2011) &mdash; фиксы багов</li>
+<li><a href="http://www.xiper.net/watch/xiper-news/cuSel-2.2-update.html">версия 2.3.2</a> (26.05.2011)</li>
+<li><a href="http://www.xiper.net/watch/xiper-news/cuSel-2.3.1-update.html">версия 2.3.1</a> (13.10.2010)</li>
+<li><a href="http://www.xiper.net/watch/xiper-news/cusel-2.3-update.html">версия 2.3</a> (27.09.2010)</li>
+<li><a href="http://www.xiper.net/watch/xiper-news/cuSel-2.2-update.html">версия 2.2</a> (31.07.2010)</li>
+</ul>
+
+  <div class="innerTags">
+  Теги: <a href="http://www.xiper.net/cloud-stilizovannye-vypadayushhie-spiski.html" title="Поиск по тегу стилизованные выпадающие списки" rel="tag">стилизованные выпадающие списки</a>, <a href="http://www.xiper.net/cloud-plaginy.html" title="Поиск по тегу плагины" rel="tag">плагины</a>, <a href="http://www.xiper.net/cloud-verstka-form.html" title="Поиск по тегу верстка форм" rel="tag">верстка форм</a>, <a href="http://www.xiper.net/cloud-jquery.html" title="Поиск по тегу jquery" rel="tag">jquery</a>  </div>
+
+
+
+<div id="comments">
+<span id="showComments" rel="415=modx">Показать комментарии</span>
+</div>
+</div>
+</div>
+<!--/content-->
+<!--side bar-->
+	<div class="sideBar">
+ <div class="htmlAndCSSTricksSubMenu"><ul><li><span >CSS приемы</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/html-and-css-tricks/css-tricks/twitching-site.html'>&laquo;Дергание&raquo; сайта</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/css-tricks/clearfix.html'>clearfix</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/css-tricks/css-opacity.html'>CSS прозрачность</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/css-tricks/css-hacks.html'>CSS хаки</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/css-tricks/rgba.html'>RGBA &mdash; CSS полупрозрачность</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/css-tricks/zatemnenie-fona.html'>Затемнение фона</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/css-tricks/cross-hr.html'>Кроссбраузерный &lt;hr /&gt;</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/css-tricks/reset-margin-padding.html'>Обнуление отступов</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/css-tricks/link-order-desc.html'>Порядок описания ссылок</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/css-tricks/preload-images.html'>Прелоад изображений</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/css-tricks/reset-style-width-css.html'>Сброс стилей</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/css-tricks/sokrasheniya-v-css.html'>Сокращения в CSS</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/css-tricks/dotted-border-focus-elements.html'>Убираем рамку с эл-ов в фокусе</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/css-tricks/conditional-css.html'>Условные CSS</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/css-tricks/uslovnie-commentarii.html'>Условные комментарии</a></li></ul></li><li><span  class="minus">Верстка форм</span><ul  style="display: block;"><li><a href='http://www.xiper.net/collect/html-and-css-tricks/verstka-form/taxtarea-resize.html'>Resize для textarea в Safari и Chrome</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/verstka-form/blochnaya-verstka-form.html'>Блочная верстка форм</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/verstka-form/cross-browser-input-and-textarea.html'>Кросбраузерные input и textarea</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/verstka-form/crossbrowser-button.html'>Кроссбраузерный button</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/verstka-form/nice-checkbox.html'>Нестандартные checkbox</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/verstka-form/nice-radio.html'>Нестандартные radio</a></li><li><strong id="leftCurent_1">Нестандартные select</strong></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/verstka-form/cusel-multiple.html'>Нестандартные select multiple</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/verstka-form/nestandartnie-poya-vibora-fayla.html'>Нестандартные поля выбора файла</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/verstka-form/nestandartnie-tekstovie-poya.html'>Нестандартные текстовые поля</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/verstka-form/about-cross-browser-placeholder.html'>О кроссбраузерности placeholder</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/verstka-form/margin-checkbox-and-radio.html'>Отступы у checkbox и radio</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/verstka-form/design-input-type-search.html'>Оформление input type=search</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/verstka-form/rubber-button.html'>Резиновая кнопка</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/verstka-form/text-in-field-type-password.html'>Текст в поле  type=&quot;password&quot;</a></li></ul></li><li><span >Каркас верстки</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/html-and-css-tricks/karkas-verstki/kolonki-ravnoy-visoty.html'>Колонки равной высоты</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/karkas-verstki/podval-k-nizu.html'>Прижимаем подвал к низу</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/karkas-verstki/back-in-wrap.html'>Ресайз окна: потомок перерос родителя</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/karkas-verstki/sait-v-centre.html'>Сайт в центре экрана</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/karkas-verstki/fix-colonka-rezinovaya-clear-both.html'>Фиксированная колонка + резиновая + clear:both</a></li></ul></li><li><span >Контент</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/css3-tooltips.html'>CSS3 всплывающие подсказки</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/img-in-the-block.html'>IMG внутри блока &mdash; убираем странный отступ</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/img-hover.html'>IMG: меняем рисунок при наведении</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/css3-accordion.html'>Аккордеон на чистом CSS3</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/target-blank.html'>Валидный target=&quot;_blank&quot;</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/imposition-of-ratings.html'>Верстка рейтингов</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/table-of-contents.html'>Верстка содержания</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/insert-symbols.html'>Вставка спецсимволов в генерируемый контент</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/insert-arrows.html'>Вставка стрелок</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/li-noclass.html'>Индивидуальные стили для li. Избавляемся от классов.</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/non-standard-underlining.html'>Нестандартное подчеркивание</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/overflow-and-orphans.html'>Отменяем обтекание текстом картинки</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/oformlinie-vneshnih-ssylok.html'>Оформление внешних ссылок</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/decor-images-with-align.html'>Оформление изображений по align</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/proper-news-announcements.html'>Правильные анонсы новостей</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/content/dl-impossible.html'>Список определений. Требуем невозможного.</a></li></ul></li><li><span >Лекарства для</span><ul  style="display: none;"><li><span >Firefox</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/firefox/tormoza-ff-moz-box-shadow-moz-border-radius.html'>-moz-box-shadow и -moz-border-radius - это кошмар CPU</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/firefox/position-within-a-button.html'>Позиционирование внутри button</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/firefox/shirina-input-type-file.html'>Ширина input type=file</a></li></ul></li><li><span >IE</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/IE/z-index-ie6-7.html'>z-index в IE6-7</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/IE/text-and-alpha-filter-bug.html'>Баг с текстом при применении Alpha фильтра</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/IE/zoomed-and-pie.html'>Масштабирование и PIE</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/IE/submit-in-ie.html'>Отступы в кнопках в IE6-7</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/IE/em-bug.html'>Проблемы с em</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/IE/after-before-for-ie.html'>Эмуляция after и before для IE 6-7</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/IE/data-url-ie.html'>Эмуляция data:URL для IE6-7 &mdash; используем MHTML-включение</a></li></ul></li><li><span >IE6</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/haslayout.html'>hasLayout</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/max-width-for-ie6.html'>Max-width</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/min-height-for-ie6.html'>Min-height</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/min-width-for-ie6.html'>Min-width</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/min-width-and-max-width-for-ie6.html'>Min-width и max-width одновременно</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/png-transparency-ie6.html'>PNG и прозрачность</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/height-block-1px-ie6.html'>Высота блока 1px</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/ie6-duplicate-characters-bug.html'>Дублирование символов</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/hole-under-footer.html'>Дырка под футером</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/kak-perekrit-select-v-ie6.html'>Как перекрыть select</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/has-layout-clip.html'>Обрезка контента c отрицательным margin в IE6</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/margin-float-block-v-ie6.html'>Отступы плавающих блоков</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/block-model-ie6.html'>Проблемы с размерами блоков</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/first-child-for-ie6.html'>Псевдокласс :first-child</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/ie-hover-fix.html'>Псевдокласс hover в IE 6</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/docherniy-css-selector.html'>Селектор потомков &gt;</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/selectori-atributov-type-v-ie6.html'>Селекторы атрибутов [type=...]</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/nursing-selector-for-ie6.html'>Сестринский селектор</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/smeshenie-na-1px-v-ie6.html'>Смещение на 1px</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/links-with-attachment.html'>Ссылки с вложением</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/flickering-in-ie6.html'>Устраняем flickering</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/ie6/emulation-fixed-in-ie6.html'>Эмуляция position:fixed</a></li></ul></li><li><span >Opera</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/opera/overflow-y.html'>overflow-y</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/opera/font-face-no-load-fonts.html'>Не подгружаются шрифты @font-face</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/glyuki-brauzerov/opera/oveflow.html'>Проблема с oveflow: hidden</a></li></ul></li></ul></li><li><span >Навигация</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/html-and-css-tricks/navigation/css-drop-down-menu.html'>Выпадающее меню на CSS</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/navigation/vyravnivanie-po-tsentru-navigatsii-iz-blokov.html'>Выравнивание навигации из блоков по центру</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/navigation/vyravnivanie-navigatsii-po-tsentru.html'>Выравнивание навигации по середине</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/navigation/rubber-menu.html'>Резиновое меню</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/navigation/rubber-blocks-menu.html'>Резиновое меню из блоков</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/navigation/doloj-dopolnitelnyj-klass.html'>Убираем класс для первого элемента</a></li></ul></li><li><span >Позиционирование</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/html-and-css-tricks/pozitsionirovanie/box-sizing.html'>Box-sizing: переключаем блочную модель</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/pozitsionirovanie/inline-block-simple-property-for-complex-tasks.html'>inline-block: простое свойство для непростых задач</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/pozitsionirovanie/vertical-position-for-inline-elements.html'>Вертикальная позиция для строчного элемента</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/pozitsionirovanie/vertikalnoe-vyravnivanie-otnositelno-roditelya.html'>Вертикальное выравнивание</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/pozitsionirovanie/aligment-on-center-with-position-absolute.html'>Выравнивание по центру с position: absolute</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/pozitsionirovanie/calculated-spaces.html'>Вычисляемые отступы</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/pozitsionirovanie/no-typical-position.html'>Два в одном: позиция + размеры</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/pozitsionirovanie/inline-block-margins.html'>Долой отступы между строчными элементами (и блоками)</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/pozitsionirovanie/margin-collapsing-trick.html'>Обходим схлопывание margin</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/pozitsionirovanie/vyravnivanie-risunka.html'>Центрирование картинки в блоке</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/pozitsionirovanie/inline-block.html'>Центрирование резинового блока по горизонтали</a></li></ul></li><li><span >Работа с флеш</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/html-and-css-tricks/rabota-s-flash/aktivaciya-flash.html'>Активация flash</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/rabota-s-flash/vstavka-flash-v-html.html'>Вставка flash в HTML</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/rabota-s-flash/insert-youtube-video.html'>Вставляем ролик с YouTube</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/rabota-s-flash/kak-otkluchit-flash.html'>Как отключить flash</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/rabota-s-flash/kak-perekrit-flash.html'>Как перекрыть flash</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/rabota-s-flash/object-params.html'>Параметры для вставки объектов</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/rabota-s-flash/ssilka-na-flash.html'>Ссылка на flash объекте</a></li></ul></li><li><span >Разгоняем сайт</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/html-and-css-tricks/overclock-site/css-triangles.html'>CSS треугольники</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/overclock-site/data-url.html'>Встраиваем изображения &mdash; data:URL</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/overclock-site/gradient-css.html'>Градиент: CSS3 против CSS2 + картинка</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/overclock-site/sprites-ladder.html'>Лесенка спрайтов &mdash; сложный случай поклейки</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/overclock-site/times-for-cross.html'>На одну картинку меньше. Спецсимвол &amp;times;</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/overclock-site/boxshadow-slick-effects.html'>Необычные тени с CSS3 box-shadow</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/overclock-site/problems-with-border-radius.html'>Проблемы с border-radius</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/overclock-site/list-and-before.html'>Псевдоэлемент before для маркера списка</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/overclock-site/rounding-corners-review.html'>Скругление углов. Обзор методов.</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/overclock-site/sprite.html'>Спрайты: меньше картинок &mdash; больше скорость</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/overclock-site/box-shadow.html'>Тень для блока</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/overclock-site/css-angles.html'>Фигуры с углами на CSS</a></li></ul></li><li><span >Разное</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/html-and-css-tricks/different/skype-addon.html'>Дополнение Skype</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/different/howto-favicon.html'>Подключить favicon</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/different/site-maintenance.html'>Профилактика сайта: максимально простое оповещение</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/different/reference-on-skype.html'>Ссылки на skype</a></li></ul></li><li><span >Типографика</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/cufon.html'>Cufon &mdash; нестандартный шрифт средствами JS</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/font-size-100-for-html.html'>font-size: 100.01% для html</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/safe-fonts-part4.html'>Безопасные шрифтовые CSS стеки для англоязычных текстов</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/safe-fonts-part3.html'>Безопасные шрифтовые CSS стеки для рунета</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/safe-fonts.html'>Безопасные шрифты</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/vertical-text.html'>Вертикальный текст</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/using-first-letter.html'>Используем псевдоэлемент :first-letter</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/css-text-stroke.html'>Контур для текста</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/any-font.html'>Нестандарный шрифт. Быть ему или нет?</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/font-face-non-standart-fonts-on-css.html'>Нестандартный шрифт средствами CSS</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/first-letter-float.html'>Плавающий :first-letter</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/substitution-of-text-an-image.html'>Подмена текста изображением</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/safe-fonts-part2.html'>Соответствия шрифтов Windows, Mac и Unix/Linux</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/first-letter-str.html'>Строчный :first-letter</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/inclined-text.html'>Текст под углом</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/gradient-text.html'>Текст с CSS градиентом</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/text-shadow.html'>Тень для текста</a></li><li><a href='http://www.xiper.net/collect/html-and-css-tricks/typographics/css-text-reflection.html'>Эффект отражения</a></li></ul></li></ul>
+		 </div>
+<div class="sideBarAdvertisementBox">
+<script type='text/javascript'>
+GA_googleFillSlot("sidebar");
+</script>
+</div>
+
+		
+	</div>
+	<!--/side bar-->	
+<div class="header">
+<a href="http://www.xiper.net/" title="на главную" class="headerLogo"><img src="cuSel%20—%20нестандартные%20select%20на%20jQuery_files/logo0000.png" alt="xiper.net - основы и секреты front-end разработки" width="297" height="62"/></a>
+<ul>
+<li><a href="http://www.xiper.net/">Главная</a></li>
+<li>
+<a href="http://www.xiper.net/collect/">Собираем</a>
+<ul>
+<li><a href="http://www.xiper.net/collect/html-and-css-tricks/">HTML и CSS приемы</a></li>
+<li><a href="http://www.xiper.net/collect/web-without-flash/">Веб без flash</a></li>
+<li><a href="http://www.xiper.net/collect/weekdays-front-end-dev/">Будни front end разработчика</a></li>
+<li><a href="http://www.xiper.net/collect/services/">Сервисы</a></li>
+<li><a href="http://www.xiper.net/collect/js-plugins/">Javascript: решения и плагины</a></li>
+</ul>
+</li>
+<li><a href="http://www.xiper.net/watch/">Следим</a>
+<ul>
+<li><a href="http://www.xiper.net/watch/webstatistic.html">Веб статистика</a></li>
+<li><a href="http://www.xiper.net/watch/news/">Куда веб катится</a></li>
+<li><a href="http://www.xiper.net/watch/xiper-news/">Куда Xiper катится</a></li>
+</ul>
+</li>
+<li><a href="http://www.xiper.net/uncensored/">Без цензуры</a></li>
+<li>
+<a href="http://www.xiper.net/learn/">Учимся</a>
+<ul><li><a href="http://www.xiper.net/learn/photoshop/">Photoshop для кодера</a></li><li><a href="http://www.xiper.net/learn/css/">Уроки CSS</a></li><li><a href="http://www.xiper.net/learn/html/">Уроки HTML</a></li><li><a href="http://www.xiper.net/learn/javascript/">Уроки Javascript</a></li><li><a href="http://www.xiper.net/learn/lessons-jquery/">Уроки jQuery</a></li><li><a href="http://www.xiper.net/learn/tegofenshuj/">Тегофеншуй</a></li><li><a href="http://www.xiper.net/learn/also-need-to-know/">Тоже нужно знать</a></li><li><a href="http://www.xiper.net/learn/svg/">Уроки SVG</a></li><li><a href="http://www.xiper.net/learn/bonus-books/">Бонус книги</a></li></ul>
+</li>
+<li>
+<a href="http://www.xiper.net/manuals/">Справочники</a>
+<ul><li><a href="http://www.xiper.net/manuals/html/">HTML справочник</a></li><li><a href="http://www.xiper.net/manuals/css/">CSS справочник</a></li><li><a href="http://www.xiper.net/manuals/terms/">Cловарь терминов</a></li></ul>
+</li>
+</ul>
+<form action="http://www.xiper.net/search.html" method="get">
+<div><input type="text" name="s" value="я ищу&hellip;" /><input type="submit" value="найти" /> </div>
+</form>
+
+<div class="headerSubscription">
+ 	<a href="http://twitter.com/xiper_news/" class="headerTwitter" title="наши новости и мысли на twitter" rel="nofollow">twitter</a>
+    <a href="http://www.xiper.net/rss.html" class="headerSubscriptionRSS" title="подписаться на RSS">RSS</a>
+    <a href="http://www.xiper.net/subscription.html" class="headerSubscriptionEmail" title="подписаться на e-mail рассылку">e-mail</a>
+</div>
+
+</div>
+
+</div>
+<!--/main wrap-->
+<!--footer-->
+<div class="footer" id="415">
+<div class="advertisementPanel">
+<div class="topAdvertisementBox">
+<script type='text/javascript'>
+GA_googleFillSlot("footer");
+</script>
+</div>
+</div>
+	<div class="footerCopy">
+	&copy; 2009-2011 xiper.net<br/>
+	Много о HTML, CSS, Javascript.<br/>
+	Опасно для мозга. Можно стать умным.
+     <div>Наша хатка &mdash; <a href="http://frondevo.com/ru/">Frondevo</a>.</div>
+	</div>
+	
+<div class="footerSection">
+		<h2 title="информация о проекте">Инфо</h2>
+		<ul>
+		<li><a href="http://www.xiper.net/about.html">О проекте</a></li>
+                 <li><a href="http://www.xiper.net/about-materials.html">О материалах</a></li>
+                <li><a href="http://www.xiper.net/stats.html">Статистика</a></li>
+ <li><a href="http://www.xiper.net/adv/">Реклама</a></li>
+		<li><a href="http://www.xiper.net/feedback.html">Написать нам</a></li>
+		</ul>
+	</div>
+	<div class="footerNavSection">		
+  <h2 title="основные разделы сайта">Разделы</h2>
+		<ul>
+		<li><a href="http://www.xiper.net/">Главная</a></li>
+                <li><a href="http://www.xiper.net/uncensored/">Без цензуры</a></li>    
+		<li><a href="http://www.xiper.net/collect/">Собираем</a></li>
+                <li><a href="http://www.xiper.net/learn/">Учимся</a></li>        
+		<li><a href="http://www.xiper.net/watch/">Следим</a></li>	
+		<li><a href="http://www.xiper.net/manuals/">Справочники</a></li>
+		</ul>
+	</div>
+	
+</div>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-5053168-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<!--/footer-->
+
+</body>
+</html>
+<!-- This document saved from http://www.xiper.net/collect/html-and-css-tricks/verstka-form/nice-select-jquery.html -->

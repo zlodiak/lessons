@@ -1,0 +1,8 @@
+от сам inline-block фикс для IE:
+yourdiv {
+   display:-moz-inline-stack;/*Firefox 2*/
+   display:inline-block; /*Хорошие браузеры*/
+   _overflow:hidden;/*IE6, IE7*/
+   *zoom:1;/*включаем hasLayout для IE6, IE7*/
+   *display:inline;/*при hasLayout true display:inline в IE6, IE7 ведёт себя как display:inline-block*/
+}

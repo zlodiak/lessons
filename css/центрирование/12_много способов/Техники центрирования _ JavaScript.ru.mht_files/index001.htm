@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<head>
+<style> 
+  #field { 
+    width: 200px;
+    border: 10px groove black;
+    background-color: #00FF00;
+    position: relative;
+  }
+  
+  #ball {
+    position: absolute;
+  }
+</style>
+</head>
+<body>
+
+
+<div id="field">
+<img src="ball0001.gif" width="40" height="40" id="ball">
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+</div>
+
+
+<script>
+var ball = document.getElementById('ball')
+var field = document.getElementById('field')
+
+// ball.offsetWidth=0 before image loaded! 
+// to fix: set width
+ball.style.left = Math.round(field.clientWidth / 2 - ball.offsetWidth / 2)+'px'
+ball.style.top = Math.round(field.clientHeight / 2 - ball.offsetHeight / 2)+'px'
+
+</script>
+
+
+</body>
+</html>
+<!-- This document saved from http://ru.lookatcode.com/files/tutorial/browser/dom/ball/index.html -->

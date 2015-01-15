@@ -1,0 +1,431 @@
+
+
+      
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+      <title>Выпадающие меню с помощью CSS - Вёрстка - Webmascon</title>
+
+      <meta http-equiv="Content-Type" content="text/html; charset=windows-1251;charset=windows-1251" />     
+      <meta name="keywords" content="CSS, background, repeat, repeat-x, background-position, фоновое, изображение, фоновый, рисунок, слой, DIV, таблица, TABLE, повторение, web, design, дизайн, вопросы, бизнеса, сотрудничество, договор, соглашение" />
+      <meta name="description" content="" />
+      <meta name="target" content="" />
+      <meta name="ROBOTS" content="INDEX,FOLLOW" />
+
+      <link href="Выпадающие%20меню%20с%20помощью%20CSS%20-%20Вёрстка%20-%20Webmascon_files/favicon0.ico" rel="SHORTCUT ICON" />
+      <link rel="alternate" type="application/rss+xml" title="Webmascon Daily" href="http://www.webmascon.com/daily/rss.php" />
+
+      <link href="Выпадающие%20меню%20с%20помощью%20CSS%20-%20Вёрстка%20-%20Webmascon_files/basic000.css" rel="stylesheet" type="text/css" />
+      <style type="text/css" media="all">@import "Выпадающие\ меню\ с\ помощью\ CSS\ -\ Вёрстка\ -\ Webmascon_files/style000.css";</style>
+      <link href="Выпадающие%20меню%20с%20помощью%20CSS%20-%20Вёрстка%20-%20Webmascon_files/style_pr.css" rel="stylesheet" type="text/css" media="print"/>
+      
+      <link href="mailto:admin@webmascon.com" rev="author" title="мейл гл.редактора" />
+      <link href="/about/copyleft.asp" rel="copyright" />
+      <link href="/about/roadmap.asp" rel="help" />
+      <link href="/" rel="home" />
+      <link href="/" rel="top" />
+</head>
+<body id="topicsPage">
+<div id="outerFrame">
+      <div id="innerFrame">
+            <div id="logo"><a href="http://webmascon.com/"><img src="Выпадающие%20меню%20с%20помощью%20CSS%20-%20Вёрстка%20-%20Webmascon_files/sitetitl.gif" width="128" height="26" alt="" border="1" /></a><div id="tagline">WEBMASCON - журнал для веб-мастеров обновление: <strong>2007.09.07</strong></div></div>
+            <ul id="navlist"><li><a id="home" title="Главная страница" href="http://webmascon.com/">Начало</a></li><li><a id="topics" href="http://webmascon.com/topics/" title="Список тем, по которым разбиты статьи">Темы</a></li><li><a id="archive" href="http://webmascon.com/archive/" title="Предыдущие публикации">Архив</a></li><li><a id="daily" href="http://webmascon.com/daily/" title="Ежедневно что-то новенькое о веб-дизайне">Webmascon Daily</a></li><li><a id="personas" href="http://webmascon.com/personas/" title="Известные личности индустрии веб-дизайна">Персоналии</a></li><li><a id="forum" href="http://webmascon.com/forum/" title="Место общения">Форум</a></li><li><a id="about" href="http://webmascon.com/about/" title="Информация о сайте">О сайте</a></li></ul>
+            <div id="section_header">
+                  <div id="section_title"><a href="http://webmascon.com/topics/coding/" title="к списку статей на тему Вёрстка">&raquo; Вёрстка</a></div><!-- Atomz Search HTML for Webmascon --><form id="searchForm" action="http://search.atomz.com/search/"><label for="search-field">Поиск:</label><input id="search-field" type="text" name="sp-q" size="25" class="form" /><input type="hidden" name="sp-f" value="windows-1251" /><input type="hidden" name="sp-a" value="sp10001f7b" /><input type="hidden" name="sp-m" value="0" /><input type="submit" value=" Искать! " class="form" /></form><!-- Atomz Search HTML for Mascon -->
+            </div>
+            <div id="leftCol">
+
+            <!-- content starts here  -->             
+                <!-- content title block starts here -->       
+                                    <h1>Выпадающие меню с помощью CSS</h1>
+                    <div id="info">
+                        <p id="meta"><strong>Drop-Down Menus, Horizontal Style</strong><br />                        автор: 2004.06.29  &copy; Nick Rigby<br />                        перевод: 2004.07.06 <a href='mailto:rossomachin@yandex.ru'>Максим Россомахин</a>                        </p>
+                    </div>            
+                                <!-- content title block ends here -->
+
+<p>Каждый, кому доводилось создавать выпадающие меню, знаком с тем, какое количество скриптов требуется для этого. Между тем, используя грамотно структурированный HTML-код и несложные CSS-правила, можно создать симпатичное выпадающее меню, которое легко менять и дополнять, и при этом оно будет работать во множестве браузеров, в том числе и в Internet Explorer. И самое главное для вас, любители "чистого" кода - никакого JavaScript! (На самом деле, небольшой скрипт все же необходим, но вовсе не для того, о чём вы подумали.)</p>
+
+<p>Вот <a href="http://www.alistapart.com/d/horizdropdowns/horizontal.htm" target="_blank">пример</a> действующего меню</p>
+
+<h3>Создаем меню</h3>
+
+<p>Первым и самым важным этапом создания нашего меню является построение его структуры. Лучше всего делать это, используя ненумерованный список, в котором размещены подменю, выступающие как списки в рамках пунктов родительского списка. Звучит заумно?  Фактически это очень просто:</p>
+
+<p class="sourcecode">
+&lt;ul&gt; 
+    &lt;li&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt; 
+    &lt;li&gt;&lt;a href="#"&gt;About&lt;/a&gt; 
+      &lt;ul&gt; 
+        &lt;li&gt;&lt;a href="#"&gt;History&lt;/a&gt;&lt;/li&gt; 
+        &lt;li&gt;&lt;a href="#"&gt;Team&lt;/a&gt;&lt;/li&gt; 
+        &lt;li&gt;&lt;a href="#"&gt;Offices&lt;/a&gt;&lt;/li&gt; 
+      &lt;/ul&gt; 
+    &lt;/li&gt; 
+    &lt;li&gt;&lt;a href="#"&gt;Services&lt;/a&gt; 
+      &lt;ul&gt; 
+        &lt;li&gt;&lt;a href="#"&gt;Web Design&lt;/a&gt;&lt;/li&gt; 
+        &lt;li&gt;&lt;a href="#"&gt;Internet 
+            Marketing&lt;/a&gt;&lt;/li&gt; 
+        &lt;li&gt;&lt;a href="#"&gt;Hosting&lt;/a&gt;&lt;/li&gt; 
+        &lt;li&gt;&lt;a href="#"&gt;Domain Names&lt;/a&gt;&lt;/li&gt; 
+        &lt;li&gt;&lt;a href="#"&gt;Broadband&lt;/a&gt;&lt;/li&gt; 
+      &lt;/ul&gt; 
+    &lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Contact Us&lt;/a&gt; 
+      &lt;ul&gt; 
+        &lt;li&gt;&lt;a href="#"&gt;United Kingdom&lt;/a&gt;&lt;/li&gt; 
+        &lt;li&gt;&lt;a href="#"&gt;France&lt;/a&gt;&lt;/li&gt; 
+        &lt;li&gt;&lt;a href="#"&gt;USA&lt;/a&gt;&lt;/li&gt; 
+        &lt;li&gt;&lt;a href="#"&gt;Australia&lt;/a&gt;&lt;/li&gt; 
+      &lt;/ul&gt; 
+    &lt;/li&gt; 
+  &lt;/ul&gt;
+  </p>
+
+<p>Вот так: простой HTML код, доступный и легко редактируемый.</p>
+
+<h3>Наводим красоту</h3>
+
+<p>Взгляните на приведённый выше пример. Вы увидите довольно скучный список элементов. А я обещал вам, что он будет симпатичным! Давайте-ка добавим немного стилей.</p>
+
+<p>Первым делом удалим отступы и маркеры в ненумерованном списке, а затем зададим ширину пунктов меню.</p>
+
+<p class="sourcecode">ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	width: 150px;
+	}</p>
+
+<p>Теперь нам надо задать положение элементов списка. К счастью, они по умолчанию будут расположены вертикально, что нам и нужно. Однако, нам необходимо задать значение для position как relative, и всё потому, что нам нужно будет относительно их абсолютно позиционировать подменю.</p>
+
+<p class="sourcecode">ul li {
+	position: relative;
+	}</p>
+
+<p>Берёмся за подменю. Мы хотим, чтобы каждое подменю появлялось справа от пункта родительского меню в тот момент, когда над этим пунктом находится курсор.</p>
+
+<p class="sourcecode">li ul {
+	position: absolute;
+	left: 149px;
+	top: 0;
+	display: none;
+	}</p>
+
+<p>Используя атрибуты "left" и "top", мы можем абсолютно позиционировать каждое субменю в рамках пункта меню предка. Вы заметите, что я задал атрибуту "left" значение в 149px (одним пикселем меньше, чем ширина родительского пункта), это позволяет субменю перекрывать главное меню, не создавая при этом двойной границы. (Поймёте, о чём я, чуть позже.)</p>
+
+<p>Нам надо также присвоить атрибуту "display" значение "none", так как мы не хотим видеть подменю при открытии страницы.</p>
+
+<p>Что ж, у нас теперь есть <a href="http://www.alistapart.com/d/horizdropdowns/framework.htm" target="_blank">каркас</a>, но он всё ещё выглядит невзрачно. Давайте зададим стили для ссылок.</p>
+
+<p class="sourcecode">ul li a {
+	display: block;
+	text-decoration: none;
+	color: #777;
+	background: #fff;
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-bottom: 0;
+	}</p>
+
+<p>Я применил к ссылкам стили по своему вкусу, но их можно легко поменять на те, что вам нравятся. Важно присвоить атрибуту "display" значение "block", ведь мы хотим, чтобы каждая ссылка занимала всё отведённое для неё место внутри содержащего её элемента списка.</p>
+
+<p>Итак, <a href="http://www.alistapart.com/d/horizdropdowns/littlebetter.htm" target="_blank">выглядит уже получше</a>, хотя пользователи Internet Explorer для Windows могут с вами и не согласиться. К несчастью, IE Win понимает разрывы строк между ссылками в нашем красиво оформленном HTML коде как незаполненное пространство. Из-за этого в IE вы видите, что ссылки не прилегают тесно одна к другой. Однако этот баг IE можно обойти.</p>
+
+<p class="sourcecode">
+/* Fix IE. Hide from IE Mac \*/
+* html ul li { float: left; }
+* html ul li a { height: 1%; }
+/* End */
+</p>
+
+<p>Выше мы применили трюк <a href="http://www.positioniseverything.net/" target="_blank">Holly Hack</a>, которые прячет эти правила от всех браузеров, кроме IE Win. Отлично. Обратите внимание, что было добавлено правило height: 1%. К сожалению (опять!), борясь с одной ошибкой, мы выткнулись на другую, для борьбы с которой требуется задать значение для атрибута "height", чтобы ссылки отображались как блочные элементы.</p>
+
+<p>Также обратите внимание, что мы забыли "закрыть" блок меню. Добавим дополнительно нижнюю границу к каждому элементу списка. Итак, вот полный список стилей для ul:</p>
+
+<p class="sourcecode">ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	width: 150px;
+	border-bottom: 1px solid #ccc;
+	}</p>
+      
+<p>Все сложилось удачно, и теперь все могут увидеть красивое, но <a href="http://www.alistapart.com/d/horizdropdowns/unfunctional.htm" target="_blank">нефункционирующее меню</a>.</p>
+
+<h3>Заставим его работать</h3>
+
+<p>А теперь - самое веселое. Нам надо сделать так, чтобы подменю появлялись в тот момент, когда курсор находится над элементом списка.</p>
+
+<p class="sourcecode">li:hover ul { display: block; }</p>
+
+<p>Вуаля! И вот оно - <a href="http://www.alistapart.com/d/horizdropdowns/barebones.htm" target="_blank">наше меню</a> - в действии.</p>
+
+<p>"Ё-моё! Работает!" - крикнет кто-то из вас. - "Здорово!"</p>
+
+<p>Хорошо, хорошо, но чёртов IE/Win опять поломал всю красоту - не желает делать то, что ему сказано. Он понимает псевдокласс :hover  лишь для тега &lt;a&gt; - так что li:hover, на который у нас завязано появление подменю, ему ни о чём не говорит.</p>
+
+<p>Капелька JavaScript приведет IE в чувство (разрыв строк отмечен символом "<span style="color: #ff0000;">&raquo;</span>" - Ред.):</p>
+
+<p class="sourcecode">
+startList = function() {
+      if (document.all&&document.getElementById) {
+            navRoot = document.getElementById("nav");
+            for (i=0; i&lt;navRoot.childNodes.length; i++) {
+                  node = navRoot.childNodes[i];
+                  if (node.nodeName=="LI") {
+                        node.onmouseover=function() {
+                              this.className+=" over";
+                        }
+                        node.onmouseout=function() {
+                              this.className=this.className.replace <span style="color: #ff0000;">&raquo;</span>
+                              (" over", "");
+                        }
+                  }
+            }
+      }
+}
+window.onload=startList;</p>
+
+<p>Огромное спасибо Патрику Гриффитсу и Дану Уэббу (<a href="http://www.alistapart.com/authors/patrickgriffiths/" target="_blank">Patrick Griffiths</a> и <a href="http://www.alistapart.com/articles/dropdowns#danwebb">Dan Webb</a>), рассказавшими об этом трюке в одной из предыдущих статей ALA -  <a href="http://www.alistapart.com/articles/dropdowns/" target="_blank">Suckerfish Dropdowns</a>. Спасибо, парни!</p>
+
+<p>Итак, правила для hover таковы:</p>
+
+<p class="sourcecode">
+li:hover ul, li.over ul { 
+	display: block; 
+      }
+</p>
+
+<p>Мы также должны дополнительно связать JavaScript с нашим главным списком, добавив это:</p>
+
+<p class="sourcecode">&lt;ul id="nav"&gt;</p>
+
+<p>Надеюсь, учитывая всё вышерассмотренное, любой из вас сможет увидеть <a href="http://www.alistapart.com/d/horizdropdowns/horizontal.htm" target="_blank">упрощённую версию действующего меню</a>.</p>
+
+<h3>Прыжки меню в IE5.01 для Win</h3>
+
+<p>Пользователи IE5.01 для Windows заметят, как меню прыгает вокруг при наведении мыши на любой из элементов списка. Проблема легко решается внесением изменений в наш прошлый трюк:</p>
+
+<p class="sourcecode">
+/* Fix IE. Hide from IE Mac \*/
+* html ul li { float: left; height: 1%; }
+* html ul li a { height: 1%; }
+/* End */
+</p>
+
+<h3>Таинственный баг шестой версии IE…</h3>
+
+<p>Работая над статьёй, я обнаружил странный баг, который, как мне кажется, наблюдается лишь в IE6. Для "li a" необходимо задать фон, иначе если выпадающее подменю будет больше (по высоте), чем само родительское меню, то часть ссылок просто исчезнет с экрана ещё до того, как вы сможете кликнуть по ним. Странно! Попробуйте увидеть это сами.</p>
+
+<h3>Создайте своё меню</h3>
+
+<p>Вот и всё! Не противоречащий стандартам метод создания красивых горизонтально выпадающих меню. Всё, что вам надо сделать - добавить несколько ваших стилей для hover, создав своё меню. Дабы дать толчок вашей фантазии, я добавил <a href="http://www.alistapart.com/d/horizdropdowns/horizontal2.htm" target="_blank">еще пару штрихов в к меню</a>. Наслаждайтесь! </p>
+
+<p><a href="http://www.alistapart.com/authors/nickrigby/" target="_blank">Nick Rigby</a></p>
+
+<p class="bio">Ник Ригби - дизайнер из английского города Ланкастер. Он пропагандирует использование веб-стандартов на своей текущей работе в "Business Serve plc", а также на своём новом сайте, который должен скоро открыться - <a href="http://www.nickrigby.com/" target="_blank">nickrigby.com</a>. Большинство друзей считает его чокнутым. Но он нормальный.</p>
+
+<p><a href='http://webmascon.com/forum/viewtopic.php?t=157' title='обсудить данную статью на форуме'>Обсудить (комментариев: 241)</a></p>
+
+<div id="relatedlinks">
+      <div id="relatedlinks_title">Ссылки по теме</div>
+      <ul>
+            <li><a href="http://www.alistapart.com/articles/horizdropdowns/" target="_blank">Эта статья на английском языке</a> | англ.</li>
+            <li><a href="http://www.alistapart.com/" target="_blank">Другие статьи с сайта A List Apart</a> | англ.</li>
+      </ul>
+</div>      
+
+<p class="hide"><a href="http://webmascon.com/topics/coding/">&laquo; назад</a> к списку статей</p>
+
+        </div>
+    <!-- ===================================================================== -->
+	<!-- Actual content ends here  -->
+    
+
+	<!-- Sidebar starts here  -->    
+    <!-- ===================================================================== -->
+    
+      <div id="rightCol">
+      
+          <div id="categories">
+<h4 class="listtitle">Указатель категорий</h4>
+<ul class="list">
+<li><a href="http://webmascon.com/archive/topic.asp?id=2">Информационная архитектура</a> (10)</li>
+<li><a href="http://webmascon.com/archive/topic.asp?id=3">(X)HTML</a> (16)</li>
+<li><a href="http://webmascon.com/archive/topic.asp?id=7">Юзабилити</a> (35)</li>
+<li><a href="http://webmascon.com/archive/topic.asp?id=22">Якоб Нильсен</a> (57)</li>
+<li><a href="http://webmascon.com/archive/topic.asp?id=1">CSS</a> (35)</li>
+<li><a href="http://webmascon.com/archive/topic.asp?id=4">Навигация</a> (15)</li>
+<li><a href="http://webmascon.com/archive/topic.asp?id=5">Графика</a> (5)</li>
+<li><a href="http://webmascon.com/archive/topic.asp?id=6">A List Apart</a> (17)</li>
+<li><a href="http://webmascon.com/archive/topic.asp?id=8">Дизайн</a> (20)</li>
+<li><a href="http://webmascon.com/archive/topic.asp?id=9">Инструменты</a> (10)</li>
+<li><a href="http://webmascon.com/archive/topic.asp?id=10">Цвет</a> (8)</li>
+<li><a href="http://webmascon.com/archive/topic.asp?id=11">Бизнес</a> (25)</li>
+<li><a href="http://webmascon.com/archive/topic.asp?id=12">Менеджмент проектов</a> (15)</li>
+<li><a href="http://webmascon.com/archive/topic.asp?id=13">Тестирование</a> (15)</li>
+<li><a href="http://webmascon.com/archive/topic.asp?id=14">Программирование</a> (12)</li>
+<li><a href="http://webmascon.com/archive/topic.asp?id=15">Реклама и продвижение</a> (16)</li>
+<li><a href="http://webmascon.com/archive/topic.asp?id=16">Технологии</a> (15)</li>
+<li><a href="http://webmascon.com/archive/topic.asp?id=17">Проектирование</a> (9)</li>
+<li><a href="http://webmascon.com/archive/topic.asp?id=18">Поддержка</a> (3)</li>
+<li><a href="http://webmascon.com/archive/topic.asp?id=19">Текст и контент</a> (10)</li>
+<li><a href="http://webmascon.com/archive/topic.asp?id=20">Книги</a> (4)</li>
+<li><a href="http://webmascon.com/archive/topic.asp?id=21">Мысли вслух</a> (8)</li>
+<li><a href="http://webmascon.com/archive/topic.asp?id=23">Flash</a> (6)</li>
+</ul>
+</div>
+
+
+            
+            <br />
+            <table width="100%" border="0" cellspacing="0" cellpadding="5">
+<tr><td align="center" bgcolor="#DDDDDD" class="body"><b>Рекомендую</b></td></tr>
+<tr><td align="center" bgcolor="#EEEEEE" class="body"><small>
+Михаил Дубаков<br />
+<img src="Выпадающие%20меню%20с%20помощью%20CSS%20-%20Вёрстка%20-%20Webmascon_files/10000975.gif" alt="" width="60" height="79" border="0" /><br />
+Создание Web-страниц. Искусство верстки<br /><br />
+
+<u>Сравните цены:</u><br />
+на <a href="http://www.ozon.ru/context/detail/id/1590005/?partner=webmascon" target="_blank">www.ozon.ru</a><br />
+на <a href="http://www.books.ru/shop/books/149089?partner=webmascon" target="_blank">www.books.ru</a><br />
+на <a href="http://oz.by/books/more.phtml?id=109670&amp;partner=webmascon"  target="_blank">www.oz.by</a>
+<br /><br />
+
+<a href="http://webmascon.com/topics/coding/32a.asp">Почитайте Главу 7</a><br />
+<a href="http://webmascon.com/topics/coding/34a.asp">Почитайте Главу 9</a><br />
+</small></td></tr></table>
+
+
+<br /><br />
+
+<table width="100%" border="0" cellspacing="0" cellpadding="5">
+<tr><td align="center" bgcolor="#DDDDDD" class="body"><b>Рекомендую</b></td></tr>
+<tr><td align="center" bgcolor="#EEEEEE" class="body"><small>
+Михаил Дубаков<br />
+<img src="Выпадающие%20меню%20с%20помощью%20CSS%20-%20Вёрстка%20-%20Webmascon_files/10000164.gif" alt="" width="60" height="79" border="0" /><br />
+Веб-мастеринг средствами CSS<br /><br />
+
+<u>Сравните цены:</u><br />
+на <a href="http://www.ozon.ru/context/detail/id/1099692/?partner=webmascon" target="_blank">www.ozon.ru</a><br />
+на <a href="http://www.books.ru/shop/books/27425?partner=webmascon" target="_blank">www.books.ru</a><br />
+на <a href="http://oz.by/books/more.phtml?id=103997&amp;partner=webmascon" target="_blank">www.oz.by</a>
+<br /><br />
+
+<a href="http://webmascon.com/topics/coding/29a.asp">Почитайте Главу 5</a><br />
+<a href="http://wa.artel.by/node.phtml?index=62" target="_blank">Отзывы о книге</a>
+</small></td></tr></table>
+
+<br /><br />
+
+            <div style="font-size: xx-small; font-family: Verdana, sans-serif;"><!-- E-mail кодируется для предотвращения спама. Не пугайтесь. --><iframe id="orphus" src="Выпадающие%20меню%20с%20помощью%20CSS%20-%20Вёрстка%20-%20Webmascon_files/orphus00.htm" width="88" height="31" frameborder="0" scrolling="no"></iframe><br /><a href="http://webmascon.com/about/spelling.asp">что такое система Орфус?</a></div>      
+            
+            <br />
+            <div><!-- Creative Commons License --><a href="http://creativecommons.org/licenses/by/2.0/" rel="license" title="Все материалы данного сайта раздаются под лицензией Creative Commons License 2.0"><img width="88" height="31" src="Выпадающие%20меню%20с%20помощью%20CSS%20-%20Вёрстка%20-%20Webmascon_files/somerigh.gif" alt="Все материалы данного сайта раздаются под лицензией Creative Commons License  2.0" border="0" /></a><br /><span style="font-size: xx-small; font-family: Verdana, sans-serif;"><a href="http://webmascon.com/about/copyleft.asp" title="Подробнее, о том, как брать статьи с сайта">подробнее</a></span><!-- /Creative Commons License --></div>
+            
+					<a id="RSS-button" href="http://webmascon.com/daily/rss.php"><img src="Выпадающие%20меню%20с%20помощью%20CSS%20-%20Вёрстка%20-%20Webmascon_files/rssbadge.gif" alt="Webmascon Daily - RSS-формат" border="0" width="36" height="14" /></a>                        
+                    
+
+						<div class="friends-support">
+							<h3><a href="http://www.av5.com/jns">Журнал &#171;Системный Администратор&#187;&#160;&#8212; Online</a></h3>
+							<ul>
+								<li>&#8212; Удобное чтение online</li>
+								<li>&#8212; Архивы с 2003  года</li>
+								<li>&#8212; Оперативный выход новых номеров</li>
+								<li>&#8212; Более 50 номеров и 700 статей</li>
+								<li>&#8212; Бесплатные статьи</li>
+							</ul>
+							
+							<p>Все материалы лицензированы.</p>
+							
+							<a href="http://www.av5.com/jns">www.av5.com/jns</a>
+
+						</div>
+						
+						<div class="friends-support">
+						
+							<h3>Удобный хостинг $6/мес.</h3>
+							
+							<ul>
+								<li>&#8212; Поддержка PHP/Perl</li>
+								<li>&#8212; 500 Мб места на диске</li>
+								<li>&#8212; 15 Гб трафика в&#160;месяц</li>
+								<li>&#8212; Тестовые аккаунты</li>
+								<li>&#8212; Статистика</li>
+								<li>&#8212; MySQL база данных</li>
+								<li>&#8212; Панель управления</li>
+								<li>&#8212; SSH/FTP доступ</li>
+								<li>&#8212; 24x7x365 поддержка на русском</li>
+								<li>&#8212; Регистрация доменов</li>
+								<li>&#8212; Бесплатные поддомены</li>
+								<li>&#8212; 100+ PHP скриптов</li>
+							</ul>
+							
+							<a title="Hosting for PHP/MySQL sites. Trial accounts, money back guarantee.&#10;Control Panel, WebMail. " href="http://www.av5.com/hosting" target="_blank">www.av5.com</a>
+
+						</div>
+						
+						<br/>
+						<div class="friends-support">
+						<a href="http://www.tokyo-transit.com/" title="Русский гид по Токио и Японии">Русский гид по Токио и Японии</a>
+						<ul>
+							<li><a href="http://www.tokyo-transit.com/tours/index.php">Экскурсии по Японии</a></li>
+							<li><a href="http://www.tokyo-transit.com/tours/tokio.php">Экскурсии по Токио</a></li>
+							<li><a href="http://www.tokyo-transit.com/tours/kioto.php">Экскурсии по Киото</a></li>
+						</ul>
+						</div>
+						<br/>
+						<div><p></p></div>
+                      
+      </div>
+    <div class="footer">
+                        <div><a href="http://webmascon.com/about/"><img src="Выпадающие%20меню%20с%20помощью%20CSS%20-%20Вёрстка%20-%20Webmascon_files/sitetitl.gif" alt="Логотип Webmascon и ссылка на информацию о проекте" width="128" height="26" border="0" /></a></div>
+                        
+                        <div>Автор и администратор ресурса - <a href="mailto:admin@webmascon.com">Александр Качанов</a></div>
+                        
+                        <div><a href="http://webmascon.com/about/" class="copyright">Webmascon Project</a> открыт в 1999 году</div>
+                        
+                        <div>&copy; 1999-2005, <a href="http://webmascon.com/about/">Webmascon</a> (ISSN: 1810-9527)</div>
+    </div>
+     <div id="bottom_adv">                 
+            <div><!--begin of Rambler's Top100 code --><a href="http://top100.rambler.ru/top100/"><img src="Выпадающие%20меню%20с%20помощью%20CSS%20-%20Вёрстка%20-%20Webmascon_files/top10000.gif" alt="" width="1" height="1" border="0" /></a><!--end of Top100 code--><!--begin of Top100 logo--><a href="http://top100.rambler.ru/top100/"><img src="Выпадающие%20меню%20с%20помощью%20CSS%20-%20Вёрстка%20-%20Webmascon_files/banner-8.gif" alt="Rambler's Top100" width="88" height="31" border="0" /></a><!--end of Top100 logo --></div>
+     
+            <div><!-- BEGIN Rating All.BY CODE - ALTERNATING THIS CODE WILL CAUSE TERMINATION ACCOUNT--><a href="http://www.all.by/"><img src="Выпадающие%20меню%20с%20помощью%20CSS%20-%20Вёрстка%20-%20Webmascon_files/rating00.gif" alt="Rating All.BY" width="90" height="32" border="0"/></a><!-- END Rating All.BY CODE--></div>
+            
+            <div><!-- Akavita counter code --><img src="Выпадающие%20меню%20с%20помощью%20CSS%20-%20Вёрстка%20-%20Webmascon_files/lik00000.png" alt="Akavita" width="88" height="31" border="0" /></div>
+            
+            <div><a href="http://validator.w3.org/check/referer"><img src="Выпадающие%20меню%20с%20помощью%20CSS%20-%20Вёрстка%20-%20Webmascon_files/valid-xh.png" alt="Valid XHTML 1.0!" width="88" height="31" border="0" /></a></div>
+     </div>    
+
+<!--
+
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+   <dc:type rdf:resource="http://purl.org/dc/dcmitype/Text" />
+   <license rdf:resource="http://creativecommons.org/licenses/by-nc-sa/1.0/" />
+</Work>
+
+<License rdf:about="http://creativecommons.org/licenses/by-nc-sa/1.0/">
+   <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+   <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+   <requires rdf:resource="http://web.resource.org/cc/Notice" />
+   <requires rdf:resource="http://web.resource.org/cc/Attribution" />
+   <prohibits rdf:resource="http://web.resource.org/cc/CommercialUse" />
+   <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+   <requires rdf:resource="http://web.resource.org/cc/ShareAlike" />
+</License>
+
+</rdf:RDF>
+
+-->                                                                    
+    </div>
+</div>    
+
+</body>
+</html>
+
+<!-- This document saved from http://webmascon.com/topics/coding/42a.asp -->

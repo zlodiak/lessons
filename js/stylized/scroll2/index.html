@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8" />
+		
+		<title></title>	
+
+		<!--<link rel="icon" href="img/favicon.ico" type="image/x-icon" />-->
+		
+		<!--<meta http-equiv="X-UA-Compatible" content="IE=edge" />-->	
+		
+		<link rel="stylesheet" href="css/style.css" />	
+
+		<style>	
+			.b-wrapper {
+				width: 960px;
+				margin: 0 auto;
+			}
+
+			.b-scroll-test {
+				overflow: auto;
+				max-height: 500px;
+
+			}
+
+			#trackV {
+			  position: absolute;
+			  width: 20px;
+			  height: 500px;
+			  left: 199px;
+			}
+
+			/* ====== trackV ====== */
+
+			.rScrollbar__track-v {
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				width: 16px;
+					-moz-border-radius: 7px;						
+					-webkit-border-radius: 7px;	
+					-khtml-border-radius: 7px;				
+					border-radius: 7px;						
+				
+			}
+
+				.rScrollbar__track-v .track {
+					position: absolute;
+					top: 0px;
+					bottom: 0px;
+					left: 0;
+					width: 4px;
+					-moz-border-radius: 7px;						
+					-webkit-border-radius: 7px;	
+					-khtml-border-radius: 7px;				
+					border-radius: 7px;		
+					border: 2px solid #d5d2d2;
+					cursor: pointer;
+				}
+
+					/* scroll bg */
+					.rScrollbar__track-v .track .track-t,
+					.rScrollbar__track-v .track .track-b {
+						position: absolute;
+						left: 0;
+						width: 4px;
+						background: #fff;
+						border: 2px solid #d5d2d2;
+						-moz-border-radius: 7px;						
+						-webkit-border-radius: 7px;	
+						-khtml-border-radius: 7px;				
+						border-radius: 7px;							
+						/*background: url('http://s4.hostingkartinok.com/uploads/images/2014/04/bf209760896753596313897f0faeb62b.png') no-repeat;*/
+					}
+
+					/* up arrow */
+					.rScrollbar__track-v .track .track-t {
+						top: 0;
+						height: 5px;
+						background-position: 0 0;
+						display: none;
+					}
+
+					.rScrollbar__track-v .track .track-b {
+						top: 0px;
+						bottom: 0;
+						background-position: -16px 100%;
+						
+					}
+
+					/*handle*/
+					.rScrollbar__track-v .bar {
+						position: absolute;
+						z-index: 1;
+						top: 0;
+						left: 0px;
+						width: 4px;
+						min-height: 20px;
+						background: #b2b4b3;
+						-moz-border-radius: 7px;						
+						-webkit-border-radius: 7px;	
+						-khtml-border-radius: 7px;				
+						border-radius: 7px;	
+						cursor: pointer;	
+					}
+
+						.rScrollbar__track-v .bar .bar-t,
+						.rScrollbar__track-v .bar .bar-b {
+							position: absolute;
+							left: 0;
+							width: 16px;
+							/*background: url('http://s3.hostingkartinok.com/uploads/images/2014/04/4d35670dea0a19966c66d74d17e0c44d.png') no-repeat;*/
+						}
+
+						.rScrollbar__track-v .bar .bar-t {
+							top: 0;
+							height: 8px;
+							background-position: 0 0;
+
+						}
+
+						.rScrollbar__track-v .bar.hover .bar-t {
+							background-position: -32px 0;
+						}
+
+						.rScrollbar__track-v .bar .bar-b {
+							top: 8px;
+							bottom: 0;
+							background-position: -16px 100%;
+						}
+
+						.rScrollbar__track-v .bar.hover .bar-b {
+							background-position: -48px 100%;
+						}
+
+				.rScrollbar__track-v .but-up,
+				.rScrollbar__track-v .but-down {
+					width: 16px;
+					height: 11px;
+					/*background: url('http://s4.hostingkartinok.com/uploads/images/2014/04/0e7d78824c9a728eb02ef4dbc20bec96.png') no-repeat;*/
+				}
+
+				.rScrollbar__track-v .but-up {
+					position: absolute;
+					top: 0;
+					left: 0;
+					background-position: 0 0;
+				}
+
+				.rScrollbar__track-v .but-up.hover {
+					background-position: -16px 0;
+				}
+
+				.rScrollbar__track-v .but-down {
+					position: absolute;
+					left: 0;
+					bottom: 0;
+					background-position: 0 100%;
+				}
+
+				.rScrollbar__track-v .but-down.hover {
+					background-position: -16px 100%;
+				}
+
+			/* ====== /trackV ====== */
+
+
+			/* ====== trackH ====== */
+
+			.rScrollbar__track-h {
+				position: absolute;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				height: 16px;
+			}
+
+				.rScrollbar__track-h .track {
+					position: absolute;
+					left: 11px;
+					right: 11px;
+					top: 0;
+					height: 100%;
+				}
+
+					.rScrollbar__track-h .track .track-l,
+					.rScrollbar__track-h .track .track-r {
+						position: absolute;
+						top: 0;
+						height: 16px;
+						background: url('http://s6.hostingkartinok.com/uploads/images/2014/04/9474656d290efa484222924c098461d5.png') no-repeat;
+					}
+
+					.rScrollbar__track-h .track .track-l {
+						left: 0;
+						width: 5px;
+						background-position: 0 0;
+					}
+
+					.rScrollbar__track-h .track .track-r {
+						left: 5px;
+						right: 0;
+						background-position: 100% -16px;
+					}
+
+					.rScrollbar__track-h .bar {
+						position: absolute;
+						z-index: 1;
+						top: 0;
+						left: 0;
+						height: 100%;
+						min-width: 20px;
+					}
+
+						.rScrollbar__track-h .bar .bar-l,
+						.rScrollbar__track-h .bar .bar-r {
+							position: absolute;
+							top: 0;
+							height: 16px;
+							background: url('http://s4.hostingkartinok.com/uploads/images/2014/04/9d1a5747b9813f1f27fa3fe567102048.png') no-repeat;
+						}
+
+						.rScrollbar__track-h .bar .bar-l {
+							left: 0;
+							width: 8px;
+							background-position: 0 0;
+						}
+
+						.rScrollbar__track-h .bar.hover .bar-l {
+							background-position: 0 -32px;
+						}
+
+						.rScrollbar__track-h .bar .bar-r {
+							left: 8px;
+							right: 0;
+							background-position: 100% -16px;
+						}
+
+						.rScrollbar__track-h .bar.hover .bar-r {
+							background-position: 100% -48px;
+						}
+
+				.rScrollbar__track-h .but-up,
+				.rScrollbar__track-h .but-down {
+					width: 11px;
+					height: 16px;
+					background: url('http://s6.hostingkartinok.com/uploads/images/2014/04/a6fbe673c13715204c3cb56730542aa7.png') no-repeat;
+				}
+
+				.rScrollbar__track-h .but-up {
+					position: absolute;
+					top: 0;
+					left: 0;
+					background-position: 0 0;
+				}
+
+				.rScrollbar__track-h .but-up.hover {
+					background-position: 0 -16px;
+				}
+
+				.rScrollbar__track-h .but-down {
+					position: absolute;
+					top: 0;
+					right: 0;
+					background-position: 100% 0;
+				}
+
+				.rScrollbar__track-h .but-down.hover {
+					background-position: 100% -16px;
+				}
+
+			/* ====== /trackH ====== */		
+			
+			.rScrollbar__viewport{
+				padding: 0 !important;
+				width: auto !important;
+			}
+		</style>	
+
+		<!--[if lt IE 9]>
+			<script src="js/html5/html5.js"></script>
+		<![endif]-->			
+	</head>
+	
+	<body>		
+		<div class="wrap">	
+			
+			<div class="content" style="position: relative">
+				<div class="scroll-pane b-scroll-test" id="left">
+					<section class="manufacturers">
+						<h1 class="h1 button1">Производители</h1>
+						
+						<article class="article">
+							<h1 class="h1">Контактные линзы</h1>
+							
+							<ul>
+								<li>
+									<a href="#"><img class="radius7" alt="" width="176" height="36" src="images/manufacturers/img1.png" /></a>
+								</li>
+								
+								<li>
+									<a href="#"><img class="radius7" alt="" width="176" height="36" src="images/manufacturers/img1.png" /></a>
+								</li>								
+							</ul>
+						</article>
+						
+						<article class="article">
+							<h1 class="h1">Солнцезащитные очки</h1>
+							
+							<ul>
+								<li>
+									<a href="#"><img class="radius7" alt="" width="176" height="36" src="images/manufacturers/img1.png" /></a>
+								</li>								
+							</ul>
+						</article>	
+
+						<article class="article">
+							<h1 class="h1">Очки для зрения</h1>
+							
+							<ul>
+								<li>
+									<a href="#"><img class="radius7" alt="" width="176" height="36" src="images/manufacturers/img1.png" /></a>
+								</li>								
+							</ul>
+						</article>	
+
+						<article class="article">
+							<h1 class="h1">Очковые линзы</h1>
+							
+							<ul>
+								<li>
+									<a href="#"><img class="radius7" alt="" width="176" height="36" src="images/manufacturers/img1.png" /></a>
+								</li>								
+							</ul>
+						</article>							
+					</section>
+					
+					<section class="about_us">
+						<h1 class="h1 button1">О нас</h1>
+						
+						<article class="article">
+							<ul>
+								<li>
+									Внимание! В последнее время участились случаи, когда наши клиенты пытаются купить линзы непосредственно в офисе.
+								</li>							
+							</ul>
+						</article>
+					</section>
+
+					<section class="docs">
+						<h1 class="h1 button1">Документы</h1>
+						
+						<article class="article">
+
+						</article>
+					</section>					
+				</div>
+				
+				<div id="trackV"></div>
+
+				<div id="right">
+				
+				</div>
+
+				<div id="center">
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+				</div>
+			</div>
+			
+			<div class="footer_correct"></div>
+		</div>	
+
+		<!-- jquery -->
+		<script src="js/jquery/jquery.2.min.js"></script>
+		
+		<!-- scroll2 -->
+		<script src="js/scroll2/scroll2.js"></script>		
+		
+
+		<!-- helper -->
+		<script src="js/helper/helper.js"></script>	
+		
+	</body>
+</html>

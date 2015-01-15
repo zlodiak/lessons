@@ -1,0 +1,180 @@
+<?php
+	/********************************************************************************************* hooks */
+	function news_tape_menu() {
+	  
+	  $items = array();
+	  
+	  $items['admin/config/user-interface/news_tape'] = array(
+		'title' => 'news_tape',
+		'description' => 'Configure the news_tape.',
+		'page callback' => '_edit_page_output',
+		'access arguments' => array('administer site configuration'),
+		'type' => MENU_NORMAL_ITEM,
+		//'file' => 'news_tape.admin.inc',
+		'menu_name' => 'main-menu'		
+	  );
+	  
+	$items['ajaxQuery'] = array(
+		'title' => 'ajax-query',
+		'page callback' => 'ajaxQuery',
+		'page arguments' => array(1),
+		'access arguments' => array('access content'),
+		'type' => MENU_LOCAL_TASK,	
+	);	  
+
+	  return $items;
+	}
+		
+	function news_tape_block_info(){
+		$blocks['news_tape'] = array(
+			'info' => t('News_tape'), 
+			'cache' => DRUPAL_CACHE_PER_ROLE
+		);
+		
+		return $blocks;
+	}		
+	
+	function news_tape_block_view($delta = '') {
+		switch($delta){
+			case 'news_tape':
+				$block['subject'] = t('News tape');
+
+				if(user_access('access content')){
+					$result = news_tape_data();
+
+					$items = news_tape_render($result);
+
+					if (empty($items)) { 
+						$block['content'] = t('News tape is empty.'); 
+					} 
+					else {
+						$block['content'] = theme('item_list', 	array(
+																	'items' => $items
+																)
+											);
+					}
+				}
+		}
+
+		return $block;
+	}   	
+	
+	function news_tape_help($path, $arg){
+		switch ($path){
+			case "admin/config/user-interface/news_tape":
+				return;
+				
+				break;
+		}
+	}
+	
+	/********************************************************************************************* inner functions */	
+	function _edit_page_output(){
+		$form = drupal_get_form('news_tape_settings');
+		
+		$result = news_tape_data();
+
+		$items = news_tape_render($result);
+
+		$list =	theme('item_list', 	array(
+										'items' => $items
+									)
+				);	
+			
+		$news_list = '<div class="news_list">' . $list . '</div>';
+		
+
+		
+		$result2 = render($form) . $news_list;
+
+		return $result2;
+	}	
+	
+	function ajaxQuery($num){	
+		$query = 	db_insert('news_tape')
+						->fields(array(
+							'title' => 1,
+							'body' => 2,
+							'date' => 3
+						))
+						->execute();	
+						
+		return drupal_json_output('hello');					
+	}
+		
+	function news_tape_settings() {	
+		$form['#attributes']['class'][] = 'news_tape_form';		
+		
+		$form['title'] = array(
+			'#title' =>  t('Title of news'),
+			'#required' => TRUE,		
+			'#type' => 'textfield'
+		);
+		
+		$form['body'] = array(
+			'#title' =>  t('body news'),
+			'#required' => TRUE,	
+			'#resizable' => FALSE,	
+			'#rows' => 10,
+			'#cols' => 25,		
+			'#type' => 'textarea'
+		);	
+		
+		$form['date'] = array(
+			'#title' =>  t('date'),
+			'#attributes' => array(
+				'class' => array('datefield'),
+			),
+			'#type' => 'textfield'
+		);	
+		
+		$form['submit'] = array(
+			'#type' => 'submit',
+			'#value' => t('Add News')
+		);
+		
+		$form["#submit"] = array('submit_first');		
+
+		return $form;
+	}	
+
+	function submit_first($form, &$form_state){	  
+		$query = 	db_insert('news_tape')
+						->fields(array(
+							'title' => $form_state['values']['title'],
+							'body' => $form_state['values']['body'],
+							'date' => $form_state['values']['date']
+						))
+						->execute();
+					
+		if($query){
+			drupal_set_message('News add successfully');
+		}
+		else{
+			drupal_set_message('News add error');
+		}
+	}	
+	
+	function news_tape_data(){	 
+		$query = db_select('news_tape', 'nt')
+			->fields('nt', array('id', 'title', 'body', 'date'))
+			->orderBy('id', 'DESC') 
+			->execute();
+
+			return $query; 
+	}		
+	
+	function news_tape_render($result){
+		$items = array();
+		
+		foreach ($result as $item){
+			$items[] = array(
+				'data' => '<div class="title">' . $item->title . '<div class="icon_delete" data-num="' . $item->id . '"></div>' . '</div><div class="body">' . $item->body . '</div><div class="date">' . $item->date .'</div>'
+			);
+		}	
+		
+		return $items;
+	}
+	
+	
+	

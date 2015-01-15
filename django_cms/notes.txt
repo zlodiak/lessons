@@ -1,0 +1,197 @@
+установить virtualenv blogik2 --python=python2.7
+
+=====================================================================
+workon blogik2
+
+=====================================================================
+pip install djangocms-installer
+
+=====================================================================
+(создавать отдельный каталог в каталоге рядом с project_env)!!
+
+создать проект:
+(env) $ djangocms -p . mysite
+
+
+далее привожу данные для подключения статики:
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'blogik5', 'static'),
+)
+
+в шаблоне:
+<link rel="stylesheet" href="{% static 'css/styles.css' %}" />   
+
+итого в браузере путь будет:
+http://localhost:8000/static/css/styles.css
+
+=====================================================================
+$ djangocms -p . mysite
+Database configuration (in URL format) [default sqlite://localhost/project.db]:
+django CMS version (choices: 2.4, 3.0, stable, develop) [default stable]:
+Django version (choices: 1.4, 1.5, 1.6, stable) [default stable]:
+Activate Django I18N / L10N setting (choices: yes, no) [default yes]:
+Install and configure reversion support (choices: yes, no) [default yes]:
+Languages to enable. Option can be provided multiple times, or as a comma separated list: en,de
+Optional default time zone [default America/Chicago]:
+Activate Django timezone support (choices: yes, no) [default yes]:
+Activate CMS permission management (choices: yes, no) [default yes]:
+Use Twitter Bootstrap Theme (choices: yes, no) [default no]: yes
+Use custom template set [default no]:
+Load a starting page with examples after installation (choices: yes, no) [default no]: yes
+
+Creating admin user
+$ Username: admin
+$ Email address: email@example.com
+$ Password: admin
+$ Password (again): admin
+
+=====================================================================
+(env) $ python manage.py runserver
+
+=====================================================================
+проверить версию питона:
+python --version
+
+=====================================================================
+проверить версию django:
+python
+>>> import django
+>>> django.VERSION
+
+=====================================================================
+создать приложение:
+в каталоге с .db исполнить:
+python manage.py startapp app_name
+
+=====================================================================
+создать отдельное приложение для polls по:
+https://github.com/divio/django-cms-tutorial/blob/master/Step%203%20-%20CMS%20Plugins.md
+
+внимние:
+class CMSPollPlugin(CMSPluginBase):
+    model = PollPlugin  # Model where data about this plugin is saved
+    module = _("Polls")
+    name = _("Poll Plugin")  # Name of the plugin
+    render_template = "djangocms_polls/poll_plugin.html"  # template to render the plugin with
+
+    # def render(self, context, instance, placeholder):
+    #     context.update({'instance': instance})
+    #     return context
+
+    def render(self, context, instance, placeholder):
+        context.update({
+            'latest_event': self.model.objects.all()[:1],
+            'placeholder': placeholder
+        })
+
+        return context        
+
+plugin_pool.register_plugin(CMSPollPlugin)  # register the plugin
+
+=====================================================================
+миграция:
+Создадим точку отсчета миграций для приложения foo и применим их
+./manage.py schemamigration foo --init
+./manage.py migrate foo
+Добавим новое поле в модель foo и укажем south на изменения
+./manage.py schemamigration foo --auto
+Применим новые изменения в модели:
+./manage.py migrate foo
+
+
+=====================================================================
+и снова про south:
+Просто выполните  manage.py schemamigration --initial <app name>, вместо базовой команды manage.py syncdb. Эта команда создаст новый пакет миграции, новый файл миграции (в виде скрипта на pyshon).
+
+Запустите файл миграции используя комманду manage.py migrate. Все таблицы будут созданы в базе данных и Django будет работать как обычно.
+
+Каждый раз, после внесения каких-либо изменений в файле models.py, просто выполните команду manage.py schemamigration --auto <app name>  чтобы создать новый файл миграции. И выполните  manage.py migrate чтобы применить ищменения.
+
+=====================================================================
+шаблоны для меню, хлебных крошек и т.д. здесь:
+https://github.com/divio/django-cms/tree/develop/menus/templates/menu
+
+подключать так:
+{% show_breadcrumb "breadcrumb.html" %}
+
+SOFTROOT может сократить избыточно длинную цепочку 
+
+=====================================================================
+в шаблоне:
+{% render_block "js" %} отвечает за вывод верхнего меню администратора (?edit)
+
+{% cms_toolbar %}
+тоже
+
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+за все стили, кроме верхнего меню администратора
+
+=====================================================================
+блок текста в подвале:
+В базовом шаблоне ставим тэг {% static_placeholder "copyright" %}. Теперь при дваждыклике на этот текст в режиме редактирования контента будет открываться визивиг. Тэг static_placeholder позволяет создать как раз такие области, содержимое которых не зависит от страницы, на которой они расположены. Как раз удачно подходит для копирайтов в футере, логотипа (если возможно, что он будет меняться), и прочей общей для всех страниц ерунды. Есть ещё тэг placeholder. Его поведение похоже, но он может быть переопределён для отдельных страниц. Оба тэга должны содержать плагины, к примеру текст, но могут содержать и любую конструкцию из плагинов. Также они могут иметь контент по умолчанию, если в плэйсхолдеры ничего не внесено.
+
+=====================================================================
+убрать ru из адресной строки в случае одноязычного сайта:
+replace this pattern registration:
+
+urlpatterns = i18n_patterns('',
+ url(r'^admin/', include(admin.site.urls)),
+ url(r'^', include('cms.urls')),
+)
+with this:
+
+from django.conf.urls import patterns
+
+urlpatterns = patterns('',
+  url(r'^admin/', include(admin.site.urls)),
+  url(r'^', include('cms.urls')),
+)
+
+
+=====================================================================
+если при установке вывдится ошибак :
+EnvironmentError: Pillow is not compiled with JPEG support, see 'Libraries installation issues' documentation section: http://djangocms-installer.readthedocs.org/en/latest/libraries.html
+
+,то нужно переустановить pillow:
+Add JPEG support to Pillow, in Ubuntu you can do the following:
+
+sudo apt-get install libjpeg-dev libfreetype6-dev zlib1g-dev
+
+# Link the libraries for Pillow to find them:
+
+sudo ln -s /usr/lib/`uname -i`-linux-gnu/libfreetype.so /usr/lib/
+sudo ln -s /usr/lib/`uname -i`-linux-gnu/libjpeg.so /usr/lib/
+sudo ln -s /usr/lib/`uname -i`-linux-gnu/libz.so /usr/lib/
+
+# reinstall Pillow (In case you have Pillow already installed)
+pip install --upgrade --force-reinstall pillow
+
+=====================================================================
+=====================================================================
+=====================================================================
+=====================================================================
+=====================================================================
+=====================================================================
+=====================================================================
+=====================================================================
+=====================================================================
+=====================================================================
+=====================================================================
+=====================================================================
+=====================================================================
+=====================================================================
+=====================================================================
+=====================================================================
+=====================================================================
+=====================================================================
+=====================================================================
+=====================================================================
+=====================================================================
+=====================================================================
+=====================================================================

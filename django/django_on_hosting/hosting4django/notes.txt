@@ -1,0 +1,220 @@
+зарегистрироваться. тестовый период 30 дней. даётся  доменное имя типа http://blogik5.djangohost.name/
+
+==============================
+зайти  впанель.
+создать проект на django-cms в соответствии с этим 
+https://hosting4django.net/knowledgebase.php/8/DjangoCMS-one-click-install.html?action=displayarticle&id=8
+
+
+==============================
+обязательно созать пользователя ftp и подключиться
+
+==============================
+в том случае если необходимо перенести готовый проект, нужно тоже подключиться по ftp и удалить файлы. затем залить свои. затем поменять настройки
+
+не забыть перегрузиться. в панели на вкладке app есть кнопка restart
+
+==============================
+менять настройки так:
+manage.py
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "blogik.settings")
+
+
+settings.py
+ROOT_URLCONF = 'blogik.urls'
+WSGI_APPLICATION = 'blogik.wsgi.application'
+
+и не забыть вообще во всём файле заменить blogik
+
+
+wsgi.py:
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "blogik.settings")
+
+==============================
+затем workon logik
+
+==============================
+собрать статику:
+python manage.py collectstatic
+
+==============================
+так же доустановить необходимые пакеты типа sorl-thumbnail
+
+==============================
+новый туториал. перенос на хостинг готового проекта
+
+есть python 2.7
+
+у меня проект с requirements.txt:
+Django==1.6.8
+Pillow==2.6.1
+South==1.0.1
+argparse==1.2.1
+dj-database-url==0.3.0
+django-classy-tags==0.5.1
+django-cms==3.0.6
+django-mptt==0.6.1
+django-reversion==1.8.5
+django-sekizai==0.7
+django-summernote==0.5.15
+djangocms-admin-style==0.2.2
+djangocms-column==1.5
+djangocms-file==0.1
+djangocms-flash==0.1
+djangocms-googlemap==0.2
+djangocms-inherit==0.1
+djangocms-installer==0.5.4
+djangocms-link==1.5
+djangocms-picture==0.1
+djangocms-style==1.4
+djangocms-teaser==0.1
+djangocms-text-ckeditor==2.4.1
+djangocms-video==0.1
+html5lib==0.999
+pytz==2014.9
+six==1.8.0
+wsgiref==0.1.2
+
+
+создаю фтп-пользователя(при этом указываю каталог /)
+
+подключаюсь через ssh
+ssh user@hostingserver
+(при этом mc в терминале моего настолького компа не запущен)
+
+зашедши по ssh сразу, не запукая mc на удалённой машине активирую вирт окружение workon name
+
+затем переношу тарбол в каталог public_html
+
+распаковываю
+
+устанавливаю необходимые пакеты 
+pip install -r requirements.txt
+
+если случаются баги, то в requirements.txt удаляю проблемные строки и снова пробую
+
+-----------------
+проверить пути и настройки
+
+manage.py
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "blogik.settings")
+
+
+settings.py
+ROOT_URLCONF = 'blogik.urls'
+WSGI_APPLICATION = 'blogik.wsgi.application'
+
+и не забыть вообще во всём файле заменить blogik
+
+
+wsgi.py:
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "blogik.settings")
+
+не забыть поменять debug = false
+
+---------------------
+
+
+собрать статику:
+python manage.py collectstatic
+
+не забыть перегрузиться. в панели на вкладке app есть кнопка restart
+
+==============================
+чтобы отправлять письма нужно создать ящик, прописать в settings:
+EMAIL_HOST = 'kinopomoika.djangohost.name'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'mailsender@kinopomoika.djangohost.name'
+EMAIL_HOST_PASSWORD = 'dfgdfg5'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+
+view:
+def feedback(request):	
+	'''
+	page for output feedback form
+	'''
+	feedback_form =  FeedbackForm()	
+
+	if request.method == 'POST':	
+		feedback_form =  FeedbackForm(request.POST)	
+
+		if feedback_form.is_valid():	
+			username = request.POST.get('username', '')	
+			subject = request.POST.get('subject', '')	
+			email = request.POST.get('email', '')	
+			message = request.POST.get('message', '')	
+
+			try:
+				Feedback.objects.create(
+					username=username.strip(), 
+					subject=subject.strip(), 
+					email=email.strip(), 
+					message=message.strip(), 
+				)
+
+				send_mail(
+					subject,
+					message,
+					['mailsender2015@yandex.ru'], 	# my email
+					email,							# sender email
+				)				
+			except:
+				print('error in try block')
+			else:
+				t = loader.get_template('page_feedback_ok.html')
+				c = RequestContext(request, {})	
+				
+				return HttpResponse(t.render(c)) 	
+
+	t = loader.get_template('page_feedback.html')
+	c = RequestContext(request, {		
+		'feedback_form': feedback_form,
+	})	
+	
+	return HttpResponse(t.render(c)) 	
+
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================

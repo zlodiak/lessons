@@ -1,0 +1,529 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru" dir="ltr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="/files/novosibirsk_favicon_5.png" type="image/x-icon" />
+  <title>[Решено] Темизация страницы контактов, редактирование полей и т.д. (внутренний модуль Contact) | Drupal в рунете</title>
+  <link type="text/css" rel="stylesheet" media="all" href="/files/css/css_9a9ae78ce8c5a2e02ca04b3714606155.css" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/themes/novosibirsk/3column.css" />
+<script type="text/javascript" src="/files/js/js_16593c330101ee72b06bf43650eeaf9c.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, { "basePath": "/", "BUE": { "templates": { "e3": { "iconpath": "/sites/all/modules/bueditor/icons", "buttons": [ [ "Вставить/Редактировать изображение", "js:\nvar B = eDefBrowseButton(\'\', \'attr_src\', \'Browse\', \'image\');\nvar form = [\n {name: \'src\', title: \'Адрес изображения\', suffix: B},\n {name: \'width\', title: \'Ширина x Высота\', suffix: \' x \', getnext: true, attributes: {size: 3}},\n {name: \'height\', attributes: {size: 3}},\n {name: \'alt\', title: \'Альтернативный текст\'},\n{name: \'align\', title: \'Выравнивание\', type: \'select\', options: {\'\': \'\', left: \'По левому краю\', right: \'По правому краю\', center: \'По центру\'}}\n];\neDefTagDialog(\'img\', form, \'Вставить/Редактировать изображение\', \'Вставить\');\n", "picture.png", "M" ], [ "Вставить/Редактировать ссылку", "js:\nvar B = eDefBrowseButton(\'\', \'attr_href\', \'Browse\', \'link\');\nvar form = [\n {name: \'href\', title: \'Адрес ссылки\', suffix: B},\n {name: \'title\', title: \'Текст подсказки\'}\n];\neDefTagDialog(\'a\', form, \'Вставить/Редактировать ссылку\', \'Вставить\');\n", "link.png", "L" ], [ "tpl:", "", "separator.gif", "" ], [ "Ссылки на ресурсы drupal", "js:\nBUE.getUserInput = function(form) {\n	E.tagSelection(\'[\'+ form.elements[\"tega\"].value +\'=\'+ form.elements[\"linkitem\"].value +\']\', \'[/\'+ form.elements[\"tega\"].value+\']\', \'end\');\n  BUE.dialog.close();//close the dialog when done.\n}\n\nvar taggsForm = \'\x3cform onsubmit=\"editor.getUserInput(this); return false;\"\x3e\x3ctable\x3e\';//run getUserInput on submission\ntaggsForm += \'\x3ctr\x3e\x3ctd\x3eСсылка на\x3c/td\x3e\';\ntaggsForm += \'\x3ctd\x3e\x3cselect size=\"1\" name=\"tega\"\x3e\x3coption value=\"module\"\x3eModule\x3c/option\x3e\x3coption value=\"theme\"\x3eTheme\x3c/option\x3e\x3coption value=\"user\"\x3eUser\x3c/option\x3e\x3coption value=\"ru-api\"\x3eAPI.ru\x3c/option\x3e\x3coption value=\"api\"\x3eAPI.org\x3c/option\x3e\x3coption value=\"man\"\x3ePHP\x3c/option\x3e\x3c/select\x3e\x3c/td\x3e\x3c/tr\x3e\';\ntaggsForm += \'\x3ctr\x3e\x3ctd\x3eИмя / Название\x3c/td\x3e\';\ntaggsForm += \'\x3ctd\x3e\x3cinput type=\"text\" name=\"linkitem\" /\x3e\x3c/td\x3e\x3c/tr\x3e\';\ntaggsForm += \'\x3c/table\x3e\x3cinput type=\"submit\" value=\"Вставить\" /\x3e\x3c/form\x3e\';\nBUE.dialog.open(\'Вставка ссылки на ресурс drupal\', taggsForm);// powered by EllECTRONC", "plugin.png", "" ], [ "Ссылки на материал drupal", "js:\nBUE.getUserInput = function(form) {\n	E.tagSelection(\'[\'+ form.elements[\"tega\"].value + form.elements[\"linkitem\"].value +\']\', \'[/\'+ form.elements[\"tega\"].value+\']\', \'end\');\n  BUE.dialog.close();//close the dialog when done.\n}\n\nvar taggsForm = \'\x3cform onsubmit=\"editor.getUserInput(this); return false;\"\x3e\x3ctable\x3e\';//run getUserInput on submission\ntaggsForm += \'\x3ctr\x3e\x3ctd\x3eВыберите ресурс\x3c/td\x3e\';\ntaggsForm += \'\x3ctd\x3e\x3cselect size=\"1\" name=\"tega\"\x3e\x3coption value=\"#\"\x3eDrupal.ru\x3c/option\x3e\x3coption value=\"##\"\x3eDrupal.org\x3c/option\x3e\x3c/select\x3e\x3c/td\x3e\x3c/tr\x3e\';\ntaggsForm += \'\x3ctr\x3e\x3ctd\x3eНомер node\x3c/td\x3e\';\ntaggsForm += \'\x3ctd\x3e\x3cinput type=\"text\" name=\"linkitem\" /\x3e\x3c/td\x3e\x3c/tr\x3e\';\ntaggsForm += \'\x3c/table\x3e\x3cinput type=\"submit\" value=\"Вставить\" /\x3e\x3c/form\x3e\';\nBUE.dialog.open(\'Вставка ссылки на материал drupal\', taggsForm);// powered by EllECTRONC", "book_open.png", "" ], [ "tpl:", "", "separator.gif", "" ], [ "Жирный", "\x3cstrong\x3e%TEXT%\x3c/strong\x3e", "text_bold.png", "B" ], [ "Курсив", "js: eDefTagger(\'em\');//toggle tag", "text_italic.png", "I" ], [ "Подчеркнутый", "\x3cu\x3e%TEXT%\x3c/u\x3e", "text_underline.png", "U" ], [ "Зачеркнутый", "js: eDefTagger(\'strike\');", "text_strikethrough.png", "S" ], [ "Мелкий шрифт", "js: eDefTagger(\'small\');", "text_smallcaps.png", "" ], [ "Заголовки", "js: eDefTagChooser([\n [\'h1\', \'Заголовок 1\'],\n [\'h2\', \'Заголовок 2\'],\n [\'h3\', \'Заголовок 3\'],\n [\'h4\', \'Заголовок 4\']\n], true, \'li\', \'ul\', \'slideDown\');//choose among tags", "text_heading_1.png", "H" ], [ "tpl:", "", "separator.gif", "" ], [ "По левому краю", "\x3cdiv class=\"editor-left-button\"\x3e%TEXT%\x3c/div\x3e", "text_align_left.png", "" ], [ "По центру", "\x3cdiv class=\"editor-center-button\"\x3e%TEXT%\x3c/div\x3e", "text_align_center.png", "C" ], [ "По правому краю", "\x3cdiv class=\"editor-right-button\"\x3e%TEXT%\x3c/div\x3e", "text_align_right.png", "" ], [ "tpl:", "", "separator.gif", "" ], [ "Длинное тире", " — ", "—", "" ], [ "Кавычки", "«%TEXT%»", "« »", "" ], [ "Вставка кода", "js: eDefTagChooser([\n [\'code\', \'Без атрибутов\'],\n [\'code\', \'C\', {\'lang\': \'c\'}],\n [\'code\', \'CSS\', {\'lang\': \'css\'}],\n [\'code\', \'C++\', {\'lang\': \'cpp\'}],\n [\'code\', \'Drupal 5\', {\'lang\': \'drupal5\'}],\n [\'code\', \'Drupal 6\', {\'lang\': \'drupal6\'}],\n [\'code\', \'Java\', {\'lang\': \'java\'}],\n [\'code\', \'Javascript\', {\'lang\': \'javascript\'}],\n [\'code\', \'HTML\', {\'lang\': \'html4strict\'}],\n [\'code\', \'PHP\', {\'lang\': \'php\'}],\n [\'code\', \'Python\', {\'lang\': \'python\'}],\n [\'code\', \'Ruby\', {\'lang\': \'ruby\'}],\n [\'code\', \'SQL\', {\'lang\': \'sql\'}]\n], true, \'li\', \'ul\', \'slideDown\');", "page_white_code.png", "" ], [ "tpl:", "", "separator.gif", "" ], [ "Нумерованный список. Преобразовывает выбранные линии в пронумерованный список.", "js: eDefTagLines(\'\x3col\x3e\\n\', \' \x3cli\x3e\', \'\x3c/li\x3e\', \'\\n\x3c/ol\x3e\');", "text_list_numbers.png", "O" ], [ "Обычный список. Преобразовывает выбранные линии в маркированный список.", "js: eDefTagLines(\'\x3cul\x3e\\n\', \' \x3cli\x3e\', \'\x3c/li\x3e\', \'\\n\x3c/ul\x3e\');", "text_list_bullets.png", "U" ], [ "tpl:", "", "separator.gif", "" ], [ "Граница анонса", "\x3c!--break--\x3e", "text_horizontalrule.png", "T" ], [ "Предпросмотр", "js: eDefPreview();", "eye.png", "P" ], [ "Информация", "js: eDefHelp(\'slideDown\');", "information.png", "F" ] ] } }, "preset": { "edit-comment": "e3" } }, "ahah": { "edit-attach": { "url": "/comment-upload/js", "event": "mousedown", "keypress": true, "wrapper": "attach-wrapper", "selector": "#edit-attach", "effect": "none", "method": "replace", "progress": { "type": "bar", "message": "Пожалуйста, подождите..." }, "button": { "attach": "Прикрепить" } } }, "tableDrag": { "comment-upload-attachments": { "comment-upload-weight": [ { "target": "comment-upload-weight", "source": "comment-upload-weight", "relationship": "sibling", "action": "order", "hidden": true, "limit": 0 } ] } } });
+//--><!]]>
+</script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+function druid_forum_goto(fid) { window.location = '/forum/' + fid; }
+//--><!]]>
+</script>
+<!--[if IE]><style>
+.outer, .wide, h2, .wrapper, .minwidth {height: 0; he\ight: auto; zoom: 1;}
+/* rimuove complicazione per Gecko 1.7- */
+.left {margin-right: 1px;}
+.right {margin-left: 1px;}
+#login {width: 178px;}
+img, div { behavior: url(/sites/all/themes/novosibirsk/iepngfix.htc) }
+</style><![endif]-->
+
+<!--[if lt IE 7]><style>
+/* previene espansione center */
+.incenter {width: 100%;	margin-right: -10000px;	position: relative;}
+.center .news2 {margin:0 1px 1px 1px;}
+.minwidth {border-left: 904px solid #fff;}
+.wrapper {margin-left: -904px; position: relative;}
+#topmenu {position:rolevante !important;}
+</style><![endif]-->
+</head>
+
+
+<body>
+<div id="content"> <!-- высота -->
+	<div>  <!-- 3 колонки -->       
+
+  <!--шапка над 3 колонками-->
+	<div class="minwidth"><div class="wrapper">
+
+  <div id="header">
+		<div id="logo"><a href="/" title=""></a></div>
+		<p id="logo-name"><a href="/" title="Drupal Россия"><strong>Drupal</strong> Россия</a></p>
+		<div id="sub-header">
+
+			    <ul class="links" id="sub-topmenu"><li class="menu-122 first"><a href="/features">О Drupal</a></li>
+<li class="menu-244"><a href="/book" title="">Документация</a></li>
+<li class="menu-124"><a href="/about" title="">О Проекте</a></li>
+<li class="menu-2245 last"><a href="/rules" title="">Правила</a></li>
+</ul>
+			<div id="block-block-42" class="block block-block">
+
+  <div class="content">
+    <div style="float:right">
+ <form id="searchbox_000263937362789758988:cjkmtu9kh3o" onsubmit="return false;">  <input type="text" name="q" size="17" style="border: 1px solid gray;" />  <input type="submit" value="&gt;" style="background-color:black;color:gray;border:1px solid gray;" /> </form> <script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_000263937362789758988%3Acjkmtu9kh3o&lang=ru"></script>  <div id="results_000263937362789758988:cjkmtu9kh3o" style="display:none; margin: 2em auto 0 auto; width: 600px;">  <div class="cse-closeResults">  <a>&times; Закрыть</a>  </div>  <div class="cse-resultsContainer"></div> </div>  <style type="text/css">
+@import url(http://www.google.com/cse/api/overlay.css);
+</style>  <script src="http://www.google.com/uds/api?file=uds.js&v=1.0&key=ABQIAAAABziLyYEKTWIfRRZgEYgzVxRAXzc5NcDjCY5pgOlLwlGrpHjDAhTDOPA-lboJuy2fYcu44XRLmjS6gg&hl=ru" type="text/javascript"></script> <script src="http://www.google.com/cse/api/overlay.js"></script> <script type="text/javascript">
+function OnLoad() {
+  new CSEOverlay("000263937362789758988:cjkmtu9kh3o",
+                 document.getElementById("searchbox_000263937362789758988:cjkmtu9kh3o"),
+                 document.getElementById("results_000263937362789758988:cjkmtu9kh3o"));
+}
+GSearch.setOnLoadCallback(OnLoad);
+</script>
+</div>  </div>
+</div>
+			
+		</div>
+    <div id="topmenu">
+    	<a href="/tracker"   title="Новое на сайте">Новое на сайте</a><a href="/forum"   title="Форум">Форум</a><a href="http://api.drupal.ru"   title="API">API</a><a href="/blog"   title="Блоги">Блоги</a><a href="/aggregator/categories/1"   title="Планета">Планета</a>    	</div>
+	</div>
+
+	<div class="outer">
+		<div class="wrap-cl">
+			<div class="center"><div class="tabs"><ul class="tabs primary clear-block"><li class="active" ><a href="/node/60635" class="active"><span class="tab">Просмотреть</span></a></li>
+<li ><a href="/node/60635/revisions"><span class="tab">Версии</span></a></li>
+</ul></div><div class="incenter">
+
+			   <!-- новости -->
+   
+				
+
+<p id="navigation"><a href="/">Главная</a> &#8594; <a href="/blog">Блоги</a> &#8594; <a href="/blog/64422">Cypher&#039;s blog</a></p>
+				<div class="post">
+						<strong><h1>[Решено] Темизация страницы контактов, редактирование полей и т.д. (внутренний модуль Contact)</h1></strong>
+	<div class="ret">
+			<p>Прислано: <a href="/username/cypher" title="Профиль автора сообщения">Cypher</a></p><p class="formatdate">ср, 13/04/2011 - 13:33</p>
+	</div>
+			<div class="dr">Другие статьи по теме: <ul class="links inline"><li class="taxonomy_term_15362 first"><a href="/taxonomy/term/15362" rel="tag" title="">Есть вопрос</a></li>
+<li class="taxonomy_term_103"><a href="/taxonomy/term/103" rel="tag" title="">Drupal 6.*</a></li>
+<li class="taxonomy_term_1323"><a href="/taxonomy/term/1323" rel="tag" title="">contact</a></li>
+<li class="taxonomy_term_3667"><a href="/taxonomy/term/3667" rel="tag" title="">feedback</a></li>
+<li class="taxonomy_term_276"><a href="/taxonomy/term/276" rel="tag" title="">form</a></li>
+<li class="taxonomy_term_971 last"><a href="/taxonomy/term/971" rel="tag" title="">help</a></li>
+</ul></div>
+		<p><p><strong>Первая версия сообщения (задача)</strong><br />
+Доброго всем времени суток. Прошу наставить на путь истинный :)<br />
+Хочу сделать следующую страницу:</p>
+<p>Сверху вниз:<br />
+1) Несколько номеров телефонов<br />
+2) Адреса<br />
+3) Карта проезда<br />
+4) Форма обратной связи</p>
+<p>Думаю создать новый тип материала для этой страницы, например contact-page. Через ССК добавить к нему поля для телефонов, для картинки карты и т.д. Создать такую страницу, затем tpl-файл для этого типа материала и в нем все расположить как надо. Это чтобы реализовать 1) - 3).<br />
+Для 4) думаю использовать встроенный модуль contact. Тут требуется переиминовать стандартные заголовки полей формы и немного переставить их.</p>
+<p>Непонятки у меня следующие:<br />
+1] Как расположить на странице с моим типом contact-page саму форму обратной связи. Как её впихнуть туда, в tpl-файл? :)<br />
+2] Если использовать стандартную страницу /contact, которую делает модуль contact, то как для неё создать шаблон, как назвать и т.д.? Devel Themer не предлагает шаблон-кандидата.<br />
+3] Как переиминовать стандартные заголовки формы и расположение полей? Пока что пытаюсь вникнуть в <a href="http://drupaldance.com/blog/%D1%82%D0%B5%D0%BC%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F-%D1%84%D0%BE%D1%80%D0%BC"   rel="nofollow" >эту статью</a>.</p>
+<p>Прокомментируйте пожалуйста мой подход к формированию этой страницы контактов. Правильно ли копать начал?<br />
+Конечно же не против рассмотреть альтернативы, например для 4), ибо видел советы использовать другие модули. :)</p>
+<p><strong>Вторая версия сообщения (попытка наковырять решение):</strong><br />
+Имеется страница заданного типа материала. Под тип материала создан шаблон (node-тип.tpl.php).<br />
+Пытаюсь в нижнюю часть страницы добавить форму обратной связи (что реализуется модулем contact).<br />
+Пытаюсь править её по <a href="http://drupaldance.com/blog/%D1%82%D0%B5%D0%BC%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F-%D1%84%D0%BE%D1%80%D0%BC"   rel="nofollow" >этому</a> мануалу. В template.php добавляю:<br />
+<div class="codeblock geshifilter"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">тема_theme</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;return&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'user_profile_form'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'arguments'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">'form'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">NULL</span><span style="color: #007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;),<br />&nbsp;&nbsp;);<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div><br />
+Пишу тестовую функцию:<br />
+<div class="codeblock geshifilter"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">тема_user_profile_form</span><span style="color: #007700">(</span><span style="color: #0000BB">$form</span><span style="color: #007700">)&nbsp;<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;(</span><span style="color: #DD0000">"If&nbsp;u&nbsp;see&nbsp;it..."</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$form</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div><br />
+В нужной части файла node-тип.tpl.php вызываю:<br />
+<div class="codeblock geshifilter"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />тема_user_profile_form</span><span style="color: #007700">(</span><span style="color: #0000BB">$contact_mail_page</span><span style="color: #007700">)<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div><br />
+Выводится только сообщение из echo. Что-то не так с аргументом?<br />
+Его получил из скрытого поля формы, как сказанно в мануале.</p>
+<p>Подскажите, пожалуйста, что может быть не так?<br />
+Как узнать идентификатор нужной формы?</p>
+<p><strong>Решение (спасибо <strong>Eugeny</strong>):</strong></p>
+<p>В node-тип.tpl.php вставляем:<br />
+<div class="codeblock geshifilter"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />module_load_include</span><span style="color: #007700">(</span><span style="color: #DD0000">'inc'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'contact'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'contact.pages'</span><span style="color: #007700">);<br />print&nbsp;</span><span style="color: #DD0000">'&lt;div&nbsp;id="contact-form"&gt;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">drupal_get_form</span><span style="color: #007700">(</span><span style="color: #DD0000">'contact_mail_page'</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">'&lt;/div&gt;'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div></p>
+<p>В template.php добавляем (или дополняем массив если уже имеется соответствующая функция):</p>
+<p><div class="codeblock geshifilter"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">ваша_тема_theme</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;return&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'contact_mail_page'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'arguments'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">'form'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">NULL</span><span style="color: #007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;),<br />&nbsp;&nbsp;);<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div></p>
+<p>Туда же в template.php добавляем функцию<br />
+<div class="codeblock geshifilter"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">ваша_тема_contact_mail_page</span><span style="color: #007700">(</span><span style="color: #0000BB">$form</span><span style="color: #007700">)&nbsp;<br />{<br /></span><span style="color: #0000BB">dprint_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$form</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">/*смотрим&nbsp;что&nbsp;внутри*/<br /></span><span style="color: #0000BB">$output&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$form</span><span style="color: #007700">[</span><span style="color: #DD0000">'name'</span><span style="color: #007700">][</span><span style="color: #DD0000">'#title'</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #DD0000">"Новенькое&nbsp;имя"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$form</span><span style="color: #007700">[</span><span style="color: #DD0000">'name'</span><span style="color: #007700">][</span><span style="color: #DD0000">'#title'</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #DD0000">"Новенький&nbsp;дефолт&nbsp;валью"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$form</span><span style="color: #007700">[</span><span style="color: #DD0000">'name'</span><span style="color: #007700">][</span><span style="color: #DD0000">'#required'</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">/*Делаем&nbsp;поле&nbsp;не&nbsp;обязательным*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$form</span><span style="color: #007700">[</span><span style="color: #DD0000">'name'</span><span style="color: #007700">][</span><span style="color: #DD0000">'#prefix'</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #DD0000">'&lt;div&nbsp;class="wrapper"&gt;'</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">/*делаем&nbsp;обертку&nbsp;одного&nbsp;поля*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$form</span><span style="color: #007700">[</span><span style="color: #DD0000">'mail'</span><span style="color: #007700">][</span><span style="color: #DD0000">'#suffix'</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #DD0000">'&lt;/div&gt;'</span><span style="color: #007700">;<br />&nbsp;<br />&nbsp;</span><span style="color: #0000BB">$output&nbsp;</span><span style="color: #007700">.=&nbsp;</span><span style="color: #0000BB">drupal_render</span><span style="color: #007700">(</span><span style="color: #0000BB">$form</span><span style="color: #007700">);<br />&nbsp;return&nbsp;</span><span style="color: #0000BB">$output</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div><br />
+Смотрите так же <a href="http://api.drupal.ru/api/file/developer/topics/forms_api.html/6"  title="годный мануал" rel="nofollow" >годный мануал</a> по form-апи.</p>
+</p>	
+	    <div class="links-bottom"><ul class="links inline"><li class="blog_usernames_blog first"><a href="/blog/64422" title="Read Cypher&#039;s latest blog entries.">Cypher&#039;s blog</a></li>
+<li class="flag-bookmarks"><span><span class="flag-wrapper flag-bookmarks flag-bookmarks-60635">
+      <a href="/flag/flag/bookmarks/60635?destination=node%2F60635&amp;token=01bc71a2e68b2f522b420fdc22e99b13" title="Добавить материал в ваши закладки" class="flag flag-action flag-link-toggle" rel="nofollow">Добавить в закладки</a><span class="flag-throbber">&nbsp;</span>
+    </span>
+</span></li>
+<li class="flag-abuse_node"><span><span class="flag-wrapper flag-abuse-node flag-abuse-node-60635">
+      <a href="/flag/flag/abuse_node/60635?destination=node%2F60635&amp;token=01bc71a2e68b2f522b420fdc22e99b13" title="Пожаловаться на спам или несоответствие правилам сайта." class="flag flag-action flag-link-toggle" rel="nofollow">Уберите это!</a><span class="flag-throbber">&nbsp;</span>
+    </span>
+</span></li>
+<li class="google_plusone"><span><div class="g-plusone-wrapper" style="margin: 0 1em 1em 1em;float:right" ><div class="g-plusone" data-href="http://www.drupal.ru/node/60635" data-size="small" data-annotation="bubble" data-width="250" ></div></div></span></li>
+<li class="quote last"><a href="/comment/reply/60635?quote=1#comment-form" title="Ответить с цитированием на отдельной странице"><img src="/sites/all/themes/novosibirsk/img/icons/script__arrow.gif"></a></li>
+</ul><img src="/sites/all/themes/novosibirsk/img/icons/blog_pencil.gif" id="img_quote" title="Выделите текст и нажмите эту кнопку, чтобы вставить цитату" onmouseover="getText('Cypher');" onclick="insertQuote();"></div>
+  
+<div id="comments"><h2 class="comments">Комментарии</h2></div><br><form action="/node/60635"  accept-charset="UTF-8" method="post" id="comment-controls">
+<div><div class="box">
+
+  <h2>Настройки просмотра комментариев</h2>
+
+  <div class="content"><div class="container-inline"><input type="hidden" name="form_build_id" id="form-854912c35cb11609212f81dd2eff0c35" value="form-854912c35cb11609212f81dd2eff0c35"  />
+<input type="hidden" name="form_token" id="edit-comment-controls-form-token" value="3e149c6d3cb5f2ada51c34d76f543984"  />
+<input type="hidden" name="form_id" id="edit-comment-controls" value="comment_controls"  />
+<div class="form-item" id="edit-mode-wrapper">
+ <select name="mode" class="form-select" id="edit-mode" ><option value="1">Плоский список - свёрнутый</option><option value="2" selected="selected">Плоский список - развёрнутый</option><option value="3">Древовидный - свёрнутый</option><option value="4">Древовидный - развёрнутый</option></select>
+</div>
+<div class="form-item" id="edit-order-wrapper">
+ <select name="order" class="form-select" id="edit-order" ><option value="1">По дате - сначала новые</option><option value="2" selected="selected">По дате - сначала старые</option></select>
+</div>
+<div class="form-item" id="edit-comments-per-page-wrapper">
+ <select name="comments_per_page" class="form-select" id="edit-comments-per-page" ><option value="10">10 комментариев на страницу</option><option value="30">30 комментариев на страницу</option><option value="50" selected="selected">50 комментариев на страницу</option><option value="70">70 комментариев на страницу</option><option value="90">90 комментариев на страницу</option><option value="150">150 комментариев на страницу</option><option value="200">200 комментариев на страницу</option><option value="250">250 комментариев на страницу</option><option value="300">300 комментариев на страницу</option></select>
+</div>
+<input type="submit" name="op" id="edit-submit" value="Применить"  class="form-submit" />
+</div><div class="description">Выберите нужный метод показа комментариев и нажмите "Применить"</div></div>
+</div>
+
+</div></form>
+<a id="comment-335412"></a>
+<div class="comment">
+	<div class="autor">
+		<div>Опубликовано <a href="/username/eugeny" title="Информация о пользователе.">Eugeny</a> в ср, 13/04/2011 - 17:54.</div>
+			</div>
+<div class="avatar"><a href="/username/eugeny" title="Профиль автора сообщения" title=""><div class="picture">
+  <a href="/username/eugeny" title="Информация о пользователе."><img src="http://www.drupal.ru/files/imagecache/50x50/pictures/picture-9948.jpg" alt="Eugeny" title="Информация о пользователе."  class="imagecache imagecache-50x50" width="50" height="50" /></a></div>
+</a></div>  
+		<p><p>в шаблон</p>
+<p><div class="codeblock geshifilter"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br />module_load_include</span><span style="color: #007700">(</span><span style="color: #DD0000">'inc'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'contact'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'contact.pages'</span><span style="color: #007700">);<br />print&nbsp;</span><span style="color: #DD0000">'&lt;div&nbsp;id="contact-form"&gt;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">drupal_get_form</span><span style="color: #007700">(</span><span style="color: #DD0000">'contact_mail_page'</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">'&lt;/div&gt;'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div></p>
+<p>в template.php</p>
+<p><div class="codeblock geshifilter"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">ваша_тема_theme</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;return&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'contact_mail_page'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'arguments'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">'form'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">NULL</span><span style="color: #007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;),<br />&nbsp;&nbsp;);<br />}<br /><br />function&nbsp;</span><span style="color: #0000BB">ваша_тема_contact_mail_page</span><span style="color: #007700">(</span><span style="color: #0000BB">$form</span><span style="color: #007700">)&nbsp;{<br />&nbsp;</span><span style="color: #0000BB">$output&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">;<br />&nbsp;</span><span style="color: #0000BB">$output&nbsp;</span><span style="color: #007700">.=&nbsp;</span><span style="color: #0000BB">drupal_render</span><span style="color: #007700">(</span><span style="color: #0000BB">$form</span><span style="color: #007700">);<br />&nbsp;return&nbsp;</span><span style="color: #0000BB">$output</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//return&nbsp;print_r($form);<br /></span><span style="color: #007700">}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div></p>
+</p>
+<br class="clear" />
+	<div class="abuse"><ul class="links"><li class="comment_reply first"><a href="/comment/reply/60635/335412" title="Ответить на этот комментарий на отдельной странице"><img src="/sites/all/themes/novosibirsk/img/icons/script__plus.gif"></a></li>
+<li class="flag-abuse_comment"><span><span class="flag-wrapper flag-abuse-comment flag-abuse-comment-335412">
+      <a href="/flag/flag/abuse_comment/335412?destination=node%2F60635&amp;token=1df7daa785ca483adbe21d941bb92278" title="Этот комментарий нарушает правила сайта!" class="flag flag-action flag-link-toggle" rel="nofollow">Уберите это!</a><span class="flag-throbber">&nbsp;</span>
+    </span>
+</span></li>
+<li class="quote last"><a href="/comment/reply/60635/335412?quote=1#comment-form" title="Ответить с цитированием на отдельной странице"><img src="/sites/all/themes/novosibirsk/img/icons/script__arrow.gif"></a></li>
+</ul>	<img src="/sites/all/themes/novosibirsk/img/icons/blog_pencil.gif" id="img_quote" title="Выделите текст и нажмите эту кнопку, чтобы вставить цитату" onmouseover="getText('Eugeny');" onclick="insertQuote();">
+	</div>
+</div><a id="comment-335466"></a>
+<div class="comment">
+	<div class="autor">
+		<div>Опубликовано <a href="/username/cypher" title="Информация о пользователе.">Cypher</a> в ср, 13/04/2011 - 19:31.</div>
+			</div>
+<div class="avatar"><a href="/username/cypher" title="Профиль автора сообщения" title=""><div class="picture">
+  <a href="/username/cypher" title="Информация о пользователе."><img src="http://www.drupal.ru/files/imagecache/50x50/pictures/picture-64422.jpg" alt="Cypher" title="Информация о пользователе."  class="imagecache imagecache-50x50" width="50" height="50" /></a></div>
+</a></div>  
+		<p><p><strong>Eugeny</strong>, низкий поклон вам! :)<br />
+Спасибо! Работает.</p>
+<p>Первая ошибка с<br />
+<div class="codeblock geshifilter"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #DD0000">'contact_mail_page'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(&nbsp;</span><span style="color: #DD0000">'arguments'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">'form'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">NULL</span><span style="color: #007700">),&nbsp;)<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div><br />
+ну видимо совсем глупая, так что не откажусь от ссылки типа "тебе стоит почитать вот это" или "погуглить это".</p>
+<p>Сам пока пойду искать способ переформировать поля да заголовки.</p>
+</p>
+<br class="clear" />
+	<div class="abuse"><ul class="links"><li class="comment_reply first"><a href="/comment/reply/60635/335466" title="Ответить на этот комментарий на отдельной странице"><img src="/sites/all/themes/novosibirsk/img/icons/script__plus.gif"></a></li>
+<li class="flag-abuse_comment"><span><span class="flag-wrapper flag-abuse-comment flag-abuse-comment-335466">
+      <a href="/flag/flag/abuse_comment/335466?destination=node%2F60635&amp;token=b68f6669c5c90e9d0b6d95a8b15a8dfc" title="Этот комментарий нарушает правила сайта!" class="flag flag-action flag-link-toggle" rel="nofollow">Уберите это!</a><span class="flag-throbber">&nbsp;</span>
+    </span>
+</span></li>
+<li class="quote last"><a href="/comment/reply/60635/335466?quote=1#comment-form" title="Ответить с цитированием на отдельной странице"><img src="/sites/all/themes/novosibirsk/img/icons/script__arrow.gif"></a></li>
+</ul>	<img src="/sites/all/themes/novosibirsk/img/icons/blog_pencil.gif" id="img_quote" title="Выделите текст и нажмите эту кнопку, чтобы вставить цитату" onmouseover="getText('Cypher');" onclick="insertQuote();">
+	</div>
+</div><a id="comment-335490"></a>
+<div class="comment">
+	<div class="autor">
+		<div>Опубликовано <a href="/username/cypher" title="Информация о пользователе.">Cypher</a> в ср, 13/04/2011 - 20:46.</div>
+			</div>
+<div class="avatar"><a href="/username/cypher" title="Профиль автора сообщения" title=""><div class="picture">
+  <a href="/username/cypher" title="Информация о пользователе."><img src="http://www.drupal.ru/files/imagecache/50x50/pictures/picture-64422.jpg" alt="Cypher" title="Информация о пользователе."  class="imagecache imagecache-50x50" width="50" height="50" /></a></div>
+</a></div>  
+		<p><p>Полностью разобрался с темизацией формы. Задача решена! :)<br />
+Еще час назад я был полон грусти, а сейчас могу абсолютную красоту навести! xD<br />
+Вот <a href="http://api.drupal.ru/api/file/developer/topics/forms_api.html/6"   rel="nofollow" >тут</a> у нас чудо мануал по темизации форм.<br />
+Тестовый примерчик:</p>
+<p><div class="codeblock geshifilter"><code><span style="color: #000000"><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">тема_contact_mail_page</span><span style="color: #007700">(</span><span style="color: #0000BB">$form</span><span style="color: #007700">)&nbsp;{<br /></span><span style="color: #0000BB">dprint_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$form</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">/*смотрим&nbsp;что&nbsp;внутри*/<br /></span><span style="color: #0000BB">$output&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$form</span><span style="color: #007700">[</span><span style="color: #DD0000">'name'</span><span style="color: #007700">][</span><span style="color: #DD0000">'#title'</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #DD0000">"Новенькое&nbsp;имя"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$form</span><span style="color: #007700">[</span><span style="color: #DD0000">'name'</span><span style="color: #007700">][</span><span style="color: #DD0000">'#title'</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #DD0000">"Новенький&nbsp;дефолт&nbsp;валью"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$form</span><span style="color: #007700">[</span><span style="color: #DD0000">'name'</span><span style="color: #007700">][</span><span style="color: #DD0000">'#required'</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">/*Делаем&nbsp;поле&nbsp;не&nbsp;обязательным*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$form</span><span style="color: #007700">[</span><span style="color: #DD0000">'name'</span><span style="color: #007700">][</span><span style="color: #DD0000">'#prefix'</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #DD0000">'&lt;div&nbsp;class="wrapper"&gt;'</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">/*делаем&nbsp;обертку&nbsp;одного&nbsp;поля*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$form</span><span style="color: #007700">[</span><span style="color: #DD0000">'mail'</span><span style="color: #007700">][</span><span style="color: #DD0000">'#suffix'</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #DD0000">'&lt;/div&gt;'</span><span style="color: #007700">;<br />&nbsp;<br />&nbsp;</span><span style="color: #0000BB">$output&nbsp;</span><span style="color: #007700">.=&nbsp;</span><span style="color: #0000BB">drupal_render</span><span style="color: #007700">(</span><span style="color: #0000BB">$form</span><span style="color: #007700">);<br />&nbsp;return&nbsp;</span><span style="color: #0000BB">$output</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span></span></code></div></p>
+</p>
+<br class="clear" />
+	<div class="abuse"><ul class="links"><li class="comment_reply first"><a href="/comment/reply/60635/335490" title="Ответить на этот комментарий на отдельной странице"><img src="/sites/all/themes/novosibirsk/img/icons/script__plus.gif"></a></li>
+<li class="flag-abuse_comment"><span><span class="flag-wrapper flag-abuse-comment flag-abuse-comment-335490">
+      <a href="/flag/flag/abuse_comment/335490?destination=node%2F60635&amp;token=d40f2a325b939047ce75a414db52be1b" title="Этот комментарий нарушает правила сайта!" class="flag flag-action flag-link-toggle" rel="nofollow">Уберите это!</a><span class="flag-throbber">&nbsp;</span>
+    </span>
+</span></li>
+<li class="quote last"><a href="/comment/reply/60635/335490?quote=1#comment-form" title="Ответить с цитированием на отдельной странице"><img src="/sites/all/themes/novosibirsk/img/icons/script__arrow.gif"></a></li>
+</ul>	<img src="/sites/all/themes/novosibirsk/img/icons/blog_pencil.gif" id="img_quote" title="Выделите текст и нажмите эту кнопку, чтобы вставить цитату" onmouseover="getText('Cypher');" onclick="insertQuote();">
+	</div>
+</div><a id="comment-335510"></a>
+<div class="comment">
+	<div class="autor">
+		<div>Опубликовано <a href="/username/ai" title="Информация о пользователе.">AI</a> в ср, 13/04/2011 - 21:44.</div>
+			</div>
+<div class="avatar"><a href="/username/ai" title="Профиль автора сообщения" title=""><div class="picture">
+  <a href="/username/ai" title="Информация о пользователе."><img src="http://www.drupal.ru/files/imagecache/50x50/pictures/picture-51069.png" alt="AI" title="Информация о пользователе."  class="imagecache imagecache-50x50" width="50" height="50" /></a></div>
+</a></div>  
+		<p><p>Большое спасибо. Весьма кстати. Мучаю формы, да с такой же проблемой столкнулся. Форма search_block_form отрабатывает нормально, user_login_block сафсем никак... Буду воодушевляться вашими подвигами и... может быть будет все много лучше ;-)</p>
+</p>
+<br class="clear" />
+	<div class="abuse"><ul class="links"><li class="comment_reply first"><a href="/comment/reply/60635/335510" title="Ответить на этот комментарий на отдельной странице"><img src="/sites/all/themes/novosibirsk/img/icons/script__plus.gif"></a></li>
+<li class="flag-abuse_comment"><span><span class="flag-wrapper flag-abuse-comment flag-abuse-comment-335510">
+      <a href="/flag/flag/abuse_comment/335510?destination=node%2F60635&amp;token=60dac7f0b2f8eb73f1254c70156fe3b1" title="Этот комментарий нарушает правила сайта!" class="flag flag-action flag-link-toggle" rel="nofollow">Уберите это!</a><span class="flag-throbber">&nbsp;</span>
+    </span>
+</span></li>
+<li class="quote last"><a href="/comment/reply/60635/335510?quote=1#comment-form" title="Ответить с цитированием на отдельной странице"><img src="/sites/all/themes/novosibirsk/img/icons/script__arrow.gif"></a></li>
+</ul>	<img src="/sites/all/themes/novosibirsk/img/icons/blog_pencil.gif" id="img_quote" title="Выделите текст и нажмите эту кнопку, чтобы вставить цитату" onmouseover="getText('AI');" onclick="insertQuote();">
+	</div>
+</div><a id="comment-335686"></a>
+<div class="comment">
+	<div class="autor">
+		<div>Опубликовано <a href="/username/cypher" title="Информация о пользователе.">Cypher</a> в чт, 14/04/2011 - 11:24.</div>
+			</div>
+<div class="avatar"><a href="/username/cypher" title="Профиль автора сообщения" title=""><div class="picture">
+  <a href="/username/cypher" title="Информация о пользователе."><img src="http://www.drupal.ru/files/imagecache/50x50/pictures/picture-64422.jpg" alt="Cypher" title="Информация о пользователе."  class="imagecache imagecache-50x50" width="50" height="50" /></a></div>
+</a></div>  
+		<p><p>Рад помочь :)<br />
+Приятно знать, что переоформление и апдейты топика могут пригодиться.</p>
+</p>
+<br class="clear" />
+	<div class="abuse"><ul class="links"><li class="comment_reply first"><a href="/comment/reply/60635/335686" title="Ответить на этот комментарий на отдельной странице"><img src="/sites/all/themes/novosibirsk/img/icons/script__plus.gif"></a></li>
+<li class="flag-abuse_comment"><span><span class="flag-wrapper flag-abuse-comment flag-abuse-comment-335686">
+      <a href="/flag/flag/abuse_comment/335686?destination=node%2F60635&amp;token=014a8961c1f6739612f3eb20fb2456d1" title="Этот комментарий нарушает правила сайта!" class="flag flag-action flag-link-toggle" rel="nofollow">Уберите это!</a><span class="flag-throbber">&nbsp;</span>
+    </span>
+</span></li>
+<li class="quote last"><a href="/comment/reply/60635/335686?quote=1#comment-form" title="Ответить с цитированием на отдельной странице"><img src="/sites/all/themes/novosibirsk/img/icons/script__arrow.gif"></a></li>
+</ul>	<img src="/sites/all/themes/novosibirsk/img/icons/blog_pencil.gif" id="img_quote" title="Выделите текст и нажмите эту кнопку, чтобы вставить цитату" onmouseover="getText('Cypher');" onclick="insertQuote();">
+	</div>
+</div><a id="comment-457644"></a>
+<div class="comment">
+	<div class="autor">
+		<div>Опубликовано <a href="/username/maga" title="Информация о пользователе.">maga</a> в пт, 09/03/2012 - 14:04.</div>
+			</div>
+<div class="avatar"><a href="/username/maga" title="Профиль автора сообщения" title=""><div class="picture">
+  <a href="/username/maga" title="Информация о пользователе."><img src="http://www.drupal.ru/files/imagecache/50x50/pictures/picture-53324.jpg" alt="maga" title="Информация о пользователе."  class="imagecache imagecache-50x50" width="50" height="50" /></a></div>
+</a></div>  
+		<p><p>У меня ничего не работает!</p>
+</p>
+<br class="clear" />
+	<div class="abuse"><ul class="links"><li class="comment_reply first"><a href="/comment/reply/60635/457644" title="Ответить на этот комментарий на отдельной странице"><img src="/sites/all/themes/novosibirsk/img/icons/script__plus.gif"></a></li>
+<li class="flag-abuse_comment"><span><span class="flag-wrapper flag-abuse-comment flag-abuse-comment-457644">
+      <a href="/flag/flag/abuse_comment/457644?destination=node%2F60635&amp;token=ab9b97e3bfccec36bf72ee201ed77da0" title="Этот комментарий нарушает правила сайта!" class="flag flag-action flag-link-toggle" rel="nofollow">Уберите это!</a><span class="flag-throbber">&nbsp;</span>
+    </span>
+</span></li>
+<li class="quote last"><a href="/comment/reply/60635/457644?quote=1#comment-form" title="Ответить с цитированием на отдельной странице"><img src="/sites/all/themes/novosibirsk/img/icons/script__arrow.gif"></a></li>
+</ul>	<img src="/sites/all/themes/novosibirsk/img/icons/blog_pencil.gif" id="img_quote" title="Выделите текст и нажмите эту кнопку, чтобы вставить цитату" onmouseover="getText('maga');" onclick="insertQuote();">
+	</div>
+</div><a id="comment-457647"></a>
+<div class="comment">
+	<div class="autor">
+		<div>Опубликовано <a href="/username/maga" title="Информация о пользователе.">maga</a> в пт, 09/03/2012 - 14:32.</div>
+			</div>
+<div class="avatar"><a href="/username/maga" title="Профиль автора сообщения" title=""><div class="picture">
+  <a href="/username/maga" title="Информация о пользователе."><img src="http://www.drupal.ru/files/imagecache/50x50/pictures/picture-53324.jpg" alt="maga" title="Информация о пользователе."  class="imagecache imagecache-50x50" width="50" height="50" /></a></div>
+</a></div>  
+		<p><p>Совсем не понимаю что Вы сделали, в API вообще другой способ!!!</p>
+</p>
+<br class="clear" />
+	<div class="abuse"><ul class="links"><li class="comment_reply first"><a href="/comment/reply/60635/457647" title="Ответить на этот комментарий на отдельной странице"><img src="/sites/all/themes/novosibirsk/img/icons/script__plus.gif"></a></li>
+<li class="flag-abuse_comment"><span><span class="flag-wrapper flag-abuse-comment flag-abuse-comment-457647">
+      <a href="/flag/flag/abuse_comment/457647?destination=node%2F60635&amp;token=e2035b9c2ac143c83142615bf3183950" title="Этот комментарий нарушает правила сайта!" class="flag flag-action flag-link-toggle" rel="nofollow">Уберите это!</a><span class="flag-throbber">&nbsp;</span>
+    </span>
+</span></li>
+<li class="quote last"><a href="/comment/reply/60635/457647?quote=1#comment-form" title="Ответить с цитированием на отдельной странице"><img src="/sites/all/themes/novosibirsk/img/icons/script__arrow.gif"></a></li>
+</ul>	<img src="/sites/all/themes/novosibirsk/img/icons/blog_pencil.gif" id="img_quote" title="Выделите текст и нажмите эту кнопку, чтобы вставить цитату" onmouseover="getText('maga');" onclick="insertQuote();">
+	</div>
+</div><div class="box">
+
+  <h2>Отправить комментарий</h2>
+
+  <div class="content"><form action="/comment/reply/60635"  accept-charset="UTF-8" method="post" id="comment-form" enctype="multipart/form-data">
+<div><div class="form-item">
+ <label>Ваше имя: </label>
+ <a href="/username/zlodiak" title="Информация о пользователе.">zlodiak</a>
+</div>
+<div class="form-item" id="edit-comment-wrapper">
+ <label for="edit-comment">Комментарий: <span class="form-required" title="Это поле необходимо заполнить.">*</span></label>
+ <textarea cols="60" rows="15" name="comment" id="edit-comment"  class="form-textarea resizable required"></textarea>
+</div>
+<fieldset class=" collapsible collapsed"><legend>Формат ввода</legend><div class="form-item" id="edit-format-1-wrapper">
+ <label class="option" for="edit-format-1"><input type="radio" id="edit-format-1" name="format" value="1"   class="form-radio" /> BBCode + HTML</label>
+ <div class="description"><ul class="tips"><li>Адреса страниц и электронной почты автоматически преобразуются в ссылки.</li><li>Вы можете цитировать другие сообщения тегами [quote].</li><li>Строки и параграфы переносятся автоматически.</li><li>Доступны HTML теги: &lt;pre&gt; &lt;a&gt; &lt;b&gt; &lt;br&gt; &lt;code&gt; &lt;dd&gt; &lt;del&gt; &lt;div&gt; &lt;dl&gt; &lt;dt&gt; &lt;em&gt; &lt;i&gt; &lt;img&gt; &lt;h2&gt; &lt;h3&gt; &lt;h4&gt; &lt;h5&gt; &lt;li&gt; &lt;ol&gt; &lt;u&gt; &lt;ul&gt; &lt;small&gt; &lt;span&gt; &lt;strike&gt; &lt;strong&gt; &lt;table&gt; &lt;td&gt; &lt;tr&gt; &lt;th&gt; &lt;blockquote&gt; &lt;quote&gt; &lt;audio&gt; &lt;video&gt;</li><li>You can use <a href="/filter/tips/1#filter-bbcode-0">BBCode</a> tags in the text. URLs will automatically be converted to links.</li><li>You can enable syntax highlighting of source code with the following tags: <code>&lt;code&gt;</code>, <code>&lt;blockcode&gt;</code>, <code>&lt;apache&gt;</code>, <code>&lt;apt&gt;</code>, <code>&lt;bash&gt;</code>, <code>&lt;c&gt;</code>, <code>&lt;css&gt;</code>, <code>&lt;diff&gt;</code>, <code>&lt;drupal5&gt;</code>, <code>&lt;drupal6&gt;</code>, <code>&lt;gettext&gt;</code>, <code>&lt;go&gt;</code>, <code>&lt;html4&gt;</code>, <code>&lt;ini&gt;</code>, <code>&lt;java&gt;</code>, <code>&lt;js&gt;</code>, <code>&lt;jquery&gt;</code>, <code>&lt;latex&gt;</code>, <code>&lt;lua&gt;</code>, <code>&lt;make&gt;</code>, <code>&lt;mysql&gt;</code>, <code>&lt;oracle&gt;</code>, <code>&lt;perl&gt;</code>, <code>&lt;php&gt;</code>, <code>&lt;python&gt;</code>, <code>&lt;robots&gt;</code>, <code>&lt;ruby&gt;</code>, <code>&lt;smarty&gt;</code>, <code>&lt;sql&gt;</code>. Beside the tag style "<code>&lt;foo&gt;</code>" it is also possible to use "<code>[foo]</code>". PHP source code can also be enclosed in &lt;?php ... ?&gt; or &lt;% ... %&gt;.</li><li><p>Поисковые системы будут индексировать и переходить по ссылкам на разрешённые домены.</p>
+</li></ul></div>
+</div>
+<div class="form-item" id="edit-format-4-wrapper">
+ <label class="option" for="edit-format-4"><input type="radio" id="edit-format-4" name="format" value="4"  checked="checked"  class="form-radio" /> Ограниченный HTML</label>
+ <div class="description"><ul class="tips"><li>Доступны HTML теги: &lt;pre&gt; &lt;a&gt; &lt;b&gt; &lt;br&gt; &lt;code&gt; &lt;dd&gt; &lt;del&gt; &lt;dl&gt; &lt;dt&gt; &lt;em&gt; &lt;i&gt; &lt;img&gt; &lt;h2&gt; &lt;h3&gt; &lt;h4&gt; &lt;h5&gt; &lt;li&gt; &lt;ol&gt; &lt;u&gt; &lt;ul&gt; &lt;small&gt; &lt;span&gt; &lt;strike&gt; &lt;strong&gt; &lt;table&gt; &lt;td&gt; &lt;tr&gt; &lt;th&gt; &lt;blockquote&gt; &lt;quote&gt; &lt;audio&gt; &lt;video&gt;</li><li>Вы можете цитировать другие сообщения тегами [quote].</li><li>Строки и параграфы переносятся автоматически.</li><li>You can enable syntax highlighting of source code with the following tags: <code>&lt;code&gt;</code>, <code>&lt;blockcode&gt;</code>, <code>&lt;apache&gt;</code>, <code>&lt;apt&gt;</code>, <code>&lt;bash&gt;</code>, <code>&lt;c&gt;</code>, <code>&lt;css&gt;</code>, <code>&lt;diff&gt;</code>, <code>&lt;drupal5&gt;</code>, <code>&lt;drupal6&gt;</code>, <code>&lt;gettext&gt;</code>, <code>&lt;go&gt;</code>, <code>&lt;html4&gt;</code>, <code>&lt;ini&gt;</code>, <code>&lt;java&gt;</code>, <code>&lt;js&gt;</code>, <code>&lt;jquery&gt;</code>, <code>&lt;latex&gt;</code>, <code>&lt;lua&gt;</code>, <code>&lt;make&gt;</code>, <code>&lt;mysql&gt;</code>, <code>&lt;oracle&gt;</code>, <code>&lt;perl&gt;</code>, <code>&lt;php&gt;</code>, <code>&lt;python&gt;</code>, <code>&lt;robots&gt;</code>, <code>&lt;ruby&gt;</code>, <code>&lt;smarty&gt;</code>, <code>&lt;sql&gt;</code>. Beside the tag style "<code>&lt;foo&gt;</code>" it is also possible to use "<code>[foo]</code>". PHP source code can also be enclosed in &lt;?php ... ?&gt; or &lt;% ... %&gt;.</li><li>Адреса страниц и электронной почты автоматически преобразуются в ссылки.</li><li><p>Поисковые системы будут индексировать и переходить по ссылкам на разрешённые домены.</p>
+</li></ul></div>
+</div>
+<div class="form-item" id="edit-format-5-wrapper">
+ <label class="option" for="edit-format-5"><input type="radio" id="edit-format-5" name="format" value="5"   class="form-radio" /> MediaWiki</label>
+ <div class="description"><ul class="tips"><li>HTML-теги запрещены</li><li><p>You can use <a href="http://meta.wikimedia.org/wiki/Cheatsheet"><em>Mediawiki</em> syntax</a>. It is possible that not all formatting options are supported at the moment.<br/>Links to other pages: [[Page Title]] or [[path/to/page|Title]].<br/>External links: http://example.com or [http://example.com some link title].<br/>Interwiki links: [[site:Page Title]].<br/>You can use the following interwiki links: path, gdo, wp<br/>Images are included with [[Image:name]]. <a href="http://en.wikipedia.org/wiki/Wikipedia:Extended_image_syntax">(wikipedia help)</a></p></li><li>You can enable syntax highlighting of source code with the following tags: <code>&lt;code&gt;</code>, <code>&lt;blockcode&gt;</code>, <code>&lt;apache&gt;</code>, <code>&lt;apt&gt;</code>, <code>&lt;bash&gt;</code>, <code>&lt;c&gt;</code>, <code>&lt;css&gt;</code>, <code>&lt;diff&gt;</code>, <code>&lt;drupal5&gt;</code>, <code>&lt;drupal6&gt;</code>, <code>&lt;gettext&gt;</code>, <code>&lt;go&gt;</code>, <code>&lt;html4&gt;</code>, <code>&lt;ini&gt;</code>, <code>&lt;java&gt;</code>, <code>&lt;js&gt;</code>, <code>&lt;jquery&gt;</code>, <code>&lt;latex&gt;</code>, <code>&lt;lua&gt;</code>, <code>&lt;make&gt;</code>, <code>&lt;mysql&gt;</code>, <code>&lt;oracle&gt;</code>, <code>&lt;perl&gt;</code>, <code>&lt;php&gt;</code>, <code>&lt;python&gt;</code>, <code>&lt;robots&gt;</code>, <code>&lt;ruby&gt;</code>, <code>&lt;smarty&gt;</code>, <code>&lt;sql&gt;</code>. Beside the tag style "<code>&lt;foo&gt;</code>" it is also possible to use "<code>[foo]</code>". PHP source code can also be enclosed in &lt;?php ... ?&gt; or &lt;% ... %&gt;.</li><li>Вы можете цитировать другие сообщения тегами [quote].</li></ul></div>
+</div>
+<p><a href="/filter/tips">Подробнее о форматировании</a></p></fieldset>
+<input type="hidden" name="form_build_id" id="form-9d170f11beefb442424060059c5c6b25" value="form-9d170f11beefb442424060059c5c6b25"  />
+<input type="hidden" name="form_token" id="edit-form-token" value="7a79ce7a88a214c9910ce6ef14e3b639"  />
+<input type="hidden" name="form_id" id="edit-comment-form" value="comment_form"  />
+<div class="attachments"><fieldset class=" collapsible collapsed"><legend>Прикрепленные файлы</legend><div class="description">Изменения не вступят в силу до тех пор, пока вы не сохраните это сообщение.</div><div id="attach-wrapper"><div class="form-item" id="edit-upload-wrapper">
+ <label for="edit-upload">Прикрепить новый файл: </label>
+ <input type="file" name="files[upload]"  class="form-file" id="edit-upload" size="60" />
+
+ <div class="description">Изображения больше чем <em>1800x1800</em> должны быть уменьшены Максимальный размер загружаемого файла <em>8 Мб </em>. Можно загружать файлы только со следующими расширениями: <em>odt ods odg xcf svg jpg jpeg gif tiff png mng txt doc docx xls xlsx sxw sxc tex ps pdf rtf djvu ppt pptx pps odp tgz tar.gz bz2 tar.bz2 tbz2 zip rar psd po pot module info xpi diff install patch ogg spx</em>. </div>
+</div>
+<input type="submit" name="attach" id="edit-attach" value="Прикрепить"  class="form-submit" />
+</div></fieldset>
+</div><div class="clear-block"><div class="form-item" id="edit-notify-wrapper">
+ <label class="option" for="edit-notify"><input type="checkbox" name="notify" id="edit-notify" value="1"   class="form-checkbox" /> Извещать меня об ответах в данной теме</label>
+</div>
+<input type="hidden" name="notify_type" id="edit-notify-type" value="1"  />
+</div><input type="submit" name="op" id="edit-submit-1" value="Сохранить"  class="form-submit" />
+<input type="submit" name="op" id="edit-preview" value="Просмотреть"  class="form-submit" />
+
+</div></form>
+</div>
+</div>
+      						</div>
+
+
+			</div></div> <!-- center div -->
+			<div class="left"><div class="inleft"><!-- left div -->
+
+				<div id="left">
+						
+<div id="login-1" class="login-block">
+	<h2>zlodiak</h2>
+	<div class="content"><ul class="menu"><li class="leaf first"><a href="/tracker/my" title="Мой трекер"><span class="tab">Мой трекер</span></a></li>
+<li class="leaf"><a href="/blog/85380">Мой блог</a></li>
+<li class="expanded"><a href="/node/add">Создать</a><ul class="menu"><li class="leaf first"><a href="/node/add/changes" title="Add entry to the site changelog.">Changelog</a></li>
+<li class="leaf last"><a href="/node/add/blog" title="">Запись в блог/форум</a></li>
+</ul></li>
+<li class="expanded"><a href="/book">Книги</a><ul class="menu"><li class="leaf first last"><a href="/book/toc">Содержание всех книг</a></li>
+</ul></li>
+<li class="leaf"><a href="/forum/site">Улучшить drupal.ru!</a></li>
+<li class="collapsed"><a href="/username/zlodiak">Мои учетные данные</a></li>
+<li class="leaf"><a href="/bookmarks">Мои закладки</a></li>
+<li class="leaf"><a href="/messages">Сообщения</a></li>
+<li class="leaf"><a href="/logout">Выйти</a></li>
+<li class="leaf last"><a href="/node/82795" title="Уборка">Уборка</a></li>
+</ul></div>
+</div>
+	
+<div id="block-81" class="just-block">
+	<h2></h2>
+	<div class="content"><a href="http://dh.it-patrol.ru/drupal_hosting">
+  <img style="margin-left:-7px;" src="http://it-patrol.ru//sites/dh.it-patrol.ru/files/b1/200x200_black_blue.png" alt="drupal hosting | друпал хостинг | там, где друпал сайты летают | it patrol .inc"> 
+</a></div>
+</div>
+	
+<div id="druid-0" class="just-block">
+	<h2>Новое на сайте</h2>
+	<div class="content"><div class="item-list"><h3></h3><ul><li class=" odd first" class=" odd"><a href="/node/89650" title="Автор: 111klacc111">Друпал и хостинг</a></li>
+<li class=" even"><a href="/node/89649" title="Автор: boatsman">Крутанский поиск</a></li>
+<li class=" odd"><a href="/node/89640" title="Автор: misterpronin; 1 комментарий">Сервер для сайта с аудио и видео контентом</a></li>
+<li class=" even"><a href="/node/89639" title="Автор: Denisor; 2 комментария">Установка Drupal 7 на 2-х дисках (обычный + SSD)</a></li>
+<li class=" odd"><a href="/node/89638" title="Автор: Positiff">Нужна помощь Jquery mobile ahah error</a></li>
+<li class=" even"><a href="/node/89637" title="Автор: 1541; 1 комментарий">Отображение табов</a></li>
+<li class=" odd"><a href="/node/89636" title="Автор: mihelson; 1 комментарий">сомнителные пользователи, комментарии, ссылки на сайте</a></li>
+<li class=" even"><a href="/node/89635" title="Автор: Bezlepkin; 1 комментарий">Вопрос про $user</a></li>
+<li class=" odd"><a href="/node/89634" title="Автор: pr0g; 1 комментарий">[Решено] db_select и функции mysql</a></li>
+<li class=" even"><a href="/node/89633" title="Автор: dim_korol">Ищем одного разработчика на проект с перспективой перехода на постоянку</a></li>
+<li class=" odd"><a href="/node/89632" title="Автор: jaans; 1 комментарий">Обнаружил странную строку помогите что это такое</a></li>
+<li class=" even"><a href="/node/89631" title="Автор: trubinovskaya; 9 комментариев">Нужен совет по верстке</a></li>
+<li class=" odd"><a href="/node/89630" title="Автор: AnreeChess">Content Taxonomy. В CCK не видно новых типов полей</a></li>
+<li class=" even"><a href="/node/89629" title="Автор: IGoZ; 6 комментариев">Обсуждения форума</a></li>
+<li class=" odd"><a href="/node/89627" title="Автор: newbrilliant; 1 комментарий">Способ доставки Ubercart</a></li>
+<li class=" even"><a href="/node/89626" title="Автор: alexsaab; 1 комментарий">Проблема с Feeds обновление прайса и остатков</a></li>
+<li class=" odd"><a href="/node/89625" title="Автор: zlodiak">webforms</a></li>
+<li class=" even"><a href="/node/89624" title="Автор: nevvad; 1 комментарий">Загрузка изображений средствами IMCE (проблема)</a></li>
+<li class=" odd"><a href="/node/89623" title="Автор: magnuz21; 1 комментарий">Как привязать ноду к пункту главного меню?</a></li>
+<li class=" even"><a href="/node/89621" title="Автор: rustam4uk; 2 комментария">Требуется специалист для разработки интернет магазина спортивного питания.</a></li>
+<li class=" odd"><a href="/node/89620" title="Автор: Ujean">Ошибка при обновлении модуля feeds - невозможно преобразовать text в bytea на не пустой таблице</a></li>
+<li class=" even"><a href="/node/89619" title="Автор: borik">Form Field in a Popup Box by click &quot;Search&quot; Button</a></li>
+<li class=" odd"><a href="/node/89618" title="Автор: master_alf; 16 комментариев">Подойдет ли Drupal для такого сайта? Полное ТЗ внутри.</a></li>
+<li class=" even last" class=" even"><a href="/node/89617" title="Автор: newbrilliant; 1 комментарий">Как настроить поиск Drupal?</a></li>
+</ul></div></div>
+</div>
+	
+<div id="druid-5" class="login-block">
+	<h2>Сейчас на сайте</h2>
+	<div class="content"><a href="/online"><em>3 пользователя</em></a><h2>Пик посещаемости</h2><div>241 пользователь:<br />пт, 01/04/2011 - 12:30</div></div>
+</div>
+				</div>
+
+			</div></div> <!-- left div -->
+		</div> <!-- wrap-cl div -->
+		<div class="right"><div class="inright">
+		
+			<div id="right">
+					<div id="block-profile-0" class="block block-profile">
+  <h2>Об авторе</h2>
+
+  <div class="content">
+    <div class="picture">
+  <a href="/username/cypher" title="Информация о пользователе."><img src="http://www.drupal.ru/files/imagecache/96x96/pictures/picture-64422.jpg" alt="Cypher" title="Информация о пользователе."  class="imagecache imagecache-96x96" width="64" height="96" /></a></div>
+
+  <p>
+          <strong>Реальное имя</strong><br />
+        Антон  </p>
+  <p>
+          <strong>Страна</strong><br />
+        Россия  </p>
+  <p>
+          <strong>Город</strong><br />
+        Ярославль  </p>
+<div><a href="/username/cypher">Просмотреть полный профиль пользователя</a></div>  </div>
+</div>
+<div id="block-block-84" class="block block-block">
+
+  <div class="content">
+    <br /><a href=http://tmcontest.drupal.ru><img src=/files/adv/tmcontest.jpeg alt="Конкурс статей TemplateMonster" /></a>  </div>
+</div>
+			</div>			
+
+		</div></div> <!-- right div -->
+
+		<br class="clear" />
+	</div> <!-- outer div -->
+
+	<div class="wide bottom"></div><!--низ под 3 колонками-->
+	</div></div>
+
+  </div> <!-- 3 колонки -->
+	<div id="clearfooter"></div>
+</div>
+
+<div id="footer">
+		<p><div id="authority">Содержимое сайта публикуется на условиях <a href="/license#content">CreativeCommons Attribution-ShareAlike 3.0</a> или более поздней версии, программные коды в тексте статей — на условиях <a href="/license#code">GNU GPL v2</a> или более поздней версии.<br />
+Copyleft &copy; 2003-2012, drupal.ru. <strong>Drupal</strong> &mdash; торговая марка <a href="/about/dries_buytaert">Дриса Байтаерта</a><br />
+Тема оформления &laquo;<a href="/about/theme-novosibirsk">Новосибирск</a>&raquo;<br />
+Вопросы по работе сайта: <a href="mailto:webmaster@drupal.ru">webmaster@drupal.ru</a><br />
+Сообщения об ошибках отображения сайта от гордых пользователей IE версии 6 и ниже — не принимаются.
+</div><div id="block-block-15" class="block block-block">
+
+  <div class="content">
+    <div id="stats">
+Документов: <strong>79023</strong> &nbsp; Комментариев: <strong>468098</strong> &nbsp;  Рубрик и тегов: <strong>21751</strong> &nbsp; Учётных записей: <strong>62442</strong>
+</div>  </div>
+</div>
+<div id="block-block-46" class="block block-block">
+
+  <div class="content">
+    <div style="float:right;margin-top:-65px;margin-right:5px;">
+
+<script type="text/javascript"><!--
+document.write("<a href='http://www.liveinternet.ru/click' "+
+"target=_blank><img src='http://counter.yadro.ru/hit?t14.11;r"+
+escape(document.referrer)+((typeof(screen)=="undefined")?"":
+";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+";h"+escape(document.title.substring(0,80))+";"+Math.random()+
+"' alt='' title='LiveInternet: показано число просмотров за 24"+
+" часа, посетителей за 24 часа и за сегодня' "+
+"border='0' width='88' height='31'><\/a>")
+//--></script>
+
+<script src="http://tools.spylog.ru/counter_cv.js" id="spylog_code" type="text/javascript" counter="679413" part="" track_links="ext" page_level="0"></script>
+<noscript>
+<a href="http://u6794.13.spylog.com/cnt?cid=679413&f=3&p=0" target="_blank">
+<img src="http://u6794.13.spylog.com/cnt?cid=679413&p=0" alt="SpyLOG" border="0" width="88" height="31"></a>
+</noscript>
+
+<a href="http://www.alexa.com/siteinfo/drupal.ru"><script type='text/javascript' src='http://xslt.alexa.com/site_stats/js/s/a?url=drupal.ru'></script></a>
+
+</div>  </div>
+</div>
+</p>
+</div>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+window.___gcfg = {lang:"ru"};(function() {var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;po.src = 'https://apis.google.com/js/plusone.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);})();
+//--><!]]>
+</script>
+</body>
+</html>

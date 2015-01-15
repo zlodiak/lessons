@@ -1,0 +1,53 @@
+<!doctype html>
+
+<html lang="en" ng-app ng-controller="PhoneListCtrl">
+	<head>
+		<meta charset="utf-8">
+		
+		<title data-query="{{query}}" ng-bind-template="Google Phone Gallery: {{query}}">My HTML File__{{query}}</title>
+		
+		<link rel="stylesheet" href="css/style.css">
+		
+		<script src="js/angular/angular.js"></script>
+		<script src="js/angular/angular_controllers.js"></script>
+	</head>
+	
+	<body>
+		<div class="container-fluid">
+		  <div class="row-fluid">
+			<div class="span2">
+			  <!--Sidebar content-->
+		 
+				Search: <input ng-model="query">
+		 
+				Sort by:
+				<select ng-model="orderProp">
+				  <option value="name">Alphabetical</option>
+				  <option value="age">Newest</option>
+				</select>		 
+			</div>
+			
+			<hr />
+			
+			<div class="span10">
+			  <!--Body content-->
+		 
+			  <ul class="phones">
+				<li ng-repeat="phone in phones | filter:query | orderBy:orderProp">
+				  {{phone.name}}
+				  <p>{{phone.snippet}}</p>
+				</li>
+			  </ul>
+		 
+			</div>
+			
+			<hr />
+
+			file_json:<br />
+			<pre>
+				{{phones | json}}			
+			</pre>
+		  </div>
+		</div>
+	</body>
+</html>

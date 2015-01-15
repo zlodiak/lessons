@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"  type="text/javascript"></script>
+
+<style type="text/css">
+body{
+	background: #000;
+}
+
+	.menu{
+		position: relative;
+	}
+
+		.main_menu{
+			list-style-type: none;
+		}
+
+			.main_menu li{
+				float: left;			
+			}
+			
+				.main_menu li a{
+					width: 101px;
+					height: 14px;
+					padding: 7px 16px 15px;
+					text-align: center;
+					display: block;
+					text-decoration: none;
+					font: 700 12px Tahoma,Arial,Helvetica,sans-serif;
+					color: #BCDC37;
+				}
+				
+					.inner_menu{
+						position: absolute;
+						left: 40px;
+						top: 28px;
+						width: 500px;
+						display: none;
+						background: -moz-linear-gradient(center top , #2E2C40 30%, #1F1D33 100%) repeat scroll 0 0 transparent;
+						border-bottom-left-radius: 8px;
+						border-bottom-right-radius: 8px;	
+						border-top-left-radius: 8px;
+						border-top-right-radius: 8px;							
+						padding: 7px 16px 15px;					
+					}
+					
+						.inner_menu li{
+							display: inline;
+							
+						}
+						
+							.inner_menu li a{
+								color: #9D9BB1;	
+								font: 11px Tahoma,Arial,Helvetica,sans-serif;							
+								display: inline;
+								text-align: left;
+								padding: 7px 30px 7px 0px;
+								
+							}
+							
+								.inner_menu li a:hover{
+									text-decoration: underline;
+								}
+			
+.active_punkt{
+	color: #fff !important;
+	background: -moz-linear-gradient(center top , #4A4763 0%, #2E2C40 80%) repeat scroll 0 0 transparent;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;	
+    
+}			
+</style>
+</head>
+
+<body>
+
+<div class="menu">
+	<ul class="main_menu">
+		<li>
+			<a href="#">О компании</a>
+			
+			<ul class="inner_menu">
+				<li>
+					<a href="#">Миссия компании</a>
+				</li>
+				
+				<li>
+					<a href="#">Почему «МастерТрек»?</a>
+				</li>
+				
+				<li>
+					<a href="#">Наши новости</a>
+				</li>
+				
+				<li>
+					<a href="#">Контакты</a>
+				</li>			
+			</ul>
+		</li>
+		
+		<li>
+			<a href="#">Услуги</a>
+			
+			<ul class="inner_menu">
+				<li>
+					<a href="#">Миссия компании2</a>
+				</li>
+				
+				<li>
+					<a href="#">Почему «МастерТрек»?2</a>
+				</li>
+				
+				<li>
+					<a href="#">Наши новости2</a>
+				</li>
+				
+				<li>
+					<a href="#">Контакты2</a>
+				</li>			
+			</ul>			
+		</li>
+		
+		<li>
+			<a href="#">Продукция</a>
+			
+			<ul class="inner_menu">
+				<li>
+					<a href="#">Миссия компании3</a>
+				</li>
+				
+				<li>
+					<a href="#">Почему «МастерТрек»?3</a>
+				</li>
+				
+				<li>
+					<a href="#">Наши новости3</a>
+				</li>
+				
+				<li>
+					<a href="#">Контакты3</a>
+				</li>			
+			</ul>			
+		</li>
+		
+		<li>
+			<a href="#">Оборудование</a>
+			
+			<ul class="inner_menu">
+				<li>
+					<a href="#">Миссия компании4</a>
+				</li>
+				
+				<li>
+					<a href="#">Почему «МастерТрек»?4</a>
+				</li>
+				
+				<li>
+					<a href="#">Наши новости4</a>
+				</li>
+				
+				<li>
+					<a href="#">Контакты4</a>
+				</li>			
+			</ul>			
+		</li>
+	</ul>
+</div>
+
+<script language="JavaScript">
+	$(document).ready(function()
+	{		
+		$(".main_menu>li>a").hover(function () {
+			$(".main_menu>li>a").removeClass("active_punkt");
+			$(this).addClass("active_punkt");
+			
+			
+			$(".inner_menu").css('display', 'none');
+			$(this).parent().find(".inner_menu").css('display', 'block');
+		})
+	});
+</script>
+</body>
+</html>

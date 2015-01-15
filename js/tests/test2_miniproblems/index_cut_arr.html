@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <title>вотер</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" type="text/css" href="css/styles.css" id="styles" />		
+				
+</head>
+<body>		
+	<script type="text/javascript">			
+		var arr = [];	
+		var arrResult = [];	
+					
+		function fillArr(arrLength){									
+			for(i=0; i<arrLength; i++){
+				arr[i] = Math.floor(Math.random()*11);
+				console.log(arr[i]);
+			}
+			
+			console.log('__');
+			return arr;
+		}
+		
+		function filterRange(arr, val1, val2){			
+			for(i=0; i<arr.length; i++){				
+				if((arr[i] <= val2) && (arr[i] >= val1)){
+					arrResult = arr[i];
+					console.log('qqq' + arr[i]);
+				}								
+			}
+			
+			return arrResult;		
+		}
+		
+		
+		console.log(filterRange(fillArr(10), 4, 8));
+
+	</script>	
+</body>
+</html>

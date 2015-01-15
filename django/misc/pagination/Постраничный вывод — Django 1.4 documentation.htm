@@ -1,0 +1,498 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Постраничный вывод &mdash; Django 1.4 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/static/doc_comments/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="/static/doc_comments/css/base.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="/static/doc_comments/js/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="/static/doc_comments/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/doc_comments/js/jquery.form.js"></script>
+    <script type="text/javascript" src="/static/doc_comments/js/jquery.url.js"></script>
+    <script type="text/javascript" src="/static/doc_comments/js/base.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Django 1.4 documentation" href="../index.html" />
+    <link rel="up" title="Using Django" href="index.html" />
+    <link rel="next" title="Безопасность в Django" href="security.html" />
+    <link rel="prev" title="Логирование" href="logging.html" />
+ 
+<script type="text/javascript" src="../templatebuiltins.js"></script>
+<script type="text/javascript">
+(function($) {
+    if (!django_template_builtins) {
+       // templatebuiltins.js missing, do nothing.
+       return;
+    }
+    $(document).ready(function() {
+        // Hyperlink Django template tags and filters
+        var base = "../ref/templates/builtins.html";
+        if (base == "#") {
+            // Special case for builtins.html itself
+            base = "";
+        }
+        // Tags are keywords, class '.k'
+        $("div.highlight\\-html\\+django span.k").each(function(i, elem) {
+             var tagname = $(elem).text();
+             if ($.inArray(tagname, django_template_builtins.ttags) != -1) {
+                 var fragment = tagname.replace(/_/, '-');
+                 $(elem).html("<a href='" + base + "#" + fragment + "'>" + tagname + "</a>");
+             }
+        });
+        // Filters are functions, class '.nf'
+        $("div.highlight\\-html\\+django span.nf").each(function(i, elem) {
+             var filtername = $(elem).text();
+             if ($.inArray(filtername, django_template_builtins.tfilters) != -1) {
+                 var fragment = filtername.replace(/_/, '-');
+                 $(elem).html("<a href='" + base + "#" + fragment + "'>" + filtername + "</a>");
+             }
+        });
+    });
+})(jQuery);
+</script>
+
+  </head>
+  <body>
+
+    <div class="document">
+  <script>
+  jQuery(function($){
+    $('h1:first').append(' <a href="/rel1.5/" style="font-size: 0.9em"><i>(читать 1.5)<i></a>');
+  });
+  </script>
+  <div id="custom-doc" class="yui-t6">
+    <div id="hd">
+      <h1><a href="../index.html">Django 1.4 documentation</a></h1>
+      <div id="global-nav">
+        <a title="Djbook.ru" href="http://djbook.ru">Djbook.ru</a>  |
+        <a title="Home page" href="../index.html">Главная</a>  |
+        <a title="Table of contents" href="../contents.html">Содержание</a>  |
+        <a title="Global index" href="../genindex.html">Алфавитный указатель</a>  |
+        <a title="Module index" href="../py-modindex.html">Модули</a>  |
+        <a title="Translation State" href="../statistic.html">Состояние перевода</a>  |
+        <a title="Django 1.5" href="/rel1.5/">Django 1.5</a>
+      </div>
+      <div class="nav">
+    &laquo; <a href="logging.html" title="Логирование">previous</a> 
+     |
+    <a href="index.html" title="Using Django" accesskey="U">up</a>
+   |
+    <a href="security.html" title="Безопасность в Django">next</a> &raquo;</div>
+    </div>
+
+    <div id="bd">
+      <div id="yui-main">
+        <div class="yui-b">
+          <div class="yui-g" id="topics-pagination">
+            
+  <div class="section" id="s-module-django.core.paginator">
+<span id="s-pagination"></span><span id="module-django.core.paginator"></span><span id="pagination"></span><h1>Постраничный вывод<a class="headerlink" href="#module-django.core.paginator" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Django предоставляет несколько классов, которые помогают реализовать постраничный вывод данных, т.е. данных, распределённых на несколько страниц с ссылками «Предыдущая/Следующая». Эти классы располагаются в <tt class="file docutils literal"><span class="pre">django/core/paginator.py</span></tt>.</p>
+<div class="section" id="s-example">
+<span id="example"></span><h2>Пример<a class="headerlink" href="#example" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Передайте в класс <a class="reference internal" href="#django.core.paginator.Paginator" title="django.core.paginator.Paginator"><tt class="xref py py-class docutils literal"><span class="pre">Paginator</span></tt></a> список объектов и количество элементов, которое надо отображать на странице. Класс предоставит методы для доступа к элементам каждой страницы:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">django.core.paginator</span> <span class="kn">import</span> <span class="n">Paginator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">objects</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;john&#39;</span><span class="p">,</span> <span class="s">&#39;paul&#39;</span><span class="p">,</span> <span class="s">&#39;george&#39;</span><span class="p">,</span> <span class="s">&#39;ringo&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">Paginator</span><span class="p">(</span><span class="n">objects</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">count</span>
+<span class="go">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">num_pages</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">page_range</span>
+<span class="go">[1, 2]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">page1</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">page1</span>
+<span class="go">&lt;Page 1 of 2&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">page1</span><span class="o">.</span><span class="n">object_list</span>
+<span class="go">[&#39;john&#39;, &#39;paul&#39;]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">page2</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">page2</span><span class="o">.</span><span class="n">object_list</span>
+<span class="go">[&#39;george&#39;, &#39;ringo&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">page2</span><span class="o">.</span><span class="n">has_next</span><span class="p">()</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">page2</span><span class="o">.</span><span class="n">has_previous</span><span class="p">()</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">page2</span><span class="o">.</span><span class="n">has_other_pages</span><span class="p">()</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">page2</span><span class="o">.</span><span class="n">next_page_number</span><span class="p">()</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">page2</span><span class="o">.</span><span class="n">previous_page_number</span><span class="p">()</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">page2</span><span class="o">.</span><span class="n">start_index</span><span class="p">()</span> <span class="c"># The 1-based index of the first item on this page</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">page2</span><span class="o">.</span><span class="n">end_index</span><span class="p">()</span> <span class="c"># The 1-based index of the last item on this page</span>
+<span class="go">4</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">EmptyPage</span>: <span class="n">That page number is less than 1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">EmptyPage</span>: <span class="n">That page contains no results</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Следует отметить, что вы можете передать классу <tt class="docutils literal"><span class="pre">Paginator</span></tt> список/кортеж, <tt class="docutils literal"><span class="pre">QuerySet</span></tt> Django или любой другой объект, который имеет методы <tt class="docutils literal"><span class="pre">count()</span></tt> или <tt class="docutils literal"><span class="pre">__len__()</span></tt>. Для определения количества объектов, содержащихся в переданном объекте, <tt class="docutils literal"><span class="pre">Paginator</span></tt> сначала попробует вызвать метод <tt class="docutils literal"><span class="pre">count()</span></tt>, затем, при его отсутствии, вызывает <tt class="docutils literal"><span class="pre">len()</span></tt>. Такой подход позволяет объектам, подобным <tt class="docutils literal"><span class="pre">QuerySet</span></tt>, более эффективно использовать метод <tt class="docutils literal"><span class="pre">count()</span></tt> при его наличии.</p>
+</div>
+</div>
+<div class="section" id="s-using-paginator-in-a-view">
+<span id="using-paginator-in-a-view"></span><h2>Использование <tt class="docutils literal"><span class="pre">Paginator</span></tt> в представлении<a class="headerlink" href="#using-paginator-in-a-view" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Здесь приведён более сложный пример использования класса <a class="reference internal" href="#django.core.paginator.Paginator" title="django.core.paginator.Paginator"><tt class="xref py py-class docutils literal"><span class="pre">Paginator</span></tt></a> в представлении для постраничного вывода результатов запроса. Мы предоставили представление и его шаблон, чтобы показать, как вы можете отображать результаты. Данный пример предполагает наличие у вас модели <tt class="docutils literal"><span class="pre">Contacts</span></tt>, которая уже была импортирована.</p>
+<p>Функция представления может выглядеть так:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.core.paginator</span> <span class="kn">import</span> <span class="n">Paginator</span><span class="p">,</span> <span class="n">EmptyPage</span><span class="p">,</span> <span class="n">PageNotAnInteger</span>
+
+<span class="k">def</span> <span class="nf">listing</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">contact_list</span> <span class="o">=</span> <span class="n">Contacts</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">paginator</span> <span class="o">=</span> <span class="n">Paginator</span><span class="p">(</span><span class="n">contact_list</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span> <span class="c"># Show 25 contacts per page</span>
+
+    <span class="n">page</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;page&#39;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">contacts</span> <span class="o">=</span> <span class="n">paginator</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">PageNotAnInteger</span><span class="p">:</span>
+        <span class="c"># If page is not an integer, deliver first page.</span>
+        <span class="n">contacts</span> <span class="o">=</span> <span class="n">paginator</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">EmptyPage</span><span class="p">:</span>
+        <span class="c"># If page is out of range (e.g. 9999), deliver last page of results.</span>
+        <span class="n">contacts</span> <span class="o">=</span> <span class="n">paginator</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="n">paginator</span><span class="o">.</span><span class="n">num_pages</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s">&#39;list.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">&quot;contacts&quot;</span><span class="p">:</span> <span class="n">contacts</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>В шаблоне <tt class="file docutils literal"><span class="pre">list.html</span></tt> подключен блок навигации по страницам:</p>
+<div class="highlight-python"><pre>{% for contact in contacts %}
+    {# Each "contact" is a Contact model object. #}
+    {{ contact.full_name|upper }}&lt;br /&gt;
+    ...
+{% endfor %}
+
+&lt;div class="pagination"&gt;
+    &lt;span class="step-links"&gt;
+        {% if contacts.has_previous %}
+            &lt;a href="?page={{ contacts.previous_page_number }}"&gt;previous&lt;/a&gt;
+        {% endif %}
+
+        &lt;span class="current"&gt;
+            Page {{ contacts.number }} of {{ contacts.paginator.num_pages }}.
+        &lt;/span&gt;
+
+        {% if contacts.has_next %}
+            &lt;a href="?page={{ contacts.next_page_number }}"&gt;next&lt;/a&gt;
+        {% endif %}
+    &lt;/span&gt;
+&lt;/div&gt;</pre>
+</div>
+<div class="versionchanged">
+<span class="title">Изменено в Django 1.4:</span> Previously, you would need to use
+<tt class="docutils literal"><span class="pre">{%</span> <span class="pre">for</span> <span class="pre">contact</span> <span class="pre">in</span> <span class="pre">contacts.object_list</span> <span class="pre">%}</span></tt>, since the <tt class="docutils literal"><span class="pre">Page</span></tt>
+object was not iterable.</div>
+</div>
+<div class="section" id="s-paginator-objects">
+<span id="paginator-objects"></span><h2>Объекты <tt class="docutils literal"><span class="pre">Paginator</span></tt><a class="headerlink" href="#paginator-objects" title="Ссылка на этот заголовок">¶</a></h2>
+<p>У класса <a class="reference internal" href="#django.core.paginator.Paginator" title="django.core.paginator.Paginator"><tt class="xref py py-class docutils literal"><span class="pre">Paginator</span></tt></a> есть конструктор:</p>
+<dl class="class">
+<dt id="django.core.paginator.Paginator">
+<em class="property">class </em><tt class="descname">Paginator</tt>(<em>object_list</em>, <em>per_page</em>, <em>orphans=0</em>, <em>allow_empty_first_page=True</em>)<a class="headerlink" href="#django.core.paginator.Paginator" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+<div class="section" id="s-required-arguments">
+<span id="required-arguments"></span><h3>Обязательные аргументы<a class="headerlink" href="#required-arguments" title="Ссылка на этот заголовок">¶</a></h3>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">object_list</span></tt></dt>
+<dd>Список, кортеж, Django <tt class="docutils literal"><span class="pre">QuerySet</span></tt>, или другой контейнер, у которого есть метод <tt class="docutils literal"><span class="pre">count()</span></tt> или``__len__()``.</dd>
+<dt><tt class="docutils literal"><span class="pre">per_page</span></tt></dt>
+<dd>Максимальное количество элементов на странице, без учёта остатка (см. далее необязательный аргумент``orphans``).</dd>
+</dl>
+</div>
+<div class="section" id="s-optional-arguments">
+<span id="optional-arguments"></span><h3>Необязательные аргументы<a class="headerlink" href="#optional-arguments" title="Ссылка на этот заголовок">¶</a></h3>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">orphans</span></tt></dt>
+<dd>Минимальное количество элементов на последней странице, по умолчанию, ноль. Используйте, когда нежелательно отображать последнюю страницу почти пустой. Если последняя страница будет сделать элементов менее и равное <tt class="docutils literal"><span class="pre">orphans</span></tt>, то эти элементы будут добавлены к предыдущей странице (которая станет последней). Например, для 23 элементов, <tt class="docutils literal"><span class="pre">per_page=10``и</span> <span class="pre">``orphans=3</span></tt>, будет выдано две страницы; первая страница будет содержать 10 элементов, а вторая (и последняя) — 13.</dd>
+<dt><tt class="docutils literal"><span class="pre">allow_empty_first_page</span></tt></dt>
+<dd>Позволять или нет первой странице быть пустой. Если указан <tt class="docutils literal"><span class="pre">False</span></tt> и <tt class="docutils literal"><span class="pre">object_list</span></tt> пустой, то будет вызвано исключение <tt class="docutils literal"><span class="pre">EmptyPage</span></tt>.</dd>
+</dl>
+</div>
+<div class="section" id="s-methods">
+<span id="methods"></span><h3>Методы<a class="headerlink" href="#methods" title="Ссылка на этот заголовок">¶</a></h3>
+<dl class="method">
+<dt id="django.core.paginator.Paginator.page">
+<tt class="descclassname">Paginator.</tt><tt class="descname">page</tt>(<em>number</em>)<a class="headerlink" href="#django.core.paginator.Paginator.page" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Возвращает объект <a class="reference internal" href="#django.core.paginator.Page" title="django.core.paginator.Page"><tt class="xref py py-class docutils literal"><span class="pre">Page</span></tt></a> по переданному индексу (начинается с единицы). Вызывает исключение <a class="reference internal" href="#django.core.paginator.InvalidPage" title="django.core.paginator.InvalidPage"><tt class="xref py py-exc docutils literal"><span class="pre">InvalidPage</span></tt></a>, если указанная страница не существует.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="s-attributes">
+<span id="attributes"></span><h3>Атрибуты<a class="headerlink" href="#attributes" title="Ссылка на этот заголовок">¶</a></h3>
+<dl class="attribute">
+<dt id="django.core.paginator.Paginator.count">
+<tt class="descclassname">Paginator.</tt><tt class="descname">count</tt><a class="headerlink" href="#django.core.paginator.Paginator.count" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Общее количество объектов, распределенных по всем страницам.</p>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">При определении количества объектов, содержащихся в <tt class="docutils literal"><span class="pre">object_list</span></tt>, <tt class="docutils literal"><span class="pre">Paginator</span></tt> сначала пробует вызвать <tt class="docutils literal"><span class="pre">object_list.count()</span></tt>. Если у <tt class="docutils literal"><span class="pre">object_list</span></tt> нет метода <tt class="docutils literal"><span class="pre">count()</span></tt>, то <tt class="docutils literal"><span class="pre">Paginator</span></tt> попробует вызвать <tt class="docutils literal"><span class="pre">len(object_list)</span></tt>. Такой подход позволяет объектам, подобным <tt class="docutils literal"><span class="pre">QuerySet</span></tt> Django, более эффективно использовать метод <tt class="docutils literal"><span class="pre">count()</span></tt> при его наличии.</p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django.core.paginator.Paginator.num_pages">
+<tt class="descclassname">Paginator.</tt><tt class="descname">num_pages</tt><a class="headerlink" href="#django.core.paginator.Paginator.num_pages" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Общее количество страниц.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django.core.paginator.Paginator.page_range">
+<tt class="descclassname">Paginator.</tt><tt class="descname">page_range</tt><a class="headerlink" href="#django.core.paginator.Paginator.page_range" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Диапазон номеров страниц, начинающийся с единицы, т.е., <tt class="docutils literal"><span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">4]</span></tt>.</p>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="s-invalidpage-exceptions">
+<span id="invalidpage-exceptions"></span><h2><tt class="docutils literal"><span class="pre">InvalidPage</span></tt> исключения<a class="headerlink" href="#invalidpage-exceptions" title="Ссылка на этот заголовок">¶</a></h2>
+<dl class="exception">
+<dt id="django.core.paginator.InvalidPage">
+<em class="property">exception </em><tt class="descname">InvalidPage</tt><a class="headerlink" href="#django.core.paginator.InvalidPage" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Базовый класс для исключений, которые вызываются когда происходит запрос страницы по несуществующему номеру.</p>
+</dd></dl>
+
+<p>Метод <a class="reference internal" href="#django.core.paginator.Paginator.page" title="django.core.paginator.Paginator.page"><tt class="xref py py-meth docutils literal"><span class="pre">Paginator.page()</span></tt></a> вызывает исключение, если номер запрошенной страницы является неправильным (т.е., не представлен целым числом) или не содержит объектов. В общем случае, достаточно обрабатывать исключение <tt class="docutils literal"><span class="pre">InvalidPage</span></tt>, но если вам требуется более тонкий контроль, вы можете отрабатывать следующие исключения:</p>
+<dl class="exception">
+<dt id="django.core.paginator.PageNotAnInteger">
+<em class="property">exception </em><tt class="descname">PageNotAnInteger</tt><a class="headerlink" href="#django.core.paginator.PageNotAnInteger" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Вызывается, если <tt class="docutils literal"><span class="pre">page()</span></tt> получает значение, которое не является целым числом.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="django.core.paginator.EmptyPage">
+<em class="property">exception </em><tt class="descname">EmptyPage</tt><a class="headerlink" href="#django.core.paginator.EmptyPage" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Вызывается, если <tt class="docutils literal"><span class="pre">page()</span></tt> получает правильное значение, но для указанной страницы нет объектов.</p>
+</dd></dl>
+
+<p>Эти исключения являются потомками класса <a class="reference internal" href="#django.core.paginator.InvalidPage" title="django.core.paginator.InvalidPage"><tt class="xref py py-exc docutils literal"><span class="pre">InvalidPage</span></tt></a>, таким образом, вы можете обрабатывать их с помощью простого <tt class="docutils literal"><span class="pre">except</span> <span class="pre">InvalidPage</span></tt>.</p>
+</div>
+<div class="section" id="s-page-objects">
+<span id="page-objects"></span><h2>Объекты <tt class="docutils literal"><span class="pre">Page</span></tt><a class="headerlink" href="#page-objects" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Обычно создавать объекты <tt class="docutils literal"><span class="pre">Page</span></tt> вручную не требуется, так как вы получаете их с помощью метода <a class="reference internal" href="#django.core.paginator.Paginator.page" title="django.core.paginator.Paginator.page"><tt class="xref py py-meth docutils literal"><span class="pre">Paginator.page()</span></tt></a>.</p>
+<dl class="class">
+<dt id="django.core.paginator.Page">
+<em class="property">class </em><tt class="descname">Page</tt>(<em>object_list</em>, <em>number</em>, <em>paginator</em>)<a class="headerlink" href="#django.core.paginator.Page" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+<div class="versionadded">
+<span class="title">Добавлено в Django 1.4:</span> A page acts like a sequence of <a class="reference internal" href="#django.core.paginator.Page.object_list" title="django.core.paginator.Page.object_list"><tt class="xref py py-attr docutils literal"><span class="pre">Page.object_list</span></tt></a> when using
+<tt class="docutils literal"><span class="pre">len()</span></tt> or iterating it directly.</div>
+<div class="section" id="s-id1">
+<span id="id1"></span><h3>Методы<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h3>
+<dl class="method">
+<dt id="django.core.paginator.Page.has_next">
+<tt class="descclassname">Page.</tt><tt class="descname">has_next</tt>()<a class="headerlink" href="#django.core.paginator.Page.has_next" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Возвращает <tt class="docutils literal"><span class="pre">True</span></tt>, если следующая страница существует.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="django.core.paginator.Page.has_previous">
+<tt class="descclassname">Page.</tt><tt class="descname">has_previous</tt>()<a class="headerlink" href="#django.core.paginator.Page.has_previous" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Возвращает <tt class="docutils literal"><span class="pre">True</span></tt>, если предыдущая страница существует.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="django.core.paginator.Page.has_other_pages">
+<tt class="descclassname">Page.</tt><tt class="descname">has_other_pages</tt>()<a class="headerlink" href="#django.core.paginator.Page.has_other_pages" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Возвращает <tt class="docutils literal"><span class="pre">True</span></tt>, если существует  следующая <em>или</em> предыдущая страница.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="django.core.paginator.Page.next_page_number">
+<tt class="descclassname">Page.</tt><tt class="descname">next_page_number</tt>()<a class="headerlink" href="#django.core.paginator.Page.next_page_number" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Возвращает номер следующей страницы. Следует отметить, что «интеллекта» здесь нет и номер будет возвращён даже в случае, когда следующая страница не существует.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="django.core.paginator.Page.previous_page_number">
+<tt class="descclassname">Page.</tt><tt class="descname">previous_page_number</tt>()<a class="headerlink" href="#django.core.paginator.Page.previous_page_number" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Возвращает номер предыдущей страницы. Следует отметить, что «интеллекта» здесь нет и номер будет возвращён даже в случае, когда предыдущая страница не существует.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="django.core.paginator.Page.start_index">
+<tt class="descclassname">Page.</tt><tt class="descname">start_index</tt>()<a class="headerlink" href="#django.core.paginator.Page.start_index" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Возвращает индекс (начинается с единицы) первого объекта на странице относительно списка всех объектов. Например, для списка из пяти объектов при отображении двух объектов на странице, то для второй страницы метод <a class="reference internal" href="#django.core.paginator.Page.start_index" title="django.core.paginator.Page.start_index"><tt class="xref py py-meth docutils literal"><span class="pre">start_index()</span></tt></a> вернёт <tt class="docutils literal"><span class="pre">3</span></tt>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="django.core.paginator.Page.end_index">
+<tt class="descclassname">Page.</tt><tt class="descname">end_index</tt>()<a class="headerlink" href="#django.core.paginator.Page.end_index" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Возвращает индекс (начинается с единицы) последнего объекта на странице относительно списка всех объектов. Например, для списка из пяти объектов при отображении двух объектов на странице, то для второй страницы метод <a class="reference internal" href="#django.core.paginator.Page.end_index" title="django.core.paginator.Page.end_index"><tt class="xref py py-meth docutils literal"><span class="pre">end_index()</span></tt></a> вернёт <tt class="docutils literal"><span class="pre">4</span></tt>.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="s-id2">
+<span id="id2"></span><h3>Атрибуты<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h3>
+<dl class="attribute">
+<dt id="django.core.paginator.Page.object_list">
+<tt class="descclassname">Page.</tt><tt class="descname">object_list</tt><a class="headerlink" href="#django.core.paginator.Page.object_list" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Список объектов текущей страницы.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django.core.paginator.Page.number">
+<tt class="descclassname">Page.</tt><tt class="descname">number</tt><a class="headerlink" href="#django.core.paginator.Page.number" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Номер (начинается с единицы) текущей страницы.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django.core.paginator.Page.paginator">
+<tt class="descclassname">Page.</tt><tt class="descname">paginator</tt><a class="headerlink" href="#django.core.paginator.Page.paginator" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Соответствующий объект <a class="reference internal" href="#django.core.paginator.Paginator" title="django.core.paginator.Paginator"><tt class="xref py py-class docutils literal"><span class="pre">Paginator</span></tt></a>.</p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      
+        
+          <div class="yui-b" id="sidebar">
+            
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Содержание</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Постраничный вывод</a><ul>
+<li><a class="reference internal" href="#example">Пример</a></li>
+<li><a class="reference internal" href="#using-paginator-in-a-view">Использование <tt class="docutils literal"><span class="pre">Paginator</span></tt> в представлении</a></li>
+<li><a class="reference internal" href="#paginator-objects">Объекты <tt class="docutils literal"><span class="pre">Paginator</span></tt></a><ul>
+<li><a class="reference internal" href="#required-arguments">Обязательные аргументы</a></li>
+<li><a class="reference internal" href="#optional-arguments">Необязательные аргументы</a></li>
+<li><a class="reference internal" href="#methods">Методы</a></li>
+<li><a class="reference internal" href="#attributes">Атрибуты</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#invalidpage-exceptions"><tt class="docutils literal"><span class="pre">InvalidPage</span></tt> исключения</a></li>
+<li><a class="reference internal" href="#page-objects">Объекты <tt class="docutils literal"><span class="pre">Page</span></tt></a><ul>
+<li><a class="reference internal" href="#id1">Методы</a></li>
+<li><a class="reference internal" href="#id2">Атрибуты</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h3>Browse</h3>
+  <ul>
+    
+      <li>Prev: <a href="logging.html">Логирование</a></li>
+    
+    
+      <li>Next: <a href="security.html">Безопасность в Django</a></li>
+    
+  </ul>
+  <h3>You are here:</h3>
+  <ul>
+      <li>
+        <a href="../index.html">Django 1.4 documentation</a>
+        
+          <ul><li><a href="index.html">Using Django</a>
+        
+        <ul><li>Постраничный вывод</li></ul>
+        </li></ul>
+      </li>
+  </ul>  
+
+  <h3>На этой странице</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/topics/pagination.txt"
+           rel="nofollow">Показать исходный текст</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Быстрый поиск</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Искать" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Введите слова для поиска или имя модуля, класса или функции.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+              <h3>Последнее обновление:</h3>
+              <p class="topless">Aug 21, 2013</p>
+          </div>
+        
+      
+    </div>
+
+    <div id="ft">
+      <div class="nav">
+    &laquo; <a href="logging.html" title="Логирование">previous</a> 
+     |
+    <a href="index.html" title="Using Django" accesskey="U">up</a>
+   |
+    <a href="security.html" title="Безопасность в Django">next</a> &raquo;</div>
+    </div>
+  </div>
+
+      <div class="clearer"></div>
+    </div>
+<footer style="width: width: 76.54em; min-width: 995px; max-width: 100em;">
+  Translated by &nbsp;&nbsp;&nbsp; Ruslan Popov @ gmail.com &nbsp;&nbsp;&nbsp; Dmitriy Kostochko @ gmail.com
+  <!--LiveInternet counter--><script type="text/javascript"><!--
+  document.write("<a href='http://www.liveinternet.ru/click' "+
+  "target=_blank><img src='//counter.yadro.ru/hit?t52.6;r"+
+  escape(document.referrer)+((typeof(screen)=="undefined")?"":
+  ";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+  screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+  ";"+Math.random()+
+  "' alt='' title='LiveInternet: показано число просмотров и"+
+  " посетителей за 24 часа' "+
+  "border='0' width='88' height='31'><\/a>")
+  //--></script><!--/LiveInternet-->
+  <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-3919032-6']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+  </script>
+</footer>
+
+  </body>
+</html>

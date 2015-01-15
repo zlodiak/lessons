@@ -1,0 +1,339 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<!-- saved from url=(0084)http://www.babooshkin-soondook.ru/razdely/javascript/poleznyy-kod/skrolling-stranicy -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" version="XHTML+RDFa 1.0" dir="ltr" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:og="http://ogp.me/ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:sioc="http://rdfs.org/sioc/ns#" xmlns:sioct="http://rdfs.org/sioc/types#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#" class="js"><head profile="http://www.w3.org/1999/xhtml/vocab"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="canonical" href="./Полезный код. Скроллинг страницы._files/Полезный код. Скроллинг страницы..htm">
+<link rel="shortlink" href="http://www.babooshkin-soondook.ru/node/69">
+<meta name="description" content="При создании сайта, особенно если это одностраничник или, как сейчас модно называть, Landing Page, очень полезным является контроль прокрутки страницы.">
+<meta name="keywords" content="jQuery, скроллинг страницы, подсветка элементов меню">
+<meta content="Скроллинг страницы." about="/razdely/javascript/poleznyy-kod/skrolling-stranicy" property="dc:title">
+<meta about="/razdely/javascript/poleznyy-kod/skrolling-stranicy" property="sioc:num_replies" content="0" datatype="xsd:integer">
+<link rel="shortcut icon" href="http://www.babooshkin-soondook.ru/misc/favicon.ico" type="image/vnd.microsoft.icon">
+  <title>Полезный код. Скроллинг страницы.</title>
+  <style type="text/css" media="all">@import url("http://www.babooshkin-soondook.ru/modules/system/system.base.css?n4ufmp");
+@import url("http://www.babooshkin-soondook.ru/modules/system/system.menus.css?n4ufmp");
+@import url("http://www.babooshkin-soondook.ru/modules/system/system.messages.css?n4ufmp");
+@import url("http://www.babooshkin-soondook.ru/modules/system/system.theme.css?n4ufmp");</style>
+<style type="text/css" media="all">@import url("http://www.babooshkin-soondook.ru/modules/comment/comment.css?n4ufmp");
+@import url("http://www.babooshkin-soondook.ru/modules/field/theme/field.css?n4ufmp");
+@import url("http://www.babooshkin-soondook.ru/sites/all/modules/mollom/mollom.css?n4ufmp");
+@import url("http://www.babooshkin-soondook.ru/modules/node/node.css?n4ufmp");
+@import url("http://www.babooshkin-soondook.ru/modules/search/search.css?n4ufmp");
+@import url("http://www.babooshkin-soondook.ru/modules/user/user.css?n4ufmp");
+@import url("http://www.babooshkin-soondook.ru/sites/all/modules/views/css/views.css?n4ufmp");</style>
+<style type="text/css" media="all">@import url("http://www.babooshkin-soondook.ru/sites/all/modules/colorbox/styles/default/colorbox_style.css?n4ufmp");
+@import url("http://www.babooshkin-soondook.ru/sites/all/modules/ctools/css/ctools.css?n4ufmp");
+@import url("http://www.babooshkin-soondook.ru/sites/all/modules/panels/css/panels.css?n4ufmp");
+@import url("http://www.babooshkin-soondook.ru/sites/all/libraries/syntaxhighlighter/styles/shCore.css?n4ufmp");
+@import url("http://www.babooshkin-soondook.ru/sites/all/libraries/syntaxhighlighter/styles/shThemeMidnight.css?n4ufmp");
+@import url("http://www.babooshkin-soondook.ru/sites/all/modules/bueditor/bueditor.css?n4ufmp");
+@import url("http://www.babooshkin-soondook.ru/sites/all/modules/word_link/css/word_link.css?n4ufmp");
+@import url("http://www.babooshkin-soondook.ru/sites/all/modules/yandex_metrics/css/yandex_metrics.css?n4ufmp");
+@import url("http://www.babooshkin-soondook.ru/modules/filter/filter.css?n4ufmp");</style>
+<style type="text/css" media="all">@import url("http://www.babooshkin-soondook.ru/sites/all/themes/sunduk/style/bootstrap.css?n4ufmp");
+@import url("http://www.babooshkin-soondook.ru/sites/all/themes/sunduk/style/style.css?n4ufmp");</style>
+<style type="text/css" media="all">@import url("http://www.babooshkin-soondook.ru/sites/default/files/fontyourface/font.css?n4ufmp");
+@import url("http://www.babooshkin-soondook.ru/sites/default/files/fontyourface/local_fonts/DS_Yermak_D-normal-bold/stylesheet.css?n4ufmp");
+@import url("http://www.babooshkin-soondook.ru/sites/default/files/fontyourface/local_fonts/OrtLoose-normal-normal/stylesheet.css?n4ufmp");
+@import url("http://www.babooshkin-soondook.ru/sites/default/files/fontyourface/local_fonts/PoluUstav-normal-normal/stylesheet.css?n4ufmp");
+@import url("http://www.babooshkin-soondook.ru/sites/default/files/fontyourface/local_fonts/Slavjanic-normal-normal/stylesheet.css?n4ufmp");</style>
+  <script type="text/javascript" async="" src="./Полезный код. Скроллинг страницы._files/watch.js"></script><script type="text/javascript" src="./Полезный код. Скроллинг страницы._files/jquery-1.8.2.min.js"></script><style type="text/css"></style>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+window.jQuery || document.write("<script src='/sites/all/modules/jquery_update/replace/jquery/1.8/jquery.min.js'>\x3C/script>")
+//--><!]]>
+</script>
+<script type="text/javascript" src="./Полезный код. Скроллинг страницы._files/jquery.once.js"></script>
+<script type="text/javascript" src="./Полезный код. Скроллинг страницы._files/drupal.js"></script>
+<script type="text/javascript" src="./Полезный код. Скроллинг страницы._files/jquery.cookie.js"></script>
+<script type="text/javascript" src="./Полезный код. Скроллинг страницы._files/form.js"></script>
+<script type="text/javascript" src="./Полезный код. Скроллинг страницы._files/shCore.js"></script>
+<script type="text/javascript" src="./Полезный код. Скроллинг страницы._files/shBrushCss.js"></script>
+<script type="text/javascript" src="./Полезный код. Скроллинг страницы._files/shBrushJScript.js"></script>
+<script type="text/javascript" src="./Полезный код. Скроллинг страницы._files/shBrushPhp.js"></script>
+<script type="text/javascript" src="./Полезный код. Скроллинг страницы._files/shBrushSql.js"></script>
+<script type="text/javascript" src="./Полезный код. Скроллинг страницы._files/shBrushXml.js"></script>
+<script type="text/javascript" src="./Полезный код. Скроллинг страницы._files/ru_Oc5czctbDDN_xp9MseUi1XV7jh4BtGl40g6yj3skERY.js"></script>
+<script type="text/javascript" src="./Полезный код. Скроллинг страницы._files/jquery.colorbox-min.js"></script>
+<script type="text/javascript" src="./Полезный код. Скроллинг страницы._files/colorbox.js"></script>
+<script type="text/javascript" src="./Полезный код. Скроллинг страницы._files/colorbox_style.js"></script>
+<script type="text/javascript" src="./Полезный код. Скроллинг страницы._files/colorbox_load.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery(document).ready(function($) {
+        $("#comment-form fieldset.filter-wrapper").hide();
+      });
+//--><!]]>
+</script>
+<script type="text/javascript" src="./Полезный код. Скроллинг страницы._files/bueditor.js"></script>
+<script type="text/javascript" src="./Полезный код. Скроллинг страницы._files/textarea.js"></script>
+<script type="text/javascript" src="./Полезный код. Скроллинг страницы._files/filter.js"></script>
+<script type="text/javascript" src="./Полезный код. Скроллинг страницы._files/bueditor-plus.js"></script>
+<script type="text/javascript" src="./Полезный код. Скроллинг страницы._files/mollom.js"></script>
+<script type="text/javascript" src="./Полезный код. Скроллинг страницы._files/bue.min.default.js"></script>
+<script type="text/javascript" src="./Полезный код. Скроллинг страницы._files/bue.history.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"sunduk","theme_token":"z8wRT1lF1FO-zWKLu-At25PWliqsxj3kaozeqc8nR3k","js":{"sites\/all\/modules\/syntaxhighlighter\/syntaxhighlighter.min.js":1,"modules\/statistics\/statistics.js":1,"http:\/\/code.jquery.com\/jquery-1.8.2.min.js":1,"0":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"sites\/all\/modules\/jquery_update\/replace\/ui\/external\/jquery.cookie.js":1,"misc\/form.js":1,"sites\/all\/libraries\/syntaxhighlighter\/scripts\/shCore.js":1,"sites\/all\/libraries\/syntaxhighlighter\/scripts\/shBrushCss.js":1,"sites\/all\/libraries\/syntaxhighlighter\/scripts\/shBrushJScript.js":1,"sites\/all\/libraries\/syntaxhighlighter\/scripts\/shBrushPhp.js":1,"sites\/all\/libraries\/syntaxhighlighter\/scripts\/shBrushSql.js":1,"sites\/all\/libraries\/syntaxhighlighter\/scripts\/shBrushXml.js":1,"public:\/\/languages\/ru_Oc5czctbDDN_xp9MseUi1XV7jh4BtGl40g6yj3skERY.js":1,"sites\/all\/libraries\/colorbox\/jquery.colorbox-min.js":1,"sites\/all\/modules\/colorbox\/js\/colorbox.js":1,"sites\/all\/modules\/colorbox\/styles\/default\/colorbox_style.js":1,"sites\/all\/modules\/colorbox\/js\/colorbox_load.js":1,"1":1,"sites\/all\/modules\/bueditor\/bueditor.js":1,"misc\/textarea.js":1,"modules\/filter\/filter.js":1,"sites\/all\/modules\/bueditor_plus\/js\/bueditor-plus.js":1,"sites\/all\/modules\/mollom\/mollom.js":1,"sites\/all\/modules\/bueditor\/library\/bue.min.default.js":1,"sites\/all\/modules\/bueditor\/library\/bue.history.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"modules\/comment\/comment.css":1,"modules\/field\/theme\/field.css":1,"sites\/all\/modules\/mollom\/mollom.css":1,"modules\/node\/node.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"sites\/all\/modules\/views\/css\/views.css":1,"sites\/all\/modules\/colorbox\/styles\/default\/colorbox_style.css":1,"sites\/all\/modules\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/panels\/css\/panels.css":1,"sites\/all\/libraries\/syntaxhighlighter\/styles\/shCore.css":1,"sites\/all\/libraries\/syntaxhighlighter\/styles\/shThemeMidnight.css":1,"sites\/all\/modules\/bueditor\/bueditor.css":1,"sites\/all\/modules\/word_link\/css\/word_link.css":1,"sites\/all\/modules\/yandex_metrics\/css\/yandex_metrics.css":1,"modules\/filter\/filter.css":1,"sites\/all\/themes\/sunduk\/style\/bootstrap.css":1,"sites\/all\/themes\/sunduk\/style\/style.css":1,"sites\/default\/files\/fontyourface\/font.css":1,"public:\/\/fontyourface\/local_fonts\/DS_Yermak_D-normal-bold\/stylesheet.css":1,"public:\/\/fontyourface\/local_fonts\/OrtLoose-normal-normal\/stylesheet.css":1,"public:\/\/fontyourface\/local_fonts\/PoluUstav-normal-normal\/stylesheet.css":1,"public:\/\/fontyourface\/local_fonts\/Slavjanic-normal-normal\/stylesheet.css":1}},"colorbox":{"opacity":"0.85","current":"{current} \u0438\u0437 {total}","previous":"\u00ab \u041f\u0440\u0435\u0434\u044b\u0434\u0443\u0449\u0438\u0439","next":"\u0421\u043b\u0435\u0434\u0443\u044e\u0449\u0438\u0439 \u00bb","close":"\u0417\u0430\u043a\u0440\u044b\u0442\u044c","maxWidth":"98%","maxHeight":"98%","fixed":true,"mobiledetect":true,"mobiledevicewidth":"480px"},"BUE":{"templates":{"e19":{"iconpath":"\/sites\/default\/files\/DKeditor","buttons":[["\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u044c\/\u0420\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435","js:\n        var B = eDefBrowseButton(\u0027\u0027, \u0027attr_src\u0027, \u0027\u041e\u0431\u0437\u043e\u0440\u0027, \u0027image\u0027);\n        var form = [\n        {name: \u0027src\u0027, title: \u0027URL \u0418\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u044f\u0027, suffix: B},\n        {name: \u0027width\u0027, title: \u0027\u0428\u0438\u0440\u0438\u043d\u0430 x \u0412\u044b\u0441\u043e\u0442\u0430\u0027, suffix: \u0027 x \u0027, getnext: true, attributes: {size: 3}},\n        {name: \u0027height\u0027, attributes: {size: 3}},\n        {name: \u0027class\u0027, title: \u0027\u0412\u044b\u0440\u0430\u0432\u043d\u0438\u0432\u0430\u043d\u0438\u0435 \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u044f\u0027, type: \u0027select\u0027, options: {\u0027\u0027: \u0027\u0027, \u0027leftalign\u0027: \u0027\u0412\u043b\u0435\u0432\u043e\u0027, \u0027rightalign\u0027: \u0027\u0412\u043f\u0440\u0430\u0432\u043e\u0027, \u0027aligncenter\u0027: \u0027\u041f\u043e \u0446\u0435\u043d\u0442\u0440\u0443\u0027}},\n        {name: \u0027alt\u0027, title: \u0027\u0410\u043b\u044c\u0442\u0435\u0440\u043d\u0430\u0442\u0438\u0432\u043d\u044b\u0439 \u0442\u0435\u043a\u0441\u0442\u0027}\n        ];\n        eDefTagDialog(\u0027img\u0027, form, \u0027\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u044c\/\u0440\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435\u0027, \u0027OK\u0027);\n        ","picture.png","M"],["\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u044c\/\u0420\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0441\u0441\u044b\u043b\u043a\u0443","js:\n        var form = [\n         {name: \u0027href\u0027, title: \u0027URL \u0441\u0441\u044b\u043b\u043a\u0438\u0027, required: true, suffix: E.imce.button(\u0027attr_href\u0027)},\n         {name: \u0027html\u0027, title: \u0027\u0422\u0435\u043a\u0441\u0442 \u0441\u0441\u044b\u043b\u043a\u0438\u0027},\n         {name: \u0027title\u0027, title: \u0027Title \u0441\u0441\u044b\u043b\u043a\u0438\u0027}\n        ];\n      E.tagDialog(\u0027a\u0027, form, {title: \u0027\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u044c\/\u0440\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0441\u0441\u044b\u043b\u043a\u0443\u0027});","link.png","L"],["tpl:dot","","separator.png",""],["\u0416\u0438\u0440\u043d\u044b\u0439","\u003Cstrong\u003E%TEXT%\u003C\/strong\u003E","text_bold.png","B"],["\u041a\u0443\u0440\u0441\u0438\u0432","\u003Cem\u003E%TEXT%\u003C\/em\u003E","text_italic.png","I"],["\u041f\u043e\u0434\u0447\u0451\u0440\u043a\u043d\u0443\u0442\u044b\u0439","\u003Cins\u003E%TEXT%\u003C\/ins\u003E","text_underline.png","U"],["\u0417\u0430\u0447\u0451\u0440\u043a\u043d\u0443\u0442\u044b\u0439","\u003Cdel\u003E%TEXT%\u003C\/del\u003E","text_strikethrough.png","S"],["tpl:dot","","separator.png",""],["\u041f\u043e\u0434\u0441\u0432\u0435\u0442\u0438\u0442\u044c PHP-\u043a\u043e\u0434","\u003Cpre class=\u0022brush:php\u0022\u003E%TEXT%\u003C\/pre\u003E","php.png",""],["\u041f\u043e\u0434\u0441\u0432\u0435\u0442\u0438\u0442\u044c XML-\u043a\u043e\u0434","\u003Cpre class=\u0022brush:xml\u0022\u003E%TEXT%\u003C\/pre\u003E","xml.png",""],["\u041f\u043e\u0434\u0441\u0432\u0435\u0442\u0438\u0442\u044c CSS-\u043a\u043e\u0434","\u003Cpre class=\u0022brush:css\u0022\u003E%TEXT%\u003C\/pre\u003E","css.png",""],["\u041f\u043e\u0434\u0441\u0432\u0435\u0442\u0438\u0442\u044c JS-\u043a\u043e\u0434","\u003Cpre class=\u0022brush:js\u0022\u003E%TEXT%\u003C\/pre\u003E","js.png",""],["tpl:dot","","separator.png",""],["\u041f\u0440\u043e\u0441\u043c\u043e\u0442\u0440","js: E.safeToPreview = true; eDefPreview();","eye.png",""],["\u0421\u043f\u0440\u0430\u0432\u043a\u0430","js: E.help(\u0027fadeIn\u0027);","help.png",""]]}}},"wysiwyg":{"triggers":{"edit-comment-body-und-0-format--2":{"field":"edit-comment-body-und-0-value","formatplain_text":{"editor":"none","status":1,"toggle":1,"resizable":1}}}},"BUEPlus":{"preset":{"edit-comment-body-und-0":{"plain_text":"e19"}},"defaults":{"edit-comment-body-und-0":"plain_text"}},"statistics":{"data":{"nid":"69"},"url":"\/modules\/statistics\/statistics.php"}});
+//--><!]]>
+</script>
+</head>
+<body class="html not-front not-logged-in one-sidebar sidebar-first page-node page-node- page-node-69 node-type-manuscript">
+  <div id="skip-link">
+    <a href="http://www.babooshkin-soondook.ru/razdely/javascript/poleznyy-kod/skrolling-stranicy#main-content" class="element-invisible element-focusable">Перейти к основному содержанию</a>
+  </div>
+    <div id="wrapper">
+	<div id="header">
+		        	<a href="http://www.babooshkin-soondook.ru/" title="Главная" rel="home" id="logo">
+         		<img src="./Полезный код. Скроллинг страницы._files/logo_0.png" alt="Главная">
+       		</a>
+     	 		<div id="search">
+			  <div class="region region-header-search">
+    <div id="block-search-form" class="block block-search">
+
+    
+  <div class="content">
+    <form action="./Полезный код. Скроллинг страницы._files/Полезный код. Скроллинг страницы..htm" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="container-inline">
+      <h2 class="element-invisible">Форма поиска</h2>
+    <div class="form-item form-type-textfield form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Поиск </label>
+ <input title="Введите ключевые слова для поиска." placeholder="Поиск по сайту" type="text" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-text">
+</div>
+<input type="hidden" name="form_build_id" value="form-XFrvgTgZP1CnlFHCIO2S6JMjMzB4BhyFgOud9mznaLg">
+<input type="hidden" name="form_id" value="search_block_form">
+</div>
+</div></form>  </div>
+</div>  </div>
+        </div>
+		
+	</div><!-- #header-->
+	<div id="menu">
+		  <div class="region region-header-menu">
+    <div id="block-menu-block-2" class="block block-menu-block">
+
+    
+  <div class="content">
+    <div class="menu-block-wrapper menu-block-2 menu-name-main-menu parent-mlid-0 menu-level-1">
+  <ul class="menu"><li class="first last leaf menu-mlid-237"><a href="http://www.babooshkin-soondook.ru/">Главная</a></li>
+</ul></div>
+  </div>
+</div>  </div>
+	</div>
+
+	<div id="middle">
+
+		<div id="container">
+			<div id="content" class="box-content">
+				<a id="main-content"></a>
+		        		        <h1 class="title" id="page-title">Скроллинг страницы.</h1>		        		        <div class="tabs"></div>		        		        		          <div class="region region-content">
+    <div id="block-system-main" class="block block-system">
+
+    
+  <div class="content">
+    <div id="node-69" class="node node-manuscript clearfix" about="/razdely/javascript/poleznyy-kod/skrolling-stranicy" typeof="sioc:Item foaf:Document">
+
+      
+      <div class="node-info muted">
+      <span class="user_img label-pos" title="Пользователь"></span>
+      <span class="username"><span rel="sioc:has_creator"><span class="username" xml:lang="" about="/users/den" typeof="sioc:UserAccount" property="foaf:name" datatype="">Den</span></span></span>
+      <span class="calendar_img label-pos" title="Дата"></span>
+      <span class="submitdate"><span property="dc:date dc:created" content="2014-04-30T10:14:57+04:00" datatype="xsd:dateTime">30 апреля 2014</span></span>
+      <span class="stat_img label-pos" title="Статистика"></span>
+      <span class="statistic">159 просмотров</span>
+    </div>
+  
+  <div class="content">
+    <div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded"><p>При создании сайта, особенно если это одностраничник или, как сейчас модно называть, Landing Page, очень полезным является контроль прокрутки страницы. Многие заметят, что для это уже есть много готовых инструментов, одним из которых является Bootstrap от Twitter. Я и сам, по началу, рассматривал его как вариант разработки одностраничников. Однако по определенным причинам решил самостоятельно "докопаться" до истины.</p>
+<p>Итак, имеем одностраничник или обычный сайт с длинными полотнами страниц. Для удобства, навигационную панель со ссылками на разделы страницы закрепим в верхнем положении. Таким образом, прокручивая страницу вниз, менюшка останется на месте. При этом полезной фишкой будет изменение подсветки пунктов меню при прокрутке страницы мышкой или пользуясь полосой прокрутки.</p>
+<p>Начнем с html- кода, он будет примерно таким:</p>
+<div><div id="highlighter_980623" class="syntaxhighlighter  html"><div class="toolbar"><span><a href="http://www.babooshkin-soondook.ru/razdely/javascript/poleznyy-kod/skrolling-stranicy#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="html spaces">&nbsp;&nbsp;</code><code class="html plain">&lt;</code><code class="html keyword">header</code><code class="html plain">&gt;</code></div><div class="line number2 index1 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">&lt;</code><code class="html keyword">div</code> <code class="html color1">class</code><code class="html plain">=</code><code class="html string">"header-wrap"</code><code class="html plain">&gt;</code></div><div class="line number3 index2 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">&lt;</code><code class="html keyword">nav</code> <code class="html color1">class</code><code class="html plain">=</code><code class="html string">"header-nav"</code><code class="html plain">&gt;</code></div><div class="line number4 index3 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="html plain">&lt;</code><code class="html keyword">a</code> <code class="html color1">href</code><code class="html plain">=</code><code class="html string">""</code> <code class="html color1">class</code><code class="html plain">=</code><code class="html string">"header-nav-link link-view active"</code> <code class="html color1">data-target</code><code class="html plain">=</code><code class="html string">"main"</code><code class="html plain">&gt;Главная&lt;/</code><code class="html keyword">a</code><code class="html plain">&gt;</code></div><div class="line number5 index4 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="html plain">&lt;</code><code class="html keyword">a</code> <code class="html color1">href</code><code class="html plain">=</code><code class="html string">""</code> <code class="html color1">class</code><code class="html plain">=</code><code class="html string">"header-nav-link link-view"</code> <code class="html color1">data-target</code><code class="html plain">=</code><code class="html string">"section_one"</code><code class="html plain">&gt;Раздел 1&lt;/</code><code class="html keyword">a</code><code class="html plain">&gt;</code></div><div class="line number6 index5 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="html plain">&lt;</code><code class="html keyword">a</code> <code class="html color1">href</code><code class="html plain">=</code><code class="html string">""</code> <code class="html color1">class</code><code class="html plain">=</code><code class="html string">"header-nav-link link-view"</code> <code class="html color1">data-target</code><code class="html plain">=</code><code class="html string">"section_two"</code><code class="html plain">&gt;Раздел 2&lt;/</code><code class="html keyword">a</code><code class="html plain">&gt;</code></div><div class="line number7 index6 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="html plain">&lt;/</code><code class="html keyword">nav</code><code class="html plain">&gt;</code></div><div class="line number8 index7 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">&lt;/</code><code class="html keyword">div</code><code class="html plain">&gt;</code></div><div class="line number9 index8 alt2"><code class="html spaces">&nbsp;&nbsp;</code><code class="html plain">&lt;/</code><code class="html keyword">header</code><code class="html plain">&gt;</code></div><div class="line number10 index9 alt1">&nbsp;</div><div class="line number11 index10 alt2"><code class="html spaces">&nbsp;&nbsp;</code><code class="html plain">&lt;</code><code class="html keyword">section</code> <code class="html color1">id</code><code class="html plain">=</code><code class="html string">"main"</code><code class="html plain">&gt;&lt;/</code><code class="html keyword">section</code><code class="html plain">&gt;</code></div><div class="line number12 index11 alt1"><code class="html spaces">&nbsp;&nbsp;</code><code class="html plain">&lt;</code><code class="html keyword">section</code> <code class="html color1">id</code><code class="html plain">=</code><code class="html string">"section_one"</code><code class="html plain">&gt;&lt;/</code><code class="html keyword">section</code><code class="html plain">&gt;</code></div><div class="line number13 index12 alt2"><code class="html spaces">&nbsp;&nbsp;</code><code class="html plain">&lt;</code><code class="html keyword">section</code> <code class="html color1">id</code><code class="html plain">=</code><code class="html string">"section_two"</code><code class="html plain">&gt;&lt;/</code><code class="html keyword">section</code><code class="html plain">&gt;</code></div></div></td></tr></tbody></table></div></div>
+<p>Добавим стили элементам страницы в файл main.css:</p>
+<div><div id="highlighter_948448" class="syntaxhighlighter  css"><div class="toolbar"><span><a href="http://www.babooshkin-soondook.ru/razdely/javascript/poleznyy-kod/skrolling-stranicy#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div><div class="line number29 index28 alt2">29</div><div class="line number30 index29 alt1">30</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="css plain">header {</code></div><div class="line number2 index1 alt1"><code class="css spaces">&nbsp;&nbsp;</code><code class="css keyword">position</code><code class="css plain">: </code><code class="css value">fixed</code><code class="css plain">;</code></div><div class="line number3 index2 alt2"><code class="css spaces">&nbsp;&nbsp;</code><code class="css keyword">width</code><code class="css plain">: </code><code class="css value">100%</code><code class="css plain">;</code></div><div class="line number4 index3 alt1"><code class="css spaces">&nbsp;&nbsp;</code><code class="css keyword">height</code><code class="css plain">: </code><code class="css value">90px</code><code class="css plain">;</code></div><div class="line number5 index4 alt2"><code class="css spaces">&nbsp;&nbsp;</code><code class="css keyword">background-color</code><code class="css plain">: </code><code class="css value">#555</code><code class="css plain">;</code></div><div class="line number6 index5 alt1"><code class="css spaces">&nbsp;&nbsp;</code><code class="css keyword">margin</code><code class="css plain">: </code><code class="css value">0</code><code class="css plain">;</code></div><div class="line number7 index6 alt2"><code class="css spaces">&nbsp;&nbsp;</code><code class="css keyword">z-index</code><code class="css plain">: </code><code class="css value">999</code><code class="css plain">;</code></div><div class="line number8 index7 alt1"><code class="css plain">}</code></div><div class="line number9 index8 alt2"><code class="css plain">a, a:hover {</code></div><div class="line number10 index9 alt1"><code class="css spaces">&nbsp;&nbsp;</code><code class="css keyword">text-decoration</code><code class="css plain">: </code><code class="css value">none</code><code class="css plain">;</code></div><div class="line number11 index10 alt2"><code class="css plain">}</code></div><div class="line number12 index11 alt1"><code class="css plain">.link-view {</code></div><div class="line number13 index12 alt2"><code class="css spaces">&nbsp;&nbsp;</code><code class="css keyword">font-family</code><code class="css plain">: </code><code class="css string">'Open Sans Condensed'</code><code class="css plain">, </code><code class="css color1">sans-serif</code><code class="css plain">;</code></div><div class="line number14 index13 alt1"><code class="css spaces">&nbsp;&nbsp;</code><code class="css keyword">font-size</code><code class="css plain">: </code><code class="css value">14px</code><code class="css plain">;</code></div><div class="line number15 index14 alt2"><code class="css spaces">&nbsp;&nbsp;</code><code class="css keyword">color</code><code class="css plain">: </code><code class="css value">#fff</code><code class="css plain">;</code></div><div class="line number16 index15 alt1"><code class="css plain">}</code></div><div class="line number17 index16 alt2"><code class="css plain">nav {</code></div><div class="line number18 index17 alt1"><code class="css spaces">&nbsp;&nbsp;</code><code class="css keyword">float</code><code class="css plain">: </code><code class="css value">left</code><code class="css plain">;</code></div><div class="line number19 index18 alt2"><code class="css spaces">&nbsp;&nbsp;</code><code class="css keyword">width</code><code class="css plain">: </code><code class="css value">500px</code><code class="css plain">;</code></div><div class="line number20 index19 alt1"><code class="css spaces">&nbsp;&nbsp;</code><code class="css keyword">height</code><code class="css plain">: </code><code class="css value">80px</code><code class="css plain">;</code></div><div class="line number21 index20 alt2"><code class="css spaces">&nbsp;&nbsp;</code><code class="css keyword">line-height</code><code class="css plain">: </code><code class="css value">80px</code><code class="css plain">;</code></div><div class="line number22 index21 alt1"><code class="css spaces">&nbsp;&nbsp;</code><code class="css keyword">margin-left</code><code class="css plain">: </code><code class="css value">120px</code><code class="css plain">;</code></div><div class="line number23 index22 alt2"><code class="css spaces">&nbsp;&nbsp;</code><code class="css keyword">display</code><code class="css plain">: inline-</code><code class="css value">block</code><code class="css plain">;</code></div><div class="line number24 index23 alt1"><code class="css plain">}</code></div><div class="line number25 index24 alt2"><code class="css plain">.header-nav .header-nav-link {</code></div><div class="line number26 index25 alt1"><code class="css spaces">&nbsp;&nbsp;</code><code class="css keyword">margin</code><code class="css plain">: </code><code class="css value">0</code> <code class="css value">15px</code> <code class="css value">0</code> <code class="css value">15px</code><code class="css plain">;</code></div><div class="line number27 index26 alt2"><code class="css plain">}</code></div><div class="line number28 index27 alt1"><code class="css plain">.header-nav .active {</code></div><div class="line number29 index28 alt2"><code class="css spaces">&nbsp;&nbsp;</code><code class="css keyword">color</code><code class="css plain">: </code><code class="css value">#cbef39</code><code class="css plain">;</code></div><div class="line number30 index29 alt1"><code class="css plain">}</code></div></div></td></tr></tbody></table></div></div>
+<p>Теперь перейдем к написанию простенького jQuery скрипта для обработки прокрутки страницы. Текст скрипта сохраним в файле main.js:</p>
+<div><div id="highlighter_391758" class="syntaxhighlighter  javascript"><div class="toolbar"><span><a href="http://www.babooshkin-soondook.ru/razdely/javascript/poleznyy-kod/skrolling-stranicy#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div><div class="line number29 index28 alt2">29</div><div class="line number30 index29 alt1">30</div><div class="line number31 index30 alt2">31</div><div class="line number32 index31 alt1">32</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="javascript plain">$(document).ready(</code><code class="javascript keyword">function</code><code class="javascript plain">(){</code></div><div class="line number2 index1 alt1"><code class="javascript spaces">&nbsp;&nbsp;</code><code class="javascript comments">// сохраняем высоту шапки</code></div><div class="line number3 index2 alt2"><code class="javascript spaces">&nbsp;&nbsp;</code><code class="javascript keyword">var</code> <code class="javascript plain">headerHeight = $(</code><code class="javascript string">'header'</code><code class="javascript plain">).height();</code></div><div class="line number4 index3 alt1"><code class="javascript spaces">&nbsp;</code>&nbsp;</div><div class="line number5 index4 alt2"><code class="javascript spaces">&nbsp;&nbsp;</code><code class="javascript comments">// прокрутка при клике по пункту меню&nbsp;</code></div><div class="line number6 index5 alt1"><code class="javascript spaces">&nbsp;&nbsp;</code><code class="javascript plain">$(</code><code class="javascript string">"a.header-nav-link"</code><code class="javascript plain">).click(</code><code class="javascript keyword">function</code><code class="javascript plain">(e) {</code></div><div class="line number7 index6 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp; </code><code class="javascript plain">e.preventDefault();</code></div><div class="line number8 index7 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp; </code><code class="javascript comments">// вычисляем смещение от начала документа до нужного раздела</code></div><div class="line number9 index8 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp; </code><code class="javascript keyword">var</code> <code class="javascript plain">offsetTop = $(</code><code class="javascript string">"#"</code><code class="javascript plain">+$(</code><code class="javascript keyword">this</code><code class="javascript plain">).data(</code><code class="javascript string">"target"</code><code class="javascript plain">)).offset().top - headerHeight;</code></div><div class="line number10 index9 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp; </code><code class="javascript comments">// производим прокрутку</code></div><div class="line number11 index10 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp; </code><code class="javascript plain">$(</code><code class="javascript string">'html, body'</code><code class="javascript plain">).animate({scrollTop: offsetTop}, 1000);</code></div><div class="line number12 index11 alt1"><code class="javascript spaces">&nbsp;&nbsp;</code><code class="javascript plain">});</code></div><div class="line number13 index12 alt2"><code class="javascript spaces">&nbsp;&nbsp;</code><code class="javascript comments">// обработка скроллинга (изменение активного элемента меню)</code></div><div class="line number14 index13 alt1"><code class="javascript spaces">&nbsp;&nbsp;</code><code class="javascript plain">$(document).scroll(</code><code class="javascript keyword">function</code><code class="javascript plain">(){</code></div><div class="line number15 index14 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp; </code><code class="javascript keyword">var</code> <code class="javascript plain">offsets = [];</code></div><div class="line number16 index15 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp; </code><code class="javascript plain">$(</code><code class="javascript string">'nav a'</code><code class="javascript plain">).each(</code><code class="javascript keyword">function</code><code class="javascript plain">(index, element){</code></div><div class="line number17 index16 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp; &nbsp; </code><code class="javascript comments">// собираем в массиве offsets смещения разделов относительно начала документа</code></div><div class="line number18 index17 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp; &nbsp; </code><code class="javascript plain">offsets.push($(</code><code class="javascript string">"#"</code> <code class="javascript plain">+ $(element).data(</code><code class="javascript string">'target'</code><code class="javascript plain">)).offset().top);</code></div><div class="line number19 index18 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp; </code><code class="javascript plain">});</code></div><div class="line number20 index19 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp; </code><code class="javascript comments">// дополняем массив еще одним елементом- высота всего документа</code></div><div class="line number21 index20 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp; </code><code class="javascript plain">offsets.push($(document).height());</code></div><div class="line number22 index21 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp; </code><code class="javascript comments">// изменяем активный пункт как только область зашла за полэкрана: $(window).height() / 2</code></div><div class="line number23 index22 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp; </code><code class="javascript keyword">var</code> <code class="javascript plain">docScroll = $(document).scrollTop() + headerHeight + $(window).height() / 2;</code></div><div class="line number24 index23 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp; </code><code class="javascript keyword">for</code> <code class="javascript plain">(</code><code class="javascript keyword">var</code> <code class="javascript plain"></code></div><div class="line number25 index24 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp; &nbsp; </code><code class="javascript keyword">if</code> <code class="javascript plain"></code></div><div class="line number26 index25 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; </code><code class="javascript plain">$(</code><code class="javascript string">'.active'</code><code class="javascript plain">).removeClass(</code><code class="javascript string">'active'</code><code class="javascript plain">);</code></div><div class="line number27 index26 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; </code><code class="javascript plain">$(</code><code class="javascript string">'nav a'</code><code class="javascript plain">).eq(i).addClass(</code><code class="javascript string">'active'</code><code class="javascript plain">);</code></div><div class="line number28 index27 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; </code><code class="javascript keyword">break</code><code class="javascript plain">;</code></div><div class="line number29 index28 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp; &nbsp; </code><code class="javascript plain">};</code></div><div class="line number30 index29 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp; </code><code class="javascript plain">};</code></div><div class="line number31 index30 alt2"><code class="javascript spaces">&nbsp;&nbsp;</code><code class="javascript plain">});</code></div><div class="line number32 index31 alt1"><code class="javascript plain">})</code></div></div></td></tr></tbody></table></div></div>
+<p>Вот и все.</p>
+<p>Удачи!</p></div></div></div>  </div>
+
+      <div class="node-bottom">
+      <div id="block-views-similarterms-block" class="block block-views">
+
+    <h2>Похожие материалы:</h2>
+  
+  <div class="content">
+    <div class="view view-similarterms view-id-similarterms view-display-id-block view-dom-id-7eeb4bb73987488f91e9af1f006732ff">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first views-row-last">  
+          <a href="http://www.babooshkin-soondook.ru/razdely/javascript/poleznyy-kod/supersized-polnoekrannoe-slayd-shou">Supersized- полноэкранное слайд-шоу.</a>  </li>
+      </ul></div>    </div>
+  
+  
+  
+  
+  
+  
+</div>  </div>
+</div>    </div>
+  
+  <section id="comments" class="comment-wrapper">
+  
+    
+      <form class="comment-form user-info-from-cookie user-info-from-cookie-processed" action="http://www.babooshkin-soondook.ru/comment/reply/69" method="post" id="comment-form" accept-charset="UTF-8"><div><div class="comment-contact"><div class="form-item form-type-textfield form-item-name">
+  <label for="edit-name">Ваше имя <span class="form-required" title="Это поле обязательно для заполнения.">*</span></label>
+ <input type="text" id="edit-name" name="name" value="" size="30" maxlength="60" class="form-text required">
+</div>
+<div class="form-item form-type-textfield form-item-mail">
+  <label for="edit-mail">E-mail <span class="form-required" title="Это поле обязательно для заполнения.">*</span></label>
+ <input type="text" id="edit-mail" name="mail" value="" size="30" maxlength="64" class="form-text required">
+<div class="description">Содержание этого поля является приватным и не предназначено к показу.</div>
+</div>
+<div class="form-item form-type-textfield form-item-homepage">
+  <label for="edit-homepage">Домашняя страница </label>
+ <input type="text" id="edit-homepage" name="homepage" value="" size="30" maxlength="255" class="form-text">
+</div>
+</div><div class="field-type-text-long field-name-comment-body field-widget-text-textarea form-wrapper" id="edit-comment-body"><div id="comment-body-add-more-wrapper"><div class="text-format-wrapper"><div class="form-item form-type-textarea form-item-comment-body-und-0-value">
+  <label for="edit-comment-body-und-0-value">Comment <span class="form-required" title="Это поле обязательно для заполнения.">*</span></label>
+ <div class="form-textarea-wrapper resizable textarea-processed resizable-textarea"><div class="bue-ui bue-e19 editor-container clearfix" id="bue-ui-0" role="toolbar"><input type="image" alt="Вставить/Редактировать изображение(M)" title="Вставить/Редактировать изображение (Alt + M)" accesskey="M" id="bue-0-button-0" class="bue-button bue-image-button editor-image-button" src="./Полезный код. Скроллинг страницы._files/picture.png" tabindex="0"><input type="image" alt="Вставить/Редактировать ссылку(L)" title="Вставить/Редактировать ссылку (Alt + L)" accesskey="L" id="bue-0-button-1" class="bue-button bue-image-button editor-image-button" src="./Полезный код. Скроллинг страницы._files/link.png" tabindex="-1"><span class="separator"><img src="./Полезный код. Скроллинг страницы._files/separator.png"></span><input type="image" alt="Жирный(B)" title="Жирный (Alt + B)" accesskey="B" id="bue-0-button-3" class="bue-button bue-image-button editor-image-button" src="./Полезный код. Скроллинг страницы._files/text_bold.png" tabindex="-1"><input type="image" alt="Курсив(I)" title="Курсив (Alt + I)" accesskey="I" id="bue-0-button-4" class="bue-button bue-image-button editor-image-button" src="./Полезный код. Скроллинг страницы._files/text_italic.png" tabindex="-1"><input type="image" alt="Подчёркнутый(U)" title="Подчёркнутый (Alt + U)" accesskey="U" id="bue-0-button-5" class="bue-button bue-image-button editor-image-button" src="./Полезный код. Скроллинг страницы._files/text_underline.png" tabindex="-1"><input type="image" alt="Зачёркнутый(S)" title="Зачёркнутый (Alt + S)" accesskey="S" id="bue-0-button-6" class="bue-button bue-image-button editor-image-button" src="./Полезный код. Скроллинг страницы._files/text_strikethrough.png" tabindex="-1"><span class="separator"><img src="./Полезный код. Скроллинг страницы._files/separator.png"></span><input type="image" alt="Подсветить PHP-код" title="Подсветить PHP-код" accesskey="" id="bue-0-button-8" class="bue-button bue-image-button editor-image-button" src="./Полезный код. Скроллинг страницы._files/php.png" tabindex="-1"><input type="image" alt="Подсветить XML-код" title="Подсветить XML-код" accesskey="" id="bue-0-button-9" class="bue-button bue-image-button editor-image-button" src="./Полезный код. Скроллинг страницы._files/xml.png" tabindex="-1"><input type="image" alt="Подсветить CSS-код" title="Подсветить CSS-код" accesskey="" id="bue-0-button-10" class="bue-button bue-image-button editor-image-button" src="./Полезный код. Скроллинг страницы._files/css.png" tabindex="-1"><input type="image" alt="Подсветить JS-код" title="Подсветить JS-код" accesskey="" id="bue-0-button-11" class="bue-button bue-image-button editor-image-button" src="./Полезный код. Скроллинг страницы._files/js.png" tabindex="-1"><span class="separator"><img src="./Полезный код. Скроллинг страницы._files/separator.png"></span><input type="image" alt="Просмотр" title="Просмотр" accesskey="" id="bue-0-button-13" class="bue-button bue-image-button editor-image-button" src="./Полезный код. Скроллинг страницы._files/eye.png" tabindex="-1"><input type="image" alt="Справка" title="Справка" accesskey="" id="bue-0-button-14" class="bue-button bue-image-button editor-image-button" src="./Полезный код. Скроллинг страницы._files/help.png" tabindex="-1"></div><textarea class="text-full form-textarea required bupProcessed" id="edit-comment-body-und-0-value" name="comment_body[und][0][value]" cols="60" rows="5" style="visibility: visible;"></textarea><div class="grippie"></div></div>
+</div>
+<fieldset class="filter-wrapper form-wrapper" id="edit-comment-body-und-0-format" style="display: none;"><div class="fieldset-wrapper"><input id="edit-comment-body-und-0-format--2" class="wysiwyg" type="hidden" name="comment_body[und][0][format]" value="plain_text">
+<div class="filter-help form-wrapper" id="edit-comment-body-und-0-format-help"><p><a href="http://www.babooshkin-soondook.ru/filter/tips" target="_blank">Более подробная информация о текстовых форматах</a></p></div><div class="filter-guidelines form-wrapper filter-guidelines-processed" id="edit-comment-body-und-0-format-guidelines"><div class="filter-guidelines-item filter-guidelines-plain_text"><h3 style="display: none;">Plain text</h3><ul class="tips"><li>Разрешённые HTML-теги: &lt;img&gt;&lt;a&gt;&lt;em&gt;&lt;strong&gt;&lt;ins&gt;&lt;del&gt;&lt;pre&gt;&lt;cite&gt;&lt;blockquote&gt;&lt;code&gt;&lt;ul&gt;&lt;ol&gt;&lt;li&gt;&lt;dl&gt;&lt;dt&gt;&lt;dd&gt;</li><li>Строки и параграфы переносятся автоматически.</li></ul></div></div></div></fieldset>
+</div>
+</div></div><input type="hidden" name="form_build_id" value="form-OjlWDlmOtNV59TatoGjiKvf9RRricnnojkf8Mh12O5E">
+<input type="hidden" name="form_id" value="comment_node_manuscript_form">
+<input class="mollom-content-id" type="hidden" name="mollom[contentId]" value="">
+<input class="mollom-captcha-id" type="hidden" name="mollom[captchaId]" value="140803cb2d2086e605">
+<div class="form-item form-type-textfield form-item-mollom-captcha">
+  <label for="edit-mollom-captcha">Verification <span class="form-required" title="Это поле обязательно для заполнения.">*</span></label>
+ <span class="field-prefix">
+<span class="mollom-captcha-content mollom-image-captcha"><img typeof="foaf:Image" src="./Полезный код. Скроллинг страницы._files/140803cb2d2086e605.png" class="thumbnail" alt="Введите символы, которые вы видите на этой картинке."></span>
+<div class="mollom-image-captcha-instructions">Type the characters you see in the picture; if you can't read them, submit the form and a new image will be generated. Not case sensitive.&nbsp;&nbsp;<a href="http://www.babooshkin-soondook.ru/razdely/javascript/poleznyy-kod/skrolling-stranicy#" class="mollom-switch-captcha mollom-audio-captcha">Switch to audio verification</a>.</div>
+</span> <input title="Enter the characters from the verification above." type="text" id="edit-mollom-captcha" name="mollom[captcha]" value="" size="10" maxlength="128" class="form-text required">
+</div>
+<div style="display: none;"><div class="form-item form-type-textfield form-item-mollom-homepage">
+ <input autocomplete="off" type="text" id="edit-mollom-homepage" name="mollom[homepage]" value="" size="60" maxlength="128" class="form-text">
+</div>
+</div><div class="form-actions form-wrapper" id="edit-actions"><input type="submit" id="edit-submit" name="op" value="Сохранить" class="btn form-submit"></div></div></form>  </section>
+</div>  </div>
+</div>  </div>
+			</div><!-- #content-->
+		</div><!-- #container-->
+
+		<div id="left-sidebar">
+			  <div class="region region-sidebar-first">
+    <div id="block-menu-block-1" class="box box-sidebar block block-menu-block">
+
+    <h4>Разделы</h4>
+  
+  <div class="sb-content">
+    <div class="menu-block-wrapper menu-block-1 menu-name-menu-sections parent-mlid-0 menu-level-1">
+  <ul class="menu"><li class="first collapsed menu-mlid-559"><a href="http://www.babooshkin-soondook.ru/razdely/drupal-7" title="Drupal 7">Drupal 7</a></li>
+<li class="leaf menu-mlid-658"><a href="http://www.babooshkin-soondook.ru/razdely/html" title="HTML">HTML</a></li>
+<li class="collapsed menu-mlid-562"><a href="http://www.babooshkin-soondook.ru/razdely/javascript" title="JavaScript">JavaScript</a></li>
+<li class="leaf menu-mlid-1106"><a href="http://www.babooshkin-soondook.ru/razdely/php" title="PHP">PHP</a></li>
+<li class="collapsed menu-mlid-565"><a href="http://www.babooshkin-soondook.ru/razdely/photoshop" title="Photoshop">Photoshop</a></li>
+<li class="collapsed menu-mlid-568"><a href="http://www.babooshkin-soondook.ru/razdely/dizayn" title="Дизайн">Дизайн</a></li>
+<li class="last leaf menu-mlid-663"><a href="http://www.babooshkin-soondook.ru/razdely/prochee" title="Прочее">Прочее</a></li>
+</ul></div>
+  </div>
+</div><div id="block-views-last-comments-block" class="box box-sidebar block block-views">
+
+    <h4>Последние комментарии</h4>
+  
+  <div class="sb-content">
+    <div class="view view-last-comments view-id-last_comments view-display-id-block last-comments view-dom-id-35528ead94f3b1f62d65eabf3755bdab">
+        
+  
+  
+      <div class="view-content">
+      <div class="list-style-none">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first views-row-last">  
+  <span>        <span class="comm-img-block"></span>  </span>  
+  <span class="views-field views-field-name">        <span class="field-content bright"><span class="username" xml:lang="" about="/users/admin" typeof="sioc:UserAccount" property="foaf:name" datatype="">admin</span>,</span>  </span>  
+  <span class="views-field views-field-created">        <span class="field-content muted">11 февраля 2014</span>  </span>  
+  <div class="views-field views-field-nothing">        <span class="field-content"><div class="separatediv"></div></span>  </div>  
+  <span class="views-field views-field-comment-body">        <span class="field-content"><p>Lorem ipsum dolor sit amet, consectet...</p></span>  </span>  
+  <span class="views-field views-field-view-comment">        <span class="field-content textdecornone"><a href="http://www.babooshkin-soondook.ru/comment/11#comment-11">→</a></span>  </span></li>
+      </ul></div>    </div>
+  
+  
+  
+  
+  
+  
+</div>  </div>
+</div><div id="block-user-login" class="box box-sidebar block block-user">
+
+    <h4>Вход на сайт</h4>
+  
+  <div class="sb-content">
+    <form action="http://www.babooshkin-soondook.ru/razdely/javascript/poleznyy-kod/skrolling-stranicy?destination=node/69" method="post" id="user-login-form" accept-charset="UTF-8"><div><div class="form-item form-type-textfield form-item-name">
+  <label for="edit-name--2">Имя пользователя <span class="form-required" title="Это поле обязательно для заполнения.">*</span></label>
+ <input type="text" id="edit-name--2" name="name" value="" size="15" maxlength="60" class="form-text required">
+</div>
+<div class="form-item form-type-password form-item-pass">
+  <label for="edit-pass">Пароль <span class="form-required" title="Это поле обязательно для заполнения.">*</span></label>
+ <input type="password" id="edit-pass" name="pass" size="15" maxlength="128" class="form-text required">
+</div>
+<div class="item-list"><ul><li class="first"><a href="http://www.babooshkin-soondook.ru/user/register" title="Регистрация">Регистрация</a></li>
+<li class="last"><a href="http://www.babooshkin-soondook.ru/user/password" title="Запросить новый пароль по электронной почте.">Забыли пароль?</a></li>
+</ul></div><input type="hidden" name="form_build_id" value="form-ds0FYjVHvJMsyTey5HiH3JaIQAjy3pb8T77lydp67kM">
+<input type="hidden" name="form_id" value="user_login_block">
+<div class="form-actions form-wrapper" id="edit-actions--3"><input type="submit" id="edit-submit--3" name="op" value="Войти" class="btn form-submit"></div></div></form>  </div>
+</div>  </div>
+
+			<div class="mchost">
+					<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="255" height="200"><param name="movie" value="//ban.mchost.ru/b/mc255x200.swf?clickTag=http://www.mchost.ru/?referer=3563520570"><!--[if !IE]>--><object type="application/x-shockwave-flash" data="http://ban.mchost.ru/b/mc255x200.swf?clickTag=http://www.mchost.ru/?referer=3563520570" width="0" height="0" style="display: none !important; visibility: hidden !important; opacity: 0 !important; background-position: 255px 200px;"><!--<![endif]--><a href="http://www.mchost.ru/?referer=3563520570" target="_blank"><img src="./Полезный код. Скроллинг страницы._files/mc255x200.gif" width="200" height="200" border="0" alt="Хостинг от Макхост"></a><!--[if !IE]>--></object><!--<![endif]--></object>
+			</div>
+
+		</div><!-- #left-sidebar -->
+
+	</div><!-- #middle-->
+
+	<div id="footer">
+		  <div class="region region-footer">
+    <div id="block-block-2" class="block block-block">
+
+    
+  <div class="content">
+    <div id="copyrihgt">
+			© 2014 - <a href="http://www.babooshkin-soondook.ru/">Бабушкин сундук</a>  by <a href="http://www.babooshkin-soondook.ru/node/55">Den Kuznetsov</a>
+</div>  </div>
+</div>  </div>
+	</div><!-- #footer -->
+
+</div><!-- #wrapper -->
+  <div class="ym-counter"><!-- Yandex.Metrika informer -->
+<a href="https://metrika.yandex.ru/stat/?id=23995084&from=informer" target="_blank" rel="nofollow"><img src="./Полезный код. Скроллинг страницы._files/3_0_F2D4ACFF_D2B48CFF_0_pageviews" style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)" onclick="try{Ya.Metrika.informer({i:this,id:23995084,lang:&#39;ru&#39;});return false}catch(e){}"></a>
+<!-- /Yandex.Metrika informer -->
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+(function (d, w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter23995084 = new Ya.Metrika({id:23995084,
+                    webvisor:true,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true});
+        } catch(e) { }
+    });
+
+    var n = d.getElementsByTagName("script")[0],
+        s = d.createElement("script"),
+        f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f, false);
+    } else { f(); }
+})(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript>&lt;div&gt;&lt;img src="//mc.yandex.ru/watch/23995084" style="position:absolute; left:-9999px;" alt="" /&gt;&lt;/div&gt;</noscript>
+<!-- /Yandex.Metrika counter --></div><script type="text/javascript" src="./Полезный код. Скроллинг страницы._files/syntaxhighlighter.min.js"></script>
+<script type="text/javascript" src="./Полезный код. Скроллинг страницы._files/statistics.js"></script>
+
+
+<div id="cboxOverlay" style="display: none;"></div><div id="colorbox" class="" role="dialog" tabindex="-1" style="display: none;"><div id="cboxWrapper"><div><div id="cboxTopLeft" style="float: left;"></div><div id="cboxTopCenter" style="float: left;"></div><div id="cboxTopRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxMiddleLeft" style="float: left;"></div><div id="cboxContent" style="float: left;"><div id="cboxTitle" style="float: left;"></div><div id="cboxCurrent" style="float: left;"></div><button type="button" id="cboxPrevious"></button><button type="button" id="cboxNext"></button><button id="cboxSlideshow"></button><div id="cboxLoadingOverlay" style="float: left;"></div><div id="cboxLoadingGraphic" style="float: left;"></div></div><div id="cboxMiddleRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxBottomLeft" style="float: left;"></div><div id="cboxBottomCenter" style="float: left;"></div><div id="cboxBottomRight" style="float: left;"></div></div></div><div style="position: absolute; width: 9999px; visibility: hidden; display: none; max-width: none;"></div></div><table class="bue-popup" style="display: none;" role="dialog" id="bue-dialog" tabindex="0"><tbody class="bue-zero"><tr class="bue-zero"><td class="bue-zero"><div class="bue-popup-head clearfix"><div class="bue-popup-title"></div><button class="bue-popup-close" type="button" title="Закрыть">x</button></div><div class="bue-popup-body"><div class="bue-popup-content clearfix"></div></div></td></tr></tbody></table><table class="bue-popup" style="display: none;" role="dialog" id="bue-quick-pop" tabindex="0"><tbody class="bue-zero"><tr class="bue-zero"><td class="bue-zero"><div class="bue-popup-head clearfix" style="display: none;"><div class="bue-popup-title"></div><button class="bue-popup-close" type="button" title="Закрыть">x</button></div><div class="bue-popup-body"><div class="bue-popup-content clearfix"></div></div></td></tr></tbody></table></body></html>

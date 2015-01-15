@@ -1,0 +1,784 @@
+============================================================================================================================================
+расширение модели User.(для случая существующих полей. то есть новые не добавляются в этом примере): -----УСТАРЕВШЕЕ-----
+создать форму:
+from django import forms
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+
+
+
+class MyRegistrationForm(UserCreationForm):
+	email = forms.EmailField(required=True) #это новое поле
+	
+	class Meta:
+		model = User
+		fields = ('username', 'email', 'password1', 'password2')
+		
+	def save(self, commit=True):
+		user = super(MyRegistrationForm, self).save(commit=False)
+		user.email = self.cleaned_data['email']
+		
+		if commit:
+			user.save()
+			
+		return user
+
+создать представление:
+from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.template import loader, RequestContext
+from django.contrib import auth
+from django import forms
+from django.contrib.auth.forms import AuthenticationForm
+from accounts.forms import MyRegistrationForm
+from django.shortcuts import render
+
+def registration(request):
+	if request.method == 'POST':
+		form = MyRegistrationForm(request.POST)	#
+		if form.is_valid():
+			new_user = form.save()
+			return HttpResponseRedirect("/accounts/registration_success/")
+	else:
+		form = MyRegistrationForm()
+		
+	return render(request, "registration.html", {
+		'form': form,	#
+	})	
+	
+	
+при этом родная модель User в Libs/site-packages/django.contrib.auth.forms
+
+не забывать выводить форму через тэг 		{{ form.as_p }}  и пересоздать таблички
+
+============================================================================================================================================
+Authentication:
+
+создаётся отдельное приложение
+
+прописываются урлы
+
+создаются представления
+
+создаются шаблоны
+
+далее формы для авторизации и регистрации можно подгружать стандартныу:
+	from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+	def login(request):
+		form = AuthenticationForm()	#
+		t = loader.get_template('login.html')
+		c = RequestContext(request, {
+			'form': form, #
+		})	
+		return HttpResponse(t.render(c)) 
+		
+	def registration(request):
+		if request.method == 'POST':
+			form = UserCreationForm(request.POST)	#
+			if form.is_valid():
+				new_user = form.save()
+				return HttpResponseRedirect("/accounts/registration_success/")
+		else:
+			form = UserCreationForm()
+			
+		return render(request, "registration.html", {
+			'form': form,	#
+		})	
+
+	вывод их в шаблонах {{ form.as_p }}	
+	
+или можно формы писать тупо htmlом:
+	{% if form.errors %}
+		<p>errors!</p>
+	{% endif %}
+	
+	<form action="/accounts/auth/" method="post">{% csrf_token %}
+		<input type="text" name="username" id="isername" value="" />
+		
+		<input type="password" name="password" id="password" value="" />
+		
+		<input type="submit" value="login" />
+	</form>
+	
+	
+	<form action="" method="post">
+		{% csrf_token %}
+		
+		{# {{ form.as_p }} #}
+		
+		{% if form.errors %}
+			<p>errors!</p>
+		{% endif %}		
+		
+		<p>
+			<label for="id_username">Имя пользователя:</label> 
+			<input id="id_username" maxlength="30" name="username" type="text"> 
+		</p>
+
+		<p>
+			<label for="id_password1">Пароль:</label> 
+			<input id="id_password1" name="password1" type="password">
+		</p>
+
+		<p>
+			<label for="id_password2">Подтверждение пароля:</label> 
+			<input id="id_password2" name="password2" type="password"> 
+		</p>		
+		
+		<input type="submit" value="Create the account">
+	</form>	
+	
+или же можно использовать стандартные формы, но расширив их(добавив поля)
+
+к каждой форме не забывать дописывать {% csrf_token %}. это скрытое поле для защиты от атак
+
+============================================================================================================================================
+добавить возможность редактирования моделей через админу:
+books/admin.py:
+from django.contrib import admin
+from books.models import Publisher, Author, Book
+
+admin.site.register(Publisher)
+admin.site.register(Author)
+admin.site.register(Book)
+
+перезапустить сервер
+
+============================================================================================================================================
+создание интерфейса администраторв:
+settings.py:
+
+INSTALLED_APPS = (
+	'books',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    #'django.contrib.messages',
+    #'django.contrib.staticfiles',
+)
+
+MIDDLEWARE_CLASSES = (
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+)
+
+
+urls.py:
+from django.conf.urls import patterns, include, url
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.contrib import admin
+admin.autodiscover()
+
+
+import proj1.views.views
+
+urlpatterns = patterns('',   
+	url('^admin/', include(admin.site.urls)),
+    url('^$', proj1.views.views.index_page),
+    url('^index_page$', proj1.views.views.index_page),
+    url('^blog_page$', proj1.views.views.blog_page),
+    url('^job_page$', proj1.views.views.job_page),
+    url('^hobby_page$', proj1.views.views.hobby_page),
+    url('^copyright$', proj1.views.views.copyright),
+    url('^datetime$', proj1.views.views.current_datetime),
+    url('^dt$', proj1.views.views.current_datetime),
+    url('^dt/(\d{0,2})$', proj1.views.views.current_datetime2),
+    url('^dynamic$', proj1.views.views.dynamic),
+)
+
+python manage.py syncdb и ввести данные супервользователя
+
++перезапустить сервер и  в браузере загрузить http://127.0.0.1:8000/admin/
+
+============================================================================================================================================
+расширение модели User:
+классы моделей могут наследоваться от любой существующей модели. Дополнительные поля сохраняются в отдельной таблице, которая подключается к таблице основной модели.
+
+models.py:
+from django.db import models
+from django.contrib.auth.models import User, UserManager
+
+
+class UserProfile(User):
+	CHOICES_gender = (
+		('0', 'М', ),
+		('1', 'Ж', ),
+	)
+	
+	CHOICES_status = (
+		('0', 'Барабанный бог', ),
+		('1', 'Профессиональный барабанщик',),
+		('2', 'Барабанщик', ),
+		('3', 'Барабанщик в прошлом', ),
+		('4', 'Играю на другом инструменте, но барабанщик в душе', ),
+		('5', 'Сочувствующий', ),
+	)
+		
+	family = models.CharField(
+		max_length=30, 
+		blank=True,
+	)
+	name1 = models.CharField(
+		max_length=30, 
+		blank=False,
+	)
+	name2 = models.CharField(
+		max_length=30, 
+		blank=False,
+	)
+	nickname = models.CharField(
+		max_length=30, 
+		blank=False,
+	)
+	gender = models.CharField(
+		max_length=10, 
+		choices=CHOICES_gender, 
+		blank=False,
+	)
+	#birth_date = models.DateField(
+		#blank=False,
+	#)
+	status = models.CharField(
+		max_length=30, 
+		choices=CHOICES_status, 
+		blank=True,
+	)
+	city = models.CharField(
+		max_length=50, 
+		default='Саранск', 
+		blank=True,
+	)
+	phone = models.CharField(
+		max_length=50, 
+		blank=False,
+	)
+	skype = models.CharField(
+		max_length=50, 
+		blank=False,
+	)
+	email_address = models.EmailField(
+		max_length=50, 
+		blank=True,
+	)	
+	other = models.TextField(
+		max_length=500,
+		blank=False,
+	)
+	avatar = models.ImageField(
+		upload_to='userprofile/', 
+		blank=False,
+	)
+	
+	objects = UserManager()
+	
+
+admin.py:
+from django.contrib import admin
+from drummersaransk.models import UserProfile
+
+class UserProfileAdmin(admin.ModelAdmin):
+	fields = ['family', 'name1', 'name2', 'nickname', 'gender', 'status', 'city', 'phone', 'skype', 'email', 'other', 'avatar', ]	
+	list_display = ['nickname', 'email']
+	search_fields = ['nickname', ]
+	
+	class Meta:
+		verbose_name = 'Профиль пользователя'
+		verbose_name_plural = 'Профиль пользователя'		
+
+	
+admin.site.register(UserProfile, UserProfileAdmin)
+	
+после это операции нужно создать таблицы командой syncdb. в результате появится интерфейс в админке. итого данные о пользователе содержатся в двух таблицах: auth_user, userprofile_userprofile
+
+теперь создадим интерфейс со стороный фронтэнда:
+forms.py:
+from django import forms
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django.forms import ModelForm
+
+from drummersaransk.models import UserProfile
+
+
+class MyRegistrationForm(UserCreationForm):	
+	username = forms.CharField(
+		label='Логин',
+		help_text='',
+		required=True,
+	)
+	
+	password1 = forms.CharField(
+		label='Пароль',
+		help_text='',
+		required=True,
+		widget=forms.PasswordInput,
+	)	
+	
+	password2 = forms.CharField(
+		label='Подтверждение пароля',
+		help_text='',
+		required=True,
+		widget=forms.PasswordInput,
+	)	
+		
+	class Meta:
+		model = UserProfile
+		fields = ('username', 'status', 'email_address', 'password1', 'password2')
+		
+здесь мы выводим не все поля(но можем и все). так же немного переопределяем поля: username, password1, password2(эти поля есть в форме потому что MyRegistrationForm наследуем от UserCreationForm)
+
+views.py:
+@login_required
+def user_profile(request):			
+	if request.method == 'POST':
+		form = UserProfileForm(request.POST, request.FILES, instance = request.user.profile)
+		if form.is_valid():	
+			form.save()	
+			return HttpResponseRedirect('/userprofile/')
+	else:
+		user = request.user
+		profile = user.profile
+		form = UserProfileForm(instance=profile)
+		
+	args = {}
+	args.update(csrf(request))
+	args['form'] = form
+						
+	entrie = UserProfile.objects.get(user_id=request.user.id)
+				
+	if entrie.avatar is not None:
+		args['avatar'] = entrie.avatar
+	
+	t = loader.get_template('profile.html')
+	c = RequestContext(request, args, [custom_proc])
+	return HttpResponse(t.render(c))  	
+	
+	
+@login_required
+def avatar_page(request):			
+	t = loader.get_template('avatar_page.html')
+	c = RequestContext(request, {}, [custom_proc])	
+	return HttpResponse(t.render(c)) 
+
+============================================================================================================================================
+загрузка картинки в расширенный профиль пользователя:
+urls.py:
+	url(r'^userprofile/avatar_page/', 'views.avatar_page'),		
+	url(r'^userprofile/avatar_page_changed/', 'views.avatar_page_changed'),		
+	
+forms.py:
+class ChangeAvatarForm(forms.Form):
+	new_avatar = forms.ImageField()		
+	
+views.py:
+@login_required	
+def avatar_page(request):		
+	if request.method == 'POST':								
+		form = ChangeAvatarForm(request.POST, request.FILES)
+		if form.is_valid():				
+			entrie = UserProfile.objects.get(user_ptr_id=request.user.id)
+			entrie.avatar = form.cleaned_data.get('new_avatar')
+			entrie.save()	
+			return HttpResponseRedirect('/userprofile/avatar_page_changed/')						
+	else:						
+		form = ChangeAvatarForm()
+		
+	entrie = UserProfile.objects.get(user_ptr_id=request.user.id)
+				
+	if entrie.avatar is not None:
+		avatar = entrie.avatar		
+        		
+	t = loader.get_template('avatar_page.html')
+	c = RequestContext(request, {
+									'form': form,
+									'avatar': avatar,
+	}, [custom_proc])	
+	
+	return HttpResponse(t.render(c)) 	
+		
+
+@login_required	
+def avatar_page_changed(request):			
+	t = loader.get_template('avatar_page_changed.html')
+	c = RequestContext(request, {}, [custom_proc])	
+	return HttpResponse(t.render(c))
+
+
+здесь самое главное в том, что в контроллере выделяются 2 блока - для случая когда есть POSTданные и для случая когда их нет. остальное дело техники
+
+============================================================================================================================================
+смена пароля в расширенном профиле пользователя:
+urls.py:
+	url(r'^userprofile/password_page/', 'views.password_page'),		
+	url(r'^userprofile/password_page_changed/', 'views.password_page_changed'),	
+	
+forms.py:
+class ChangePasswordForm(forms.Form):
+	password_old = forms.CharField(max_length=30, widget=forms.PasswordInput())
+	password1 = forms.CharField(widget=forms.PasswordInput())
+	password2 = forms.CharField(widget=forms.PasswordInput())
+	
+	def __init__(self, *args, **kwargs):
+		self.request = kwargs.pop('request', None)
+		super(ChangePasswordForm, self).__init__(*args, **kwargs)	
+	
+	def clean_password_old(self):
+		cleaned_data = self.cleaned_data
+		password_old = cleaned_data.get("password_old")	
+		if not self.request.user.check_password(password_old):
+			raise forms.ValidationError("old Password is not correct")
+		else:
+			return password_old
+	
+	def clean(self):	
+		cleaned_data = self.cleaned_data
+		password1 = cleaned_data.get("password1")
+		password2 = cleaned_data.get("password2")	
+        		
+		if password1 != password2:		
+			raise forms.ValidationError("Passwords must be same")
+		else:							
+			return cleaned_data
+			
+views.py:
+@login_required	
+def password_page(request):		
+	if request.method == 'POST':								
+		form = ChangePasswordForm(request.POST, request=request)
+		if form.is_valid():
+			username = User.objects.get(username__exact=request.user.username)
+			username.set_password(form.cleaned_data.get('password1'))
+			username.save()	
+			return HttpResponseRedirect('/userprofile/password_page_changed/')						
+	else:						
+		form = ChangePasswordForm(request=request)
+        		
+	t = loader.get_template('password_page.html')
+	c = RequestContext(request, {
+									'form': form,
+	}, [custom_proc])	
+	
+	return HttpResponse(t.render(c)) 	
+	
+	
+@login_required	
+def password_page_changed(request):			
+	t = loader.get_template('password_page_changed.html')
+	c = RequestContext(request, {}, [custom_proc])	
+	return HttpResponse(t.render(c))
+	
+============================================================================================================================================
+как переопределить родную форму авторизации и добавить атрибуты её полям:
+	
+наследуем кастомную форму от родной:
+forms.py:
+from django.contrib.auth.forms import  AuthenticationForm
+class AuthenticationCustomForm(AuthenticationForm):
+	username = forms.CharField(
+		label='Имя пользователя',
+		widget=forms.TextInput(attrs={
+			'placeholder': 'Логин',
+		}),		
+	)
+
+	password = forms.CharField(
+		label='Пароль', 
+		widget=forms.PasswordInput(attrs={
+			'placeholder': 'Пароль',
+		}),
+	)
+	
+переопределяем по ходу поля какие нужно или оставляем как есть
+	
+	
+пишем контроллер, который рассматривает два варианта - с пост-данными и без них(при этом н забываем подгружать кастомную форму):
+views.py:
+from drummersaransk.forms import AuthenticationCustomForm
+def login(request):
+	if(request.method == "POST"):
+		form = AuthenticationCustomForm(data=request.POST)
+		if form_login.is_valid():
+			username = AuthenticationForm.cleaned_data['username']
+			password = AuthenticationForm.cleaned_data['password']
+
+			user = auth.authenticate(username=username, password=password)
+
+			if user is not None and user.is_active:
+				auth.login(request, user)
+	else:
+		form = AuthenticationCustomForm()	
+                	
+	t = loader.get_template('accounts/login.html')
+	c = RequestContext(request, {
+		'form': form, 
+	}, [custom_proc])	
+	return HttpResponse(t.render(c)) 
+
+template.html:
+	<section class="section login_page">
+		<h2 class="h2">Вход</h2>
+		
+		<form class="login_form" action="{% url 'auth_view' %}" method="post">
+			{% csrf_token %}
+			
+			<div class="cell">
+				{{ form.username }}
+				
+				{{ form.username.errors }}
+			</div>	
+
+			<div class="cell">
+				{{ form.password }}
+				
+				{{ form.password.errors }}
+			</div>				
+			
+			<div class="cell">
+				<input class="submit btn btn-info" type="submit" value="Войти" />
+			</div>
+		</form>
+		
+		<div class="registration_link_outer">
+			<p>или</p>
+			<a class="registration_link" href="{% url 'registration' %}">зарегистрироваться</a>
+		</div>
+	</section>	
+
+============================================================================================================================================
+интерфейс для смены пароля:
+views:
+@login_required	
+def password_page(request):		
+	if request.method == 'POST':								
+		form = ChangePasswordForm(data=request.POST, request=request)
+		if form.is_valid():
+			username = User.objects.get(username__exact=request.user.username)
+			username.set_password(form.cleaned_data.get('password1'))
+			username.save()	
+			return HttpResponseRedirect('/userprofile/password_page_changed/')						
+	else:						
+		form = ChangePasswordForm(request=request)
+        		
+	t = loader.get_template('password_page.html')
+	c = RequestContext(request, {
+									'form': form,
+	}, [custom_proc])	
+	
+	return HttpResponse(t.render(c)) 	
+	
+urls:
+	url(r'^userprofile/password_page/$', 'views.password_page', name='password_page', ),		
+	url(r'^userprofile/password_page_changed/$', 'views.password_page_changed', ),	
+	
+forms:
+class ChangePasswordForm(forms.Form):
+	password_old = forms.CharField(max_length=30, widget=forms.PasswordInput())
+	password1 = forms.CharField(widget=forms.PasswordInput())
+	password2 = forms.CharField(widget=forms.PasswordInput())
+	
+	def __init__(self, *args, **kwargs):
+		self.request = kwargs.pop('request', None)
+		super(ChangePasswordForm, self).__init__(*args, **kwargs)	
+	
+	def clean_password_old(self):
+		cleaned_data = self.cleaned_data
+		password_old = cleaned_data.get("password_old")	
+		if not self.request.user.check_password(password_old):
+			raise forms.ValidationError("old Password is not correct")
+		else:
+			return password_old
+	
+	def clean(self):	
+		cleaned_data = self.cleaned_data
+		password1 = cleaned_data.get("password1")
+		password2 = cleaned_data.get("password2")	
+        		
+		if password1 != password2:		
+			raise forms.ValidationError("Passwords must be same")
+		else:							
+			return cleaned_data
+			
+tpl:
+{% extends "page_base.html" %}
+
+{% block title %} - Изменить пароль{% endblock %}
+
+{% block content %}
+	<section class="section password_page edit_data">
+		<h2 class="h2">Изменить пароль</h2>
+		
+		<form class="password_form common_form" action="{% url 'password_page' %}" method="POST">
+			{% csrf_token %}
+			
+			<div class="cell">
+				<label class="label">{{ form.password_old.label }}</label>
+				
+				{{ form.password_old }}
+				
+				{{ form.password_old.errors }}
+			</div>
+
+			<div class="cell">
+				<label class="label">{{ form.password1.label }}</label>
+				
+				{{ form.password1 }}
+				
+				{{ form.password1.errors }}
+			</div>
+
+			<div class="cell">
+				<label class="label">{{ form.password2.label }}</label>
+				
+				{{ form.password2 }}
+				
+				{{ form.password2.errors }}
+			</div>		
+		
+			<div class="cell">
+				<input class="submit btn btn-info" type="submit" value="Изменить" />
+			</div>
+		</form>
+	</section>
+{% endblock %}
+
+
+============================================================================================================================================
+вывод ошибок валидации, сгенерированный методом clean():
+The passwords don't match error is within the form.non_field_errors collection. You can access it via:
+{{ form.non_field_errors }}
+
+If you want to have it display for a particular field, you can do the following. This will raise it for both the password fields.
+raise ValidationError({
+    'password1': ["Passwords must match.",],
+    'password2': ["Passwords must match.",]
+})
+
+Любое исключение ValidationError вызванное в Model.clean() будет сохранено со специальным ключом в словаре ошибок, NON_FIELD_ERRORS, который используется для ошибок относящихся ко всей модели, а не конкретному полю:
+
+============================================================================================================================================
+создание пользователя через наследование AbstractUser.(выгода в том, что вместо двух таблиц используется одна. минус в том, что непонятки с системой прав и вообще не понятно как менять пароль.):
+#myusers/models.py
+from django.contrib.auth.models import AbstractUser
+from django.db import models
+
+class MyUser(AbstractUser):
+    dob = models.DateField()
+    favorite_color = models.CharField(max_length=32, default='Blue')
+	
+#settings.py
+AUTH_USER_MODEL = 'projectname.MyUser'
+
+далее требуется стандартным способом добавить сисетму аторизации/регистрации.
+при этом фактически зарегистрировать пользователя возможно только через созданную фору регистрации. другим способом никак потому что пароль будет пустым
+
+============================================================================================================================================
+чтобы при первой загрузке формы сразу не выводились валидационные подсказки нужно использовать initial:
+
+views.py:
+@login_required	
+def path_glory_add_item(request):	
+	if request.method == 'POST':
+		form = PathGloryForm(request.POST, request.FILES)
+		if form.is_valid():	
+			PathGlory(
+				user_id=form.cleaned_data.get('user_id'), 
+				title=form.cleaned_data.get('title').strip(), 
+				date=form.cleaned_data.get('date'), 
+				place=form.cleaned_data.get('place').strip(), 
+				teaser=form.cleaned_data.get('teaser').strip(), 
+				text=form.cleaned_data.get('text').strip(), 
+				path_glory_photo=form.cleaned_data.get('path_glory_photo'), 
+			).save()				
+						
+			return HttpResponseRedirect('/userprofile/path_glory_add_item_added/')
+	else:			
+		form = PathGloryForm(initial={
+			'user_id': request.user.pk,
+		})
+		
+	t = loader.get_template('path_glory_add_item.html')
+	c = RequestContext(request, {
+		'form': form,
+	}, [custom_proc])	
+	return HttpResponse(t.render(c))
+
+forms.py:
+class PathGloryForm(forms.ModelForm):
+	date = forms.DateField(
+		widget=forms.TextInput(attrs={
+			'class':'datepicker',
+		}),
+		required=False,
+		label='Дата проведения',
+	)	
+	
+	user_id = forms.IntegerField(
+		widget=forms.HiddenInput,
+		required=True,
+	)		
+				
+	class Meta:
+		model = PathGlory
+		fields = (
+			'user_id',
+			'title', 
+			'date', 
+			'place', 
+			'teaser', 
+			'text',
+			'path_glory_photo',
+		)
+
+
+models.py:
+class PathGlory(models.Model):
+	user_id = models.IntegerField()		#это поле очень важное. оно нужно
+	title = models.CharField(
+		'Название события',
+		max_length=100, 
+		blank=False,
+	)			
+	date = models.DateField(
+		'Дата проведения',
+		blank=True,
+		null=True,
+	)		
+	place = models.CharField(
+		'Место проведения',
+		max_length=200, 
+		blank=True,
+		null=True,
+	)		
+	teaser = models.TextField(
+		'Вступительный текст (тизер)',
+		max_length=10000, 
+		blank=True,
+		null=True,
+		help_text='Будет отображаться в ленте',
+	)			
+	text = models.TextField(
+		'Основной текст',
+		max_length=100, 
+		blank=True,
+		null=True,
+		help_text='Будет отображаться на отдельной странице',
+	)			
+	path_glory_photo = models.ImageField(
+		'Фото',
+		blank=True,
+		upload_to='userprofile/path_glory_photo/', 
+		null=True,
+	)
+	
+	
+============================================================================================================================================
+============================================================================================================================================
+============================================================================================================================================
+============================================================================================================================================
+============================================================================================================================================
+============================================================================================================================================
+============================================================================================================================================

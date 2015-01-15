@@ -1,0 +1,32 @@
+<?php
+	function special_offer_menu(){
+		$items = array();
+
+		$items['special_offer'] = array(
+			'title' => 'special_offer',
+			'description' => 'special_offer',
+			'page callback' => 'drupal_get_form',
+			'page arguments' => array('special_offer_form'),			
+			'access callback'=>	TRUE,
+		);
+		return $items;
+	} 	
+
+	function special_offer_list(){
+		$form = drupal_get_form('special_offer_form');
+		
+		return render($form);
+	}
+	
+	function special_offer_form(){
+		$form['offer_title'] = array(
+			'#title' =>  t('offer_title'),
+			'#required' => TRUE,		
+			'#type' => 'textfield'
+		);	
+
+		$form['submit'] = array(
+			'#type' => 'submit',
+			'#value' => t('Submit')
+		);		
+	}

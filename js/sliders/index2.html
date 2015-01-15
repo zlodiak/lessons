@@ -1,0 +1,340 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<link href="/favicon.ico" type="image/x-icon" rel="shortcut icon" />
+<title>jQuery Carousel несколько каруселек</title>
+<link rel="stylesheet" type="text/css" href="/css/demo.css" media="all" />
+<style type="text/css">
+	/** base carousel **/
+	.carousel ul {
+	position:absolute;
+	overflow:hidden;
+	margin:0;
+	padding:0;
+	list-style:none;
+	}
+
+	.no-js .carousel ul {position:static;}
+
+	.carousel .mask {
+	position:relative;
+	overflow:hidden;
+	
+	}
+
+	.carousel ul li {
+	float:left;
+	width:166px;
+	height:220px;
+	margin:0 !important;
+	padding: 0 15px;
+	text-align: center;
+	/*border-left: 1px dotted #000;*/
+	margin-bottom: 40px;
+	}
+	
+		.carousel ul li:first-child {
+			border: none;
+		}
+	
+		.carousel ul li .product_title{
+			font: 700 14px Arial, sans-serif;
+			color: #000;
+			display: block;
+			text-align: left;
+			padding-bottom: 8px;
+			height: 55px;
+		}
+		
+			.carousel ul li .product_title:hover{
+				text-decoration: none;
+			}		
+		
+		.carousel ul li img{
+			width: 140px ;
+			height: 105px ;
+			margin: 0 auto;
+			display: block;
+			margin-bottom: 7px;
+		}
+		
+		.carousel ul li .product_price{
+			font: 700 20px Tahoma, serif;
+			color: #FF5100;
+			margin-bottom: -3px;
+		}
+		
+		.carousel ul li .product_link{
+			font: 700 11px Tahoma, serif;
+			color: #000;			
+			border-left: 1px dotted #000;
+			padding-left: 4px;
+			margin-left: 10px;
+			text-decoration: underline;
+			cursor: pointer;
+		}
+		
+			.carousel ul li .product_link:hover{
+				text-decoration: none;
+			}
+
+	.carousel .pagination-links {
+	list-style:none;
+	margin:0;
+	padding:0;
+	display: none;
+	}
+
+	.carousel .pagination-links li {
+	display:inline;
+	}
+
+	.carousel .pagination-links li a {
+	padding:2px 6px;
+	}
+
+	.carousel .pagination-links li a:hover {text-decoration:none;}
+
+	.carousel .pagination-links li.current a {
+	background:#444;
+	color:#fff;
+	}
+
+	.carousel .disabled {
+	color:gray;
+	cursor:default;
+	}
+
+
+	/** my carousel 2 **/
+	#my-carousel-2 .mask {
+	width:784px;
+	}
+
+	#my-carousel-2 ul li {
+	margin:0 10px 0 0;
+	}
+
+	
+	.carousel{
+		position: relative;
+		width: 784px;
+		
+		height: 257px;
+		overflow: hidden;
+	}
+	
+	.next{
+		background: url(images/next-horizontal.gif) left top no-repeat;
+		display: block;
+		width: 50px;
+		height: 0px;
+		padding-top: 15px;
+		overflow: hidden;
+		
+		position: absolute;
+		right: 13px;
+		bottom: 15px;		
+	}
+	
+		.next.disabled{
+			background: url(images/next-horizontal.gif) right top no-repeat;
+		}	
+	
+	.prev{
+		background: url(images/prev-horizontal.gif) right top no-repeat;
+		display: block;
+		width: 50px;
+		height: 0px;
+		padding-top: 15px;
+		overflow: hidden;
+		
+		
+		position: absolute;
+		right: 73px;
+		bottom: 15px;
+	}	
+	
+		.prev.disabled{
+			background: url(images/prev-horizontal.gif) left top no-repeat;
+		}		
+</style>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="jquery.carousel.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+	$('body').removeClass('no-js');
+	$('#my-carousel-1').carousel();
+	
+	$('#my-carousel-2').carousel({
+	itemsPerPage: 4,
+	itemsPerTransition: 4,
+	speed: 500
+	});
+	
+	$('#my-carousel-3').carousel({
+	itemsPerPage: 3,
+	itemsPerTransition: 3,
+	easing: 'linear',
+	noOfRows: 2
+	});
+	});
+</script>
+</head>
+<body class="no-js">
+<div id="container">
+
+
+
+	
+	<div id="my-carousel-2" class="carousel module">
+		<ul>
+			<li>
+				<a class="product_title" href="#">Смартфон Nokia E72, GSM 1800/1900/850/900/900/HSDPA/WCDMA...</a>
+				<img src="images/products/prod1.jpg" alt="prod" />
+				<span class="product_price">10 039 р.</span>
+				<a class="product_link">купить</a>			
+			</li>
+			
+			<li>
+				<a class="product_title" href="#">Смартфон Nokia E72, GSM 1800/1900/850/900/900/WCDMA...</a>
+				<img src="images/products/prod2.jpg" alt="prod" />
+				<span class="product_price">1 039 р.</span>
+				<a class="product_link">купить</a>			
+			</li>
+			
+			<li>
+				<a class="product_title" href="#">Смартфон Nokia E72, GSM 1800/1900//900/HSDPA/WCDMA...</a>
+				<img src="images/products/prod3.jpg" alt="prod" />
+				<span class="product_price">10 039 р.</span>
+				<a class="product_link">купить</a>			
+			</li>
+			
+			<li>
+				<a class="product_title" href="#">Смартфон Nokia E72, GSM 180/1900/850/900/900/HSDPA/WCDMA...</a>
+				<img src="images/products/prod4.jpg" alt="prod" />
+				<span class="product_price">1 039 р.</span>
+				<a class="product_link">купить</a>			
+			</li>		
+							
+			<li>
+				<a class="product_title" href="#">Смартфон Nokia E72, GSM 1800/1900/850/900/900/HSDPA/WCDMA...</a>
+				<img src="images/products/prod2.jpg" alt="prod" />
+				<span class="product_price">10 039 р.</span>
+				<a class="product_link">купить</a>			
+			</li>
+			
+			<li>
+				<a class="product_title" href="#">Смартфон Nokia E72, GSM 1800/1900/850/900/900/WCDMA...</a>
+				<img src="images/products/prod2.jpg" alt="prod" />
+				<span class="product_price">1 039 р.</span>
+				<a class="product_link">купить</a>			
+			</li>
+			
+			<li>
+				<a class="product_title" href="#">Смартфон Nokia E72, GSM 1800/1900//900/HSDPA/WCDMA...</a>
+				<img src="images/products/prod3.jpg" alt="prod" />
+				<span class="product_price">10 039 р.</span>
+				<a class="product_link">купить</a>			
+			</li>
+			
+			<li>
+				<a class="product_title" href="#">Смартфон Nokia E72, GSM 180/1900/850/900/900/HSDPA/WCDMA...</a>
+				<img src="images/products/prod1.jpg" alt="prod" />
+				<span class="product_price">1 039 р.</span>
+				<a class="product_link">купить</a>			
+			</li>						
+
+			<li>
+				<a class="product_title" href="#">Смартфон Nokia E72, GSM 1800/1900/850/900/900/HSDPA/WCDMA...</a>
+				<img src="images/products/prod1.jpg" alt="prod" />
+				<span class="product_price">10 039 р.</span>
+				<a class="product_link">купить</a>			
+			</li>
+			
+			<li>
+				<a class="product_title" href="#">Смартфон Nokia E72, GSM 1800/1900/850/900/900/WCDMA...</a>
+				<img src="images/products/prod2.jpg" alt="prod" />
+				<span class="product_price">1 039 р.</span>
+				<a class="product_link">купить</a>			
+			</li>
+			
+			<li>
+				<a class="product_title" href="#">Смартфон Nokia E72, GSM 1800/1900//900/HSDPA/WCDMA...</a>
+				<img src="images/products/prod3.jpg" alt="prod" />
+				<span class="product_price">10 039 р.</span>
+				<a class="product_link">купить</a>			
+			</li>
+			
+			<li>
+				<a class="product_title" href="#">Смартфон Nokia E72, GSM 180/1900/850/900/900/HSDPA/WCDMA...</a>
+				<img src="images/products/prod3.jpg" alt="prod" />
+				<span class="product_price">1 039 р.</span>
+				<a class="product_link">купить</a>			
+			</li>						
+
+			<li>
+				<a class="product_title" href="#">Смартфон Nokia E72, GSM 1800/1900/850/900/900/HSDPA/WCDMA...</a>
+				<img src="images/products/prod1.jpg" alt="prod" />
+				<span class="product_price">10 039 р.</span>
+				<a class="product_link">купить</a>			
+			</li>
+			
+			<li>
+				<a class="product_title" href="#">Смартфон Nokia E72, GSM 1800/1900/850/900/900/WCDMA...</a>
+				<img src="images/products/prod2.jpg" alt="prod" />
+				<span class="product_price">1 039 р.</span>
+				<a class="product_link">купить</a>			
+			</li>
+			
+			<li>
+				<a class="product_title" href="#">Смартфон Nokia E72, GSM 1800/1900//900/HSDPA/WCDMA...</a>
+				<img src="images/products/prod3.jpg" alt="prod" />
+				<span class="product_price">10 039 р.</span>
+				<a class="product_link">купить</a>			
+			</li>
+			
+			<li>
+				<a class="product_title" href="#">Смартфон Nokia E72, GSM 180/1900/850/900/900/HSDPA/WCDMA...</a>
+				<img src="images/products/prod4.jpg" alt="prod" />
+				<span class="product_price">1 039 р.</span>
+				<a class="product_link">купить</a>			
+			</li>						
+
+			<li>
+				<a class="product_title" href="#">Смартфон Nokia E72, GSM 1800/1900/850/900/900/HSDPA/WCDMA...</a>
+				<img src="images/products/prod4.jpg" alt="prod" />
+				<span class="product_price">10 039 р.</span>
+				<a class="product_link">купить</a>			
+			</li>
+			
+			<li>
+				<a class="product_title" href="#">Смартфон Nokia E72, GSM 1800/1900/850/900/900/WCDMA...</a>
+				<img src="images/products/prod4.jpg" alt="prod" />
+				<span class="product_price">1 039 р.</span>
+				<a class="product_link">купить</a>			
+			</li>
+			
+			<li>
+				<a class="product_title" href="#">Смартфон Nokia E72, GSM 1800/1900//900/HSDPA/WCDMA...</a>
+				<img src="images/products/prod3.jpg" alt="prod" />
+				<span class="product_price">10 039 р.</span>
+				<a class="product_link">купить</a>			
+			</li>
+			
+			<li>
+				<a class="product_title" href="#">Смартфон Nokia E72, GSM 180/1900/850/900/900/HSDPA/WCDMA...</a>
+				<img src="images/products/prod4.jpg" alt="prod" />
+				<span class="product_price">1 039 р.</span>
+				<a class="product_link">купить</a>			
+			</li>						
+		</ul>
+	</div>
+
+
+</div>
+</body>
+</html>

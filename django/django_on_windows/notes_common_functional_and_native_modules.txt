@@ -1,0 +1,227 @@
+============================================================================================================================================
+загрузка файлов:
+
+в шаблоне использовать форму с атрибутом enctype <form action="/userprofile/" method="POST" enctype="multipart/form-data">{% csrf_token %}
+
+определить MEDIA
+
+в форме использовать поле ImageField или FileField: image = models.ImageField(upload_to='instructors/')
+
+в представлении получать request.FILES:
+def user_profile(request):			
+	if request.method == 'POST':
+		form = UserProfileForm(request.POST, request.FILES, instance = request.user.profile)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect('/accounts/loggedin/')
+			
+============================================================================================================================================
+unittest простейший:
+models.py: 
+from django.db import models
+
+class Summator:
+    def summ(self, a, b):
+        return a + b
+
+tests.py: 
+from django.test import TestCase
+from userprofile.models import Summator
+
+class TestFoo(TestCase):
+    def setUp(self):
+        self.a = 2
+        self.b = 3
+
+    def test_summator(self):
+        f = Summator()
+        assert f.summ(self.a, self.b) != self.a + self.b
+
+python manage.py test
+
+============================================================================================================================================
+пагинация:
+
+есть встроенный класс. ничего подгружать не надо
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+этот класс представляет из себя обёртку. то есть в представлении пишем
+	entries = News.get_entries()
+	paginator = Paginator(entries, 2)
+и после этого можно использовать результаты через paginator.значение. использовать можно и в представлении, и в шаблоне
+
+vievs.py:
+def news(request):
+	entries = News.get_entries()
+	paginator = Paginator(entries, 2)
+	list_pages = paginator.page_range
+	
+	page = request.GET.get('page')
+	try:
+		news_paginated = paginator.page(page)
+	except PageNotAnInteger:
+		news_paginated = paginator.page(1)
+	except EmptyPage:
+		news_paginated = paginator.page(paginator.num_pages)	
+		
+	last_page = list_pages[-1]	
+	first_page = list_pages[0]	
+	
+	t = loader.get_template('news.html')
+	c = RequestContext(request, {
+									'title': 'Новости',
+									'get_entries': entries,
+									'list_pages': list_pages,
+									'news_paginated': news_paginated,
+									'last_page': last_page,
+									'first_page': first_page,
+	})	
+	return HttpResponse(t.render(c)) 	
+	
+template.html:
+{% extends "base_page.html" %}
+{% load staticfiles custom_tags custom_tags_news reviews_fancy_form thumbnail %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+	<section class="news_list">
+		{% for entrie in news_paginated %}
+			<a class="article_outer" href="/news/{{ entrie.id }}/">
+				<article class="article">
+					<h1 class="h1">{{ entrie.title }}</h1>
+					
+					<div class="content">
+						{% if entrie.image %}
+							{% thumbnail entrie.image "100x100" crop="center" as im %}
+								<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="" />
+							{% endthumbnail %}					
+						{% endif %}
+						
+						<div class="body">{{ entrie.content|truncatechars:460 }}</div>
+					</div>
+					
+					<div class="date_time">
+						{{ entrie.date_time }}
+					</div>
+				</article>
+			</a>
+		{% endfor %}	
+	</section>
+	
+	<div class="pagination">
+		<span class="step-links">
+			<a href="?page={{ first_page }}">FP</a>
+		
+			{% if news_paginated.has_previous %}
+				<a href="?page={{ news_paginated.previous_page_number }}">previous</a>
+			{% endif %}
+
+			<span>
+				{% for page in list_pages  %}
+					{% if news_paginated.number == page %}
+						<span>{{ page }}</span>
+					{% else %}
+						<a href="?page={{ page }}">{{ page }}</a>
+					{% endif %}
+				{% endfor %}		
+			</span>
+
+			{% if news_paginated.has_next %}
+				<a href="?page={{ news_paginated.next_page_number }}">next</a>
+			{% endif %}
+			
+			<a href="?page={{ last_page }}">LP</a>
+		</span>
+		
+		<div class="current">
+			Page {{ news_paginated.number }} of {{ news_paginated.paginator.num_pages }}.
+		</div>	
+	</div>		
+{% endblock %}
+
+============================================================================================================================================
+ajax:
+
+создать отдельное приложение
+
+создать шаблон для формы
+
+создать inclusion tag для с формой
+
+импортировать его в базовый шаблон
+
+вставить его в базоый шаблон
+
+создать модель и форму на её основе
+
+прописать в урлконфиге урл для загружаемой в фоновом режиме страницы
+
+создать соответствующее представление с функцией, которая вставляет запись с таблицу БД
+
+добавить js в базовый шаблон, который делает видимой форму при нажатии на чём-нибудь
+
+добавить ajax в базовый шаблон, который отслеживает отправку формы(в форме action="#") и перенаправляет на нужную страницу с привязанным представлением, которое обрабатывает фоновый запрос
+
+заморочиться с проверкой успешности записи в БД
+
+============================================================================================================================================
+добавить атрибут для поля формы можно так:
+birth_date = forms.DateField(widget=forms.TextInput(attrs={'id':'datepicker'}))
+			
+============================================================================================================================================	
+добавить datepicker из jquery UI для поля формы так:
+создать форму(через модель или без модели)
+
+добавить к нужному текстовому полю атрибут id='datepicker'
+
+скачать и подключить библиотеку(в скрипте инициализации настроить формат даты). не забыть подгрузить css и images
+
+создать модель м таблицу в БД. syncdb
+	birth_date = models.DateField(
+		'Дата рождения',
+		blank=True,
+		null=True,
+	)
+
+создать контроллер и логику, которая будет отвечать за запись с БД
+
+============================================================================================================================================	
+активный пункт меню для одноуровневого меню(js-костыль):
+jq, js:
+//active menu punkt
+var	pathname = location.pathname;
+var	pathnameList = pathname.split('/');
+var	slug = '/' + pathnameList[1];
+
+// console.log(pathname);
+// console.log(pathnameList);
+// console.log(slug);
+
+$('.nav_top a').each(function(){
+	var	href = $(this).attr('href');
+	
+	$(this).removeClass('active-trail');
+	
+	if(href == slug){
+		$(this).addClass('active-trail');
+	}
+});
+
+============================================================================================================================================	
+загрузка изображения:
+основная идея:
+1.	добавить в форму  method="POST" enctype="multipart/form-data"
+2.	
+	if request.method == 'POST':
+		form = DrumDataForm(request.POST, request.FILES)
+		if form.is_valid():	
+			entrie = UserProfile.objects.get(user_ptr_id=request.user.id)
+			entrie.avatar = form.cleaned_data.get('drum_photo')
+		
+============================================================================================================================================			
+============================================================================================================================================			
+============================================================================================================================================			
+============================================================================================================================================			
+============================================================================================================================================			
+============================================================================================================================================			

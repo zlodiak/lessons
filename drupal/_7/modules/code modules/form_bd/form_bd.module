@@ -1,0 +1,86 @@
+<?php
+	function form_bd_menu() {
+		$items = array();
+
+		$items['form_bd'] = array(
+			'title' => 'form_bd',
+			'description' => 'form_plus module',
+			'page callback' => 'drupal_get_form',
+			'page arguments' => array('form_bd_settings'),
+			'access callback'  => TRUE,
+			'type' => MENU_NORMAL_ITEM,
+			'menu_name' => 'main-menu'
+		);
+		return
+
+		$items;
+	} 		
+	
+	function form_bd_settings() {
+		$form['name'] = array(
+			'#title' =>  t('name'),
+			'#description' => t('name desc'),
+			'#required' => TRUE,
+			'#type' => 'textfield'
+		);
+		
+		$form['email'] = array(
+			'#title' =>  t('email'),
+			'#description' => t('email desc'),
+			'#required' => TRUE,
+			'#type' => 'textfield'
+		);
+		
+		$form['message'] = array(
+			'#title' =>  t('message'),
+			'#description' => t('message desc'),
+			'#type' => 'textarea'
+		);
+
+
+		$form['submit'] = array(
+			'#type' => 'submit',
+			'#value' => t('Save')
+		);
+		
+		//$form["#validate"] = array('test_validate_first', 'test_validate_second');	
+
+		$form["#submit"] = array('test_submit_first', 'test_submit_second');		
+
+		return $form;
+	}
+	
+
+	// function test_validate_first($form, &$form_state) {
+	  // if(mb_strlen($form_state['values']['name']) < 3) {
+		// form_set_error('name', t('Text must contain more then 3 symbols'));
+	  // }
+	// }
+
+	// function test_validate_second($form, &$form_state) {
+		// if(!valid_email_address($form_state['values']['email'])){
+			// form_set_error('email', t('email no valid'));
+		// }
+	// }	
+	
+	function test_submit_first($form, &$form_state) {
+	  drupal_set_message('First submitter');
+	  drupal_set_message("textbox: " . $form_state['values']['name']);
+	  
+ 
+	}
+	
+	function test_submit_second($form, &$form_state) {
+	  drupal_set_message('Second submitter');
+	  drupal_set_message("selectlist: " . $form_state['values']['email']); 
+	  
+		if(db_insert('form_bd')
+		  ->fields(array(
+			'email' => $form_state['values']['email'],
+		  ))
+		  ->execute()){
+			$form_state['redirect'] = 'http://microsoft.com';
+		}		  
+	}	
+
+		

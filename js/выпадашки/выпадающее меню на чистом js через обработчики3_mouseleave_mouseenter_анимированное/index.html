@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<html>
+	<head>    
+		<meta charset="utf-8" />
+		
+		<title></title>
+		
+		<!--[if lt IE 9]>
+			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->	
+
+		<!--<link rel="icon" href="favicon.ico" type="image/x-icon" />-->	
+
+		<link rel="stylesheet" href="css/style.css" />			
+	</head>
+
+	<body>	
+		<div class="wrap">
+			<div class="wrap_inner">
+				<div class="main">
+					<nav class="categories" id="left_menu">
+						<h1>
+							<span>меню</span>
+						</h1>
+						
+						<ul class="outer" id="catalog_menu">
+							<li>
+								<a  href="index.html">
+									<span>LED-qwerty</span>
+								</a>
+								
+								<ul class="inner">
+									<li>
+										<a  href="index.html">
+											<span>LED-qwerty</span>
+										</a>
+									</li>
+									
+									<li>
+										<a  href="index.html">
+											<span>qwerty источники qwerty</span>
+										</a>
+									</li>
+
+									<li>
+										<a  href="index.html">
+											<span>qwerty ИС</span>
+										</a>
+									</li>	
+								</ul>									
+							</li>
+							
+							<li>
+								<a  href="index.html">
+									<span>qwerty qwerty qwerty</span>
+								</a>
+								
+								<ul class="inner">
+									<li>
+										<a  href="index.html">
+											<span>Lsdfsdfsdfs</span>
+										</a>
+									</li>
+									
+									<li>
+										<a  class="selected" href="index.html">
+											<span>qwerty тока</span>
+										</a>
+									</li>
+
+									<li>
+										<a  href="index.html">
+											<span>sdf qwerty</span>
+										</a>
+									</li>	
+								</ul>									
+							</li>
+
+							<li>
+								<a  href="index.html">
+									<span>qwerty qwerty</span>
+								</a>
+							</li>
+
+							<li>
+								<a  href="index.html">
+									<span>qwerty qwerty</span>
+								</a>
+								
+								<ul class="inner">									
+									<li>
+										<a  href="index.html">
+											<span>qwerty qwerty</span>
+										</a>
+									</li>
+
+									<li>
+										<a  href="index.html">
+											<span>qwerty-освещение</span>
+										</a>
+									</li>
+									
+									<li>
+										<a  href="index.html">
+											<span>qwerty qwerty qwerty</span>
+										</a>
+									</li>
+								</ul>									
+							</li>
+
+							<li>
+								<a  href="index.html">
+									<span>qwerty qwerty</span>
+								</a>
+							</li>
+
+							<li>
+								<a  href="index.html">
+									<span>LED-qwerty</span>
+								</a>
+							</li>
+							
+							<li>
+								<a  href="index.html">
+									<span>qwerty qwerty qwerty</span>
+								</a>
+							</li>
+
+							<li>
+								<a  href="index.html">
+									<span>qwerty ИС</span>
+								</a>
+							</li>
+
+							<li>
+								<a  href="index.html">
+									<span>qwerty ИС</span>
+								</a>
+							</li>
+
+							<li>
+								<a  href="index.html">
+									<span>qwerty</span>
+								</a>
+							</li>								
+						</ul>
+					</nav>	
+					
+					<div class="content" id="content">
+						кецццццццццццццццццццццццццц<hr />
+						ке<hr />
+						ке<hr />
+						ке<hr />
+						ке<hr />
+						<hr />
+						<hr />
+						<hr />
+						<hr />
+						<hr />
+						<hr />
+						<hr />
+						<hr />
+						<hr />
+						<hr />
+						<hr />
+						<hr />
+						<hr />
+						<hr />
+						<hr />
+						<hr />
+					</div>
+				</div>	
+			</div>
+		</div>
+
+		
+
+		<script>
+			//
+			var menu = document.getElementById('left_menu');
+			var content = document.getElementById('content');
+			var running = false;
+			
+			menu.style.left = '-200px';
+			
+			//
+			if (document.addEventListener) {
+				addEvent = function(el, type, handler) {
+					el.addEventListener(type, handler, false)
+				};
+			} else {
+				addEvent = function(el, type, handler) {
+					el.attachEvent("on" + type, handler)
+				};
+			};
+			
+			//анимация левого меню - начало
+			addEvent(menu, "mouseenter", function(e) {
+				e = e || window.event;
+				
+				if(this.style.left == '-200px'){
+					var element = this;
+					var from = -200; // Начальная координата X
+					var to = 0; // Конечная координата X
+					var duration = 1000; // Длительность 
+					var start = new Date().getTime(); // Время старта
+					
+					console.log('over');
+					
+					if(running != true){
+						running = true;		
+
+						setTimeout(function() {					
+							var now = (new Date().getTime()) - start; // Текущее время
+							var progress = now / duration; // Прогресс анимации
+
+							var result = (Math.round((to - from) * delta(progress>1?1:progress)) + from);
+
+							element.style.left = result + "px";
+
+							if (progress < 1) // Если анимация не закончилась, продолжаем
+								setTimeout(arguments.callee, 10);
+						}, 10);
+					
+						running = false;
+					}
+				}
+			});
+			
+			addEvent(menu, "mouseleave", function(e) {
+				e = e || window.event;
+				
+				if(this.style.left == '0px'){
+					var element = this;
+					var from = 0; // Начальная координата X
+					var to = -200; // Конечная координата X
+					var duration = 1000; // Длительность 
+					var start = new Date().getTime(); // Время старта
+					
+					console.log('out');
+					
+					if(running != true){
+						running = true;					
+
+						setTimeout(function() {					
+							var now = (new Date().getTime()) - start; 
+							var progress = now / duration; 
+
+							var result = (Math.round((to - from) * delta(progress>1?1:progress)) + from);
+
+							element.style.left = result + "px";
+
+							if (progress < 1) 
+								setTimeout(arguments.callee, 10);
+						}, 10);
+						
+						running = false;
+					}						
+				}
+			});		
+
+			function delta(progress) {
+				 function d(progress) {
+					for(var a = 0, b = 1, result; 1; a += b, b /= 2) {
+					   if (progress >= (7 - 4 * a) / 11)
+						   return -Math.pow((11 - 6 * a - 11 * progress) / 4, 2) + Math.pow(b, 2);
+					}
+				 }
+				 return 1 - d(1 - progress);
+			}			
+			//анимация левого меню - конец
+
+		</script>				
+	</body>
+</html>

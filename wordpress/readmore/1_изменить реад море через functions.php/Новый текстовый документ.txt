@@ -1,0 +1,11 @@
+function new_excerpt_more($more) {  
+    global $post;  
+    return '<a class="more button" href="'. get_permalink($post->ID) . '">подробнее</a>';  
+}  
+add_filter('excerpt_more', 'new_excerpt_more');  
+
+function Crystlix_more_link($link) {
+    $link = '<a class="more button" href="'. get_permalink(). '">подробнее</a>';
+    return $link;
+}
+add_filter('the_content_more_link', 'Crystlix_more_link');

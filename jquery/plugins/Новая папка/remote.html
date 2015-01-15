@@ -1,0 +1,2484 @@
+
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta content='width=1024' name='viewport'>
+    
+    
+    <title>Rails: ajax-валидация в стиле DRY / Хабрахабр</title>
+    
+    <meta name='yandex-verification' content='67d46b975fa41645' /> <!-- яндекс вебмастер - верификация -->
+
+    <meta name="description" content="Когда я только начинал задумываться о том, чтобы приобщиться к миру веб-разработки, и выбирал язык, с которого начну, одна из википедий мне напела, что в основе философии Rails лежат 2 принципа:..." />    
+    <meta name="keywords" content="ruby on rails, validation, jquery validation, dry" />
+    
+    	<meta property="fb:app_id"      content="444736788986613" /> 
+<meta property="og:type"        content="article" /> 
+<meta property="og:url"         content="http://habrahabr.ru/post/213077/" /> 
+<meta property="og:title"       content="Rails: ajax-валидация в стиле DRY" /> 
+	
+	<meta property="og:image"       content="http://habrahabr.ru/i/habralogo.jpg" />
+	<link rel="image_src" href="http://habrahabr.ru/i/habralogo.jpg" />
+<meta property="og:description" content="Когда я только начинал задумываться о том, чтобы приобщиться к миру веб-разработки, и выбирал язык, с которого начну, одна из википедий мне напела, что в основе..." />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@habrahabr" />
+	<meta property="al:ios:url" content="habrahabr://post/213077" />
+<meta property="al:ios:app_store_id" content="778613673" />
+<meta property="al:ios:app_name" content="Habrahabr" />
+<meta property="al:android:url" content="habrahabr://post/213077" />
+<meta property="al:android:app_name" content="Habrahabr" />
+<meta property="al:android:package" content="ru.habrahabr" />
+<meta property="al:windows_phone:url" content="habrahabr://post/213077" />
+<meta property="al:windows_phone:app_name" content="Habrahabr" />
+<meta property="al:windows_phone:app_id" content="460a6bd6-8955-470f-935e-9ea1726a6060" />
+
+
+
+    <link href="/styles/1415185440/assets/global_main.css" rel="stylesheet" media="all" />
+    <script type="text/javascript" src="/javascripts/1415185440/assets/global_main.js"></script>
+      <link href="/styles/1415185440/assets/post_common_css.css" rel="stylesheet" media="all" />
+
+    <link href="/styles/1415185440/printer.css" rel="stylesheet" media="print" />
+
+    
+    
+
+    
+
+
+      <script type="text/javascript" src="/javascripts/1415185440/assets/post_common_js.js"></script>
+
+
+      <!-- www.criteo.com/ru -->
+<script type='text/javascript'>
+  var crtg_nid="2580";
+  var crtg_cookiename="cto_rtt";
+  var crtg_varname="crtg_content";
+  function crtg_getCookie(c_name){
+    var i,x,y,ARRCookies=document.cookie.split(";");
+    for(i=0;i<ARRCookies.length;i++){
+      x=ARRCookies[i].substr(0,ARRCookies[i].indexOf("="));
+      y=ARRCookies[i].substr(ARRCookies[i].indexOf("=")+1);
+      x=x.replace(/^\s+|\s+$/g,"");
+      if(x==c_name){return unescape(y);}
+    }
+    return'';
+  }
+  var crtg_content = crtg_getCookie(crtg_cookiename);var crtg_rnd=Math.floor(Math.random()*99999999999);
+  var crtg_url=location.protocol+'//rtax.criteo.com/delivery/rta/rta.js?netId='+escape(crtg_nid);crtg_url+='&cookieName='+escape(crtg_cookiename);crtg_url+='&rnd='+crtg_rnd;crtg_url+='&varName=' + escape(crtg_varname);
+  var crtg_script=document.createElement('script');crtg_script.type='text/javascript';crtg_script.src=crtg_url;crtg_script.async=true;
+  if(document.getElementsByTagName("head").length>0)document.getElementsByTagName("head")[0].appendChild(crtg_script);
+  else
+  if(document.getElementsByTagName("body").length>0)document.getElementsByTagName("body")[0].appendChild(crtg_script);
+</script>
+      <script >
+        var N = 5;
+        var ar_duo1 = Math.floor(Math.random()*N+1);
+      </script>
+      <script type="text/javascript" src="/javascripts/1415185440/adriver.core.2.js"></script>
+
+    <link title="Хабрахабр / Комментарии к публикации «Rails: ajax-валидация в стиле DRY»" type="application/rss+xml" rel="alternate" href="http://habrahabr.ru/rss/post/213077/"/>
+    
+    
+<script type="text/javascript">
+
+    var user_type = "guest";
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+    ga('create', 'UA-726094-1',  'auto' ); 
+
+  ga('require', 'displayfeatures');
+  ga('set', 'dimension1', user_type); // user type - guest/readonly/habrauser
+  //ga('set', 'dimension2', username); // username
+
+
+  ga('send', 'pageview');
+  
+</script>
+
+
+
+
+
+
+
+
+
+
+    <meta content='Хабрахабр' name='apple-mobile-web-app-title'>
+<link href='/images/apple-touch-icon_142x142.png' rel='apple-touch-icon' type='image/png'>
+  </head>
+
+  <body>
+    <div id="TMpanel">
+  <div class="container">
+    <div class="menu">
+      <a href="http://habrahabr.ru?utm_source=tm_habrahabr&utm_medium=tm_top_panel&utm_campaign=tm_promo" class="current">Хабрахабр</a>
+      <a href="http://geektimes.ru?utm_source=tm_habrahabr&utm_medium=tm_top_panel&utm_campaign=tm_promo">Geektimes</a>
+      <a href="http://toster.ru?utm_source=tm_habrahabr&utm_medium=tm_top_panel&utm_campaign=tm_promo">Тостер</a>
+      <a href="http://brainstorage.me?utm_source=tm_habrahabr&utm_medium=tm_top_panel&utm_campaign=tm_promo">Brainstorage</a>
+      <a href="http://freelansim.ru?utm_source=tm_habrahabr&utm_medium=tm_top_panel&utm_campaign=tm_promo">Фрилансим</a>
+      <a href="http://habrastorage.org?utm_source=tm_habrahabr&utm_medium=tm_top_panel&utm_campaign=tm_promo">Habrastorage</a>
+    </div>
+    <div class="menu special"></div>
+  </div>
+</div>
+
+
+    <div id="layout">
+      <div id="navbar_overlay" class="hidden"></div>
+<div id="navbar">
+    <div class="nav_panel">
+        <a href="http://habrahabr.ru/" class="logo"></a>
+
+            <a href="/posts/" class="tab tab_menu" data-tab="menu_tab" title="Меню"><span class="g-icon g-icon-burger"></span></a>
+            <a href="https://habrahabr.ru/auth/login/" class="tab tab_login" id="login" title="Войти"><span class="g-icon g-icon-lock"></span></a>
+
+        <a href="" class="tab tab_print  hidden" id="print_tab" target="_blank" data-post-id="213077"></a>
+
+        <a href="#" class="scroll_to_up hidden scroll_to_up_for_guest" id="scroll_to_top" title="Наверх"></a>
+    </div>
+    <div class="nav_tabs_content ">
+
+        <div class="nav_tab hidden" id="menu_tab">
+            <div class="title">Разделы</div>
+            <form action="/search/" method="get" class="global_search_form">
+                <div>
+                    <input type="text" name="q" placeholder="Поиск" />
+                </div>
+            </form>
+            <div class="menu">
+                <a href="/posts/top/">Публикации</a>
+                <a href="/hubs/">Хабы</a>
+                <a href="/companies/">Компании</a>
+                <a href="/users/">Пользователи</a>
+                <a href="http://toster.ru/?utm_source=tm_habrahabr&utm_medium=tm_menu&utm_campaign=tm_promo"    class="new_window">Q&A</a>
+                <a href="/sandbox/">Песочница</a>
+                <a href="/exchange/">Биржа авторов</a>
+
+
+
+            </div>
+
+            
+
+                    <div class="line"></div>
+                    <div class="title">Спецпроекты</div>
+                    <div class="menu">
+
+                    <a href="/lnk/93/" target="_blank">Бесплатное облако</a>
+
+                    <a href="/lnk/95/" target="_blank">Wargaming</a>
+
+                    <a href="/lnk/97/" target="_blank">Brother</a>
+                    </div>
+
+
+        </div>
+
+
+    </div>
+</div>
+
+      <div class="inner">
+        
+                
+        
+
+        	
+  <div class="content_left">
+  	
+
+
+
+
+
+    <div class="post_show">
+  	  
+  <div class="post shortcuts_item" id="post_213077">
+  	<div class="published">18 февраля в 22:45</div>
+    <h1 class="title">
+	    
+        <span class="post_title">Rails: ajax-валидация в стиле DRY</span>
+      <span class="flag flag_tutorial" title="Обучающий материал">tutorial</span>
+			
+  	</h1>
+  	
+  	<div class="hubs">
+		<a href="http://habrahabr.ru/hub/ror/" class="hub " title="Вы не подписаны на этот хаб" >Ruby on Rails</a><span class="profiled_hub" title="Профильный хаб">*</span>
+</div>
+
+  	
+  	<div class="content html_format">
+    	Когда я только начинал задумываться о том, чтобы приобщиться к миру веб-разработки, и выбирал язык, с которого начну, одна из википедий мне напела, что в основе философии Rails лежат 2 принципа: <b>Convention over configuration (CoC)</b> и <b>Don’t Repeat Yourself (DRY)</b>. Что касается первого — я тогда вобще не понял о чём речь, а вот второй понял, принял и ожидал, что в недрах этого замечательного фреймворка, я отыщу нативный инструмент, позволяющий мне один раз написать правила валидации для атрибутов модели, и потом использовать эти правила как для front, так и для back проверок.<br/>
+<a name="habracut"></a><br/>
+Как выяснилось позже — меня ждало разочарование. В рельсах из коробки подобной штуки нет, и всё, что удалось отыскать по теме в ходе обучения — это railscast про <i>client_side_validations gem</i>.<br/>
+<br/>
+Я тогда о javascript знал только то, что он есть, поэтому пришлось молча прикрутить гем к рождающемуся блогу и отложить тему dry-валидаций до более близкого знакомства с js. И вот это время пришло: мне понадобился гибкий инструмент для проверки форм, и переписывать каждый <code>validates_inclusion_of</code> на js-манер я был не намерен. Да и гем тот больше не поддерживается.<br/>
+<br/>
+<h4>Постановка задачи</h4><br/>
+Найти способ, который позволит:<br/>
+<ol>
+<li>при валидации атрибутов использовать одну логику: как для бэка, так и для фронта</li>
+<li>быстро «вешать» проверки на разные формы и гибко их настраивать (как логику, так и визуал)</li>
+</ol><br/>
+Решение материализовано в небольшой демке: <a href="http://sandbox.alexfedoseev.com/dry-validation/showoff">http://sandbox.alexfedoseev.com/dry-validation/showoff</a><br/>
+<br/>
+И пара поясняющих абзацев ниже.<br/>
+<br/>
+<h4>Инструменты</h4><br/>
+Забыл упомянуть, что я в меру ленив, и писать собственный js-валидатор в мои планы изначально не входило. Из готовых решений мой выбор пал на <a href="http://jqueryvalidation.org/"><b>jQuery Validation Plugin</b></a>.<br/>
+<br/>
+Его можно просто закинуть в js-ассеты или <a href="https://github.com/danryan/jquery-validation-rails">поставить как гем</a>. <br/>
+Больше ничего стороннего не потребуется.<br/>
+<br/>
+Нести доброе светлое буду через пример. Допустим у нас есть список рассылки, в котором хранятся электронные адреса и настройка периодичности рассылки для каждого адреса (сколько раз в неделю пуляем письмо).<br/>
+<br/>
+<h4>Переходим к сути</h4><br/>
+Соответственно есть модель — <code>Email</code><br/>
+И два её атрибута:<br/>
+<ul>
+<li><code>email</code> — электронный адрес</li>
+<li><code>frequency</code> — периодичность, с которой рассылка будет уходить на данный адрес</li>
+</ul><br/>
+Какие будут ограничения:<br/>
+<ul>
+<li>наличие <code>email</code> обязательно</li>
+<li><code>email</code> должен быть уникален</li>
+<li><code>email</code> должен быть email (с собакой и прочими рюшечками)</li>
+<li><code>frequency</code> не обязателен, но если есть, то должен быть в диапазоне <b>от 1 до 7</b></li>
+</ul><br/>
+<br/>
+Воплощаем:<br/>
+<br/>
+<b>app/models/email.rb</b><br/>
+<br/>
+<pre><code class="ruby">class Email &lt; ActiveRecord::Base
+
+  before_save { self.email = email.downcase }
+
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :email, presence: true,
+            uniqueness: { case_sensitive: false },
+            format: { with: VALID_EMAIL_REGEX }
+  validates_inclusion_of :frequency, in: 1..7, allow_blank: true
+
+end
+</code></pre><br/>
+<br/>
+<div class="spoiler"><b class="spoiler_title">В контроллере и представлении всё абсолютно стандартно</b><div class="spoiler_text"><b>app/controllers/emails_controller.rb</b><br/>
+<br/>
+<pre><code class="ruby">class EmailsController &lt; ApplicationController
+
+  def new
+    @email = Email.new
+  end
+
+  def create
+    @email = Email.new(email_params)
+    if @email.save
+      flash[:success] = 'Email добавлен!'
+      redirect_to emails_url
+    else
+      render :new
+    end
+  end
+
+  private
+
+    def email_params
+      params.require(:email).permit(:email, :frequency)
+    end
+
+end
+</code></pre><br/>
+<br/>
+<b>app/views/emails/new.html.haml</b><br/>
+<br/>
+<pre><code class="ruby">%h1 Новая почта
+= form_for @email do |f|
+
+  = render partial: 'shared/error_messages', locals: { object: f.object }
+
+  %p= f.text_field :email, placeholder: 'Почта'
+  %p= f.text_field :frequency, placeholder: 'Периодичность рассылки'
+  %p= f.submit 'Добавить!'
+</code></pre><br/>
+</div></div><br/>
+<br/>
+Следующий шаг — повесить валидатор на форму и посмотреть что к чему.<br/>
+Делается это просто: <code>$('#form').validate();</code><br/>
+<blockquote>Повторю <a href="http://jqueryvalidation.org/documentation/">ссылку на документацию к плагину</a>, чтобы к ней больше не возвращаться. Там со структурированностью контента небольшая проблема, но информация вся есть.</blockquote><br/>
+Итак, вешаем:<br/>
+<br/>
+<b>app/assets/javascripts/emails.js.coffee</b><br/>
+<br/>
+<pre><code class="coffeescript">jQuery -&gt;
+  validate_url = '/emails/validate'
+
+  $('#new_email, [id^=edit_email_]').validate(
+    debug: true
+    rules:
+      'email[email]':
+        required: true
+        remote:
+          url: validate_url
+          type: 'post'
+      'email[frequency]':
+        remote:
+          url: validate_url
+          type: 'post'
+  )
+</code></pre><br/>
+<br/>
+Пройдемся по каждой строчке:<br/>
+<ul>
+<li><code>validate_url = '/emails/validate'</code><br/>
+адрес, на который будем отправлять ajax-запрос для проверки значений полей</li>
+<li><code>$('#new_email, [id^=edit_email_]').validate</code> <br/>
+вешаем валидатор как на форму нового email, так и на форму редактирования уже существующих адресов</li>
+<li><code>debug: true</code> <br/>
+метод отключает отправку формы, чтобы можно было развлекаться с настройками</li>
+<li><code>rules:</code> <br/>
+в методе прописываются правила проверки для полей, у плагина их много из коробки (см. доки), но нас интересуют пока только 2</li>
+<li><code>'email[email]':</code> <br/>
+name–атрибут поля формы (простые имена указываются без кавычек, со специальными символами — берём в кавычки)</li>
+</ul><br/>
+На следующих двух методах остановимся подробнее.<br/>
+<br/>
+<h5>remote</h5><br/>
+<pre><code class="coffeescript">remote:
+  url: validate_url
+  type: 'post'
+</code></pre><br/>
+Сначала поговорим о главном методе этого поста — <code>remote</code>. С его помощью мы можем отсылать ajax-запросы к серверу и обрабатывать возвращаемые данные.<br/>
+<br/>
+Как оно работает: методу нужно скормить url запроса и его тип (в нашем случае отсылаем post-запрос). Этого достаточно, чтобы отправить значение поля на проверку серверу.<br/>
+<br/>
+В ответ метод ожидает получить <code>json</code>:<br/>
+<ul>
+<li>ответ <code>true</code> — означает, что с полем всё ок</li>
+<li>ответы <code>false</code>, <code>undefined</code> или <code>null</code>, а также любая другая <code>string'а</code> — расцениваются методом как сигнал провальной валидации</li>
+</ul><br/>
+<br/>
+<h5>required</h5><br/>
+<pre><code class="coffeescript">required: true
+</code></pre><br/>
+Метод «обязательных полей». Единственная проверка, которую нельзя (да и не нужно) выполнять через обращение к серверу, — это <code>validates_presence_of</code> (то есть валидацию наличия). Это связано с особенностями работы валидатора — он дёргает метод <code>remote</code> только в том случае, если в поле вводились какие-либо данные. «Запустить руками» данную проверку невозможно, поэтому валидации наличия прописываем непосредственно через данный метод. Кстати, он принимает в качестве аргумента функции, поэтому сложные логические проверки на наличие можно (и нужно) осуществлять через него.<br/>
+<br/>
+<h4>Продолжаем</h4><br/>
+Валидатор повешен, ajax-запрос уходит к серверу, что дальше:<br/>
+<ul>
+<li>нужно создать метод в контроллере, который будет обрабатывать запрос</li>
+<li>прописать роут к этому методу</li>
+</ul><br/>
+<br/>
+<b>app/controllers/emails_controller.rb</b><br/>
+<br/>
+<pre><code class="ruby">  def validate
+    # пока пустой
+  end
+</code></pre><br/>
+<br/>
+<b>config/routes.rb</b><br/>
+<br/>
+<pre><code class="ruby">resources :emails
+post 'emails/validate', to: 'emails#validate', as: :emails_validation
+</code></pre><br/>
+<br/>
+Отлично, теперь сервер может принимать post-запросы на адрес <code>'/emails/validate'</code><br/>
+Давате запустим сервер, откроем форму создания <code>Email</code> в браузере (lvh.me:3000/emails/new), наберём «что-нибудь» в поле формы и бегом в консоль — смотреть что же передаёт нам валидатор.<br/>
+<br/>
+В общем-то, этого можно было ожидать:<br/>
+<br/>
+<pre><code class="bash">Started POST &quot;/emails/validate&quot; for 127.0.0.1 at 2014-02-17 22:10:31 +0000
+Processing by EmailsController#validate as JSON
+  Parameters: {&quot;email&quot;=&gt;{&quot;frequency&quot;=&gt;&quot;что-нибудь&quot;}}
+</code></pre><br/>
+Теперь о стратегии: что мы будем делать с этим добром — как обрабатывать и что возвращать:<br/>
+<ul>
+<li>из прилетевшего в контроллер <code>json</code>, мы создадим в памяти новый объект <code>Email</code></li>
+<li>и дёрнем его валидацию через <code>ActiveModel</code></li>
+<li>в памяти нарисуется объект класса <code>ActiveModel::Errors</code> (доступный через метод <code>errors</code>), в котором будет хэш <code>@messages</code> — либо с ошибками (если атрибуты не прошли валидацию), либо пустой (если с объектом всё хорошо)</li>
+<li>мы разберём этот хэш и, если он пустой — ответим браузеру <code>true</code>, а если в нём есть ошибки для проверяемого атрибута — ответим текстом этих ошибок, что будет расценено принимающим методом плагина как провальная валидация. И, более того, плагин использует полученную стрингу как текст сообщения об ошибке.</li>
+</ul><br/>
+Шо-ко-лад! Мало того, что правила валидации прописываются один раз непосредственно в моделе, так ещё и сообщения об ошибках хранятся непосредственно в локале рельс.<br/>
+<br/>
+Кстати, давайте их напишем.<br/>
+<br/>
+<b>config/locales/ru.yml</b><br/>
+<br/>
+<pre><code class="ruby">ru:
+  activerecord:
+    attributes:
+      email:
+        email: &quot;Почта&quot;
+        frequency: &quot;Периодичность&quot;
+    errors:
+      models:
+        email:
+          attributes:
+            email:
+              blank: &quot;обязательна&quot;
+              taken: &quot;уже добавлена в список рассылки&quot;
+              invalid: &quot;имеет странный формат&quot;
+            frequency:
+              inclusion: &quot;должна быть в диапазоне от 1 до 7 включительно&quot;
+</code></pre><br/>
+<blockquote>О I18n читаем в гайдах Rails: <a href="http://guides.rubyonrails.org/i18n.html">http://guides.rubyonrails.org/i18n.html</a></blockquote><br/>
+Названия атрибутов и сообщения прописаны.<br/>
+Теперь самое интересное — формируем ответ браузеру.<br/>
+<br/>
+Сразу вываливаю работающий код, который будем разбирать по строчкам:<br/>
+<br/>
+<b>app/controllers/emails_controller.rb</b><br/>
+<br/>
+<pre><code class="ruby">def validate
+  email = Email.new(email_params)
+  email.valid?
+
+  field = params[:email].first[0]
+  @errors = email.errors[field]
+
+  if @errors.empty?
+    @errors = true
+  else
+    name = t(&quot;activerecord.attributes.email.#{field}&quot;)
+    @errors.map! { |e| &quot;#{name} #{e}&lt;br /&gt;&quot; }
+  end
+
+  respond_to do |format|
+    format.json { render json: @errors }
+  end
+end
+</code></pre><br/>
+<br/>
+Поехали.<br/>
+<br/>
+<pre><code class="ruby">email = Email.new(email_params)
+email.valid?
+</code></pre><br/>
+Создаём в памяти объект из прилетевших от формы параметров и дёргаем проверку на валидность, чтобы в памяти появился объект <code>ActiveModel::Errors</code>. В хэше <code>@messages</code> с ошибками, помимо нужных нам для проверяемого атрибута, будут лежать и сообщения для всех остальных атрибутов (т.к. значения всех остальных — <code>nil</code>, прилетело же только значение проверяемого атрибута). <br/>
+<br/>
+Давайте посмотрим как выглядит объект, чтобы понять как его разобрать:<br/>
+<br/>
+<pre><code class="ruby">(rdb:938) email.errors
+#=&gt; #&lt;ActiveModel::Errors:0x007fbbe378dfb0 @base=#&lt;Email id: nil, email: nil, frequency: &quot;что-нибудь&quot;, created_at: nil, updated_at: nil&gt;, @messages={:email=&gt;[&quot;обязательна&quot;, &quot;имеет странный формат&quot;], :frequency=&gt;[&quot;должна быть в диапазоне от 1 до 7 включительно&quot;]}&gt;
+</code></pre><br/>
+Мы видим хэш с сообщениями об ошибках, и доки нам <a href="http://api.rubyonrails.org/classes/ActiveModel/Errors.html#method-i-5B-5D">подсказывают как их достать</a>:<br/>
+<br/>
+<pre><code class="ruby">(rdb:938) email.errors['frequency']
+#=&gt; [&quot;должна быть в диапазоне от 1 до 7 включительно&quot;]
+</code></pre><br/>
+То есть для того, чтобы достать ошибки для атрибута, нам прежде всего нужно достать имя этого атрибута. <br/>
+Это мы вытянем из хэша <code>params</code>:<br/>
+<br/>
+<pre><code class="ruby"># так выглядит хэш
+(rdb:938) params
+#=&gt; {&quot;email&quot;=&gt;{&quot;frequency&quot;=&gt;&quot;что-нибудь&quot;}, &quot;controller&quot;=&gt;&quot;emails&quot;, &quot;action&quot;=&gt;&quot;validate&quot;}
+
+# нам известно название модели, поэтому достаём атрибуты
+(rdb:938) params[:email]
+#=&gt; {&quot;frequency&quot;=&gt;&quot;что-нибудь&quot;}
+
+# поскольку за запрос улетает всегда один атрибут, то забираем первый
+(rdb:938) params[:email].first
+#=&gt; [&quot;frequency&quot;, &quot;что-нибудь&quot;]
+
+# на первом месте всегда будет ключ, то есть имя атрибута -&gt; забираем
+(rdb:938) params[:email].first[0]
+#=&gt; &quot;frequency&quot;
+</code></pre><br/>
+Возвращаемся к функции валидации в контроллере:<br/>
+<br/>
+<pre><code class="ruby">field = params[:email].first[0]
+@errors = email.errors[field]
+</code></pre><br/>
+Сначала мы достали название проверяемого атрибута модели, потом вытащили массив с сообщениями об ошибках.<br/>
+<br/>
+После этого сформируем ответ браузеру:<br/>
+<br/>
+<pre><code class="ruby">if @errors.empty?
+  @errors = true
+else
+  name = t(&quot;activerecord.attributes.email.#{field}&quot;)
+  @errors.map! { |e| &quot;#{name} #{e}&lt;br /&gt;&quot; }
+end
+</code></pre><br/>
+Если массив с ошибками пуст, то переменная <code>@errors</code> — это <code>true</code> (именно этот ответ ожидает плагин, если ошибок нет).<br/>
+<br/>
+Если же в массиве есть ошибки, то:<br/>
+<ul>
+<li>если мы отдадим его как просто <code>@errors</code>, то получим сообщение <b>«должна быть в диапазоне от 1 до 7 включительно»</b> (а если их будет несколько, то они вобще «слипнутся» при выводе)</li>
+</ul><br/>
+Поэтому мы:<br/>
+<ul>
+<li>вытаскиваем имя атрибута модели из файла локализации рельс:<br/>
+<code>name = t(&quot;activerecord.attributes.email.#{field}&quot;)</code></li>
+<li>и в каждый элемент массива с ошибками добавляем это имя в начало с пробелом:<br/>
+<code>@errors.map! { |e| &quot;#{name} #{e}&lt;br /&gt;&quot; }</code></li>
+<li>можно ещё и <code>br</code> в конце каждой ошибки прилепить, зависит от вёрстки, короче добавлять по вкусу</li>
+</ul><br/>
+Получаем в итоге массив с сообщениями в формате: <br/>
+<b>«Периодичность должна быть в диапазоне от 1 до 7 включительно»</b>.<br/>
+<br/>
+И последний штрих — пакуем всё это в <code>json</code>:<br/>
+<br/>
+<pre><code class="ruby">respond_to do |format|
+  format.json { render json: @errors }
+end
+</code></pre><br/>
+Rails отдаёт ответ браузеру.<br/>
+<br/>
+<h4>Рефакторим</h4><br/>
+Для одной модели это работает, но у нас в приложении будет много моделей. Для того, чтобы не-повторять-себя, можно переписать роутинг и метод валидации в контроллере.<br/>
+<br/>
+<h5>Роутинг</h5><br/>
+<b>config/routes.rb</b><br/>
+<br/>
+<pre><code class="ruby"># было
+post 'emails/validate', to: 'emails#validate', as: :emails_validation
+
+# чтобы не переписывать маршрут для каждого контроллера
+post ':controller/validate', action: 'validate', as: :validate_form
+</code></pre><br/>
+<br/>
+<h5>Метод валидации</h5><br/>
+Вынесем логику валидации в <b>application_controller.rb</b>, чтобы его могли использовать любые контроллеры приложения.<br/>
+<br/>
+<b>app/controllers/application_controller.rb</b><br/>
+<br/>
+<pre><code class="ruby">def validator(object)
+  object.valid?
+  model = object.class.name.underscore.to_sym
+  field = params[model].first[0]
+  @errors = object.errors[field]
+
+  if @errors.empty?
+    @errors = true
+  else
+    name = t(&quot;activerecord.attributes.#{model}.#{field}&quot;)
+    @errors.map! { |e| &quot;#{name} #{e}&lt;br /&gt;&quot; }
+  end
+end
+</code></pre><br/>
+<br/>
+<b>app/controllers/emails_controller.rb</b><br/>
+<br/>
+<pre><code class="ruby">def validate
+  email = Email.new(email_params)
+  validator(email)
+  respond_to do |format|
+    format.json { render json: @errors }
+  end
+end
+</code></pre><br/>
+P.S. Чтобы не дёргать сервер при каждом введённом пользователем символе в полях формы, установите значение метода <code>onkeyup: false</code><br/>
+<br/>
+<b>jQuery Validation Plugin:</b><br/>
+<a href="http://jqueryvalidation.org">http://jqueryvalidation.org</a><br/>
+<br/>
+<b>Демо с бантиками:</b><br/>
+<a href="http://sandbox.alexfedoseev.com/dry-validation/showoff">http://sandbox.alexfedoseev.com/dry-validation/showoff</a><br/>
+<br/>
+UPDATE: Отредактировал заголовок 
+    	<div class="clear"></div> 	
+  	</div>
+    
+<ul class="tags">
+	<li ><a href="http://habrahabr.ru/search/?q=%5Bruby%20on%20rails%5D&target_type=posts" rel="tag">ruby on rails</a></li><li >, <a href="http://habrahabr.ru/search/?q=%5Bvalidation%5D&target_type=posts" rel="tag">validation</a></li><li >, <a href="http://habrahabr.ru/search/?q=%5Bjquery%20validation%5D&target_type=posts" rel="tag">jquery validation</a></li><li >, <a href="http://habrahabr.ru/search/?q=%5Bdry%5D&target_type=posts" rel="tag">dry</a></li>
+</ul>
+
+    <div class="infopanel_wrapper">
+	<div class="infopanel " id="infopanel_post_213077">
+	
+				<div class="voting   ">
+	
+						<span class="plus" title="Голосовать могут только зарегистрированные пользователи."></span>
+	
+					<div class="mark positive ">
+							<span class="score" title="Всего 14: &uarr;11 и &darr;3">+8</span>
+					</div>
+					
+						<span class="minus" title="Голосовать могут только зарегистрированные пользователи."></span>
+		
+				</div>
+	
+		<div class="pageviews" title="Просмотры публикации">4667</div>
+			
+		<div class="favorite">
+				<a class="guest"	href="#" onclick="return false;" title="Только зарегистрированные пользователи могут добавлять посты в избранное"></a>
+		</div>
+		<div class="favs_count" title="Количество пользователей, добавивших пост в избранное">40</div>
+		
+		
+		
+	
+	
+	
+	
+				<div class="author">
+					<a title="Автор текста" href="http://habrahabr.ru/users/alexfedoseev/" >alexfedoseev</a>
+					<span class="rating" title="рейтинг пользователя">5,0</span>
+						<a href="https://plus.google.com/104565691310690845438/?rel=author" class="googleplus_profile">G+</a>
+				</div>
+		
+	
+	
+		
+			<div class="share">
+				<div class="twitter">
+					<a href="http://twitter.com/intent/tweet?text=Rails%3A+ajax-%D0%B2%D0%B0%D0%BB%D0%B8%D0%B4%D0%B0%D1%86%D0%B8%D1%8F+%D0%B2+%D1%81%D1%82%D0%B8%D0%BB%D0%B5+DRY+http://habr.ru/p/213077/+via+%40habrahabr+%23habr" title="Опубликовать ссылку в Twitter" target="_blank"></a>
+				</div>
+				<div class="vkontakte">
+					<a href="http://vk.com/share.php?url=http://habrahabr.ru/post/213077/" title="Опубликовать ссылку во ВКонтакте" onclick="window.open(this.href, 'Опубликовать ссылку во Вконтакте', 'width=800,height=300'); return false"></a>
+				</div>
+				<div class="facebook">
+					<a href="https://www.facebook.com/sharer/sharer.php?u=http://habrahabr.ru/post/213077/" title="Опубликовать ссылку в Facebook" onclick="window.open(this.href, 'Опубликовать ссылку в Facebook', 'width=640,height=436,toolbar=0,status=0'); return false"></a>
+				</div>
+				<div class="googleplus">
+					<a href="https://plus.google.com/share?url=http://habrahabr.ru/post/213077/" title="Опубликовать ссылку в Google Plus" onclick="window.open(this.href, 'Опубликовать ссылку в Google Plus', 'width=800,height=300'); return false"></a>
+				</div>
+			</div>
+	
+	</div>
+	<div class="clear"></div>
+</div>
+
+
+
+
+    
+    
+	</div>
+
+    </div>
+
+  	    
+  <div id="adriver_banner_132032996"></div>  
+
+  <script type="text/javascript">
+      /** Для блоков гугла **/
+      function requireAdsafe(file){
+          var head = document.getElementsByTagName("head")[0];
+          var script = document.createElement('script');
+          script.src = file;
+          script.type = 'text/javascript';
+          head.appendChild(script);
+      }
+
+      function show_inner_banner_block(name, url){
+          if( typeof(name) !== 'undefined'){
+              //$.get('/html/'+name+'/1415185440/', function(html){
+              $.get('http://special.habrahabr.ru/api/htmlblock/'+name+'/', function(html){
+                  $('#adriver_banner_132032996').html(html);
+                  $('.'+name+'_inner_banner').removeClass('hidden');
+                  if( typeof(url) !== 'undefined'){
+                      $('.'+name+'_inner_banner .block_url').attr('href', url);
+                  }
+              }, 'html')
+          }
+      }
+
+        $(function(){
+          var check_scroll_position = function() {
+            var height = $(window).height();
+            var scrollTop = $(window).scrollTop();
+            var scrollBottom = $(window).scrollTop() + height;
+            var blockTop = $('#adriver_banner_132032996').position().top;
+            var show = scrollTop < blockTop && blockTop < scrollBottom;
+            
+            if( show ){
+                $( window ).off('scroll', check_scroll_position);
+                $( window ).trigger('show_bn3');
+            }
+          };
+          $( window ).on('scroll', check_scroll_position);
+          $( window ).on('show_bn3', function(){
+            var keyword = '';
+            if (typeof crtg_content !== 'undefined' && crtg_content) { keyword = crtg_content; }
+            var custom = { 4:ar_duo1 };
+                custom[1] = 'ror';
+
+            //if (true)
+            //    show_inner_banner_block('raiffaizen2');
+            //else
+                new adriver("adriver_banner_132032996", {sid: 176776, bt: 52, bn: 3, custom: custom, keyword: keyword});
+          });                
+        });
+    </script>
+    
+
+
+  	
+      
+      <div class="block_after_post">
+        
+
+
+<div class="block similar_posts">
+
+    <div class="title">Похожие публикации</div>
+    <div class="posts_list">
+        <div class="post_item">
+            <a class="post_name"
+               onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'similar_posts', $(this).parents('.similar_posts').hasClass('float_block') ? 'float' : 'common'); }"
+               href="/post/180577/">Ruby on Rails. Установка, настройка, начало работы</a>
+            <span class="when">22 мая 2013 в 20:06</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name"
+               onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'similar_posts', $(this).parents('.similar_posts').hasClass('float_block') ? 'float' : 'common'); }"
+               href="/post/140910/">Ruby on Rails. C локального хоста на VDS за 15 минут</a>
+            <span class="when">28 марта 2012 в 18:56</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name"
+               onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'similar_posts', $(this).parents('.similar_posts').hasClass('float_block') ? 'float' : 'common'); }"
+               href="/post/140702/">Ruby on Rails I18n: разработчик — разрабатывает, клиент — заполняет. Об остальном позаботится сервис</a>
+            <span class="when">26 марта 2012 в 17:28</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name"
+               onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'similar_posts', $(this).parents('.similar_posts').hasClass('float_block') ? 'float' : 'common'); }"
+               href="/post/137577/">Ruby on rails в массы: webvybory2012.ru выдают стандартную страницу ошибок development окружения Rails</a>
+            <span class="when"> 3 февраля 2012 в 20:17</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name"
+               onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'similar_posts', $(this).parents('.similar_posts').hasClass('float_block') ? 'float' : 'common'); }"
+               href="/post/136086/">Ruby on Rails на Windows с тестами производительности</a>
+            <span class="when">17 января 2012 в 17:12</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name"
+               onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'similar_posts', $(this).parents('.similar_posts').hasClass('float_block') ? 'float' : 'common'); }"
+               href="/post/135084/">Ruby on Rails уже на 3.2, следующая станция 4.0.0.beta</a>
+            <span class="when">22 декабря 2011 в 02:17</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name"
+               onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'similar_posts', $(this).parents('.similar_posts').hasClass('float_block') ? 'float' : 'common'); }"
+               href="/post/126001/">Ruby on Rails + legacy_migrations: односторонняя синхронизация данных между двумя проектами</a>
+            <span class="when">10 августа 2011 в 13:26</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name"
+               onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'similar_posts', $(this).parents('.similar_posts').hasClass('float_block') ? 'float' : 'common'); }"
+               href="/post/106189/">Знакомство с Ruby on Rails 3.0</a>
+            <span class="when">18 октября 2010 в 00:10</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name"
+               onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'similar_posts', $(this).parents('.similar_posts').hasClass('float_block') ? 'float' : 'common'); }"
+               href="/post/102966/">Ruby on Rails 3 — Заметки к финальному релизу</a>
+            <span class="when">29 августа 2010 в 23:10</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name"
+               onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'similar_posts', $(this).parents('.similar_posts').hasClass('float_block') ? 'float' : 'common'); }"
+               href="/post/91910/">Запуск Ruby On Rails на IIS с помощью IronRuby</a>
+            <span class="when">24 апреля 2010 в 21:31</span>
+        </div>
+    </div>
+</div>
+
+
+
+      </div>
+
+  		<div class="comments_list " id="comments">
+
+  <h2 class="title ">Комментарии (<span id="comments_count">22</span>)
+  
+  
+  </h2>
+
+    <div class="comment_item" id="comment_7326125" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7326125">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7326125" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 4: &uarr;4 и &darr;0">+4</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/DarthSim/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/027/01b/419/02701b41964934336728d533fdac94ca_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/DarthSim/" class="username">DarthSim</a><span class="comma">,</span>
+            <time>18 февраля 2014 в 23:15</time>
+
+            <a href="#comment_7326125" class="link_to_comment">#</a>
+            
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Собственно, это server-side валидация через ajax, а не frontend-валидация. Валидация на фронте — это проверка на стороне клиента без запроса на сервер, но там DRY-ем даже не пахнет.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7326125">
+        <div class="comment_item" id="comment_7326221" >
+
+    <span class="parent_id" data-parent_id="7326125"></span>
+    <div class="comment_body ">
+        <div class="info  is_topic_starter  " rel="7326221">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7326221" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/alexfedoseev/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/bb8/e8f/a83/bb8e8fa83b8faad1a6f56a61ab7563a0_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/alexfedoseev/" class="username">alexfedoseev</a><span class="comma">,</span>
+            <time>19 февраля 2014 в 00:07</time>
+
+            <a href="#comment_7326221" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="7326221" data-parent_id="7326125" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_7326125" data-id="7326221" data-parent_id="7326125" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Извиняюсь, ошибся формой. Ответил ниже.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7326221">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_7326219" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body ">
+        <div class="info  is_topic_starter  " rel="7326219">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7326219" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/alexfedoseev/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/bb8/e8f/a83/bb8e8fa83b8faad1a6f56a61ab7563a0_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/alexfedoseev/" class="username">alexfedoseev</a><span class="comma">,</span>
+            <time>19 февраля 2014 в 00:04</time>
+
+            <a href="#comment_7326219" class="link_to_comment">#</a>
+            
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            С терминологией спорить не буду, всё так и есть. Я хотел подчеркнуть, что валидация осуществляется средствами js ( + server-side), но без отправки формы с перезагрузкой страницы. Пользователь сразу получает информацию о правильности заполнения полей, как будто это делает чистый js, но без дублирования логики валидации.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7326219">
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_7327123" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7327123">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7327123" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 2: &uarr;2 и &darr;0">+2</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/estatic/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/2a6/3e2/491/2a63e249111d9da4a550a26db3d53089_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/estatic/" class="username">estatic</a><span class="comma">,</span>
+            <time>19 февраля 2014 в 11:00</time>
+
+            <a href="#comment_7327123" class="link_to_comment">#</a>
+            
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Мне кажется тут надо писать гем, который бы из модели генерировал front-end валидатор — тогда бы было все по-честному.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7327123">
+        <div class="comment_item" id="comment_7330363" >
+
+    <span class="parent_id" data-parent_id="7327123"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7330363">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7330363" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/DarthSim/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/027/01b/419/02701b41964934336728d533fdac94ca_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/DarthSim/" class="username">DarthSim</a><span class="comma">,</span>
+            <time>19 февраля 2014 в 21:46</time>
+
+            <a href="#comment_7330363" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="7330363" data-parent_id="7327123" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_7327123" data-id="7330363" data-parent_id="7327123" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Это далеко не всегда возможно. Из простого — проверка уникальности. Из более сложного — всякие кастомные проверки, коллбэки и прочее. На фронте можно проверить максимум заполнение поля, длину и формат (интервал для чисел).
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7330363">
+        <div class="comment_item" id="comment_7330409" >
+
+    <span class="parent_id" data-parent_id="7330363"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7330409">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7330409" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/grossws/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/be3/21c/e59/be321ce5998c10ffff4b20f0c5dd9862_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/grossws/" class="username">grossws</a><span class="comma">,</span>
+            <time>19 февраля 2014 в 21:59</time>
+
+            <a href="#comment_7330409" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="7330409" data-parent_id="7330363" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_7330363" data-id="7330409" data-parent_id="7330363" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            И этот gem уже вполне существует, о чём я писал ниже. Для rails3 — <a href="https://github.com/bcardarella/client_side_validations">client_side_validations</a>, для rails4 — <a href="https://github.com/kalkov/rails4_client_side_validations">rails4_client_side_validations</a>.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7330409">
+        <div class="comment_item" id="comment_7330441" >
+
+    <span class="parent_id" data-parent_id="7330409"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7330441">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7330441" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/DarthSim/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/027/01b/419/02701b41964934336728d533fdac94ca_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/DarthSim/" class="username">DarthSim</a><span class="comma">,</span>
+            <time>19 февраля 2014 в 22:08</time>
+
+            <a href="#comment_7330441" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="7330441" data-parent_id="7330409" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_7330409" data-id="7330441" data-parent_id="7330409" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Я в курсе, я его пользую. Но на фронте, как я и писал, он выполняет только самые простые валидации.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7330441">
+        <div class="comment_item" id="comment_7330457" >
+
+    <span class="parent_id" data-parent_id="7330441"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7330457">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7330457" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/grossws/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/be3/21c/e59/be321ce5998c10ffff4b20f0c5dd9862_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/grossws/" class="username">grossws</a><span class="comma">,</span>
+            <time>19 февраля 2014 в 22:14</time>
+
+            <a href="#comment_7330457" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="7330457" data-parent_id="7330441" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_7330441" data-id="7330457" data-parent_id="7330441" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Очевидно, что часть валидаций придется делать на бэке. Уникальность, например. И этот gem их прозрачно прокидывает через ajax.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7330457">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_7330431" >
+
+    <span class="parent_id" data-parent_id="7330363"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7330431">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7330431" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/estatic/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/2a6/3e2/491/2a63e249111d9da4a550a26db3d53089_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/estatic/" class="username">estatic</a><span class="comma">,</span>
+            <time>19 февраля 2014 в 22:06</time>
+
+            <a href="#comment_7330431" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="7330431" data-parent_id="7330363" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_7330363" data-id="7330431" data-parent_id="7330363" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Если говорить о «стандартной» валидации: проверка на существование, длину, тип, регулярка — все это можно перенести в JS.<br/>
+<br/>
+Частные случаи можно либо дописывать в JS(на то они и частные), либо (наверное это будет ужасно) писать валидатор в принципе на JS и из руби выполнять JS.<br/>
+<br/>
+Первый способ более правильный, но, увы, не вписывается в концепцию «единый валидатор». У меня самого такая проблема — двойная логика в RoR и Knockout. Я почему и говорю про генерацию JS валидаторов — я бы написал генератор JS кода на основе RoR моделей (все валидаторы, связи и прочее). Причем эта генерация нужна «единожды». Налету ее генерировать смысла нет.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7330431">
+        <div class="comment_item" id="comment_7330455" >
+
+    <span class="parent_id" data-parent_id="7330431"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7330455">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7330455" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/DarthSim/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/027/01b/419/02701b41964934336728d533fdac94ca_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/DarthSim/" class="username">DarthSim</a><span class="comma">,</span>
+            <time>19 февраля 2014 в 22:13</time>
+
+            <a href="#comment_7330455" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="7330455" data-parent_id="7330431" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_7330431" data-id="7330455" data-parent_id="7330431" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Это, на мой взгляд, ненужные сложности. В большинстве случаев нам нужно не только проверить модель, но и сохранить ее в фоне, а тут совсем проблем нет, и все эти извращения с валидацией на фронте уходят сами собой.<br/>
+Ну а валидация чисто на фронте при необходимости доступа к БД невозможна в принципе. А коль скоро мы все равно будем дергать сервер, то какого черта, ajax-валидация — наше все.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7330455">
+        <div class="comment_item" id="comment_7330469" >
+
+    <span class="parent_id" data-parent_id="7330455"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7330469">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7330469" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/estatic/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/2a6/3e2/491/2a63e249111d9da4a550a26db3d53089_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/estatic/" class="username">estatic</a><span class="comma">,</span>
+            <time>19 февраля 2014 в 22:18</time>
+
+            <a href="#comment_7330469" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="7330469" data-parent_id="7330455" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_7330455" data-id="7330469" data-parent_id="7330455" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            а если к примеру нужна валидация не только полей, но и связей? понятно что ajax наше все и это упрощает. Но если мы берем Knockout, Angular, Backbone? у них своя логика и, зачастую, она может дублировать backend.<br/>
+<br/>
+Например. У нас есть Item для продажи. Надо посчитать его стоимость. Формула стоимости (по причине кучи связей и условностей) большая. Эту стоимость надо в итоге считать и в backend (суммировать заказ) и, самое простое, в корзине.<br/>
+<br/>
+По сути в мелких масштабах ничего страшного, но если фурмула усложняется и добавляются условия? В итоге у вас over 100 строк для подсчета на backend и столько же в front-end.<br/>
+<br/>
+Понятно, что частный случай, Но на каждый клик ajax валидацию делать нельзя
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7330469">
+    </div>
+</div>
+
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_7330465" >
+
+    <span class="parent_id" data-parent_id="7330431"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7330465">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7330465" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/grossws/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/be3/21c/e59/be321ce5998c10ffff4b20f0c5dd9862_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/grossws/" class="username">grossws</a><span class="comma">,</span>
+            <time>19 февраля 2014 в 22:16</time>
+
+            <a href="#comment_7330465" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="7330465" data-parent_id="7330431" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_7330431" data-id="7330465" data-parent_id="7330431" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            <blockquote>Частные случаи можно либо дописывать в JS(на то они и частные), либо (наверное это будет ужасно) писать валидатор в принципе на JS и из руби выполнять JS.</blockquote> Так недолго и до node.js докатиться =)
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7330465">
+        <div class="comment_item" id="comment_7330479" >
+
+    <span class="parent_id" data-parent_id="7330465"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7330479">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7330479" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/estatic/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/2a6/3e2/491/2a63e249111d9da4a550a26db3d53089_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/estatic/" class="username">estatic</a><span class="comma">,</span>
+            <time>19 февраля 2014 в 22:19</time>
+
+            <a href="#comment_7330479" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="7330479" data-parent_id="7330465" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_7330465" data-id="7330479" data-parent_id="7330465" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Я об этом задумывался уже, что проще написать продукт на node.js. Но проект уже написан на RoR и деваться некуда :-)
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7330479">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_7327287" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7327287">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7327287" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  negative">
+                    <span class="score" title="Всего 1: &uarr;0 и &darr;1">–1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/peinguin/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/3b4/ddb/53f/3b4ddb53f7949f897ce4c65fde1d5485_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/peinguin/" class="username">peinguin</a><span class="comma">,</span>
+            <time>19 февраля 2014 в 11:36</time>
+
+            <a href="#comment_7327287" class="link_to_comment">#</a>
+            
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format bad bad1">
+            Без холивара, но в PHP Yii — это из коробки. Плюс можно включать/отключать фронтенд валидацию как для всей формы, так и для некоторых элементов(например, капчи).
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7327287">
+        <div class="comment_item" id="comment_7329177" >
+
+    <span class="parent_id" data-parent_id="7327287"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7329177">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7329177" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/grossws/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/be3/21c/e59/be321ce5998c10ffff4b20f0c5dd9862_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/grossws/" class="username">grossws</a><span class="comma">,</span>
+            <time>19 февраля 2014 в 16:49</time>
+
+            <a href="#comment_7329177" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="7329177" data-parent_id="7327287" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_7327287" data-id="7329177" data-parent_id="7327287" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Скорее всего не фронтенд-валидацию, а таки ajax-валидацию. <br/>
+<br/>
+Кроме того, это «из коробки» судя по куче постов в блогах требует изменения каждого контроллера, где это необходимо, что не совсем DRY, мягко выражаясь. Если у вас есть актуальные статьи, которые это опровергают — пруф в студию. <br/>
+<br/>
+Пока я видел что-то в стиле <br/>
+<div class="spoiler"><b class="spoiler_title">осторожно, PHP</b><div class="spoiler_text">В контроллере: <pre><code class="php">if(isset($_POST['ajax'])) {
+  if ($_POST['ajax']=='form') {
+    echo CActiveForm::validate($model);
+  }
+  Yii::app()-&gt;end();
+}
+</code></pre><br/>
+Во вью: <pre><code class="php">&lt;?php
+  $form = $this-&gt;beginWidget('CActiveForm', array(
+    'id'=&gt;'form',  //form-id
+    'enableAjaxValidation'=&gt;true,
+    'clientOptions'=&gt;array(
+      'validateOnSubmit'=&gt;true,
+     ),
+ ));
+?&gt;
+</code></pre><br/>
+<a href="http://knackforge.com/blog/vishnu/yii-how-enable-ajax-form-validation">knackforge.com/blog/vishnu/yii-how-enable-ajax-form-validation</a><br/>
+</div></div><br/>
+<br/>
+Аналогичные вещи пишут в документации: <a href="http://www.yiiframework.com/doc/api/1.1/CActiveForm#enableAjaxValidation-detail">www.yiiframework.com/doc/api/1.1/CActiveForm#enableAjaxValidation-detail</a>.<br/>
+<br/>
+Судя по фрагментам кода и подходам, Yii пытается копировать RoR, но синтаксис PHP не располагает. Что ещё ждать от вторичных имитаторов?
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7329177">
+        <div class="comment_item" id="comment_7329201" >
+
+    <span class="parent_id" data-parent_id="7329177"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7329201">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7329201" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/peinguin/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/3b4/ddb/53f/3b4ddb53f7949f897ce4c65fde1d5485_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/peinguin/" class="username">peinguin</a><span class="comma">,</span>
+            <time>19 февраля 2014 в 16:53</time>
+
+            <a href="#comment_7329201" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="7329201" data-parent_id="7329177" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_7329177" data-id="7329201" data-parent_id="7329177" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            У меня не статьи — у меня код.<br/>
+Нет. Там есть фронтенд без аякса, в том числе и для капчи. Тоесть можно включить аякс, но можно и только в браузере.<br/>
+<br/>
+Что за быдлокод вы прислали? Там просто $model-&gt;save(). Если ошибка — оно не сохранит.<br/>
+<br/>
+Я же сказал, без холивара, потому «Что ещё ждать от вторичных имитаторов?» просто проигнорую. Хотя удивлен что в таком фремворке как RoR нет таких базовых вещей.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7329201">
+        <div class="comment_item" id="comment_7329385" >
+
+    <span class="parent_id" data-parent_id="7329201"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7329385">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7329385" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/grossws/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/be3/21c/e59/be321ce5998c10ffff4b20f0c5dd9862_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/grossws/" class="username">grossws</a><span class="comma">,</span>
+            <time>19 февраля 2014 в 17:36</time>
+
+            <a href="#comment_7329385" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="7329385" data-parent_id="7329201" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_7329201" data-id="7329385" data-parent_id="7329201" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Код, который приведен в спойлере практически совпадает с быдлокодом, как вы выразились, из документации:<br/>
+<pre><code class="php">public function actionCreate()
+{
+    $model=new User;
+    if(isset($_POST['ajax']) && $_POST['ajax']==='user-form')
+    {
+        echo CActiveForm::validate($model);
+        Yii::app()-&gt;end();
+    }
+    ......
+}
+</code></pre> <a href="http://www.yiiframework.com/doc/api/1.1/CActiveForm#enableAjaxValidation-detail">www.yiiframework.com/doc/api/1.1/CActiveForm#enableAjaxValidation-detail</a><br/>
+<br/>
+Я вижу наличие параметра <code>enableClientValidation</code> (который выключен в примере с SO, на который вы сослались ниже). Несмотря на скудную документацию, похоже, что оно должно работать в простейших случаях (как, например, gem client_side_validations для rails «из коробки»).<br/>
+<br/>
+Что такое фронтенд-валидация для капчи — мне совсем не очевидно. Вы не указали, генерируете ли капчу самостоятельно или нет, что валидируете (например, соответствие множеству допустимых символов), что передаете на клиент для валидации капчи.<br/>
+<br/>
+Из rails очень много лишнего повыкидывали в процессе его развития. При этом есть огромное количество библиотек. Из интересных для валидации видел html5_validations и rails4_client_side_validation (ранее просто client_side_validations).<br/>
+<br/>
+Можно посмотреть, как это делается на rails: <a href="http://railscasts.com/episodes/263-client-side-validations?view=asciicast">railscasts.com/episodes/263-client-side-validations?view=asciicast</a>. Подход смешанный: некоторые проверки выполняются на клиенте и на сервере (но описываются в коде единожды), другие — с ajax-запросом, т. к., например, требуют обращения к db для выполнения (уникальность email/username).
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7329385">
+        <div class="comment_item" id="comment_7329415" >
+
+    <span class="parent_id" data-parent_id="7329385"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7329415">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7329415" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/peinguin/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/3b4/ddb/53f/3b4ddb53f7949f897ce4c65fde1d5485_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/peinguin/" class="username">peinguin</a><span class="comma">,</span>
+            <time>19 февраля 2014 в 17:44</time>
+
+            <a href="#comment_7329415" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="7329415" data-parent_id="7329385" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_7329385" data-id="7329415" data-parent_id="7329385" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Вся суть в том, что я ни о чем не забочусь.<br/>
+Ничего не передаю. Это все — забота фреймворка. Я, конечно, посмотрел как там сделано — передается хеш капчи.<br/>
+Генерирую не самостоятельно, а просто во вью пишу «вывести капчу».<br/>
+<br/>
+Я, кажется, потерял нить спора. Я говорю, что в php фреймворке yii фронтенд валидация из коробки. Правила описываются единожды, а фреймворк генерирует js код. Причем для этого controller не надо менять, если это не серверная валидация.<br/>
+<br/>
+А вы говорите, что php отстой. Ну… я это знаю, потому давно уже не пэхэпэшник.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7329415">
+        <div class="comment_item" id="comment_7329473" >
+
+    <span class="parent_id" data-parent_id="7329415"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7329473">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7329473" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/grossws/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/be3/21c/e59/be321ce5998c10ffff4b20f0c5dd9862_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/grossws/" class="username">grossws</a><span class="comma">,</span>
+            <time>19 февраля 2014 в 17:59</time>
+
+            <a href="#comment_7329473" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="7329473" data-parent_id="7329415" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_7329415" data-id="7329473" data-parent_id="7329415" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            То, что описывается в этом посте — это ajax-валидация. Как способ, описываемый в посте, так и имеющийся в Yii требуют дополнительных телодвижений (костыли, описываемые в посте даже больших).<br/>
+<br/>
+Валидация на клиенте, которая есть в Yii «из коробки» принципиально не отличается от той, что предоставляется gem'ом client_side_validations (т. е. клиентский код для стандартных валидаций генерируется фреймворком). Т. е. с тем же успехом можно сказать, что в Rails это «из коробки» (достаточно поставить gem, выполнить 1 команду и добавить 1 строчку в layout). Ajax-валидация с этим gem'ом проще чем в Yii, т. к. не требует вообще никаких дополнительных телодвижений.<br/>
+<br/>
+Стоит сказать, что с PHP я сталкивался во времена 3 версии, что, в общем-то, было давно. Тогда это было более ужасно. И то, что там появляются нормальные фреймворки может улучшить средний уровень поделок в интернетах.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7329473">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_7329215" >
+
+    <span class="parent_id" data-parent_id="7329177"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7329215">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7329215" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/peinguin/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/3b4/ddb/53f/3b4ddb53f7949f897ce4c65fde1d5485_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/peinguin/" class="username">peinguin</a><span class="comma">,</span>
+            <time>19 февраля 2014 в 16:56</time>
+
+            <a href="#comment_7329215" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="7329215" data-parent_id="7329177" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_7329177" data-id="7329215" data-parent_id="7329177" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Я уже очень долго не пишу на php. Сейчас с рабочего компьютера нет доступа к старым проектам. Но там как-то <a href="http://stackoverflow.com/questions/18932989/error-summary-not-shown-in-cactiveform-yii">так</a>.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7329215">
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_7329231" >
+
+    <span class="parent_id" data-parent_id="7329177"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7329231">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7329231" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/peinguin/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/3b4/ddb/53f/3b4ddb53f7949f897ce4c65fde1d5485_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/peinguin/" class="username">peinguin</a><span class="comma">,</span>
+            <time>19 февраля 2014 в 16:58</time>
+
+            <a href="#comment_7329231" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="7329231" data-parent_id="7329177" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_7329177" data-id="7329231" data-parent_id="7329177" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Наверное я не полностью откровенен.<br/>
+Да, для аякс валидации нужно иметь метод на сервере, который бы обрабатывал эту самую валидацию. Не обязательно что-либо изменять, можно его создать отдельно. Но мы же говорим о клиентской валидиции без какого-либо общения с сервером. В таком случае контроллер изменяить не надо.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7329231">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_7328231" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7328231">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7328231" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 2: &uarr;2 и &darr;0">+2</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/k2m30/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/109/80c/fc6/10980cfc60900ff34dd0324222eaf8e5_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/k2m30/" class="username">k2m30</a><span class="comma">,</span>
+            <time>19 февраля 2014 в 14:13</time>
+
+            <a href="#comment_7328231" class="link_to_comment">#</a>
+            
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            и вот еще насчет валидаций: <a href="http://habrahabr.ru/post/175375/">Прекратите использовать regexp для email!</a>
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7328231">
+    </div>
+</div>
+
+</div>
+
+  					<p class="for_users_only_msg">Только зарегистрированные пользователи могут оставлять комментарии. <a href="https://habrahabr.ru/auth/login/">Войдите</a>, пожалуйста.</p>
+
+
+  	
+<form action="/json/favorites/" method="post" id="edit_tags_form" class="hidden">
+  <input type="hidden" name="action" value="add" />
+  <input type="hidden" name="ti" value="0" />
+  <input type="hidden" name="tt" value="0" />
+  <label>Пометьте топик понятными вам метками, если хотите</label>
+  <input type="text" name="tags_string" class="tags_string" />
+  <div class="description">Метки лучше разделять запятой. Например: <i>общение, социальные сети, myspace.com, подростки, мердок</i></div>
+  <input type="submit" value="Сохранить" class="submit" /> или <a href="#" class="close" onclick="return close_edit_tags()">закрыть</a>
+</form>
+    
+    
+
+  </div>
+  <div class="sidebar_right">
+      	<div class="banner_300x100">
+		<!--  AdRiver code START. Type:AjaxJS Site: habrahabr PZ: 0 BN: 5 -->
+		<div id="adriver_banner_2100516578"></div>
+		<script type="text/javascript">
+			$(function(){
+				var keyword = '';
+				if (typeof crtg_content !== 'undefined' && crtg_content) { keyword = crtg_content; }
+
+				var custom = {4:ar_duo1};
+					custom[1] = 'ror';
+
+				new adriver("adriver_banner_2100516578", {sid: 176776, bt: 52, bn: 5, custom: custom, keyword: keyword});
+			}());
+		</script>
+	</div>
+
+
+  			<div class="banner_300x500">
+		<div id="adriver_banner_1863387959"></div>
+		<script type="text/javascript">
+            function show_bn1_block(name, url){
+                console.log('show' + name);
+                if( typeof(name) !== 'undefined'){
+                    $.get('/html/'+name+'/1415185440/', function(html){
+                        $('#adriver_banner_1863387959').html(html);
+                        if( typeof(url) !== 'undefined'){
+                            $('.'+name+'_inner_banner .block_url').attr('href', url);
+                        }
+                    })
+                }
+            }
+
+
+
+			$(function(){
+
+                // конвертирут кириллицу в cp1251
+                // doc: http://www.adriver.ru/doc/edu-n/pub/settargt/standtrgt/scentrgt/scentrgt.html#9
+				function esc(s){
+                    for(var i=0,l=s.length,r='';i<l;i++){
+                        var c = s.charCodeAt(i);r += String.fromCharCode(c>1039&&c<1104 ? c-848 : c==1105 ? 184 : c==1025 ? 168 : c);
+                    }
+                    return r;
+                }
+
+                var keyword = '';
+
+                if (typeof crtg_content !== 'undefined' && crtg_content) { keyword = crtg_content; }
+                
+                
+
+				var custom = {4:ar_duo1};
+					custom[1] = 'ror';
+
+                 new adriver("adriver_banner_1863387959", {sid: 176776, bt: 52, bn: 1, custom: custom, keyword: keyword});
+			}());
+
+
+
+            
+		</script>
+	</div>
+
+  		
+  		
+<div class="block daily_best_posts">
+  <div class="title">Популярное за сутки</div>
+  <div class="posts_list">
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/242289/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">Королева щелчка: рассказ о самой выдающейся клавиатуре в истории</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/company/JetBrains/blog/242395/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">Встречайте, IntelliJ IDEA 14 уже здесь</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/242363/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">Mozilla выпустила первый браузер для разработчиков</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/company/mosigra/blog/242287/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">Почему только hard и hardcore</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/company/mailru/blog/242305/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">Типы данных наносят ответный удар</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/242381/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">Подводная укладка кабелей. Как это делается</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/242297/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">Анонс Brackets 1.0 и Extract for Brackets (Preview версия)</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/242317/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">100 приемов по управлению временем, вниманием и энергией</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/242351/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">XMonad + XMobar = ❤</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/242337/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">Тестирование производительности форков Mysql на реальных данных</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/company/alconost/blog/242257/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">Стартап, вестинг, клифф: доли в бизнесе и права участников</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/242329/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">«Sanitize this!» и «Search that!»</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/242355/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">Поддержка MultiTouch + Gestures в Delphi XE4</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/242369/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">Как мы делали аналитику для высоконагруженного сайта</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/242235/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">Как формальный менеджмент целый отдел загубил</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/242225/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">ActiveRecord немного про грабли, Relations и индексы</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/242313/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">ProductCamp Minsk 2014 — видеозаписи и обзор конференции</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/company/dsec/blog/242319/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">ZeroNights 2014: взломай и получи</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/242333/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">Ложные корреляции по открытым данным Пермского края</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/242277/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">«Программирование мышкой» в XCode 6 для Swift</a>
+      </div>
+  </div>
+  <div class="all"><a href="/top/">все лучшие</a></div>
+</div>
+
+	    
+
+<div class="block geektimes_top">
+	<a href="http://geektimes.ru?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo" class="title">Лучшее на Geektimes</a>
+	<div class="posts_list">
+  		<div class="post_item">
+  			<a class="post_name" href="http://geektimes.ru/post/240906/?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Черная неделя «частного космоса»</a>
+  		</div>
+  		<div class="post_item">
+  			<a class="post_name" href="http://geektimes.ru/post/240942/?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Скинуться по хардкору: первый POV-экшн фильм собирает $250 000 на постпродакшн</a>
+  		</div>
+  		<div class="post_item">
+  			<a class="post_name" href="http://geektimes.ru/post/240992/?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Размер базы доменных имен в списке Роскомнадзора</a>
+  		</div>
+  		<div class="post_item">
+  			<a class="post_name" href="http://geektimes.ru/post/241008/?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Ученым удалось снизить скорость света до 20 км/ч</a>
+  		</div>
+  		<div class="post_item">
+  			<a class="post_name" href="http://geektimes.ru/post/241000/?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Обзор минидронов Parrot</a>
+  		</div>
+  		<div class="post_item">
+  			<a class="post_name" href="http://geektimes.ru/post/240996/?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Краткий обзор первых 10 млн. символов числа Пи</a>
+  		</div>
+  		<div class="post_item">
+  			<a class="post_name" href="http://geektimes.ru/post/240988/?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Пара новых фитнес-трекеров от Jawbone: продвинутый Up3 и недорогой Up Move</a>
+  		</div>
+  		<div class="post_item">
+  			<a class="post_name" href="http://geektimes.ru/post/240990/?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Библиотека ускоряющая Arduino</a>
+  		</div>
+  		<div class="post_item">
+  			<a class="post_name" href="http://geektimes.ru/post/240982/?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">MB Chronowing на видео: умные часы, которые выглядят как классические</a>
+  		</div>
+  		<div class="post_item">
+  			<a class="post_name" href="http://geektimes.ru/post/241012/?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Sharp представила первую камеру, способную видеть цвета в кромешной тьме</a>
+  		</div>
+
+	</div>
+	<div class="all"><a href="http://geektimes.ru/?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">все посты</a></div>
+</div>
+
+
+  	  
+<div class="block similar_questions">
+	<div class="title">Вопросы по теме</div>
+
+	<div class="posts_list">
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/148609?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Что выбрать slim или haml?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/148331?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Как перекодировать русский текст в utf-8 используя Ruby?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/148199?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Как сделать вложенные роуты с одной моделью?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/148003?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Какую IDE для ruby on rails выбрать?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/147947?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Как вывести сообщении ошибок при валидации в Rails?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/147933?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Как проверить пароль из БД с новым паролем на совпадение в Rails?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/147915?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">В Rails-ах если в модели есть validates :password, presence: true, то как можно снять этот обязанность в другом месте?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/147825?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Как правильно составить запрос?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/147795?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Как отправить файл http post запросом с параметрами используя Ruby?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/147733?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Как наладить работу frontend-разработчиков с rails?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/147721?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Почему при рендера в другой view содержимое страницы меняется, но url только другой в Rails 4???</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/147689?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Почему в RoR из формы edit в метод update не передается параметры, кроме params[:id] ???</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/147663?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Как в postgresql искать по совокупности двух значений?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/147653?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Турнирная сетка на Rails?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/147085?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Какой Rails CMS использовать для корпоративного сайта?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/147025?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Какие файловые менеджеры для Ruby on Rails (4) вы используете?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/146643?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Как вывести записи с определенным значением(из select)?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/146639?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Как делать вычисления в модели?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/146613?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Как побороть кеш rails?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="http://toster.ru/q/146603?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Какую тему дипломного проекта на RoR, вы могли бы посоветовать?</a>
+		</div>
+  </div>			
+		
+</div>
+
+  		
+  		
+
+	<div class="block live_broadcast">
+		<div class="title">Что обсуждают? </div>
+
+		<div class="live_broadcast_activity">
+				<div class="posts_list">
+							<div class="post_item">
+								<a href="/post/242381#comments" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'post'); }" class="post_name">Подводная укладка кабелей. Как это делается</a>&nbsp;<span class="count">7</span>
+							</div>
+							<div class="post_item">
+								<a href="/post/242395#comments" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'post'); }" class="post_name">Встречайте, IntelliJ IDEA 14 уже здесь</a>&nbsp;<span class="count">30</span>
+							</div>
+							<div class="post_item">
+								<a href="/post/242369#comments" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'post'); }" class="post_name">Как мы делали аналитику для высоконагруженного сайта</a>&nbsp;<span class="count">28</span>
+							</div>
+							<div class="post_item">
+								<a href="/post/242351#comments" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'post'); }" class="post_name">XMonad + XMobar = ❤</a>&nbsp;<span class="count">42</span>
+							</div>
+							<div class="post_item">
+								<a href="/post/237653#comments" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'post'); }" class="post_name">Двойной форсаж. Первая success story российского краудинвестинга</a>&nbsp;<span class="count">21</span>
+							</div>
+							<div class="post_item">
+								<a href="/post/242225#comments" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'post'); }" class="post_name">ActiveRecord немного про грабли, Relations и индексы</a>&nbsp;<span class="count">13</span>
+							</div>
+							<div class="post_item">
+								<a href="/post/241955#comments" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'post'); }" class="post_name">Бюрократия баг-трекера</a>&nbsp;<span class="count">52</span>
+							</div>
+							<div class="post_item">
+								<a href="/post/242371#comments" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'post'); }" class="post_name">Как я физическую головоломку на Libgdx писал</a>&nbsp;<span class="count">6</span>
+							</div>
+							<div class="post_item">
+								<a href="/post/242143#comments" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'post'); }" class="post_name">Писать скрипты для Mikrotik RouterOS — это просто</a>&nbsp;<span class="count">55</span>
+							</div>
+							<div class="post_item">
+								<a href="/post/242287#comments" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'post'); }" class="post_name">Почему только hard и hardcore</a>&nbsp;<span class="count">170</span>
+							</div>
+				</div>
+				<div class="all"><a href="/posts/" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'all_posts'); }">все публикации</a></div>
+		</div>
+
+	</div>
+  
+  		<!--  AdRiver code START. Type:AjaxJS Site: habrahabr PZ: 0 BN: 2 -->
+
+<div id="adriver_banner_480931290" class="adbanner"></div>
+
+
+<script type="text/javascript">
+    function show_bn2_block(name, url){
+        if( typeof(name) !== 'undefined'){
+            $.get('/html/'+name+'/1415185440/', function(html){
+                $('#adriver_banner_480931290').html(html);
+                if( typeof(url) !== 'undefined'){
+                    $('.'+name+'_inner_banner .block_url').attr('href', url);
+                }
+            })
+        }
+    }
+
+    $(function(){
+
+        var check_scroll_position = function() {
+            var height = $(window).height();
+            var scrollTop = $(window).scrollTop();
+            var scrollBottom = $(window).scrollTop() + height;
+            var blockTop = $('#adriver_banner_480931290').position().top;
+            var show = scrollTop < blockTop && blockTop < scrollBottom;
+            if( show ){
+                $( window ).off('scroll', check_scroll_position);
+                $( window ).trigger('show_bn2');
+            }
+        };
+        $( window ).on('scroll', check_scroll_position);
+
+        $( window ).on('show_bn2', function(){
+            var keyword = '';
+            if (typeof crtg_content !== 'undefined' && crtg_content) { keyword = crtg_content; }
+            var custom = {4:ar_duo1};
+            custom[1] = 'ror';
+            new adriver("adriver_banner_480931290", {sid: 176776, bt: 52, bn: 2, custom: custom, keyword: keyword});
+        });
+    });
+    </script>
+<!--  AdRiver code END  -->
+
+  		
+<div class="block best_company">
+
+		<div class="title">Компания дня <img src="/images/bg_cicle_help.png" title="
+Компания, чья публикация набрала максимальное количество баллов<br>
+среди всех опубликованных в корпоративных блогах публикаций за <br>
+прошедшие сутки. Учитываются публикации, для которых истек срок голосования <br>(3 дня с момента публикации)." class="help-tip"></div>
+
+		<div class="company_info">
+			<div class="name">
+			 <img class="favicon" src="//habrastorage.org/getpro/habr/company/c9a/0a9/beb/c9a0a9beba97535eca4e80cd4a0f5a6e_small.jpg" alt="VCStart.com" height="16" width="16" />
+			 <div class="company_name"><a href="http://habrahabr.ru/company/vcstart/" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'best_company', 'title'); }" class="title">VCStart.com</a></div>
+			</div>
+
+			<p>Последняя публикация:
+				<a href="http://habrahabr.ru/company/vcstart/blog/241692/" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'best_company', 'post'); }">ТОП-5 стартапов VCStart. Прощальная гастроль нашего блога на Хабре</a>
+			</p>
+
+			<div class="buttons">
+  			<div id="fans_count">169 подписчиков</div>
+			</div>
+		</div>
+
+	</div>
+
+
+  		
+  		
+  		
+  </div>
+  <div class="clear"></div>
+
+  <script>
+    // hubs to GA
+      ga('send', 'event', 'Post_view', 'ror (Ruby on Rails)',  window.location.pathname + window.location.search);
+  </script>
+
+
+
+        
+        	
+	<div class="rotated_posts">
+			<div class="rotated_post ">
+				<a href="http://habrahabr.ru/company/mailru/blog/230979/" class="grey" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'posts_rotation_block'); }">С днём системного администратора</a>
+			</div>
+			<div class="rotated_post ">
+				<a href="http://habrahabr.ru/company/croc/blog/227341/" class="grey" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'posts_rotation_block'); }">Как я возил робота, чуть не поседел и залил кровью серверную</a>
+			</div>
+			<div class="rotated_post last">
+				<a href="http://habrahabr.ru/post/241001/" class="grey" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'posts_rotation_block'); }">FTDI наносит ответный удар</a>
+			</div>
+		<div class="clear"></div>
+	</div>
+
+        <div class="bottom_promo_blocks">
+    <div class="left">
+            
+	<div class="block new_vacanies">
+  <a href="http://brainstorage.me/jobs?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo" class="title">Brainstorage</a>
+  <div class="vacancies">
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/23227?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Программист Mac OS</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/23503?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Senior Frontend Developer</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/18583?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">PHP-программист</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/24383?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">PHP программист</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/24381?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Front-end Разработчик</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/20327?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo"> Web Developer, Front-End, back-end</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/22055?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Senior или Middle Pythonista (Django/Python)</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/24373?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Программист/разработчик РНР</a>
+		</div>
+		<div class="job_item marked">
+			<a href="http://brainstorage.me/jobs/20179?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Разработчик Pytnon / Django</a>
+		</div>
+		<div class="job_item marked">
+			<a href="http://brainstorage.me/jobs/24363?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">iOS разработчик</a>
+		</div>
+  </div>
+  <div class="all"><a href="http://brainstorage.me/jobs?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">все вакансии</a></div>
+</div>
+
+    </div>
+    <div class="right">
+        
+	<div class="block freelansim">
+	  <a href="http://freelansim.ru?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo" class="title"></a>
+	  <div class="tasks">
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/90035?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Доработка и тех.поддержка интернет-магазина</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/90021?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Мобильное приложение медицинского справочника</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/90017?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Кросдоменные cookies</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/90013?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Автоматическая развертывание VPS из шаблона с панелью управления</a>
+				</div>
+				<div class="task marked">
+					<a href="http://freelansim.ru/tasks/90007?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Работа над некоторым количеством задач на JavaScript</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/90011?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Написание 3-х модулей для WHMCS</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/90009?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Программинг простого сайта Yii с дальнейшей поддержкой</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/90005?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">HTML верстка + css анимация + js</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/90003?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Управление проектом на ror</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/89995?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Копирайтинг для email письма</a>
+				</div>
+
+	  </div>
+	  <div class="all"><a href="http://freelansim.ru/tasks?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">все заказы</a></div>
+	</div>
+
+    </div>
+    <div class="clear"></div>
+</div>
+
+
+        
+        <div class="clear"></div>
+
+        <div class="footer_panel">
+          <div id="footer">
+	<dl>
+		<dd><a href="https://habrahabr.ru/auth/login/">Войти</a></dd>
+		<dd><a href="https://habrahabr.ru/auth/register/">Регистрация</a></dd>
+	</dl>
+	<dl>
+		<dt>Разделы</dt>
+		<dd><a href="http://habrahabr.ru/posts/top/">Публикации</a></dd>
+		<dd><a href="http://habrahabr.ru/hubs/">Хабы</a></dd>
+		<dd><a href="http://habrahabr.ru/companies/">Компании</a></dd>
+		<dd><a href="http://habrahabr.ru/users/">Пользователи</a></dd>
+		<dd><a href="http://toster.ru/?_aa=press_anykey">Q&amp;A</a></dd>
+		<dd><a href="http://habrahabr.ru/sandbox/">Песочница</a></dd>
+		
+	</dl>	
+	<dl>
+		<dt>Инфо</dt>
+		<dd><a href="/info/about/">О сайте</a></dd>
+		<dd><a href="/info/help/rules/">Правила</a></dd>
+		<dd><a href="/info/help/">Помощь</a></dd>
+		<dd><a href="/info/agreement/">Соглашение</a></dd>
+	</dl>
+	<dl>
+		<dt>Услуги</dt>
+		<dd><a href="/info/advertising/">Реклама</a></dd>
+		<dd><a href="/info/advertising/corporate/">Тарифы</a></dd>
+		<dd><a href="/info/advertising/workshops/">Семинары</a></dd>
+		<dd><a href="/special/">Спецпроекты</a></dd>
+	</dl>
+	<dl>
+		<dt>Разное</dt>
+		<dd><a href="/apps/">Приложения</a></dd>
+		<dd><a href="/special/testdrive/">Тест-драйвы</a></dd>
+		<dd><a href="http://special.habrahabr.ru/hello_startup/bizspark/">Помощь стартапам</a></dd>
+	</dl>
+	<div class="copyright">
+
+		<div class="about">
+			<a href="http://tmtm.ru/">TM</a>
+			© 2006&#8211;2014
+			<br><br>
+			<a href="http://habrahabr.ru/feedback/">Служба поддержки</a><br><br>
+                <a href="http://m.habrahabr.ru/post/213077/?mobile=yes">Мобильная версия</a><br><br>
+			
+
+			<div class="social_accounts">
+				<a href="https://twitter.com/habrahabr" class="tw"></a>
+				<a href="https://www.facebook.com/habrahabr.ru" class="fb"></a>
+				<a href="http://vk.com/habr" class="vk"></a>
+				<!-- <a href="" class="gp"></a> //-->
+			</div>
+
+		</div>
+	</div>
+
+</div>    
+          
+        </div>
+      </div>
+    </div>
+  
+
+      <script type="text/javascript" src="/javascripts/1415185440/libs/jquery.cookie.js"></script>
+      <script type="text/javascript">
+        $(document).ready( function(){
+          window.tmidLogin = function(){ return false; };
+          if( $.cookie('tmid_no_check') == undefined ) {
+            var expire = new Date();
+            expire.setMinutes(expire.getMinutes() + 10 );
+            $.cookie('tmid_no_check', 1, { expires: expire } );
+            $.getScript("https://id.tmtm.ru/checklogin", function(){
+              if( window.tmidLogin() ) {
+
+                  var href = $('#login').attr('href');
+
+                  if( href !== undefined ) {
+                      window.location.href = href;
+                  }
+              }
+            });
+          }
+        });
+      </script>
+
+    <script type="text/javascript">
+  // global vars
+  var g_base_url = 'habrahabr.ru';
+  var g_show_xpanel = false;
+  var g_base_fullurl = 'http://habrahabr.ru/';
+  var g_is_guest = false;
+</script> 
+
+      <script type="text/javascript" src="/javascripts/1415185440/assets/shortcuts.js"></script>
+    
+    <script type="text/javascript" src="/javascripts/1415185440/assets/global_footer_main.js"></script>
+
+    	<script type="text/javascript" src="http://habrahabr.ru/viewcount/post/213077/"></script>
+
+    
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+(function (d, w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter24049213 = new Ya.Metrika({id:24049213,
+                    webvisor:true,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true});
+        } catch(e) { }
+    });
+
+    var n = d.getElementsByTagName("script")[0],
+        s = d.createElement("script"),
+        f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f, false);
+    } else { f(); }
+})(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="//mc.yandex.ru/watch/24049213" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+    
+
+    <!-- Хабр не резиновый! -->
+  </body>
+</html>

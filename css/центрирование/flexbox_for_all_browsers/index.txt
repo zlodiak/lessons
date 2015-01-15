@@ -1,0 +1,37 @@
+равномерное распределение для почти всех браузеров(даже ие8)
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+    text-align: justify;
+    text-align-last: justify;
+}
+.menu__item {
+    display: inline-block;
+}
+
+
+тут больше:
+http://css-live.ru/articles-css/progressive-flexbox-horizontal-justify.html
+
+
+
+
+
+
+
+встроенный браузер Андроида. И как назло последний не поддерживает ни беспрефиксных флексбоксов, ни text-align-last.
+Что делать? Возвращаться к решению с распорками? Ну уж нет! Все сколько-либо актуальные WebKit-браузеры поддерживают старую экспериментальную реализацию флексбоксов (спецификации 2009 года). И чем городить хаки, лучше уж подключить ее.
+Пара свойств, включающих нужное нам отображение, в старых флексбоксах уже была и называлась так: display: box; box-pack: justify. На первый взгляд, достаточно добавить их контейнеру, с единственным нужным нам префиксом:
+.menu {
+    display: -webkit-box; /* Android 4.3-, Safari */
+    -webkit-box-pack: justify; /* Android 4.3-, Safari */
+    display: flex;
+    justify-content: space-between;
+    text-align: justify;
+    text-align-last: justify;
+}
+.menu__item {
+    display: inline-block;
+    display: -webkit-box; /* !хак! для Android 4.3-, должен идти после inline-block */
+}

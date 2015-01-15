@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="utf-8">
+	<title>Grunt 0.4: система сборки для фронтенд-разработчиков — Наноблог Артёма Сапегина</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:site" content="@sapegin">
+	<meta name="twitter:creator" content="@sapegin">
+	
+	
+		<meta property="og:type" content="article">
+		<meta property="og:url" content="http://nano.sapegin.ru/all/grunt-0-4">
+		<meta property="og:title" content="Grunt 0.4: система сборки для фронтенд-разработчиков">
+	
+
+	<meta name="generator" content="DocPad v6.54.10" />
+
+	<link  rel="stylesheet" href="/build/styles.css" />
+	<link href="http://fonts.googleapis.com/css?family=PT+Serif:400,700,400italic&amp;subset=latin,cyrillic" rel="stylesheet">
+	<link href="/atom.xml" rel="alternate" type="application/rss+xml" title="Наноблог Артёма Сапегина">
+
+	<script src="/js/libs/modernizr.js"></script>
+</head>
+<body>
+<header class="header">
+	
+		<h2 class="logo">
+			<a href="/" class="logo__text big-link">Наноблог Артёма Сапегина</a>
+		</h2>
+	
+
+	<form class="search-form no-print" action="http://yandex.ru/sitesearch" method="get">
+		<input type="hidden" name="searchid" value="2047351">
+		<input type="hidden" name="web" value="0">
+		<input type="hidden" name="l10n" value="ru">
+		<input type="search" class="field search-form__field" name="text" placeholder="Поиск по блогу" value="">
+	</form>
+
+	<div class="l-row no-print">
+
+		<div class="l-left">
+			<ul class="tags-list">
+				
+					
+						
+							<li class="tags-list__tag">
+								<a href="/tags/html" class="link">Вёрстка</a>
+							</li>
+						
+					
+				
+					
+				
+					
+						
+							<li class="tags-list__tag">
+								<a href="/tags/javascript" class="link">JavaScript</a>
+							</li>
+						
+					
+				
+					
+						
+							<li class="tags-list__tag">
+								<a href="/tags/wordpress" class="link">WordPress</a>
+							</li>
+						
+					
+				
+					
+						
+							<li class="tags-list__tag">
+								<a href="/tags/tools" class="link">Инструменты</a>
+							</li>
+						
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			</ul>
+		</div>
+
+		<div class="l-right">
+			<a href="http://blog.sapegin.me" class="link">In English</a>
+		</div>
+
+	</div>
+
+</header>
+
+    <article class="note">
+	<h1 class="note-title">Grunt 0.4: система сборки для фронтенд-разработчиков</h1>
+
+	
+
+	<div class="note-content text">
+		<p>Эта статья — пересказ <a href="http://sapegin.ru/pres/grunt/">моего доклада</a> на Web Standards Days в ноябре прошлого года, учитывающий все изменения новой версии 0.4. Будет полезен как новичкам в Гранте, так и пользователям Гранта 0.3, переходящим на новую версию.</p>
+
+<h2>Зачем это нужно</h2>
+
+<p>У хороших сайтов есть две версии:</p>
+
+<ol>
+<li>Версия для разработки: JS/<abbr><abbr>CSS</abbr></abbr> разбиты на много файлов и не сжаты, долго загружается, легко отлаживать.</li>
+<li>Боевая версия: минимум запросов к серверу, ничего лишнего, всё сжато, быстро загружается.</li>
+</ol>
+
+<p>Грант автоматически делает из первой версии вторую: склеивает файлы, минифицирует JavaScript, проверяет код с помощью <abbr><abbr>JSH</abbr></abbr>int, прогоняет тесты, запускает <abbr><abbr>CSS</abbr></abbr>-препроцессоры и компилятор CoffeeScript. <a href="http://gruntjs.com/plugins">Всего</a> не перечислишь. И может делать это как по команде, так и автоматически, отслеживая изменения исходных файлов.</p>
+
+<p>В отличии от других подобных инструментов (Ant, Make и т. д.), Грант создавался специально для фронтенд-разработчиков. И сам Грант, и расширения для него, и даже конфиг написаны на знакомом им языке — JavaScript. Он легко настраивается и расширяется. А большинство готовых расширений устанавливаются одной командой вместе со всеми зависимостями. (Конечно, есть немало расширений, использующих внешние библиотеки и утилиты, которые не всегда работают на всех платформах.)</p>
+
+<!-- cut -->
+
+<h2>Установка</h2>
+
+<p>Для использования Гранта вам понадобится установить <a href="http://nodejs.org/">Node.js</a> (на маке просто brew install node). Вместе с Нодой установится менеджер пакетов npm, который понадобится для установки самого Гранта и его плагинов.</p>
+
+<p><em>Если вы уже пользуетесь предыдущей версией Гранта, то перед установкой её нужно удалить: npm uninstall -g grunt.</em></p>
+
+<p>Установим <a href="https://github.com/gruntjs/grunt-cli/">консольную утилиту grunt</a> (ключ <code>-g</code> означает, что пакет будет установлен глобально), которая будет запускать Грант, установленный в папке вашего проекта. Таким образом у каждого проекта будут свои версии Гранта и плагинов — можно не бояться, что при обновлении сборка поломается.</p>
+
+<pre class="highlight"><code class="bash">$ npm install grunt-cli -g
+</code></pre>
+
+<p><em>Вероятно, вам понадобится запустить npm через sudo или открыть консоль под администратором.</em></p>
+
+<h2>Настройка</h2>
+
+<p>Теперь нужно создать в папке проекта два файла:</p>
+
+<ul>
+<li><p>package.json — описание проекта для npm. Содержит список зависимостей (в нашем случае это Грант и его плагины) и позволяет потом устанавливать их все одной командой.</p></li>
+<li><p>Gruntfile.js или Gruntfile.coffee — файл конфигурации Гранта (грантфайл). (До версии 0.4 этот файл назывался grunt.js.)</p></li>
+</ul>
+
+<p>(Примеры к статье есть в <a href="https://github.com/sapegin/grunt-article-examples">репозитории на Гитхабе</a>.)</p>
+
+<h3>package.json</h3>
+
+<p>package.json можно создать вручную или командой <code>npm init</code>. В нём есть два обязательных поля — имя проекта и версия. Если вы делаете сайт, а не библиотеку, то их содержимое не имеет значения:</p>
+
+<pre class="highlight"><code class="json">{
+    "<span class="attribute">name</span>": <span class="value"><span class="string">"MyProject"</span></span>,
+    "<span class="attribute">version</span>": <span class="value"><span class="string">"0.0.0"</span>
+</span>}
+</code></pre>
+
+<p>Теперь нужно установить (и добавить в package.json) зависимости нашего проекта. <a href="https://github.com/gruntjs/grunt/">Грант</a>:</p>
+
+<pre class="highlight"><code class="bash">$ npm install grunt --save-dev
+</code></pre>
+
+<p>И все необходимые плагины:</p>
+
+<pre class="highlight"><code class="bash">$ npm install grunt-contrib-concat grunt-contrib-uglify --save-dev
+</code></pre>
+
+<p>Ключ <code>--save-dev</code> в дополнение к установке добавляет ссылку на пакет в package.json. Установить все зависимости, уже перечисленные в файле, можно командой npm install.</p>
+
+<h3>Грантфайл</h3>
+
+<p>Грантфайл выглядит примерно так:</p>
+
+<pre class="highlight"><code class="javascript"><span class="comment">// Обязательная обёртка</span>
+module.exports = <span class="function"><span class="keyword">function</span><span class="params">(grunt)</span> {</span>
+
+    <span class="comment">// Задачи</span>
+    grunt.initConfig({
+        <span class="comment">// Склеиваем</span>
+        concat: {
+            main: {
+                src: [
+                    <span class="string">'js/libs/jquery.js'</span>,
+                    <span class="string">'js/mylibs/**/*.js'</span>  <span class="comment">// Все JS-файлы в папке</span>
+                ],
+                dest: <span class="string">'build/scripts.js'</span>
+            }
+        },
+        <span class="comment">// Сжимаем</span>
+        uglify: {
+            main: {
+                files: {
+                    <span class="comment">// Результат задачи concat</span>
+                    <span class="string">'build/scripts.min.js'</span>: <span class="string">'&lt;%= concat.main.dest %&gt;'</span>
+                }
+            }
+        }
+    });
+
+    <span class="comment">// Загрузка плагинов, установленных с помощью npm install</span>
+    grunt.loadNpmTasks(<span class="string">'grunt-contrib-concat'</span>);
+    grunt.loadNpmTasks(<span class="string">'grunt-contrib-uglify'</span>);
+
+    <span class="comment">// Задача по умолчанию</span>
+    grunt.registerTask(<span class="string">'default'</span>, [<span class="string">'concat'</span>, <span class="string">'uglify'</span>]);
+};
+</code></pre>
+
+<p>Этот грантфайл склеивает JS-файлы (jQuery и все JS-файлы из папки js/mylibs, задача <a href="https://github.com/gruntjs/grunt-contrib-concat">concat</a>) и минифицирует их с помощью UglifyJS (задача <a href="https://github.com/gruntjs/grunt-contrib-uglify">uglify</a>).</p>
+
+<p>Обратите внимание на задачу по умолчанию default — это просто «ссылка» на задачи concat и uglify. Она обязательно должна быть в грантфайле.</p>
+
+<h3>Задачи, подзадачи, параметры</h3>
+
+<p>Конфигурация большинства задач выглядит примерно так:</p>
+
+<pre class="highlight"><code class="javascript">concat: {
+    options: {
+        separator: <span class="string">';'</span>
+    },
+    libs: {
+        src: <span class="string">'js/libs/**/*.js'</span>,
+        dest: <span class="string">'build/libs.js'</span>
+    },
+    main: {
+        src: [
+            <span class="string">'js/mylibs/*.js'</span>,
+            <span class="string">'js/main.js'</span>
+        ],
+        dest: <span class="string">'build/scripts.js'</span>
+    }
+}
+</code></pre>
+
+<p>concat:libs и concat:main — это подзадачи, они позволяют запускать одну задачу для разных исходных файлов. А в options определяются общие для всех подзадач параметры.</p>
+
+<p><em>В других системах сборки задачи обычно называют целями (target).</em></p>
+
+<h3>Списки файлов</h3>
+
+<p>Список исходных файлов можно задать двумя способами: один файл или массив файлов. Можно использовать маски (glob). С масками нужно иметь ввиду, что порядок файлов может оказаться любым. Это может привести к проблемам, например, при склейке <abbr><abbr>CSS</abbr></abbr>- или JS-файлов.</p>
+
+<pre class="highlight"><code class="javascript"><span class="string">'js/main.js'</span>
+[ <span class="string">'js/utils.js'</span>, <span class="string">'js/main.js'</span> ]
+[ <span class="string">'js/libs/*.js'</span>, <span class="string">'js/mylibs/**/*.js'</span> ]  <span class="comment">// * -- любые символы, /**/ -- папка любой вложенности</span>
+</code></pre>
+
+<h3>Шаблоны</h3>
+
+<p>Внутри параметров конфига можно использовать шаблоны. Грант использует шаблонизатор из библиотеки <a href="http://lodash.com/">Lo-Dash</a>.</p>
+
+<p>С помощью шаблонов можно ссылаться на другие параметры конфига, вставлять текущую дату в имя результирующего файла, и использовать любые конструкции Яваскрипта.</p>
+
+<pre class="highlight"><code class="javascript">concat: {
+    main: {
+        src: <span class="string">'js/*.js'</span>,
+        dest: <span class="string">'build/scripts.js'</span>
+    }
+},
+uglify: {
+    main: {
+        files: {
+            <span class="comment">// "Копируем" другой параметр конфига. Добавляем текущую дату в имя файла</span>
+            <span class="string">'build.&lt;%= grunt.template.today("m-d-yyyy") %&gt;.js'</span>: <span class="string">'&lt;%= concat.main.dest %&gt;'</span>
+        }
+    }
+}
+</code></pre>
+
+<p>А вот так можно использовать данные из <abbr><abbr>JSON</abbr></abbr>-файла:</p>
+
+<pre class="highlight"><code class="javascript">pkg: grunt.file.readJSON(<span class="string">'package.json'</span>),
+banner: <span class="string">'/* &lt;%= pkg.name %&gt; v&lt;%= pkg.version %&gt; */'</span>
+uglify: {
+    main: {
+        files: {
+            <span class="string">'&lt;%= pkg.name %&gt;.min.js'</span>: <span class="string">'&lt;%= pkg.name %&gt;.js'</span>
+        }
+    }
+}
+</code></pre>
+
+<h2>Запуск</h2>
+
+<pre class="highlight"><code class="bash">$ grunt  <span class="comment"># Задача default</span>
+$ grunt concat  <span class="comment"># Задача concat</span>
+$ grunt concat:main  <span class="comment"># Подзадача concat:main</span>
+
+$ grunt --debug
+</code></pre>
+
+<p>Во время разработки удобно запускать Грант с ключом <code>--debug</code>. Задачи могут использовать его <nobr><nobr>по-разному</nobr></nobr>. Например, <a href="https://github.com/gruntjs/grunt-contrib-stylus">grunt-contrib-stylus</a> в отладочном режиме не сжимает <abbr><abbr>CSS</abbr></abbr>-код.</p>
+
+<h2>grunt watch</h2>
+
+<p>Задача <a href="https://github.com/gruntjs/grunt-contrib-watch">watch</a> запускает задачи при каждом изменении исходных файлов.</p>
+
+<p>Например, можно заново склеивать JS-файлы при каждом их изменении:</p>
+
+<pre class="highlight"><code class="javascript">concat: {
+    main: {
+        src: <span class="string">'js/*.js'</span>,
+        dest: <span class="string">'build/scripts.js'</span>
+    }
+}
+watch: {
+    concat: {
+        files: <span class="string">'&lt;%= concat.main.src %&gt;'</span>,
+        tasks: <span class="string">'concat'</span>  <span class="comment">// Можно несколько: ['lint', 'concat']</span>
+    }
+}
+</code></pre>
+
+<p>Не забудьте добавить в грантфайл плагин grunt-contrib-watch:</p>
+
+<pre class="highlight"><code class="javascript">grunt.loadNpmTasks(<span class="string">'grunt-contrib-watch'</span>);
+</code></pre>
+
+<p>И установить соответствующий пакет из npm:</p>
+
+<pre class="highlight"><code class="bash">$ npm install grunt-contrib-watch --save-dev
+</code></pre>
+
+<h2>Веб-сервер</h2>
+
+<p>Простейший веб-сервер для статических сайтов — задача <a href="https://github.com/gruntjs/grunt-contrib-connect">connect</a>.</p>
+
+<pre class="highlight"><code class="javascript">connect: {
+    test: {
+        options: {
+            port: <span class="number">8000</span>,
+            base: <span class="string">'.'</span>
+        }
+    }
+}
+</code></pre>
+
+<p>Запускается так:</p>
+
+<pre class="highlight"><code class="bash">$ grunt connect
+</code></pre>
+
+<p>Теперь ваш сайт доступен по адресу <a href="http://localhost:8000/">http://localhost:8000/</a>.</p>
+
+<h2><abbr><abbr>JSH</abbr></abbr>int</h2>
+
+<p>Раньше (до версии 0.4) нужно было перечислять все опции <abbr><abbr>JSH</abbr></abbr>int прямо в грантфайле, сейчас можно хранить их в файле .jshintrc. Этот же файл могут использовать и консольный <abbr><abbr>JSH</abbr></abbr>int, и <a href="https://github.com/SublimeLinter/SublimeLinter">SublimeLinter</a>. Задача <a href="https://github.com/gruntjs/grunt-contrib-jshint">jshint</a>.</p>
+
+<pre class="highlight"><code class="javascript">jshint: {
+    options: {
+        jshintrc: <span class="string">'.jshintrc'</span>
+    },
+    files: <span class="string">'js/**/*.js'</span>
+}
+</code></pre>
+
+<h2>Конфигурации</h2>
+
+<p>Конфигурации позволяют переключаться между боевой и отладочной версиями сайта. В явном виде в Гранте их нет. Но можно сделать, например, так:</p>
+
+<pre class="highlight"><code class="javascript">concat: {
+    main: {
+        src: <span class="string">'js/*.js'</span>,
+        dest: <span class="string">'build/scripts.js'</span>
+    }
+},
+uglify: {
+    main: {
+        files: {
+            <span class="string">'&lt;%= concat.main.dest %&gt;'</span>: <span class="string">'&lt;%= concat.main.dest %&gt;'</span>
+        }
+    }
+}
+...
+grunt.registerTask(<span class="string">'default'</span>, [<span class="string">'concat'</span>, <span class="string">'uglify'</span>]);
+grunt.registerTask(<span class="string">'debug'</span>, [<span class="string">'concat'</span>]);
+</code></pre>
+
+<p>Отладочная версия собирается так: <code>grunt debug</code>, а боевая: просто <code>grunt</code>. <abbr><abbr>HTML</abbr></abbr> в обоих случаях не меняется, но в последнем код будет сжат.</p>
+
+<p>Для более крупных проектов может понадобится <nobr><nobr>что-то</nobr></nobr> сложнее. Например, RequireJS и/или подключение разных файлов в шаблонах.</p>
+
+<h2>Быстрое подключение плагинов</h2>
+
+<p>Писать для каждого плагина <code>grunt.loadNpmTasks(&#39;имяплагина&#39;)</code> быстро надоест, поэтому лучше сразу заменить все вызовы loadNpmTasks одной строчкой:</p>
+
+<pre class="highlight"><code class="javascript">require(<span class="string">'load-grunt-tasks'</span>)(grunt);
+</code></pre>
+
+<p>И установить <a href="https://github.com/sindresorhus/load-grunt-tasks">load-grunt-tasks</a>:</p>
+
+<pre class="highlight"><code class="bash">$ npm install load-grunt-tasks --save-dev
+</code></pre>
+
+<p>Это заклинание вызовет loadNpmTasks для всех плагинов установленных с ключом <code>--save-dev</code>.</p>
+
+<h2>grunt-init</h2>
+
+<p>Утилита <a href="https://github.com/gruntjs/grunt-init">grunt-init</a> упрощает инициализацию проектов (в английском для обозначения этого процесса есть удобное слово scaffolding):</p>
+
+<ul>
+<li>создаёт файлы и структуру папок;</li>
+<li>позволяет использовать шаблоны везде, где только можно;</li>
+<li>переименовывает файлы при копировании;</li>
+<li>задаёт пользователю уточняющие вопросы.</li>
+</ul>
+
+<p>Устанавливается отдельно:</p>
+
+<pre class="highlight"><code class="bash">$ npm install grunt-init -g
+</code></pre>
+
+<p>Из коробки есть шаблоны для грантфайлов, jQuery-плагинов, проектов на Node.js и другие (полный список можно посмотреть набрав <code>grunt-init --help</code>). Например, если выполнить <code>grunt-init node</code>, то получится вот такое <a href="https://github.com/gruntjs/grunt-init-node-sample/tree/generated">дерево файлов</a>:</p>
+
+<pre class="highlight"><code class="bash">$ tree
+.
+├── Gruntfile.js
+├── LICENSE-MIT
+├── README.md
+├── lib
+│   └── MyCoolProject.js
+├── package.json
+└── test
+    └── MyCoolProject_test.js
+</code></pre>
+
+<p>Это очень мощный инструмент, которому можно найти <a href="https://github.com/sapegin/squirrelstrap">немало применений</a>. Я уже писал о нём <a href="http://nano.sapegin.ru/all/sozdanie-faylov-i-struktury-proekta-po-shablonam-s-pomoschyu-gru/">более подробно</a>.</p>
+
+<h2>Собственные задачи</h2>
+
+<p>Свои задачи делать довольно просто. Для примера сделаем задачу, которая будет запускать из Гранта консольный оптимизатор веб-графики <a href="https://github.com/imgo/imgo">imgo</a>.</p>
+
+<p><em>Стоит рассматривать эту задачу только как пример. Для реальной работы лучше использовать <a href="https://github.com/gruntjs/grunt-contrib-imagemin">grunt-contrib-imagemin</a>.</em></p>
+
+<h3>Конфиг</h3>
+
+<p>Задача будет принимать список изображений и запускать imgo для каждого файла. Вот так будет выглядеть конфиг. Всего один параметр:</p>
+
+<pre class="highlight"><code class="javascript">imgo: {
+    images: {
+        src: <span class="string">'images/**'</span>
+    }
+}
+</code></pre>
+
+<h3>Код задачи</h3>
+
+<p>Добавить задачу можно двумя функциями:</p>
+
+<ul>
+<li>grunt.registerMultiTask — задача с подзадачами, как concat, uglify и как описано в разделе «Задачи, подзадачи, параметры» выше. Нам нужна именно такая.</li>
+<li>grunt.registerTask — используется для задач-ссылок (как default и debug выше) или задач, где несколько наборов входных данных не имеют смысла.</li>
+</ul>
+
+<pre class="highlight"><code class="javascript"><span class="comment">// Добавляем задачу imgo</span>
+grunt.registerMultiTask(<span class="string">'imgo'</span>, <span class="string">'Optimize images using imgo'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="comment">// Говорит о том, что вся задача асинхронная</span>
+    <span class="keyword">var</span> done = <span class="keyword">this</span>.async();
+
+    <span class="comment">// Обрабатываем каждый файл (тоже асинхронно, потому что spawn() асинхронный).</span>
+    <span class="comment">// В this.filesSrc находится список файлов текущей подзадачи с уже развёрнутыми масками.</span>
+    <span class="comment">// (Другие параметры были бы в this.data.)</span>
+    grunt.util.async.forEach(<span class="keyword">this</span>.filesSrc, <span class="function"><span class="keyword">function</span><span class="params">(file, next)</span> {</span>
+        <span class="comment">// Создаём процесс imgo, передаём ему имя текущего файла</span>
+        grunt.util.spawn({
+            cmd: <span class="string">'imgo'</span>,
+            args: [file]
+        }, next);
+    }, done);
+});
+
+</code></pre>
+
+<p>Задача должна быть асинхронной, потому что мы будем вызвать внешнюю программу, а в Node.js это асинхронная операция. <code>this.async()</code> возвращает функцию, которую необходимо вызвать, когда, все файлы будут обработаны.</p>
+
+<p>Сам цикл по исходным файлам тоже асинхронный. Для этого используется метод forEach из модуля <a href="https://github.com/caolan/async">async</a>.</p>
+
+<h3>Хранение и использование</h3>
+
+<p>Задачи можно класть прямо в грантфайл, а можно в отдельные файлы или публиковать в npm (если ваша задача может быть полезна и другим людям).</p>
+
+<p>Первый способ самый простой. Для этого надо разместить код задачи где-нибудь перед <code>grunt.registerTask(&#39;default&#39;, […])</code>.</p>
+
+<p>Во втором случае нужно создать для задач отдельную папку и поместить код задачи в такую же обёртку, как и у грантфайла:</p>
+
+<pre class="highlight"><code class="javascript">module.exports = <span class="function"><span class="keyword">function</span><span class="params">(grunt)</span> {</span>
+    grunt.registerMultiTask(<span class="string">'imgo'</span>, <span class="string">'Optimize images using imgo'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+        <span class="comment">/* ... */</span>
+    });
+};
+</code></pre>
+
+<p>А в грантфайле написать:</p>
+
+<pre class="highlight"><code class="javascript">grunt.loadTasks(<span class="string">'tasks'</span>);  <span class="comment">// Загружает все задачи из папки tasks</span>
+
+</code></pre>
+
+<p>Если будете делать свои задачи, обязательно посмотрите <a href="http://gruntjs.com/api/grunt">документацию <abbr><abbr>API</abbr></abbr></a> — в Гранте уже есть множество полезных функций.</p>
+
+<h2>Ссылки</h2>
+
+<ul>
+<li><a href="https://github.com/sapegin/grunt-article-examples">Код примеров к статье</a></li>
+<li>Плагины из коллекции contrib (поддерживаются разработчиками Гранта):
+
+<ul>
+<li><a href="https://github.com/gruntjs/grunt-contrib-concat">concat</a> — склеивание файлов;</li>
+<li><a href="https://github.com/gruntjs/grunt-contrib-uglify">uglify</a> — минификация JS (UglifyJS);</li>
+<li><a href="https://github.com/gruntjs/grunt-contrib-jshint">jshint</a> — проверка JS (<abbr><abbr>JSH</abbr></abbr>int);</li>
+<li><a href="https://github.com/gruntjs/grunt-contrib-watch">watch</a> — отслеживание изменений в файлах;</li>
+<li><a href="https://github.com/gruntjs/grunt-contrib-connect">connect</a> — простой веб-сервер для статики;</li>
+<li><a href="https://github.com/gruntjs/grunt-contrib-imagemin">imagemin</a> — оптимизация картинок;</li>
+<li><abbr><abbr>CSS</abbr></abbr>-препроцессоры: <a href="https://github.com/gruntjs/grunt-contrib-sass">sass</a>, <a href="https://github.com/gruntjs/grunt-contrib-less">less</a>, <a href="https://github.com/gruntjs/grunt-contrib-stylus">stylus</a>;</li>
+<li>тестовые фреймворки: <a href="https://github.com/gruntjs/grunt-contrib-qunit">qunit</a>, <a href="https://github.com/gruntjs/grunt-contrib-jasmine">jasmine</a>;</li>
+</ul></li>
+<li>Ещё полезные плагины:
+
+<ul>
+<li><a href="https://github.com/jharding/grunt-exec">exec</a> — запуск исполняемых файлов;</li>
+<li><a href="https://github.com/t32k/grunt-csso">csso</a> — оптимизация <abbr><abbr>CSS</abbr></abbr>;</li>
+<li><a href="https://github.com/ehynds/grunt-remove-logging">remove-logging</a> — удаляет из JS вызовы console.log();</li>
+<li><a href="https://github.com/erickrdch/grunt-string-replace">string-replace</a> — замена строк в файлах;</li>
+</ul></li>
+<li>Мои плагины:
+
+<ul>
+<li><a href="https://github.com/sapegin/grunt-webfont">webfont</a> — сборка веб-шрифта из набора <abbr><abbr>SVG</abbr></abbr>-файлов;</li>
+<li><a href="https://github.com/sapegin/grunt-bower-concat">bower-concat</a> — автоматическая склейка Bower-компонентов;</li>
+<li><a href="https://github.com/sapegin/grunt-fingerprint">fingerprint</a> — версии (для сброса кэша) статических файлов;</li>
+<li><a href="https://github.com/sapegin/grunt-shower-markdown">shower-markdown</a> — генератор презентаций Shower из Markdown;</li>
+</ul></li>
+<li><a href="http://gruntjs.com/">Сайт Grunt, документация, плагины</a></li>
+<li><a href="http://gruntjs.com/getting-started">Getting Started With Grunt</a></li>
+<li><a href="https://github.com/gruntjs/grunt/wiki/upgrading-from-0.3-to-0.4">Upgrading from 0.3 to 0.4</a></li>
+<li><a href="https://github.com/jquery/jquery/blob/master/Gruntfile.js">Грантфайл jQuery</a> (весьма продвинутый)</li>
+<li><a href="https://github.com/sapegin/squirrelstrap">Подборка шаблонов grunt-init</a></li>
+<li><a href="http://nano.sapegin.ru/all/sozdanie-faylov-i-struktury-proekta-po-shablonam-s-pomoschyu-gru">Создание файлов и структуры проекта по шаблонам с помощью Grunt</a></li>
+</ul>
+
+	</div>
+
+	<p class="note-feedback no-print">Вы можете улучшить этот пост, <a href="https://github.com/sapegin/blog.sapegin.me/edit/master/src/documents_ru/all/grunt-0-4.html.md" class="link">отредактировав его</a> на Гитхабе.</p>
+
+	<div class="note-meta">
+		<span class="note-tags">
+			
+				
+					<a href="/tags/javascript" class="note-tags__tag link">JavaScript</a>
+				
+			
+				
+					<a href="/tags/tools" class="note-tags__tag link">Инструменты</a>
+				
+			
+		</span>
+		<time class="note-published" datetime="Tue Feb 19 2013 00:00:00 GMT+0000 (UTC)" pubdate>19 февраля 2013 г.</time>
+	</div>
+
+	
+		<div class="note-share">
+			<ul class="social-likes social-likes_light" data-title="Grunt 0.4: система сборки для фронтенд-разработчиков" data-single-title="Поделиться">
+				<li class="facebook" title="Поделиться постом на Фейсбуке">Фейсбук</li>
+				<li class="twitter" data-via="sapegin" data-related="Landscapists:Мой проект «Пейзажисты России»" title="Поделиться постом в Твитере">Твитер</li>
+				<li class="plusone" title="Поделиться постом в Гугл-плюсе">Гугл+</li>
+				
+					<li class="vkontakte" title="Поделиться постом во Вконтакте">Вконтакте</li>
+				
+			</ul>
+		</div>
+	
+</article>
+
+<div class="about-author media no-print">
+	<div class="about-author__picture media__img"><img src="/images/userpic.jpg" width="75" height="75" alt="Артём Сапегин"></div>
+	<div class="media__body text">
+		<p>Меня зовут Тёма. Я живу в Москве и работаю яваскрипт-программистом в <a href="http://badoo.com/">Баду</a>, а в свободное время фотографирую и делаю всякие штуки в интернете. А ещё люблю читать книги, гладить своих собак и пить кофе.</p>
+<p><a href="http://sapegin.ru/about">Обо мне на моём сайте</a>. А ещё у меня есть <a href="http://sapegin.ru/">сайт</a>, <a href="http://birdwatcher.ru/">блог о фотографии</a>, <a href="http://twitter.com/sapegin">твитер</a> и <a href="https://github.com/sapegin">гитхаб</a>.</p>
+
+	</div>
+</div>
+
+<!--[if lt IE 9]>
+<25>
+<![endif]-->
+<!--[if gte IE 9]><!-->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="/build/scripts.js"></script>
+
+	<footer class="footer group">
+		<div class="footer-i">
+			© <a href="http://sapegin.ru" class="link">Артём Сапегин</a>, 2008—2014
+    		<div class="engine-info no-print">
+    			Работает на <a href="http://docpad.org/" class="link">Докпаде</a>, живёт на <a href="https://www.digitalocean.com/?refcode=bb49cbe65bb4" class="link">Диджиталоушене</a>
+    		</div>
+    	</div>
+    </footer>
+
+    <!-- Yandex.Metrika counter --><script>(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter412115 = new Ya.Metrika({id:412115, clickmap:true, trackLinks:true, webvisor:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/412115" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
+ </body>
+ </html>

@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+  "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1251">
+<meta http-equiv="content-language" content="ru">
+<title>Stylish Checkbox Demo</title>
+
+<style type="text/css">
+  div.boxChecked {
+    background: url("checkbox.gif") no-repeat 0 3px;
+  }
+  div.boxUnchecked {
+    background: url("checkbox.gif") no-repeat 0 -18px;
+  }
+
+  div.boxChecked input, div.boxUnchecked input {
+    cursor: pointer;
+    margin: 0px;
+    padding: 0px;
+    width: 16px;
+    opacity: 0;
+  }
+
+  label {
+    cursor: pointer;
+  }
+</style>
+
+<script type="text/javascript">
+<!--
+// Обработка состояния чекбокса
+function doCheckbox(elem) {
+  // Чекбокс должен быть внутри DIV'а и иметь стиль 'boxCheckbox'
+  if (elem.className=='boxCheckbox' && elem.parentNode.tagName.toLowerCase()=='div') {
+    elem.parentNode.className='box'+(elem.checked?'Checked':'Unchecked');
+  }
+}
+
+// Корректировка стилей под разные браузеры
+var css=document.styleSheets[0];
+try {
+  css.addRule('.boxCheckbox', 'filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);');
+}
+catch(e) {
+  css.insertRule('.boxCheckbox { -moz-opacity: 0; -khtml-opacity: 0; }', css.cssRules.length);
+}
+
+//-->
+</script>
+
+</head>
+<body>
+
+<div>
+  <input class="boxCheckbox" type="checkbox" id="chk1" onclick="doCheckbox(this);" checked="checked"> - <label for="chk1">стилизованный checkbox 1</label>
+</div>
+<div>
+  <input class="boxCheckbox" type="checkbox" id="chk2" onclick="doCheckbox(this);"> - <label for="chk2">стилизованный checkbox 2</label>
+</div>
+<div>
+  <input type="checkbox" id="chk3"> - <label for="chk3">обычный checkbox</label>
+</div>
+<div>
+  <input class="boxCheckbox" type="checkbox" id="chk4" onclick="doCheckbox(this);" checked="checked"> - <label for="chk4">стилизованный checkbox 3</label>
+</div>
+
+<input class="boxCheckbox" type="checkbox" id="chk5" onclick="doCheckbox(this);"> - <label for="chk5">checkbox вне элемента DIV</label>
+
+<script type="text/javascript">
+<!--
+// Установка стилей в соответствии с текущим состоянием чекбоксов на странице
+var el=document.getElementsByTagName('input');
+for (var i=0; i<el.length; i++) {
+  if (el[i].type.toLowerCase()=='checkbox') {
+    doCheckbox(el[i]);
+  }
+}
+//-->
+</script>
+
+</body>
+</html>

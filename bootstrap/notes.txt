@@ -1,0 +1,218 @@
+использование less:
+скачать девелопер-версию
+из неё вырезать каталог less
+поместить его в проект
+создать 2 файла:
+	variables.less,
+	styles.less
+
+variables.less:
+в нём переопределяем переменные	
+
+styles.less:
+@import "bootstrap/bootstrap.less"; 	#подключаем все бутстраповские стили и переменные
+@import "variables.less";				#подключаем переопределённые(кастомные) переменные
+здесь же переопределяем и добавляем стили
+
+устанавливаем и запускаем программу для компиляции less в css
+прописываем в настрйках styles.less
+так же в настройках прописываем конечный css-файл(в который помещаются результаты компиляции в виде css-кода)
+в html-шаблоне подключаем конечный css-файл
+
+
+=========================
+grunt:
+
+npm install -g grunt-cli
+
+
+
+Следующим шагом будет создание двух файлов: package.json и Gruntfile.js. Первый представляет собой описание проекта для npm, второй — файл конфигурации Grunt.
+
+Для создания package.json можно запустить команду nmp init и воспользоваться интерактивным диалогом(соглашаться со всем). Вот пример того, что можно получить на выходе:
+
+package.json
+это описание проекта
+  {
+    "name": "project",
+    "version": "0.0.0",
+    "description": "test project with grunt",
+    "main": "Gruntfile.js",   //указать путь к файлу конфига
+    "keywords": [             //пе проекта.росто описание проекта. не обязательно оно
+      "css",
+      "js"
+    ],
+    "author": "me",
+    "license": "MIT"
+  }
+
+Gruntfile.js
+это общий файл конфига
+
+module.exports = function(grunt) {
+  'use strict';
+
+  grunt.initConfig({
+    // дальше следует описание задач (см. ниже)
+    less: {
+      all: {
+        files: {
+          'css/less.css': 'less/styles.less',
+        }
+      }
+    },
+
+  });
+
+  // «загрузка» задач вручную
+  grunt.loadNpmTasks('grunt-contrib-less');
+
+  // регистрация задач, default-задача должна быть обязательно
+  grunt.registerTask('default', [
+    'less',
+  ]);
+
+}  
+
+grunt init
+пакеты пропишутся в packages.json
+
+
+
+после этого можно запускать грунт:
+$ grunt less:dev  # выполнит подзадачу для разработки
+$ grunt less:dist # выполнит подзадачу для production
+$ grunt выполнит все задачи из конфига
+
+
+например установим и настроим сжатие изображений. при этом каталог источника и каталог приёмника один и тот же. то есть файлы изображений будут просто перезаписываться
+
+npm install grunt-contrib-imagemin --save-dev
+npm install grunt-contrib-watch --save-dev
+в результате в проекте создастся каталог node_modules  , в котором хранятся утсановленные модули
+
+Ключ --save-dev в дополнение к установке добавляет ссылку на пакет в package.json. 
+
+
+=========================
+пример включения отслеживания изменений в less/styles.less и генерирования css/less.css
+
+установить:
+npm install grunt-contrib-watch --save-dev
+
+конфиг gruntfile.js:
+module.exports = function(grunt) {
+  'use strict';
+
+  grunt.initConfig({
+
+    less: {
+      all: {
+        files: {
+          'css/less.css': 'less/styles.less',
+        }
+      }
+    },
+
+  watch: {
+    scripts: {
+      files: ['less/styles.less'],  // when file changes
+      tasks: ['less'],            // will start task
+      options: {
+        spawn: false,
+      },
+    },
+  },    
+
+  });
+
+  grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+
+  grunt.registerTask('default', [
+    'less',
+    'watch'
+  ]);
+
+}
+
+
+затем в консоли запустить:
+grunt
+
+в результате в консоли запустится задание Running "watch" task
+и после каждого сохранения будет добавляться сообщение:
+Running "watch" task
+Waiting...
+>> File "less/styles.less" changed.
+
+Running "less:all" (less) task
+File css/less.css created
+
+Running "watch" task
+Completed in 0.403s at Sun Dec 28 2014 21:44:11 GMT+0300 (MSK) - Waiting...
+
+
+
+при этом файл package.json:
+{
+  "name": "fi_less",
+  "version": "0.0.0",
+  "description": "\"grunt test\"",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-cssmin": "^0.11.0",
+    "grunt-contrib-less": "^1.0.0",
+    "grunt-contrib-watch": "^0.6.1"
+  }
+}
+
+
+
+=========================
+минификация
+npm install grunt-contrib-cssmin --save-dev
+
+=========================
+миниммальный package.json:
+{
+  "name": "MyProject",
+  "version": "0.0.0",
+  "devDependencies": {
+    "grunt": "~0.4.0",
+    "grunt-contrib-concat": "~0.1.3",
+    "grunt-contrib-uglify": "~0.1.1",
+    "grunt-contrib-watch": "~0.2.0",
+    "grunt-contrib-connect": "~0.1.2",
+    "grunt-contrib-jshint": "~0.1.1",
+    "matchdep": "~0.1.1"
+  }
+}
+
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================

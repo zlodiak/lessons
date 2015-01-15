@@ -1,0 +1,818 @@
+<!DOCTYPE html><html><head>	<meta charset=utf-8>	<title>cssing  » Архив   &raquo; Некоторые техники замены текста картинками (image replacement)</title>	<meta name="generator" content="WordPress 4.5" > <!-- leave this for stats -->	<meta name="author" content="akella" >	<meta name="description" content="Блог про CSS и все что с этим связано. Новые приемы и технологии и т д." >	<meta name="revisit-after" content="1 Day" >	<meta name="keywords" content="web-design, web-standards, usability, typography, graphic design, akella, CSS, XHTML ,weblog, cssing, Юра Артюх, Юра, сайт, ukr.net" >	<!--<meta name="viewport" id="iphone-viewport" content="width=480, maximum-scale=0.6667" >-->	<meta name="ROBOTS" content="ALL" >		<link rel="stylesheet" media="screen" href="cssing%20%BB%20Архив%20%BB%20Некоторые%20техники%20замены%20текста%20картинками%20%28image%20replacement%29_files/master00.css" >	<link media="only screen and (max-device-width: 480px)" href="cssing%20%BB%20Архив%20%BB%20Некоторые%20техники%20замены%20текста%20картинками%20%28image%20replacement%29_files/iphone00.css" rel="stylesheet" >		<link rel="stylesheet" media="print" href="cssing%20%BB%20Архив%20%BB%20Некоторые%20техники%20замены%20текста%20картинками%20%28image%20replacement%29_files/iphone00.css" >	<link rel="pingback" href="http://cssing.org.ua/xmlrpc.php" />	<link rel="alternate" type="application/rss+xml" title="cssing RSS Feed" href="http://cssing.org.ua/feed/" />	<!--Этот кусок скрипта - выпендреж, для того чтобы HTML5 работал в IE-->	<!--[if IE]>	<script>	document.createElement('header');	document.createElement('footer');	document.createElement('section');	document.createElement('aside');	document.createElement('nav');	document.createElement('article');	</script>	<![endif]-->	<link rel="alternate" type="application/rss+xml" title="cssing &raquo; Некоторые техники замены текста картинками (image replacement) Comments Feed" href="http://cssing.org.ua/2006/02/23/image-replacement/feed/" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://cssing.org.ua/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://cssing.org.ua/wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='cssing' href='http://cssing.org.ua/' />
+<link rel='start' title='Просто  новость' href='http://cssing.org.ua/2004/07/21/first-post/' />
+<link rel='prev' title='Простой тултип или всплывающая подсказка' href='http://cssing.org.ua/2006/02/15/css-tooltips/' />
+<link rel='next' title='Графики' href='http://cssing.org.ua/2006/03/07/css-bar-graphs/' />
+<meta name="generator" content="WordPress 3.1.4" />
+<link rel='canonical' href='http://cssing.org.ua/2006/02/23/image-replacement/' />
+<link rel='shortlink' href='http://cssing.org.ua/?p=112' />
+	<script src="cssing%20%BB%20Архив%20%BB%20Некоторые%20техники%20замены%20текста%20картинками%20%28image%20replacement%29_files/00000000.js" type="text/javascript"></script>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+</head><body>	<!-- BEGIN #out --><div id="out">	<!-- BEGIN #header -->	<div id="header">		<header>			<h1><a href="http://cssing.org.ua/">cssing  Архив   &raquo; Некоторые техники замены текста картинками (image replacement)<span></span></a></h1>			<p class="description">Блог вебстандартиста и вебразработчика Юрия &#8220;akella&#8221; Артюха.</p>		</header>		<nav><a href="http://cssing.org.ua/archive/" id="current">архив</a>, <a href="http://cssing.org.ua/resources/">ресурсы</a>, <a href="http://cssing.org.ua/about/">про это</a>.</nav>	</div>	<!-- END #header --><hr><!-- BEGIN #content -->
+<section class="content">
+									<article class="hentry singlepost entry-1">
+	
+			<h2 class="entry-title"><a href="" rel="bookmark" title="Permanent Link to Некоторые техники замены текста картинками (image replacement)">Некоторые техники замены текста картинками (image replacement)</a></h2> 
+			<small class="published">23 Февраля, 2006</small>
+
+		
+			<p>Обзор некоторых способов замены текста картинками.<span id="more-112"></span></p>
+<h3>Зачем?</h3>
+<p>Часто хочется чтобы заголовки были красивыми, и не хочется себя ограничивать парой тройкой шрифтов пользователя (из тех что есть у всех) &#8212; тут и приходят на помощь способы заменить этот текст (оставить его в коде для поисковиков и других юзер агентов) на картинки или флэш. Итак для начала заменяем такой код на картинку:</p>
+<ol class="code">
+<li>&lt;h1&gt;Заголовок &#8211; картинка&lt;/h1&gt;</li>
+</ol>
+<h3>1. Способы без добавления HTML</h3>
+<p>Именно их я, как правило, и использую, если не нужно сильно заморачиваться на поддержке браузерами. Самые популярные:<br />
+<strong>1.</strong> LIR (<a href="http://www.moronicbajebus.com/playground/cssplay/image-replacement/">пример </a>) (так же известен как Phark Method)</p>
+<ol class="code">
+<li>h1{</li>
+<li class="tab">text-indent: -9000px;</li>
+<li class="tab">overflow: hidden;</li>
+<li class="tab">height:80px;width:200px;</li>
+<li class="tab">background-image: url(&#8220;img.gif&#8221;);</li>
+<li>}</li>
+</ol>
+<p>Этот первый я чаще всего и применяю. Хотя при отключенных картинках мы не увидим ничего :(. Руководствуюсь принципом: &laquo;нефиг&raquo;. :)</p>
+<p><strong>2.</strong> Метод Leahy/Langridge  (<a href="http://www.kryogenix.org/code/browser/lir/">подробнее</a>)</p>
+<ol class="code">
+<li>h1{</li>
+<li class="tab">padding: 80px 0 0 0;</li>
+<li class="tab">overflow: hidden;</li>
+<li class="tab">background-image: url(&#8220;img.gif&#8221;); </li>
+<li class="tab">height: 0px !important; <small>/* для большинства броузеров */</small></li>
+<li class="tab">height /**/:80px; <small>/* для блочной модели IE5.5 */</small></li>
+<li>}</li>
+</ol>
+<p>Вместо 80px естественно нужно вставить свою высоту.</p>
+<p><strong>3.</strong> MIR (Malarkey Image Replacement)  (<a href="http://www.stuffandnonsense.co.uk/archives/mir_image_replacement.html">подробнее</a>)</p>
+<ol class="code">
+<li>h1{</li>
+<li class="tab">letter-spacing :-1000em;</li>
+<li class="tab">height:80px;width:200px;</li>
+<li class="tab">background-image: url(&#8220;img.gif&#8221;);</li>
+<li>}</li>
+</ol>
+<p>Довольно изящный метод.<br />
+Все три разумеется при отключенных картинках не покажут ничего. Следует это помнить. Доступность страдает, но иногда бывают ситуации в которых эти методы могут сильно выручить. <a href="http://cssing.org.ua/examples/ir/">Смотреть пример.</a></p>
+<h3>2. Способы c добавлением HTML</h3>
+<p><strong>1.</strong> Метод  Pixy  (<a href="http://wellstyled.com/css-replace-text-by-image.html">подробнее</a>)<br />
+<strong>HTML:</strong></p>
+<ol class="code">
+<li>&lt;h1&gt;Заголовок &#8211; картинка&lt;span&gt;&lt;/span&gt;&lt;/h1&gt;</li>
+</ol>
+<p><strong>CSS:</strong></p>
+<ol class="code">
+<li>h1{</li>
+<li class="tab">margin:0; padding:0;</li>
+<li class="tab">position:relative;</li>
+<li class="tab">width:200px; height:80px;</li>
+<li class="tab">overflow:hidden;</li>
+<li>}</li>
+<li>h1 span {</li>
+<li class="tab">display:block;</li>
+<li class="tab">position:absolute; left:0; top:0; z-index:1;</li>
+<li class="tab">width:200px; height:80px;</li>
+<li class="tab">background:url(&#8220;img.gif&#8221;) top left no-repeat;</li>
+<li class="tab">}</li>
+</ol>
+<p>Если картинки отключены текст будет видно. Один из лучших методов, главное не забыть вставить спан. По сути фоновая картинка ложится сверху на текст и при ее отсутствии текст просвечивает.<br />
+Есть еще несколько вариаций которые работают в тех же браузерах (ИЕ 5 и выше и все остальные более или менее новые) но отличаются немного структурой кода:  <a href="http://levin.grundeis.net/files/20030809/alternatefir.html">Levin Alexander&#8217;s</a> например.<br />
+<strong>2.</strong> Thierry Image (re)Placement  (<a href="http://www.tjkdesign.com/articles/tip.asp">подробнее</a>)<br />
+<strong>HTML:</strong></p>
+<ol class="code">
+<li>&lt;h1&gt;&lt;img src=&#8221;pic.gif&#8221;  /&gt;Заголовок &#8211; картинка&lt;/h1&gt;</li>
+</ol>
+<p><strong>CSS:</strong></p>
+<ol class="code">
+<li>h1 {</li>
+<li class="tab">height:80px;</li>
+<li class="tab">width:200px;</li>
+<li class="tab">overflow:hidden;</li>
+<li class="tab">position:relative;</li>
+<li>}</li>
+<li>h1 img {</li>
+<li class="tab">z-index:1;</li>
+<li class="tab">position:absolute;</li>
+<li class="tab">top:0;</li>
+<li class="tab">left:0;</li>
+<li>}</li>
+</ol>
+<h3>Другие способы</h3>
+<p>Среди прочих нельзя не упомянуть <a href="http://www.mikeindustries.com/sifr/">sIFR</a> (и <a href="http://www.maratz.com/blog/archives/2006/01/16/multi-color-sifr-201/">неофициальные апгрейды</a> к нему) &#8212; замена с помощью флеша и джаваскрипта.<br />
+И некоторые методы замены картинками еще на сервере: <a href="http://www.alistapart.com/articles/dynatext">Dynamic Text Replacement</a> и на русском <a href="http://www.umade.ru/log/2006/01/167.html">PHP+CSS: Динамичеcкая замена текста</a>.<br />
+А так же то, к чему мы прийдем рано или поздно :), CSS3 метод замены текста:</p>
+<ol class="code">
+<li>h1 {</li>
+<li class="tab">content: url(img.gif);</li>
+<li>}</li>
+</ol>
+<p>Ну или простой и банальный font-face, который наконец заработает везде.</p>
+<h3>Ссылки</h3>
+<p>Собственно не такой же ж я умник что бы самому вот это все придумать. :)<br />
+К тому же это далеко не полный список методов, лишь те, которые я практикую и считаю удобными для себя. </p>
+<ul>
+<li><a href="http://cssing.org.ua/examples/ir/">Мои примеры &#8211; для теста</a></li>
+<li><a href="http://www.mezzoblue.com/tests/revised-image-replacement/">Revised Image Replacement</a></li>
+<li><a href="http://css-discuss.incutio.com/?page=ImageReplacement">CSS Image Replacement and Alternatives to CSS Image Replacement</a></li>
+</ul>
+<p>Линков из этих двух страничек хватит всерьез и надолго :)<br />
+С названиями полная путаница, поэтому называл я по имени того кто выше в гугле. Хоть для какой то ориентации.</p>
+		
+		
+	
+		
+	
+			<p class="categs"><a href="http://cssing.org.ua/category/xhtmlcss/" title="View all posts in XHTML/CSS" rel="category tag">XHTML/CSS</a>, <a href="http://cssing.org.ua/category/design/" title="View all posts in Дизайн" rel="category tag">Дизайн</a> </p>
+	
+		
+	</article>
+	<section class="commentarea">
+		
+<!-- You can start editing here. -->
+
+	<h3 id="comments">44 комментариев к &#8220;Некоторые техники замены текста картинками (image replacement)&#8221;</h3> 
+
+	<dl class="commentlist">
+
+	
+		<dt id="comment-2795">
+			
+			<strong><a href="">1.</a></strong> <em>Февраля 23rd, 2006</em> | <a href='http://flack.ru/' rel='external nofollow' class='url'>Flack</a> 
+			
+
+						
+		<dd>
+			<p>Спасибо, Thierry Image (re)Placement пока не встречал. Обязательно попробую.</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-2796">
+			
+			<strong><a href="">2.</a></strong> <em>Февраля 23rd, 2006</em> | <a href='http://idcontent.com/' rel='external nofollow' class='url'>ganges</a> 
+			
+
+						
+		<dd>
+			<p>Я делаю так.  </p>
+<p>	h1 {<br />
+	height:80px;<br />
+	width:200px;<br />
+	background:#fff url(someimage.gif);<br />
+	}<br />
+	h1 span {<br />
+	display:none;<br />
+	}</p>
+<p>И HTML</p>
+<p>	&lt;h1&gt;&lt;span&gt; Заголовок &#8211; картинка &lt;/span&gt;&lt;/h1&gt;</p>
+<p>Конечно, при выключенных картинках и включенном CSS не видно ничего. Это наверное самый примитивный IR. А вообще я за CSS3 метод :)</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-2797">
+			
+			<strong><a href="">3.</a></strong> <em>Февраля 23rd, 2006</em> | <a href='http://opera.nsk.su/' rel='external nofollow' class='url'>Kildor</a> 
+			
+
+						
+		<dd>
+			<p>Кстати, Опера давно уже поддерживает CSS3 метод ;-)</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-2798">
+			
+			<strong><a href="">4.</a></strong> <em>Февраля 23rd, 2006</em> | <a href='http://cssing.org.ua/' rel='external nofollow' class='url'>akella</a> 
+			
+
+						
+		<dd>
+			<p>коммент на правах рекламы :)</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-2800">
+			
+			<strong><a href="">5.</a></strong> <em>Февраля 23rd, 2006</em> | <a href='http://mysevastopol.com/' rel='external nofollow' class='url'>MAX</a> 
+			
+
+						
+		<dd>
+			<p>А я пробовал «Header Image Generator» :) (<a href="http://www.alistapart.com/articles/dynatext/" rel="nofollow">http://www.alistapart.com/articles/dynatext/</a>) Работает на ура. Главное ttf-шрифт на сервер закачать :)</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-2802">
+			
+			<strong><a href="">6.</a></strong> <em>Февраля 26th, 2006</em> | <a href='http://uggallery.audiopeace.ru/' rel='external nofollow' class='url'>uggallery</a> 
+			
+
+						
+		<dd>
+			<p>Странно, что нет методов (мне не попадались) вроде LIR-a, но где для сокрытия текста используются манипуляции с line-height. Это работает даже в IE 5.0. Правда, проверял не во всех браузерах. На маке, например, не проверял. Может есть какие-то противопаказания?</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-2803">
+			
+			<strong><a href="">7.</a></strong> <em>Февраля 27th, 2006</em> | <a href='http://cssing.org.ua/' rel='external nofollow' class='url'>akella</a> 
+			
+
+						
+		<dd>
+			<p>А как именно с помощью лайн-хейт Вы предлагаете?<br />
+очень большой или очень маленький? или отрицательный? Я как то и сам не пробовал &#8211; хотя и заметно что можно текст наверно смещать сильно по вертикали.  Можно чуть подробнее?</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-2804">
+			
+			<strong><a href="">8.</a></strong> <em>Февраля 27th, 2006</em> | <a href='http://idcontent.com/' rel='external nofollow' class='url'>ganges</a> 
+			
+
+						
+		<dd>
+			<p><a href="http://meyerweb.com/eric/thoughts/2006/02/08/unitless-line-heights/" rel="nofollow">http://meyerweb.com/eric/thoughts/2006/02/08/unitless-line-heights/</a></p>
+<p>Что меня лично наводит на мысль о том, что гипотетический метод IR с помощью line-height &#8211; не самый лучший. Я наступал на грабли с этим проперти в более простейшей ситуации, чем IR.<br />
+Отрицательный не покатит, ИМХО :)</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-2805">
+			
+			<strong><a href="">9.</a></strong> <em>Февраля 27th, 2006</em> | <a href='http://cssing.org.ua/' rel='external nofollow' class='url'>akella</a> 
+			
+
+						
+		<dd>
+			<p>Не совсем понял кстати параллель? Там же просто в очередной раз написали что лайн-хейт можно без единиц употреблять? А как это связано с граблями при ее употреблении?</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-2806">
+			
+			<strong><a href="">10.</a></strong> <em>Февраля 27th, 2006</em> | <a href='http://uggallery.audiopeace.ru/' rel='external nofollow' class='url'>uggallery</a> 
+			
+
+						
+		<dd>
+			<p><a href="http://uggallery.narod.ru/line-height-ir/" rel="nofollow">Test-case для проверки/</a> </p>
+<p>Похоже, line-height c большим значением работает в самых популярных браузeрах. Нулевой &#8212; так-сяк, а отрицательный не работает вообще. Но реальность, конечно, может оказаться сложнее.</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-2807">
+			
+			<strong><a href="">11.</a></strong> <em>Февраля 27th, 2006</em> | <a href='http://idcontent.com/' rel='external nofollow' class='url'>ganges</a> 
+			
+
+						
+		<dd>
+			<p>А можно и с единицами :)  Konqueror в моей разметке без едениц выдавал  &#8220;страшную байду&#8221;, а с еденицами &#8211; все ок. Я, ясное дело сначала без едениц написал &#8211; пропустил через валидатор &#8211; а он &#8211; &#8220;говно мол, не катит&#8221;. Если бы тут Мейер свою заметку не написал, я бы наверное волосы на голове порвал :)  Во как бывает</p>
+<p>Паралель в том.что эксперимантировать с line-height с такой &#8220;скользкой&#8221; техникой как IR я считаю потенциально багоопасным.</p>
+<p>На конкверор, конечно, можно забить, если забыть, что это &#8220;почти Safary&#8221;</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-2808">
+			
+			<strong><a href="">12.</a></strong> <em>Февраля 27th, 2006</em> | <a href='http://uggallery.audiopeace.ru/' rel='external nofollow' class='url'>uggallery</a> 
+			
+
+						
+		<dd>
+			<p>&gt;считаю потенциально багоопасным</p>
+<p>Согласен. Хотя любой IR &#8220;багоопасен&#8221;, любой требует проверки. А этот, видимо, очень неплохо подходит для пятого IE, чем и привлекает.</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-2809">
+			
+			<strong><a href="">13.</a></strong> <em>Февраля 27th, 2006</em> | <a href='http://uggallery.audiopeace.ru/2006/02/27/line-height-ir' rel='external nofollow' class='url'>UGgallery -Замещение текста с помощь...</a> 
+			
+
+						
+		<dd>
+			<p>[...]  Есть идея использовать для замещения текста (image replacement) CSS-свойстов line-height. Идея требует проверки, но уже сейчас кажется вполне перспективной [...]</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-2810">
+			
+			<strong><a href="">14.</a></strong> <em>Февраля 27th, 2006</em> | <a href='http://cssing.org.ua/' rel='external nofollow' class='url'>akella</a> 
+			
+
+						
+		<dd>
+			<p>Да &#8211; оперативно сработал :)</p>
+<p>Это малозначимо &#8211; но вообще как факт &#8211; сначала случайно запустил 5.5 а не 5.01 &#8211; и при большом позитивном line-height &#8211; сверху от элемента соответствующее пустое пространство &#8211; чего, однако, не наблюдается в других ИЕ. Пожалуй letter-spacing в этом смысле чуть более универсален. Хотя как вариант &#8211; нулевой лайн хейт можно отдавать ИЕ безболезненно.<br />
+То бишь например вариант сочетания LIR (самый первый в посте и не работающий в ИЕ 5.0) очень даже привлекателен:<br />
+<strong>_line-height:0;</strong></p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-2811">
+			
+			<strong><a href="">15.</a></strong> <em>Февраля 27th, 2006</em> | <a href='http://uggallery.audiopeace.ru/' rel='external nofollow' class='url'>uggallery</a> 
+			
+
+						
+		<dd>
+			<p>Эх! В 5.5-то я и не проверил :(  До чего ж они разные эти IE. А я это уже в одном эскизе использовал. Пойду исправлять на  _line-height:0 или что-нибудь в этом роде. Спасибо.</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-3216">
+			
+			<strong><a href="">16.</a></strong> <em>Мая 15th, 2006</em> | <a href='http://marpa.narod.ru/' rel='external nofollow' class='url'>Арки</a> 
+			
+
+						
+		<dd>
+			<p>CSS-хаки &#8211; это круто, конечно, но с выходом ИЕ 7 будут большие проблемы. Опять придется переделывать все сайты.</p>
+<p>Да и тестирование сайта во всех версиях ИЕ: 4, 5.0, 5.01, 5.5, 6.0, 7.0, а еще Файрфоксы, Оперы, Сафари, Konqueror &#8211; немножко напрягает.</p>
+<p>Может, перестать изобретать велосипед, и просто оставить &#8220;по умолчанию&#8221; &#8211; чтобы весь текст выводился тем шрифтом, который указан в браузере (Times New Roman). Или выбрать Verdana &#8211; он выглядит гораздо лучше.</p>
+<p>Но вот что мне не нравится &#8211; когда текст на сайте фиксированного размера. Читать неудобно! А разве текст не предназначен для чтения? </p>
+<p>Я, конечно, знаю, как избавиться от фиксации размера шрифта в браузере, но при этом вся DIV-ная верстка жутко разъезжается, куски текста переплетаются, блоки перекрывают друг друга или уходят вниз. Получается нечитабельная помойка.</p>
+<p>Совет: всегда проверяйте вид сайта при маленьком разрешении и с большим размером шрифта &#8211; узнаете много дового о верстке.</p>
+<p>В общем, по-прежнему действует правило: хочешь сделать крутой современный сайт с наворотами, верстай DIV-ами и с большим количеством CSS. Хочешь быстро сделать простой и удобный сайт &#8211; делай табличную верстку с минимумом CSS.</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-3221">
+			
+			<strong><a href="">17.</a></strong> <em>Мая 15th, 2006</em> | <a href='http://cssing.org.ua/' rel='external nofollow' class='url'>akella</a> 
+			
+
+						
+		<dd>
+			<p>У Вас получился замечательный монолог, строго подтверждающий Вашу правоту. :)</p>
+<p>Но во первых никаких особенно страшных проблем с ИЕ 7 я не вижу пока что. А если учесть что до его выхода еще полгода. ТО об этом думать пока все же рано.</p>
+<p>Во вторых если оно разьезжается значит сайт сверстан плохо. В идеале должно расширяться. И я в данном случае подаю плохой пример. Но это отнюдь не камень в сторону правильной верстки. В данном случае она ничем не отличается от табличной.</p>
+<p>Совет &#8211; очень хороший :). В таком случае всегда проверяйте ваши сайты натаблицах мобильниками, поисковиками(на предмет кучи лишнего кода), принтерами на предмет печатных версий ит д. Узнаете еще больше нового.</p>
+<p>А правило боюсь действует для Вас. :) Но никак не для меня.<br />
+Вы напоминаете крестьянина который ворчит на трактор и говорит &#8211; &#8220;да проще лопатой вскопать, чем трактор заводить, бензин заливать&#8221;&#8230; :)</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-3356">
+			
+			<strong><a href="">18.</a></strong> <em>Мая 26th, 2006</em> | Shimon 
+			
+
+						
+		<dd>
+			<p>Все прекрасно, только у меня почему то в первом способе никак не удается валидно приделать ссылку на заголовок :&#8217;(</p>
+<p>а span как то не хочется&#8230;</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-3374">
+			
+			<strong><a href="">19.</a></strong> <em>Мая 27th, 2006</em> | <a href='http://cssing.org.ua/' rel='external nofollow' class='url'>akella</a> 
+			
+
+						
+		<dd>
+			<p>Порообуй писать тот ЦСС для замены текста на картинку не для &#8220;h1&#8243;, а для &#8220;h1 a&#8221;. Добавив туда правило <strong>display:block</strong><br />
+Должно получиться.</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-3475">
+			
+			<strong><a href="">20.</a></strong> <em>Июня 3rd, 2006</em> | Максим Вуец 
+			
+
+						
+		<dd>
+			<p>Может я чего не понимаю, но почему не проще сделать так:<br />
+h1 span { display: none; }<br />
+&lt;h1&gt;<br />
+&lt;span&gt;title&lt;/span&gt;<br />
+&lt;img src=&quot;img.gif&quot;/&gt;<br />
+&lt;/h1&gt;</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-3496">
+			
+			<strong><a href="">21.</a></strong> <em>Июня 6th, 2006</em> | <a href='http://iar.spb.ru/' rel='external nofollow' class='url'>Ivan A-R</a> 
+			
+
+						
+		<dd>
+			<p>Да. Вроде как через скрытие логичнее получается. У меня картинка на заголовок полупрозрачная, и я сделал так:</p>
+<p>h1 {<br />
+	height:85px; width:700px;<br />
+	overflow:hidden;<br />
+	background: transparent url(&#8220;images/title.gif&#8221;) no-repeat;<br />
+}<br />
+h1 span {<br />
+	visibility: hidden;<br />
+}</p>
+<p>title</p>
+<p>Где грабли выплывут?</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-3497">
+			
+			<strong><a href="">22.</a></strong> <em>Июня 6th, 2006</em> | <a href='http://cssing.org.ua/' rel='external nofollow' class='url'>akella</a> 
+			
+
+						
+		<dd>
+			<p>Все зависит от задач которые вы ставите перед собой. К примеру &#8211; ПРОСТО надо заменить нечто на картинку &#8211; без заморочек с аксессабилити и тд &#8211; мне было бы стыдно добавлять СПАН я бы сделал без него.<br />
+Другой вариант &#8211; нужно заморочится на аксессабилити &#8211; то есть что бы как минимум с отключенными картинками показывало текст какой то хоть. Но тогда твой метод Иван не подходит.</p>
+<p>С другой стороны что лично мне иногда претило бы использовать метод Максима &#8211; та картинка на которую я заменяю текст &#8211; иногда служит все же частью дизайна и лучше ей быть в фоне. + контент дублируется. Но для других случаев совсем не плохой вариант. У Тьерри некое подобие такого подхода &#8211; <a href="http://www.tjkdesign.com/articles/tip.asp" rel="nofollow">Thierry Image Placement</a>.<br />
+Короче чаще зависит от конкретного случая &#8211; иногда чего уж греха таить можно и влепить пустой див, пока никто не видит и потом не спать ночами от угрызений совести. только так :)</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-3521">
+			
+			<strong><a href="">23.</a></strong> <em>Июня 9th, 2006</em> | <a href='http://iar.spb.ru/' rel='external nofollow' class='url'>Ivan A-R</a> 
+			
+
+						
+		<dd>
+			<p>Спасибо. Я уже потом допёр, что с отключёнными картинками заголовка не будет.</p>
+<p>Опять же, я исходил из того что у меня заголовок с прозрачными областями&#8230;  Но тут уж ничего не попишешь.</p>
+<p>А HTML выглядит достаточно прилично: &lt;h1&gt;&lt;span&gt;title&lt;/span&gt;&lt;/h1&gt;</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-4371">
+			
+			<strong><a href="">24.</a></strong> <em>Августа 15th, 2006</em> | <a href='http://uaport.net/' rel='external nofollow' class='url'>Dcat</a> 
+			
+
+						
+		<dd>
+			<p>А какие есть варианты для замены INLINE элемента на картинку?<br />
+Например <b>:)</b> на картинку.</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-4379">
+			
+			<strong><a href="">25.</a></strong> <em>Августа 15th, 2006</em> | <a href='http://cssing.org.ua/' rel='external nofollow' class='url'>akella</a> 
+			
+
+						
+		<dd>
+			<p>Самое прямолинейное решение с помощью javascript &#8211; <a href="http://www.whaleofadive.com/misc/siir/about.php" rel="nofollow">http://www.whaleofadive.com/misc/siir/about.php</a> &#8211; вообще же логичнее тогда оставить картинки :). Или сделать это на уровне сервера.</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-4442">
+			
+			<strong><a href="">26.</a></strong> <em>Августа 18th, 2006</em> | <a href='http://www.ipetra.ru/' rel='external nofollow' class='url'>Купер</a> 
+			
+
+						
+		<dd>
+			<p>Не понял изврат с -1000em</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-4445">
+			
+			<strong><a href="">27.</a></strong> <em>Августа 18th, 2006</em> | <a href='http://cssing.org.ua/' rel='external nofollow' class='url'>akella</a> 
+			
+
+						
+		<dd>
+			<p>Это для того что бы текст отобразился за пределами страницы, просто большое число что бы сдвинуть его(текст) из пределов видимости то бишь экрана. И что бы он не отображался поверх нашей картинки или чего либо еще на странице.</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-4454">
+			
+			<strong><a href="">28.</a></strong> <em>Августа 18th, 2006</em> | <a href='http://www.ipetra.ru/' rel='external nofollow' class='url'>Купер</a> 
+			
+
+						
+		<dd>
+			<p>Так может просто в  (или в css) сделать?</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-4455">
+			
+			<strong><a href="">29.</a></strong> <em>Августа 18th, 2006</em> | <a href='http://www.ipetra.ru/' rel='external nofollow' class='url'>Купер</a> 
+			
+
+						
+		<dd>
+			<p>блин &#8211; я написал div style=&#8221;display:none&#8221; в кавычках, а его &#8220;съело&#8221;</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-4474">
+			
+			<strong><a href="">30.</a></strong> <em>Августа 19th, 2006</em> | <a href='http://cssing.org.ua/' rel='external nofollow' class='url'>akella</a> 
+			
+
+						
+		<dd>
+			<p>Такой метод(-1000em) считается более безопасным &#8211; и читатели экрана прочитают текст в первом случае &#8211; во втором могут и не прочесть.</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-10877">
+			
+			<strong><a href="">31.</a></strong> <em>Апреля 4th, 2007</em> | <a href='http://www.fludilka.ru/' rel='external nofollow' class='url'>аниме</a> 
+			
+
+						
+		<dd>
+			<p>есть один масюсенький минус, если такой фигни понаделать на сайте многократно, то не удивляйтесь, ежели у вас упадёт посещяемость!!</p>
+<p>Как говорится всё должно быть в меру!<br />
+я прото, что, чтобы под картинкой ебыл спрятан роман война и мир!</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-10990">
+			
+			<strong><a href="">32.</a></strong> <em>Июня 21st, 2007</em> | <a href='http://markovnin.com/' rel='external nofollow' class='url'>Grin</a> 
+			
+
+						
+		<dd>
+			<p>хорошая статья, спасибо</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-11259">
+			
+			<strong><a href="">33.</a></strong> <em>Ноября 1st, 2007</em> | <a href='http://turenko.com/blog/' rel='external nofollow' class='url'>Михаил</a> 
+			
+
+						
+		<dd>
+			<p>Скрытый текст по идее нехорошо, с точки зрения гугла&#8230;</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-11260">
+			
+			<strong><a href="">34.</a></strong> <em>Ноября 2nd, 2007</em> | <a href='http://i1t2b3.blogspot.com/' rel='external nofollow' class='url'>Скакунов Александр</a> 
+			
+
+						
+		<dd>
+			<p>Как называется классный шрифт, использованный на картинках в <a href="http://cssing.org.ua/examples/ir/" rel="nofollow">примерах</a><a>?</a></p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-11262">
+			
+			<strong><a href="">35.</a></strong> <em>Ноября 2nd, 2007</em> | <a href='http://cssing.org.ua/' rel='external nofollow' class='url'>akella</a> 
+			
+
+						
+		<dd>
+			<p>Вряд ли я смогу восстановить :( &#8211; но разве это не Scriptina? Я вроде бы не использовал чего то очень необычного</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-11263">
+			
+			<strong><a href="">36.</a></strong> <em>Ноября 2nd, 2007</em> | <a href='http://i1t2b3.blogspot.com/' rel='external nofollow' class='url'>Скакунов Александр</a> 
+			
+
+						
+		<dd>
+			<p>Вроде бы нет, но очень похоже, спасибо! </p>
+<p>P.S. Было бы здорово иметь нотификацию по емейлу о приходящих комментариях, а то приходится по 20 раз открывать страницу, чтобы посмотреть глазами, ответил кто или нет.</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-11265">
+			
+			<strong><a href="">37.</a></strong> <em>Ноября 3rd, 2007</em> | <a href='http://cssing.org.ua/' rel='external nofollow' class='url'>akella</a> 
+			
+
+						
+		<dd>
+			<p>Я надеялся что RSS достаточно, но добавил и форму подписки, спасибо за идею.</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-11618">
+			
+			<strong><a href="">38.</a></strong> <em>Января 9th, 2008</em> | <a href='http://artdesigner.ru/' rel='external nofollow' class='url'>ArtDesigner</a> 
+			
+
+						
+		<dd>
+			<p>Может я что-то где-то упустил, но я пользуюсь методом, который лишен недостатков. Возможно я не прав.<br />
+h1 img src=”pic.png” alt=”Главная” /h1</p>
+<p>В браузерах отображается хорошо, с отключенными стилями картинки остаются, с отключенными картинками, альт заменяет сам заголовок. Когда всё отключено, также отображается верно. В чем подвох?</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-11625">
+			
+			<strong><a href="">39.</a></strong> <em>Января 9th, 2008</em> | <a href='http://cssing.org.ua/' rel='external nofollow' class='url'>akella</a> 
+			
+
+						
+		<dd>
+			<p>Ну некоторые оптимизаторы считают что альт меньше переливает в ссылку, или меньше веса придает словам, например.<br />
+А недостатков у метода действительно мало =) Разве что &#8211; чуть больше HTML, ведь нужно  обязательно указать альт, адрес картинки, высоту и ширину.</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-11723">
+			
+			<strong><a href="">40.</a></strong> <em>Января 24th, 2008</em> | <a href='http://guyver-world.ru/' rel='external nofollow' class='url'>Guyver</a> 
+			
+
+						
+		<dd>
+			<p>Хех, спасибо, буду пробовать на своих пациентах )</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-11905">
+			
+			<strong><a href="">41.</a></strong> <em>Марта 1st, 2008</em> | <a href='http://www.sexhtml.ru/' rel='external nofollow' class='url'>Никита</a> 
+			
+
+						
+		<dd>
+			<p><strong>h1{<br />
+    text-indent: -9000px;<br />
+}</strong></p>
+<p>Пользователи с отключенной графикой не увидят текст. Я использую похожую технику, только без смещения текста: <a href="http://www.sexhtml.ru/css/menu/" rel="nofollow">http://www.sexhtml.ru/css/menu/</a></p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-12956">
+			
+			<strong><a href="">42.</a></strong> <em>Июля 24th, 2008</em> | <a href='http://delka.anime.kharkov.ua/' rel='external nofollow' class='url'>Del'ka</a> 
+			
+
+						
+		<dd>
+			<p>сегодня нашёл совершненно замечательный способ через :after<br />
+<a href="http://habrahabr.ru/blog/css/37811.html" rel="nofollow">http://habrahabr.ru/blog/css/37811.html</a></p>
+<p>хорош тем чо при отключенных картинках виден текст, но при этом нет несемантических span.</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-13354">
+			
+			<strong><a href="">43.</a></strong> <em>Октября 4th, 2008</em> | <a href='http://cssing.org.ua/2007/10/24/html-quality/' rel='external nofollow' class='url'>cssing :: Архив :: Оценка качества верстки</a> 
+			
+
+						
+		<dd>
+			<p>[...] Последний хоткей кстати проявляет &#8220;плохие&#8221; image replacement [...]</p>
+
+		</dd>
+
+	
+	
+		<dt id="comment-14445">
+			
+			<strong><a href="">44.</a></strong> <em>Мая 14th, 2009</em> | <a href='http://blogto4ka.ru/' rel='external nofollow' class='url'>Перспективный блоггер</a> 
+			
+
+						
+		<dd>
+			<p>Смотрю в ff3, в методе Маларки наблюдаю на картинке первую букву текста &#8211; &#8220;З&#8221;, что вполне естественно, т.к. отрицательный letter-spacing не изменяет позицию первой буквы.</p>
+<p>Здесь нужно бы еще отрицательный text-indent на ширину первой буквы добавить, но тогда это уже будет метод, объединенный с методом Фарка.</p>
+
+		</dd>
+
+	
+	
+	</ol>
+
+ 
+
+<div class="forms">
+<h3 id="respond">Оставить комментарий</h3>
+
+
+<form action="http://cssing.org.ua/wp-comments-post.php" method="post" id="commentform">
+
+
+<p><input type="text" class="inpt" name="author" id="author" value="" size="22" tabindex="1" />
+<label for="author">Имя </label></p>
+
+<p><input type="text" name="email" class="inpt" id="email" value="" size="22" tabindex="2" />
+<label for="email">E-mail (хранится в секрете) </label></p>
+
+<p><input type="text" class="inpt" name="url" id="url" value="" size="22" tabindex="3" />
+<label for="url">Адрес сайта</label></p>
+
+
+<!--<p><small><strong>XHTML:</strong> You can use these tags: &lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; </small></p>-->
+
+<p><textarea name="comment" id="comment" cols="100%" rows="10" tabindex="4"></textarea></p>
+
+<p><input name="submit" type="submit" id="submit" tabindex="5" value="Отправить" />
+<input type="hidden" name="comment_post_ID" value="112" />
+</p>
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="d17b5ca713" /></p>
+</form>
+
+
+	</section>
+	
+		
+		</section>
+<!--end of #content -->
+<!--begin #secondary --><aside>	<h3>Последние 5</h3>	<ul>		<li><a href="http://cssing.org.ua/2011/07/06/css1k/">CSS1k</a></li>			<li><a href="http://cssing.org.ua/2010/09/30/html5-app-in-24h/">HTML5 читалка для iPhone за сутки</a></li>			<li><a href="http://cssing.org.ua/2010/09/23/america/">Из Америк</a></li>			<li><a href="http://cssing.org.ua/2010/09/20/webstandardsdays-plus-ie9/">IE9 и Web Standards Days в Киеве</a></li>			<li><a href="http://cssing.org.ua/2010/04/26/overflow-hidden/">overflow:hidden</a></li>		</ul></aside><!--end #secondary --><!--begin #footer --><footer><p><a href="mailto:akella.a@gmail.com" title="Написать письмо">akella</a>, <a href="http://wordpress.org/">WordPress</a>, <a href="http://cssing.org.ua/feed/">RSS</a>, <a title="CSS не проходит валидацию" href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a>, <a title="я доступный :)" href="http://www.contentquality.com/mynewtester/cynthia.exe?Url1=http://www.cssing.org.ua/">508</a>, <a href="http://validator.w3.org/check/referer" title="Валидный XHTML 1.0">HTML5</a><br /> Спасибо, <a href="http://genn.org/">Genn</a>, за дизайн!</p></footer><!--end #footer --><!-- <a href="feed:http://cssing.org.ua/comments/feed/">Comments (RSS)</a>.--><!-- Gorgeous design by Genn(genn.org) & a wee bit akella --></div><!-- END #out --></body></html>
+<!-- This document saved from http://cssing.org.ua/2006/02/23/image-replacement/ -->

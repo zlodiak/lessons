@@ -1,0 +1,43 @@
+1. установить MS,translit, gerpage, getresources, wayfinder, hphThumbOf (для ресайза доп.изображений. ширина , высота решулируется в чанке tpl.msGallery.row использовать с fancybox)
+2. создавть обычную страницу
+3. настроить ЧПУ
+4. включить транслит
+5. создать 3 шаблона:	страница магазина [[$Content.main]], 
+						страница  катагории [[$Content.category]], 
+						страница товара [[$Content.goods]]
+
+6. создать чанки(2 последних уже есть. содержание третьего - [[*content]])	
+так же создать чанк для $tpl $Content.category . он называется tpl.msGoods.cat и содержит
+  <div class="span4">
+    <a href="[[~[[+id]]]]" style="line-height:100px"><strong>[[+pagetitle]]___</strong></a>
+  </div>					
+7. создать страницы каталога, категории, страницы товара(с соответствующими шаблонами)
+8. в настройках выставить номера шаблонов для категорий и стрютовара
+9. через компонент создать товараы. внимание! нужно обязательно указать количество товара, а то он будет недоступен и ссылки "добавить в коризину не будет"
+
+10. подключить js в чанке head. примерно так
+<title>[[++site_name]] - [[*pagetitle]]</title>
+<base href="[[++site_url]]" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />    
+
+<script src="http://yandex.st/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+<script src="assets/components/minishop/js/web/jquery.stickr.min.js"></script>
+<script src="assets/components/minishop/js/web/minishop.js"></script>
+
+<link rel="stylesheet" type="text/css" href="assets/templates/my/css/styles.css" />
+<link rel="stylesheet" type="text/css" href="assets/components/minishop/css/web/jquery.stickr.css" />
+
+пути брать из assets/components/
+
+11. изменить в minishop.js путь в первой строке. примерно так
+url = '/modx9/cart.html';
+иначе в консоли будут ошибки и товр не добавится в корзину
+
+12. если появляется такая хуйня Could not find action file at: controllers/default/index.php , то нужно очистить кэш в core/cache 
+
+13. 
+tpl.msGoods.row страница со списком товаров. это &tpl для $Content.category
+tpl.msGoods.cat страниа со списком каталогов
+
+
+

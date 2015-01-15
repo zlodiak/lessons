@@ -1,0 +1,228 @@
+пользователь в админке имеет доступ только к своим моделям. админ -к любым. после регистрации пользователь сразу может входить в админку:
+
+============================================
+models:
+# -*- coding: utf-8 -*-
+from django.db import models
+from django.contrib.auth.models import User
+from datetime import datetime  
+
+class Entry(models.Model):
+	user = models.ForeignKey(
+		User, 
+		verbose_name=u"пользователь", 
+		blank=True, 
+		null=True,
+	)
+	title = models.CharField(
+		u"заголовок", 
+		max_length=100,
+	)
+	description = models.TextField(
+		'Описание',
+		max_length=50000, 
+		default=None,
+		blank=True,
+	)
+	views = models.IntegerField(
+		default=0,
+		null=False,
+		blank=True,
+	)	
+	likes = models.IntegerField(
+		default=0,
+		null=False,
+		blank=True,
+	)				
+	date = models.DateTimeField(
+		'Дата создания',
+		default=datetime.now(),
+		auto_now=True,
+	)
+	last_edit_date = models.DateTimeField(
+		'Дата последнего редактирования',
+		default=datetime.now(),
+		auto_now=True,
+	)		
+	is_active = models.BooleanField(default=True)					
+	is_delete = models.BooleanField(default=False)	
+
+	def __unicode__(self):
+		return self.title
+
+	class Meta:
+		verbose_name = u"""видео"""
+		verbose_name_plural = u"""видео"""
+
+		
+
+
+admin:
+
+# -*- coding: utf-8 -*-
+from django.contrib import admin
+from kinopom.models import Entry
+
+class EntryAdmin(admin.ModelAdmin):
+   user_fieldsets = (
+      (None, {
+         'classes': ('wide',),
+         'fields': ('title',)
+      }),
+   )
+
+   list_display = ['title', 'description', 'user', 'is_active', ]    #list for admin 
+   raw_id_list_displayfields = ('user', 'description',)              
+   search_fields = ['title', 'user__username',]
+   #fields = ['title', 'description', 'views', ]       #edit item . default - all
+   user_fieldsets = ((u'Видео', {'fields': ('title', 'description', 'is_active', )}), )   #list for  auth_user
+
+   def save_model(self, request, obj, form, change):
+      if form.is_valid():
+         if not request.user.is_superuser or not form.cleaned_data["user"]:
+            obj.user = request.user
+            obj.save()
+         elif form.cleaned_data["user"]:
+            obj.user = form.cleaned_data["user"]
+            obj.save()
+
+   def preprocess_list_display(self, request):
+      if 'user' not in self.list_display:
+         self.list_display.insert(self.list_display.__len__(), 'user')
+      if not request.user.is_superuser:
+         if 'user' in self.list_display:
+            self.list_display.remove('user')
+
+   def preprocess_search_fields(self, request):
+      if 'user__username' not in self.search_fields:
+         self.search_fields.insert(self.search_fields.__len__(), 'user__username')
+      if not request.user.is_superuser:
+         if 'user__username' in self.search_fields:
+            self.search_fields.remove('user__username')
+
+   def changelist_view(self, request, extra_context=None):
+      self.preprocess_list_display(request)
+      self.preprocess_search_fields(request)
+      return super(EntryAdmin, self).changelist_view(request)
+
+   def queryset(self, request):
+      if request.user.is_superuser:
+         return super(EntryAdmin, self).queryset(request)
+      else:
+         qs = super(EntryAdmin, self).queryset(request)
+         return qs.filter(user=request.user)
+
+   def get_fieldsets(self, request, obj=None):
+      if request.user.is_superuser:
+         return super(EntryAdmin, self).get_fieldsets(request, obj)
+      return self.user_fieldsets
+
+admin.site.register(Entry, EntryAdmin)
+
+forms:
+from django import forms
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.forms import ModelForm
+
+
+class RegistrationForm(UserCreationForm):	
+	is_staff = forms.BooleanField(
+		initial=True,
+		widget=forms.HiddenInput(),
+	)	
+
+	class Meta:
+		model = User
+		fields = (  
+			'username',   
+			'email',    
+			'password1', 
+			'password2',
+			'is_staff',
+		)
+		
+
+tpl:
+        	<form class="common_form" action="{% url 'registration' %}" id="registrationForm" method="POST" novalidate>
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	                
+	                <h4 class="modal-title" id="regModalLabel">Регистрация</h4>
+	            </div>
+
+	            <div class="modal-body">
+					{% csrf_token %}	
+					
+					<div class="cell input_outer">
+						<label class="label">{{ registration_form.username.label }}</label>
+						
+						{{ registration_form.username }}
+						
+						{{ registration_form.username.errors }}
+					</div>					
+
+					<div class="cell input_outer">
+						<label class="label">{{ registration_form.email.label }}</label>
+						
+						{{ registration_form.email }}
+						
+						{{ registration_form.email.errors }}
+					</div>						
+
+					<div class="cell input_outer">
+						<label class="label">{{ registration_form.password1.label }}</label>
+						
+						{{ registration_form.password1 }}
+						
+						{{ registration_form.password1.errors }}
+					</div>	
+
+					<div class="cell input_outer">
+						<label class="label">{{ registration_form.password2.label }}</label>
+						
+						{{ registration_form.password2 }}
+						
+						{{ registration_form.password2.errors }}
+					</div>	
+
+					<div class="cell input_outer">						
+						{{ registration_form.is_staff }}
+					</div>																				
+	            </div>
+
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default btn-sm but_cancel" data-dismiss="modal">Отменить</button>
+
+					<input class="btn btn-primary btn-sm but_reg" id="registrationSubmit" type="submit" value="Зарегистрироваться">
+	            </div>
+            </form>
+
+============================================
+============================================
+============================================
+============================================
+============================================
+============================================
+============================================
+============================================
+============================================
+============================================
+============================================
+============================================
+============================================
+============================================
+============================================
+============================================
+============================================
+============================================
+============================================
+============================================
+============================================
+============================================
+============================================
+============================================
+============================================
+============================================
+============================================
+============================================

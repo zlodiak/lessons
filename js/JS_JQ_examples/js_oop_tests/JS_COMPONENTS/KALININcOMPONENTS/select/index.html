@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html>
+	<head>    
+		<meta charset="utf-8" />
+		
+		<title></title>
+		
+		<!--[if lt IE 9]>
+			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->	
+
+		<!--<link rel="icon" href="favicon.ico" type="image/x-icon" />-->	
+
+		<link rel="stylesheet" href="css/style.css" />			
+	</head>
+
+	<body>	
+		<div class="selects" id="selects">
+			<div>Последний результат: <span id="result">...</span></div>
+
+			<div id="animal-select" class="customselect">
+				<div class="customselect-title">Выберите</div>
+				
+				<ul class="customselect-options">
+					<!-- значение хранится в свойстве data-value -->
+					<li data-value="bird">Птицы</li>
+					<li data-value="fish">Рыбы</li>
+					<li data-value="animal">Звери</li>
+					<li data-value="dino">Динозавры</li>
+					<li data-value="simplest">Одноклеточные</li>
+				</ul>
+			</div>
+
+			<div id="food-select" class="customselect">
+				<div class="customselect-title">Выберите</div>
+				
+				<ul class="customselect-options">
+					<li data-value="carnivore">Плотоядные</li>
+					<li data-value="herbivore">Травоядные</li>
+					<li data-value="omnivore">Всеядные</li>
+				</ul>
+			</div>
+		</div>
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script src="js/helper.js"></script>	
+
+		<script>
+			// --------------------------------------------------------------------------------- WIDJET CustomSelect INITIALIZATION------------
+			
+			var animalSelect = new CustomSelect({
+				elem: $('#animal-select')
+			});
+
+			var foodSelect = new CustomSelect({
+				elem: $('#food-select')
+			});
+		</script>
+	</body>
+</html>

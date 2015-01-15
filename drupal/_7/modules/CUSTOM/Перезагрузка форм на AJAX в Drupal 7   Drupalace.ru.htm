@@ -1,0 +1,1857 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
+  "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" version="XHTML+RDFa 1.0" dir="ltr">
+
+<head profile="http://www.w3.org/1999/xhtml/vocab">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortlink" href="http://drupalace.ru/node/296" />
+<link rel="shortcut icon" href="http://drupalace.ru/sites/all/themes/drupalace/favicon.ico" type="image/vnd.microsoft.icon" />
+<meta name="generator" content="Drupal 7 (http://drupal.org)" />
+<link rel="canonical" href="http://drupalace.ru/lesson/perezagruzka-form-na-ajax-v-drupal-7" />
+<meta name="keywords" content="Перезагрузка форм на AJAX в Drupal 7" />
+<meta name="copyright" content="drupalace.ru" />
+  <title>Перезагрузка форм на AJAX в Drupal 7 | Drupalace.ru</title>
+  <link type="text/css" rel="stylesheet" href="http://drupalace.ru/sites/default/files/css/css_pbm0lsQQJ7A7WCCIMgxLho6mI_kBNgznNUWmTWcnfoE.css" media="all" />
+<link type="text/css" rel="stylesheet" href="http://drupalace.ru/sites/default/files/css/css_GqCqCmGspWzZsDVTgkFoFb2eEt4xaByq4GFNcVi8QG4.css" media="all" />
+<link type="text/css" rel="stylesheet" href="http://drupalace.ru/sites/default/files/css/css_Gcy8bGAdSAwOlY2uVYJoem9rz1zzbikMpk-5rpRl1dU.css" media="all" />
+<link type="text/css" rel="stylesheet" href="http://drupalace.ru/sites/default/files/css/css_1XrN9f72xh453ONHmlu0-wyL4HcPWPjegl7t2UPEqM8.css" media="all" />
+<link type="text/css" rel="stylesheet" href="http://drupalace.ru/sites/default/files/css/css_ftM06lyT9Ivs8ClCfvGMOQukYN9dy4KHtr2iWv3pmwA.css" media="all" />
+
+<!--[if lte IE 7]>
+<link type="text/css" rel="stylesheet" href="http://drupalace.ru/sites/all/themes/drupalace/css/ie.css?msgl0x" media="all" />
+<![endif]-->
+  <script type="text/javascript" src="http://drupalace.ru/sites/default/files/js/js_xAPl0qIk9eowy_iS9tNkCWXLUVoat94SQT48UBCFkyQ.js"></script>
+<script type="text/javascript" src="http://drupalace.ru/sites/default/files/js/js_yx_7w-C8n43oB5K6pc2lhTjWoGZkbZObhkQREeaZXaM.js"></script>
+<script type="text/javascript" src="http://drupalace.ru/sites/default/files/js/js_J9BcVW60Lp3iI05mzRqdr33hkzuv3v1gksAgbh0DRxc.js"></script>
+<script type="text/javascript" src="http://widgets.twimg.com/j/2/widget.js"></script>
+<script type="text/javascript" src="http://drupalace.ru/sites/default/files/js/js_rRHm90z4eBWvAo77iSGUAkl5IQFdsfHzMGfy4rtkoo4.js"></script>
+<script type="text/javascript" src="http://drupalace.ru/sites/all/modules/cumulus/cumulus.js?msgl0x"></script>
+<script type="text/javascript" src="http://drupalace.ru/sites/default/files/js/js_lgAAOlplEun7p_8Pb-8dM079wtvnfwLZ0hAK0mH7Dto.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+var _gaq = _gaq || [];_gaq.push(["_setAccount", "UA-18052978-1"]);_gaq.push(["_trackPageview"]);(function() {var ga = document.createElement("script");ga.type = "text/javascript";ga.async = true;ga.src = ("https:" == document.location.protocol ? "https://ssl" : "http://www") + ".google-analytics.com/ga.js";var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(ga, s);})();
+//--><!]]>
+</script>
+<script type="text/javascript" src="http://drupalace.ru/sites/default/files/js/js_kMI-KAeFdBzZMMBHIq4stU-57c93en3Fa0IZD0vSufY.js"></script>
+<script type="text/javascript" src="http://drupalace.ru/sites/default/files/js/js_xEvE58Bh749dqGvSHmdv9z4sFW-v0Y22zb5_i41qp2Y.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, {"basePath":"\u002F", "pathPrefix":"", "ajaxPageState":{"theme":"drupalace", "theme_token":"LCjpQsM51WFo1E1QSeBpabtruIFZWh2x9PeNuaA8S-w", "js":{"http:\u002F\u002Fplatform.twitter.com\u002Fwidgets.js":1, "misc\u002Fjquery.js":1, "misc\u002Fjquery.once.js":1, "misc\u002Fdrupal.js":1, "misc\u002Fui\u002Fjquery.ui.core.min.js":1, "misc\u002Fui\u002Fjquery.ui.widget.min.js":1, "misc\u002Fui\u002Fjquery.effects.core.min.js":1, "misc\u002Fui\u002Fjquery.ui.button.min.js":1, "misc\u002Fui\u002Fjquery.ui.mouse.min.js":1, "misc\u002Fui\u002Fjquery.ui.draggable.min.js":1, "misc\u002Fui\u002Fjquery.ui.position.min.js":1, "misc\u002Fui\u002Fjquery.ui.resizable.min.js":1, "misc\u002Fui\u002Fjquery.ui.dialog.min.js":1, "sites\u002Fall\u002Fmodules\u002Fviews\u002Fjs\u002Fjquery.ui.dialog.patch.js":1, "misc\u002Fui\u002Fjquery.effects.explode.min.js":1, "misc\u002Fui\u002Fjquery.effects.slide.min.js":1, "public:\u002F\u002Flanguages\u002Fru_nh0cyQVDyztVxBFo-iraOSFq8VC68vZ8UuL9hAvtL8c.js":1, "sites\u002Fall\u002Flibraries\u002Ffancybox\u002Ffancybox\u002Fjquery.fancybox-1.3.4.js":1, "sites\u002Fall\u002Fmodules\u002Ffancybox\u002Fjs\u002Ffancybox.js":1, "http:\u002F\u002Fwidgets.twimg.com\u002Fj\u002F2\u002Fwidget.js":1, "sites\u002Fall\u002Fmodules\u002Fbueditor\u002Fbueditor.js":1, "sites\u002Fall\u002Fmodules\u002Fcaptcha\u002Fcaptcha.js":1, "sites\u002Fall\u002Fmodules\u002Fcumulus\u002Fcumulus.js":1, "sites\u002Fall\u002Fmodules\u002Fgoogle_analytics\u002Fgoogleanalytics.js":1, "0":1, "modules\u002Ffilter\u002Ffilter.js":1, "sites\u002Fall\u002Fmodules\u002Fbueditor\u002Flibrary\u002Fbue.min.default.js":1, "sites\u002Fall\u002Fthemes\u002Fdrupalace\u002Fjs\u002Fdrupalace.js":1, "sites\u002Fall\u002Fthemes\u002Fdrupalace\u002Fjs\u002Faddthis.js":1}, "css":{"modules\u002Fsystem\u002Fsystem.base.css":1, "modules\u002Fsystem\u002Fsystem.menus.css":1, "modules\u002Fsystem\u002Fsystem.messages.css":1, "modules\u002Fsystem\u002Fsystem.theme.css":1, "misc\u002Fui\u002Fjquery.ui.core.css":1, "misc\u002Fui\u002Fjquery.ui.theme.css":1, "misc\u002Fui\u002Fjquery.ui.button.css":1, "misc\u002Fui\u002Fjquery.ui.resizable.css":1, "misc\u002Fui\u002Fjquery.ui.dialog.css":1, "modules\u002Fcomment\u002Fcomment.css":1, "modules\u002Ffield\u002Ftheme\u002Ffield.css":1, "modules\u002Fnode\u002Fnode.css":1, "modules\u002Fpoll\u002Fpoll.css":1, "modules\u002Fsearch\u002Fsearch.css":1, "modules\u002Fuser\u002Fuser.css":1, "sites\u002Fall\u002Fmodules\u002Fviews\u002Fcss\u002Fviews.css":1, "sites\u002Fall\u002Fmodules\u002Fctools\u002Fcss\u002Fctools.css":1, "sites\u002Fall\u002Flibraries\u002Ffancybox\u002Ffancybox\u002Fjquery.fancybox-1.3.4.css":1, "public:\u002F\u002Fgeshi\u002Fgeshifilter-languages.css":1, "sites\u002Fall\u002Fmodules\u002Fgeshifilter\u002Fgeshifilter.css":1, "sites\u002Fall\u002Fmodules\u002Ftagadelic\u002Ftagadelic.css":1, "sites\u002Fall\u002Fmodules\u002Ftwitter_profile_widget\u002Ftwitter_profile_widget.css":1, "sites\u002Fall\u002Fmodules\u002Fbueditor\u002Fbueditor.css":1, "modules\u002Ffilter\u002Ffilter.css":1, "sites\u002Fall\u002Fthemes\u002Fdrupalace\u002Fcss\u002Flayout.css":1, "sites\u002Fall\u002Fthemes\u002Fdrupalace\u002Fcss\u002Fstyle.css":1, "sites\u002Fall\u002Fthemes\u002Fdrupalace\u002Fcss\u002Fie.css":1}}, "fancybox":{"options":{"width":600, "height":480, "padding":0, "margin":0, "titleShow":1, "titlePosition":"outside", "scrolling":"auto", "showCloseButton":1, "showNavArrows":0, "cyclic":0, "opacity":1, "overlayShow":1, "overlayColor":"#666", "overlayOpacity":"0.7", "hideOnOverlayClick":1, "hideOnContentClick":1, "enableEscapeButton":1, "centerOnScroll":1, "autoScale":1, "easingIn":"swing", "easingOut":"swing", "changeFade":"fast", "changeSpeed":300, "transitionIn":"elastic", "speedIn":300, "transitionOut":"elastic", "speedOut":300}, "selector":"a[href^=\u0027\u002Fsites\u002Fdefault\u002Ffiles\u002Fpictures\u002F\u0027]:not(.not-fancybox)"}, "BUE":{"templates":{"e6":{"iconpath":"\u002Fsites\u002Fall\u002Fmodules\u002Fbueditor\u002Ficons", "buttons":[ [ "Вставить\u002FРедактировать изображение", "js:\u000Avar B = eDefBrowseButton(\u0027\u002F?q=imce\u002Fbrowse\u0027, \u0027attr_src\u0027, \u0027Browse\u0027, \u0027image\u0027);\u000Avar form = [\u000A {name: \u0027src\u0027, title: \u0027Адрес изображения\u0027, suffix: B},\u000A {name: \u0027width\u0027, title: \u0027Ширина x Высота\u0027, suffix: \u0027 x \u0027, getnext: true, attributes: {size: 3}},\u000A {name: \u0027height\u0027, attributes: {size: 3}},\u000A {name: \u0027alt\u0027, title: \u0027Альтернативный текст\u0027},\u000A{name: \u0027align\u0027, title: \u0027Выравнивание\u0027, type: \u0027select\u0027, options: {\u0027\u0027: \u0027\u0027, left: \u0027По левому краю\u0027, right: \u0027По правому краю\u0027, center: \u0027По центру\u0027}}\u000A];\u000AeDefTagDialog(\u0027img\u0027, form, \u0027Вставить\u002FРедактировать изображение\u0027, \u0027Вставить\u0027);\u000A", "picture.png", "M" ], [ "Вставить\u002FРедактировать ссылку", "js:\u000Avar B = eDefBrowseButton(\u0027\u0027, \u0027attr_href\u0027, \u0027Browse\u0027, \u0027link\u0027);\u000Avar form = [\u000A {name: \u0027href\u0027, title: \u0027Адрес ссылки\u0027, suffix: B},\u000A {name: \u0027title\u0027, title: \u0027Текст подсказки\u0027}\u000A];\u000AeDefTagDialog(\u0027a\u0027, form, \u0027Вставить\u002FРедактировать ссылку\u0027, \u0027Вставить\u0027);\u000A", "link.png", "L" ], [ "Жирный", "\u003Cstrong\u003E%TEXT%\u003C\u002Fstrong\u003E", "text_bold.png", "B" ], [ "Курсив", "\u003Cem\u003E%TEXT%\u003C\u002Fem\u003E", "text_italic.png", "I" ], [ "Подчёркнутый", "\u003Cu\u003E%TEXT%\u003C\u002Fu\u003E", "text_underline.png", "" ], [ "Зачёркнутый", "\u003Cstrike\u003E%TEXT%\u003C\u002Fstrike\u003E\u000A", "text_strikethrough.png", "" ], [ "По левому краю", "\u003Cdiv class=\u0022editor-left-button\u0022\u003E%TEXT%\u003C\u002Fdiv\u003E", "text_align_left.png", "" ], [ "По центру", "\u003Cdiv class=\u0022editor-center-button\u0022\u003E%TEXT%\u003C\u002Fdiv\u003E", "text_align_center.png", "" ], [ "По правому краю", "\u003Cdiv class=\u0022editor-right-button\u0022\u003E%TEXT%\u003C\u002Fdiv\u003E", "text_align_right.png", "" ], [ "Заголовок 2", "\u003Ch2\u003E%TEXT%\u003C\u002Fh2\u003E", "text_heading_2.png", "" ], [ "Заголовок 3", "\u003Ch3\u003E%TEXT%\u003C\u002Fh3\u003E", "text_heading_3.png", "" ], [ "Не нумерованный список", "js: eDefSelProcessLines(\u0027\u003Cul\u003E\u005Cn\u0027, \u0027 \u003Cli\u003E\u0027, \u0027\u003C\u002Fli\u003E\u0027, \u0027\u005Cn\u003C\u002Ful\u003E\u0027);", "text_list_bullets.png", "U" ], [ "Пронумерованный список", "js: eDefSelProcessLines(\u0027\u003Col\u003E\u005Cn\u0027, \u0027 \u003Cli\u003E\u0027, \u0027\u003C\u002Fli\u003E\u0027, \u0027\u005Cn\u003C\u002Fol\u003E\u0027);", "text_list_numbers.png", "O" ], [ "PHP code", "\u003Ccode\u003E\u000A%TEXT%\u000A\u003C\u002Fcode\u003E", "code_php.png", "" ] ]}}, "preset":{"edit-comment-body-und-0-value":"e6"}}, "googleanalytics":{"trackOutbound":1, "trackMailto":1, "trackDownload":1, "trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls|xml|z|zip"}});
+//--><!]]>
+</script>
+  <script type = "text/javascript">
+    (function() {
+      var po = document.createElement('script');
+      po.type = 'text/javascript';
+      po.async = true;
+      po.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(po, s);
+    })(jQuery);
+  </script>
+</head>
+<body class="html not-front not-logged-in no-sidebars page-node page-node- page-node-296 node-type-lesson" >
+    <div id="wrapper">
+
+		<div id="header">
+      <div id="header-inner">
+
+                  <div id="top-menu" class="navigation">
+            <ul class="links"><li class="menu-847 first"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/" title="Главная страница">Главная</a></li>
+<li class="menu-942"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/uroki" title="Уроки">Уроки</a></li>
+<li class="menu-1811"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/design" title="Drupal и дизайн">Drupal и дизайн</a></li>
+<li class="menu-208"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/video" title="Видеоуроки">Видео</a></li>
+<li class="menu-228 last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/contact" title="Контакты">Контакты</a></li>
+</ul>          </div> <!-- /#main-menu -->
+        
+        <a href="/" id="logo" rel = "home">
+                      <img src="http://drupalace.ru/sites/all/themes/drupalace/logo.png" alt="Drupalace.ru" title="Drupalace.ru" />
+                  </a>
+
+                  <a href="/" id="site-name" title="Drupalace.ru" rel = "home">
+            Drupalace.ru          </a>
+        
+                  <div id = "site-slogan">
+            Создание шаблонов, модулей и темизация Drupal          </div>
+                
+        <div id = "google_plusone">
+          <g:plusone size="small" href="http://drupalace.ru/"></g:plusone>
+        </div>
+
+                  <a href="/user" class="user-login">Вход</a>        
+        	<div class="region region-header">
+		<div class="content">
+  <form action="/lesson/perezagruzka-form-na-ajax-v-drupal-7" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="container-inline">
+    <div class="form-item form-type-textfield form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Поиск </label>
+ <input onblur="if (this.value.length == 0) {this.value=&#039;Drupal&#039;}" onfocus="if (this.value== &#039;Drupal&#039;) {this.value=&#039;&#039;}" type="text" id="edit-search-block-form--2" name="search_block_form" value="Drupal" size="15" maxlength="128" class="form-text" />
+</div>
+<div class="form-actions form-wrapper" id="edit-actions--2"><span class="button"><span class = "button-left"></span><span class = "button-center"></span><span class = "button-right"></span><input type="submit" id="edit-submit--2" name="op" value="Поиск" class="form-submit" /></span><span class="spic"></span></div><input type="hidden" name="form_build_id" value="form-IY5oMse_npHp0RzUhnmFWse6ZRunSTwAb1yw8xbrF4k" />
+<input type="hidden" name="form_id" value="search_block_form" />
+</div>
+</div></form></div>	</div>
+
+			</div> <!-- /#header-inner -->
+		</div> <!-- /#header -->
+
+  	<div id="container" class="clearfix">
+
+      <div id="main"  class = "with-sidebar">
+        <div id = "main-inner">
+
+                                <h1 class="title lesson"><a href="/uroki" class="additional">Урок</a><span class = "arrow"></span>Перезагрузка форм на AJAX в Drupal 7</h1>
+                    
+                                                  
+          	<div class="region region-content">
+		<div id="block-system-main" class="block block-system">
+
+  
+	<div class="content">
+		<div id="node-296" class="node node-lesson node-promoted">
+
+	
+			
+	
+	<div class="content clearfix">	
+		<div class="g-plusone-wrapper" style="margin: 0 1em 1em 1em;float:right" ><g:plusone href="http://drupalace.ru/lesson/perezagruzka-form-na-ajax-v-drupal-7" size="tall" annotation="bubble" width="250" ></g:plusone></div><div class="field field-name-field-twitter-button field-type-tweetbutton field-label-hidden"><div class="field-items"><div class="field-item even"><div class="tweetbutton-tweet tweetbutton"><a href="http://twitter.com/share" data-size="medium" data-count="vertical" data-via="" data-related=":" data-text="" data-counturl="http://drupalace.ru/lesson/perezagruzka-form-na-ajax-v-drupal-7" data-url="http://drupalace.ru/lesson/perezagruzka-form-na-ajax-v-drupal-7" data-lang="ru" class="twitter-share-button">Tweet</a></div></div></div></div><div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p>В <strong>Drupal 7</strong> работа с AJAX в формах (и не только) сделана на порядок мощнее, чем в 6й версии ядра. Добавились многочисленные <a href="http://api.drupal.org/api/drupal/includes--ajax.inc/group/ajax_commands/7">AJAX команды</a>, расширились возможности его интеграции с разными элементами сайта. Но сегодня я решил написать пример интеграции форм с ajax через Forms API, тем более что совсем недавно я с этим столкнулся лично. </p>
+<p>В моём примере данные загружаются динамично, поэтому возможность <em>перезагружать формы по частям в Drupal 7</em> оказалась как нельзя кстати.</p>
+<h3><strong>Постановка задачи</strong></h3>
+<p>Имеется форма с двумя выпадающими списками и кнопкой. Первый список содержит все типы материалов на сайте. Второй список - последние 10 материлов из выбранного типа в первом списке. При выборе другого типа материала во второй список должны загружаться ноды этого типа. При нажатии на кнопку должно загружаться полное представление материала (такое же, как на странице node/номер). Всё это должно работать без перезагрузки страницы. Рисунок для наглядности:<br />
+<img src="/sites/default/files/example1.png" width="183" height="191" alt="Перезагрузка форм на AJAX в Drupal 7" /><br />
+<h3><strong>Решение</strong></h3>
+<p>Естественно, я сразу взялся за написание модуля, который я обозвал form_ajax. Итак, по порядку:</p>
+<h3><strong>form_ajax.info</strong></h3>
+<div class="geshifilter">
+<pre class="geshifilter-drupal6">name = Form AJAX example
+description = Example of AJAX Forms API in Drupal <span class="nu0">7</span>
+<span class="kw6">version</span> = <span class="kw6">VERSION</span>
+core = <span class="nu0">7</span>.x</pre></div>
+<p>Здесь ничего особенного - обычное описание модуля.</p>
+<h3><strong>form_ajax.module</strong></h3>
+<div class="geshifilter">
+<pre class="geshifilter-drupal6"><span class="kw2">&lt;?php</span>
+&nbsp;
+<span class="coMULTI">/**
+ * Implements hook_menu().
+ */</span>
+<span class="kw2">function</span> form_ajax_menu<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="re0">$items</span> = <span class="kw3">array</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+  <span class="re0">$items</span><span class="br0">&#91;</span><span class="st0">'ajax_page'</span><span class="br0">&#93;</span> = <span class="kw3">array</span><span class="br0">&#40;</span>
+    <span class="st0">'title'</span> =&gt; <span class="kw5">t</span><span class="br0">&#40;</span><span class="st0">'Ajax form example'</span><span class="br0">&#41;</span>,
+    <span class="st0">'page callback'</span> =&gt; <span class="st0">'drupal_get_form'</span>,
+    <span class="st0">'page arguments'</span> =&gt; <span class="kw3">array</span><span class="br0">&#40;</span><span class="st0">'form_ajax_form'</span><span class="br0">&#41;</span>,
+    <span class="st0">'access callback'</span> =&gt; <span class="kw2">TRUE</span>,
+    <span class="st0">'file'</span> =&gt; <span class="st0">'form_ajax.forms.inc'</span>,
+  <span class="br0">&#41;</span>;
+  <span class="kw1">return</span> <span class="re0">$items</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="coMULTI">/**
+ * Get last 10 nodes from selected node type
+ */</span>
+<span class="kw2">function</span> form_ajax_get_last_nodes<span class="br0">&#40;</span><span class="re0">$type</span>, <span class="re0">$amount</span> = <span class="nu0">10</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="co1">// Загружаем из базы $amount последних материалов. Здесь никакой магии не происходит.</span>
+  <span class="re0">$result</span> = <span class="kw5">db_query_range</span><span class="br0">&#40;</span><span class="st0">'SELECT nid, title FROM {node} WHERE type = :type'</span>, <span class="nu0">0</span>, <span class="re0">$amount</span>, <span class="kw3">array</span><span class="br0">&#40;</span><span class="st0">':type'</span> =&gt; <span class="re0">$type</span><span class="br0">&#41;</span><span class="br0">&#41;</span>;
+  <span class="re0">$nodes</span> = <span class="kw3">array</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+  <span class="kw1">foreach</span> <span class="br0">&#40;</span><span class="re0">$result</span> <span class="kw1">as</span> <span class="re0">$node</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="re0">$nodes</span><span class="br0">&#91;</span><span class="re0">$node</span>-&gt;<span class="me1">nid</span><span class="br0">&#93;</span> = <span class="kw5">check_plain</span><span class="br0">&#40;</span><span class="re0">$node</span>-&gt;<span class="me1">title</span><span class="br0">&#41;</span>;
+  <span class="br0">&#125;</span>
+  <span class="kw1">return</span> <span class="re0">$nodes</span>;
+<span class="br0">&#125;</span></pre></div>
+<p>Функция <strong>form_ajax_menu()</strong> добавляет на сайт страницу <strong>ajax_page</strong>, на которой будет располагаться моя форма.<br />
+Функция <strong>form_ajax_get_last_nodes()</strong> возвращает массив из последних нод определённого типа материала. Она понадобится нам чуть дальше.</p>
+<h3><strong>form_ajax.forms.inc</strong></h3>
+<p>Магия находится здесь. Все комментарии непосредственно в самом коде.</p>
+<div class="geshifilter">
+<pre class="geshifilter-drupal6"><span class="kw2">&lt;?php</span>
+&nbsp;
+<span class="coMULTI">/**
+ * Form with AJAX example
+ */</span>
+<span class="kw2">function</span> form_ajax_form<span class="br0">&#40;</span><span class="re0">$form</span>, &amp;<span class="re0">$form_state</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="co1">// Загружаем все существующие типы материала</span>
+  <span class="re0">$options</span> = node_type_get_names<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+  <span class="co1">// Создаём в форме выпадающий список, элементами которого являются типы материалов.</span>
+  <span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'type'</span><span class="br0">&#93;</span> = <span class="kw3">array</span><span class="br0">&#40;</span>
+    <span class="st0">'#type'</span> =&gt; <span class="st0">'select'</span>,
+    <span class="st0">'#title'</span> =&gt; <span class="kw5">t</span><span class="br0">&#40;</span><span class="st0">'Node types'</span><span class="br0">&#41;</span>,
+    <span class="st0">'#options'</span> =&gt; <span class="re0">$options</span>,
+    <span class="co1">// Здесь подключаем ajax. При выборе элемента из выпадающего списка данные формы</span>
+    <span class="co1">// будут переданы в функцию form_ajax_form_load_nodes(). Отработав, функция вернёт</span>
+    <span class="co1">// данные, которые будут помещены в &lt;div id = &quot;form-ajax-nodes&quot;&gt;&lt;/div&gt;, заменив при этом</span>
+    <span class="co1">// все данные, которые до этого там были (чтобы не плодить большое количество данных на странице).</span>
+    <span class="co1">// В нашем случае функция вернёт эту же форму, но с выбранными элементами.</span>
+    <span class="st0">'#ajax'</span> =&gt; <span class="kw3">array</span><span class="br0">&#40;</span>
+      <span class="st0">'callback'</span> =&gt; <span class="st0">'form_ajax_form_load_nodes'</span>,
+      <span class="st0">'wrapper'</span> =&gt; <span class="st0">'form-ajax-nodes'</span>,
+      <span class="st0">'method'</span> =&gt; <span class="st0">'replace'</span>,
+      <span class="st0">'effect'</span> =&gt; <span class="st0">'fade'</span>,
+    <span class="br0">&#41;</span>,
+  <span class="br0">&#41;</span>;
+&nbsp;
+  <span class="co1">// Если сработал AJAX - в $form_state будут переданы все значения формы.</span>
+  <span class="co1">// Поэтому здесь проверка - если сработал AJAX - то выбранный тип материала берётся из</span>
+  <span class="co1">// отправленной формы. А если не сработал - то тип будет первым элементом массива всех типов материалов.</span>
+  <span class="kw1">if</span> <span class="br0">&#40;</span><span class="kw3">isset</span><span class="br0">&#40;</span><span class="re0">$form_state</span><span class="br0">&#91;</span><span class="st0">'values'</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="st0">'type'</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="re0">$type</span> = <span class="re0">$form_state</span><span class="br0">&#91;</span><span class="st0">'values'</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="st0">'type'</span><span class="br0">&#93;</span>;
+  <span class="br0">&#125;</span>
+  <span class="kw1">else</span> <span class="br0">&#123;</span>
+    <span class="re0">$type</span> = <span class="kw3">array_shift</span><span class="br0">&#40;</span><span class="re0">$options</span><span class="br0">&#41;</span>;
+  <span class="br0">&#125;</span>
+&nbsp;
+  <span class="co1">// Устанавливаем значение по умолчанию для выпадающего списка с типами материалов.</span>
+  <span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'type'</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="st0">'#default_value'</span><span class="br0">&#93;</span> = <span class="re0">$type</span>;
+&nbsp;
+  <span class="co1">// Загружаем 10 последних материалов выбранного типа материала.</span>
+  <span class="co1">// Здесь ключом является nid ноды, а значением - её заголовок.</span>
+  <span class="co1">// Так же оборачиваем этот элемент в div, в который будет помещаться</span>
+  <span class="co1">// обновлённая часть формы</span>
+  <span class="re0">$options</span> = form_ajax_get_last_nodes<span class="br0">&#40;</span><span class="re0">$type</span><span class="br0">&#41;</span>;
+  <span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'node'</span><span class="br0">&#93;</span> = <span class="kw3">array</span><span class="br0">&#40;</span>
+    <span class="st0">'#type'</span> =&gt; <span class="st0">'select'</span>,
+    <span class="st0">'#title'</span> =&gt; <span class="kw5">t</span><span class="br0">&#40;</span><span class="st0">'Nodes from !type type'</span>,  <span class="kw3">array</span><span class="br0">&#40;</span><span class="st0">'!type'</span> =&gt; <span class="re0">$type</span><span class="br0">&#41;</span><span class="br0">&#41;</span>,
+    <span class="st0">'#options'</span> =&gt; <span class="re0">$options</span>,
+    <span class="st0">'#prefix'</span> =&gt; <span class="st0">'&lt;div id = &quot;form-ajax-nodes&quot;&gt;'</span>,
+    <span class="st0">'#suffix'</span> =&gt; <span class="st0">'&lt;/div&gt;'</span>,
+  <span class="br0">&#41;</span>;
+&nbsp;
+  <span class="co1">// Кнопка, при нажатии на которую будет отправлен AJAX запрос, обрабатываемый</span>
+  <span class="co1">// функцией form_ajax_form_load_node_content(). Она вернёт полное содержимое выбранной ноды</span>
+  <span class="co1">// и поместит его в &lt;div id = &quot;form-ajax-node-content&quot;&gt;&lt;/div&gt;, заменив предыдущее содержимое,</span>
+  <span class="co1">// если оно было.</span>
+  <span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'submit'</span><span class="br0">&#93;</span> = <span class="kw3">array</span><span class="br0">&#40;</span>
+    <span class="st0">'#type'</span> =&gt; <span class="st0">'submit'</span>,
+    <span class="st0">'#value'</span> =&gt; <span class="kw5">t</span><span class="br0">&#40;</span><span class="st0">'Load content'</span><span class="br0">&#41;</span>,
+    <span class="st0">'#ajax'</span> =&gt; <span class="kw3">array</span><span class="br0">&#40;</span>
+      <span class="st0">'callback'</span> =&gt; <span class="st0">'form_ajax_form_load_node_content'</span>,
+      <span class="st0">'wrapper'</span> =&gt; <span class="st0">'form-ajax-node-content'</span>,
+      <span class="st0">'method'</span> =&gt; <span class="st0">'replace'</span>,
+      <span class="st0">'effect'</span> =&gt; <span class="st0">'fade'</span>,
+    <span class="br0">&#41;</span>,
+  <span class="br0">&#41;</span>;
+&nbsp;
+  <span class="co1">// Создаём в форме элемент страницы, куда будет помещено полное отображение ноды</span>
+  <span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'markup'</span><span class="br0">&#93;</span> = <span class="kw3">array</span><span class="br0">&#40;</span>
+    <span class="st0">'#prefix'</span> =&gt; <span class="st0">'&lt;div id = &quot;form-ajax-node-content&quot;&gt;'</span>,
+    <span class="st0">'#suffix'</span> =&gt; <span class="st0">'&lt;/div&gt;'</span>,
+    <span class="st0">'#markup'</span> =&gt; <span class="st0">''</span>,
+  <span class="br0">&#41;</span>;
+&nbsp;
+  <span class="kw1">return</span> <span class="re0">$form</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="coMULTI">/**
+ * AJAX callback for loading node list
+ */</span>
+<span class="kw2">function</span> form_ajax_form_load_nodes<span class="br0">&#40;</span><span class="re0">$form</span>, <span class="re0">$form_state</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="co1">// Возвращаем элемент формы, который должен быть перезагружен.</span>
+  <span class="co1">// В данном случае надо перезагрузить выпадающий список с материалами.</span>
+  <span class="kw1">return</span> <span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'node'</span><span class="br0">&#93;</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="coMULTI">/**
+ * Return full view of selected node
+ */</span>
+<span class="kw2">function</span> form_ajax_form_load_node_content<span class="br0">&#40;</span><span class="re0">$form</span>, <span class="re0">$form_state</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="co1">// Возвращаем элемент формы, который должен быть перезагружен.</span>
+  <span class="co1">// В данном случае надо перезагрузить элемент, который содержит представление ноды.</span>
+  <span class="kw1">if</span> <span class="br0">&#40;</span><span class="kw3">isset</span><span class="br0">&#40;</span><span class="re0">$form_state</span><span class="br0">&#91;</span><span class="st0">'values'</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="st0">'node'</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="co1">// Если есть в форме выбранный материал - загружаем его,</span>
+    <span class="co1">// загружаем полное представление ноды, и отдаём отрендереное представление в качестве элемента формы.</span>
+    <span class="re0">$nid</span> = <span class="re0">$form_state</span><span class="br0">&#91;</span><span class="st0">'values'</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="st0">'node'</span><span class="br0">&#93;</span>;
+    <span class="re0">$node</span> = <span class="kw5">node_load</span><span class="br0">&#40;</span><span class="re0">$nid</span><span class="br0">&#41;</span>;
+    <span class="re0">$view</span> = <span class="kw5">node_view</span><span class="br0">&#40;</span><span class="re0">$node</span><span class="br0">&#41;</span>;
+    <span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'markup'</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="st0">'#markup'</span><span class="br0">&#93;</span> = render<span class="br0">&#40;</span><span class="re0">$view</span><span class="br0">&#41;</span>;
+  <span class="br0">&#125;</span>
+  <span class="kw1">return</span> <span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'markup'</span><span class="br0">&#93;</span>;
+<span class="br0">&#125;</span></pre></div>
+<p>Если убрать комментарии - код выглядит гораздо менее устрашаюшим и меньшим по размеру :)</p>
+<p>В итоге получается вот такая страница (с загруженным контентом):</p>
+<p><img src="/sites/default/files/example2.png" width="465" height="522" alt="example2.png" /><a href="http://drupalace.ru/sites/default/files/form_ajax.rar">Скачать исходники</a></p>
+</div></div></div>    
+          <div class = "node-bottom">
+        <div id="block-block-9" class="block block-block">
+
+			
+	<div class="content">
+		<!-- Яндекс.Директ -->
+<div id="yandex_ad"></div>
+<script type="text/javascript">
+(function(w, d, n, s, t) {
+w[n] = w[n] || [];
+w[n].push(function() {
+Ya.Direct.insertInto(76593, "yandex_ad", {
+site_charset: "utf-8",
+ad_format: "direct",
+font_size: 0.8,
+type: "horizontal",
+limit: 3,
+title_font_size: 1,
+site_bg_color: "FFFFFF",
+title_color: "0071B3",
+url_color: "006600",
+all_color: "0071B3",
+text_color: "3B3B3B",
+hover_color: "018FE2"
+});
+});
+t = d.documentElement.firstChild;
+s = d.createElement("script");
+s.type = "text/javascript";
+s.src = "http://an.yandex.ru/system/context.js";
+s.setAttribute("async", "true");
+t.insertBefore(s, t.firstChild);
+})(window, document, "yandex_context_callbacks");
+</script>
+	</div>
+	
+</div>
+      </div>
+        
+	</div>
+
+  <div class = "bottom clearfix">
+
+          <div class = "bottom-links">
+        <div class="item-list"><ul><li class="first odd"><span class = "name"><a href="/users/spleshka" title="Информация о пользователе." class="username">Spleshka</a></span></li>
+<li class="even"><span class = "date">17.10.2011</span></li>
+<li class="last odd"><span class = "view">11923</span></li>
+</ul></div>      </div>
+    
+          <div class = "bottom-right-links">
+        <div class = "tags"><div class="item-list"><ul><li class="first odd"><a href="/tags/ajax">ajax</a></li>
+<li class="even"><a href="/tags/drupal-7">drupal 7</a></li>
+<li class="last odd"><a href="/tags/forms-api">forms API</a></li>
+</ul></div></div>      </div>
+    
+  </div>
+
+</div>
+
+  <div class = "social-links clearfix">
+    Друзья тоже любят читать интересные статьи
+    <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+      <a class="addthis_button_facebook"></a>
+      <a class="addthis_button_twitter"></a>
+      <a class="addthis_button_vk"></a>
+      <a class="addthis_button_odnoklassniki_ru"></a>
+      <a class="addthis_button_mymailru"></a>
+      <a class="addthis_button_livejournal"></a>
+      <a class="addthis_button_formspring"></a>
+      <a class="addthis_button_google"></a>
+    </div>
+  </div>
+
+  <div class = "node-navigation clearfix">
+
+          <div class = "node-prev"><a href="/lesson/temizatsiya-drupal-7-znacheniya-po-umolchaniyu-dlya-info-faila">Темизация Drupal 7. Значения по умолчанию для info файла</a></div>
+    
+          <div class = "node-next"><a href="/lesson/kak-ubrat-tekst-ne-provereno-not-verified-v-kommentariyah">Как убрать текст &quot;Не проверено (Not verified)&quot; в комментариях</a></div>
+    
+    <div class = "nav">Навигация</div>
+
+  </div>
+
+  <div class = "node-similar">
+    <div class="item-list"><h3>Похожие материалы</h3><ul><li class="first odd"><a href="/lesson/dobavlyaem-k-forme-avtosabmit-s-pomoshchyu-chaos-tools">Добавляем к форме автосабмит с помощью Chaos Tools</a></li>
+<li class="even"><a href="/lesson/kak-pomenyat-napravlenie-spiska-kommentariev-i-vynesti-formu-kommentariev-naverh">Как поменять направление списка комментариев и вынести форму комментариев наверх</a></li>
+<li class="last odd"><a href="/lesson/mnogoshagovye-multistep-formy-na-ajax-v-drupal-7">Многошаговые (мультистеп) формы на AJAX в Drupal 7</a></li>
+</ul></div>  </div>
+
+<div class="clearfix">
+	<div id="comments" class="comment-wrapper">
+          <h2 class="title">Комментарии</h2>
+      
+  <a id="comment-1526"></a>
+<div class="comment comment-by-anonymous odd clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <img src="http://drupalace.ru/sites/default/files/pictures/default.png" alt="Аватар пользователя andypost" title="Аватар пользователя andypost" />  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/1526#comment-1526" class="permalink" rel="bookmark">#1</a>      </div>
+
+      <div class = "comment-author">
+        <span class="username">andypost</span> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Типы материала для select лучше делать при помощь node_type_get_names() (без цикла)</p>
+<div class="geshifilter">
+<pre class="geshifilter-drupal6"><span class="kw2">function</span> form_ajax_form<span class="br0">&#40;</span><span class="re0">$form</span>, &amp;<span class="re0">$form_state</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="co1">// Создаём в форме выпадающий список, элементами которого являются типы материалов.</span>
+  <span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'type'</span><span class="br0">&#93;</span> = <span class="kw3">array</span><span class="br0">&#40;</span>
+    <span class="st0">'#type'</span> =&gt; <span class="st0">'select'</span>,
+    <span class="st0">'#title'</span> =&gt; <span class="kw5">t</span><span class="br0">&#40;</span><span class="st0">'Node types'</span><span class="br0">&#41;</span>,
+    <span class="st0">'#options'</span> =&gt; node_type_get_names<span class="br0">&#40;</span><span class="br0">&#41;</span>,
+<span class="kw2">?&gt;</span></pre></div>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        18.10.2011 04:05      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/296/1526">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div>
+<div class="indented"><a id="comment-1530"></a>
+<div class="comment comment-by-node-author even clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <a href="/users/spleshka" title="Информация о пользователе."><img src="http://drupalace.ru/sites/default/files/sites/default/files/pictures/picture-1-1320177432.png" alt="Аватар пользователя Spleshka" title="Аватар пользователя Spleshka" /></a>  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/1530#comment-1530" class="permalink" rel="bookmark">#2</a>      </div>
+
+      <div class = "comment-author">
+        <a href="/users/spleshka" title="Информация о пользователе." class="username">Spleshka</a> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Уху, поправил.</p>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        18.10.2011 14:43      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/296/1530">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div></div><a id="comment-2666"></a>
+<div class="comment comment-by-anonymous odd clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <img src="http://drupalace.ru/sites/default/files/pictures/default.png" alt="Аватар пользователя waw" title="Аватар пользователя waw" />  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/2666#comment-2666" class="permalink" rel="bookmark">#3</a>      </div>
+
+      <div class = "comment-author">
+        <span class="username">waw</span> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Подскажите пожалуйста как все это установить на друпал. Модуль вроде подключился... а вот страницу не нахожу.</p>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        05.01.2012 16:17      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/296/2666">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div>
+<div class="indented"><a id="comment-2669"></a>
+<div class="comment comment-by-node-author even clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <a href="/users/spleshka" title="Информация о пользователе."><img src="http://drupalace.ru/sites/default/files/sites/default/files/pictures/picture-1-1320177432.png" alt="Аватар пользователя Spleshka" title="Аватар пользователя Spleshka" /></a>  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/2669#comment-2669" class="permalink" rel="bookmark">#4</a>      </div>
+
+      <div class = "comment-author">
+        <a href="/users/spleshka" title="Информация о пользователе." class="username">Spleshka</a> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Перейдите на страницу <strong>/ajax_page</strong></p>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        05.01.2012 16:57      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/296/2669">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div>
+<div class="indented"><a id="comment-2670"></a>
+<div class="comment comment-by-anonymous odd clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <img src="http://drupalace.ru/sites/default/files/pictures/default.png" alt="Аватар пользователя waw" title="Аватар пользователя waw" />  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/2670#comment-2670" class="permalink" rel="bookmark">#5</a>      </div>
+
+      <div class = "comment-author">
+        <span class="username">waw</span> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>в том то и дело, что пишет "Страница не найдена<br />
+Страница "/eurotyre.com.ua/ajax_page" не найдена." у меня друпал на в корне сайта установлен.</p>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        05.01.2012 17:17      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/296/2670">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div>
+<div class="indented"><a id="comment-2671"></a>
+<div class="comment comment-by-node-author even clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <a href="/users/spleshka" title="Информация о пользователе."><img src="http://drupalace.ru/sites/default/files/sites/default/files/pictures/picture-1-1320177432.png" alt="Аватар пользователя Spleshka" title="Аватар пользователя Spleshka" /></a>  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/2671#comment-2671" class="permalink" rel="bookmark">#6</a>      </div>
+
+      <div class = "comment-author">
+        <a href="/users/spleshka" title="Информация о пользователе." class="username">Spleshka</a> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Если модуль установлен - страница должна была создаться, по другому не может быть.</p>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        05.01.2012 17:34      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/296/2671">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div>
+<div class="indented"><a id="comment-2672"></a>
+<div class="comment comment-by-anonymous odd clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <img src="http://drupalace.ru/sites/default/files/pictures/default.png" alt="Аватар пользователя waw" title="Аватар пользователя waw" />  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/2672#comment-2672" class="permalink" rel="bookmark">#7</a>      </div>
+
+      <div class = "comment-author">
+        <span class="username">waw</span> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>модуль установлен, но страницу не находит почему то. Drupal 7.9.</p>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        05.01.2012 17:53      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/296/2672">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div>
+<div class="indented"><a id="comment-2673"></a>
+<div class="comment comment-by-node-author even clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <a href="/users/spleshka" title="Информация о пользователе."><img src="http://drupalace.ru/sites/default/files/sites/default/files/pictures/picture-1-1320177432.png" alt="Аватар пользователя Spleshka" title="Аватар пользователя Spleshka" /></a>  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/2673#comment-2673" class="permalink" rel="bookmark">#8</a>      </div>
+
+      <div class = "comment-author">
+        <a href="/users/spleshka" title="Информация о пользователе." class="username">Spleshka</a> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Можно сайт посмотреть в интернете? Я в это не верю)</p>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        05.01.2012 18:02      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/296/2673">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div>
+<div class="indented"><a id="comment-2674"></a>
+<div class="comment comment-by-anonymous odd clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <img src="http://drupalace.ru/sites/default/files/pictures/default.png" alt="Аватар пользователя waw" title="Аватар пользователя waw" />  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/2674#comment-2674" class="permalink" rel="bookmark">#9</a>      </div>
+
+      <div class = "comment-author">
+        <span class="username">waw</span> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>http://pilipok.ru/eurotyre.com.ua/ajax_page вот. модуль точно установлен.<br />
+<img src="http://pilipok.ru/eurotyre.com.ua/00001.png" width="340" height="220" /></p>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        05.01.2012 18:07      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/296/2674">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div>
+<div class="indented"><a id="comment-2675"></a>
+<div class="comment comment-by-node-author even clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <a href="/users/spleshka" title="Информация о пользователе."><img src="http://drupalace.ru/sites/default/files/sites/default/files/pictures/picture-1-1320177432.png" alt="Аватар пользователя Spleshka" title="Аватар пользователя Spleshka" /></a>  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/2675#comment-2675" class="permalink" rel="bookmark">#10</a>      </div>
+
+      <div class = "comment-author">
+        <a href="/users/spleshka" title="Информация о пользователе." class="username">Spleshka</a> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Очень странно. Кэш на сайте сбрасывали?</p>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        05.01.2012 18:36      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/296/2675">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div></div></div></div></div></div></div></div><a id="comment-2676"></a>
+<div class="comment comment-by-anonymous odd clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <img src="http://drupalace.ru/sites/default/files/pictures/default.png" alt="Аватар пользователя waw" title="Аватар пользователя waw" />  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/2676#comment-2676" class="permalink" rel="bookmark">#11</a>      </div>
+
+      <div class = "comment-author">
+        <span class="username">waw</span> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Да, сбрасывал. Тут еще такое дело... у меня не создается страница для моей настройки... в одном из модулей.<br />
+В вообще вопрос был у меня такой... у меня есть фильтр, который реализован в виде отдельного скприпта. Но этот скрипт выводит результат работы в на отдельную страницу. Хотел объединить резельтат его работы и view фильтрацию для магазина.</p>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        05.01.2012 18:45      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/296/2676">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div>
+<div class="indented"><a id="comment-2677"></a>
+<div class="comment comment-by-anonymous even clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <img src="http://drupalace.ru/sites/default/files/pictures/default.png" alt="Аватар пользователя waw" title="Аватар пользователя waw" />  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/2677#comment-2677" class="permalink" rel="bookmark">#12</a>      </div>
+
+      <div class = "comment-author">
+        <span class="username">waw</span> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Поставил на другом сайте. На сайте Drupal 7.9? но без интернет магазина... видимо какой глюк одном из моделей... который все портит....<br />
+ссылка <a href="http://pilipok.ru/ajax_page">http://pilipok.ru/ajax_page</a> Так что пример работает. Извините за беспокойство... хотя мне другое немного надо было сделать....</p>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        05.01.2012 20:05      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/296/2677">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div>
+<div class="indented"><a id="comment-2678"></a>
+<div class="comment comment-by-node-author odd clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <a href="/users/spleshka" title="Информация о пользователе."><img src="http://drupalace.ru/sites/default/files/sites/default/files/pictures/picture-1-1320177432.png" alt="Аватар пользователя Spleshka" title="Аватар пользователя Spleshka" /></a>  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/2678#comment-2678" class="permalink" rel="bookmark">#13</a>      </div>
+
+      <div class = "comment-author">
+        <a href="/users/spleshka" title="Информация о пользователе." class="username">Spleshka</a> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Без проблем. А что вам именно надо сделать?</p>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        05.01.2012 20:25      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/296/2678">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div>
+<div class="indented"><a id="comment-2808"></a>
+<div class="comment comment-by-anonymous even clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <img src="http://drupalace.ru/sites/default/files/pictures/default.png" alt="Аватар пользователя waw" title="Аватар пользователя waw" />  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/2808#comment-2808" class="permalink" rel="bookmark">#14</a>      </div>
+
+      <div class = "comment-author">
+        <span class="username">waw</span> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Огромное Вам спасибо. Очень классный у Вас пример! Действительно работает! Очень прозрачный и понятный!</p>
+<p>Сделать нужно поиск нодов и их отображение. Уже сделал по образу и подобию Вашей формы, форму выбора условий, но вопрос в том, как отобразить больше одной ноды? У вас отображается только одна. Попробовал выводить через рендеринг 2 ноды, но не очень красиво выходит. Можноли как то через view отобразить несколько нод?</p>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        10.01.2012 11:13      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/296/2808">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div>
+<div class="indented"><a id="comment-2811"></a>
+<div class="comment comment-by-node-author odd clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <a href="/users/spleshka" title="Информация о пользователе."><img src="http://drupalace.ru/sites/default/files/sites/default/files/pictures/picture-1-1320177432.png" alt="Аватар пользователя Spleshka" title="Аватар пользователя Spleshka" /></a>  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/2811#comment-2811" class="permalink" rel="bookmark">#15</a>      </div>
+
+      <div class = "comment-author">
+        <a href="/users/spleshka" title="Информация о пользователе." class="username">Spleshka</a> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Чтобы вывести данные через вьюс - создайте на сайте вьюху, которая выводит ноды, а потом просто вместо node_view($node) передайте views_embed_view с параметрами. (http://www.drupal.ru/node/29439 первый коммент)</p>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        10.01.2012 13:37      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/296/2811">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div>
+<div class="indented"><a id="comment-2831"></a>
+<div class="comment comment-by-anonymous even clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <img src="http://drupalace.ru/sites/default/files/pictures/default.png" alt="Аватар пользователя waw" title="Аватар пользователя waw" />  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/2831#comment-2831" class="permalink" rel="bookmark">#16</a>      </div>
+
+      <div class = "comment-author">
+        <span class="username">waw</span> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Если честно. Непонятно. У меня есть список nid, можно в массив его добавить., как вывести в определенный вид не понимаю. views_embed_view($name, $display_id="page_1"); если смотреть вот в этом примере... то как связать это со списком nid-ов.</p>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        11.01.2012 13:32      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/296/2831">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div>
+<div class="indented"><a id="comment-2836"></a>
+<div class="comment comment-by-node-author odd clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <a href="/users/spleshka" title="Информация о пользователе."><img src="http://drupalace.ru/sites/default/files/sites/default/files/pictures/picture-1-1320177432.png" alt="Аватар пользователя Spleshka" title="Аватар пользователя Spleshka" /></a>  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/2836#comment-2836" class="permalink" rel="bookmark">#17</a>      </div>
+
+      <div class = "comment-author">
+        <a href="/users/spleshka" title="Информация о пользователе." class="username">Spleshka</a> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Так понятнее?</p>
+<div class="geshifilter">
+<pre class="geshifilter-drupal6"><span class="re0">$nids</span> = <span class="kw3">array</span><span class="br0">&#40;</span><span class="nu0">1</span>, <span class="nu0">2</span>, <span class="nu0">5</span>, <span class="nu0">10</span>, <span class="nu0">512</span><span class="br0">&#41;</span>;
+<span class="kw3">print</span> views_embed_view<span class="br0">&#40;</span><span class="re0">$name</span>, <span class="st0">'page_1'</span>, <span class="re0">$nids</span><span class="br0">&#41;</span>;</pre></div>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        11.01.2012 13:50      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/296/2836">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div>
+<div class="indented"><a id="comment-2848"></a>
+<div class="comment comment-by-anonymous even clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <img src="http://drupalace.ru/sites/default/files/pictures/default.png" alt="Аватар пользователя waw" title="Аватар пользователя waw" />  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/2848#comment-2848" class="permalink" rel="bookmark">#18</a>      </div>
+
+      <div class = "comment-author">
+        <span class="username">waw</span> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Вообще то... не прояснилось:)<br />
+    $nids = array(node_load(26320), node_load(26321));<br />
+    $name_view = 'podbor';<br />
+    $views = views_embed_view($name_view, 'page_1', $nids);<br />
+    print $views;<br />
+    $form['markup']['#markup'] = render($views);<br />
+Этот вариант ничего не выводит на экран...<br />
+    $nids = array(26320, 26321); - так тоже пусто..<br />
+Только вот так выводит:<br />
+   $node = node_load(26320);<br />
+   $node1 = node_load(26321);<br />
+   $view = node_view($node);<br />
+   $view1 = node_view($node1);<br />
+   $form['markup']['#markup'] = ''.render($view).''.render($view1);</p>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        11.01.2012 17:41      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/296/2848">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div>
+<div class="indented"><a id="comment-2863"></a>
+<div class="comment comment-by-node-author odd clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <a href="/users/spleshka" title="Информация о пользователе."><img src="http://drupalace.ru/sites/default/files/sites/default/files/pictures/picture-1-1320177432.png" alt="Аватар пользователя Spleshka" title="Аватар пользователя Spleshka" /></a>  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/2863#comment-2863" class="permalink" rel="bookmark">#19</a>      </div>
+
+      <div class = "comment-author">
+        <a href="/users/spleshka" title="Информация о пользователе." class="username">Spleshka</a> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Не надо в первом случае делать node_load(). Просто передайте им строку из nid материалов.</p>
+<div class="geshifilter">
+<pre class="geshifilter-drupal6"><span class="re0">$nids</span> = <span class="kw3">array</span><span class="br0">&#40;</span><span class="nu0">26320</span>, <span class="nu0">26321</span><span class="br0">&#41;</span>;
+<span class="re0">$views</span> = views_embed_view<span class="br0">&#40;</span><span class="st0">'podbor'</span>, <span class="st0">'page_1'</span>, <span class="re0">$nids</span><span class="br0">&#41;</span>;
+<span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'markup'</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="st0">'#markup'</span><span class="br0">&#93;</span> = <span class="re0">$views</span>;</pre></div>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        12.01.2012 13:51      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/296/2863">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div></div></div></div></div></div></div></div></div><a id="comment-3090"></a>
+<div class="comment comment-by-anonymous even clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <img src="http://drupalace.ru/sites/default/files/pictures/default.png" alt="Аватар пользователя Max" title="Аватар пользователя Max" />  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/3090#comment-3090" class="permalink" rel="bookmark">#20</a>      </div>
+
+      <div class = "comment-author">
+        <span class="username">Max</span> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Супер статья, Спасибо!</p>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        27.01.2012 11:59      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/296/3090">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div><a id="comment-3155"></a>
+<div class="comment comment-by-anonymous odd clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <img src="http://drupalace.ru/sites/default/files/pictures/default.png" alt="Аватар пользователя Frantsuzzz" title="Аватар пользователя Frantsuzzz" />  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/3155#comment-3155" class="permalink" rel="bookmark">#21</a>      </div>
+
+      <div class = "comment-author">
+        <span class="username">Frantsuzzz</span> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Спасибо за статью. Как раз то, что искал!</p>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        02.02.2012 19:07      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/296/3155">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div><a id="comment-3488"></a>
+<div class="comment comment-by-anonymous even clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <img src="http://drupalace.ru/sites/default/files/pictures/default.png" alt="Аватар пользователя Serge" title="Аватар пользователя Serge" />  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/3488#comment-3488" class="permalink" rel="bookmark">#22</a>      </div>
+
+      <div class = "comment-author">
+        <span class="username">Serge</span> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Добрый день.<br />
+Отличная статья.<br />
+Есть вопрос: при выводе методом подобным указанному в статье (друпал 6) в браузерах Опера 11.60 и выше не закрывается окошко селекта<br />
+Похожий глюк наблюдается и в примере (ссылка http://pilipok.ru/ajax_page)<br />
+Как победить оперу?</p>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        22.02.2012 19:43      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/296/3488">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div><a id="comment-4575"></a>
+<div class="comment comment-by-anonymous odd clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <img src="http://drupalace.ru/sites/default/files/pictures/default.png" alt="Аватар пользователя Руслан" title="Аватар пользователя Руслан" />  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/4575#comment-4575" class="permalink" rel="bookmark">#23</a>      </div>
+
+      <div class = "comment-author">
+        <span class="username">Руслан</span> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Привет. Большое спасибо за статью. Подскажите пожалуйста как решить следующую задачу. Есть форма. В конструкторе, обьявляется элемент как button и в папаметрах указывается аякс, калбек и ид элемента в который добавлям то что вернет калбек. Метод append.<br />
+Далее идет textfield который выводит одно поле (их далее нужно добавлять, типа кнопка add). Этот инпют обернут в соответствующий див.<br />
+Проблема в том что я никак не могу допиреть, как мне узнавать имя последнего добавленного элемента и делать ключ следующему +1.<br />
+Брать этот "следующий" и выводить его. </p>
+<div class="geshifilter">
+<pre class="geshifilter-drupal6"><span class="kw2">function</span> server_management_questions_add_answers<span class="br0">&#40;</span><span class="re0">$form</span>, &amp;<span class="re0">$form_state</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>     <span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'type'</span><span class="br0">&#93;</span> = <span class="kw3">array</span><span class="br0">&#40;</span>
+        <span class="st0">'#type'</span> =&gt; <span class="st0">'button'</span>,
+        <span class="st0">'#value'</span> =&gt; <span class="kw5">t</span><span class="br0">&#40;</span><span class="st0">'Add'</span><span class="br0">&#41;</span>,
+        <span class="st0">'#ajax'</span> =&gt; <span class="kw3">array</span><span class="br0">&#40;</span>
+            <span class="st0">'callback'</span> =&gt; <span class="st0">'form_ajax_form_load_nodes'</span>,
+            <span class="st0">'wrapper'</span> =&gt; <span class="st0">'form-ajax-nodes'</span>,
+            <span class="st0">'method'</span> =&gt; <span class="st0">'append'</span>,
+            <span class="st0">'effect'</span> =&gt; <span class="st0">'fade'</span>,
+        <span class="br0">&#41;</span>,
+    <span class="br0">&#41;</span>;
+&nbsp;
+    <span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'answer_1'</span><span class="br0">&#93;</span> = <span class="kw3">array</span><span class="br0">&#40;</span>
+        <span class="st0">'#type'</span> =&gt; <span class="st0">'textfield'</span>,
+        <span class="st0">'#title'</span> =&gt; <span class="kw5">t</span><span class="br0">&#40;</span><span class="st0">'Nodes from'</span><span class="br0">&#41;</span>,
+        <span class="st0">'#prefix'</span> =&gt; <span class="st0">'&lt;div id = &quot;form-ajax-nodes&quot;&gt;'</span>,
+        <span class="st0">'#suffix'</span> =&gt; <span class="st0">'&lt;/div&gt;'</span>,
+        <span class="st0">'#required'</span> =&gt; <span class="kw2">true</span>,
+    <span class="br0">&#41;</span>;
+&nbsp;
+    <span class="kw1">if</span> <span class="br0">&#40;</span>!<span class="kw3">empty</span><span class="br0">&#40;</span><span class="re0">$form_state</span><span class="br0">&#91;</span><span class="st0">'input'</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="st0">'answer_1'</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+&nbsp;
+        <span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'answer_add'</span><span class="br0">&#93;</span> = <span class="kw3">array</span><span class="br0">&#40;</span>
+            <span class="st0">'#type'</span> =&gt; <span class="st0">'textfield'</span>,
+            <span class="st0">'#title'</span> =&gt; <span class="kw5">t</span><span class="br0">&#40;</span><span class="st0">'Nodes from 2'</span><span class="br0">&#41;</span>,
+            <span class="st0">'#required'</span> =&gt; <span class="kw2">true</span>,
+            <span class="st0">'#value'</span> =&gt; <span class="st0">''</span>,
+        <span class="br0">&#41;</span>;
+&nbsp;
+    <span class="br0">&#125;</span>     <span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'submit'</span><span class="br0">&#93;</span> = <span class="kw3">array</span><span class="br0">&#40;</span>
+        <span class="st0">'#type'</span> =&gt; <span class="st0">'submit'</span>,
+        <span class="st0">'#value'</span> =&gt; <span class="kw5">t</span><span class="br0">&#40;</span><span class="st0">'Add answers'</span><span class="br0">&#41;</span>,
+    <span class="br0">&#41;</span>;     <span class="kw1">return</span> <span class="re0">$form</span>;
+<span class="br0">&#125;</span> <span class="kw2">function</span> form_ajax_form_load_nodes<span class="br0">&#40;</span><span class="re0">$form</span>, &amp;<span class="re0">$form_state</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'answer_add'</span><span class="br0">&#93;</span>;
+<span class="br0">&#125;</span></pre></div>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        07.08.2012 20:12      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/296/4575">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div>
+<div class="indented"><a id="comment-4581"></a>
+<div class="comment comment-by-anonymous even clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <img src="http://drupalace.ru/sites/default/files/pictures/default.png" alt="Аватар пользователя Гость" title="Аватар пользователя Гость" />  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/4581#comment-4581" class="permalink" rel="bookmark">#24</a>      </div>
+
+      <div class = "comment-author">
+        <span class="username">Гость</span> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Откройте модуль Poll (в ядре) и посмотрите как это реализовано там.</p>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        09.08.2012 13:00      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/296/4581">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div></div><a id="comment-5152"></a>
+<div class="comment comment-by-anonymous odd clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <img src="http://drupalace.ru/sites/default/files/pictures/default.png" alt="Аватар пользователя Дмитрий" title="Аватар пользователя Дмитрий" />  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/5152#comment-5152" class="permalink" rel="bookmark">#25</a>      </div>
+
+      <div class = "comment-author">
+        <span class="username">Дмитрий</span> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Здравствуйте, спасибо за статью, очень помогает :) подскажите, пожалуйста,<br />
+как после запуска колбека <span class="geshifilter"><code class="drupal6 geshifilter-drupal6"><span class="st0">'form_ajax_form_load_nodes'</span></code></span> и размещения содержимого в нужном месте умудриться ещё запустить скрипт типа <span class="geshifilter"><code class="drupal6 geshifilter-drupal6">$<span class="br0">&#40;</span><span class="st0">&quot;select&quot;</span><span class="br0">&#41;</span>.uniform<span class="br0">&#40;</span><span class="br0">&#41;</span>;</code></span></p>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        05.12.2012 11:38      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/296/5152">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div>
+<div class="indented"><a id="comment-5153"></a>
+<div class="comment comment-by-anonymous even clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <img src="http://drupalace.ru/sites/default/files/pictures/default.png" alt="Аватар пользователя Дмитрий" title="Аватар пользователя Дмитрий" />  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/5153#comment-5153" class="permalink" rel="bookmark">#26</a>      </div>
+
+      <div class = "comment-author">
+        <span class="username">Дмитрий</span> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Основываясь на вашей лекции (кстати спасибо за доклад) решил "по-хитрому" так:</p>
+<div class="geshifilter">
+<pre class="geshifilter-drupal6">  <span class="re0">$commands</span><span class="br0">&#91;</span><span class="br0">&#93;</span> = ajax_command_replace<span class="br0">&#40;</span><span class="st0">'#form-cities'</span>, <span class="kw5">drupal_render</span><span class="br0">&#40;</span><span class="re0">$form</span><span class="br0">&#91;</span><span class="st0">'city'</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>;
+  <span class="re0">$commands</span><span class="br0">&#91;</span><span class="br0">&#93;</span> = ajax_command_append<span class="br0">&#40;</span><span class="st0">'#form-cities'</span>, <span class="st0">'&lt;script type=&quot;text/javascript&quot;&gt;$(&quot;#form-cities select&quot;).uniform();&lt;/script&gt;'</span><span class="br0">&#41;</span>;</pre></div>
+<p>а код <span class="geshifilter"><code class="drupal6 geshifilter-drupal6"><span class="re0">$commands</span><span class="br0">&#91;</span><span class="br0">&#93;</span> = ajax_command_invoke<span class="br0">&#40;</span><span class="st0">'#form-cities select'</span>, <span class="st0">'uniform'</span><span class="br0">&#41;</span>;</code></span> почему то не сработал :(</p>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        05.12.2012 15:21      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/296/5153">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div>
+<div class="indented"><a id="comment-5155"></a>
+<div class="comment comment-by-node-author odd clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <a href="/users/spleshka" title="Информация о пользователе."><img src="http://drupalace.ru/sites/default/files/sites/default/files/pictures/picture-1-1320177432.png" alt="Аватар пользователя Spleshka" title="Аватар пользователя Spleshka" /></a>  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/5155#comment-5155" class="permalink" rel="bookmark">#27</a>      </div>
+
+      <div class = "comment-author">
+        <a href="/users/spleshka" title="Информация о пользователе." class="username">Spleshka</a> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Более кошерный вариант был бы <a href="http://xandeadx.ru/blog/drupal/378">создать свою ajax команду</a> и вызвать её.</p>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        05.12.2012 21:04      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/296/5155">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div></div></div><a id="comment-5637"></a>
+<div class="comment comment-by-anonymous even clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <img src="http://drupalace.ru/sites/default/files/pictures/default.png" alt="Аватар пользователя kirminator2" title="Аватар пользователя kirminator2" />  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/5637#comment-5637" class="permalink" rel="bookmark">#28</a>      </div>
+
+      <div class = "comment-author">
+        <span class="username">kirminator2</span> написал:      </div>      
+
+          </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        21.05.2013 20:38      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/296/5637">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div><a id="comment-5638"></a>
+<div class="comment comment-by-anonymous odd clearfix">
+
+  <div class = "comment-picture">
+      <div class="user-picture">
+    <img src="http://drupalace.ru/sites/default/files/pictures/default.png" alt="Аватар пользователя kirminator2" title="Аватар пользователя kirminator2" />  </div>
+  </div>
+
+  <div class = "comment-right">
+
+    <div class="content">
+
+      <div class = "comment-permalink">
+        <a href="/comment/5638#comment-5638" class="permalink" rel="bookmark">#29</a>      </div>
+
+      <div class = "comment-author">
+        <span class="username">kirminator2</span> написал:      </div>      
+
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>А подобный модуль для страницы контактов как будет выглядеть? у меня через колорбокс немного глючит, вот пример страницы <a href="http://scn-realty.ru/users/160">http://scn-realty.ru/users/160</a> с незаполненными полями открывается документ. как сюда ajax прикрутить? может бывают готовые решения?</p>
+</div></div></div>    </div>
+
+  </div>
+
+  <div class = "comment-bottom clearfix">
+
+          <div class = "comment-created">
+        21.05.2013 20:38      </div>
+    
+          <div class = "comment-links">
+
+	      <ul class="links inline"><li class="comment-reply first last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/comment/reply/296/5638">ответить</a></li>
+</ul>      </div>
+    
+  </div>
+
+</div>
+      <h2 class="title comment-form">Комментировать</h2>
+    <form class="comment-form clearfix anonymous" action="/comment/reply/296" method="post" id="comment-form" accept-charset="UTF-8"><div><div class="form-item form-type-textfield form-item-name">
+  <label for="edit-name">Ваше имя </label>
+ <input type="text" id="edit-name" name="name" value="" size="30" maxlength="60" class="form-text" />
+</div>
+<div class="field-type-text-long field-name-comment-body field-widget-text-textarea form-wrapper" id="edit-comment-body"><div id="comment-body-add-more-wrapper"><div class="text-format-wrapper"><div class="form-item form-type-textarea form-item-comment-body-und-0-value">
+  <label for="edit-comment-body-und-0-value">Комментарий <span class="form-required" title="Обязательно для заполнения.">*</span></label>
+ <div class="form-textarea-wrapper"><textarea class="text-full form-textarea required" id="edit-comment-body-und-0-value" name="comment_body[und][0][value]" cols="60" rows="5"></textarea></div>
+</div>
+</div>
+</div></div><input type="hidden" name="form_build_id" value="form-Pq7Hg5kVxclGyGoqTYsa4lapw8BjQcueTiqrL_4RxXY" />
+<input type="hidden" name="form_id" value="comment_node_lesson_form" />
+<div class="captcha"><input type="hidden" name="captcha_sid" value="2376840" />
+<input type="hidden" name="captcha_token" value="cd4a5199a074a50ff7766dfbd80273ba" />
+<pre class="ascii_art_captcha" style="line-height:1.1;font-size:4pt;">                                                                          <br /> 88              ,ad8888ba,     88        88    ad88888ba     ad888888b,  <br /> 88             d8&quot;&#039;    `&quot;8b    88        88   d8&quot;     &quot;88   d8&quot;     &quot;88  <br /> 88            d8&#039;        `8b   88        88   8P       88           a8P  <br /> 88            88          88   88aaaaaaaa88   Y8,    ,d88        ,d8P&quot;   <br /> 88            88          88   88&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;88    &quot;PPPPPP&quot;88      a8P&quot;      <br /> 88            Y8,    &quot;88,,8P   88        88            8P    a8P&#039;        <br /> 88             Y8a.    Y88P    88        88   8b,    a8P    d8&quot;          <br /> 88888888888     `&quot;Y8888Y&quot;Y8a   88        88   `&quot;Y8888P&#039;     88888888888  <br />                                                                          <br />                                                                          </pre><div class="form-item form-type-textfield form-item-captcha-response">
+  <label for="edit-captcha-response">Введи код, если не бот <span class="form-required" title="Обязательно для заполнения.">*</span></label>
+ <input type="text" id="edit-captcha-response" name="captcha_response" value="" size="10" maxlength="10" class="form-text required" />
+<div class="description">Enter the code depicted in ASCII art style.</div>
+</div>
+</div><div class="form-actions form-wrapper" id="edit-actions"><span class="button"><span class = "button-left"></span><span class = "button-center"></span><span class = "button-right"></span><input type="submit" id="edit-submit" name="op" value="Сохранить" class="form-submit" /></span></div></div></form>  </div>
+  
+</div>	</div>
+	
+</div>	</div>
+
+        </div><!-- /#main-inner -->
+      </div><!-- /#main -->
+
+              <div id="sidebar">
+          	<div class="region region-sidebar">
+		<div id="block-views-questions-block-1" class="block block-views">
+
+  <div class = "icon"></div>
+
+				<h3 class="title">Вопросы пользователей</h3>
+		
+	<div class="content">
+		<div class="view view-questions view-id-questions view-display-id-block_1 view-dom-id-5dfe7acba9a91272b8633a408ec6c8d3">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+          <a href="/dopolnenie-tvoey-stati">Дополнение твоей статьи </a>  </li>
+          <li class="views-row views-row-2 views-row-even">  
+          <a href="/pdoexception-sqlstate42000-1044">PDOException: SQLSTATE[42000] [1044]</a>  </li>
+          <li class="views-row views-row-3 views-row-odd">  
+          <a href="/slozhnaya-pohozhest-materialov-views">Сложная &quot;похожесть&quot; материалов. views</a>  </li>
+          <li class="views-row views-row-4 views-row-even">  
+          <a href="/v-anonsah-ne-vyvoditsya-izobrazhenie-umenshennogo-formata">В анонсах не выводится изображение уменьшенного формата.</a>  </li>
+          <li class="views-row views-row-5 views-row-odd">  
+          <a href="/vyravnivanie-left-center-bokovyh-knopok">Выравнивание &quot;left-center&quot; боковых кнопок.</a>  </li>
+          <li class="views-row views-row-6 views-row-even">  
+          <a href="/izmenit-obekt-na-glavnoy">Изменить объект на &quot;Главной&quot;</a>  </li>
+          <li class="views-row views-row-7 views-row-odd views-row-last">  
+          <a href="/css">CSS</a>  </li>
+      </ul></div>    </div>
+  
+  
+  
+      
+<div class="more-link">
+  <a href="/questions">
+    Все вопросы  </a>
+</div>
+  
+  
+  
+</div>	</div>
+	
+</div>
+<div id="block-views-last-comments-block" class="block block-views">
+
+  <div class = "icon"></div>
+
+				<h3 class="title">Последние комментарии</h3>
+		
+	<div class="content">
+		<div class="view view-last-comments view-id-last_comments view-display-id-block view-dom-id-606c92987ec03a21ea5e5b008282d65c">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+  <div class="views-field views-field-subject">        <span class="field-content"><a href="/comment/6101#comment-6101">убери сжатие кэшированных</a></span>  </div>  
+  <div class="views-field views-field-created">        <span class="field-content"><em class="placeholder">17 часов 31 минута</em> назад</span>  </div></li>
+          <li class="views-row views-row-2 views-row-even">  
+  <div class="views-field views-field-subject">        <span class="field-content"><a href="/comment/6100#comment-6100">setting.php не менялся, я</a></span>  </div>  
+  <div class="views-field views-field-created">        <span class="field-content"><em class="placeholder">17 часов 54 минуты</em> назад</span>  </div></li>
+          <li class="views-row views-row-3 views-row-odd">  
+  <div class="views-field views-field-subject">        <span class="field-content"><a href="/comment/6099#comment-6099">Чтобы сделать белый фон в</a></span>  </div>  
+  <div class="views-field views-field-created">        <span class="field-content"><em class="placeholder">1 день 1 час</em> назад</span>  </div></li>
+          <li class="views-row views-row-4 views-row-even">  
+  <div class="views-field views-field-subject">        <span class="field-content"><a href="/comment/6098#comment-6098">а, в чем была проблема?</a></span>  </div>  
+  <div class="views-field views-field-created">        <span class="field-content"><em class="placeholder">1 день 2 часа</em> назад</span>  </div></li>
+          <li class="views-row views-row-5 views-row-odd">  
+  <div class="views-field views-field-subject">        <span class="field-content"><a href="/comment/6097#comment-6097">проблема решена</a></span>  </div>  
+  <div class="views-field views-field-created">        <span class="field-content"><em class="placeholder">1 день 17 часов</em> назад</span>  </div></li>
+          <li class="views-row views-row-6 views-row-even">  
+  <div class="views-field views-field-subject">        <span class="field-content"><a href="/comment/6096#comment-6096">поднимаю связку nginx</a></span>  </div>  
+  <div class="views-field views-field-created">        <span class="field-content"><em class="placeholder">1 день 21 час</em> назад</span>  </div></li>
+          <li class="views-row views-row-7 views-row-odd">  
+  <div class="views-field views-field-subject">        <span class="field-content"><a href="/comment/6095#comment-6095">т.е. если я не внесла в</a></span>  </div>  
+  <div class="views-field views-field-created">        <span class="field-content"><em class="placeholder">2 дня 16 часов</em> назад</span>  </div></li>
+          <li class="views-row views-row-8 views-row-even">  
+  <div class="views-field views-field-subject">        <span class="field-content"><a href="/comment/6094#comment-6094">Спасибо большое за</a></span>  </div>  
+  <div class="views-field views-field-created">        <span class="field-content"><em class="placeholder">4 дня 1 час</em> назад</span>  </div></li>
+          <li class="views-row views-row-9 views-row-odd">  
+  <div class="views-field views-field-subject">        <span class="field-content"><a href="/comment/6093#comment-6093">Спасибо за модуль, но есть</a></span>  </div>  
+  <div class="views-field views-field-created">        <span class="field-content"><em class="placeholder">4 дня 16 часов</em> назад</span>  </div></li>
+          <li class="views-row views-row-10 views-row-even views-row-last">  
+  <div class="views-field views-field-subject">        <span class="field-content"><a href="/comment/6092#comment-6092">Работает!</a></span>  </div>  
+  <div class="views-field views-field-created">        <span class="field-content"><em class="placeholder">6 дней 2 часа</em> назад</span>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+  
+  
+  
+</div>	</div>
+	
+</div>
+<div id="block-views-blogs-block" class="block block-views">
+
+  <div class = "icon"></div>
+
+				<h3 class="title">Записи в блоге</h3>
+		
+	<div class="content">
+		<div class="view view-blogs view-id-blogs view-display-id-block view-dom-id-916ed2a69ff1c1b2115523320fc44b77">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/novyy-cache-expiration-polnaya-svoboda-v-vybore-pravil-dlya-sbrosa-kesha-stranic">Новый Cache Expiration - полная свобода в выборе правил для сброса кэша страниц</a></span>  </div></li>
+          <li class="views-row views-row-2 views-row-even">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/kesh-stranic-snizhenie-nagruzki-na-server-s-pomoshchyu-memcache-storage-page-cache">Кэш страниц. Снижение нагрузки на сервер с помощью Memcache Storage Page Cache</a></span>  </div></li>
+          <li class="views-row views-row-3 views-row-odd">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/perenos-keshirovanyh-dannyh-v-operativnuyu-pamyat-memcache-storage">Перенос кэшированых данных в оперативную память. Memcache Storage.</a></span>  </div></li>
+          <li class="views-row views-row-4 views-row-even">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/vkontakte-crossposter-2-voskreshenie">Vkontakte CrossPoster 2. Воскрешение.</a></span>  </div></li>
+          <li class="views-row views-row-5 views-row-odd">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/modul-po-dobavleniyu-meta-tegov-path-metatags">Модуль по добавлению мета-тегов. Path Metatags.</a></span>  </div></li>
+          <li class="views-row views-row-6 views-row-even">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/uskoryaem-butstrap-ili-borba-s-nepravilnym-udaleniem-moduley">Ускоряем бутстрап или борьба с неправильным удалением модулей</a></span>  </div></li>
+          <li class="views-row views-row-7 views-row-odd views-row-last">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/vkontakte-crossposter-2-vozvrashchenie">Vkontakte CrossPoster 2. Возвращение.</a></span>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+  
+  
+  
+</div>	</div>
+	
+</div>
+<div id="block-cumulus-2" class="block block-cumulus">
+
+  <div class = "icon"></div>
+
+				<h3 class="title">Категории</h3>
+		
+	<div class="content">
+		        <div id="tags">
+        <a href="/tags/ajax" class="tagadelic level2" rel="tag" title="">ajax</a> 
+<a href="/tags/cache" class="tagadelic level2" rel="tag" title="">cache</a> 
+<a href="/tags/css" class="tagadelic level2" rel="tag" title="">css</a> 
+<a href="/tags/database" class="tagadelic level1" rel="tag" title="">database</a> 
+<a href="/tags/drupal-6" class="tagadelic level6" rel="tag" title="">drupal 6</a> 
+<a href="/tags/drupal-7" class="tagadelic level6" rel="tag" title="">drupal 7</a> 
+<a href="/tags/drupal-api" class="tagadelic level1" rel="tag" title="">drupal API</a> 
+<a href="/tags/forms-api" class="tagadelic level3" rel="tag" title="">forms API</a> 
+<a href="/tags/hook" class="tagadelic level2" rel="tag" title="">hook</a> 
+<a href="/tags/info-fail" class="tagadelic level1" rel="tag" title="">info-файл</a> 
+<a href="/tags/javascript" class="tagadelic level2" rel="tag" title="">javascript</a> 
+<a href="/tags/jquery" class="tagadelic level1" rel="tag" title="">jquery</a> 
+<a href="/tags/module" class="tagadelic level3" rel="tag" title="">module</a> 
+<a href="/tags/mysql" class="tagadelic level2" rel="tag" title="">MySQL</a> 
+<a href="/tags/templatephp" class="tagadelic level3" rel="tag" title="">template.php</a> 
+<a href="/tags/theme" class="tagadelic level1" rel="tag" title="">theme</a> 
+<a href="/tags/views" class="tagadelic level1" rel="tag" title="">views</a> 
+<a href="/tags/modul" class="tagadelic level4" rel="tag" title="">модуль</a> 
+<a href="/tags/proizvoditelnost" class="tagadelic level1" rel="tag" title="">производительность</a> 
+<a href="/tags/failtplphp" class="tagadelic level3" rel="tag" title="">файл.tpl.php</a> 
+
+        <script type="text/javascript">
+          var rnumber = Math.floor(Math.random()*9999999);
+          var widget_so = new SWFObject("/sites/all/modules/cumulus/cumulus.swf?r="+rnumber, "cumulusflash", "225", "225", "9", "F6F6F");
+          widget_so.addParam("wmode", "transparent");
+          widget_so.addParam("allowScriptAccess", "always");
+          widget_so.addVariable("tcolor", "0x0071B3");
+          widget_so.addVariable("tcolor2", "0x0071B3");
+          widget_so.addVariable("hicolor", "0xFFFFFF");
+          widget_so.addVariable("tspeed", "200");
+          widget_so.addVariable("distr", "true");
+          widget_so.addVariable("mode", "tags");
+          widget_so.addVariable("tagcloud", "%3Ctags%3E%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fajax%22+style%3D%22%26quot%3Bfont-size%3A+19px%3B%26quot%3B%22%3Eajax%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fcache%22+style%3D%22%26quot%3Bfont-size%3A+19px%3B%26quot%3B%22%3Ecache%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fcss%22+style%3D%22%26quot%3Bfont-size%3A+19px%3B%26quot%3B%22%3Ecss%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fdatabase%22+style%3D%22%26quot%3Bfont-size%3A+16px%3B%26quot%3B%22%3Edatabase%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fdrupal-6%22+style%3D%22%26quot%3Bfont-size%3A+31px%3B%26quot%3B%22%3Edrupal+6%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fdrupal-7%22+style%3D%22%26quot%3Bfont-size%3A+31px%3B%26quot%3B%22%3Edrupal+7%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fdrupal-api%22+style%3D%22%26quot%3Bfont-size%3A+16px%3B%26quot%3B%22%3Edrupal+API%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fforms-api%22+style%3D%22%26quot%3Bfont-size%3A+22px%3B%26quot%3B%22%3Eforms+API%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fhook%22+style%3D%22%26quot%3Bfont-size%3A+19px%3B%26quot%3B%22%3Ehook%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Finfo-fail%22+style%3D%22%26quot%3Bfont-size%3A+16px%3B%26quot%3B%22%3Einfo-%D1%84%D0%B0%D0%B9%D0%BB%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fjavascript%22+style%3D%22%26quot%3Bfont-size%3A+19px%3B%26quot%3B%22%3Ejavascript%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fjquery%22+style%3D%22%26quot%3Bfont-size%3A+16px%3B%26quot%3B%22%3Ejquery%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fmodule%22+style%3D%22%26quot%3Bfont-size%3A+22px%3B%26quot%3B%22%3Emodule%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fmysql%22+style%3D%22%26quot%3Bfont-size%3A+19px%3B%26quot%3B%22%3EMySQL%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Ftemplatephp%22+style%3D%22%26quot%3Bfont-size%3A+22px%3B%26quot%3B%22%3Etemplate.php%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Ftheme%22+style%3D%22%26quot%3Bfont-size%3A+16px%3B%26quot%3B%22%3Etheme%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fviews%22+style%3D%22%26quot%3Bfont-size%3A+16px%3B%26quot%3B%22%3Eviews%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fmodul%22+style%3D%22%26quot%3Bfont-size%3A+25px%3B%26quot%3B%22%3E%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D1%8C%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Fproizvoditelnost%22+style%3D%22%26quot%3Bfont-size%3A+16px%3B%26quot%3B%22%3E%D0%BF%D1%80%D0%BE%D0%B8%D0%B7%D0%B2%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D1%8C%3C%2Fa%3E+%0A%3Ca+href%3D%22http%3A%2F%2Fdrupalace.ru%2Ftags%2Ffailtplphp%22+style%3D%22%26quot%3Bfont-size%3A+22px%3B%26quot%3B%22%3E%D1%84%D0%B0%D0%B9%D0%BB.tpl.php%3C%2Fa%3E+%0A%3C%2Ftags%3E");
+          widget_so.write("tags");
+        </script>
+        </div>
+        <div class="more-link"><a href="/tagadelic/chunk/2">Мета теги</a></div>	</div>
+	
+</div>
+<div id="block-block-12" class="block block-block">
+
+  <div class = "icon"></div>
+
+				<h3 class="title">Подписка</h3>
+		
+	<div class="content">
+		<ul>
+<li><a href="http://drupalace.ru/rss.xml" target="_blank">RSS</a></li>
+<li><a href="http://feeds.feedburner.com/Drupalaceru" target="_blank">Feedburner</a></li>
+</ul>
+	</div>
+	
+</div>
+<div id="block-user-login" class="block block-user">
+
+  <div class = "icon"></div>
+
+			
+	<div class="content">
+		<form action="/lesson/perezagruzka-form-na-ajax-v-drupal-7?destination=node/296" method="post" id="user-login-form" accept-charset="UTF-8"><div><div class="form-item form-type-textfield form-item-name">
+  <label for="edit-name--2">Имя пользователя <span class="form-required" title="Обязательно для заполнения.">*</span></label>
+ <input type="text" id="edit-name--2" name="name" value="" size="15" maxlength="60" class="form-text required" />
+</div>
+<div class="form-item form-type-password form-item-pass">
+  <label for="edit-pass">Пароль <span class="form-required" title="Обязательно для заполнения.">*</span></label>
+ <input type="password" id="edit-pass" name="pass" size="15" maxlength="128" class="form-text required" />
+</div>
+<div class="item-list"><ul><li class="first odd"><a href="/user/register" title="Создать новую учетную запись.">Регистрация</a></li>
+<li class="last even"><a href="/user/password" title="Запросить новый пароль на e-mail.">Забыли пароль?</a></li>
+</ul></div><input type="hidden" name="form_build_id" value="form-7_b5msRq6UQACwalTv3UBCBG6eXzIDiTp7MHCI-VFh8" />
+<input type="hidden" name="form_id" value="user_login_block" />
+<div class="form-actions form-wrapper" id="edit-actions--3"><span class="button"><span class = "button-left"></span><span class = "button-center"></span><span class = "button-right"></span><input type="submit" id="edit-submit--3" name="op" value="Войти" class="form-submit" /></span></div></div></form>	</div>
+	
+</div>
+<div id="block-block-14" class="block block-block">
+
+  <div class = "icon"></div>
+
+				<h3 class="title">Друзья</h3>
+		
+	<div class="content">
+		<ul><li><a href="http://couponmio.ru/shops" title="couponmio" target="_blank">couponmio</a></li>
+</ul>	</div>
+	
+</div>
+	</div>
+        </div>
+      
+    </div> <!-- /#container -->
+
+          <div id = "footer-menu">
+        <div id = "footer-menu-inner">
+            <ul class="links"><li class="menu-821 first"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/contact" title="">Контакты</a></li>
+<li class="menu-1812"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/blog" title="">Мой блог</a></li>
+<li class="menu-935"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/tracker" title="">Новое</a></li>
+<li class="menu-1502 last"><span class = "menu-left"></span><span class = "menu-center"></span><span class = "menu-right"></span><a href="/podderzhka-proekta" title="Поддержка проекта">Поддержать проект</a></li>
+</ul>        </div>
+      </div>
+      
+  <div id = "footer">
+    <div id = "footer-inner">
+
+              <div id = "footer-region-second">
+          <div id = "footer-region-second-inner">
+            	<div class="region region-footer-second">
+		<div id="block-statistics-popular" class="block block-statistics">
+
+				<h3 class="title">Популярные уроки</h3>
+		
+	<div class="content">
+		<div class="item-list"><h3>Просмотры за день:</h3><ul><li class="first odd"><a href="/v-anonsah-ne-vyvoditsya-izobrazhenie-umenshennogo-formata">В анонсах не выводится изображение уменьшенного формата.</a></li>
+<li class="even"><a href="/svoy-shablon-dlya-tipa-materiala-kak-vyvodit-nuzhnye-polya-v-nuzhnyh-mestah-shablona">Свой шаблон для типа материала. Как выводить нужные поля в нужных местах шаблона.</a></li>
+<li class="last odd"><a href="/lesson/nemnogo-o-vyvode-lyubykh-cck-polei-programmno-cherez-nodetplphp">Немного о выводе любых cck-полей программно через node.tpl.php</a></li>
+</ul></div><br /><div class="item-list"><h3>Просмотры за всё время:</h3><ul><li class="first odd"><a href="/lesson/nemnogo-o-vyvode-lyubykh-cck-polei-programmno-cherez-nodetplphp">Немного о выводе любых cck-полей программно через node.tpl.php</a></li>
+<li class="even"><a href="/lesson/temizatsiya-drupal-7-obzor-failov-temy-shablona">Темизация Drupal 7. Обзор файлов темы (шаблона)</a></li>
+<li class="last odd"><a href="/lesson/umnoe-raskryvayushcheesya-vertikalnoe-menyu-na-jquery-za-2-minuty">&quot;Умное&quot; раскрывающееся вертикальное меню на jquery за 2 минуты</a></li>
+</ul></div><br />	</div>
+	
+</div>
+	</div>
+          </div>
+        </div>
+      
+              <div id = "footer-region-first">
+          	<div class="region region-footer-first">
+		<div id="block-block-13" class="block block-block">
+
+				<h3 class="title">Последнее из моего Твиттера</h3>
+		
+	<div class="content">
+		<p><a class="twitter-timeline" href="https://twitter.com/Spleshka" data-widget-id="349432829320511490" data-chrome="nofooter transparent" data-tweet-limit="3" data-theme="dark">Твиты пользователя @Spleshka</a></p>
+<script>
+<!--//--><![CDATA[// ><!--
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+//--><!]]>
+</script>	</div>
+	
+</div>
+	</div>
+        </div>
+      
+              <div id = "footer-region-third">
+          	<div class="region region-footer-third">
+		<div id="block-views-tracker-block-block-1" class="block block-views">
+
+				<h3 class="title">Последние обновления</h3>
+		
+	<div class="content">
+		<div class="view view-tracker-block view-id-tracker_block view-display-id-block_1 view-dom-id-af924e6a5452d6b58811e9b568a506d2">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/lesson/otdayom-kesh-anonimov-bez-podnyatiya-bekenda-drupal-7-nginx-memcached">Отдаём кэш анонимов без поднятия бэкэнда. Drupal 7 + nginx + memcached.</a></span>  </div></li>
+          <li class="views-row views-row-2 views-row-even">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/pdoexception-sqlstate42000-1044">PDOException: SQLSTATE[42000] [1044]</a></span>  </div></li>
+          <li class="views-row views-row-3 views-row-odd">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/css">CSS</a></span>  </div></li>
+          <li class="views-row views-row-4 views-row-even">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/dopolnenie-tvoey-stati">Дополнение твоей статьи </a></span>  </div></li>
+          <li class="views-row views-row-5 views-row-odd">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/lesson/sozdanie-otdelnogo-shablona-stranitsy-dlya-raznykh-tipov-nody">Создание отдельного шаблона страницы для разных типов ноды</a></span>  </div></li>
+          <li class="views-row views-row-6 views-row-even views-row-last">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/slozhnaya-pohozhest-materialov-views">Сложная &quot;похожесть&quot; материалов. views</a></span>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+  
+  
+  
+</div>	</div>
+	
+</div>
+	</div>
+        </div>
+      
+      <div class = "clear"></div>
+
+      	<div class="region region-footer">
+		<div class="content-footer">
+  <p>Copyright © 2010-2013 Drupalace<br />
+При использовании материалов с сайта ссылка на источник <strong>обязательна</strong>.</p>
+</div>	</div>
+
+              <div id = "counter">
+          	<div class="region region-counter">
+		<!--LiveInternet counter--><script type="text/javascript"><!--
+document.write("<a href='http://www.liveinternet.ru/click' "+
+"target=_blank><img src='//counter.yadro.ru/hit?t17.1;r"+
+escape(document.referrer)+((typeof(screen)=="undefined")?"":
+";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+";"+Math.random()+
+"' alt='' title='LiveInternet: показано число просмотров за 24"+
+" часа, посетителей за 24 часа и за сегодня' "+
+"border='0' width='88' height='31'><\/a>")
+//--></script><!--/LiveInternet-->
+	</div>
+        </div>
+      
+    </div>
+  </div>
+
+</div>  	<div class="region region-page-bottom">
+		<div style="clear:both;"><!-- Yandex.Metrika counter --><script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter18282010 = new Ya.Metrika({id:18282010, webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/18282010" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter --></div><script>(function() {var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;po.src = 'https://apis.google.com/js/plusone.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);})();</script>	</div>
+<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</body>
+</html>

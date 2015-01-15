@@ -1,0 +1,113 @@
+(function($) {
+	$(function() {
+
+		var textarea = $('textarea[name="sp_ok_cmnt"]');
+		var showText = 'Предпросмотр';
+		var hideText = 'Скрыть предпросмотр';
+		var comment = '';
+
+		textarea.wrap('<div id="jcpWrap"></div>');
+		textarea.before('<div id="jcpToolbar"></div>');
+		$('#jcpToolbar').prepend('<div id="previewTab">'+ showText +'</div>');
+
+		$('#previewTab').toggle(
+			function() {
+				comment = textarea.val();
+				if (comment != '') comment = comment + '\n\n';
+				previewText = comment.replace(/(<\/?)script/g,'$1noscript')
+				.replace(/ (http:\/\/\S+)/gi, ' <a href="$1">$1</a>')
+				.replace(/\n(http:\/\/\S+)/gi, '\n<a href="$1">$1</a>')
+				.replace(/(<blockquote[^>]*>)/g, '\n$1')
+				.replace(/(<\/blockquote[^>]*>)/g, '$1\n')
+				.replace(/\r\n/g, '\n')
+				.replace(/\r/g, '\n')
+				.replace(/\n\n+/g, '\n\n')
+				.replace(/\n?(.+?)(?:\n\s*\n)/g, '<p>$1</p>')
+				.replace(/<p>\s*?<\/p>/g, '')
+				.replace(/<p>\s*(<\/?blockquote[^>]*>)\s*<\/p>/g, '$1')
+				.replace(/<p><blockquote([^>]*)>/ig, '<blockquote$1><p>')
+				.replace(/<\/blockquote><\/p>/ig, '</p></blockquote>')
+				.replace(/<p>\s*<blockquote([^>]*)>/ig, '<blockquote$1>')
+				.replace(/<\/blockquote>\s*<\/p>/ig, '</blockquote>')
+				.replace(/\s*\n\s*/g, '<br />');
+
+				var email = $('#email').val();
+				if(!email) email = '';
+				var md5 = MD5(email);
+				var avatar = '<img src="http://www.gravatar.com/avatar/' + md5 + '?s=32" alt="" class="avatar" />';
+				var author = $('#author').val();
+				var url = $('#url').val();
+				if(!$('#url').length) url = '';
+				if(!$('#author').length) author = '';
+				if(url != '') author = '<a href="'+ url +'">'+ author +'</a>';
+				var date = '19/05/2012 в 23:43';
+				var previewHTML = '<ol id="comment-preview"><li>'+ avatar +'<strong>'+ author +'</strong> пишет ('+ date +'):<br />'+ previewText +'</li></ol>';
+				var preview = $('<div id="jQueryCommentPreview"></div>');
+				preview.html(previewHTML);
+				textarea.after(preview).hide();
+				$(this).text(hideText);
+				$('#htmlEditor a').hide();
+			},
+			function() {
+				$('#jQueryCommentPreview').remove();
+				$('#htmlEditor a').show();
+				$(this).text(showText);
+				textarea.show().focus();
+			}
+		)
+
+
+		var htmlEditor = '<div id="htmlEditor"><a href="#" id="ed_strong" title="Жирный" tag="strong">strong</a><a href="#" id="ed_em" title="Курсив" tag="em">em</a><a href="#" id="ed_a" title="Ссылка" tag="a">a[href="" target="_blank"]</a><a href="#" id="ed_blockquote" title="Цитата" tag="blockquote">blockquote</a><a href="#" id="ed_code" title="Код" tag="code">code</a></div>';
+
+		$('#jcpToolbar').prepend(htmlEditor);
+
+		function insert(start, end) {
+			element = document.getElementById(textarea.attr('id'));
+			if (document.selection) {
+				element.focus();
+				sel = document.selection.createRange();
+				sel.text = start + sel.text + end;
+			} else if (element.selectionStart || element.selectionStart == '0') {
+				element.focus();
+				var startPos = element.selectionStart;
+				var endPos = element.selectionEnd;
+				element.value = element.value.substring(0, startPos) + start + element.value.substring(startPos, endPos) + end + element.value.substring(endPos, element.value.length);
+			} else {
+				element.value += start + end;
+			}
+		}
+
+		$('#htmlEditor a').each(function() {
+			var text = $(this).html().replace(/\[(.*)\]/, '<b> $1</b>');
+			$(this).html(text);
+		})
+
+		$('#htmlEditor a').click(function() {
+			var tag = $(this).attr('tag');
+			var attribs = $(this).find('b').text();
+			if (tag == 'a') {
+				var URL = prompt('Введите URL', 'http://');
+				if (URL) {
+					var blank = '';
+					if (URL.indexOf(window.location.hostname) == -1) blank = ' target="_blank"';
+					attribs = attribs.replace('href=""', 'href="' + URL + '"' + blank);
+					attribs = attribs.replace(' target="_blank"', '');
+					var start = '<' + tag + attribs + '>';
+					var end = '</' + tag + '>';
+				} else {
+					var start = end = '';
+				}
+			} else if (tag == 'img') {
+				var start = '';
+				var end = ' <' + tag + attribs + ' />';
+			} else {
+				var start = '<' + tag + attribs + '>';
+				var end = '</' + tag + '>';
+			}
+			insert(start, end);
+			return false;
+		})
+		$('#htmlEditor').append('<a href="http://dimox.name/jquery-comment-preview-wordpress-plugin/" target="_blank" title="О плагине">?</a>');
+
+	}) 
+})(jQuery)

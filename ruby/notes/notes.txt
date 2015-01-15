@@ -1,0 +1,651 @@
+установка:
+можно установить через:
+apt
+make
+rvm
+
+лучше устанавливать через rvm так как можно использовать определённую версию руби для определённого проекта.
+больше здесь :
+https://rvm.io/rvm/install
+
+
+
+=================================
+rvm:
+в процессе установки потребуется обновление репозиториев. нужно будет ввести пароль
+
+Проверка на успешность создания
+>ruby -v
+должна вернуть более подробную информацию, вроде
+ruby 1.9.2p320 (2012-04-20 revision 35421) [x86_64-linux].
+
+чтобы использовать rvm не забыть сделать:
+source /home/kalinin/.rvm/scripts/rvm
+
+
+=================================
+		ИЛИ ТАК:
+		Актуальная на данный момент(27-02-2012) версия Ruby 1.9.1, вызов и установка которой немного отличаются от версий 1.8.* Для установки Ruby в Ubuntu рекомендуется использовать команду вроде
+
+		 sudo apt-get install ruby1.9.1
+		или
+
+		 sudo apt-get install ruby1.9.1-full
+		Далее, Вы можете следовать самоучителю, запуская программы на Ruby при помощи команды ruby1.9.1, например:
+
+		 ruby1.9.1 TestProgram.rb 
+		Однако для того, чтобы запускать программы коммандой ruby, как указано в данном самоучителе, Вы можете создать символическую ссылку:
+
+		 sudo -i
+		 cd /usr/bin/
+		 ln -s ruby1.9.1 ruby
+		 exit
+		Помните, эта символическая ссылка создана Вами, и не управляется системой, потому если Вы собираетесь установить пакет, предоставляющий команду ruby, например ruby1.8, удалите символическую ссылку.
+
+		 sudo rm -fv /usr/bin/ruby
+
+=================================
+Первая программа[править]
+Откройте редактор и напишите программу. По традиции первая программа должна просто выводить приветствие миру:
+
+puts "Hello, World!"
+Сохраните её в файл helloworld.rb и запустите. На экране будет красоваться надпись:
+
+запуск:
+ruby helloworld.rb
+
+=================================
+	Чтобы посмотреть результат выполнения большинства примеров из учебника, не обязательно создавать файл. Достаточно использовать полигон для испытания программ на Ruby irb, который входит во все дистрибутивы и сам написан на Ruby. Запускается он командой
+
+	irb
+
+	Для выхода с полигона — набрать exit.
+
+	внимание! табуляцию не использовать. только пробелы
+
+=================================
+	комментарии:
+	puts 2 + 2        # это комментарий
+	puts "Привет!"    # тоже комментарий
+	Многострочные комментарии помещаются между словами =begin и =end
+
+	=begin
+	Это длинный комментарий
+	Очень длинный
+	=end
+	puts "Привет!"
+
+=================================
+установка ruby on rails:
+сначала желательно обновить версию ruby до 2.0:
+rvm install 2.0.0
+
+Этот этап установки потребует времени на загрузку, конфигурирование и ком-
+пиляцию необходимых исполняемых файлов. Как только он будет завершен, вос-
+пользуйтесь созданной средой и установите Rails:
+$ rvm use 2.0.0
+$ gem install rails --version 4.0.0 --no-ri --no-rdoc
+
+За исключением инструкции rvm use, каждая из показанных выше инструкций
+должна быть выполнена только один раз. Инструкцию rvm use нужно повторять
+при каждом открытии окна оболочки. Ключевое слово use является необязатель-
+ным, поэтому инструкцию можно сократить до вида rvm 2.0.0. Можно также для
+новых сеансов работы с терминалом сделать эту версию интерпретатора Ruby ис-
+пользуемой по умолчанию, воспользовавшись следующей командой:
+$ rvm --default 2.0.0
+Убедиться в успехе установки можно с помощью следующей команды:
+$ rails -v
+
+Сначала нужно с помощью команды gem найти все установленные версии
+Rails:
+$ gem list --local rails
+Также нужно с помощью команды rails --version проверить, какая вер-
+сия Rails запускается по умолчанию.
+Эта команда должна вернуть индекс вер-
+сии 4.0.0.
+Если результат будет иным, вставьте перед первым параметром любой команды
+rails номер версии Rails, окруженный символами подчеркивания. Например:
+$ rails _4.0.0_ --version
+
+
+
+=================================
+после открытия терминала нужно предварительно ввести:
+/bin/bash --login
+rvm use 2.0.0
+причём делат всё это находясь в каталоге проектов(!)
+
+=================================
+затем зайти в каталог проекта 
+source /home/kalinin/.rvm/scripts/rvm
+
+=================================
+создать новое приложение:
+rails new demo
+
+перейти в каталог приложения и:
+rails server
+или
+rails server webrick
+
+при этом если появляется сообщение о старте сервера и 'exiting', то проще закрыть терминал и открыть новый. 
+но теоретически нужно убить процесс запущенного сервера
+
+в браузере http://localhost:3000/
+
+
+=================================
+создадим контроллер:
+rails generate controller path index
+
+в результате в каталогах controller и views создадутся соответствующие контрроллеры и представления
+
+=================================
+указать страничку, которая будет отображаться по http://localhost:3000/
+нужно в файле config/routes.rb:
+ root 'path#index'
+
+при этом нужно помнить, что в каталоге public статические файлы с идентичным названием перебивают файлы представления
+
+=================================
+редактировать хтмл главного шаблона можно здесь:
+views/layouts/application.html.erb
+
+при этом head в общем виде выглядит так:
+	<head>
+		<meta charset="utf-8" />
+		
+		<title>Test</title>	
+		
+		<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+		<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+		<%= csrf_meta_tags %>			
+	</head>
+
+а динамический главный контент так:
+<%= yield %>	
+
+=================================
+добавить свои стили в виде обыного css можно здесь:
+assets/stylesheets/application.css
+
+а конкретно для страницы в файле типа: docs.css.scss
+
+при этом в каталог assets/stylesheets можно добавлять любые файлы стилей(в том числе вложенные в каталоги).
+если при этом в assets/stylesheets/application.css присутствует в виде комментария:
+ *= require_self
+ *= require_tree .
+ то все эти файлы подключатся в оптимизированном виде
+
+=================================
+добавить свои скрипты в виде обыного css можно здесь:
+assets/javascript/application.js 
+
+здесь так же как и в случае с файлами стилей подключаются все вложенные в каталог файлы.
+за это отвечает:
+//= require jquery
+//= require jquery_ujs
+//= require turbolinks
+//= require_tree .
+
+Директива require_tree говорит Sprockets рекурсивно включить все файлы JavaScript в указанной директории в результирующий файл. Эти пути должны быть определены только относительно файла манифеста. Также можно использовать директиву require_directory, включающая все файлы JavaScript только в определенной директории, без рекурсии.
+
+=================================
+картинки хранить в: 
+first/public/images
+first/public/uploads
+
+в шаблоне подключать:
+<img class="logo_pic" alt="Test" src="/images/logo.jpg" width="350" height="170" />
+<img src="/uploads/nivo_slider/img2.jpg" alt="" title="Супер переплавка металлов" />
+
+в файле стилей подключать:
+background: url('../uploads/offers/img1.jpg') left top no-repeat;
+
+=================================
+свяжем странички через пункты меню:
+<ul>
+	<li>
+		<!--<a class="active" href="#">Главная</a>-->
+		<%= link_to "Главная", path_index_path %>
+	</li>
+	
+	<li>
+		<%= link_to "Документы", path_docs_path %>
+	</li>
+
+	<li>
+		<%= link_to "Контакты", path_contacts_path %>
+	</li>
+
+	<li>
+		<%= link_to "Гостевая", path_guest_path %>
+	</li>							
+</ul>
+
+то есть контроллер_экшн_path
+
+=================================
+js:
+в рельсах при наличии:
+//= require jquery в application.js 
+сразу подключен jquery 1.8
+причём можно пользоваться как $ так и jQuery
+но не забывать заключать код в блок:
+$( document ).ready(function() {
+	console.log('-----------------------------------------------------------------')
+
+	$('.nav_main ul li').css({
+		'border': '2px solid red'
+	});
+
+	jQuery('.nav_main').prepend('<div class="zzz">zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz<hr></div>');	
+});	
+
+чтобы подключить свою версию нужно удалить строку:
+//= require jquery из application.js 
+а затем просто поместить каталог с jquery в 
+assets/javascript/
+
+
+=================================
+каталог со шрифтами fonts нужно тоже хранить в:
+first/public/
+
+=================================
+частичный шаблоны:
+например выделим код футера в отдельный шаблон:
+<footer class="footer">
+	<div class="footer_inner width1100 content_format">
+		<p>2003-2009 © ООО «ТЕСТ»</p>
+		<p>Тестовое задание для определения навыков</p>
+		<a href="mailto:info@test.ru">info@test.ru</a>
+	</div>
+</footer>	
+
+назовём его views/layout/_footer.html.erb
+
+и встроим в основной шаблон:
+<%= render 'layouts/footer' %>	
+
+внимание!
+подчёркивание в имени и отсутствие подчёркивания в вызове обязательно
+
+можно один и тот же частичный шаблон выводить на одной странице несколько раз
+
+=================================
+в БД:
+класс соответствует таблице,
+экземпляр класса - строке таблицы,
+свойство - столбцу
+
+экземпляр(ы) ищет метод класса:
+order = Order.find(1)
+puts "Клиент #{order.customer_id}, количество=$#{order.amount}"
+выборка для первого объекта(id=1)
+
+Иногда такие методы на уровне класса возвращают коллекцию объектов:
+Order.where(name: 'dave').each do |order|
+puts order.amount
+end
+выборка объектов, у которых name: 'dave'. с последующим выводом свойства amount через цикл
+
+объекты, соответствующие отдельным строкам таблицы, имеют методы, работающие со строкой:
+Order.where(name: 'dave').each do |order|
+	order.pay_type = "Заказ товара"
+	order.save
+end
+
+
+-------
+чтобы сделать выборку нужно создать класс, унаследованный от ActiveRecord:
+require 'active_record'
+class Order < ActiveRecord::Base
+end
+
+и затем сделать непосредственно выборку:
+order = Order.find(1)
+order.pay_type = "Заказ товара"
+order.save
+
+
+-------
+модель под названием Product, Rails связывает ее с таблицей по имени products
+
+-------
+создание таблицы:
+rails generate scaffold Product title:string description:text image_url:string price:decimal
+
+в результате создастся миграция:
+class CreateProducts < ActiveRecord::Migration
+  def change
+    create_table :products do |t|
+      t.string :title
+      t.text :description
+      t.string :image_url
+      t.decimal :price
+
+      t.timestamps
+    end
+  end
+end
+
+чтобы её запустить и тем самым создать таблицу нужно:
+rake db:migrate
+
+-------
+заполняем таблицу через sqlite-клиент
+
+-------
+чтобы вывести значения:
+из контроллера возвращаем массив значений:
+class PathController < ApplicationController
+  def docs
+    @products = Product.all
+  end      
+end
+
+в шаблоне выводим:
+<h1>Path#docs</h1>
+<p>Find me in app/views/path/docs.html.erb</p>
+
+<% @products.each do |product| %>
+    <div>title: </div>
+    <div><%= product.title %></div>
+    <div>desc: </div>
+    <div><%= product.description %></div>
+    <div>price: </div>
+    <div><%= product.price %></div>
+    <hr />
+<% end %>
+
+
+-------
+-------
+-------
+
+=================================
+миграции:
+создать так:
+rails generate migration AddItems
+
+class AddItems < ActiveRecord::Migration
+  def change
+  end
+end
+
+и добавить:
+  def change
+    create_table :products do |t|
+      t.string :title
+      t.text :description
+      t.string :image_url
+      t.decimal :price
+
+      t.timestamps
+    end
+  end
+
+затем: 
+rake db:migrate
+
+
+добавим колонку к этой таблице:
+rails generate migration AddCol
+
+class AddCol < ActiveRecord::Migration
+  def change
+    add_column :pros, :fieldname, :string
+  end
+end
+
+---
+
+
+создать с моделью представлениями и контроллерами:
+rails generate scaffold Product title:string description:text image_url:string price:decimal
+
+
+---
+создать модель с миграцией:
+rails generate model discount
+
+---
+пример отката миграции:
+
+20150109133619_add_items.rb:
+class AddItems < ActiveRecord::Migration
+  def change
+    create_table :pros do |t|
+      t.string :titlerr
+      t.text :description
+      t.string :image_url
+      t.decimal :price
+
+      t.timestamps
+    end
+  end
+end
+
+20150109134955_add_col.rb:
+class AddCol < ActiveRecord::Migration
+  def change
+    add_column :pros, :fieldname, :string
+  end
+end
+
+20150109162301_del_col.rb:
+class DelCol < ActiveRecord::Migration
+  def change
+    remove_column :pros, :fieldname
+  end
+end
+
+
+rake db:rollback
+или так:
+rake db:rollback VERSION=20150109134955
+
+
+
+
+---
+в Rails есть особенность 'seeds' которая должна быть использована для заполнения базы данных начальными данными. 
+просто заполните db/seeds.rb некоторым кодом Ruby и запустите rake db:seed:
+
+5.times do |i|
+  Product.create(name: "Product ##{i}", description: "A product.")
+end
+
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+
+=================================
+создать модель(со связанной таблицей) и вывести в шаблоне:
+создаём модель с миграцией:
+rails generate model product
+
+
+миграция выглядит так:
+class CreateProducts < ActiveRecord::Migration
+  def change
+    create_table :products do |t|
+
+      t.timestamps
+    end
+  end
+end
+
+
+добавим поля:
+class CreateProducts < ActiveRecord::Migration
+  def change
+    create_table :products do |t|
+      t.string :titler
+      t.text :description
+      t.string :image_url
+      t.decimal :pricer
+
+      t.timestamps
+    end
+  end
+end
+
+
+затем заполним таблицу через sql-клиент
+
+в контроллере присваиваем значение всех записей таблицы
+class PathController < ApplicationController
+  def docs
+    @products = Product.all
+  end       
+end
+
+здесь all это метод класса. им мы возвращаем все экземляры класса(строки таблицы)
+
+
+в шаблоне выводим значения таблицы и выводим пустую форму:
+<% @products.each do |product| %>
+    <div>title: </div>
+    <div><%= product.titler %></div>
+    <div>desc: </div>
+    <div><%= product.description %></div>
+    <div>price: </div>
+    <div><%= product.pricer %></div>
+    <hr />
+<% end %>
+
+<hr />
+
+<%= form_for :product do |f| %>
+  <p>
+    <%= f.label :titler %><br>
+    <%= f.text_field :titler %>
+  </p>
+ 
+  <p>
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </p>
+
+  <p>
+    <%= f.label :pricer %><br>
+    <%= f.text_area :pricer %>
+  </p>  
+ 
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
+
+
+здесь <%= form_for :product do |f| %> 
+form_for хелпер для построения форм,
+product - определяющий объект для формы(с каким объектом форма связана)
+
+
+
+=================================
+пример простейшей формы, связанной с моделью:
+создадим контроллер
+
+в роутах пропишем русерс. это значит, что будет сгенерирован набор путей и соответствующих хелперов типа _path:
+
+ревурс в файле роутов объявляется так:
+resources :topics
+
+смотреть роуты можно из консоли так:
+rake routes
+
+в контроллере создадим экшены:
+class TopicsController < ApplicationController
+  def new
+  end
+
+  def show
+  end
+
+  def create
+    params.permit!
+    @topic = Topic.new(params[:topic])
+   
+    @topic.save
+    redirect_to @topic
+  end  
+end
+
+так же создадим соответствующие им шаблоны
+
+так же создадим модель с соответствующей миграцией и запустим миграцию
+
+например в шаблоне new создадим форму:
+new
+
+<%= form_for :topic, url: topics_path do |f| %>
+  <p>
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </p>
+ 
+  <p>
+    <%= f.label :text %><br>
+    <%= f.text_area :text %>
+  </p>
+ 
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
+по умолчанию она отправляет данные params[:topic] методом пост в экшен create
+
+выводи статей:
+
+<% @topics.each do |item| %>
+  <div>
+    <div><%= item.title %></div>
+    <div><%= item.text %></div>
+  </div>
+  <br />
+  <br />
+<% end %>
+
+формирование ссылки на topics/new:
+<%= link_to 'New Item', new_topic_path %>
+
+формирование ссылки на topics/index или на topics:
+<%= link_to 'New Item', topics_path %>
+
+=================================
+=================================
+=================================
+=================================
+=================================
+=================================
+=================================
+=================================
+=================================
+=================================
+=================================
+=================================
+=================================
+=================================
+=================================
+=================================
+=================================
+=================================
+=================================
+=================================
+=================================
+=================================

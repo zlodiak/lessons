@@ -1,0 +1,47 @@
+<?php
+	/* регистраци€ блока в системе	*/
+	function list_users_block_info(){
+		$blocks['list_users'] = array(
+			'info' => t('list users'), //»м€, которое будет показано в списке блоков.
+			'cache' => DRUPAL_CACHE_PER_ROLE, //ѕо умолчанию
+		);
+		return $blocks;
+	}	
+	
+	/* пользовательска€ функци€. возвращает список пользователей	*/
+	function users_array(){
+		$query = db_select('users', 'u')
+		->fields('u', array('nid', 'name', 'mail'))
+		->condition('status', '1', '=')
+		->condition('name', 'admin', '!=')
+		->execute();
+		
+		$items = array();
+
+		foreach ($query as $node){
+			$items[] = array(
+				'data' => $node->nid . $node->name
+			);
+		}		
+
+		return $items; 
+	}	
+	
+	function list_users_menu() {
+		$items = array();
+
+		$items['users'] = array(
+			'title' => 'list users',
+			'description' => 'this is list of users',
+			'page callback' => '_output_users',
+			'access callback'=>'user_access',
+			'access arguments'=>array('access content'),
+			'type' => MENU_NORMAL_ITEM,
+			'menu_name' => 'main-menu',
+		);
+		return $items;
+	} 	
+	
+	function _output_users(){
+		return 'test ok';
+	}

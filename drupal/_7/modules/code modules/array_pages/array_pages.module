@@ -1,0 +1,48 @@
+<?php
+	function array_pages_menu(){
+		$items = array();
+
+		$items['array_pages'] = array(
+			'title' => 'array_pages',
+			'description' => 'array_pages list pages',
+			'page callback' => 'array_pages_list',
+			'access callback'=>	TRUE,
+		);
+		return $items;
+	} 	
+	
+	function theming_array_pages_theme() {
+		return array(
+			'theming_array_pages' => array(
+				'render element' => 'element',
+			)
+		);
+	}	
+	
+	function array_pages_theming_array_pages_list($variables){
+		$element = $variables['element'];
+		
+		$output = '';
+		
+		foreach (element_children($element) as $item){
+			if (!$item) {
+				$output .= '<h1>' . $element[$item] . '</h1>';
+			}
+			else {
+				$output .= '<div>' . $element[$item] . '</div>';
+			}
+		}
+		return $output;
+	}	
+	
+	function array_pages_list(){
+		$content[] = t('array pages list:');
+		
+		$content[] = l(t('page 1'), 'array_pages/page1');
+		
+		$content[] = l(t('page 2'), 'array_pages/page2');
+		
+		$content['#theme_wrappers'] = array('theming_array_pages');
+		
+		return $content;
+	}		

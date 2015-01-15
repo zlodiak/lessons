@@ -1,0 +1,3204 @@
+<!DOCTYPE html>
+<!-- saved from url=(0032)http://habrahabr.ru/post/133337/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script type="text/javascript" async="" src="./Введение в Tkinter   Хабрахабр_files/watch.js"></script>
+    
+    
+    <meta name="viewport" content="width = 1080">
+    
+    <title>Введение в Tkinter / Хабрахабр</title>
+    <meta name="description" content="
+
+Всем доброго времени суток!
+
+Tkinter – это кроссплатформенная библиотека для разработки графического интерфейса на языке Python (начиная с Python 3.0 переименована в tkinter). Tkinter...">    
+    <meta name="keywords" content="python, tkinter">
+    
+    	<meta property="fb:app_id" content="437464306275519"> 
+<meta property="og:type" content="article"> 
+<meta property="og:url" content="http://habrahabr.ru/post/133337/"> 
+<meta property="og:title" content="Введение в Tkinter"> 
+	<meta property="og:image" content="http://habrastorage.org/storage1/d27d8ea2/613f27d8/0cc3c3bf/f375a21a.png">
+	<link rel="image_src" href="./Введение в Tkinter   Хабрахабр_files/f375a21a.png"><meta property="og:image" content="http://habrastorage.org/storage1/7d33d1f8/b03c20a8/40a85744/0c73c61c.png">
+	<link rel="image_src" href="./Введение в Tkinter   Хабрахабр_files/0c73c61c.png"><meta property="og:image" content="http://habrastorage.org/storage1/c52ec1c0/b448866b/5bd42223/94921a18.png">
+	<link rel="image_src" href="./Введение в Tkinter   Хабрахабр_files/94921a18.png"><meta property="og:image" content="http://habrastorage.org/storage1/cc90ddaa/62713a1b/881567ed/7c4fce8a.png">
+	<link rel="image_src" href="./Введение в Tkinter   Хабрахабр_files/7c4fce8a.png"><meta property="og:image" content="http://habrastorage.org/storage1/c6d29a54/9b41410d/e9efc346/af0531cf.png">
+	<link rel="image_src" href="./Введение в Tkinter   Хабрахабр_files/af0531cf.png">
+	
+<meta property="og:description" content="Всем доброго времени суток!  Tkinter – это кроссплатформенная библиотека для разработки графического интерфейса на языке Python (начиная с Python 3.0...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@habrahabr">
+
+    <script type="text/javascript">function adriver(a,b){};</script>
+      <link href="http://habrahabr.ru/styles/1389866213/all.css" rel="stylesheet" media="all">
+
+
+      <link href="http://habrahabr.ru/styles/1389866213/_parts/posts.css" rel="stylesheet" media="all">
+  <link href="http://habrahabr.ru/styles/1389866213/_parts/comments.css" rel="stylesheet" media="all">
+  <link href="http://habrahabr.ru/styles/1389866213/forms.css" rel="stylesheet" media="all">
+  <link href="http://habrahabr.ru/styles/1389866213/highlight.css" rel="stylesheet" media="all">
+  
+    <link href="http://habrahabr.ru/styles/1389866213/printer.css" rel="stylesheet" media="print">
+
+    
+    
+
+      <script type="text/javascript" src="./Введение в Tkinter   Хабрахабр_files/all.js"></script>
+    
+    
+    
+
+  
+  
+  
+  
+      <script type="text/javascript" src="./Введение в Tkinter   Хабрахабр_files/jquery.form.js"></script>
+  <script type="text/javascript" src="./Введение в Tkinter   Хабрахабр_files/jquery.cookie.js"></script>
+  <script type="text/javascript" src="./Введение в Tkinter   Хабрахабр_files/wysiwyg.js"></script>
+  <script type="text/javascript" src="./Введение в Tkinter   Хабрахабр_files/highlight.js"></script>
+  <script type="text/javascript" src="./Введение в Tkinter   Хабрахабр_files/jquery-ui-highlight.js"></script>
+  <script type="text/javascript" src="./Введение в Tkinter   Хабрахабр_files/posts.js"></script>
+  <script type="text/javascript" src="./Введение в Tkinter   Хабрахабр_files/comments.js"></script>
+  <script type="text/javascript" src="./Введение в Tkinter   Хабрахабр_files/all(1).js"></script>
+
+
+
+  	<script type="text/javascript">
+	  var crtg_nid="2580";
+	  var crtg_cookiename="cto_rtt";
+	  var crtg_varname="crtg_content";
+	  function crtg_getCookie(c_name){
+		  var i,x,y,ARRCookies=document.cookie.split(";");
+		  for(i=0;i<ARRCookies.length;i++){
+			  x=ARRCookies[i].substr(0,ARRCookies[i].indexOf("="));
+			  y=ARRCookies[i].substr(ARRCookies[i].indexOf("=")+1);
+			  x=x.replace(/^\s+|\s+$/g,"");
+			  if(x==c_name){return unescape(y);}
+		   }
+		return'';
+	   }
+	var crtg_content = crtg_getCookie(crtg_cookiename);var crtg_rnd=Math.floor(Math.random()*99999999999);
+		var crtg_url=location.protocol+'//rtax.criteo.com/delivery/rta/rta.js?netId='+escape(crtg_nid);crtg_url+='&cookieName='+escape(crtg_cookiename);crtg_url+='&rnd='+crtg_rnd;crtg_url+='&varName=' + escape(crtg_varname);
+		var crtg_script=document.createElement('script');crtg_script.type='text/javascript';crtg_script.src=crtg_url;crtg_script.async=true;
+		if(document.getElementsByTagName("head").length>0)document.getElementsByTagName("head")[0].appendChild(crtg_script);
+		else
+		if(document.getElementsByTagName("body").length>0)document.getElementsByTagName("body")[0].appendChild(crtg_script);
+	</script><script type="text/javascript" src="./Введение в Tkinter   Хабрахабр_files/rta.js" async=""></script>
+
+      <script type="text/javascript" src="./Введение в Tkinter   Хабрахабр_files/adriver.core.2.js"></script>
+
+    <link title="Хабрахабр / Комментарии к публикации «Введение в Tkinter»" type="application/rss+xml" rel="alternate" href="http://habrahabr.ru/rss/post/133337/">
+        
+      <script type="text/javascript">
+      var _gaq = window._gaq || [];
+      window.onerror = function(msg, url, line) {
+          //var preventErrorAlert = true;
+          //_gaq.push(['_trackEvent', 'JS Error', msg, navigator.userAgent + ' -> ' + url + " : " + line]);
+          //return preventErrorAlert;
+      };
+      
+      jQuery.error = function (message) {
+          _gaq.push(['_trackEvent', 'jQuery Error', message, navigator.userAgent]);
+      }
+      </script>
+       
+  <script async="true" src="./Введение в Tkinter   Хабрахабр_files/ga.js"></script></head>
+
+  <body>
+   <div class="wrapper">
+      
+      <div id="layout">
+        <div id="header">
+    <div class="userpanel silver">
+      <a href="https://auth.habrahabr.ru/login/" class="login">войти через TM ID</a>
+  </div>
+  <a class="logo " href="http://habrahabr.ru/" title="На главную страницу"></a>
+  <div class="search">
+    <form id="search_form" name="search" method="get" action="http://habrahabr.ru/search/">
+      <input type="submit" value="">
+      <input type="text" name="q" x-webkit-speech="" speech="" tabindex="1" autocomplete="off">
+    </form>
+  </div>
+
+	<div class="main_menu">
+		<a href="http://habrahabr.ru/posts/top/" class="active">посты</a><a href="http://toster.ru/">q&amp;a</a><a href="http://habrahabr.ru/events/coming/">события</a><a href="http://habrahabr.ru/hubs/">хабы</a><a href="http://habrahabr.ru/companies/">компании</a>
+		<div class="banner_special">
+
+		<script type="text/javascript">
+			(function(){
+				var custom = [];
+				/* custom params */
+					custom[1] = 'python';
+				/* end of custom params */
+				var std = {gender:100, age:101},i;for(i in std){try{custom[std[i]]=eval(i)}catch(e){} }
+				custom.getStd = function(){for(var i=0,j,s=[];i<this.length;i++){if(this[i])s.push((!j?(j=1,i+'='):'')+escape(this[i]));else j=0}return s.length?'&custom='+s.join(';'):''};
+				var RndNum4NoCash = Math.round(Math.random() * 1000000000), ar_Tail = escape(document.referrer || 'unknown');
+				document.write('<iframe src="http://ad.adriver.ru/cgi-bin/erle.cgi?' + 'sid=176776&target=top&w=135&h=35&bt=25&pz=0&rnd=' +
+				RndNum4NoCash + '&tail256=' + ar_Tail + custom.getStd() + '" frameborder=0 vspace=0 hspace=0 width=135 height=35 marginwidth=0'
+				+ ' marginheight=0 scrolling=no></iframe>');
+			})();
+ 		</script><iframe src="./Введение в Tkinter   Хабрахабр_files/erle.htm" frameborder="0" vspace="0" hspace="0" width="135" height="35" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+	
+
+</div>
+		
+	</div>
+
+</div>
+
+
+
+        
+        
+
+	
+  <div class="content_left">
+
+	
+
+
+
+
+
+
+
+
+	
+  <div class="post shortcuts_item" id="post_133337">
+  	<div class="published">27 ноября 2011 в 13:05</div>  
+    <h1 class="title">
+    
+      
+      
+
+      
+        <span class="post_title">Введение в Tkinter</span>
+			
+  		<a href="http://habrahabr.ru/sandbox/" class="flag flag_sandbox" title="Перейти в песочницу">из песочницы</a>
+			
+			
+
+  	</h1>
+  	
+  	<div class="hubs">
+		<a href="http://habrahabr.ru/hub/python/" class="hub " title="Вы не подписаны на этот хаб">Python</a><span class="profiled_hub" title="Профильный хаб">*</span>
+</div>
+
+  	
+    <div class="content html_format">
+			<img src="./Введение в Tkinter   Хабрахабр_files/f375a21a.png" alt="image"><br>
+<br>
+Всем доброго времени суток!<br>
+<br>
+<b>Tkinter</b> – это кроссплатформенная библиотека для разработки графического интерфейса на языке Python (<b>начиная с Python 3.0 переименована в tkinter</b>). Tkinter расшифровывается как Tk interface, и является интерфейсом к <a href="http://ru.wikipedia.org/wiki/Tcl">Tcl/Tk</a>.<br>
+Tkinter входит в стандартный дистрибутив Python.<br>
+<a name="habracut"></a><br>
+Весь код в этой статье написан для Python 2.x.<br>
+Чтобы убедиться, что Tkinter установлен и работает, воспользуемся стандартной функцией Tkinter<i> _test()</i>:<br>
+<br>
+<pre><code class="python"><span class="keyword">import</span> Tkinter
+Tkinter._test()</code></pre><br>
+После выполнения данного кода должно появиться следующее окно:<br>
+<br>
+<img src="./Введение в Tkinter   Хабрахабр_files/0c73c61c.png"><br>
+<br>
+Отлично, теперь можно приступать к написанию нескольких простых программ для демонстрации основных принципов Tkinter.<br>
+<br>
+<h4>Hello world</h4><br>
+Конечно, куда же без него. Первым делом нам нужно создать главное окно, написав<br>
+<br>
+<pre><code class="python"><span class="keyword">from</span> Tkinter <span class="keyword">import</span> *
+root = Tk()</code></pre><br>
+Да-да, всего одна строка, это вам не <a href="http://www.rsdn.ru/article/baseserv/api32.xml">WinAPI</a> (=. Теперь создадим кнопку, при нажатии на которую будет выводиться текст в консоль:<br>
+<br>
+<pre><code class="python"><span class="function"><span class="keyword">def</span> <span class="title">Hello</span><span class="params">(event)</span>:</span>
+    <span class="keyword">print</span> <span class="string">"Yet another hello world"</span>
+
+btn = Button(root,                  <span class="comment">#родительское окно</span>
+             text=<span class="string">"Click me"</span>,       <span class="comment">#надпись на кнопке</span>
+             width=<span class="number">30</span>,height=<span class="number">5</span>,     <span class="comment">#ширина и высота</span>
+             bg=<span class="string">"white"</span>,fg=<span class="string">"black"</span>) <span class="comment">#цвет фона и надписи</span>
+btn.bind(<span class="string">"&lt;Button-1&gt;"</span>, Hello)       <span class="comment">#при нажатии ЛКМ на кнопку вызывается функция Hello</span>
+btn.pack()                          <span class="comment">#расположить кнопку на главном окне</span>
+root.mainloop()</code></pre><br>
+Всё просто, не так ли? Создаём экземпляр класса Button, указываем родителя и при желании список параметров. Есть еще немало параметров, таких как шрифт, толщина рамки и т.д.<br>
+Затем привязываем к нажатию на кнопку событие (можно привязать несколько разных событий в зависимости, например, от того, какой кнопкой мыши был нажат наш btn.<br>
+mainloop() запускает цикл обработки событий; пока мы не вызовем эту функцию, наше окно не будет реагировать на внешние раздражители.<br>
+<br>
+<h5>Упаковщики</h5><br>
+Функция pack() — это так называемый упаковщик, или менеджер расположения. Он отвечает за то, как виджеты будут располагаться на главном окне. Для каждого виджета нужно вызвать метод упаковщика, иначе он не будет отображён. Всего упаковщиков три:<br>
+<br>
+<b>pack()</b>. Автоматически размещает виджеты в родительском окне. Имеет параметры <i>side, fill, expand</i>. Пример:<br>
+<br>
+<pre><code class="python"><span class="keyword">from</span> Tkinter <span class="keyword">import</span> *
+root = Tk()
+Button(root, text = <span class="string">'1'</span>).pack(side = <span class="string">'left'</span>)
+Button(root, text = <span class="string">'2'</span>).pack(side = <span class="string">'top'</span>)
+Button(root, text = <span class="string">'3'</span>).pack(side = <span class="string">'right'</span>)
+Button(root, text = <span class="string">'4'</span>).pack(side = <span class="string">'bottom'</span>)
+Button(root, text = <span class="string">'5'</span>).pack(fill = <span class="string">'both'</span>)
+root.mainloop()</code></pre><br>
+<img src="./Введение в Tkinter   Хабрахабр_files/94921a18.png"><br>
+<br>
+<b>grid()</b>. Размещает виджеты на сетке. Основные параметры: <i>row/column</i> – строка/столбец в сетке,<i> rowspan/columnspan </i>– сколько строк/столбцов занимает виджет. Пример:<br>
+ <br>
+<pre><code class="python"><span class="keyword">from</span> Tkinter <span class="keyword">import</span> *
+root = Tk()
+Button(root, text = <span class="string">'1'</span>).grid(row = <span class="number">1</span>, column = <span class="number">1</span>)
+Button(root, text = <span class="string">'2'</span>).grid(row = <span class="number">1</span>, column = <span class="number">2</span>)
+Button(root, text = <span class="string">'__3__'</span>).grid(row = <span class="number">2</span>, column = <span class="number">1</span>, columnspan = <span class="number">2</span>)
+root.mainloop()</code></pre><br>
+<img src="./Введение в Tkinter   Хабрахабр_files/7c4fce8a.png"><br>
+<br>
+<b>place()</b>. Позволяет размещать виджеты в указанных координатах с указанными размерами.<br>
+ Основные параметры: <i>x, y, width, height</i>. Пример:<br>
+<br>
+<pre><code class="python"><span class="keyword">from</span> Tkinter <span class="keyword">import</span> *
+root = Tk()
+Button(root, text = <span class="string">'1'</span>).place(x = <span class="number">10</span>, y = <span class="number">10</span>, width = <span class="number">30</span>)
+Button(root, text = <span class="string">'2'</span>).place(x = <span class="number">45</span>, y = <span class="number">20</span>, height = <span class="number">15</span>)
+Button(root, text = <span class="string">'__3__'</span>).place(x = <span class="number">20</span>, y = <span class="number">40</span>)
+root.mainloop()</code></pre><br>
+<img src="./Введение в Tkinter   Хабрахабр_files/af0531cf.png"><br>
+<br>
+Теперь для демонстрации других возможностей Tkinter, напишем простейший<br>
+<br>
+<h4>Текстовый редактор</h4><br>
+Без лишних слов приведу код:<br>
+<br>
+<pre><code class="python"><span class="keyword">from</span> Tkinter <span class="keyword">import</span> *
+<span class="keyword">import</span> tkFileDialog
+
+<span class="function"><span class="keyword">def</span> <span class="title">Quit</span><span class="params">(ev)</span>:</span>
+    <span class="keyword">global</span> root
+    root.destroy()
+    
+<span class="function"><span class="keyword">def</span> <span class="title">LoadFile</span><span class="params">(ev)</span>:</span> 
+    fn = tkFileDialog.Open(root, filetypes = [(<span class="string">'*.txt files'</span>, <span class="string">'.txt'</span>)]).show()
+    <span class="keyword">if</span> fn == <span class="string">''</span>:
+        <span class="keyword">return</span>
+    textbox.delete(<span class="string">'1.0'</span>, <span class="string">'end'</span>) 
+    textbox.insert(<span class="string">'1.0'</span>, open(fn, <span class="string">'rt'</span>).read())
+    
+<span class="function"><span class="keyword">def</span> <span class="title">SaveFile</span><span class="params">(ev)</span>:</span>
+    fn = tkFileDialog.SaveAs(root, filetypes = [(<span class="string">'*.txt files'</span>, <span class="string">'.txt'</span>)]).show()
+    <span class="keyword">if</span> fn == <span class="string">''</span>:
+        <span class="keyword">return</span>
+    <span class="keyword">if</span> <span class="keyword">not</span> fn.endswith(<span class="string">".txt"</span>):
+        fn+=<span class="string">".txt"</span>
+    open(fn, <span class="string">'wt'</span>).write(textbox.get(<span class="string">'1.0'</span>, <span class="string">'end'</span>))
+
+root = Tk()
+
+panelFrame = Frame(root, height = <span class="number">60</span>, bg = <span class="string">'gray'</span>)
+textFrame = Frame(root, height = <span class="number">340</span>, width = <span class="number">600</span>)
+
+panelFrame.pack(side = <span class="string">'top'</span>, fill = <span class="string">'x'</span>)
+textFrame.pack(side = <span class="string">'bottom'</span>, fill = <span class="string">'both'</span>, expand = <span class="number">1</span>)
+
+textbox = Text(textFrame, font=<span class="string">'Arial 14'</span>, wrap=<span class="string">'word'</span>)
+scrollbar = Scrollbar(textFrame)
+
+scrollbar[<span class="string">'command'</span>] = textbox.yview
+textbox[<span class="string">'yscrollcommand'</span>] = scrollbar.set
+
+textbox.pack(side = <span class="string">'left'</span>, fill = <span class="string">'both'</span>, expand = <span class="number">1</span>)
+scrollbar.pack(side = <span class="string">'right'</span>, fill = <span class="string">'y'</span>)
+
+loadBtn = Button(panelFrame, text = <span class="string">'Load'</span>)
+saveBtn = Button(panelFrame, text = <span class="string">'Save'</span>)
+quitBtn = Button(panelFrame, text = <span class="string">'Quit'</span>)
+
+loadBtn.bind(<span class="string">"&lt;Button-1&gt;"</span>, LoadFile)
+saveBtn.bind(<span class="string">"&lt;Button-1&gt;"</span>, SaveFile)
+quitBtn.bind(<span class="string">"&lt;Button-1&gt;"</span>, Quit)
+
+loadBtn.place(x = <span class="number">10</span>, y = <span class="number">10</span>, width = <span class="number">40</span>, height = <span class="number">40</span>)
+saveBtn.place(x = <span class="number">60</span>, y = <span class="number">10</span>, width = <span class="number">40</span>, height = <span class="number">40</span>)
+quitBtn.place(x = <span class="number">110</span>, y = <span class="number">10</span>, width = <span class="number">40</span>, height = <span class="number">40</span>)
+
+root.mainloop()</code></pre><br>
+Здесь есть несколько новых моментов.<br>
+<br>
+Во-первых, мы подключили модуль <b>tkFileDialog </b>для диалогов открытия/закрытия файла. Использовать их просто: нужно создать объект типа <i>Open </i>или <i>SaveAs</i>, при желании задав параметр <i>filetypes</i>, и вызвать его метод <i>show</i>(). Метод вернёт строку с именем файла или пустую строку, если пользователь просто закрыл диалог.<br>
+<br>
+Во-вторых, мы создали два фрейма. <b>Фрейм </b>предназначен для группировки других виджетов. Один содержит управляющие кнопки, а другой — поле для ввода текста и полосу прокрутки.<br>
+Это сделано, чтобы textbox не налезал на кнопки и всегда был максимального размера.<br>
+<br>
+В-третьих, появился виджет <b>Text</b>. Мы его создали с параметром wrap='word', чтобы текст переносился по словам. Основные методы Text:<i> get, insert, delete</i>. Get и delete принимают начальный и конечный индексы. Индекс — это строка вида 'x.y', где x — номер символа в строке, а y — номер строки, причём символы нумеруются с 1, а строки — с 0. То есть на самое начала текста указывает индекс '1.0'. Для обозначения конца текста есть индекс 'end'. Также допустимы конструкции вида '1.end'.<br>
+<br>
+B в-четвёртых, мы создали полосу прокрутки (<b>Scrollbar</b>). После создания её нужно связать с нужным виджетом, в данном случае, с textbox. Связывание двустороннее:<br>
+<pre><code class="python">scrollbar[<span class="string">'command'</span>] = textbox.yview
+textbox[<span class="string">'yscrollcommand'</span>] = scrollbar.set</code></pre><br>
+Вот и всё. Tkinter – это, безусловно, мощная и удобная библиотека. Мы осветили не все её возможности, остальные — тема дальнейших статей.<br>
+<br>
+Полезные ссылки:<br>
+<a href="http://ru.wikiversity.org/wiki/%D0%9A%D1%83%D1%80%D1%81_%D0%BF%D0%BE_%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA%D0%B5_Tkinter_%D1%8F%D0%B7%D1%8B%D0%BA%D0%B0_Python">http://ru.wikiversity.org</a> <br>
+<a href="http://www.pythonware.com/library/tkinter/introduction/">http://www.pythonware.com/ </a>
+			<div class="clear"></div>
+    </div>
+
+    
+<ul class="tags">
+	<li><a href="http://habrahabr.ru/search/?q=%5Bpython%5D&target_type=posts" rel="tag">python</a></li><li>, <a href="http://habrahabr.ru/search/?q=%5Btkinter%5D&target_type=posts" rel="tag">tkinter</a></li>
+</ul>
+
+		<div class="infopanel_wrapper">
+	<div class="infopanel " id="infopanel_post_133337">
+	
+				<div class="voting   ">
+	
+						<span class="plus" title="Голосовать могут только зарегистрированные пользователи."></span>
+	
+					<div class="mark positive ">
+							<span class="score" title="Всего 70: ↑66 и ↓4">+62</span>
+					</div>
+					
+						<span class="minus" title="Голосовать могут только зарегистрированные пользователи."></span>
+		
+				</div>
+	
+		<div class="pageviews" title="Просмотры поста">20369</div>
+			
+		<div class="favorite">
+				<a class="guest" href="http://habrahabr.ru/post/133337/#" onclick="return false;" title="Только зарегистрированные пользователи могут добавлять посты в избранное"></a>
+		</div>
+		<div class="favs_count" title="Количество пользователей, добавивших пост в избранное">195</div>
+		
+		
+		
+	
+	
+	
+	
+				<div class="author">
+					<a title="Автор текста" href="http://habrahabr.ru/users/t3ns0r/">t3ns0r</a>
+					<span class="rating" title="рейтинг пользователя">7,5</span>
+				</div>
+		
+	
+	
+		
+			<div class="share">
+				<div class="twitter">
+					<a href="http://twitter.com/intent/tweet?text=%D0%92%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5+%D0%B2+Tkinter+http://habr.ru/p/133337/+via+%40habrahabr+%23habr" title="Опубликовать ссылку в Twitter" target="_blank"></a>
+				</div>
+				<div class="vkontakte">
+					<a href="http://vk.com/share.php?url=http://habrahabr.ru/post/133337/" title="Опубликовать ссылку во ВКонтакте" onclick="window.open(this.href, &#39;Опубликовать ссылку во Вконтакте&#39;, &#39;width=800,height=300&#39;); return false"></a>
+				</div>
+				<div class="facebook">
+					<a href="https://www.facebook.com/sharer/sharer.php?u=http://habrahabr.ru/post/133337/" title="Опубликовать ссылку в Facebook" onclick="window.open(this.href, &#39;Опубликовать ссылку в Facebook&#39;, &#39;width=640,height=436,toolbar=0,status=0&#39;); return false"></a>
+				</div>
+				<div class="googleplus">
+					<a href="https://plus.google.com/share?url=http://habrahabr.ru/post/133337/" title="Опубликовать ссылку в Google Plus" onclick="window.open(this.href, &#39;Опубликовать ссылку в Google Plus&#39;, &#39;width=800,height=300&#39;); return false"></a>
+				</div>
+			</div>
+	
+	</div>
+	<div class="clear"></div>
+</div>
+
+
+
+
+    
+		
+	</div>
+
+
+
+	
+<style type="text/css">
+	.post_inner_banner.adidas_inner_banner {overflow:hidden;text-decoration:none;text-align:left;height:70px;border:1px solid #d4d4d4;border-radius:15px;background: url(/images/posts/inner_post_banner/adidas/img.png) no-repeat 0px 0px;}
+	.post_inner_banner.adidas_inner_banner a{display:block;}
+	.post_inner_banner.adidas_inner_banner .adidas-text{font-size: 15px;font-weight:bold;text-transform: uppercase;float:left;margin-top:16px;color: #000000;line-height: 19px;padding-right:30px;margin-right:20px;background: url(/images/posts/inner_post_banner/adidas/arrow.png) no-repeat right center;}
+	.post_inner_banner.adidas_inner_banner .adidas-text1{margin-left:200px;}	
+	.post_inner_banner.adidas_inner_banner .adidas-text2{}	
+	.post_inner_banner.adidas_inner_banner .adidas-btn{width:164px;height:40px;margin-top:15px;display:block;float:left;background: url(/images/posts/inner_post_banner/adidas/btn.png) no-repeat 0px 0px;}
+	
+	@media (max-width: 1300px) { 
+    .post_inner_banner.adidas_inner_banner .adidas-text{font-size:13px;}
+	}
+	@media (max-width: 1200px) { 
+    .post_inner_banner.adidas_inner_banner .adidas-text1{display: none;}
+    .post_inner_banner.adidas_inner_banner .adidas-text2{margin-left:200px;font-size:15px;padding-right: 50px;margin-right:30px;}
+	}
+	@media (max-width: 1100px) { 
+    .post_inner_banner.adidas_inner_banner .adidas-text1{color:green;}
+    .post_inner_banner.adidas_inner_banner .adidas-text2{margin-left:200px;font-size:13px;padding-right: 28px;margin-right:18px;}    
+	}
+</style>
+<div class="adidas_inner_banner post_inner_banner hidden" style="display: block;">
+  <a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&ad=444282&bt=21&bid=3119204&bn=3119204&rnd=2103099389" class="block_url">
+  <div class="adidas-text adidas-text1">Свежий взгляд<br>на бег</div>
+  <div class="adidas-text adidas-text2">протестируй кроссовки<br>нового поколения</div>
+  <div class="adidas-btn"></div>
+  </a>
+</div>
+
+
+<style type="text/css">
+	.post_inner_banner.alfaclick20_inner_banner {overflow:hidden;text-align:center;height:67px;border:1px solid #d4d4d4;border-radius:15px;background: url(/images/posts/inner_post_banner/alfaclick20/logo.png) no-repeat 20px 12px;}
+	.post_inner_banner.alfaclick20_inner_banner  a.alfalink {display:block;position:absolute;top:12px;left:18px;color:#eb312d;width:30px;height:42px;}
+	.post_inner_banner.alfaclick20_inner_banner  a.alfa {vertical-align:top;margin-top:16px;display:inline-block;color:#eb312d;font-size:16px;border:1px solid #ee2e22;border-radius:15px;padding:5px 10px;}
+	.post_inner_banner.alfaclick20_inner_banner  .ironman {display:inline-block;background: url(/images/posts/inner_post_banner/alfaclick20/ironman.png) no-repeat;width:180px;height:67px;}
+	.post_inner_banner.alfaclick20_inner_banner .alfaone {margin-right:50px;}
+	.post_inner_banner.alfaclick20_inner_banner .alfatwo {margin-right:30px;}
+	.post_inner_banner.alfaclick20_inner_banner .alfathree {margin-right:40px;}
+	@media (max-width: 1300px) { 
+		.post_inner_banner.alfaclick20_inner_banner .alfaone {margin-left:50px;}
+		.post_inner_banner.alfaclick20_inner_banner .alfathree {margin-right:20px;}
+		.post_inner_banner.alfaclick20_inner_banner .alfafour {}
+	}
+	@media (max-width: 1200px) { 
+		.post_inner_banner.alfaclick20_inner_banner .alfaone {margin-left:50px;margin-right:20px;}
+		.post_inner_banner.alfaclick20_inner_banner .alfatwo {margin-right:10px;}
+		.post_inner_banner.alfaclick20_inner_banner .alfathree {margin-right:20px;}
+	}
+	@media (max-width: 1100px) { 
+		.post_inner_banner.alfaclick20_inner_banner .alfaone {margin-left:30px;}
+		.post_inner_banner.alfaclick20_inner_banner .alfatwo {margin-right:10px;}
+		.post_inner_banner.alfaclick20_inner_banner .alfathree {margin-right:10px;}
+	}
+</style>
+<div class="alfaclick20_inner_banner post_inner_banner hidden">
+	<a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&ad=398663&bt=21&bid=2536141&bn=2536141&rnd=793043413" class="alfalink"></a>
+	<a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&ad=398663&bt=21&bid=2562310&bn=2562310&rnd=738964705" class="alfa alfaone">«Альфа-Клик 2.0»</a>
+	<a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&ad=398663&bt=21&pid=1170584&bid=2562317&bn=2562317&rnd=564129589" class="alfa alfatwo">Подключить</a>
+	<div class="ironman alfathree"></div>
+	<a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&ad=398663&bt=21&pid=1170585&bid=2562503&bn=2562503&rnd=1923962480" class="alfa alfafour">Трейлер</a>
+</div>
+<style type="text/css">
+	.post_inner_banner.badoo_inner_banner .badoo_left {float:left;background: url(/images/posts/inner_post_banner/badoo/badoo_post_left.png) no-repeat;width:152px;height:71px;}
+	.post_inner_banner.badoo_inner_banner .badoo_center {width:99.9%;text-align:center;line-height:69px;font-family:'PT Sans', sans-serif;font-size:18px;color:#000;border-right:1px solid #d9d9d9;border-top:1px solid #d9d9d9;border-bottom:1px solid #d9d9d9;border-radius:13px;height:69px;}
+	.post_inner_banner.badoo_inner_banner #badoo_logo {display:inline-block;position:relative;top:5px;width:76px;height:22px;margin:3px 10px 0 10px;background: url(/images/posts/inner_post_banner/badoo/badoo_post_logo.png) no-repeat;}
+</style>
+<div class="badoo_inner_banner post_inner_banner hidden">
+	<a class="block_url" href="">
+		<div class="badoo_left"></div>
+		<div class="badoo_center">
+			Developers, stick with Russians – work in <span id="badoo_logo"></span> London
+		</div>
+	</a>
+</div>
+<style type="text/css">
+	.post_inner_banner.acerw511_inner_banner {overflow:hidden;text-align:left;height:67px;border:1px solid #d4d4d4;border-radius:15px;background: url(/images/posts/inner_post_banner/microsoft/acerw511.png) no-repeat right top;}
+	.post_inner_banner.acerw511_inner_banner  a.acertab {display:block;position:absolute;top:20px;left:18px;color:#000;font-size:22px;font-family:Verdana,'PT Sans', sans-serif;font-weight:bolder;}
+	.post_inner_banner.acerw511_inner_banner  a.acerw511 {vertical-align:top;margin-top:16px;display:inline-block;color:#2dc1eb;font-size:16px;font-weight:bold;font-family:'PT Sans', sans-serif;border:1px solid #2dc1eb;border-radius:15px;padding:5px 20px;}
+	.post_inner_banner.acerw511_inner_banner  .ironman {display:inline-block;background: url(/images/posts/inner_post_banner/acerw511/ironman.png) no-repeat;width:180px;height:67px;}
+	.post_inner_banner.acerw511_inner_banner .acontest {margin-left:330px;}
+	.post_inner_banner.acerw511_inner_banner .arules {margin-left:20px;}
+</style>
+<div class="acerw511_inner_banner post_inner_banner hidden">
+	<a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&ad=407691&bt=21&bid=2656283&bn=2656283&rnd=305218494" class="acertab">Acer Iconia TAB W511</a>
+	<a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&ad=407691&bt=21&bid=2656283&bn=2656283&rnd=305218494" class="acerw511 acontest">Конкурс</a>
+	<a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&ad=407691&bt=21&bid=2656284&bn=2656284&rnd=318496636" class="acerw511 arules">Правила</a>
+</div>
+<style type="text/css">
+	.post_inner_banner.alfamobile_inner_banner {overflow:hidden;text-align:center;height:67px;border:1px solid #d4d4d4;border-radius:15px;}
+	.post_inner_banner.alfamobile_inner_banner a {text-decoration:none;color:#000;}
+	.post_inner_banner.alfamobile_inner_banner .logo {background: url(/images/posts/inner_post_banner/alfamobile/logo.png) no-repeat 20px 12px;width:47px;height:54px;}
+	.post_inner_banner.alfamobile_inner_banner div {display:block;float:left;text-align:left;font-size:12px;}
+	.post_inner_banner.alfamobile_inner_banner .shape {background: url(/images/posts/inner_post_banner/alfamobile/shapes.png) no-repeat 0 0;padding-left:30px;margin-top:20px;}
+	.post_inner_banner.alfamobile_inner_banner .shape.sam_one {background-position:0 -2px;width:105px;margin-left:25px;}
+	.post_inner_banner.alfamobile_inner_banner .shape.sam_two {background-position:-157px -3px;width:100px;margin-left:15px;}
+	.post_inner_banner.alfamobile_inner_banner .shape.sam_three {background-position:-289px 0px;width:140px;margin-left:15px;}
+	.post_inner_banner.alfamobile_inner_banner .sam_buttons {width:258px;height:36px;margin-top:15px;margin-right:20px;float:right;}
+	.post_inner_banner.alfamobile_inner_banner .sam_buttons a {font-size:14px;font-weight:bold;padding:0 10px;line-height:38px;color:#fff;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;}
+	.post_inner_banner.alfamobile_inner_banner .sam_buttons a.ios {display:inline-block;height:36px;background: #f12f16;}
+	.post_inner_banner.alfamobile_inner_banner .sam_buttons a.ios:before{
+	 width:12px;
+	 height:20px;
+	 content: '';
+	 display: inline-block;
+	 background: url(/images/posts/inner_post_banner/alfamobile/icons.png) no-repeat left top;
+	 margin-right: 10px;
+	 vertical-align: text-bottom;
+  }
+	 
+	
+	.post_inner_banner.alfamobile_inner_banner .sam_buttons a.android {display:inline-block;height:36px;margin-left:5px;background: #abc430;}
+	.post_inner_banner.alfamobile_inner_banner .sam_buttons a.android:before{
+	 width:16px;
+	 height:21px;
+	 content: '';
+	 display: inline-block;
+	 background: url(/images/posts/inner_post_banner/alfamobile/icons.png) no-repeat right top;
+	 margin-right: 10px;
+	 vertical-align: text-bottom;
+  }
+
+	@media (max-width: 1300px) {
+		.post_inner_banner.alfamobile_inner_banner .shape {margin-left:5px !important;}
+		.post_inner_banner.alfamobile_inner_banner .shape.sam_one {margin-left:15px !important;}
+	}
+	@media (max-width: 1200px) {
+		.post_inner_banner.alfamobile_inner_banner .shape {margin-left:0px !important;}
+		.post_inner_banner.alfamobile_inner_banner .shape.sam_one {margin-left:5px !important;width:90px;}
+		.post_inner_banner.alfamobile_inner_banner .shape.sam_two {margin-left:5px !important;width:80px;}
+		.post_inner_banner.alfamobile_inner_banner .shape.sam_three {margin-left:5px !important;width:125px;}
+		.post_inner_banner.alfamobile_inner_banner .sam_buttons {margin-right:3px;}
+	}
+	@media (max-width: 1100px) {
+		.post_inner_banner.alfamobile_inner_banner .shape.sam_three {display:none;}
+		.post_inner_banner.alfamobile_inner_banner .shape.sam_one {margin-left:25px !important;}
+		.post_inner_banner.alfamobile_inner_banner .shape.sam_one {margin-left:15px !important;}
+		.post_inner_banner.alfamobile_inner_banner .sam_buttons {margin-right:20px;}
+	}
+</style>
+<div class="alfamobile_inner_banner post_inner_banner hidden">
+	<a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&ad=410118&bt=21&pid=1222177&bid=2689787&bn=2689787&rnd=614210270" target="_blank">
+		<div class="logo"></div>
+		<div class="shape sam_one">Переводы с<br>карты на карту</div>
+		<div class="shape sam_two">Переводы<br>через QR-Код</div>
+		<div class="shape sam_three">Новая функция<br><b>«Мой контроль»</b></div>
+	</a>
+	<div class="sam_buttons">
+		<a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&ad=410118&bt=21&pid=1222177&bid=2689798&bn=2689798&rnd=794660216" class="ios" target="_blank">на iOS</a>
+		<a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&ad=410118&bt=21&pid=1222177&bid=2689803&bn=2689803&rnd=1862219896" class="android" target="_blank">на Android</a>
+	</div>
+</div>
+<style type="text/css">
+	.post_inner_banner.nokia_lumia9251_inner_banner {overflow:hidden;text-align:center;height:67px;border:1px solid #d4d4d4;border-radius:15px;background: url(/images/posts/inner_post_banner/nokia/lumia925_2.png) no-repeat right;}
+	.post_inner_banner.nokia_lumia9251_inner_banner a {text-decoration:none;color:#000;}
+	.post_inner_banner.nokia_lumia9251_inner_banner .logo {background: url(/images/posts/inner_post_banner/nokia/lumia925_1.png) no-repeat 20px 12px;width:111px;height:57px;}
+	.post_inner_banner.nokia_lumia9251_inner_banner div {display:block;float:left;text-align:left;font-size:12px;}
+	.post_inner_banner.nokia_lumia9251_inner_banner .slogan {font-size:16px;margin-left:20px;line-height:69px;}
+
+	@media (max-width: 1300px) {
+
+	}
+	@media (max-width: 1200px) {
+		.post_inner_banner.nokia_lumia9251_inner_banner {background-position:right -30px top; }
+	}
+	@media (max-width: 1100px) {
+		.post_inner_banner.nokia_lumia9251_inner_banner {background-position:right -90px top; }
+	}
+</style>
+<div class="nokia_lumia9251_inner_banner post_inner_banner hidden">
+	<a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&ad=416392&bt=21&bid=2770333&bn=2770333&rnd=916072093" target="_blank" class="block_url">
+		<div class="logo"></div>
+		<div class="slogan">Возьми Lumia 925 на тест-драйв <b>сейчас</b>.</div>
+	</a>
+</div>
+<style type="text/css">
+	.post_inner_banner.nokia_lumia9252_inner_banner {overflow:hidden;text-align:center;height:69px;border:1px solid #d4d4d4;border-radius:15px;background: url(/images/posts/inner_post_banner/nokia/lumia925_r.png) no-repeat right;}
+	.post_inner_banner.nokia_lumia9252_inner_banner a {text-decoration:none;color:#000;}
+	.post_inner_banner.nokia_lumia9252_inner_banner .logo {background: url(/images/posts/inner_post_banner/nokia/lumia925_all.png) no-repeat -494px 4px;width:111px;height:61px;}
+	.post_inner_banner.nokia_lumia9252_inner_banner div {display:block;float:left;text-align:left;font-size:12px;}
+	.post_inner_banner.nokia_lumia9252_inner_banner .slogan {font-size:16px;margin-left:20px;margin-top:14px;}
+
+	.post_inner_banner.nokia_lumia9252_inner_banner .on3 {background: url(/images/posts/inner_post_banner/nokia/lumia925_all.png) no-repeat 0 4px;width:61px;height:65px;margin-left:60px;}
+	.post_inner_banner.nokia_lumia9252_inner_banner .tw0 {background: url(/images/posts/inner_post_banner/nokia/lumia925_all.png) no-repeat -158px 4px;width:61px;height:65px;margin-left:20px;}
+	.post_inner_banner.nokia_lumia9252_inner_banner .thr33 {background: url(/images/posts/inner_post_banner/nokia/lumia925_all.png) no-repeat -291px 4px;width:61px;height:65px;margin-left:20px;}
+
+
+	@media (max-width: 1300px) {
+		.post_inner_banner.nokia_lumia9252_inner_banner .on3 {margin-left:20px;}
+		.post_inner_banner.nokia_lumia9252_inner_banner .tw0 {margin-left:20px;}
+		.post_inner_banner.nokia_lumia9252_inner_banner .thr33 {margin-left:20px;}
+	}
+	@media (max-width: 1200px) {
+		.post_inner_banner.nokia_lumia9252_inner_banner .thr33 {display:none;}
+	}
+	@media (max-width: 1100px) {
+		.post_inner_banner.nokia_lumia9252_inner_banner .tw0 {display:none;}
+	}
+</style>
+<div class="nokia_lumia9252_inner_banner post_inner_banner hidden">
+	<a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&ad=416392&bt=21&bid=2770334&bn=2770334&rnd=1456847961" target="_blank" class="block_url">
+		<div class="logo"></div>
+		<div class="slogan"><b>Впечатляющие возможности</b><br>в стильном тонком корпусе из металла</div>
+		<div class="on3"></div>
+		<div class="tw0"></div>
+		<div class="thr33"></div>
+	</a>
+</div>
+<style type="text/css">
+	.post_inner_banner.intel_aic2013_inner_banner {overflow:hidden;text-align:center;height:69px;border:1px solid #d4d4d4;border-radius:15px;background: url(/images/posts/inner_post_banner/intel/aic2013_right.png) no-repeat right 5px top;}
+	.post_inner_banner.intel_aic2013_inner_banner a {text-decoration:none;color:#000;display:block;height:69px;}
+	.post_inner_banner.intel_aic2013_inner_banner .logo {background: url(/images/posts/inner_post_banner/intel/aic2013_left.png) no-repeat 0 0;width:111px;height:69px;}
+	.post_inner_banner.intel_aic2013_inner_banner div {display:block;float:left;text-align:left;font-size:12px;}
+	.post_inner_banner.intel_aic2013_inner_banner .slogan {font-size:17px;margin-left:5px;margin-top:12px;font-weight:bold;}
+	.post_inner_banner.intel_aic2013_inner_banner .br {float:none;}
+	@media (max-width: 1300px) {
+		.post_inner_banner.intel_aic2013_inner_banner {background: url(/images/posts/inner_post_banner/intel/aic2013_mini.png) no-repeat right 5px top;}
+		.post_inner_banner.intel_aic2013_inner_banner .br {display:none;}
+		.post_inner_banner.intel_aic2013_inner_banner .slogan {margin-top:25px;margin-left:50px;}
+	}
+	@media (max-width: 1200px) {
+		.post_inner_banner.intel_aic2013_inner_banner .slogan {margin-left:5px;}
+	}
+	@media (max-width: 1100px) {
+		.post_inner_banner.intel_aic2013_inner_banner .br {display:block;}
+		.post_inner_banner.intel_aic2013_inner_banner .slogan {margin-top:12px;}
+	}
+</style>
+<div class="intel_aic2013_inner_banner post_inner_banner hidden">
+	<a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&ad=416463&bt=21&bid=2770807&bn=2770807&rnd=430025836" target="_blank" class="block_url">
+		<div class="logo"></div>
+		<div class="slogan">Intel® App<div class="br"></div> Innovation Contest</div>
+	</a>
+</div>
+<style type="text/css">
+	.post_inner_banner.megafon4g_inner_banner {overflow:hidden;text-align:center;height:69px;border:1px solid #d4d4d4;border-radius:15px;background: url(/images/posts/inner_post_banner/megafon/4g_bg.png) no-repeat right;}
+	.post_inner_banner.megafon4g_inner_banner a {text-decoration:none;color:#000;}
+	.post_inner_banner.megafon4g_inner_banner .logo {background: url(/images/posts/inner_post_banner/megafon/4g_slogan.png) no-repeat 22px 24px;width:209px;height:46px;}
+	.post_inner_banner.megafon4g_inner_banner .line {background: url(/images/posts/inner_post_banner/megafon/4g_line.png) no-repeat;width:11px;height:69px;margin-left:15px;}
+	.post_inner_banner.megafon4g_inner_banner div {display:block;float:left;text-align:left;font-size:12px;}
+	.post_inner_banner.megafon4g_inner_banner .burum {background: url(/images/posts/inner_post_banner/megafon/4g_boomburum.png) no-repeat;padding-left:58px;font-size:15px;line-height:19px;margin-left:20px;margin-top:7px;height:69px;padding-top:7px;}
+	.post_inner_banner.megafon4g_inner_banner .evolution {font-size:15px;line-height:19px;margin-left:30px;margin-top:14px;}
+
+	@media (max-width: 1300px) {
+		.post_inner_banner.megafon4g_inner_banner .burum {margin-left:10px;}
+		.post_inner_banner.megafon4g_inner_banner .evolution {margin-left:15px;}
+	}
+	@media (max-width: 1200px) {
+		.post_inner_banner.megafon4g_inner_banner .evolution {display:none;}
+		.post_inner_banner.megafon4g_inner_banner .burum {margin-left:60px;}
+	}
+	@media (max-width: 1100px) {
+		.post_inner_banner.megafon4g_inner_banner .burum {margin-left:20px;}
+	}
+</style>
+<div class="megafon4g_inner_banner post_inner_banner hidden">
+	<a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&ad=420545&bt=21&bid=2852394&bn=2852394&rnd=2014738176" target="_blank" class="block_url">
+		<div class="logo"></div>
+		<div class="line"></div>
+		<div class="burum"><b>Boomburum</b><br>исследует LTE</div>
+		<div class="evolution">Эволюция средств связи<br>в путешествии по России</div>
+	</a>
+</div>
+<style type="text/css">
+	.post_inner_banner.domru_inner_banner {overflow:hidden;text-align:center;height:69px;border:1px solid #d4d4d4;border-radius:15px;background: url(/images/posts/inner_post_banner/domru/right.png) no-repeat right top;}
+	.post_inner_banner.domru_inner_banner a {text-decoration:none;color:#000;display:block;height:69px;}
+	.post_inner_banner.domru_inner_banner .logo {background: url(/images/posts/inner_post_banner/domru/logo.png) no-repeat;width:77px;height:39px;margin:15px 0 0 20px;}
+	.post_inner_banner.domru_inner_banner div {display:block;float:left;text-align:left;font-size:12px;}
+	.post_inner_banner.domru_inner_banner .stext {font-size:17px;margin-left:15px;line-height:69px;font-weight:bold;}
+	.post_inner_banner.domru_inner_banner .br {display:none;float:none;}
+	@media (max-width: 1300px) {
+		.post_inner_banner.domru_inner_banner .stext {font-size:15px;}
+		.post_inner_banner.domru_inner_banner .br {display:none;}
+	}
+	@media (max-width: 1200px) {
+		.post_inner_banner.domru_inner_banner .stext {line-height:20px;margin-top:15px;}
+		.post_inner_banner.domru_inner_banner .br {display:block;}
+	}
+	@media (max-width: 1100px) {
+		.post_inner_banner.domru_inner_banner .stext {font-size:12px;}
+	}
+</style>
+<div class="domru_inner_banner post_inner_banner hidden">
+	<a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&ad=426097&bt=21&bid=2909375&bn=2909375&rnd=1909651521" target="_blank" class="block_url">
+		<div class="logo"></div>
+		<div class="stext">Проблемы коммуникации<div class="br"></div> внутри бизнеса?</div>
+	</a>
+</div>
+<style type="text/css">
+	.post_inner_banner.mva_inner_banner { overflow:hidden;text-align:center;height:69px;border:1px solid #d4d4d4;border-radius:15px;background: url(/images/posts/inner_post_banner/mva/hat.png) no-repeat left;}
+	.post_inner_banner.mva_inner_banner a { text-decoration:none;color:#000;}
+	.post_inner_banner.mva_inner_banner .xbox { float:left;text-align:left;background: url(/images/posts/inner_post_banner/mva/xbox.png) no-repeat 0 2px;margin:14px 0 0 325px;padding-left:47px;font-family:'PT Sans', sans-serif;font-weight:bold;font-size:20px;line-height:21px;}
+	.post_inner_banner.mva_inner_banner .block_url { float:right;margin-right:33px;;background: url(/images/posts/inner_post_banner/mva/button.png) no-repeat;width:199px;height:48px;margin-top:10px;}
+
+
+
+	@media (max-width: 1300px) {
+		.post_inner_banner.mva_inner_banner .xbox { margin-left:314px;font-size:19px;}
+		.post_inner_banner.mva_inner_banner .block_url { margin-right:10px;}
+	}
+	@media (max-width: 1200px) {
+		.post_inner_banner.mva_inner_banner { background-position: -60px 0;}
+		.post_inner_banner.mva_inner_banner .xbox {margin-left: 255px;font-size: 15px;}
+	}
+	@media (max-width: 1100px) {
+		.post_inner_banner.mva_inner_banner .xbox {margin-left:30px;font-size: 18px;}
+		.post_inner_banner.mva_inner_banner { background: none;}
+		.post_inner_banner.mva_inner_banner .block_url { margin-right:30px;}
+	}
+</style>
+<div class="mva_inner_banner post_inner_banner hidden">
+	<div class="xbox">Смотри бесплатные курсы<br>и выиграй Xbox</div>
+	<a href="" class="block_url"></a>
+</div>
+<style type="text/css">
+    .post_inner_banner.mastercard-online-1_inner_banner { overflow:hidden;height:69px;border:1px solid #d4d4d4;border-radius:15px;background: url(/images/posts/inner_post_banner/mastercard/online/1.left.png) no-repeat left;text-align:left; }
+    .post_inner_banner.mastercard-online-1_inner_banner a { text-decoration:none;color:#000; }
+    .post_inner_banner.mastercard-online-1_inner_banner .havenot { float:left;font-family:Verdana, Arial, sans-serif;font-size:18px;line-height:20px;color:#fff; margin:11px 0 0 93px;}
+    .post_inner_banner.mastercard-online-1_inner_banner .text { float:left;padding-left:272px;padding-top:13px;font-family:Verdana, Arial, sans-serif;font-size:18px;line-height:20px;color:#000; }
+    .post_inner_banner.mastercard-online-1_inner_banner .download { float:left;display: block;color: #fff;background: #77d576 url(/images/special/mastercard/online/os.download.png) no-repeat 7px 7px;font-size:15px;line-height:16px;font-weight: 500;border-radius: 10px;padding: 14px 17px 10px 56px;height:20px;margin-top:12px;margin-left:15px; }
+    .post_inner_banner.mastercard-online-1_inner_banner .mastercard-icons {float:left;width:89px;height:27px;background: url(/images/posts/inner_post_banner/mastercard/online/1.oss.png) no-repeat;margin:20px 0 0 15px; }
+
+    @media (max-width: 1300px) {
+        .post_inner_banner.mastercard-online-1_inner_banner .mastercard-icons {display:none;}
+        .post_inner_banner.mastercard-online-1_inner_banner .download {margin-left:40px;}
+    }
+    @media (max-width: 1200px) {
+        .post_inner_banner.mastercard-online-1_inner_banner .text {display:none;}
+        .post_inner_banner.mastercard-online-1_inner_banner .download {margin-left:310px;}
+    }
+    @media (max-width: 1100px) {
+        .post_inner_banner.mastercard-online-1_inner_banner .download {margin-left:272px;}
+    }
+</style>
+<div class="mastercard-online-1_inner_banner post_inner_banner hidden">
+    <div class="havenot">Нет времени<br>на счета?</div>
+    <div class="text">MasterCard<br>Mobile</div>
+    <a class="download block_url" href="">Скачать</a>
+    <div class="mastercard-icons"></div>
+    <div class="clear"></div>
+</div>
+<style type="text/css">
+    .post_inner_banner.mastercard-online-2_inner_banner { overflow:hidden;height:69px;border:1px solid #d4d4d4;border-radius:15px;background: url(/images/posts/inner_post_banner/mastercard/online/2.left.png) no-repeat left;text-align:left; }
+    .post_inner_banner.mastercard-online-2_inner_banner a { text-decoration:none;color:#000; }
+    .post_inner_banner.mastercard-online-2_inner_banner .havenot { float:left;font-family:Verdana, Arial, sans-serif;font-size:18px;line-height:20px;color:#fff; margin:11px 0 0 83px;}
+    .post_inner_banner.mastercard-online-2_inner_banner .text { float:left;margin-left:130px;background:transparent url(/images/posts/inner_post_banner/mastercard/online/2.logo.png) no-repeat 0 14px;padding-left:72px;padding-top:13px;font-family:Verdana, Arial, sans-serif;font-size:18px;line-height:20px;color:#000; }
+    .post_inner_banner.mastercard-online-2_inner_banner .download { float:left;display: block;color: #fff;background: #77d576 url(/images/special/mastercard/online/os.download.png) no-repeat 7px 7px;font-size:15px;line-height:16px;font-weight: 500;border-radius: 10px;padding: 14px 17px 10px 56px;height:20px;margin-top:12px;margin-left:15px; }
+    .post_inner_banner.mastercard-online-2_inner_banner .mastercard-icons {float:left;width:281px;height:40px;background: url(/images/posts/inner_post_banner/mastercard/online/2.oss.png) no-repeat;margin:14px 5px 0 45px; }
+    .post_inner_banner.mastercard-online-2_inner_banner .mastercard-icons a {display:inline-block;height:40px;}
+    .post_inner_banner.mastercard-online-2_inner_banner .mastercard-icons .m-ios {width:73px;}
+    .post_inner_banner.mastercard-online-2_inner_banner .mastercard-icons .m-android {width:107px;margin-left:10px;}
+    .post_inner_banner.mastercard-online-2_inner_banner .mastercard-icons .m-wp {width:73px;margin-left:7px;}
+
+    @media (max-width: 1300px) {
+        .post_inner_banner.mastercard-online-2_inner_banner .text {margin-left:110px;}
+        .post_inner_banner.mastercard-online-2_inner_banner .mastercard-icons {margin-left:15px;}
+    }
+    @media (max-width: 1200px) {
+        .post_inner_banner.mastercard-online-2_inner_banner .text {display:none;}
+        .post_inner_banner.mastercard-online-2_inner_banner .mastercard-icons {margin-left:155px;}
+    }
+    @media (max-width: 1100px) {
+        .post_inner_banner.mastercard-online-2_inner_banner .mastercard-icons {margin-left:115px;}
+    }
+</style>
+<div class="mastercard-online-2_inner_banner post_inner_banner hidden">
+    <div class="havenot">Нет времени<br>на счета?</div>
+    <div class="text">MasterCard<br>Mobile</div>
+    <div class="mastercard-icons">
+        <a target="_blank" href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&ad=442623&bt=21&pid=1516290&bid=3086023&bn=3086023&rnd=1839146371" class="m-ios"></a>
+        <a target="_blank" href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&ad=442623&bt=21&pid=1516290&bid=3086024&bn=3086024&rnd=333075528" class="m-android"></a>
+        <a target="_blank" href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&ad=442623&bt=21&pid=1516290&bid=3086027&bn=3086027&rnd=155858629" class="m-wp"></a>
+    </div>
+    <div class="clear"></div>
+</div>
+<style type="text/css">
+    .post_inner_banner.wserver_inner_banner {overflow:hidden;text-decoration:none;text-align:left;height:69px;border:1px solid #d4d4d4;border-radius:15px;background: url(/images/posts/inner_post_banner/wserver/left.png) no-repeat -15px 0px;}
+    .post_inner_banner.wserver_inner_banner a {display:block;}
+    .post_inner_banner.wserver_inner_banner .wserver-text {font-family:'PT Sans', sans-serif;font-size:18px;float:left;color: #000000;line-height: 19px;}
+    .post_inner_banner.wserver_inner_banner .wserver-text1 {margin-left:155px;margin-top:16px;padding-right:20px;}
+    .post_inner_banner.wserver_inner_banner .wserver-text2 {background: url(/images/posts/inner_post_banner/wserver/man.png) no-repeat left center;padding-left:95px;height:53px;padding-top:16px;}
+    .post_inner_banner.wserver_inner_banner .wserver-btn{width:164px;height:40px;margin-top:15px;margin-left:15px;display:block;float:left;background: url(/images/posts/inner_post_banner/wserver/button.png) no-repeat 0px 0px;font-family:'PT Sans Caption', sans-serif;font-weight:bold;color:#fff;font-size:21px;line-height:40px;text-align:center;}
+
+    @media (max-width: 1300px) {
+        .post_inner_banner.wserver_inner_banner .wserver-text{font-size:15px;}
+    }
+
+    @media (max-width: 1200px) {
+        .post_inner_banner.wserver_inner_banner .wserver-text{font-size:13px;}
+        .post_inner_banner.wserver_inner_banner .wserver-btn {margin-left:10px;}
+        .post_inner_banner.wserver_inner_banner .wserver-text2 {padding-left:80px;}
+        .post_inner_banner.wserver_inner_banner .wserver-text1 {padding-right:0;}
+    }
+
+    @media (max-width: 1100px) {
+        .post_inner_banner.wserver_inner_banner .wserver-text1 {display:none;}
+        .post_inner_banner.wserver_inner_banner .wserver-text2{margin-left:155px;background-position:right center;padding-left:0;padding-right:85px;}
+    }
+</style>
+<div class="wserver_inner_banner post_inner_banner hidden">
+    <a href="http://habrahabr.ru/post/133337/#url" class="block_url">
+        <div class="wserver-text wserver-text1">Стань<br>первоиспытателем!</div>
+        <div class="wserver-text wserver-text2">Скачай Windows Server 2012 R2<br>и <b>выиграй почетную футболку!</b></div>
+        <div class="wserver-btn">Скачать</div>
+    </a>
+</div>
+
+
+<script type="text/javascript">
+function show_inner_banner_block(name, url) {
+	if( typeof(name) !== 'undefined') {
+		if( $('.'+name+'_inner_banner').size() > 0) {
+			$('.'+name+'_inner_banner').show();
+		}
+	}
+
+	if( typeof(url) !== 'undefined') {
+		$('.'+name+'_inner_banner .block_url').attr('href', url);
+	}
+}
+</script>
+
+<div id="adriver_banner_1586921565" title=""></div>
+<script type="text/javascript">
+	//if (true)
+	//	show_inner_banner_block('wserver');
+    //else
+		new adriver("adriver_banner_1586921565", {sid:179440, bt:52, bn:3});
+</script>
+
+
+	
+		<div class="comments_list " id="comments">
+
+  <h2 class="title ">комментарии (<span id="comments_count">42</span>)
+  
+  </h2>
+
+    <div class="comment_item" id="comment_4430541">
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4430541">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4430541" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 3: ↑3 и ↓0">+3</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Airog/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/stub-user-small.gif" alt=""></a>
+            <a href="http://habrahabr.ru/users/Airog/" class="username">Airog</a><span class="comma">,</span>
+            <time>27 ноября 2011 в 13:52</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430541" class="link_to_comment">#</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Такой вопрос, для такой либы есть какой-нить гуи, чтобы не ручками контролы расставлять?
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4430541">
+        <div class="comment_item" id="comment_4430548">
+
+    <span class="parent_id" data-parent_id="4430541"></span>
+    <div class="comment_body">
+        <div class="info  is_topic_starter  " rel="4430548">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4430548" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/t3ns0r/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/5ba50208c54cfe7e6a0559aba74f143e_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/t3ns0r/" class="username">t3ns0r</a><span class="comma">,</span>
+            <time>27 ноября 2011 в 13:58</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430548" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4430548" data-parent_id="4430541" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430541" data-id="4430548" data-parent_id="4430541" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            На сколько я знаю, нет.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4430548">
+        <div class="comment_item" id="comment_4430557">
+
+    <span class="parent_id" data-parent_id="4430548"></span>
+    <div class="comment_body">
+        <div class="info  is_topic_starter  " rel="4430557">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4430557" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 3: ↑2 и ↓1">+1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/t3ns0r/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/5ba50208c54cfe7e6a0559aba74f143e_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/t3ns0r/" class="username">t3ns0r</a><span class="comma">,</span>
+            <time>27 ноября 2011 в 14:01</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430557" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4430557" data-parent_id="4430548" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430548" data-id="4430557" data-parent_id="4430548" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            *Насколько
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4430557">
+    </div>
+</div>
+
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_4430582">
+
+    <span class="parent_id" data-parent_id="4430541"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4430582">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4430582" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 3: ↑3 и ↓0">+3</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/northicewind/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/stub-user-small.gif" alt=""></a>
+            <a href="http://habrahabr.ru/users/northicewind/" class="username">northicewind</a><span class="comma">,</span>
+            <time>27 ноября 2011 в 14:13</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430582" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4430582" data-parent_id="4430541" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430541" data-id="4430582" data-parent_id="4430541" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            посмотрите на <a href="http://www.bitflipper.ca/rapyd/">Rapyd-Tk</a>
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4430582">
+        <div class="comment_item" id="comment_4430908">
+
+    <span class="parent_id" data-parent_id="4430582"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4430908">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4430908" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/n3m0/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/b618d456cd0c97b502a4189df2bc7bda_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/n3m0/" class="username">n3m0</a><span class="comma">,</span>
+            <time>27 ноября 2011 в 18:18</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430908" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4430908" data-parent_id="4430582" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430582" data-id="4430908" data-parent_id="4430582" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Пользовался для своих нужд. Отлично работает.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4430908">
+    </div>
+</div>
+
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_4430630">
+
+    <span class="parent_id" data-parent_id="4430541"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4430630">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4430630" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 1: ↑1 и ↓0">+1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/denisig/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/stub-user-small.gif" alt=""></a>
+            <a href="http://habrahabr.ru/users/denisig/" class="username">denisig</a><span class="comma">,</span>
+            <time>27 ноября 2011 в 14:54</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430630" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4430630" data-parent_id="4430541" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430541" data-id="4430630" data-parent_id="4430541" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Qt + PySide/PyQt. У Qt есть неплохой Designer, в котором как раз можно нарисовать интерфейс из стандартных компонентов. Потом с помощью простых командных утилит файлы дизайнера компилируються в .py файлы который потом легко подключаются к проекту. <a href="http://diotavelli.net/PyQtWiki/Creating_GUI_Applications_with_PyQt_and_Qt_Designer">Презентация</a> о том как это делаться в PyQt. (В PySide все также, только по другому называется консольная команда.)
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4430630">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_4430561">
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4430561">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4430561" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/abyss/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/13e389101f9410ac540695ecd4fbcc9c_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/abyss/" class="username">abyss</a><span class="comma">,</span>
+            <time>27 ноября 2011 в 14:02</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430561" class="link_to_comment">#</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            А как сделать чтобы виджеты поддерживали текущую тему Windows?
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4430561">
+        <div class="comment_item" id="comment_4430597">
+
+    <span class="parent_id" data-parent_id="4430561"></span>
+    <div class="comment_body">
+        <div class="info  is_topic_starter  " rel="4430597">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4430597" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 2: ↑2 и ↓0">+2</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/t3ns0r/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/5ba50208c54cfe7e6a0559aba74f143e_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/t3ns0r/" class="username">t3ns0r</a><span class="comma">,</span>
+            <time>27 ноября 2011 в 14:20</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430597" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4430597" data-parent_id="4430561" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430561" data-id="4430597" data-parent_id="4430561" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Можно использовать стандартный модуль ttk, например, так:<br>
+<br>
+<pre><code class="python"><span class="keyword">from</span> Tkinter <span class="keyword">import</span> *
+<span class="keyword">import</span> ttk
+
+root = Tk()
+b = ttk.Button(root)
+b.pack()
+root.mainloop()
+</code></pre><br>
+<br>
+Тогда виджеты выглядят более естественно.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4430597">
+        <div class="comment_item" id="comment_4430619">
+
+    <span class="parent_id" data-parent_id="4430597"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4430619">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4430619" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/webknjaz/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/ccf59f63f1c22fedc93f1b6676978c88_small.png" alt=""></a>
+            <a href="http://habrahabr.ru/users/webknjaz/" class="username">webknjaz</a><span class="comma">,</span>
+            <time>27 ноября 2011 в 14:40</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430619" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4430619" data-parent_id="4430597" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430597" data-id="4430619" data-parent_id="4430597" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            а в Python 3?
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4430619">
+        <div class="comment_item" id="comment_4430702">
+
+    <span class="parent_id" data-parent_id="4430619"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4430702">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4430702" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/TreyLav/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/213b2c1dfd8bfd97723daa1ad3cf0c8e_small.png" alt=""></a>
+            <a href="http://habrahabr.ru/users/TreyLav/" class="username">TreyLav</a><span class="comma">,</span>
+            <time>27 ноября 2011 в 15:53</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430702" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4430702" data-parent_id="4430619" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430619" data-id="4430702" data-parent_id="4430619" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            <pre><code class="python"><span class="keyword">from</span> tkinter <span class="keyword">import</span> *
+<span class="keyword">from</span> tkinter.ttk <span class="keyword">import</span> *
+
+root = Tk()
+b = Button(root)
+b.pack()
+root.mainloop()
+</code></pre>
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4430702">
+        <div class="comment_item" id="comment_4430949">
+
+    <span class="parent_id" data-parent_id="4430702"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4430949">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4430949" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/webknjaz/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/ccf59f63f1c22fedc93f1b6676978c88_small.png" alt=""></a>
+            <a href="http://habrahabr.ru/users/webknjaz/" class="username">webknjaz</a><span class="comma">,</span>
+            <time>27 ноября 2011 в 18:51</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430949" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4430949" data-parent_id="4430702" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430702" data-id="4430949" data-parent_id="4430702" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            спасибо 
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4430949">
+    </div>
+</div>
+
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_4430733">
+
+    <span class="parent_id" data-parent_id="4430619"></span>
+    <div class="comment_body">
+        <div class="info  is_topic_starter  " rel="4430733">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4430733" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 1: ↑1 и ↓0">+1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/t3ns0r/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/5ba50208c54cfe7e6a0559aba74f143e_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/t3ns0r/" class="username">t3ns0r</a><span class="comma">,</span>
+            <time>27 ноября 2011 в 16:09</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430733" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4430733" data-parent_id="4430619" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430619" data-id="4430733" data-parent_id="4430619" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Вот так:<br>
+<br>
+<pre><code class="python"><span class="keyword">import</span> tkinter
+<span class="keyword">from</span> tkinter <span class="keyword">import</span> ttk
+root = tkinter.Tk()
+button = ttk.Button(root)
+button.pack()
+root.mainloop()</code></pre>
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4430733">
+        <div class="comment_item" id="comment_4430736">
+
+    <span class="parent_id" data-parent_id="4430733"></span>
+    <div class="comment_body">
+        <div class="info  is_topic_starter  " rel="4430736">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4430736" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/t3ns0r/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/5ba50208c54cfe7e6a0559aba74f143e_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/t3ns0r/" class="username">t3ns0r</a><span class="comma">,</span>
+            <time>27 ноября 2011 в 16:10</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430736" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4430736" data-parent_id="4430733" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430733" data-id="4430736" data-parent_id="4430733" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Не успел =)
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4430736">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_4430580">
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4430580">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4430580" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 5: ↑5 и ↓0">+5</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/maxp/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/f746a4619b01ded237d6867c34123cc5_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/maxp/" class="username">maxp</a><span class="comma">,</span>
+            <time>27 ноября 2011 в 14:12</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430580" class="link_to_comment">#</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Действительно, тикль очень древнее и чуть ли не единственное средство для того, чтобы быстренько заскриптовать какой-нибудь простенький и страшненький гуй.<br>
+<br>
+Но, положа руку на сердце, кто из здесь присутствующих видел/писал/использовал что-либо, написанное при помощи этого?<br>
+<br>
+За исключением тех, кто ставил SCO Unix и ранние Solaris x86 десятки лет назад :)
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4430580">
+        <div class="comment_item" id="comment_4430589">
+
+    <span class="parent_id" data-parent_id="4430580"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4430589">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4430589" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/northicewind/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/stub-user-small.gif" alt=""></a>
+            <a href="http://habrahabr.ru/users/northicewind/" class="username">northicewind</a><span class="comma">,</span>
+            <time>27 ноября 2011 в 14:16</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430589" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4430589" data-parent_id="4430580" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430580" data-id="4430589" data-parent_id="4430580" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Естественно wxPython или PySide более подходят для создания сложных и красивых интерфейсов, но у tk есть один большой плюс, он входит в стандартную библиотеку. А значит лучше всего подходит для несложных GUI при отсутствии сторонних зависимостей
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4430589">
+        <div class="comment_item" id="comment_4430655">
+
+    <span class="parent_id" data-parent_id="4430589"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4430655">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4430655" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/av0000/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/b8b37dcdf51cc78a04edaadcb28e624a_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/av0000/" class="username">av0000</a><span class="comma">,</span>
+            <time>27 ноября 2011 в 15:12</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430655" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4430655" data-parent_id="4430589" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430589" data-id="4430655" data-parent_id="4430589" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Осмелюсь возразить, вернее — уточнить: в стандартную поставку windows-установщика. А вот в линуксе, например, всё уже не так весело. Поддержка python-tk да и либы от Tcl/Tk по-умолчанию не ставятся…
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4430655">
+        <div class="comment_item" id="comment_4430925">
+
+    <span class="parent_id" data-parent_id="4430655"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4430925">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4430925" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Rome/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/stub-user-small.gif" alt=""></a>
+            <a href="http://habrahabr.ru/users/Rome/" class="username">Rome</a><span class="comma">,</span>
+            <time>27 ноября 2011 в 18:30</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430925" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4430925" data-parent_id="4430655" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430655" data-id="4430925" data-parent_id="4430655" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Зато на маке python поставляется вместе с осью и с необходимыми библиотеками, такие как тикли, easy_install и прочее. Я был удивлен, когда на линуксе мне пришлось доустанавливать тот же easy_install
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4430925">
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_4432625">
+
+    <span class="parent_id" data-parent_id="4430655"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4432625">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4432625" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/shalakhin/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/43949b6e48f588948387bb3fbab5894f_small.png" alt=""></a>
+            <a href="http://habrahabr.ru/users/shalakhin/" class="username">shalakhin</a><span class="comma">,</span>
+            <time>28 ноября 2011 в 13:28</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4432625" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4432625" data-parent_id="4430655" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430655" data-id="4432625" data-parent_id="4430655" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            У вас дистрибутив deb-семейства? Там вроде бы действительно по-умолчанию не ставятся.<br>
+<br>
+В Gentoo если указан USE-флаг tkinter (вроде так) – будет питон с поддержкой tkinter. Тоесть я хочу сказать, что это вопрос сборки, а в исходниках питон должен иметь поддержку tkinter для Windows, Linux и Mac.<br>
+<br>
+P.S. Статья интересная. Спасибо!
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4432625">
+        <div class="comment_item" id="comment_4432699">
+
+    <span class="parent_id" data-parent_id="4432625"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4432699">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4432699" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/av0000/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/b8b37dcdf51cc78a04edaadcb28e624a_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/av0000/" class="username">av0000</a><span class="comma">,</span>
+            <time>28 ноября 2011 в 13:58</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4432699" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4432699" data-parent_id="4432625" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4432625" data-id="4432699" data-parent_id="4432625" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Угу. Дебиан/Убунту/Минт.<br>
+<br>
+Никто из них по-умолчанию не ставит не только tkinter, но и libtcl и т.п. Зато, вроде бы, минт ставит Qt/PyQt ;)<br>
+<br>
+Вопрос: а в генте этот флаг где-нибудь по-умолчанию предполагается? Если нет, то выходит то же самое — ставьте сами :)
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4432699">
+        <div class="comment_item" id="comment_4435066">
+
+    <span class="parent_id" data-parent_id="4432699"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4435066">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4435066" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/shalakhin/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/43949b6e48f588948387bb3fbab5894f_small.png" alt=""></a>
+            <a href="http://habrahabr.ru/users/shalakhin/" class="username">shalakhin</a><span class="comma">,</span>
+            <time>29 ноября 2011 в 12:38</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4435066" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4435066" data-parent_id="4432699" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4432699" data-id="4435066" data-parent_id="4432699" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Насколько я знаю по-умолчанию он есть. Нашел – называется tk. Поскольку я его всегда явно указывал даже мне стало интересно включен ли он по-умолчанию :)
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4435066">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_4434323">
+
+    <span class="parent_id" data-parent_id="4430589"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4434323">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4434323" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/mrjj/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/70715c912cd3c9dfbce5522eb903cced_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/mrjj/" class="username">mrjj</a><span class="comma">,</span>
+            <time>29 ноября 2011 в 00:26</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4434323" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4434323" data-parent_id="4430589" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430589" data-id="4434323" data-parent_id="4430589" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            сторонние зависимости не здесь, так там возникнут, от них сложно деться.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4434323">
+    </div>
+</div>
+
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_4430605">
+
+    <span class="parent_id" data-parent_id="4430580"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4430605">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4430605" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 1: ↑1 и ↓0">+1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/ddsl/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/stub-user-small.gif" alt=""></a>
+            <a href="http://habrahabr.ru/users/ddsl/" class="username">ddsl</a><span class="comma">,</span>
+            <time>27 ноября 2011 в 14:26</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430605" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4430605" data-parent_id="4430580" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430580" data-id="4430605" data-parent_id="4430580" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Я писал для лабы гуи тк для машинки тьюринга.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4430605">
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_4430764">
+
+    <span class="parent_id" data-parent_id="4430580"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4430764">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4430764" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/va1n/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/d78f7969fae48060b23e3a32a04ff5c7_small.png" alt=""></a>
+            <a href="http://habrahabr.ru/users/va1n/" class="username">va1n</a><span class="comma">,</span>
+            <time>27 ноября 2011 в 16:21</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430764" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4430764" data-parent_id="4430580" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430580" data-id="4430764" data-parent_id="4430580" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Когда-то пользовался <a href="http://tkabber.jabber.ru/">Tkabber</a>
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4430764">
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_4430878">
+
+    <span class="parent_id" data-parent_id="4430580"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4430878">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4430878" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  negative">
+                    <span class="score" title="Всего 1: ↑0 и ↓1">–1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/kAIST/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/c00c17e66e50372e11512a079b3042a3_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/kAIST/" class="username">kAIST</a><span class="comma">,</span>
+            <time>27 ноября 2011 в 17:57</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430878" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4430878" data-parent_id="4430580" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430580" data-id="4430878" data-parent_id="4430580" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format bad bad1">
+            В сочетании с ttk, получается достаточно симпатичный GUI. Использовал в пару популярных относительно популярных проектах под win. 
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4430878">
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_4431015">
+
+    <span class="parent_id" data-parent_id="4430580"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4431015">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4431015" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/andrewsh/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/stub-user-small.gif" alt=""></a>
+            <a href="http://habrahabr.ru/users/andrewsh/" class="username">andrewsh</a><span class="comma">,</span>
+            <time>27 ноября 2011 в 19:41</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4431015" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4431015" data-parent_id="4430580" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430580" data-id="4431015" data-parent_id="4430580" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Я тиклем постоянно пользуюсь. И Tk тоже. То, что он по дефолту слегка несовременно выглядит, не делает его ничуть хуже.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4431015">
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_4431018">
+
+    <span class="parent_id" data-parent_id="4430580"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4431018">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4431018" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/andrewsh/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/stub-user-small.gif" alt=""></a>
+            <a href="http://habrahabr.ru/users/andrewsh/" class="username">andrewsh</a><span class="comma">,</span>
+            <time>27 ноября 2011 в 19:42</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4431018" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4431018" data-parent_id="4430580" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430580" data-id="4431018" data-parent_id="4430580" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Кстати, в этой статье тикля собственно-то и нет. Здесь есть только Tk.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4431018">
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_4431057">
+
+    <span class="parent_id" data-parent_id="4430580"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4431057">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4431057" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  negative">
+                    <span class="score" title="Всего 2: ↑0 и ↓2">–2</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Rome/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/stub-user-small.gif" alt=""></a>
+            <a href="http://habrahabr.ru/users/Rome/" class="username">Rome</a><span class="comma">,</span>
+            <time>27 ноября 2011 в 20:07</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4431057" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4431057" data-parent_id="4430580" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430580" data-id="4431057" data-parent_id="4430580" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format bad bad2">
+            К слову можно создать красивый интерфейс путем использования графических изображений. Нарисовать фон, графические объемные кнопки. Вот тут показано как использовать графическую кнопку <a href="http://www.daniweb.com/software-development/python/code/216852">www.daniweb.com/software-development/python/code/216852</a>
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4431057">
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_4431512">
+
+    <span class="parent_id" data-parent_id="4430580"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4431512">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4431512" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/seriyPS/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/88c899eb188b20aa138eecf54a999b38_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/seriyPS/" class="username">seriyPS</a><span class="comma">,</span>
+            <time>28 ноября 2011 в 00:08</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4431512" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4431512" data-parent_id="4430580" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430580" data-id="4431512" data-parent_id="4430580" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            gitk, git-gui
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4431512">
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_4431670">
+
+    <span class="parent_id" data-parent_id="4430580"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4431670">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4431670" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/naryl/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/stub-user-small.gif" alt=""></a>
+            <a href="http://habrahabr.ru/users/naryl/" class="username">naryl</a><span class="comma">,</span>
+            <time>28 ноября 2011 в 01:03</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4431670" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4431670" data-parent_id="4430580" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430580" data-id="4431670" data-parent_id="4430580" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Не только видел, использовал, писал, но и прямо сейчас пишу. Вообще, эта статья — отличный пример почему гуи (и не только) лучше всё-же писать на Tcl/Tk, а не на Python/Tk (известном как tkinter). (Извините, позволил себе немного избавить код от дублирования и использовать стили ttk, которые в tkinter тоже есть)<br>
+<br>
+<a href="http://pastebin.com/nz4LJQup">pastebin.com/nz4LJQup</a><br>
+<br>
+Но это всё игрушки. Весело было на Tcl (без Tk) многопоточный сервер писать. :3
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4431670">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_4430639">
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4430639">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4430639" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Zarikarus/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/e0171bdf8d0ee4edd910a80f82f9cde5_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/Zarikarus/" class="username">Zarikarus</a><span class="comma">,</span>
+            <time>27 ноября 2011 в 15:01</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430639" class="link_to_comment">#</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            вот<a href="http://effbot.org/tkinterbook/"> этот ресурс</a> мне весьма помог, когда делал гуи к лабе<br>
+
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4430639">
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_4430933">
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4430933">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4430933" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 1: ↑1 и ↓0">+1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Rome/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/stub-user-small.gif" alt=""></a>
+            <a href="http://habrahabr.ru/users/Rome/" class="username">Rome</a><span class="comma">,</span>
+            <time>27 ноября 2011 в 18:38</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430933" class="link_to_comment">#</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Большое спасибо автору, фактически это единственная статья в рунете, которая легким и доступным способом описывает tk. У меня как раз были проблемы с пониманием grid, так как в англоязычных ресурсах как-то более запутано написано. 
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4430933">
+        <div class="comment_item" id="comment_4431294">
+
+    <span class="parent_id" data-parent_id="4430933"></span>
+    <div class="comment_body">
+        <div class="info  is_topic_starter  " rel="4431294">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4431294" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/t3ns0r/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/5ba50208c54cfe7e6a0559aba74f143e_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/t3ns0r/" class="username">t3ns0r</a><span class="comma">,</span>
+            <time>27 ноября 2011 в 22:27</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4431294" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4431294" data-parent_id="4430933" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4430933" data-id="4431294" data-parent_id="4430933" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Пожалуйста, рад, что помог.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4431294">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_4431012">
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4431012">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4431012" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/andrewsh/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/stub-user-small.gif" alt=""></a>
+            <a href="http://habrahabr.ru/users/andrewsh/" class="username">andrewsh</a><span class="comma">,</span>
+            <time>27 ноября 2011 в 19:39</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4431012" class="link_to_comment">#</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            На сколько же избыточным выглядит код на Tkinter по сравнению с Tcl/Tk.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4431012">
+        <div class="comment_item" id="comment_4431824">
+
+    <span class="parent_id" data-parent_id="4431012"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4431824">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4431824" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/naryl/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/stub-user-small.gif" alt=""></a>
+            <a href="http://habrahabr.ru/users/naryl/" class="username">naryl</a><span class="comma">,</span>
+            <time>28 ноября 2011 в 02:22</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4431824" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4431824" data-parent_id="4431012" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4431012" data-id="4431824" data-parent_id="4431012" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Тут, пожалуй не в библиотеке, а в самом языке дело.<br>
+<br>
+Написал я как-то скриптик на двести строк на Tcl, знакомый фанатик переписал его функционально (не построчно) на Python. Потом спрашиваем у знакомого тоже фанатика, но уже ПЕРЛА, какой из вариантов (Tcl или Python) ему проще читать. Победил Tcl. :)
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4431824">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_4431023">
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="author_banned">НЛО прилетело и опубликовало эту надпись здесь</div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4431023">
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_4431203">
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4431203">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4431203" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/krovatti/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/e26d4fd13dd075656b70a3379bf7a926_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/krovatti/" class="username">krovatti</a><span class="comma">,</span>
+            <time>27 ноября 2011 в 21:51</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4431203" class="link_to_comment">#</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Где же вы были около недели назад? :)
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4431203">
+        <div class="comment_item" id="comment_4431291">
+
+    <span class="parent_id" data-parent_id="4431203"></span>
+    <div class="comment_body">
+        <div class="info  is_topic_starter  " rel="4431291">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4431291" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 2: ↑2 и ↓0">+2</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/t3ns0r/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/5ba50208c54cfe7e6a0559aba74f143e_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/t3ns0r/" class="username">t3ns0r</a><span class="comma">,</span>
+            <time>27 ноября 2011 в 22:26</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4431291" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4431291" data-parent_id="4431203" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4431203" data-id="4431291" data-parent_id="4431203" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Ждал, пока статья пройдёт модерацию (=
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4431291">
+        <div class="comment_item" id="comment_4432031">
+
+    <span class="parent_id" data-parent_id="4431291"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4432031">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4432031" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/krovatti/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/e26d4fd13dd075656b70a3379bf7a926_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/krovatti/" class="username">krovatti</a><span class="comma">,</span>
+            <time>28 ноября 2011 в 07:57</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4432031" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4432031" data-parent_id="4431291" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4431291" data-id="4432031" data-parent_id="4431291" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Долго как-то. У меня за полтора дня. Правда я её правлю еще. :)
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4432031">
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_4432035">
+
+    <span class="parent_id" data-parent_id="4431291"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4432035">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4432035" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/krovatti/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/e26d4fd13dd075656b70a3379bf7a926_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/krovatti/" class="username">krovatti</a><span class="comma">,</span>
+            <time>28 ноября 2011 в 07:59</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4432035" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4432035" data-parent_id="4431291" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4431291" data-id="4432035" data-parent_id="4431291" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            В любом случае спасибо за статью. Нашёл информацию в ней для себя очень полезной.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4432035">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_4436479">
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4436479">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4436479" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/ShadowPrince/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/b8ef1bf1b3fab7d0616b50986cc09db9_small.png" alt=""></a>
+            <a href="http://habrahabr.ru/users/ShadowPrince/" class="username">ShadowPrince</a><span class="comma">,</span>
+            <time>29 ноября 2011 в 21:11</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4436479" class="link_to_comment">#</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Да, за статью спасибо, мне, на первый взгляд, библиотека понравилась, на досуге поэксперементирую обязательно.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4436479">
+    </div>
+</div>
+
+    <div class="comment_item" id="comment_4840335">
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body">
+        <div class="info  " rel="4840335">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4840335" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Rome/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/stub-user-small.gif" alt=""></a>
+            <a href="http://habrahabr.ru/users/Rome/" class="username">Rome</a><span class="comma">,</span>
+            <time>21 мая 2012 в 20:05</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4840335" class="link_to_comment">#</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Я занес эту статью в избранное. Сейчас вернулся к ней. В примере про текстовой редактор есть баг. Если нажать на кнопку Quit, то программа не закрывается, а зависает. Я погуглил. Правильный пример закрытия:<br>
+<pre><code class="python undefined">def quit()
+    global root
+    root.destroy()
+</code></pre><br>
+Вот так работает без бага.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4840335">
+        <div class="comment_item" id="comment_4843246">
+
+    <span class="parent_id" data-parent_id="4840335"></span>
+    <div class="comment_body">
+        <div class="info  is_topic_starter  " rel="4843246">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_4843246" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: ↑0 и ↓0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/t3ns0r/" class="avatar"><img src="./Введение в Tkinter   Хабрахабр_files/5ba50208c54cfe7e6a0559aba74f143e_small.jpg" alt=""></a>
+            <a href="http://habrahabr.ru/users/t3ns0r/" class="username">t3ns0r</a><span class="comma">,</span>
+            <time>22 мая 2012 в 17:02</time>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4843246" class="link_to_comment">#</a>
+            <div class="show_tree" data-id="4843246" data-parent_id="4840335" title="Показать ветку комментариев">↵</div>
+
+            <a href="http://habrahabr.ru/post/133337/#comment_4840335" data-id="4843246" data-parent_id="4840335" class="to_parent">↑</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Спасибо, исправил.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_4843246">
+    </div>
+</div>
+
+    </div>
+</div>
+
+</div>
+
+					<p class="for_users_only_msg">Только зарегистрированные пользователи могут оставлять комментарии. <a href="https://auth.habrahabr.ru/login/">Войдите</a>, пожалуйста.</p>
+
+
+	
+<form action="http://habrahabr.ru/json/favorites/" method="post" id="edit_tags_form" class="hidden">
+  <input type="hidden" name="action" value="add">
+  <input type="hidden" name="ti" value="0">
+  <input type="hidden" name="tt" value="0">
+  <label>Пометьте топик понятными вам метками, если хотите</label>
+  <input type="text" name="tags_string" class="tags_string" autocomplete="off">
+  <div class="description">Метки лучше разделять запятой. Например: <i>общение, социальные сети, myspace.com, подростки, мердок</i></div>
+  <input type="submit" value="Сохранить" class="submit"> или <a href="http://habrahabr.ru/post/133337/#" class="close" onclick="return close_edit_tags()">закрыть</a>
+</form>
+    
+
+
+  </div>
+  <div class="sidebar_right">
+		
+	
+	
+		<div class="banner_300x500">
+		<div id="adriver_banner_1863387959" title=""><iframe id="_iframe_2366862" src="./Введение в Tkinter   Хабрахабр_files/index(1).htm" frameborder="0" vspace="0" hspace="0" width="240" height="400" marginwidth="0" marginheight="0" scrolling="no"></iframe></div>
+		<script type="text/javascript">
+			(function(){
+				var custom = {};
+					custom[1] = 'python';
+				
+				var std = {},i;for(i in
+				std){try{custom[std[i]]=eval(i)}catch(e){} }
+				new adriver("adriver_banner_1863387959", {sid: 176776, bt: 52, bn: 1, custom:
+				custom});
+			}());
+		</script>
+		</div>
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		
+<div class="block daily_best_posts">
+  <div class="title">Лучшее <sup>за 24 часа</sup></div>
+  <div class="posts_list">
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/209258/" class="post_name">Обзор бесплатных сервисов для веб-разработки</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/209244/" class="post_name">Единство формы и содержания</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/209218/" class="post_name">Лучшее время для изучения микроконтроллеров</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/company/yandex/blog/209324/" class="post_name">Облачная платформа Яндекса. Cocaine</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/209310/" class="post_name">Несколько бесплатных книг по программированию на русском языке</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/209306/" class="post_name">Парадокс предсказателя</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/209308/" class="post_name">Livetv.ru «вздрючен» в Хорошевском суде за ссылки на пиратский контент на 88 млн руб</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/209246/" class="post_name">Релиз Google Chrome 32</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/company/pvs-studio/blog/209286/" class="post_name">Анализ проекта Source SDK</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/company/2gis/blog/209274/" class="post_name">Роль [будущего] продакт-менеджера в развитии 2ГИС для Windows Phone</a>
+      </div>
+  </div>
+  <div class="all"><a href="http://habrahabr.ru/top/">все лучшие</a></div>
+</div>
+
+		
+		
+
+
+<div class="block similar_posts">
+
+	<div class="title">Похожие посты</div>
+  <div class="posts_list">
+    	<div class="post_item">
+    				<a class="post_name" href="http://habrahabr.ru/post/208618/">Python-digest #9. Новости, интересные проекты, статьи и интервью [27 декабря 2013 — 10 января 2014]</a>
+    				<span class="when">10.01.2014</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" href="http://habrahabr.ru/post/207988/">Python: вещи, которых вы могли не знать</a>
+    				<span class="when">01.01.2014</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" href="http://habrahabr.ru/post/207616/">Python-digest #8. Новости, интересные проекты, статьи и интервью [20 декабря 2013 — 27 декабря 2013]</a>
+    				<span class="when">27.12.2013</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" href="http://habrahabr.ru/post/206736/">Python-digest #7. Новости, интересные проекты, статьи и интервью [13 декабря 2013 — 20 декабря 2013]</a>
+    				<span class="when">20.12.2013</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" href="http://habrahabr.ru/post/205944/">Python на Хабре</a>
+    				<span class="when">18.12.2013</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" href="http://habrahabr.ru/post/206256/">Python Meetup: ноябрьская встреча</a>
+    				<span class="when">17.12.2013</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" href="http://habrahabr.ru/post/205946/">Python-digest #6. Новости, интересные проекты, статьи и интервью [6 декабря 2013 — 13 декабря 2013]</a>
+    				<span class="when">13.12.2013</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" href="http://habrahabr.ru/post/205018/">Python-digest #5. Новости, интересные проекты, статьи и интервью [29 ноября 2013 — 6 декабря 2013]</a>
+    				<span class="when">06.12.2013</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" href="http://habrahabr.ru/post/204116/">Python-digest #4. Новости, интересные проекты, статьи и интервью [23 ноября 2013 — 29 ноября 2013]</a>
+    				<span class="when">29.11.2013</span>
+      </div>
+    	<div class="post_item">
+    				<a class="post_name" href="http://habrahabr.ru/post/163395/">Рисование графиков. Python. Tkinter</a>
+    				<span class="when">20.12.2012</span>
+      </div>
+  </div>			
+</div>
+
+
+
+	    
+<div class="block similar_questions">
+	<div class="title">Вопросы по теме</div>
+
+	<div class="posts_list">
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/64610">Tkinter.  Как прервать загрузку файла в urllib при закрытии GUI</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/63768">Python Tkinter. Почему зависает графический интерфейс?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/14687">tkinter: как получить строку из любого виджета Text в котором вызван виджет Menu (стоит курсор, выделен текст)</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/64590">Google App Engine: облачная IDE для Python?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/64546">DBus.Notifications. Как закрыть или вывести несколько нотификаторов одновременно?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/64432">Что такое single code base?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/64354">Есть массив треугольников, заданных координатами вершин. Как определить номера треугольников, подобных первому?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/64178">Как заставить user-define exception вести себя как базовый класс Exception?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/64160">Почему не работает запись в файл при длительной работе скрипта?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/64060">Есть ли лаконичная книга по Python?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/64048">Raspberry Pi (с RTOS) + python = квадрокоптер?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/64030">Django: queryset фильтры на основе текущего url (текущей выбранной категории сайта)</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/63996">Каким образом можно распараллелить DBusGMainLoop?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/63982">Как правильно составить регулярное выражение?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/63952">Как организовать логирование и отлов ошибок в большом проекте на python?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/63876">Как побороть The server name sent was not recognized (pycurl)?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/63760">Работа с pickle. Как вывести все данные словаря из файла?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/63732">В чем проблема с использованием алгоритма Брезенхэма?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/63728">К каким open-source проектам на Python можно присоединиться в целях повышения собственного уровня?</a>
+		</div>
+    	<div class="post_item">
+    	    <a class="post_name" href="https://toster.ru/q/63706">Как добавить значения в словарь?</a>
+		</div>
+  </div>			
+		
+</div>
+
+		
+		
+
+	<div class="block live_broadcast">
+		<div class="title">Что обсуждают? </div>
+
+		<div class="live_broadcast_activity">
+				<div class="posts_list">
+							<div class="post_item">
+								
+								<a href="http://habrahabr.ru/post/209308/#comment_7210564" class="post_name">Livetv.ru «вздрючен» в Хорошевском суде за ссылки на пиратский контент на 88 млн руб</a>&nbsp;<span class="count">37</span>
+							</div>
+							<div class="post_item">
+								
+								<a href="http://habrahabr.ru/post/204368/#comment_7210562" class="post_name">Ламповый Linux-like терминал в Windows</a>&nbsp;<span class="count">48</span>
+							</div>
+							<div class="post_item">
+								
+								<a href="http://habrahabr.ru/post/209324/#comment_7210560" class="post_name">Облачная платформа Яндекса. Cocaine</a>&nbsp;<span class="count">41</span>
+							</div>
+							<div class="post_item">
+								
+								<a href="http://habrahabr.ru/post/209286/#comment_7210558" class="post_name">Анализ проекта Source SDK</a>&nbsp;<span class="count">31</span>
+							</div>
+							<div class="post_item">
+								
+								<a href="http://habrahabr.ru/post/209284/#comment_7210554" class="post_name">Как научить программировать гуманитария</a>&nbsp;<span class="count">3</span>
+							</div>
+							<div class="post_item">
+								
+								<a href="http://habrahabr.ru/post/209330/#comment_7210542" class="post_name">Microsoft продлила поддержку MSE Windows XP</a>&nbsp;<span class="count">8</span>
+							</div>
+							<div class="post_item">
+								
+								<a href="http://habrahabr.ru/post/209272/#comment_7210540" class="post_name">В Photoshop добавили поддержку 3D-печати и Perspective Warp</a>&nbsp;<span class="count">33</span>
+							</div>
+							<div class="post_item">
+								
+								<a href="http://habrahabr.ru/post/207954/#comment_7210538" class="post_name">Повышение яркости потолочного светильника (50Вт LED)</a>&nbsp;<span class="count">68</span>
+							</div>
+							<div class="post_item">
+								
+								<a href="http://habrahabr.ru/post/209336/#comment_7210534" class="post_name">Главное — доверие</a>&nbsp;<span class="count">59</span>
+							</div>
+							<div class="post_item">
+								
+								<a href="http://habrahabr.ru/post/209328/#comment_7210532" class="post_name">Как сделать социальные «лайки» полезными в работе программиста?</a>&nbsp;<span class="count">13</span>
+							</div>
+				</div>
+				<div class="all"><a href="http://habrahabr.ru/posts/">все посты</a></div>
+		</div>
+
+	</div>
+  
+		
+
+<div id="htmlblock_placeholder"><style type="text/css">
+    .sidebar_right .block.softline_parallel_htmlblock {background: #F0F0E7;text-align: left;position: relative;}
+    .sidebar_right .block.softline_parallel_htmlblock .logo {margin:0 auto 15px;width:259px;height:46px;background: url(/images/sidebar/htmlblock/softline/parallel/logo.png) no-repeat;}
+    .sidebar_right .block.softline_parallel_htmlblock .box {border-top:1px dashed #bcbcb5;padding:15px 0;font-family:Verdana, Arial;font-size:14px;line-height:22px;color:#000;}
+    .sidebar_right .block.softline_parallel_htmlblock ul {margin-bottom:15px;}
+    .sidebar_right .block.softline_parallel_htmlblock ul li {padding-top:15px;border-top:1px dashed #bcbcb5;background: url(/images/sidebar/htmlblock/softline/parallel/li.png) no-repeat 0 18px;padding-left:20px;margin-bottom:7px;font-family:Arial, Tahoma;font-size:12px;line-height:16px;}
+    .sidebar_right .block.softline_parallel_htmlblock ul li .li-title {color:#0072b1;font-size:14px;font-family:Arial, Tahoma, sans-serif;font-weight:bold;margin-bottom:2px;}
+    .sidebar_right .block.softline_parallel_htmlblock .bottom_buttons .more {font-size:14px;font-family:Verdana,Arial,sans-serif;background: url(/images/sidebar/htmlblock/softline/parallel/button.png) no-repeat left top;width:261px;height:36px;display: inline-block;color:#fff;text-decoration:none;line-height:34px;}
+    .sidebar_right .block.softline_parallel_htmlblock .bottom_buttons {border-top:1px dashed #bdbcb5;background: #e6e7dc;text-align: center;-webkit-border-bottom-right-radius: 5px;-webkit-border-bottom-left-radius: 5px;-moz-border-radius-bottomright: 5px;-moz-border-radius-bottomleft: 5px;border-bottom-right-radius: 5px;border-bottom-left-radius: 5px;margin:0px -20px -15px;padding:20px 20px;margin-top:20px;}
+</style>
+
+<div class="block softline_parallel_htmlblock">
+    <div class="logo"></div>
+    <div class="box">
+        Разрабатывай будущее с Intel Parallel и Cluster Studio XE
+    </div>
+    <ul>
+        <li>
+            <div class="li-title">Intel Parallel Studio XE 2013</div>
+            Ведущее средство для оптимизации производительности. Компиляторы, библиотеки и инструменты анализа
+        </li>
+        <li>
+            <div class="li-title">Cluster Studio XE 2013</div>
+            Набор для разработки гибридных MPI-приложений с возможностями горизонтального и вертикального масштабирования.
+        </li>
+    </ul>
+    <div class="bottom_buttons">
+        <a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&ad=375512&bt=21&bid=3082774&bn=3082774&rnd=284499620" class="more block_url" target="_blank">Скачать и попробовать</a>
+    </div>
+</div>
+
+
+</div>
+
+	<script type="text/javascript">
+	var htmlblock_hidden = true;
+	/*
+	var check_window_position = function(name, html, url){
+		console.log('check_window_position',name, html, url);
+		var screen_top = window.pageYOffset
+		var screen_bottom = window.pageYOffset + $(window).height()
+		var htmlblock_placeholder_top = $('#htmlblock_placeholder').offset().top // + ($(window).height() / 2 )
+		if( screen_top < htmlblock_placeholder_top && htmlblock_placeholder_top < screen_bottom ){
+			if ( htmlblock_hidden ){
+				
+				$('.'+name+'_htmlblock').removeClass('hidden');
+				if( typeof(url) !== 'undefined'){
+					$('.'+name+'_htmlblock .block_url').attr('href', url);
+				}
+				if (name == 'ie10_2' || name == 'ie10_3'){
+					var imgie = new Image(1,1);
+					imgie.src = 'http://view.atdmt.com/MRR/view/442774355/direct/01/';
+				}
+
+				htmlblock_hidden = false
+			}
+		}
+	}
+	*/
+	
+	function show_html_block(name, url){
+
+		if( typeof(name) !== 'undefined'){
+			$.get('/json/html/'+name+'/', function(html){
+				$('#htmlblock_placeholder').html(html);
+				$('.'+name+'_htmlblock').removeClass('hidden');
+				if( typeof(url) !== 'undefined'){
+
+					$('.'+name+'_htmlblock .block_url').attr('href', url);
+				}
+			})
+		}
+	}
+	</script>
+
+	<div id="adriver_banner_327292689" title=""></div>
+
+	<script src="./Введение в Tkinter   Хабрахабр_files/jquery.cookie.js"></script>
+	<script type="text/javascript">
+
+		//if (true)
+		//  show_html_block('softline_hp');
+		//else
+			new adriver("adriver_banner_327292689", { sid:179440, bt:52, sz:'html', bn:2 } );
+	</script>
+		
+<div class="block best_company">
+
+		<div class="title">Компания дня <img src="./Введение в Tkinter   Хабрахабр_files/bg_cicle_help.png" class="help-tip"></div>
+
+		<div class="company_info">
+			<div class="name">
+			 <img class="favicon" src="./Введение в Tkinter   Хабрахабр_files/0472148d31f0dda84607b504f1a5f47f_small.jpg" alt="King Servers" height="16" width="16">
+			 <div class="company_name"><a href="http://habrahabr.ru/company/kingservers/" class="title">King Servers</a></div>
+			</div>
+
+			<p>Последний пост:
+				<a href="http://habrahabr.ru/company/kingservers/blog/209170/">«Дата-центр для начинающих» или критерии оценки проекта эффективного дата-центра</a>
+			</p>
+
+			<div class="buttons">
+  			<div id="fans_count">38 подписчиков</div>
+			</div>
+		</div>
+
+	</div>
+
+
+		
+
+		
+	<div class="block new_vacanies">
+  <a href="http://hantim.ru/" class="title">Хантим</a>
+  <div class="vacancies">
+		<div class="job_item ">
+			<a href="http://hantim.ru/jobs/29012-web-razrabotchik-php-5-4-js-ajax-v-startap">WEB-разработчик (PHP 5.4 + JS\ajax) в стартап </a>
+		</div>
+		<div class="job_item ">
+			<a href="http://hantim.ru/jobs/29014-php-programmist">PHP-программист</a>
+		</div>
+		<div class="job_item marked">
+			<a href="http://hantim.ru/jobs/24762-veb-razrabotchik-php-mysql-js">Веб-разработчик (PHP, MySQL, JS)</a>&nbsp;→ <a href="http://mixplat.hantim.ru/jobs" class="company_name">Mixplat</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://hantim.ru/jobs/10765-razrabotchik-na-drupal">Разработчик на Drupal</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://hantim.ru/jobs/28616-senior-sap-hana-developer">Senior SAP HANA Developer </a>&nbsp;→ <a href="http://epam.hantim.ru/jobs" class="company_name">EPAM Systems</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://hantim.ru/jobs/29008-senior-php-developer">Senior PHP developer</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://hantim.ru/jobs/27950-veduschiy-inzhener-programmist">Ведущий инженер - программист</a>&nbsp;→ <a href="http://oao-ntc-zavod-leninetz.hantim.ru/jobs" class="company_name">ОАО "НТЦ "Завод Ленинец"</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://hantim.ru/jobs/28998-stazher-razrabotchik-javascript">Стажер-разработчик JavaScript</a>&nbsp;→ <a href="http://htdt.hantim.ru/jobs" class="company_name">Hot Dot</a>
+		</div>
+		<div class="job_item marked">
+			<a href="http://hantim.ru/jobs/23082-razrabotchik-php">Разработчик PHP</a>&nbsp;→ <a href="http://intercom.hantim.ru/jobs" class="company_name">ООО Интерком</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://hantim.ru/jobs/11232-glavnyy-razrabotchik-java-v-departament-sistem-avtomatizatsii-it">Главный Разработчик Java в Департамент систем автоматизации ИТ</a>&nbsp;→ <a href="http://naumen.hantim.ru/jobs" class="company_name">NAUMEN</a>
+		</div>
+  </div>
+  <div class="all"><a href="http://hantim.ru/">все вакансии</a></div>
+</div>
+
+		
+	<div class="block freelansim">
+	  <a href="http://freelansim.ru/" class="title"></a>
+	  <div class="tasks">
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/49766">Shop-Script 5, интеграция</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/49764">Сделать графики из данных </a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/49762">Настроить Ubuntu Server</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/49760">JS, jQuery, AJAX Программист</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/49758">Создание сайта каталога</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/49750">Категорировать сообщества ВКонтакте</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/49746">Модификация интернет-магазина на Opencart</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/49744">Android Разработчик</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/49742">Верстка</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/49740">Frontend специалист. Верстка. Юзабилити.</a>
+				</div>
+
+	  </div>
+	  <div class="all"><a href="http://freelansim.ru/tasks">все заказы</a></div>
+	</div>
+
+		
+		
+		
+
+<div class="block similar_events">
+	<div class="title">Ближайшие события</div>
+		<div class="events_items">
+				<div class="event_item">
+						<div class="date">
+						<div class="dayname dayname_5"></div>
+						<div class="day">17</div>
+						<div class="month">янв</div>
+						</div>
+					<div class="title">
+						<a href="http://habrahabr.ru/events/4170/">Пражская хабравстреча #5</a>
+					</div>
+				</div>
+				<div class="event_item">
+						<div class="date">
+						<div class="dayname dayname_6"></div>
+						<div class="day">18</div>
+						<div class="month">янв</div>
+						</div>
+					<div class="title">
+						<a href="http://habrahabr.ru/events/4124/">Happу New Front-End! О фронтенде по-новому!</a>
+					</div>
+				</div>
+				<div class="event_item">
+						<div class="date">
+						<div class="dayname dayname_6"></div>
+						<div class="day">18</div>
+						<div class="month">янв</div>
+						</div>
+					<div class="title">
+						<a href="http://habrahabr.ru/events/4144/">Кодспринт puphpet.com от drupal.ua</a>
+					</div>
+				</div>
+				<div class="event_item">
+						<div class="date">
+						<div class="dayname dayname_1"></div>
+						<div class="day">20</div>
+						<div class="month">янв</div>
+						</div>
+					<div class="title">
+						<a href="http://habrahabr.ru/events/4122/">Бесплатный курс по System Center 2012 R2</a>
+					</div>
+				</div>
+				<div class="event_item">
+						<div class="date">
+						<div class="dayname dayname_1"></div>
+						<div class="day">20</div>
+						<div class="month">янв</div>
+						</div>
+					<div class="title">
+						<a href="http://habrahabr.ru/events/4134/">Администрирование Windows Server 2012</a>
+					</div>
+				</div>
+		</div>
+	<div class="all"><a href="http://habrahabr.ru/events/">все события</a></div>
+</div>
+
+		
+  </div>
+  <div class="clear"></div>
+
+  
+        	
+	<div class="rotated_posts">
+			<div class="rotated_post ">
+				<a href="http://habrahabr.ru/company/ttt/blog/203334/" class="grey">Учимся писать в информационном стиле</a>
+			</div>
+			<div class="rotated_post ">
+				<a href="http://habrahabr.ru/company/mosigra/blog/199372/" class="grey">События, которые повлияли на ваше развитие в детстве</a>
+			</div>
+			<div class="rotated_post last">
+				<a href="http://habrahabr.ru/post/202078/" class="grey">В MIT разработали физически меняющий форму экран</a>
+			</div>
+		<div class="clear"></div>
+	</div>
+
+        <div class="clear"></div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+        // test gggg
+        // настройки всплывающих уведомлений
+        $.jGrowl.defaults.closerTemplate = '<div>Закрыть все уведомления</div>';         
+        
+        // настройки тултипов
+        $(".help-tip").tipTip({maxWidth: "300px", edgeOffset: 10});  
+        
+      });
+      // global vars
+      var g_base_url = 'habrahabr.ru';
+      var g_show_xpanel = false;
+      var g_base_fullurl = 'http://habrahabr.ru/';
+      var g_is_guest = false;
+    </script>
+    
+    <script type="text/javascript" src="./Введение в Tkinter   Хабрахабр_files/shortcuts.js"></script>
+    <script type="text/javascript" src="./Введение в Tkinter   Хабрахабр_files/to_top.js"></script>
+    <link href="http://habrahabr.ru/styles/1389866213/_parts/_to_top.css" rel="stylesheet" media="all">
+
+    
+    <script type="text/javascript" src="./Введение в Tkinter   Хабрахабр_files/float_block.js"></script>
+    
+    <!-- <script type="text/javascript" src="/javascripts/1389866213/_parts/float_block.js"></script> //-->
+      <!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+(function (d, w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter19919284 = new Ya.Metrika({id:19919284,
+                    webvisor:true,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true});
+        } catch(e) { }
+    });
+
+    var n = d.getElementsByTagName("script")[0],
+        s = d.createElement("script"),
+        f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f, false);
+    } else { f(); }
+})(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript>&lt;div&gt;&lt;img src="//mc.yandex.ru/watch/19919284" style="position:absolute; left:-9999px;" alt="" /&gt;&lt;/div&gt;</noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+<script type="text/javascript">
+	/*<![CDATA[*/
+	var ga = document.createElement('script');
+		ga.setAttribute('async', 'true');
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	/* ]]>*/
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(
+	    ['_setAccount', 'UA-726094-1'],
+	    ['_setDomainName', '.habrahabr.ru'],
+	    ["_addOrganic", "mail.ru", "q"],
+	    ["_addOrganic","rambler.ru", "words"],
+	    ["_addOrganic","nigma.ru", "s"],
+	    ["_addOrganic","blogs.yandex.ru", "text"],
+	    ["_addOrganic","webalta.ru", "q"],
+	    ["_addOrganic","aport.ru", "r"],
+	    ["_addOrganic","akavita.by", "z"],
+	    ["_addOrganic","meta.ua", "q"],
+	    ["_addOrganic","bigmir.net", "q"],
+	    ["_addOrganic","tut.by", "query"],
+	    ["_addOrganic","all.by", "query"],
+	    ["_addOrganic","i.ua", "q"],
+	    ["_addOrganic","online.ua", "q"],
+	    ["_addOrganic","a.ua", "s"],
+	    ["_addOrganic","ukr.net", "search_query"],
+	    ["_addOrganic","search.com.ua", "q"],
+	    ["_addOrganic","search.ua", "query"],
+	    ["_addOrganic","poisk.ru", "text"],
+	    ["_addOrganic","km.ru", "sq"],
+	    ["_addOrganic","liveinternet.ru", "ask"],
+	    ["_addOrganic","gogo.ru", "q"],
+	    ["_addOrganic","gde.ru", "keywords"],
+	    ["_addOrganic","quintura.ru", "request"],
+	    ['_trackPageview']
+	);
+	document.documentElement.firstChild.appendChild(ga);
+</script>	
+
+    <script type="text/javascript" src="./Введение в Tkinter   Хабрахабр_files/advertising.js"></script>
+    	<script type="text/javascript" src="./Введение в Tkinter   Хабрахабр_files/saved_resource"></script>
+
+    
+    <div id="footer">
+	<dl>
+		<dd><a href="https://auth.habrahabr.ru/login/">Войти</a></dd>
+		<dd><a href="https://auth.habrahabr.ru/register/">Регистрация</a></dd>
+	</dl>
+	<dl>
+		<dt>Разделы</dt>
+
+		<!--dd><a href="http://habrahabr.ru/qa/">Q&A</a></dd-->
+		<dd><a href="http://habrahabr.ru/hubs/">Хабы</a></dd>
+		<dd><a href="http://habrahabr.ru/events/">События</a></dd>
+		<dd><a href="http://habrahabr.ru/companies/">Компании</a></dd>
+		<dd><a href="http://habrahabr.ru/users/">Пользователи</a></dd>
+	</dl>
+	<dl>
+		<dt>Посты</dt>
+		<dd><a href="http://habrahabr.ru/posts/top/">Лучшие</a></dd>
+		<dd><a href="http://habrahabr.ru/posts/collective/">Тематические</a></dd>
+		<dd><a href="http://habrahabr.ru/posts/corporative/">Корпоративные</a></dd>
+		<dd><a href="http://habrahabr.ru/sandbox/">Песочница</a></dd>
+	</dl>
+	<dl>
+		<dt>Инфо</dt>
+		<dd><a href="http://habrahabr.ru/info/about/">О сайте</a></dd>
+		<dd><a href="http://habrahabr.ru/info/help/rules/">Правила</a></dd>
+		<dd><a href="http://habrahabr.ru/info/help/">Помощь</a></dd>
+		<dd><a href="http://habrahabr.ru/info/agreement/">Соглашение</a></dd>
+		<dd><a href="http://habrahabr.ru/info/stats/">Статистика</a></dd>
+	</dl>
+	<dl>
+		<dt>Услуги</dt>
+		<dd><a href="http://habrahabr.ru/info/advertising/">Реклама</a></dd>
+		<dd><a href="http://habrahabr.ru/info/advertising/corporate/">Корпоративные тарифы</a></dd>
+		<dd><a href="http://habrahabr.ru/info/advertising/workshops/">Семинары</a></dd>
+		<dd><a href="http://habrahabr.ru/special/">Спецпроекты</a></dd>
+		<dd><a href="http://habrahabr.ru/info/hello_startup/" style="color:green;">Помощь стартапам</a></dd>
+	</dl>
+	<div class="copyright">
+
+		<div class="about">
+			<a href="http://tmtm.ru/">TM</a>
+			© 2006–2014
+			<br><br>
+			<a href="http://habrahabr.ru/feedback/">Служба поддержки</a><br><br>
+			<a href="http://m.habrahabr.ru/">Мобильная версия</a><br><br>
+
+
+			<div class="social_accounts">
+				<a href="https://twitter.com/habrahabr" class="tw"></a>
+				<a href="https://www.facebook.com/habrahabr.ru" class="fb"></a>
+				<a href="http://vk.com/habr" class="vk"></a>
+				<!-- <a href="" class="gp"></a> //-->
+			</div>
+
+		</div>
+	</div>
+
+</div>    
+    <div class="footer_logos">
+		
+		<div class="project brainstorage">
+			<a href="http://brainstorage.ru/" class="icon "></a>
+			<div class="text">Все мозги в одном месте</div>
+		</div>
+
+		<div class="project toster">
+			<a href="http://toster.ru/" class="icon "></a>
+			<div class="text">Q&amp;A-сервис для разработчиков</div>
+		</div>
+		
+		<div class="project freelansim">
+			<a href="http://freelansim.ru/" class="icon "></a>
+			<div class="text">Заказы для фрилансеров</div>
+		</div>
+		
+		
+		<div class="project hantim">
+			<a href="http://hantim.ru/" class="icon "></a>
+			<div class="text">Вакансии для айтишников</div>
+		</div>
+		
+		<div class="project autokadabra">
+			<a href="http://autokadabra.ru/" class="icon "></a>
+			<div class="text ">Уютная и дружелюбная</div>
+		</div>
+		
+</div>
+
+
+    
+    
+  
+
+<div id="AutocompleteContainter_396a3" style="position: absolute; z-index: 9999; top: 51.170454263687134px; left: 916.8465576171875px;"><div class="autocomplete-w1"><div class="autocomplete" id="Autocomplete_396a3" style="display: none; width: 300px; max-height: 400px;"></div></div></div><div id="AutocompleteContainter_aa88" style="position: absolute; z-index: 9999; top: 2px; left: 0px;"><div class="autocomplete-w1"><div class="autocomplete" id="Autocomplete_aa88" style="display: none; width: 300px; max-height: 400px;"></div></div></div><div id="tiptip_holder" style="max-width:300px;"><div id="tiptip_arrow"><div id="tiptip_arrow_inner"></div></div><div id="tiptip_content"></div></div><div class="to_top" style="display: block;"><div class="to_top_panel"><div class="to_top_button" title="Наверх"><span class="arrow">↑</span> <span class="label">наверх</span></div>  </div></div><iframe src="./Введение в Tkinter   Хабрахабр_files/1(3).htm" style="width: 10px; height: 10px; position: absolute; top: -10000px; left: -10000px;"></iframe><iframe src="./Введение в Tkinter   Хабрахабр_files/1(2).htm" style="width: 10px; height: 10px; position: absolute; top: -10000px; left: -10000px;"></iframe><iframe src="./Введение в Tkinter   Хабрахабр_files/1.htm" style="width: 10px; height: 10px; position: absolute; top: -10000px; left: -10000px;"></iframe></body></html>

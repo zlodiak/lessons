@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<title>Статья про Градиенты для текста</title>
+<meta name="description" content="Многие из вас наверно ищут способы реализации текстовых градиентов. В CSS это пока нельзя сделать. только блоки и то не во всех браузерах. Сегодня я покажу как сделать это все быстро, удобно" />
+<meta name="keywords" content="сделать, Сегодня, браузерах, покажу, быстро, телодвижений, лишних, удобно, блоки, только, способы, наверно, реализации, текстовых, нельзя, градиентов, Многие" />
+<meta name="robots" content="all" />
+<link rel="search" type="application/opensearchdescription+xml" href="http://dgreeze.ru/engine/opensearch.php" title="Блог веб-разработчика (DGreeze blog)" />
+<link rel="alternate" type="application/rss+xml" title="Блог веб-разработчика (DGreeze blog)" href="http://dgreeze.ru/rss.xml" />
+<script type="text/javascript" src="/engine/classes/min/index.php?charset=utf-8&amp;g=general&amp;5"></script>
+<script type="text/javascript" src="/engine/classes/min/index.php?charset=utf-8&amp;f=engine/classes/js/bbcodes.js&amp;5"></script>
+    <link type='text/css' rel='stylesheet' href='/templates/Default/css/m.css' media="screen"/>
+    <link type='text/css' rel='stylesheet' href='/templates/Default/css/e.css' media="screen"/>
+	<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->    
+    <script src="/templates/Default/js/js.js"></script>
+<link type='text/css' rel='stylesheet' href='/engine/classes/sh/SyntaxHighlighter.css'/>
+<script src="/engine/classes/sh/shCore.js"></script>
+<script src="/engine/classes/sh/shAutoloader.js"></script>
+<script src="https://apis.google.com/js/plusone.js">
+{lang: 'ru'}
+</script>
+
+<!--
+<script src="/a.js"></script>
+<script>
+    $(document).ready(function() {
+        $.iTRAFF({url: 'link-002.ru',format: [2,4],user_id: 1, block:"block"});
+    });
+</script>
+-->
+</head>
+<body>
+<div id="loading-layer" style="display:none"><div id="loading-layer-text">Загрузка. Пожалуйста, подождите...</div></div>
+<script>
+var dle_root       = '/';
+var dle_admin      = '';
+var dle_login_hash = '';
+var dle_group      = 5;
+var dle_skin       = 'Default';
+var dle_wysiwyg    = 'no';
+var quick_wysiwyg  = '0';
+var dle_act_lang   = ["Да", "Нет", "Ввод", "Отмена", "Сохранить"];
+var menu_short     = 'Быстрое редактирование';
+var menu_full      = 'Полное редактирование';
+var menu_profile   = 'Просмотр профиля';
+var menu_send      = 'Отправить сообщение';
+var menu_uedit     = 'Админцентр';
+var dle_info       = 'Информация';
+var dle_confirm    = 'Подтверждение';
+var dle_prompt     = 'Ввод информации';
+var dle_req_field  = 'Заполните все необходимые поля';
+var dle_del_agree  = 'Вы действительно хотите удалить? Данное действие невозможно будет отменить';
+var dle_complaint  = 'Укажите текст вашей жалобы для администрации:';
+var dle_big_text   = 'Выделен слишком большой участок текста.';
+var dle_orfo_title = 'Укажите комментарий для администрации к найденной грамматической ошибке';
+var dle_p_send     = 'Отправить';
+var dle_p_send_ok  = 'Уведомление успешно отправлено';
+var dle_save_ok    = 'Изменения успешно сохранены.';
+var dle_del_news   = 'Удалить статью';
+var allow_dle_delete_news   = false;
+var dle_search_delay   = false;
+var dle_search_value   = '';
+$(function(){
+	FastSearch();
+});</script>
+<!-- noindex -->
+<script type="text/javascript">
+new Image().src = "//counter.yadro.ru/hit?r"+
+escape(document.referrer)+((typeof(screen)=="undefined")?"":
+";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+";"+Math.random();
+</script>
+<!-- /noindex -->
+<div id="wrapper">
+
+	<header id="header">
+		<section id="topmenu">
+            <div class="topicons">
+                <a href="http://dgreeze.ru/" class="main" title="На главную">На главную</a>
+                <a href="http://dgreeze.ru/sitemap.xml" class="sitemap" title="Карта сайта">Карта сайта</a>
+                <a href="http://dgreeze.ru/james/" class="cont" title="Обо мне">Обо мне</a>
+            </div>
+            <menu class="topmenu">
+                <li><a href="http://dgreeze.ru/php/" title="PHP" class="tmphp">PHP</a></li>
+                <li><a href="http://dgreeze.ru/mysql/" title="MySQL" class="tmsql">MySQL</a></li>
+                <li><a href="http://dgreeze.ru/jscript/" title="Javascript" class="tmjs">JS</a></li>
+                <li><a href="http://dgreeze.ru/html/" title="HTML" class="tmhtm">HTML</a></li>
+                <li><a href="http://dgreeze.ru/css/" title="CSS" class="tmcss">CSS</a></li>
+            </menu>
+            <div class="search">
+            <a href="http://dgreeze.ru/search/" title="Расширенный поиск" class="advs">Расширенный поиск по сайту</a>
+            <div class="st">Поиск по сайту</div>
+            <div class="clr"></div>
+    		<form action="/" name="searchform" method="post" class="sb">
+    			<input type="hidden" name="do" value="search" />
+    			<input type="hidden" name="subaction" value="search" />
+   				<input id="story" name="story" value="Введите текст для поиска..." onblur="if(this.value=='') this.value='Введите текст для поиска...';" onfocus="if(this.value=='Введите текст для поиска...') this.value='';" type="text" />
+   				<input title="Найти" type="submit" class="submits" />
+    		</form>
+            </div>
+            <!-- noindex --><img id="feedburner" src="http://feeds.feedburner.com/~fc/-dgreezeBlog?bg=46a100&amp;fg=ffffff&amp;anim=0" alt="Подписка"/><!-- /noindex -->
+        <div class="clr"></div>
+        </section>
+        <section id="logo">
+            <div class="logoleft"></div>
+            <div class="logoright">
+                <div id="rss"><a href="http://feedburner.google.com/fb/a/mailverify?uri=-dgreezeBlog&amp;loc=ru_RU" target="_blank" class="rsslink" title="RSS Канал - Подписаться на обновления" rel="nofollow">RSS Канал</a></div>
+            </div>
+        <div class="clr"></div>
+        </section>
+	</header>
+
+	<section id="middle">
+
+		<div id="container">
+			<div id="content">
+				
+                <section id="speedbar"><a href="http://dgreeze.ru/">На главную</a> &raquo; <a href="http://dgreeze.ru/jscript/">JavaScript</a> &raquo; Градиенты для текста</section>
+                
+                <section class="newsbg">
+                    <hr class="line"/>
+                    
+                                    <section class="new">
+                    <header>
+                        <h1>Градиенты для текста</h1>
+                        <section class="ratebox"><div id='ratig-layer'><div class="rating">
+		<ul class="unit-rating">
+		<li class="current-rating" style="width:0px;">0</li>
+		<li><a href="#" title="Плохо" class="r1-unit" onclick="doRate('1', '14'); return false;">1</a></li>
+		<li><a href="#" title="Приемлемо" class="r2-unit" onclick="doRate('2', '14'); return false;">2</a></li>
+		<li><a href="#" title="Средне" class="r3-unit" onclick="doRate('3', '14'); return false;">3</a></li>
+		<li><a href="#" title="Хорошо" class="r4-unit" onclick="doRate('4', '14'); return false;">4</a></li>
+		<li><a href="#" title="Отлично" class="r5-unit" onclick="doRate('5', '14'); return false;">5</a></li>
+		</ul>
+</div></div></section>
+                    </header>
+                        <section class="details">
+                            <div class="newdetails">Написал: <strong>James DGreeze</strong>, <time datetime="2011-09-20"><a href="http://dgreeze.ru/2011/09/20/" >20-09-2011, 17:42</a></time> | Просмотров: 872 | Комментариев: 0 | Рубрика: <b>JavaScript</b></div>
+                    
+                            <div class="clr"></div>
+                        </section>
+                    <article>
+                    Многие из вас наверно ищут способы реализации текстовых градиентов. В CSS это пока нельзя сделать. только блоки и то не во всех браузерах.<br />Сегодня я покажу как сделать это все быстро, удобно и без лишних телодвижений.
+                    </article>
+        
+                    <section id="demo"><a href="http://demo.dgreeze.ru/demiart/index.html" class="demo" target="_blank">Демо</a><a href="http://dgreeze.ru/engine/download.php?id=3" class="sourse">Исходники</a></section>
+        
+                    <article>
+                    Для этого мы с вами будем использовать библиотеку <b>jQuery FontEffect Plugin</b>.<br /><br />Это замечательный плагин, который я использую в своих проектах для того, чтобы создавать градиенты и зеркальные отражения текстам<br /><br /><div class="align-center"><b>Итак, ПОЕХАЛИ!</b></div><br /><br />Сделаем сегодня вот такой градиент:<br /><div class="align-center"><!--dle_image_begin:http://dgreeze.ru/uploads/posts/2011-09/1316524796_demiart.png|--><img src="/uploads/posts/2011-09/1316524796_demiart.png" alt="Градиенты для текста" title="Градиенты для текста"  /><!--dle_image_end--></div><br /><br />И начнем мы с того, что разберем настройки библиотеки и узнаем, какие возможности она нам дает.<br /><br />Первое что нам надо это подключить библиотеку, что мы сделаем засунув в ее хедер страницы ниже! библиотеки jQuery иначе не будет работать.<br /><pre class="brush:js">&#60;script type=&#34;text/j&#097;vascript&#34; src=&#34;/jquery-FontEffect-1.0.0.min.js&#34;&#62;&#60;/script&#62;</pre><br /><br />затем давайте посмотрим настройки:<br /><pre class="brush:js"><br />$&#40;Obj&#41;.FontEffect&#40;{<br />    outline         &#58;false,    // Обводка<br />    outlineColor1   &#58;&#34;&#34;,       // Верхняя граница обводки<br />    outlineColor2   &#58;&#34;&#34;,       // Нижняя граница обводки<br />    outlineWeight   &#58;1,        // ширина обводки  1=тонкая,2=средняя,3=жирная<br />    mirror          &#58;false,    // Зеркальность<br />    mirrorColor     &#58;&#34;&#34;        // Цвет зеркального отображения<br />    mirrorOffset    &#58;-10,      // Расстояние от осн. текста<br />    mirrorHeight    &#58;50,       // Высота отражения<br />    mirrorDetail    &#58;1,        // Детализация 1=Высокая,2=Средняя,3=Низкая<br />    mirrorTLength   &#58;50,       // Тоже какая то длина &#58;&#41;<br />    mirrorTStart    &#58;0.2,      // Непрозрачность от 0 до 1<br />    shadow          &#58;false,    // Тень<br />    shadowColor     &#58;&#34;&#34;,       // Цвет тени<br />    shadowOffsetTop &#58;5,        // Напрвление по оси X<br />    shadowOffsetLeft&#58;5,        // Напрвление по оси Y<br />    shadowBlur      &#58;1,        // Размытие 1=нет,2=слабое,3=сильное<br />    shadowOpacity   &#58;0.1,      // Непрозрачность от 0 до 1<br />    gradient        &#58;false,    // Градиент<br />    gradientColor   &#58;&#34;&#34;,       // Цвет градиента<br />    gradientPosition&#58;20,       // Начальная позиция<br />    gradientLength  &#58;50,       // Длина градиента<br />    gradientSteps   &#58;20,       // Размер шага<br />    hideText        &#58;false,    // Скрывает осн. текст<br />    }&#41;<br /></pre><br /><br />Итак, с опциями разобрались<br />Осталось последнее, назначить тексту эффекты.<br />Это мы сделаем через такой код<br /><pre class="brush:js">$&#40;&#39;#НАЗВАНИЕ ЭЛЕМЕНТА&#39;&#41;.FontEffect&#40;{<br />    //тут прописываем те опции которые будем использовать <br />}&#41;</pre><br /><br />Для нашего примера мы применим следующий код:<br /><pre class="brush:js"><br />$&#40;&#39;#demiart&#39;&#41;.FontEffect&#40;{<br />    outline         &#58;true,<br />    outlineColor1   &#58;&#34;#fffaf3&#34;,<br />    outlineColor2   &#58;&#34;#524125&#34;,<br />    outlineWeight   &#58;1,<br />    mirror          &#58;true,<br />    mirrorColor     &#58;&#34;#fffaf3&#34;,<br />    mirrorOffset    &#58;-25,<br />    shadow          &#58;true,<br />    shadowColor     &#58;&#34;#4f4627&#34;,<br />    shadowOffsetTop &#58;0,<br />    shadowOffsetLeft&#58;0,<br />    shadowBlur      &#58;2,<br />    shadowOpacity   &#58;0.5,<br />    gradient        &#58;true,<br />    gradientColor   &#58;&#34;#fdfaeb&#34;,<br />    gradientPosition&#58;20,<br />    gradientLength  &#58;40,<br />    gradientSteps   &#58;20<br />}&#41;<br /></pre><br /><br />А стили будут такие:<br /><!--sizestart:3--><span style="font-size:12pt;line-height:100%"><!--/sizestart--><b>CSS</b><!--sizeend--></span><!--/sizeend--><br /><pre class="brush:css"><br />body {<br />    background-color&#58; #1f1a17;<br />    width&#58; 100%;<br />}<br />h1#demiart {<br />    width&#58; 200px;<br />    font-size&#58; 90px;<br />    font-family&#58; Georgia;<br />    font-weight&#58; normal;<br />    margin&#58; 30px auto 0;<br />    color&#58; #4f4627;<br />}<br /></pre><br /><br /><b>Вот и все!</b> Если есть вопросы оставляйте в комментариях отвечу.<br /><br /><b>Небольшой PS</b>: При использовании данного плагина, перестает работать такое CSS свойство как <b>text-align:center;</b><br />Поэтому имейте ввиду и не удивляйтесь что ваше центрированое лого после применения градиента имеет <b>float:left</b>  <!--smile:wink--><img style="vertical-align: middle;border: none;" alt="wink" src="http://dgreeze.ru/engine/data/emoticons/wink.gif" /><!--/smile--> <br />Все это лечится установлением width на тег и margin: auto на лево и право).<br /><br /><b>Сайт плагина:</b> <!--dle_leech_begin--><a href="http://dgreeze.ru/engine/go.php?url=aHR0cDovL25leHR1cmwucnUvelh1RDA%3D" target="_blank">www.iofo.it</a><!--dle_leech_end-->
+                    
+                    </article>
+                    <!-- noindex --><section id="social"><g:plusone></g:plusone></section><!-- /noindex -->
+                    <section id="related">
+                        <h3>Похожие записи по теме</h3>
+                            <ul>
+                                <li><a href="http://dgreeze.ru/jscript/15-jquery-textfx-plugin.html">jQuery TextFX plugin</a></li><li><a href="http://dgreeze.ru/jscript/28-kak-sozdat-jquery-plagin.html">Как создать jQuery плагин</a></li><li><a href="http://dgreeze.ru/jscript/25-jquery-shining-image-effekt-blika-dlya-izobrazheniy.html">jQuery Shining Image - Эффект блика для изображений</a></li><li><a href="http://dgreeze.ru/myworks/23-meganews-integraciya-v-dle.html">MegaNews - Интеграция в DLE</a></li><li><a href="http://dgreeze.ru/php/6-imagefilter.html">Fatal error: Call to undefined function imagefilter() - не работает imagefi ...</a></li>
+                            </ul>
+                    </section>
+                    <footer>
+                        
+                            <a class="backbutton" href="javascript:history.go(-1);" title="Вернуться назад">Вернуться назад</a>
+                                <hr class="line"/>
+                                    <hr class="linegreen"/>
+                    </footer>
+                </section>
+
+<div id="dle-ajax-comments"></div>
+
+<!--dlenavigationcomments-->
+<form  method="post" name="dle-comments-form" id="dle-comments-form" action="/jscript/14-gradienty-dlya-teksta.html"><section id="addcomment">
+		<table class="tableform">
+			
+			<tr>
+				<td class="label">
+					Ваше имя:<span style="color:red;"> *</span>
+				</td>
+				<td><input type="text" name="name" id="name" class="f_input" /></td>
+			</tr>
+			
+			<tr>
+				<td colspan="2"><script>
+var text_enter_url       = "Введите полный URL ссылки";
+var text_enter_size       = "Введите размеры флэш ролика (ширина, высота)";
+var text_enter_flash       = "Введите ссылку на флэш ролик";
+var text_enter_page      = "Введите номер страницы";
+var text_enter_url_name  = "Введите название сайта";
+var text_enter_page_name = "Введите описание ссылки";
+var text_enter_image    = "Введите полный URL изображения";
+var text_enter_email    = "Введите e-mail адрес";
+var text_code           = "Использование: [CODE] Здесь Ваш код.. [/CODE]";
+var text_quote          = "Использование: [QUOTE] Здесь Ваша Цитата.. [/QUOTE]";
+var error_no_url        = "Вы должны ввести URL";
+var error_no_title      = "Вы должны ввести название";
+var error_no_email      = "Вы должны ввести e-mail адрес";
+var prompt_start        = "Введите текст для форматирования";
+var img_title   		= "Введите по какому краю выравнивать картинку (left, center, right)";
+var email_title  	    = "Введите описание ссылки";
+var text_pages  	    = "Страница";
+var image_align  	    = "";
+var bb_t_emo  	        = "Вставка смайликов";
+var bb_t_col  	        = "Цвет:";
+var text_enter_list     = "Введите пункт списка. Для завершения ввода оставьте поле пустым.";
+
+var selField  = "comments";
+var fombj    = document.getElementById( 'dle-comments-form' );
+
+function image_upload()
+{
+
+window.open('http://dgreeze.ru/engine/images.php?area=' + selField + '&add_id=', '_Addimage', 'toolbar=0,location=0,status=0, left=0, top=0, menubar=0,scrollbars=yes,resizable=0,width=640,height=550');    
+
+}
+</script>
+<div style="width:100%;" class="editor">
+<div class="bbeditor">
+  <span id="b_b" onclick="simpletag('b')">
+    <img title="Полужирный" src="/templates/Default/bbcodes/b.png" alt="">
+  </span>
+  <span id="b_i" onclick="simpletag('i')">
+    <img title="Наклонный текст" src="/templates/Default/bbcodes/i.png" alt="">
+  </span>
+  <span id="b_u" onclick="simpletag('u')">
+    <img title="Подчеркнутый текст" src="/templates/Default/bbcodes/u.png" alt="">
+  </span>
+  <span id="b_s" onclick="simpletag('s')">
+    <img title="Зачеркнутый текст" src="/templates/Default/bbcodes/s.png" alt="">
+  </span>
+  <img class="bbspacer" src="/templates/Default/bbcodes/brkspace.png" alt="">
+  <span id="b_left" onclick="simpletag('left')">
+    <img title="Выравнивание по левому краю" src="/templates/Default/bbcodes/l.png" alt="">
+  </span>
+  <span id="b_center" onclick="simpletag('center')">
+    <img title="По центру" src="/templates/Default/bbcodes/c.png" alt="">
+  </span>
+  <span id="b_right" onclick="simpletag('right')">
+    <img title="Выравнивание по правому краю" src="/templates/Default/bbcodes/r.png" alt="">
+  </span>
+  <img class="bbspacer" src="/templates/Default/bbcodes/brkspace.png" alt="">
+  <span id="b_emo" onclick="ins_emo(this);">
+    <img title="Вставка смайликов" src="/templates/Default/bbcodes/emo.png" alt="">
+  </span>
+
+
+ <span id="b_email" onclick="tag_email();"><img src="/templates/Default/bbcodes/email.png" alt=""></span>
+  <span id="b_color" onclick="ins_color(this);">
+    <img src="/templates/Default/bbcodes/color.png" alt="">
+  </span>
+  <img class="bbspacer" src="/templates/Default/bbcodes/brkspace.png" alt="">
+  <span id="b_hide" onclick="simpletag('hide')">
+    <img title="Скрытый текст" src="/templates/Default/bbcodes/hide.png" alt="">
+  </span>
+  <span id="b_quote" onclick="simpletag('quote')">
+    <img title="Вставка цитаты" src="/templates/Default/bbcodes/quote.png" alt="">
+  </span>
+  <span onclick="translit()">
+    <img title="" src="/templates/Default/bbcodes/translit.png" alt="">
+  </span>
+  <span id="b_spoiler" onclick="simpletag('spoiler')">
+    <img src="/templates/Default/bbcodes/spoiler.png" alt="">
+  </span>
+  <div class="clr"></div>
+</div>
+ <div id="dle_emos" style="display: none;" title="Вставка смайликов"><div style="height:150px;overflow: auto;"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td style="padding:2px;" align="center"><a href="#" onclick="dle_smiley(':wink:'); return false;"><img style="border: none;" alt="wink" src="http://dgreeze.ru/engine/data/emoticons/wink.gif" /></a></td><td style="padding:2px;" align="center"><a href="#" onclick="dle_smiley(':winked:'); return false;"><img style="border: none;" alt="winked" src="http://dgreeze.ru/engine/data/emoticons/winked.gif" /></a></td><td style="padding:2px;" align="center"><a href="#" onclick="dle_smiley(':smile:'); return false;"><img style="border: none;" alt="smile" src="http://dgreeze.ru/engine/data/emoticons/smile.gif" /></a></td><td style="padding:2px;" align="center"><a href="#" onclick="dle_smiley(':am:'); return false;"><img style="border: none;" alt="am" src="http://dgreeze.ru/engine/data/emoticons/am.gif" /></a></td></tr><tr><td style="padding:2px;" align="center"><a href="#" onclick="dle_smiley(':belay:'); return false;"><img style="border: none;" alt="belay" src="http://dgreeze.ru/engine/data/emoticons/belay.gif" /></a></td><td style="padding:2px;" align="center"><a href="#" onclick="dle_smiley(':feel:'); return false;"><img style="border: none;" alt="feel" src="http://dgreeze.ru/engine/data/emoticons/feel.gif" /></a></td><td style="padding:2px;" align="center"><a href="#" onclick="dle_smiley(':fellow:'); return false;"><img style="border: none;" alt="fellow" src="http://dgreeze.ru/engine/data/emoticons/fellow.gif" /></a></td><td style="padding:2px;" align="center"><a href="#" onclick="dle_smiley(':laughing:'); return false;"><img style="border: none;" alt="laughing" src="http://dgreeze.ru/engine/data/emoticons/laughing.gif" /></a></td></tr><tr><td style="padding:2px;" align="center"><a href="#" onclick="dle_smiley(':lol:'); return false;"><img style="border: none;" alt="lol" src="http://dgreeze.ru/engine/data/emoticons/lol.gif" /></a></td><td style="padding:2px;" align="center"><a href="#" onclick="dle_smiley(':love:'); return false;"><img style="border: none;" alt="love" src="http://dgreeze.ru/engine/data/emoticons/love.gif" /></a></td><td style="padding:2px;" align="center"><a href="#" onclick="dle_smiley(':no:'); return false;"><img style="border: none;" alt="no" src="http://dgreeze.ru/engine/data/emoticons/no.gif" /></a></td><td style="padding:2px;" align="center"><a href="#" onclick="dle_smiley(':recourse:'); return false;"><img style="border: none;" alt="recourse" src="http://dgreeze.ru/engine/data/emoticons/recourse.gif" /></a></td></tr><tr><td style="padding:2px;" align="center"><a href="#" onclick="dle_smiley(':request:'); return false;"><img style="border: none;" alt="request" src="http://dgreeze.ru/engine/data/emoticons/request.gif" /></a></td><td style="padding:2px;" align="center"><a href="#" onclick="dle_smiley(':sad:'); return false;"><img style="border: none;" alt="sad" src="http://dgreeze.ru/engine/data/emoticons/sad.gif" /></a></td><td style="padding:2px;" align="center"><a href="#" onclick="dle_smiley(':tongue:'); return false;"><img style="border: none;" alt="tongue" src="http://dgreeze.ru/engine/data/emoticons/tongue.gif" /></a></td><td style="padding:2px;" align="center"><a href="#" onclick="dle_smiley(':wassat:'); return false;"><img style="border: none;" alt="wassat" src="http://dgreeze.ru/engine/data/emoticons/wassat.gif" /></a></td></tr><tr><td style="padding:2px;" align="center"><a href="#" onclick="dle_smiley(':crying:'); return false;"><img style="border: none;" alt="crying" src="http://dgreeze.ru/engine/data/emoticons/crying.gif" /></a></td><td style="padding:2px;" align="center"><a href="#" onclick="dle_smiley(':what:'); return false;"><img style="border: none;" alt="what" src="http://dgreeze.ru/engine/data/emoticons/what.gif" /></a></td><td style="padding:2px;" align="center"><a href="#" onclick="dle_smiley(':bully:'); return false;"><img style="border: none;" alt="bully" src="http://dgreeze.ru/engine/data/emoticons/bully.gif" /></a></td><td style="padding:2px;" align="center"><a href="#" onclick="dle_smiley(':angry:'); return false;"><img style="border: none;" alt="angry" src="http://dgreeze.ru/engine/data/emoticons/angry.gif" /></a></td></tr></table></div></div>
+<textarea name="comments" id="comments" cols="" rows="" style="width:400px;height:150px;margin: 0px;padding: 5px;" onclick="setNewField(this.name, document.getElementById( 'dle-comments-form' ))"></textarea>
+</div></td>
+			</tr>
+			
+			
+            
+                <tr>
+                    <td class="label">
+                        Вопрос:
+                     </td>
+                     <td>
+                         <div><span id="dle-question">Сколько будет 746+324?</span></div>
+                     </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        Ответ:<span class="impot">*</span>
+                    </td>
+                    <td>
+                        <div><input type="text" name="question_answer" id="question_answer" class="f_input" /></div>
+                    </td>
+                </tr>
+            
+		</table>
+		<div class="fieldsubmit">
+			<button type="submit" name="submit" class="addcom">Добавить</button>
+		</div>
+</section>
+		<input type="hidden" name="subaction" value="addcomment" />
+		<input type="hidden" name="post_id" id="post_id" value="14" /></form><script>
+$(function(){
+
+	$('#dle-comments-form').submit(function() {
+	  doAddComments();
+	  return false;
+	});
+
+});
+
+function reload () {
+
+	var rndval = new Date().getTime(); 
+
+	document.getElementById('dle-captcha').innerHTML = '<img src="/engine/modules/antibot.php?rndval=' + rndval + '" border="0" width="120" height="50" alt="" /><br /><a onclick="reload(); return false;" href="#">обновить, если не виден код</a>';
+
+};
+</script>
+                
+                </section>
+                
+			</div>
+		</div>
+
+    		<aside id="sideRight">
+			
+            <section class="sidebar">
+            <header><h3>Навигация по разделам</h3></header>
+            <div class="bgsr">
+                <menu>
+                    <li><a href="http://dgreeze.ru/php/" class="php">PHP</a></li>
+                    <li><a href="http://dgreeze.ru/mysql/" class="sql">MySQL</a></li>
+                    <li><a href="http://dgreeze.ru/jscript/" class="js">JavaScript</a></li>
+                    <li><a href="http://dgreeze.ru/html/" class="html">HTML</a></li>
+                    <li><a href="http://dgreeze.ru/css/" class="css">CSS</a></li>
+                    <li><a href="http://dgreeze.ru/other/" class="other">Прочие статьи</a></li>
+                    <li><a href="http://dgreeze.ru/blog/" class="blog">Блог</a></li>
+                    <li><a href="http://dgreeze.ru/myworks/" class="mw">Мои работы</a></li>
+                </menu>
+            </div>
+            <footer></footer>
+            </section>
+            
+            <script>
+function doVote( event ){
+
+	
+	var vote_check = $('#dle-vote input:radio[name=vote_check]:checked').val();
+
+	ShowLoading('');
+
+	$.get(dle_root + "engine/ajax/vote.php", { vote_id: "2", vote_action: event, vote_check: vote_check, vote_skin: dle_skin }, function(data){
+
+		HideLoading('');
+
+		$("#vote-layer").fadeOut(500, function() {
+			$(this).html(data);
+			$(this).fadeIn(500);
+		});
+
+	});
+}
+</script><div id='vote-layer'>            <section class="sidebar">
+            <header><h3>Опрос на сайте</h3></header>
+            <div class="bgsr">
+                    <section id="poll">
+                        <header class="votetitle"><h4>Нашли ли вы что нибудь полезное в моем блоге?</h4></header>
+                            <div class="votelist">
+                                <form action="/" name="vote" method="post" id="pol">
+                                    <div id="dle-vote"><div class="vote"><input name="vote_check" type="radio" checked="checked" value="0" /> Да.</div><div class="vote"><input name="vote_check" type="radio"  value="1" /> нет.</div></div>
+                                
+                                <input type="hidden" value="vote" name="vote_action"/>
+                                <input type="hidden" value="1" id="vote_id" name="vote_id"/>
+                                    <button onclick="doVote('vote'); return false;" type="submit" class="vbutton">Голосовать</button>
+                                    <button onclick="doVote('results'); return false;" type="button" class="vbutton2" title="Результаты">Результаты</button>
+                                </form>
+                            </div>
+                            <footer class="vbuttons">
+                                <form action="/" name="vote_result" method="post" id="vall">
+                                    <input type="hidden" value="results" name="vote_action"/>
+                                        <input type="hidden" value="1" name="vote_id"/>
+                                            <button onclick="ShowAllVotes(); return false;" type="submit" class="vall" title="Все опросы">Все опросы</button>
+                                </form>
+                            </footer>
+                    </section>
+            </div>
+            <footer></footer>
+            </section></div>
+            
+            <section class="sidebar">
+            <header><h3>Последнии комментарии</h3></header>
+            <div class="bgsr">
+            <div class="lastcomm"><div class="lpad">
+    <div style="font-weight:bold;font-style:italic;">Написал: <span style="color:#555555;">BigFrenky</span> в:</div>
+    <div><a href="/other/30-kak-obnovit-python-na-debian-.html#comment" title="Здравствуйте! Меня зовут Евгений Миллер и я предлагаю Вам БЕСПЛАТНЫЙ вводный курс, как заработать в интернете. Хватит работать на дядю! Работайте на себя! Мой вводный курс по заработку абсолютно БЕСПЛАТЕН! Платить ни за что не надо!!! Вот мой сайт http://millerblog.ru/ Я научу Вас зарабатывать!">Как обновить Python на Debi ...</a></div>
+</div><div class="lpad">
+    <div style="font-weight:bold;font-style:italic;">Написал: <span style="color:#555555;">Артём</span> в:</div>
+    <div><a href="/blog/page,1,27,31-kak-vernut-grafu-otchestvo-ili-nikneym-vkontakte.html#comment" title="Спасибо огромное!!!   РАБОТАЕТ!!!!!     ">Как вернуть графу "Отчеств ...</a></div>
+</div><div class="lpad">
+    <div style="font-weight:bold;font-style:italic;">Написал: <span style="color:#555555;">Волк</span> в:</div>
+    <div><a href="/blog/page,1,27,31-kak-vernut-grafu-otchestvo-ili-nikneym-vkontakte.html#comment" title="Бл**дь нужно внимательно читать там все норм работает 1 минуты и готово!!!">Как вернуть графу "Отчеств ...</a></div>
+</div><div class="lpad">
+    <div style="font-weight:bold;font-style:italic;">Написал: <span style="color:#555555;">София</span> в:</div>
+    <div><a href="/blog/page,1,27,31-kak-vernut-grafu-otchestvo-ili-nikneym-vkontakte.html#comment" title="Я немогу код найти">Как вернуть графу "Отчеств ...</a></div>
+</div><div class="lpad">
+    <div style="font-weight:bold;font-style:italic;">Написал: <span style="color:#555555;">Олег Молский</span> в:</div>
+    <div><a href="/blog/page,1,27,31-kak-vernut-grafu-otchestvo-ili-nikneym-vkontakte.html#comment" title="Детский сад)">Как вернуть графу "Отчеств ...</a></div>
+</div></div>
+            </div>
+            <footer></footer>
+            </section>
+            
+            <section class="sidebar">
+            <header><h3>Облако тегов</h3></header>
+            <div class="bgsr">
+            <a href="http://dgreeze.ru/tags/AJAX/" class="clouds_medium" title="Найдено публикаций: 2">AJAX</a>, <a href="http://dgreeze.ru/tags/CodeCanyon/" class="clouds_xsmall" title="Найдено публикаций: 1">CodeCanyon</a>, <a href="http://dgreeze.ru/tags/dle/" class="clouds_xlarge" title="Найдено публикаций: 3">dle</a>, <a href="http://dgreeze.ru/tags/GD/" class="clouds_medium" title="Найдено публикаций: 2">GD</a>, <a href="http://dgreeze.ru/tags/https/" class="clouds_xsmall" title="Найдено публикаций: 1">https</a>, <a href="http://dgreeze.ru/tags/imagefilter/" class="clouds_medium" title="Найдено публикаций: 2">imagefilter</a>, <a href="http://dgreeze.ru/tags/IP/" class="clouds_xsmall" title="Найдено публикаций: 1">IP</a>, <a href="http://dgreeze.ru/tags/jQuery/" class="clouds_xlarge" title="Найдено публикаций: 3">jQuery</a>, <a href="http://dgreeze.ru/tags/MegaNews/" class="clouds_medium" title="Найдено публикаций: 2">MegaNews</a>, <a href="http://dgreeze.ru/tags/MySQL/" class="clouds_medium" title="Найдено публикаций: 2">MySQL</a>, <a href="http://dgreeze.ru/tags/OOO000000/" class="clouds_xsmall" title="Найдено публикаций: 1">OOO000000</a>, <a href="http://dgreeze.ru/tags/pagination/" class="clouds_xsmall" title="Найдено публикаций: 1">pagination</a>, <a href="http://dgreeze.ru/tags/php+decoder/" class="clouds_xsmall" title="Найдено публикаций: 1">php decoder</a>, <a href="http://dgreeze.ru/tags/php+%D0%BD%D0%B0%D0%B2%D0%B8%D0%B3%D0%B0%D1%86%D0%B8%D1%8F/" class="clouds_xsmall" title="Найдено публикаций: 1">php навигация</a>, <a href="http://dgreeze.ru/tags/shining+jquery/" class="clouds_xsmall" title="Найдено публикаций: 1">shining jquery</a>, <a href="http://dgreeze.ru/tags/soft/" class="clouds_xsmall" title="Найдено публикаций: 1">soft</a>, <a href="http://dgreeze.ru/tags/sql/" class="clouds_xsmall" title="Найдено публикаций: 1">sql</a>, <a href="http://dgreeze.ru/tags/SQL+Injection/" class="clouds_xsmall" title="Найдено публикаций: 1">SQL Injection</a>, <a href="http://dgreeze.ru/tags/ssh/" class="clouds_medium" title="Найдено публикаций: 2">ssh</a>, <a href="http://dgreeze.ru/tags/ssh+%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D1%8B/" class="clouds_medium" title="Найдено публикаций: 2">ssh команды</a>, <a href="http://dgreeze.ru/tags/ssl/" class="clouds_xsmall" title="Найдено публикаций: 1">ssl</a>, <a href="http://dgreeze.ru/tags/textFX/" class="clouds_xsmall" title="Найдено публикаций: 1">textFX</a>, <a href="http://dgreeze.ru/tags/urldecode%28%29/" class="clouds_xsmall" title="Найдено публикаций: 1">urldecode()</a>, <a href="http://dgreeze.ru/tags/%D0%91%D0%94/" class="clouds_xsmall" title="Найдено публикаций: 1">БД</a>, <a href="http://dgreeze.ru/tags/%D0%9C%D0%B0%D1%81%D1%81%D0%B8%D0%B2%D1%8B/" class="clouds_xsmall" title="Найдено публикаций: 1">Массивы</a>, <a href="http://dgreeze.ru/tags/%D0%A1%D1%83%D0%91%D0%94/" class="clouds_xsmall" title="Найдено публикаций: 1">СуБД</a>, <a href="http://dgreeze.ru/tags/%D0%B0%D0%B2%D1%82%D0%BE%D1%80%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F/" class="clouds_medium" title="Найдено публикаций: 2">авторизация</a>, <a href="http://dgreeze.ru/tags/%D0%B0%D0%BD%D0%B8%D0%BC%D0%B0%D1%86%D0%B8%D1%8F/" class="clouds_xsmall" title="Найдено публикаций: 1">анимация</a>, <a href="http://dgreeze.ru/tags/%D0%B1%D0%BB%D0%B8%D0%BA%D0%B8+%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B9/" class="clouds_xsmall" title="Найдено публикаций: 1">блики изображений</a>, <a href="http://dgreeze.ru/tags/%D0%B4%D0%B5%D0%BA%D0%BE%D0%B4%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D1%82%D1%8C+php/" class="clouds_xsmall" title="Найдено публикаций: 1">декодировать php</a>, <a href="http://dgreeze.ru/tags/%D0%B4%D0%B8%D0%B0%D0%BF%D0%B0%D0%B7%D0%BE%D0%BD+IP/" class="clouds_xsmall" title="Найдено публикаций: 1">диапазон IP</a>, <a href="http://dgreeze.ru/tags/%D0%B7%D0%B0%D1%89%D0%B8%D1%82%D0%B0+%D0%B4%D0%BB%D0%B5/" class="clouds_xsmall" title="Найдено публикаций: 1">защита дле</a>, <a href="http://dgreeze.ru/tags/%D0%BA%D0%B0%D0%BB%D1%8C%D0%BA%D1%83%D0%BB%D1%8F%D1%82%D0%BE%D1%80+%D1%86%D0%B5%D0%BD/" class="clouds_xsmall" title="Найдено публикаций: 1">калькулятор цен</a>, <a href="http://dgreeze.ru/tags/%D0%BC%D0%B5%D0%BD%D1%8E/" class="clouds_xsmall" title="Найдено публикаций: 1">меню</a>, <a href="http://dgreeze.ru/tags/%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D1%8C/" class="clouds_xsmall" title="Найдено публикаций: 1">модуль</a>, <a href="http://dgreeze.ru/tags/%D0%BC%D0%BE%D0%B8+%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B/" class="clouds_xlarge" title="Найдено публикаций: 3">мои работы</a>, <a href="http://dgreeze.ru/tags/%D0%BE%D0%BD%D0%BB%D0%B0%D0%B9%D0%BD+%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7+%D0%B1%D0%B8%D0%BB%D0%B5%D1%82%D0%BE%D0%B2/" class="clouds_xsmall" title="Найдено публикаций: 1">онлайн заказ билетов</a>, <a href="http://dgreeze.ru/tags/%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0+%D0%B4%D0%BB%D1%8F+%D0%B4%D0%BB%D0%B5/" class="clouds_xsmall" title="Найдено публикаций: 1">программа для дле</a>, <a href="http://dgreeze.ru/tags/%D1%81%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82%D1%8B/" class="clouds_xsmall" title="Найдено публикаций: 1">сертификаты</a>, <a href="http://dgreeze.ru/tags/%D1%87%D0%B5%D0%BA%D0%B1%D0%BE%D0%BA%D1%81%D1%8B/" class="clouds_xsmall" title="Найдено публикаций: 1">чекбоксы</a><br /><br /><a href="http://dgreeze.ru/tags/">Показать все теги</a>
+            </div>
+            <footer></footer>
+            </section>
+            
+            
+            
+		</aside>
+
+	</section>
+
+	<footer id="footer">
+        <a href="#" class="totop" id="totop" title="Наверх">Наверх</a><div class="clr"></div>
+            <div class="copy"><a href="http://dgreeze.ru/">Dgreeze.ru</a> - Блог веб-разработчика © 2011</div>
+                <div class="qote">"Делай то, что возможно. С тем, что есть.<br />Прямо сейчас и как можно лучше." © Генри Форд</div>
+        <div class="foobuts">
+<!-- noindex --><a href="http://www.liveinternet.ru/click" target="_blank"><img src="//counter.yadro.ru/logo?18.6" title="LiveInternet: показано число просмотров за 24 часа, посетителей за 24 часа и за сегодня" alt="" style="border:0;" width="88" height="31"/></a><!-- /noindex -->
+        </div>
+        <div class="foobuts2">
+<!-- noindex -->
+<script id="top100Counter" type="text/javascript" src="http://counter.rambler.ru/top100.jcn?2559564"></script>
+<!-- /noindex -->
+        </div>
+	</footer>
+
+</div>
+
+<script>
+function path() {
+	var args = arguments,
+		result = []	;
+	for(var i = 0; i < args.length; i++)
+		result.push(args[i].replace('@', '/engine/classes/sh/'));
+	return result
+};
+
+SyntaxHighlighter.autoloader.apply(null, path(
+	'applescript			@shBrushAppleScript.js',
+	'actionscript3 as3		@shBrushAS3.js',
+	'bash shell				@shBrushBash.js',
+	'coldfusion cf			@shBrushColdFusion.js',
+	'cpp c					@shBrushCpp.js',
+	'c# c-sharp csharp		@shBrushCSharp.js',
+	'css					@shBrushCss.js',
+	'delphi pascal			@shBrushDelphi.js',
+	'diff patch pas			@shBrushDiff.js',
+	'erl erlang				@shBrushErlang.js',
+	'groovy					@shBrushGroovy.js',
+	'java					@shBrushJava.js',
+	'jfx javafx				@shBrushJavaFX.js',
+	'js jscript javascript	@shBrushJScript.js',
+	'perl pl				@shBrushPerl.js',
+	'php					@shBrushPhp.js',
+	'text plain				@shBrushPlain.js',
+	'py python				@shBrushPython.js',
+	'powershell ps posh		@shBrushPowerShell.js',
+	'ruby rails ror rb		@shBrushRuby.js',
+	'sass scss				@shBrushSass.js',
+	'scala					@shBrushScala.js',
+	'sql					@shBrushSql.js',
+	'vb vbnet				@shBrushVb.js',
+	'xml xhtml xslt html	@shBrushXml.js'
+));
+SyntaxHighlighter.config.bloggerMode = true;
+SyntaxHighlighter.config.stripBrs = false;
+SyntaxHighlighter.config.toolbar = false;
+SyntaxHighlighter.all();
+</script>
+
+</body>
+</html>

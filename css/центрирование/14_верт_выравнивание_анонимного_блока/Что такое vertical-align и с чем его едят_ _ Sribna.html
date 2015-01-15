@@ -1,0 +1,510 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>Что такое vertical-align и с чем его едят? | Sribna</title>
+<meta name="verify-v1" content="r2LgtTTB6G75N5EAcuz0fNH6vBuVKBgQzwoCkU+SjwQ=" />
+<meta name='yandex-verification' content='7f3841ba52247561' />
+<meta name="generator" content="WordPress 2.0.6" />
+<link rel="stylesheet" href="http://blog.sribna.com/wp-content/themes/default/style.css" type="text/css" media="screen" />
+
+<link rel="alternate" type="application/rss+xml" title="Sribna RSS Feed" href="http://blog.sribna.com/feed/" />
+<link rel="pingback" href="http://blog.sribna.com/xmlrpc.php" />
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://blog.sribna.com/xmlrpc.php?rsd" />
+
+<!-- all in one seo pack 1.4.6.15 [278,465] -->
+<meta name="description" content="Недавно пришел к выводу, что я совершенно не могу пользоваться свойством vertical-align. Хотя," />
+<meta name="keywords" content="css" />
+<!-- /all in one seo pack -->
+<script src="http://blog.sribna.com/wp-content/plugins/threaded.php" type="text/javascript"></script>
+<style type="text/css">
+.comment {position:	relative;margin: 3px;margin-top: 6px;padding:4px 4px 4px 8px;
+	background-color:		#fff;
+}
+</style>
+<link rel="stylesheet" href="http://blog.sribna.com/wp-content/plugins/ig_syntax_hilite/css/syntax_hilite_css.css" type="text/css" media="all" />
+	<script language="javascript" type="text/javascript" src="http://blog.sribna.com/wp-content/plugins/ig_syntax_hilite/js/syntax_hilite_js.js"></script>
+	<script language="javascript" type="text/javascript">
+	var arrCode = new Array();
+	</script>
+	<script type="text/javascript" src="http://blog.sribna.com/wp-content/plugins/wp-lightboxJS/lightbox.js"></script>
+	<script type="text/javascript">
+		var loadingImage = "http://blog.sribna.com/wp-content/plugins/wp-lightboxJS/images/loading.gif";
+		var closeButton = "http://blog.sribna.com/wp-content/plugins/wp-lightboxJS/images/close.gif";
+	</script>	
+</head>
+<body>
+<div id="page">
+
+
+<div id="header">
+	<div id="headerimg">
+		<h1><a id="nhead" href="http://blog.sribna.com/">Sribna</a></h1>
+		<div class="description" id="ndescr">Web программирование и не только</div>
+	</div>
+</div>
+<hr />
+
+	<div id="content" class="narrowcolumn">
+				
+  	   <div><a href="http://blog.sribna.com">На Главную</a></div>
+		<div class="navigation">
+			<div class="alignleft">&laquo; <a href="http://blog.sribna.com/java-samyiy-populyarnyiy-yazyik-programmirovaniya.htm">Java - самый популярный язык программирования.</a></div>
+			<div class="alignright"><a href="http://blog.sribna.com/google-ne-perestaet-radovat.htm">Google не перестает радовать.</a> &raquo;</div>
+		</div>
+
+		<div class="post" id="post-13">
+			<h2><a href="http://blog.sribna.com/chto-takoe-vertical-align-i-s-chem-ego-edyat.htm" rel="bookmark" title="Пермалинк: Что такое vertical-align и с чем его едят?">Что такое vertical-align и с чем его едят?</a></h2>
+	        <small>January 31st, 2007 by Yuriy Drozdov </small>
+			<div class="entrytext">
+				<p>Недавно пришел к выводу, что я совершенно не могу пользоваться свойством <strong>vertical-align</strong>. Хотя, казалось бы - задал свойство <strong>height</strong> и выравнивай себе на здоровье свойством <strong>vertical-align</strong>. Но не все так просто. Обратимся за информацией к стандарту <a target="_blank" title="css 2" href="http://www.w3c.org">CSS 2</a>. Область применения у <strong>vertical-align</strong> : строковые и &#8216;table-cell&#8217; элементы. По умолчанию начальное значения этого свойства - <strong>baseline</strong>(Осуществляется выравнивание базисной линий блока относительно базисной        линии его родительского блока. Если у блока нет базисной линии, то        выполняется выравнивание его нижней границы относительно базисной линии        родительского блока). Интересна последовательностей действий при формировании выравнивания ячеек в таблице, согласно спецификации CSS 2:</p>
+<ol>
+<li>Сначала позиционируются ячейки, выровненные относительно базовой линии. В результате будет создана базовая линия строки. Далее позиционируются ячейки со свойством &#8216;vertical-align: top&#8217;.<a id="more-13"></a></li>
+<li>После этого у строки имеется верх, базовая линия (возможно) и условная высота, которая является расстоянием от верхнего края до самого нижнего края ячеек, позиционированных на этот момент.</li>
+<li>Если высота какой либо из оставшихся ячеек, которые выровнены по нижнему краю или по центру, превышает текущую высоту строки, высота строки увеличится до максимальной высоты таких ячеек за счет опускания нижней части.</li>
+<li>В последнюю очередь позиционируются оставшиеся ячейки.</li>
+</ol>
+<div style="text-align: center"><img title="CSS 2" alt="CSS 2" src="http://www.w3.org/TR/REC-CSS2/images/cell-align.gif" /></div>
+<div align="center">Рисунок c <a target="_blank" title="www.w3c.org" href="http://www.w3c.org">www.w3c.org</a></div>
+<p>Для ячейки таблицы, кажется, все понятно с выравниванием. А как быть со структурными блоками? Рассмотрим пример:</p>
+<div align="left"><code>&lt;div style="height:100px;border: solid 1px red;width:100px;vertical-align:middle;"">test&lt;/div></code></div>
+<p>Получаем слудующее:</p>
+<div>
+<div style="text-align: center"><img alt="vertical-align" title="vertical-align" src="http://blog.sribna.com/images/valign.JPG" /></div>
+<p>Элемент div порождает структурный блок, который содержит в себе безымянный строковый блок. Возникает вопрос,как выровнять по  середине  высоты  родительского  блока безымянный строковый блок? В этом нам поможет свойство <strong>line-height</strong>. Если это свойство применяется к элементу уровня блока, содержимое которого состоит из элементов строкового уровня, то оно определяет минимальное значение высоты каждого порождаемого им строкового блока.</p>
+<div align="left"><code>&lt;div style="height:100px;border: solid 1px red;width:100px;line-height: 100px;vertical-align:middle;"">test&lt;/div></code></div>
+<p>При задании свойства  <strong>line-height</strong>  -  <strong>vertical-align  </strong>работает так, как нам нужно:</p>
+<div align="left">
+<div style="text-align: center"><img title="vertical-align 2" alt="vertical-align 2" src="http://blog.sribna.com/images/valign2.JPG" /></div>
+</div>
+</div>
+				<p class="author"><strong>Автор:</strong> <i>Yuriy Drozdov</i></p>
+				<h3>Похожие статьи:</h3>
+				<ul><li><a href="http://blog.sribna.com/opyat-pro-css-vyiravnivanie.htm" rel="bookmark" title="Permanent Link: Опять про css выравнивание">Опять про css выравнивание</a></li><li><a href="http://blog.sribna.com/vertikalnoe-vyiravnivanie-v-css-chast-2.htm" rel="bookmark" title="Permanent Link: Вертикальное выравнивание в CSS, часть 2.">Вертикальное выравнивание в CSS, часть 2.</a></li><li><a href="http://blog.sribna.com/ul-li-bag-v-ie.htm" rel="bookmark" title="Permanent Link: ul li баг в IE">ul li баг в IE</a></li><li><a href="http://blog.sribna.com/pohozhe-google-ne-verit-chto-gazetyi-skoro-vyimrut.htm" rel="bookmark" title="Permanent Link: Похоже, Google не верит, что газеты скоро вымрут">Похоже, Google не верит, что газеты скоро вымрут</a></li><li><a href="http://blog.sribna.com/ira.htm" rel="bookmark" title="Permanent Link: Ира">Ира</a></li></ul>
+				
+ 
+
+<p class="social">
+
+<script>
+
+
+function so(u,t) {
+
+   for (i=0; i< s.length; i=i+2) document.write(
+
+      '<a target="blank" href="http://'+s[i]+'/'+s[i+1].replace('{u}',u).replace('{t}',t)+'">'+
+
+      '<img src="/wp-content/themes/default/social/'+s[i]+'.ico" border="0" width="16" height="16" alt="Добавить в '+s[i]+'">  </a>'
+
+      );
+
+}
+
+var s=new Array(
+
+   "del.icio.us","post?url={u}&title={t}",
+
+   "news2.ru","add_story.php?url={u}",
+
+   "google.com","bookmarks/mark?op=edit&bkmk={u}&title={t}",
+
+   "bobrdobr.ru","add.html?url={u}&title={t}",
+
+   "memori.ru","link/?sm=1&u_data[url]={u}&u_data[name]={t}",
+
+   "moemesto.ru","post.php?url={u}&title={t}",
+
+   "mister-wong.ru","add_url/?bm_url={u}&bm_description={t}",
+
+   "rumarkz.ru","bookmarks/?action=add&popup=1&address={u}&title={t}&description={t}",
+
+   "rucity.com","bookmarks.php?action=add&address={u}&title={t}&description=",
+
+   "linkstore.ru","servlet/LinkStore?a=add&url={u}&title={t}",
+
+   "myscoop.ru","add/?title={t}&URL={u}",
+
+   "vaau.ru","submit/?action=step2&url={u}",
+
+   "newsland.ru","News/Add/type/news/"
+
+);
+
+ 
+ so (
+
+      'http%3A%2F%2Fblog.sribna.com%2Fchto-takoe-vertical-align-i-s-chem-ego-edyat.htm',
+
+      encodeURIComponent('Что такое vertical-align и с чем его едят?')
+
+   );
+
+</script>
+
+</p>
+
+ 
+								<p class="postmetadata alt">
+					<small>
+						Эта запись опубликована
+						 
+						Wednesday, January 31st, 2007 в 2:48 pm						Рубрики: <a href="http://blog.sribna.com/category/css/" title="View all posts in CSS" rel="category tag">CSS</a>.
+						Подпишитесь на <a href='http://blog.sribna.com/chto-takoe-vertical-align-i-s-chem-ego-edyat.htm/feed/'>RSS 2.0 ленту</a> комментариев.
+						
+													Комментирование запрещено, но Вы можете поставить <a href="http://blog.sribna.com/chto-takoe-vertical-align-i-s-chem-ego-edyat.htm/trackback/ " rel="trackback">трекбек</a> со своего сайта.
+						
+												
+					</small>
+				</p>
+			</div>
+		</div>
+    
+	
+<!-- You can start editing here. -->
+
+<p><a href='http://blog.sribna.com/chto-takoe-vertical-align-i-s-chem-ego-edyat.htm/feed/'><abbr title="Really Simple Syndication">RSS</abbr> комментариев</a> 
+| <a href="http://blog.sribna.com/chto-takoe-vertical-align-i-s-chem-ego-edyat.htm/trackback/">Trackback <acronym title="Uniform Resource Identifier">URI</acronym></a>
+</p>
+
+<h2 id="comments">7 Комментариев 
+</h2>
+<div class="#commentlist">
+			<div  id="div-comment-20" class='comment'>
+				<a name='comment-20' id='comment-20'></a>
+				<div class="title">
+					<img class="collapseicon" src="http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=spacer.png" onclick='collapseThread("div-comment-20")' alt=""/>
+					<cite>Comment by <noindex><a href='http://zumu.org' rel='external nofollow'>Андрей Кинах</a></noindex><a href="#comment-20"></a></cite> 
+														
+				</div>
+				<div class='body'>
+					<div class='meta'>
+						2007-02-06 19:53:26 						
+					</div>					
+					<div class='content'>
+						<p>а что тебя собственно удивило?<br />
+<a href="http://www.w3.org/TR/CSS21/visudet.html#propdef-vertical-align" rel="nofollow">http://www.w3.org/TR/CSS21/visudet.html#propdef-vertical-align</a><br />
+цитата:<br />
+&#8220;This property affects the vertical positioning inside a line box of the boxes generated by an inline-level element.&#8221;</p>
+<p>див не инлайновый элемент, по этому vertical-align на него не действует. line-height - используется для задания минимальной высоты строки инлайновых элементов которые размещены внутри блока, т.е. ты величил высоту строки и отцентровал текст внтури строки по центру. но, при переносе текста будет отстой, т.к. будет новая строка.
+</p>
+					</div>
+					<div class='reply'>
+						 
+						<a href='#' onclick='moveAddCommentBelow("div-comment-20", 20, true); return false;'>Ответить на этот комментарий</a>
+											</div>
+				</div>
+					
+
+			</div>
+			<!-- This has to be here because of Internet Explorers plethora of layout bugs -->
+			<div style="height: 1px; overflow: hidden;">&nbsp;</div>
+			<div  id="div-comment-31" class='comment'>
+				<a name='comment-31' id='comment-31'></a>
+				<div class="title">
+					<img class="collapseicon" src="http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=spacer.png" onclick='collapseThread("div-comment-31")' alt=""/>
+					<cite>Comment by <noindex><a href='http://blog.sribna.com' rel='external nofollow'>y.drozdov</a></noindex><a href="#comment-31"></a></cite> 
+														
+				</div>
+				<div class='body'>
+					<div class='meta'>
+						2007-02-08 14:34:44 						
+					</div>					
+					<div class='content'>
+						<p>Я написал, что line-height для строковых и table-cell элементов используется. Действительно, этот метод хорош лишь если контейнер имеет достаточную ширину и вся строка поместится в один линейный блок. Позже напишу как сделать выравнивание для случая когда строка разбивается на несколько линейных блоков.<br />
+А удивило меня&#8230; Даже не удивило, а позабавило, вертикальное выравнивание в IE, как раз для случая с несколькими линейными блоками.
+</p>
+					</div>
+					<div class='reply'>
+						 
+						<a href='#' onclick='moveAddCommentBelow("div-comment-31", 31, true); return false;'>Ответить на этот комментарий</a>
+											</div>
+				</div>
+					
+
+			</div>
+			<!-- This has to be here because of Internet Explorers plethora of layout bugs -->
+			<div style="height: 1px; overflow: hidden;">&nbsp;</div>
+			<div  id="div-comment-57" class='comment'>
+				<a name='comment-57' id='comment-57'></a>
+				<div class="title">
+					<img class="collapseicon" src="http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=spacer.png" onclick='collapseThread("div-comment-57")' alt=""/>
+					<cite>Pingback by <noindex><a href='http://blog.sribna.com/vertikalnoe-vyiravnivanie-v-css-chast-2.htm' rel='external nofollow'>Sribna &raquo; Архив блога &raquo; Вертикальное выравнивание в CSS, часть 2.</a></noindex><a href="#comment-57"></a></cite> 
+														
+				</div>
+				<div class='body'>
+					<div class='meta'>
+						2007-02-23 21:17:47 						
+					</div>					
+					<div class='content'>
+						<p>[...] Как и обещал, продолжаю. Если брать метод, описанный в Что такое vertical-align и с чем его едят?, то он хорош только в том случае, если контейнер (в нашем случае был div) имеет достаточную ширину и вся строка поместится в один линейный блок. Если строка не влазит в ширину контейнера, она разбивается на несколько линейных блоков. И каждый линейный блок наследует line-height. Получаем в этом случае, мягко говоря, не совсем то, что ожидали. [...]
+</p>
+					</div>
+					<div class='reply'>
+						 
+						<a href='#' onclick='moveAddCommentBelow("div-comment-57", 57, true); return false;'>Ответить на этот комментарий</a>
+											</div>
+				</div>
+					
+
+			</div>
+			<!-- This has to be here because of Internet Explorers plethora of layout bugs -->
+			<div style="height: 1px; overflow: hidden;">&nbsp;</div>
+			<div  id="div-comment-2368" class='comment'>
+				<a name='comment-2368' id='comment-2368'></a>
+				<div class="title">
+					<img class="collapseicon" src="http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=spacer.png" onclick='collapseThread("div-comment-2368")' alt=""/>
+					<cite>Pingback by <noindex><a href='http://blog.sribna.com/opyat-pro-css-vyiravnivanie.htm' rel='external nofollow'>Sribna &raquo; Опять про css выравнивание</a></noindex><a href="#comment-2368"></a></cite> 
+														
+				</div>
+				<div class='body'>
+					<div class='meta'>
+						2007-10-24 15:49:05 						
+					</div>					
+					<div class='content'>
+						<p>[...] Про вертикальное выравнивание я уже писал, можно почитать тут и тут. Написать снова меня натолкнула статья Артема Курапова - Element alignment. [...]
+</p>
+					</div>
+					<div class='reply'>
+						 
+						<a href='#' onclick='moveAddCommentBelow("div-comment-2368", 2368, true); return false;'>Ответить на этот комментарий</a>
+											</div>
+				</div>
+					
+
+			</div>
+			<!-- This has to be here because of Internet Explorers plethora of layout bugs -->
+			<div style="height: 1px; overflow: hidden;">&nbsp;</div>
+			<div  id="div-comment-2638" class='comment'>
+				<a name='comment-2638' id='comment-2638'></a>
+				<div class="title">
+					<img class="collapseicon" src="http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=spacer.png" onclick='collapseThread("div-comment-2638")' alt=""/>
+					<cite>Comment by inna<a href="#comment-2638"></a></cite> 
+					<img alt='Subscribed to comments via email' src='http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=subscribed.png' />									
+				</div>
+				<div class='body'>
+					<div class='meta'>
+						2007-11-12 16:19:43 						
+					</div>					
+					<div class='content'>
+						<p>Скажите пожалуйста как выровнять табличку по центру?<br />
+Спасибо за рание!
+</p>
+					</div>
+					<div class='reply'>
+						 
+						<a href='#' onclick='moveAddCommentBelow("div-comment-2638", 2638, true); return false;'>Ответить на этот комментарий</a>
+											</div>
+				</div>
+			<div  id="div-comment-2639" class='comment odd'>
+				<a name='comment-2639' id='comment-2639'></a>
+				<div class="title">
+					<img class="collapseicon" src="http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=spacer.png" onclick='collapseThread("div-comment-2639")' alt=""/>
+					<cite>Comment by <noindex><a href='http://blog.sribna.com' rel='external nofollow'>y.drozdov</a></noindex><a href="#comment-2639"></a></cite> 
+														
+				</div>
+				<div class='body'>
+					<div class='meta'>
+						2007-11-12 16:40:26 						
+					</div>					
+					<div class='content'>
+						<p>по центру страницы? вертикально или горизонтально?
+</p>
+					</div>
+					<div class='reply'>
+						 
+						<a href='#' onclick='moveAddCommentBelow("div-comment-2639", 2639, true); return false;'>Ответить на этот комментарий</a>
+											</div>
+				</div>
+					
+
+			</div>
+			<!-- This has to be here because of Internet Explorers plethora of layout bugs -->
+			<div style="height: 1px; overflow: hidden;">&nbsp;</div>
+					
+
+			</div>
+			<!-- This has to be here because of Internet Explorers plethora of layout bugs -->
+			<div style="height: 1px; overflow: hidden;">&nbsp;</div>
+			<div  id="div-comment-3994" class='comment'>
+				<a name='comment-3994' id='comment-3994'></a>
+				<div class="title">
+					<img class="collapseicon" src="http://blog.sribna.com/wp-content/plugins/briansthreadedcomments.php?image=spacer.png" onclick='collapseThread("div-comment-3994")' alt=""/>
+					<cite>Comment by Kaylang<a href="#comment-3994"></a></cite> 
+														
+				</div>
+				<div class='body'>
+					<div class='meta'>
+						2008-02-15 16:15:49 						
+					</div>					
+					<div class='content'>
+						<p>А как выровнять текст по нижнему краю DIV? И чтобы это одинаково смотрелось и в ИЕ  и в Опере и в ФФ.<br />
+line-height помогает выровнять текст в Опере и ФФ, но в ИЕ7 не работает.
+</p>
+					</div>
+					<div class='reply'>
+						 
+						<a href='#' onclick='moveAddCommentBelow("div-comment-3994", 3994, true); return false;'>Ответить на этот комментарий</a>
+											</div>
+				</div>
+					
+
+			</div>
+			<!-- This has to be here because of Internet Explorers plethora of layout bugs -->
+			<div style="height: 1px; overflow: hidden;">&nbsp;</div>
+</div>
+<p>Извините, комментарии закрыты.</p>
+	
+		
+	</div>
+	<div id="sidebar">
+		<ul>
+			<li>
+				<form method="get" id="searchform" action="http://blog.sribna.com/">
+<div><input type="text" value="" name="s" id="s" />
+<input type="submit" id="searchsubmit" value="Поиск" />
+</div>
+</form>
+			</li>
+
+			<li><noindex><a href="http://feeds2.feedburner.com/~r/Sribna/~6/2"><img src="http://feeds2.feedburner.com/Sribna.2.gif" alt="Sribna" style="border:0"></a></noindex></li>
+			<li>
+						</li>
+			
+			<li class="pagenav"><h2>Страницы</h2><ul><li class="page_item"><a href="http://blog.sribna.com/about/" title="О сайте">О сайте</a></li>
+<li class="page_item"><a href="http://blog.sribna.com/avtoryi/" title="Авторы">Авторы</a></li>
+<li class="page_item"><a href="http://blog.sribna.com/readers/" title="Читатели">Читатели</a></li>
+<li class="page_item"><a href="http://blog.sribna.com/map/" title="Карта сайта">Карта сайта</a></li>
+</ul></li>			<li>
+				<h2>Самое популярное</h2>
+				<ul>
+				    <li><a href="http://blog.sribna.com/vertikalnoe-vyiravnivanie-v-css-chast-2.htm">Вертикальное выравнивание в CSS, часть 2</a></li>
+					<li><a href="http://blog.sribna.com/uslovnyie-kommentarii-v-css.htm">Условные комментарии в CSS</a></li>
+					<li><a href="http://blog.sribna.com/ukrashaem-input-s-pomoschyu-css.htm">Украшаем input с помощью CSS</a></li>
+					<li><a href="http://blog.sribna.com/krizis-i-ya.htm">Кризис и я</a></li>
+					<li><a href="http://blog.sribna.com/kak-ochistit-kesh-brauzera-firefox.htm">Как очистить кеш браузера Firefox</a></li>
+				</ul>
+			</li>
+                                    <li><h2>Реклама</h2>
+						<script type="text/javascript"><!--
+google_ad_client = "ca-pub-5530407177278166";
+/* button */
+google_ad_slot = "8065476964";
+google_ad_width = 125;
+google_ad_height = 125;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+                    </li>
+			     			<li><h2>Рубрики</h2>
+				<ul>
+					<li><a href="http://blog.sribna.com/category/adodb/" title="View all posts filed under ADODB">ADODB</a> (1)
+</li>
+	<li><a href="http://blog.sribna.com/category/css/" title="View all posts filed under CSS">CSS</a> (27)
+</li>
+	<li><a href="http://blog.sribna.com/category/google/" title="View all posts filed under Google">Google</a> (10)
+</li>
+	<li><a href="http://blog.sribna.com/category/html/" title="View all posts filed under Html">Html</a> (2)
+</li>
+	<li><a href="http://blog.sribna.com/category/javascript/" title="View all posts filed under JavaScript">JavaScript</a> (5)
+</li>
+	<li><a href="http://blog.sribna.com/category/lights-stories/" title="Light&#8217;s stories">Light&#8217;s stories</a> (5)
+</li>
+	<li><a href="http://blog.sribna.com/category/mysql/" title="View all posts filed under MySQL">MySQL</a> (4)
+</li>
+	<li><a href="http://blog.sribna.com/category/php/" title="View all posts filed under PHP">PHP</a> (12)
+</li>
+	<li><a href="http://blog.sribna.com/category/software/" title="View all posts filed under Software">Software</a> (1)
+</li>
+	<li><a href="http://blog.sribna.com/category/testing/" title="View all posts filed under Testing">Testing</a> (3)
+</li>
+	<li><a href="http://blog.sribna.com/category/web/" title="View all posts filed under Web">Web</a> (12)
+</li>
+	<li><a href="http://blog.sribna.com/category/wordpress/" title="View all posts filed under WordPress">WordPress</a> (4)
+</li>
+	<li><a href="http://blog.sribna.com/category/iz-zhizni/" title="View all posts filed under Из жизни">Из жизни</a> (14)
+</li>
+	<li><a href="http://blog.sribna.com/category/nablyudeniya/" title="View all posts filed under Наблюдения">Наблюдения</a> (2)
+</li>
+	<li><a href="http://blog.sribna.com/category/uncategorized/" title="View all posts filed under Разное">Разное</a> (29)
+</li>
+	<li><a href="http://blog.sribna.com/category/yumor-v-it/" title="View all posts filed under Юмор в IT">Юмор в IT</a> (7)
+</li>
+				</ul>
+			</li>
+
+                <li><h2>Последние записи <a href="http://blog.sribna.com/feed/" title="RSS"><img src="http://blog.sribna.com/images/xml-medium.png" alt="RSS" /></a></h2>
+                <ul><li><a href='http://blog.sribna.com/codeigniter_and_godaddy.htm'>CodeIgniter на Godaddy</a></li><li><a href='http://blog.sribna.com/nemnogo-o-programmnom-obespechenii.htm'>Немного о программном обеспечении</a></li><li><a href='http://blog.sribna.com/po-eto-nastoyaschaya-magiya.htm'>ПО - это настоящая магия</a></li><li><a href='http://blog.sribna.com/obschie-printsipyi-testirovaniya.htm'>Общие принципы тестирования</a></li><li><a href='http://blog.sribna.com/list_ul_with_disapered_backgrround_image.htm'>Список ul c исчезающей фоновой картинкой в IE 6</a></li></ul>
+                </li>
+                                
+			<li><h2>Архив</h2>
+				<ul>
+					<li><a href='http://blog.sribna.com/2009/07/' title='July 2009'>July 2009</a></li>
+	<li><a href='http://blog.sribna.com/2009/02/' title='February 2009'>February 2009</a></li>
+	<li><a href='http://blog.sribna.com/2008/12/' title='December 2008'>December 2008</a></li>
+	<li><a href='http://blog.sribna.com/2008/11/' title='November 2008'>November 2008</a></li>
+	<li><a href='http://blog.sribna.com/2008/10/' title='October 2008'>October 2008</a></li>
+	<li><a href='http://blog.sribna.com/2008/09/' title='September 2008'>September 2008</a></li>
+	<li><a href='http://blog.sribna.com/2008/08/' title='August 2008'>August 2008</a></li>
+	<li><a href='http://blog.sribna.com/2008/07/' title='July 2008'>July 2008</a></li>
+	<li><a href='http://blog.sribna.com/2008/06/' title='June 2008'>June 2008</a></li>
+	<li><a href='http://blog.sribna.com/2008/05/' title='May 2008'>May 2008</a></li>
+	<li><a href='http://blog.sribna.com/2008/04/' title='April 2008'>April 2008</a></li>
+	<li><a href='http://blog.sribna.com/2008/03/' title='March 2008'>March 2008</a></li>
+	<li><a href='http://blog.sribna.com/2008/02/' title='February 2008'>February 2008</a></li>
+	<li><a href='http://blog.sribna.com/2008/01/' title='January 2008'>January 2008</a></li>
+	<li><a href='http://blog.sribna.com/2007/12/' title='December 2007'>December 2007</a></li>
+	<li><a href='http://blog.sribna.com/2007/11/' title='November 2007'>November 2007</a></li>
+	<li><a href='http://blog.sribna.com/2007/10/' title='October 2007'>October 2007</a></li>
+	<li><a href='http://blog.sribna.com/2007/09/' title='September 2007'>September 2007</a></li>
+	<li><a href='http://blog.sribna.com/2007/08/' title='August 2007'>August 2007</a></li>
+	<li><a href='http://blog.sribna.com/2007/07/' title='July 2007'>July 2007</a></li>
+	<li><a href='http://blog.sribna.com/2007/06/' title='June 2007'>June 2007</a></li>
+	<li><a href='http://blog.sribna.com/2007/05/' title='May 2007'>May 2007</a></li>
+	<li><a href='http://blog.sribna.com/2007/04/' title='April 2007'>April 2007</a></li>
+	<li><a href='http://blog.sribna.com/2007/03/' title='March 2007'>March 2007</a></li>
+	<li><a href='http://blog.sribna.com/2007/02/' title='February 2007'>February 2007</a></li>
+	<li><a href='http://blog.sribna.com/2007/01/' title='January 2007'>January 2007</a></li>
+				</ul>
+			</li>
+
+                                
+				<li><h2>Мета</h2>
+				<ul>
+										<li><a rel="nofollow" href="http://blog.sribna.com/wp-login.php">Login</a></li>
+					<li><a href="http://validator.w3.org/check/referer" title="This page validates as XHTML 1.0 Transitional">Valid <abbr title="eXtensible HyperText Markup Language">XHTML</abbr></a></li>
+					<li><a href="http://blog.sribna.com/feed/"><img src="http://feeds2.feedburner.com/~fc/Sribna?bg=99CCFF&amp;fg=444444&amp;anim=0" height="26" width="88" style="border:0" alt="" /></a></li>
+										<li><!-- code here --><!--845861064--><!-- end code here -->
+					</li>
+				</ul>
+				</li>
+		</ul>
+	</div><hr />
+<div id="footer">
+	<p>
+		Sribna работает на 
+		<a href="http://wordpress.org/">WordPress</a> |
+		<br /><a href="http://blog.sribna.com/feed/" rel="nofollow">Записи (RSS)</a>
+		и <a href="http://blog.sribna.com/comments/feed/" rel="nofollow">Комментарии (RSS)</a>.
+		<!-- 173 queries. 0.313 seconds. -->
+	</p>
+</div>
+</div>
+
+
+
+		<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-1185146-1";
+urchinTracker();
+</script>
+</body>
+</html>

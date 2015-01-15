@@ -1,0 +1,707 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head profile="http://www.w3.org/2005/10/profile">
+
+<title>Определение браузера и его версии</title>
+<link rel="icon" type="image/png" href="Определение%20браузера%20и%20его%20версии_files/favicon0.png" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8;charset=utf-8" />
+<meta name="Keywords" content="определение имени браузера, определение версии браузера, обновление браузера" />
+<meta name="Description" content="Сейчас иногда разные браузеры позволяют себе по разному реагировать на код. Тебе остается для таких &quot;иногда&quot; научиться точно определять браузер и применять к нему особые меры." />
+<link rel="stylesheet" type="text/css" href="Определение%20браузера%20и%20его%20версии_files/main-200.css" />
+<!--[if IE 7]><link rel="stylesheet" type="text/css" href="css/ie7-2.css" /><![endif]-->  		
+<link rel="stylesheet" type="text/css" href="Определение%20браузера%20и%20его%20версии_files/sh-core0.css" />
+<script type="text/javascript" src="Определение%20браузера%20и%20его%20версии_files/jquery00.js"></script>
+<script type="text/javascript" src="Определение%20браузера%20и%20его%20версии_files/main-100.js" charset="utf-8"></script>
+<script type='text/javascript' src='Определение%20браузера%20и%20его%20версии_files/google_s.js'>
+</script>
+<script type='text/javascript'>
+GS_googleAddAdSenseService("ca-pub-2630572969936819");
+GS_googleEnableAllServices();
+</script>
+<script type='text/javascript'>
+GA_googleAddSlot("ca-pub-2630572969936819", "footer");
+GA_googleAddSlot("ca-pub-2630572969936819", "sidebar");
+GA_googleAddSlot("ca-pub-2630572969936819", "header");
+GA_googleFetchAds();
+</script>		
+<script type="text/javascript" src="Определение%20браузера%20и%20его%20версии_files/sh-core-.js"></script>
+<link rel="alternate" type="application/rss+xml" title="xiper.net - основы и секреты front-end разработки" href="http://www.xiper.net/rss.html" />
+</head>
+<body>
+<!--main wrap-->
+<div class="mainWrap">
+<div class="topPanel" >
+<script type='text/javascript'>
+GA_googleFillSlot("header");
+</script>
+</div>
+<!--content-->
+<div class="contentWrap">
+<div class="content">
+<h1>Определение браузера и его версии</h1>
+  <div class="artInfo">
+        Подготовили: <span>Андрей Косяк и Евгений Рыжков</span>
+       
+   Дата публикации: 02.06.2010     <div>Последнее обновление: 04.11.2010</div>
+      </div>
+  
+<p><img alt="Определение браузера и его версии" height="200" src="Определение%20браузера%20и%20его%20версии_files/browserd.jpg" width="200" style=" float: left; margin: 0 10px 10px 0"/> Internet Explorer, Firefox, Opera, Chrome, Safari, Netscape, Konqueror, Avant, Dillo... и это только некоторые из ныне доступных браузеров пользователю. Что же в этом плохого?</p>
+<p>В &quot;идеальном&quot; мире есть утвержденные веб стандарты, которых придерживаются все разработчики браузеров. Это значит, что на один и тот же правильно написанный тобою HTML код (или CSS код, или JS), каждый из браузеров реагирует одинаково. Но в реальном мире у разработчиков браузеров преобладает мнение, что стандарты &mdash; это для далекого розового будущего и когда оно придет они начнут их придерживаться. А сейчас иногда браузеры позволяют совершенно непредсказуемо реагировать на код.</p>
+<p>Тебе остается для таких &quot;иногда&quot; научиться точно определять браузер и применять к нему особые меры.</p>
+<h2>Задача</h2>
+<p>При помощи JavaScript определить браузер и его версию (без использования дополнительных библиотек).</p>
+<h2 style="clear: both">Метод навигатора</h2>
+<h3>Теория</h3>
+<p>Среди объектов javascript есть объект navigator, у которого доступен метод <a href="http://ru.wikipedia.org/wiki/Useragent">UserAgent</a>. Этот метод вернет строку, в которой содержится информация о браузере, его версии, ядре, операционной системе, в которой он запущен, а так же некоторых агентах и службах, встроенных в него. Примеры UserAgent:</p>
+<ul>
+<li>Opera/9.64 (Windows NT 5.1; U; ru) Presto/2.1.1</li>
+<li>Mozilla/5.0 (X11; U; Linux i686; it-IT; rv:1.9.0.2) Gecko/2008092313 Ubuntu/9.25 (jaunty) Firefox/3.8</li>
+<li>Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0; el-GR)</li>
+</ul>
+<h3>Решение</h3>
+<p>Т.к. UserAgent возращает имя браузера и его версию для разных браузеров однотипно, поэтому можно составить регулярное выражение для получения нужной информации. Допустим UserAgent вернул такую строку:</p>
+<p>Opera/9.64 (Windows NT 5.1; U; ru) Presto/2.1.1</p>
+<p>В этой строке нужная информация &mdash; это Opera/9.64. Парсим строку и &quot;вытаскиваем&quot; нужное:</p>
+<div class="codeExample codeJavascript">
+<pre class="brush: css">
+function browserDetectNav(chrAfterPoint)
+{
+var
+    UA=window.navigator.userAgent,       // содержит переданный браузером юзерагент
+    //--------------------------------------------------------------------------------
+	OperaB = /Opera[ \/]+\w+\.\w+/i,     //
+	OperaV = /Version[ \/]+\w+\.\w+/i,   //	
+	FirefoxB = /Firefox\/\w+\.\w+/i,     // шаблоны для распарсивания юзерагента
+	ChromeB = /Chrome\/\w+\.\w+/i,       //
+	SafariB = /Version\/\w+\.\w+/i,      //
+	IEB = /MSIE *\d+\.\w+/i,             //
+	SafariV = /Safari\/\w+\.\w+/i,       //
+        //--------------------------------------------------------------------------------
+	browser = new Array(),               //массив с данными о браузере
+	browserSplit = /[ \/\.]/i,           //шаблон для разбивки данных о браузере из строки
+	OperaV = UA.match(OperaV),
+	Firefox = UA.match(FirefoxB),
+	Chrome = UA.match(ChromeB),
+	Safari = UA.match(SafariB),
+	SafariV = UA.match(SafariV),
+	IE = UA.match(IEB),
+	Opera = UA.match(OperaB);
+		
+		//----- Opera ----
+		if ((!Opera==&quot;&quot;)&(!OperaV==&quot;&quot;)) browser[0]=OperaV[0].replace(/Version/, &quot;Opera&quot;)
+				else 
+					if (!Opera==&quot;&quot;)	browser[0]=Opera[0]
+						else
+							//----- IE -----
+							if (!IE==&quot;&quot;) browser[0] = IE[0]
+								else 
+									//----- Firefox ----
+									if (!Firefox==&quot;&quot;) browser[0]=Firefox[0]
+										else
+											//----- Chrom ----
+											if (!Chrome==&quot;&quot;) browser[0] = Chrome[0]
+												else
+													//----- Safari ----
+													if ((!Safari==&quot;&quot;)&amp;&amp;(!SafariV==&quot;&quot;)) browser[0] = Safari[0].replace(&quot;Version&quot;, &quot;Safari&quot;);
+//------------ Разбивка версии -----------
+
+	var
+            outputData;                                      // возвращаемый функцией массив значений
+                                                             // [0] - имя браузера, [1] - целая часть версии
+                                                             // [2] - дробная часть версии
+	if (browser[0] != null) outputData = browser[0].split(browserSplit);
+	if ((chrAfterPoint==null)&amp;&amp;(outputData != null)) 
+		{
+			chrAfterPoint=outputData[2].length;
+			outputData[2] = outputData[2].substring(0, chrAfterPoint); // берем нужное ко-во знаков
+			return(outputData);
+		}
+			else return(false);
+}
+</pre>
+</div>
+<p>В функцию передаётся всего один параметр &mdash; chrAfterPoint, который определяет количество возвращаемых знаков версии. Т.е. функция вернет номер версии и chrAfterPoint знаков после запятой. Если параметр не будет передан &mdash; функция вернет все знаки после запятой.</p>
+<p>Пример вызова функции:</p>
+<div class="codeExample codeHTML">
+<pre class="brush: css">
+&lt;button onclick=&quot;showBrowVer()&quot;&gt;Определить браузер&lt;/button&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt; // скриптик будет вызывать нашу функцию определения
+                                // и выводить результат
+function showBrowVer()          
+{
+var
+data = browserDetectNav();      //вызываем функцию, параметр НЕ передаем,
+                                //поэтому в результате получим все знаки версии после запятой
+
+alert(&quot;Браузер: &quot;+data[0]+&quot;, Версия: &quot;+data[1]+&quot;.&quot;+data[2]); //выводим результат
+}
+	
+&lt;/script&gt;
+</pre>
+</div>
+<p><a href="http://www.xiper.net/scripts/bdetect/index-nav.html" rel="nofollow">Демо пример</a>. Проверено в:</p>
+<ul class="browserCheck">
+<li><a href="http://www.xiper.net/manuals/terms/terms-I.html#termIE" title="Прочитать об ie">IE</a> 6-8</li>
+<li class="ff"><a href="http://www.xiper.net/manuals/terms/terms-F.html#termFirefox" title="Прочитать о firefox">Firefox</a> 2-3.6</li>
+<li class="opera"><a href="http://www.xiper.net/manuals/terms/terms-O.html#termOpera" title="Прочитать об opera">Opera</a> 9.5-10.5</li>
+<li class="safari"><a href="http://www.xiper.net/manuals/terms/terms-S.html#termSafari" title="Прочитать о safari">Safari</a> 4</li>
+<li class="chrome"><a href="http://www.xiper.net/manuals/terms/terms-C.html#termChrome" title="Прочитать о chrome">Chrome</a> 4</li>
+</ul>
+<h3>Недостаток</h3>
+<p>Это информация из UserAgent. Его очень легко подделать, подменить или, как говориться, &laquo;подсунуть&raquo;(такой возможностью наделены такие звери как Opera и Safari). К тому же зачастую менее известные браузеры представляются более именитыми &laquo;коллегами&raquo;, но это совсем не значит, что они поддерживают нужные нам свойства или методы.
+</p>
+<h3>Вывод</h3>
+<p>Несмотря на недостаток, такой метод в большинстве случаев определит браузер совершенно точно, а если в него интегрировать еще и парочку способов по вычислению &quot;партизанов&quot; (маскирующихся браузеров), то доля удачных определений существенно возрастёт. </p>
+<h3>Заметки</h3>
+<ul>
+	<li>в примере определяются самые популярные браузеры (IE, Firefox, Opera, Chrome и Safari), остальные можно добавить по желанию и потребностям;</li>
+        <li>нужно заметить, что Safari и Opera (начиная с 10-й версии) передают информацию о себе двумя блоками в строке Useragent, поэтому для них схема отличается от общей</li>
+        <li>т.к. Opera умеет &raquo;прикидываться&laquo; другими браузерами, казалось бы, что её по юзерагенту не вычислить, тем не менее в строке юзерагента помимо идентификатора другого браузера, она передаёт и свой. Проверку на Opera просто ставим в первую очередь.</li>
+</ul>
+<h2>Метод объектов и свойств</h2>
+<p>Усложним задачу так, чтобы скрипт научился обнаруживать и &laquo;партизан&raquo; :).  Проще говоря, определить браузер однозначно, даже если он умеет маскироваться под своих коллег.</p>
+<h3>Теория</h3>
+<p>После некоторого анализа и не без помощи Google, было выяснено следующее:</p>
+<ul>
+<li><h5>Opera</h5>
+Умеет(умела) прикидываться другими браузерами. Но тем не менее, объект  JavaScript window.opera поддерживают все версии оперы 5+. Вот она и спалилась. Кстати, этот же объект может выдать нам и версию: window.opera.version().</li>
+<li><h5>Chrome</h5>
+Так же имеет уникальный для себя объект window.chrome
+<li><h5>Firefox</h5>
+C давних пор имеет, как минимум, объект window.sidebar и window.globalStorage, которые не поддерживают другие браузеры.</li>
+<li><h5>Safari</h5> Не легко его отделить от всех браузеров, тем не менее обнаружилось, что такой объект как window.external в Safari отсутствует (кстати, также его нет в Opera, но это не страшно).</li>
+<li><h5>IE</h5> Линейку IE выделить не составило большого труда. Такие объекты как window.all и window.ActiveXObject поддерживает только IE. Другой вопрос, как его разбить по версиям? Но и тут есть варианты:
+<ul>
+<li><h6>IE 6</h6> Такое свойство как window.navigator.userProfile поддерживает только он</li>
+<li><h6>IE 8</h6> Появился объект window.Storage и window.Event, коих не было в предыдущих версиях.</li>
+<li><h6>IE 7</h6> Можно выделить методом исключения. А именно: по объекту window.Event или window.Storage, которые характерны для 8-й версии и все тому же свойству window.navigator.userProfile, которое характерно для 6-й.</li>
+</ul>
+</li>
+</ul>
+<h3>Решение</h3>
+<p>Путём проверки на поддержку определенного объекта (свойтсва, метода), делаем вывод о браузере, а в некоторых случаях и о его версии (Opera, IE).</p>
+<p>Пример функции:</p>
+<div class="codeExample codeJavascript">
+<pre class="brush: css">
+function browserDetectJS() {
+var
+	browser = new Array();
+	
+//Opera
+	if (window.opera) {
+		browser[0] = &quot;Opera&quot;;
+		browser[1] = window.opera.version();
+	}
+		else 
+//Chrome	
+		if (window.chrome) {
+			browser[0] = &quot;Chrome&quot;;
+		}
+			else
+//Firefox
+			if (window.sidebar) {
+				browser[0] = &quot;Firefox&quot;;
+			}
+				else
+//Safari 
+					if ((!window.external)&amp;&amp;(browser[0]!==&quot;Opera&quot;)) {
+						browser[0] = &quot;Safari&quot;;
+					}
+						else
+//IE
+						if (window.ActiveXObject) {
+							browser[0] = &quot;MSIE&quot;;
+							if (window.navigator.userProfile) browser[1] = &quot;6&quot;
+								else 
+									if (window.Storage) browser[1] = &quot;8&quot;
+										else 
+											if ((!window.Storage)&amp;&amp;(!window.navigator.userProfile)) browser[1] = &quot;7&quot;
+												else browser[1] = &quot;Unknown&quot;;
+						}
+	
+	if (!browser) return(false)
+		else return(browser);
+}
+</pre>
+</div>
+<p><a href="http://www.xiper.net/scripts/bdetect/index-full.html" rel="nofollow">Демо пример</a>. Проверено в:</p>
+<ul class="browserCheck">
+<li><a href="http://www.xiper.net/manuals/terms/terms-I.html#termIE" title="Прочитать об ie">IE</a> 6-8</li>
+<li class="ff"><a href="http://www.xiper.net/manuals/terms/terms-F.html#termFirefox" title="Прочитать о firefox">Firefox</a> 2-3.6</li>
+<li class="opera"><a href="http://www.xiper.net/manuals/terms/terms-O.html#termOpera" title="Прочитать об opera">Opera</a> 9.5-10.5</li>
+<li class="safari"><a href="http://www.xiper.net/manuals/terms/terms-S.html#termSafari" title="Прочитать о safari">Safari</a> 4</li>
+<li class="chrome"><a href="http://www.xiper.net/manuals/terms/terms-C.html#termChrome" title="Прочитать о chrome">Chrome</a> 4</li>
+</ul>
+<h3>Недостатки</h3>
+<p>Путём проверки поддержки объектов можно сделать вывод о марке практически любого браузера, но не всегда можно определить версию. Поэтому, если использовать такой способ, то там, где вывод о версии невозможно сделать на основании объектов, придётся брать версию из того же UserAgent.</p>
+<h3>Заметки</h3>
+<ul>
+<li>Конечно же, уникальных объектов для разных браузеров существует порядком больше, но на данный момент этого будет достаточно, дабы пробить браузер на поддерживаемые объекты.</li>
+</ul>
+<h2>Комплексный подход</h2>
+<p>Складываем оба метода в один файл, пишем "объединяющую" функцию с несколькими условиями и получаем на выход мини-библиотечку с тремя способами определения.</p>
+<p>Пример объединяющей функции:</p>
+<div class="codeExample codeJavascript">
+<pre class="brush: css">
+/*
+	Набор функций для определения имени и версии браузера.
+	
+	Функция browserDetectNav - определение браузера при помощи объекта Navigator
+	Функция browserDetectJS  - определение браузера при помощи JS объектов и св-в
+	Функция getBrowser	 - делает вывод о браузере на основании обоих методов
+	
+	Формат входящих и исходящих данный у всех функций одинаков.
+	Методы не зависимы друг от друга, можно использовать любой или вместе.
+	
+	Входящие параметры: 		chrAfterPoint - целое число,
+						определяющее кол-во знаков после запятой в возвращаемой версии браузера.
+						Если оставить пустым - вернет все знаки после запятой.
+	Возвращаемые параметры: 	outputData - массив, где
+					outputData[0] - имя браузера,
+					outputData[1] - основная версия браузера (значение до запятой),
+					outputData[2] - знаки версии после запятой (кол-во определяется входящим параметром)
+						если возвращается &quot;undefined&quot; - браузер (или версия) не определен (неизвестный)
+						если не возвращается версия (в некоторых случаях) - браузер "маскированый"
+*/
+function browserDetectNav(chrAfterPoint)
+{
+var
+    UA=window.navigator.userAgent,       // содержит переданный браузером юзерагент
+    //--------------------------------------------------------------------------------
+	OperaB = /Opera[ \/]+\w+\.\w+/i,     //
+	OperaV = /Version[ \/]+\w+\.\w+/i,   //	
+	FirefoxB = /Firefox\/\w+\.\w+/i,     // шаблоны для распарсивания юзерагента
+	ChromeB = /Chrome\/\w+\.\w+/i,       //
+	SafariB = /Version\/\w+\.\w+/i,      //
+	IEB = /MSIE *\d+\.\w+/i,             //
+	SafariV = /Safari\/\w+\.\w+/i,       //
+        //--------------------------------------------------------------------------------
+	browser = new Array(),               //массив с данными о браузере
+	browserSplit = /[ \/\.]/i,           //шаблон для разбивки данных о браузере из строки
+	OperaV = UA.match(OperaV),
+	Firefox = UA.match(FirefoxB),
+	Chrome = UA.match(ChromeB),
+	Safari = UA.match(SafariB),
+	SafariV = UA.match(SafariV),
+	IE = UA.match(IEB),
+	Opera = UA.match(OperaB);
+		
+		//----- Opera ----
+		if ((!Opera==&quot;&quot;)&amp;(!OperaV==&quot;&quot;)) browser[0]=OperaV[0].replace(/Version/, &quot;Opera&quot;)
+				else 
+					if (!Opera==&quot;&quot;)	browser[0]=Opera[0]
+						else
+							//----- IE -----
+							if (!IE==&quot;&quot;) browser[0] = IE[0]
+								else 
+									//----- Firefox ----
+									if (!Firefox==&quot;&quot;) browser[0]=Firefox[0]
+										else
+											//----- Chrom ----
+											if (!Chrome==&quot;&quot;) browser[0] = Chrome[0]
+												else
+													//----- Safari ----
+													if ((!Safari==&quot;&quot;)&&(!SafariV==&quot;&quot;)) browser[0] = Safari[0].replace(&quot;Version&quot;, &quot;Safari&quot;);
+//------------ Разбивка версии -----------
+
+	var
+            outputData;                                      // возвращаемый функцией массив значений
+                                                             // [0] - имя браузера, [1] - целая часть версии
+                                                             // [2] - дробная часть версии
+	if (browser[0] != null) outputData = browser[0].split(browserSplit);
+	if ((chrAfterPoint==null)&&(outputData != null)) 
+		{
+			chrAfterPoint=outputData[2].length;
+			outputData[2] = outputData[2].substring(0, chrAfterPoint); // берем нужное ко-во знаков
+			return(outputData);
+		}
+			else return(false);
+}
+
+function browserDetectJS() {
+var
+	browser = new Array();
+	
+//Opera
+	if (window.opera) {
+		browser[0] = &quot;Opera&quot;;
+		browser[1] = window.opera.version();
+	}
+		else 
+//Chrome	
+		if (window.chrome) {
+			browser[0] = &quot;Chrome&quot;;
+		}
+			else
+//Firefox
+			if (window.sidebar) {
+				browser[0] = &quot;Firefox&quot;;
+			}
+				else
+//Safari 
+					if ((!window.external)&amp;&amp;(browser[0]!==&quot;Opera&quot;)) {
+						browser[0] = &quot;Safari&quot;;
+					}
+						else
+//IE
+						if (window.ActiveXObject) {
+							browser[0] = &quot;MSIE&quot;;
+							if (window.navigator.userProfile) browser[1] = &quot;6&quot;
+								else 
+									if (window.Storage) browser[1] = &quot;8&quot;
+										else 
+											if ((!window.Storage)&amp;&amp;(!window.navigator.userProfile)) browser[1] = &quot;7&quot;
+												else browser[1] = "Unknown";
+						}
+	
+	if (!browser) return(false)
+		else return(browser);
+}
+
+function getBrowser(chrAfterPoint) {
+var
+    browserNav = browserDetectNav(chrAfterPoint),    // хранит результат работы функции browserDetectNav
+    browserJS = browserDetectJS();                   // хранит результат работы функции browserDetectJS
+
+// сравниваем результаты отработки двух методов
+	if (browserNav[0] == browserJS[0]) return(browserNav)                //если одинаковый - возвращаем результат первого метода
+		else
+			if (browserNav[0] != browserJS[0]) return(browserJS) //если разный - возвращаем результат второго метода
+				else
+					return(false);                       //в случае, если браузер не определен
+};
+
+function isItBrowser(browserCom, browserVer, detectMethod) {
+var browser;                                                      // контейнер для результатов обнаружения
+
+switch (detectMethod) {                                           // определяемся какой из методов использовать (3-й параметр)
+	case 1: browser = browserDetectNav(); break;	
+	case 2: browser = browserDetectJS(); break;
+	default: browser = getBrowser();
+};
+
+	if ((browserCom == browser[0])&amp;(browserVer == browser[1])) return(true)                                 // если переданы два параметра и они совпали - возвращаем true
+		else
+			if ((browserCom == browser[0])&amp;((browserVer == null)||(browserVer == 0))) return(true)  // если передан один параметр и он совпал - возвращаем true
+				else return(false);	
+};
+</pre>
+</div>
+<p>Итого имеем:</p>
+<ul>
+<li>browserDetectNav() &mdash; определяем браузер методом &quot;Навигатора&quot;</li>
+<li>browserDetectJS()  &mdash; определяем браузер методом JS объектов и свойств</li>
+<li>getBrowser() &mdash; определяя браузер, прмиеняем сразу два метода для большей надежности</li>
+<li>isItBrowser(browserName, [version]) &mdash; функция вернет true, если текущий браузер совпадает с указанным и false, если не совпадает</li>
+</ul>
+<p>Скачать всё целиком можно тут:</p>
+<ul>
+<li><a href="http://www.xiper.net/scripts/bdetect/js/bdetect.js">bdetect.js</a></li>
+<li><a href="http://www.xiper.net/scripts/bdetect/js/bdetect.comments.js">bdetect-with-comments.js</a></li>
+</ul>
+
+<h3>Как использовать</h3>
+<ol>
+<li>подключаем к странице вышеприведенный скрипт</li>
+<li>вызываем функцию getBrowser (например, при загрузке страницы &mdash; <a href="http://www.xiper.net/manuals/html/events/onload.html" title="прочитать о событии">событие onload</a>)</li>
+<li>условием отслеживаем нужный браузер, при необходимости и нужную версию, и выполняем какой-то ко для него</li>
+</ol>
+<p>Варианты имен браузеров, которые возращает функция:</p>
+<ul>
+<li>MSIE</li>
+<li>Safari</li>
+<li>Chrome</li>
+<li>Opera</li>
+<li>Firefox</li>
+</ul>
+<p>Например, хотим &quot;поймать&quot; IE7: </p>
+<div class="codeExample codeJavascript">
+<pre class="brush: css">
+&lt;script type=&quot;text/javascript&quot; src=&quot;path-to/bdetect.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+function bdetect()
+{
+   getBrowser();
+    /* ставим условие, в котором определяем нужный нам браузер и его версию */
+   if(data[0]==&quot;MSIE&quot; &amp;&amp; data[1]==&quot;7&quot;)
+   {
+        какой-то код для IE7
+   }
+}
+window.onload = bdetect;
+&lt;/script&gt;
+</pre>
+</div>
+<p>или можно вот так:</p>
+<div class="codeExample codeJavascript">
+<pre class="brush: css">
+&lt;script type=&quot;text/javascript&quot; src=&quot;path-to/bdetect.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+function bdetect()
+{
+   if(isItBrowser(&quot;MSIE&quot;,&quot;7&quot;))
+   {
+        какой-то код для IE7
+   }
+}
+window.onload = bdetect;
+&lt;/script&gt;
+</pre>
+</div>
+<h3>Вывод</h3>
+<p>Если использовать оба метода в совокупности (вызывая функцию getBrowser), то через такой &quot;фильтр&quot; вероятность &quot;просочиться&quot; крайне мала, да и на практике не так часто приходится столь жестко придираться к бедным браузерам.</p>
+<h3>Заметки</h3>
+<ul>
+<li>за ИЕ6 было замечено неадекватное восприятие комментариев, поэтому, если вдруг он не захочет &quot;определятся&quot;, рекомендую взять версию скрипта без комментариев</li>
+</ul>
+
+<h2>Обновление ver 1.1</h2>
+<p>Недавний проект натолкнул на мысль, которая &quot;обсасывается&quot; в сети уже долгое время и имеет как уйму сторонников, так и противников. А именно: просить(требовать) юзера обновить браузер для адекватного отображения сайта. Решений и идей по этому вопросу сегодня существует масса, каждый волен выбрать себе более подходящую сам. Я же предлагаю небольшое дополнение к плагинчику bdetect.</p>
+<h3>Просим обновиться</h3>
+<p>Не всегда трудности нам приносит наш &quot;горячо любимый ИЕ6&quot;, есть масса(а современем она только увеличивается) приёмов и css-правил(CSS3), кои уже можно успешно применять глядя на актуальные версии браузеров, но есть люди которым лень или некогда обновить свой браузер(я говорю сейчас об Opera, Mozzila и т.п), более того, даже у заказчиков порой обнаруживаются старые версии(недавно вычислилась Opera древнее 10.10)... Но ближе к &quot;телу&quot;, как говорится, итак функция checkBrowser():</p>
+<div class="codeExample codeJavascript">
+<pre class="brush: css">
+/*
+checkBrowser(params = {
+     warning: [string],		// окончание шаблонной фразы "Версия Вашего браузера BBBBB (ver ХХ.ХХ) {warning}"
+     message: [string],		// основное сообщение
+     question: [string],	// сам вопрос "Не желаете ли?" (у каждого свой подход к людям) :)
+			
+     chrome: [float],		// минимально-допустимые версии браузеров
+     safari: [float],			 
+     msie: [float],			 
+     opera: [float],
+     firefox: [float],
+				     
+     chromeLink: [string],	// ссылки на обновление
+     safariLink: [string],
+     msieLink: [string],
+     operaLink: [string],
+     firefoxLink: [string]
+})
+*/
+
+function checkBrowser(){
+	if (!params.chromeLink) params.chromeLink = 'http://www.google.com/chrome/eula.html';
+	if (!params.safariLink) params.safariLink = 'http://www.apple.com/ru/safari/download/';
+	if (!params.msieLink) params.msieLink = 'http://www.microsoft.com/rus/windows/internet-explorer/';
+	if (!params.operaLink) params.operaLink = 'http://ru.opera.com/download/';
+	if (!params.firefoxLink) params.firefoxLink = 'http://www.mozilla-russia.org/products/firefox/';
+	if (!params.warning) params.warning = 'устарела!\r\n\r\n'
+		else params.warning += '\r\n\r\n';
+	if (!params.question) params.question = 'Хотите ли обновить версию своего браузера?';
+	if (!params.message) params.message = ''
+		else params.message += '\r\n\r\n';
+	if (!params.chrome) params.chrome = 6;
+	if (!params.safari) params.safari = 5;
+	if (!params.msie) params.msie = 6;	
+	if (!params.opera) params.opera = 10.5;
+	if (!params.firefox) params.firefox = 3.5;
+	
+var 	browser = getBrowser(1),
+	browserName = browser[0],
+	browserVer = browser[1],
+	browserVerPoints = browser[2],
+	browserVer = parseFloat(browserVer+"."+browserVerPoints),
+	systemMessage = 'Версия Вашего браузера '+browserName+'(ver '+browserVer+') '+params.warning+params.message+params.question,
+	bLink = '';
+
+switch (browserName)
+{
+	case 'Chrome':
+		if (browserVer >= params.chrome) return false
+			else bLink = params.chromeLink; break;
+	case 'Safari':
+		if (browserVer >= params.safari) return false
+			else bLink = params.safariLink; break;
+	case 'MSIE':
+		if (browserVer >= params.msie) return false
+			else bLink = params.msieLink; break;
+	case 'Opera':
+		if (browserVer >= params.opera) return false
+			else bLink = params.operaLink; break;
+	case 'Firefox':
+		if (browserVer >= params.firefox) return false
+			else bLink = params.firefoxLink; break;
+};
+	
+
+		var conf = confirm(systemMessage);
+		
+		if (conf == true) document.location.href = bLink
+			else return false;
+			
+};		
+</pre>
+</div>
+<p>Ничего супер особенного, функция, предлагает обновить браузер, если его версия ниже минимально-допустимой. По умолчанию, минимальные версии установлены такие:</p>
+<ul>
+<li>Chrome 6</li>
+<li>Safari 5</li>
+<li>IE 5.5</li>
+<li>Opera 10.5</li>
+<li>Firefox 3.5</li>
+</ul>
+<p>Линки на обновление:</p>
+<ul>
+<li>Chrome - http://www.google.com/chrome/eula.html</li>
+<li>Safari - http://www.apple.com/ru/safari/download/</li>
+<li>IE - http://www.microsoft.com/rus/windows/internet-explorer/</li>
+<li>Opera - http://ru.opera.com/download/</li>
+<li>Firefox - http://www.mozilla-russia.org/products/firefox/</li>
+</ul>
+<p>А также фраза по умолчанию: &quot;Версия Вашего браузера {имя браузера}(ver {версия}) устарела! Хотите ли обновить версию своего браузера?&quot;</p>
+<p>Все вышеперечисленное будет справедливо при вызове &quot;голой&quot; функции: checkBrowser().</p>
+<p><a href="http://www.xiper.net/scripts/bdetect/demo1.html">Результат</a>(я специально завысил минимальные версии, дабы увидеть диалог)</p>
+<h3>Своя рубаха...</h3>
+<p>Поскольку каждая верстка уникальна и у каждого web-разработчика своё представление о вежливости и корректности, то любой из параметров можно задать при вызове функции, я задам все:</p>
+<div class="codeExample codeJavascript">
+<pre class="brush: css">
+checkBrowser (params = {
+			warning: 'уже немного несвежая!',
+			message: 'Так как Ваш браузер самый лучший и быстрый, то Вы можете сделать его еще лучше и быстрее.',
+			question:'Не хотите ли Вы, многоуважаемый юзер, обновить свой, безспорно, лучший браузер в мире?',
+			chrome: 10,
+			safari: 10,
+			msie: 9,
+			opera: 11,
+			firefox: 4,
+			chromeLink: 'http://www.google.com/chrome',
+			safariLink: 'http://www.apple.com/ru/safari',
+			msieLink: 'http://www.microsoft.com/rus/windows',
+			operaLink: 'http://ru.opera.com',
+			firefoxLink: 'http://www.mozilla-russia.org/products'			
+});
+</pre>
+</div>
+<p><a href="http://www.xiper.net/scripts/bdetect/demo2.html">Результат</a></p>
+<p>Скачать:</p>
+<ul>
+<li><a href="http://xiper.net/scripts/bdetect/js/bdetect-1.1.js">bdetect-1.1.js</a> - 5кб</li>
+<li><a href="http://xiper.net/scripts/bdetect/js/bdetect-1.1.min.js">bdetect-1.1.min.js</a> - 2кб</li>
+</ul>
+
+
+  <div class="innerTags">
+  Теги: <a href="http://www.xiper.net/cloud-opredelenie-brauzera-i-ego-vozmozhnostej.html" title="Поиск по тегу определение браузера и его возможностей" rel="tag">определение браузера и его возможностей</a>, <a href="http://www.xiper.net/cloud-javascript.html" title="Поиск по тегу javascript" rel="tag">javascript</a>  </div>
+
+
+ 	
+<div id="comments">
+<span id="showComments" rel="799=modx">Показать комментарии</span>
+</div>
+</div>
+</div>
+	<!--/content-->
+	<!--side bar-->
+	<div class="sideBar">
+ <div class='leftColumn htmlAndCSSTricksSubMenu'><ul><li><span >AJAX</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/js-plugins/ajax/ajax-request.html'>AJAX запрос</a></li></ul></li><li><span >HTML5 и CSS3</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/js-plugins/html5-and-css3/css3-pie.html'>CSS3 PIE</a></li><li><a href='http://www.xiper.net/collect/js-plugins/html5-and-css3/explorer-canvas.html'>Explorer Canvas</a></li><li><a href='http://www.xiper.net/collect/js-plugins/html5-and-css3/html5shiv.html'>html5shiv &mdash; HTML5 теги для IE</a></li><li><a href='http://www.xiper.net/collect/js-plugins/html5-and-css3/jquery-placeholder.html'>jQuery-Placeholder &mdash; замещающийся текст</a></li><li><a href='http://www.xiper.net/collect/js-plugins/html5-and-css3/modernizr.html'>Modernizr &mdash; HTML5 и CSS3 уже сегодня</a></li></ul></li><li><span >Галереи и слайдеры</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/js-plugins/gallery/fancybox.html'>FancyBox &mdash; галерея и модальное окно</a></li><li><a href='http://www.xiper.net/collect/js-plugins/gallery/highslide.html'>Highslide JS - фотогалерея</a></li><li><a href='http://www.xiper.net/collect/js-plugins/gallery/jcarousellite.html'>JCarouselLite. Прокрутка слайдов</a></li><li><a href='http://www.xiper.net/collect/js-plugins/gallery/spacegallery.html'>Spacegallery &mdash; эффектная 3D галерея</a></li><li><a href='http://www.xiper.net/collect/js-plugins/gallery/jquery-colorbox.html'>Галерея jQuery ColorBox</a></li><li><a href='http://www.xiper.net/collect/js-plugins/gallery/jquery-lightbox.html'>Галерея jQuery lightBox</a></li><li><a href='http://www.xiper.net/collect/js-plugins/gallery/flsgallery.html'>Галерея с неравномерным шагом</a></li><li><a href='http://www.xiper.net/collect/js-plugins/gallery/coin-slider.html'>Слайдер Coin Slider</a></li></ul></li><li><span >Интерфейс</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/js-plugins/ui/html5-drag-n-drop-file-upload.html'>Drag-n-Drop загрузка файлов</a></li><li><a href='http://www.xiper.net/collect/js-plugins/ui/jquery-ui-slider.html'>jQuery UI Slider &mdash; ползунок выбора диапазона</a></li><li><a href='http://www.xiper.net/collect/js-plugins/ui/jquery-ui-slider-add.html'>jQuery UI Slider &mdash; усложненный вариант выбора диапазона</a></li><li><a href='http://www.xiper.net/collect/js-plugins/ui/jscrollpane2.html'>JScrollPane 2 &mdash; настраиваемый скроллбар</a></li><li><a href='http://www.xiper.net/collect/js-plugins/ui/jscrollpane.html'>JScrollPane. Делаем красивый скроллинг</a></li><li><a href='http://www.xiper.net/collect/js-plugins/ui/resizable.html'>UI resizable &mdash; изменение размеров</a></li><li><a href='http://www.xiper.net/collect/js-plugins/ui/zeroclipboard.html'>ZeroClipboard &mdash; копируем в буфер</a></li><li><a href='http://www.xiper.net/collect/js-plugins/ui/zoomy.html'>Zoomy &mdash; лупа на jQuery</a></li><li><a href='http://www.xiper.net/collect/js-plugins/ui/cloud-zoom.html'>Плагин jQuery cloud-zoom (лупа)</a></li><li><a href='http://www.xiper.net/collect/js-plugins/ui/drag-n-drop.html'>Плагин jQuery drag из набора Interface</a></li><li><a href='http://www.xiper.net/collect/js-plugins/ui/easydrag.html'>Плагин jQuery EasyDrag &mdash; проще не бывает</a></li></ul></li><li><span  class="minus">Определение браузера и его возможностей</span><ul  style="display: block;"><li><strong id="leftCurent_1">Определение браузера и его версии</strong></li></ul></li><li><span >Позиция и размеры</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/js-plugins/position-and-size/position-with-scroll.html'>Позиционирование блока по центру с учетом скрола</a></li></ul></li><li><span >Разгоняем сайт</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/js-plugins/overclock-site/why-jquery-is-better-to-download-from-google.html'>Почему jQuery лучше грузить с Google</a></li></ul></li><li><span >Формы</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/js-plugins/forms/textarea-autoresize.html'>autoResize: textarea подстраивается под высоту текста</a></li><li><a href='http://www.xiper.net/collect/js-plugins/forms/cutext.html'>cuText - нестандартный textarea на JQuery</a></li><li><a href='http://www.xiper.net/collect/js-plugins/forms/filtering-and-data-validation-fields.html'>Фильтрация и проверка данных полей</a></li></ul></li><li><span >Эффекты</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/js-plugins/effects/jquery-color.html'>jQuery.color &mdash; учим animate работать с цветом</a></li><li><a href='http://www.xiper.net/collect/js-plugins/effects/jquery-flip.html'>jquery.flip &mdash; переворот контента</a></li><li><a href='http://www.xiper.net/collect/js-plugins/effects/jquery-reflect.html'>jQuery.reflect &mdash; эффект отражения</a></li><li><a href='http://www.xiper.net/collect/js-plugins/effects/scrollto.html'>jQuery.ScrollTo. Программная перемотка скролла</a></li><li><a href='http://www.xiper.net/collect/js-plugins/effects/hoverpulse.html'>Плагин hoverpulse &mdash; рассматриваем картинки</a></li></ul></li><li><span >Юзабилити</span><ul  style="display: none;"><li><a href='http://www.xiper.net/collect/js-plugins/usability/delay-on-hover.html'>Выпадающее окошко с задержкой</a></li></ul></li></ul></div>	
+<div class="sideBarAdvertisementBox">
+<script type='text/javascript'>
+GA_googleFillSlot("sidebar");
+</script>
+</div>
+
+		
+	</div>
+	<!--/side bar-->	
+<div class="header">
+<a href="http://www.xiper.net/" title="на главную" class="headerLogo"><img src="Определение%20браузера%20и%20его%20версии_files/logo0000.png" alt="xiper.net - основы и секреты front-end разработки" width="297" height="62"/></a>
+<ul>
+<li><a href="http://www.xiper.net/">Главная</a></li>
+<li>
+<a href="http://www.xiper.net/collect/">Собираем</a>
+<ul>
+<li><a href="http://www.xiper.net/collect/html-and-css-tricks/">HTML и CSS приемы</a></li>
+<li><a href="http://www.xiper.net/collect/web-without-flash/">Веб без flash</a></li>
+<li><a href="http://www.xiper.net/collect/weekdays-front-end-dev/">Будни front end разработчика</a></li>
+<li><a href="http://www.xiper.net/collect/services/">Сервисы</a></li>
+<li><a href="http://www.xiper.net/collect/js-plugins/">Javascript: решения и плагины</a></li>
+</ul>
+</li>
+<li><a href="http://www.xiper.net/watch/">Следим</a>
+<ul>
+<li><a href="http://www.xiper.net/watch/webstatistic.html">Веб статистика</a></li>
+<li><a href="http://www.xiper.net/watch/news/">Куда веб катится</a></li>
+<li><a href="http://www.xiper.net/watch/xiper-news/">Куда Xiper катится</a></li>
+</ul>
+</li>
+<li><a href="http://www.xiper.net/uncensored/">Без цензуры</a></li>
+<li>
+<a href="http://www.xiper.net/learn/">Учимся</a>
+<ul><li><a href="http://www.xiper.net/learn/photoshop/">Photoshop для кодера</a></li><li><a href="http://www.xiper.net/learn/css/">Уроки CSS</a></li><li><a href="http://www.xiper.net/learn/html/">Уроки HTML</a></li><li><a href="http://www.xiper.net/learn/javascript/">Уроки Javascript</a></li><li><a href="http://www.xiper.net/learn/lessons-jquery/">Уроки jQuery</a></li><li><a href="http://www.xiper.net/learn/tegofenshuj/">Тегофеншуй</a></li><li><a href="http://www.xiper.net/learn/also-need-to-know/">Тоже нужно знать</a></li><li><a href="http://www.xiper.net/learn/svg/">Уроки SVG</a></li><li><a href="http://www.xiper.net/learn/bonus-books/">Бонус книги</a></li></ul>
+</li>
+<li>
+<a href="http://www.xiper.net/manuals/">Справочники</a>
+<ul><li><a href="http://www.xiper.net/manuals/html/">HTML справочник</a></li><li><a href="http://www.xiper.net/manuals/css/">CSS справочник</a></li><li><a href="http://www.xiper.net/manuals/terms/">Cловарь терминов</a></li></ul>
+</li>
+</ul>
+<form action="http://www.xiper.net/search.html" method="get">
+<div><input type="text" name="s" value="я ищу&hellip;" /><input type="submit" value="найти" /> </div>
+</form>
+
+<div class="headerSubscription">
+ 	<a href="http://twitter.com/xiper_news/" class="headerTwitter" title="наши новости и мысли на twitter" rel="nofollow">twitter</a>
+    <a href="http://www.xiper.net/rss.html" class="headerSubscriptionRSS" title="подписаться на RSS">RSS</a>
+    <a href="http://www.xiper.net/subscription.html" class="headerSubscriptionEmail" title="подписаться на e-mail рассылку">e-mail</a>
+</div>
+
+</div>
+
+</div>
+<!--/main wrap-->
+<!--footer-->
+<div class="footer" id="799">
+<div class="advertisementPanel">
+<div class="topAdvertisementBox">
+<script type='text/javascript'>
+GA_googleFillSlot("footer");
+</script>
+</div>
+</div>
+	<div class="footerCopy">
+	&copy; 2009-2011 xiper.net<br/>
+	Много о HTML, CSS, Javascript.<br/>
+	Опасно для мозга. Можно стать умным.
+     <div>Наша хатка &mdash; <a href="http://frondevo.com/ru/">Frondevo</a>.</div>
+	</div>
+	
+<div class="footerSection">
+		<h2 title="информация о проекте">Инфо</h2>
+		<ul>
+		<li><a href="http://www.xiper.net/about.html">О проекте</a></li>
+                 <li><a href="http://www.xiper.net/about-materials.html">О материалах</a></li>
+                <li><a href="http://www.xiper.net/stats.html">Статистика</a></li>
+ <li><a href="http://www.xiper.net/adv/">Реклама</a></li>
+		<li><a href="http://www.xiper.net/feedback.html">Написать нам</a></li>
+		</ul>
+	</div>
+	<div class="footerNavSection">		
+  <h2 title="основные разделы сайта">Разделы</h2>
+		<ul>
+		<li><a href="http://www.xiper.net/">Главная</a></li>
+                <li><a href="http://www.xiper.net/uncensored/">Без цензуры</a></li>    
+		<li><a href="http://www.xiper.net/collect/">Собираем</a></li>
+                <li><a href="http://www.xiper.net/learn/">Учимся</a></li>        
+		<li><a href="http://www.xiper.net/watch/">Следим</a></li>	
+		<li><a href="http://www.xiper.net/manuals/">Справочники</a></li>
+		</ul>
+	</div>
+	
+</div>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-5053168-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<!--/footer-->
+
+</body>
+</html>
+<!-- This document saved from http://www.xiper.net/collect/js-plugins/browser-detect/browser-name-and-version.html -->

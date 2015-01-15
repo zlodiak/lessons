@@ -1,0 +1,9 @@
+	$("#hidr").click(function () {
+	  $("span:last-child").hide("fast", function () {
+	    // use callee so don't have to name the function
+	    $(this).prev().hide("fast", arguments.callee);
+	  });
+	});
+	$("#showr").click(function () {
+	  $("span").show(2000);
+	});

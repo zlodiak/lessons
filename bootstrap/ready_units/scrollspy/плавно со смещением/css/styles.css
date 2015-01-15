@@ -1,0 +1,593 @@
+/*
+INFO: 
+	project: dogs
+	browsers: opera/chrome/FF/ie9/safari
+	width: 1000 + scroll. 
+	columns: ?
+	markup: Sergey Kalinin 12/2014 (prozaik81-2@yandex.ru)
+	use: jq
+	desc: 	dogs
+	version 1
+	
+COLORS:
+
+
+TABLE OF CONTENTS:
+	FONTS
+	COMMON_STYLES
+	GLOBAL_layout
+	GLOBAL_blocks
+	COMMON_blocks
+	CONTENT_FORMAT
+	PAGE_INDEX_layout			
+	PLUGINS	& WIDJETS
+*/
+
+/*************************************************************************************************************** FONTS */
+/*
+@font-face {	
+    font-family: 'calibriregular';
+    src: url('../fonts/calibri/j9zuyzl7-webfont.eot');
+    src: url('../fonts/calibri/j9zuyzl7-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/calibri/j9zuyzl7-webfont.woff2') format('woff2'),
+         url('../fonts/calibri/j9zuyzl7-webfont.woff') format('woff'),
+         url('../fonts/calibri/j9zuyzl7-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+*/
+
+/*************************************************************************************************************** COMMON_STYLES */
+html, body, div, h1, h2, h3, h4, h5, h6, a, a img, p, ul, ol, li, span, fieldset , form, dl, dd, dt, table, tr, td, img{ 
+	border: none;
+	margin: 0; 
+	outline: none;	
+	padding: 0;
+}
+
+ul{
+	list-style-type: none;
+}
+
+input[type="text"]:focus, input[type="password"]:focus, textarea:focus { outline: none; }
+
+textarea{
+	resize: none;
+}
+
+.clearfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+	zoom:1;
+}
+
+.clear{
+	clear: both;
+}	
+	
+.hide{
+	display: none !important;
+}
+
+.wrapped{
+	width: 940px;
+	margin: 0 auto;
+}
+
+input::-webkit-input-placeholder {
+	color: #0096ef;
+}
+
+input:-moz-placeholder {
+	color: #0096ef;
+}
+
+.width1000{
+	width: 1000px;
+	margin: 0 auto;
+}
+
+.offset{
+    position: relative;
+    top: -180px;
+}
+
+
+
+/*************************************************************************************************************** GLOBAL_layout */
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+
+  font: 16px arial, sans-serif;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+
+
+.wrap {
+  padding: 0px 0px 80px;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+/*************************************************************************************************************** GLOBAL_blocks : feedback */
+.feedback{
+    background: #2d3136;
+
+    color: #f7f7f7;
+}
+
+    .feedback .sign{
+        padding: 100px 0;
+
+    }
+
+    .feedback .sign2{
+        width: 254px;
+        height: 248px;
+        background: url('../images/feedback/sign.png') center top no-repeat;
+    }    
+
+    .feedback .form_left{
+
+    }
+
+    .feedback .form_right{
+
+    }    
+
+    .feedback .form-group{
+
+    }        
+
+        .feedback .form-group textarea:focus,
+        .feedback .form-group input:focus{
+            border: 1px solid red;
+
+        }
+
+        .feedback .form-group textarea,
+        .feedback .form-group input{
+            border: 1px solid #43474b;
+            margin-bottom: 20px;
+
+            font-size: 26px;
+        }
+
+        .feedback .form-group input{
+            height: 74px;
+        }
+
+        .feedback  .btn_submit{
+            height: 74px;
+            background: #be39eb;
+            padding: 0 40px;
+            margin-bottom: 50px;
+
+            font-size: 36px;
+        }
+
+/*************************************************************************************************************** GLOBAL_blocks : video */
+.video{
+    background: #f6f6f7;
+    
+}
+
+    .video > .container{
+        width: 100%;
+    }
+
+    .video .text{
+        text-align: center;
+        color: #4b596c;
+        font-size: 36px;
+
+        padding: 40px 0 40px;
+    }
+
+
+/*************************************************************************************************************** GLOBAL_blocks : skeleton */
+.skeleton{
+    background: #f6f6f7;
+}
+
+    .skeleton .text{
+        text-align: center;
+        color: #000;
+
+        padding: 124px 0 58px;
+    }
+
+        .skeleton .text p{
+            font-size: 48px;
+        }    
+
+        .skeleton .text small{
+            font-size: 26px;
+        }    
+
+    .skeleton .article{
+        text-align: center;
+
+        padding-bottom: 30px;
+    }
+
+        .skeleton .article_outer:nth-child(3) h2{
+            padding-right: 60px;
+        }
+
+        .skeleton .article_outer h2{
+            background: #4b596c;
+            padding: 18px 5px;
+            margin: 0;
+
+            color: #fff;
+        }
+
+        .skeleton .article_outer:nth-child(3) h2:before{
+            content: '';
+
+            width: 57px;
+            height: 54px;
+            background: url('../images/skeleton/bg_check.png') center top no-repeat;
+            position: absolute;
+            right: 4px;
+            top: 7px;
+
+        }
+
+        .skeleton .article_outer:nth-child(3) h2{
+            background: #58ad52;
+            position: relative;
+        }
+
+        .skeleton .article_outer:nth-child(4) h2{
+            background: #52a1ad;
+        }        
+
+        .skeleton .article .body{
+            color: #6d737b;
+
+            background: #e9eef3;
+            padding-top: 20px;
+
+        }
+
+            .skeleton .article .body > div:first-child{
+                font-weight: bold;
+                font-size: 28px;
+            }
+
+            .skeleton .article .body > div{
+                font-size: 24px;
+
+                padding-bottom: 40px;
+            }
+
+                .skeleton .article .body > div .currency{
+                    margin-right: -7px;
+                }
+
+                .skeleton .article .body > div .value{
+
+                }
+
+                .skeleton .article .body > div .lab{
+
+                }                                
+
+            .skeleton .article .body .month{
+
+            }  
+
+            .skeleton .article .body .projects{
+
+            }  
+
+            .skeleton .article .body .members{
+
+            }  
+
+            .skeleton .article .body .gb{
+
+            }                                                
+
+        .skeleton .article_outer .submit{
+            background: #4b596c;
+            padding: 18px 5px;
+            display: block;
+
+            color: #fff;
+        }     
+
+       .skeleton .article_outer:nth-child(3) .submit{
+            background: #58ad52;
+        }
+
+        .skeleton .article_outer:nth-child(4) .submit{
+            background: #52a1ad;
+        }  
+
+/*************************************************************************************************************** GLOBAL_blocks : design */
+.design {
+    background: #52ad81;
+}
+
+    .design .text{
+        text-align: center;
+        color: #fff;
+
+        padding: 90px 0;
+    }
+
+        .design .text p{
+            font-size: 48px;
+        }    
+
+        .design .text small{
+            font-size: 26px;
+        }    
+
+
+        .slider_outer{
+
+        }
+
+            .slider_outer .carousel-control .glyphicon-chevron-left:before{
+                content: '';
+
+                width: 44px;
+                height: 44px;
+                background:  url('../images/carousel/arr_carousel_left.png') center top no-repeat;
+                display: block;
+
+            }
+
+            .slider_outer .carousel-control .glyphicon-chevron-left{
+                margin-left: -15px;
+            }
+
+            .slider_outer .carousel-control .glyphicon-chevron-right:before{
+                content: '';
+
+                width: 44px;
+                height: 44px;
+                background: #475569 url('../images/carousel/arr_carousel_right.png') center top no-repeat;
+                display: block;
+
+            }            
+
+            .slider_outer .carousel-control .glyphicon-chevron-right{
+                margin-right: -15px;
+            }    
+
+
+            .slider_outer img{
+                width: 100%;
+            }
+
+
+
+/*************************************************************************************************************** GLOBAL_blocks : docs */
+.docs{
+    background: #f6f6f7;
+    padding: 70px 0 70px;
+}
+
+    .docs .doc{
+
+    }
+
+        .docs .doc .doc_outer{
+            text-align: center;
+        }
+
+                .docs .doc img{
+
+                }        
+
+    .docs .article{
+
+    }
+
+        .docs .article .h2{
+            color: #37414e;
+            font-size: 34px;
+
+
+            margin-top: 0;
+        }
+
+        .docs .article .body{
+            color: #37414e;
+            font-size: 16px;
+            line-height: 32px;
+        }        
+
+    .docs .socializm{
+
+    }       
+
+        .docs .socializm a{
+
+        } 
+
+            .docs .socializm a img{
+                margin-bottom: 25px;
+
+            }
+
+/*************************************************************************************************************** GLOBAL_blocks : navbar */
+.navbar{
+    padding: 20px 0 20px;
+}
+
+    .navbar .logo_area_outer{
+        text-align: center;
+    }
+
+        .navbar .logo_area{
+            display: inline-block;
+
+        }
+
+    .navbar .auth_area_outer{
+        text-align: center;
+
+        padding-top: 11px;        
+    }
+
+        .navbar .auth_area{
+            display: inline-block;
+        }    
+
+            .navbar .auth_area .label{
+                color: #c5d2e5;
+                font-size: 16px;
+                font-style: italic;
+            }
+
+            .navbar .auth_area .btn_login{
+
+            }
+
+
+/*************************************************************************************************************** GLOBAL_blocks : header */
+.header{
+    background: #475569 url('../images/bg_header.jpg') center top repeat-x;
+    background-size: cover;
+}
+
+	.header .row{
+        padding-top: 280px;
+        padding-bottom: 180px;
+    }
+
+    .header .article .h2{
+        font: 44px arial, sans-serif;
+        color: #fff;
+
+        padding-bottom: 44px;
+        margin: 0;
+    }
+
+    .header .article .more{
+        background: #67bf95;
+
+    }
+
+    .header .article .body{
+        font: 22px arial, sans-serif;
+        color: #c5d2e5;
+        line-height: 32px;
+
+        padding-bottom: 44px;
+    }    
+
+/*************************************************************************************************************** PAGE_INDEX_blocks :  .pager_outer */
+
+
+	
+
+/*************************************************************************************************************** PLUGINS & WIDJETS : nivo_slider  */	
+/*************************************************************************************************************** MEDIA_QUERIES */
+@media (min-width: 480px) {
+    body{
+        background: red !important;
+    }
+
+    /* navbar */
+
+ 
+    /* docs */
+    .docs .socializm a img{
+        margin-bottom: 45px;
+
+    }  
+
+  
+
+
+}
+
+@media (min-width: 768px) {
+    body{
+        background: magenta !important;
+    }
+    
+
+    /* slider */
+    .slider_outer .carousel-control .glyphicon-chevron-left{
+        margin-left: -110px;
+    }  
+
+    .slider_outer .carousel-control .glyphicon-chevron-right{
+        margin-right: -110px;
+    }    
+
+
+
+}
+
+@media (min-width: 992px) { 
+    body{
+        background: cyan !important;
+    }
+
+    /* slider */
+    .slider_outer .carousel-control .glyphicon-chevron-left{
+        margin-left: -15px;
+    }    
+
+    .slider_outer .carousel-control .glyphicon-chevron-right{
+        margin-right: -15px;
+    }    
+
+    /* skeleton */
+    .skeleton .article_outer:nth-child(3) h2:before{
+        right: -25px;
+        top: -25px;
+
+    }    
+
+}
+
+@media (min-width: 1200px) { 
+    body{
+        background: #fff !important;
+    }
+
+    /* slider */
+    .slider_outer .carousel-control .glyphicon-chevron-left{
+        margin-left: -150px;
+    }    
+
+    .slider_outer .carousel-control .glyphicon-chevron-right{
+        margin-right: -150px;
+    }    
+
+
+}
+

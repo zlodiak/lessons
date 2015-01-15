@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+
+<html>
+	<head>    
+		<meta charset="utf-8" />
+
+		<title></title>	
+	</head>
+	
+	<body>						
+		<div class="wrap">						
+			<form class="search" action="#" method="post">
+				<input class="fld_search" id="fld_search" type="text" placeholder="" value="" name="keyword">		
+				
+				<input class="btn_search" id="btn_search" type="submit" value="" name="btn_search">
+			</form>
+			
+			<div class="results" id="results"></div>
+		</div>	
+		
+		<!-- jquery -->
+		<script src="jquery/jquery.1.9.min.js"></script>	
+
+		<script>
+			function getXmlHttp(){
+			  var xmlhttp;
+			  try {
+				xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+			  } catch (e) {
+				try {
+				  xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+				} catch (E) {
+				  xmlhttp = false;
+				}
+			  }
+			  if (!xmlhttp && typeof XMLHttpRequest!='undefined') {
+				xmlhttp = new XMLHttpRequest();
+			  }
+			  return xmlhttp;
+			}
+		
+			var xmlhttp = getXmlHttp();
+			
+			xmlhttp.open('GET', 'search.php?a=2&b=3', true);
+			
+			xmlhttp.onreadystatechange = function() {
+				if (xmlhttp.readyState == 4) {
+					if(xmlhttp.status == 200) {
+						alert(xmlhttp.responseText);
+					}
+				}
+			};			
+			
+			$('#btn_search').on('click', function(event){
+				var data;
+				
+				event = event || window.event;
+				event.preventDefault();		
+
+				xmlhttp.send(null);		
+			});
+			
+
+		</script>			
+	</body>
+</html>

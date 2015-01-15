@@ -1,0 +1,73 @@
+<?php
+	/* регистрация блока в системе	*/
+	function list_users_block_info(){
+		$blocks['list_users'] = array(
+			'info' => t('list users'), //Имя, которое будет показано в списке блоков.
+			'cache' => DRUPAL_CACHE_PER_ROLE, //По умолчанию
+		);
+		return $blocks;
+	}	
+	
+	/* пользовательская функция. возвращает список пользователей	*/
+	function list_users(){
+		$query = db_select('users', 'u')
+		->fields('u', array('uid', 'name', 'mail'))
+		->condition('status', '1', '=')
+		->condition('name', 'admin', '!=')
+		->execute();
+		
+		$items = array();
+
+		foreach ($query as $node){
+			$items[] = array(
+				check_plain($node->uid),
+				check_plain($node->name),
+				check_plain($node->mail)
+			);				
+		}		
+		
+		$output = theme('table', array('rows'=>$items));
+
+		return $output; 
+	}		
+	
+	function list_users_menu() {
+		$items = array();
+
+		$items['users'] = array(
+			'title' => 'list uuuusers',
+			'description' => 'this is list of users',
+			'page callback' => 'list_users',
+			//'page callback' => '_output_users',
+			'access callback'=>	TRUE,
+			//'access arguments'=>array('access content'),
+			'type' => MENU_NORMAL_ITEM,
+			'menu_name' => 'main-menu',
+		);
+		
+		$items['output'] = array(
+			'title' => 'list output',
+			'description' => 'this is list of out',
+			//'page callback' => 'list_users',
+			'page callback' => '_output_users',
+			'access callback'=>	TRUE,
+			//'access arguments'=>array('access content'),
+			'type' => MENU_NORMAL_ITEM,
+			'menu_name' => 'main-menu',
+		);
+		
+		return $items;
+	} 	
+	
+	function _output_users(){
+		return 'okkk';
+	}
+	
+ function list_users_permission(){     
+   return array('viewqqq page example' 
+    => array(
+      'title' => t('View page exampleqqqqq'),
+      'description' => t('View simple page exampleqqqq'),
+    ),
+   ); 
+ }	
