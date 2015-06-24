@@ -1,0 +1,65 @@
+создавать админку можно используя один контроллер, дублируя функционал в акшенах
+
+============
+роуты:
+  get "admin/documents" => 'documents#admin_index'
+  get "admin/documents/:id" => 'documents#admin_show', as: 'admin_document'
+
+============
+class DocumentsController < ApplicationController
+  before_action :set_document, only: [:show, :admin_show, :edit, :update, :destroy]
+
+  # GET /documents
+  # GET /documents.json
+  def index
+    @documents = Document.all.paginate(page: params[:page], per_page: 10)
+  end
+
+  def admin_index
+    @documents = Document.all.paginate(page: params[:page], per_page: 10)
+    render layout: "admin" 
+  end  
+
+  # GET /documents/1
+  # GET /documents/1.json
+  def show
+    #@document = Document.find(params[:id])
+  end
+
+  def admin_show
+    p params[:id]
+    #@document = Document.find(params[:id])
+    render layout: "admin" 
+  end  
+
+end
+
+============
+admin_index.html.erb:
+  <tbody>
+    <% @documents.each do |document| %>
+      <tr>
+        <td><%= document.title %></td>
+        <td><%= truncate(document.body, length: 300) %></td>
+        <td><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' } %></td>        
+        <td><%= link_to 'Show', admin_document_path(document) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+
+============
+============
+============
+============
+============
+============
+============
+============
+============
+============
+============
+============
+============
+============
+============
+============

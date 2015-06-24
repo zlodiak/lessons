@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/QAPage">
+<head>
+    
+    <title>javascript - how to delete a text node? - Stack Overflow</title>
+    <link rel="shortcut icon" href="//cdn.sstatic.net/stackoverflow/img/favicon.ico?v=038622610830">
+    <link rel="apple-touch-icon image_src" href="//cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png?v=41f6e13ade69">
+    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="/opensearch.xml">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content="stackoverflow.com"/>
+    <meta property="og:type" content="website" />
+    <meta property="og:image" itemprop="image primaryImageOfPage" content="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon@2.png?v=ea71a5211a91" />
+    <meta name="twitter:title" property="og:title" itemprop="title name" content="how to delete a text node?" />
+    <meta name="twitter:description" property="og:description" itemprop="description" content="please help remove the text node &quot;Бесплатно!&quot;.
+
+here&#39;s my attempt on jsfiddle. the problem is that I only delete the first node, but others remain
+
+Here is the simplified code:
+
+&amp;lt;ul " />
+    <meta property="og:url" content="http://stackoverflow.com/questions/28075131/how-to-delete-a-text-node"/>
+    <link rel="canonical" href="http://stackoverflow.com/questions/28075131/how-to-delete-a-text-node" />
+
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="//cdn.sstatic.net/Js/stub.en.js?v=4e6adaa0801a"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.sstatic.net/stackoverflow/all.css?v=f74d6be61bfb">
+    
+    <link rel="alternate" type="application/atom+xml" title="Feed for question &#39;how to delete a text node?&#39;" href="/feeds/question/28075131">
+    <meta name="twitter:app:country" content="US" />
+    <meta name="twitter:app:name:iphone" content="Stack Exchange iOS" />
+    <meta name="twitter:app:id:iphone" content="871299723" />
+    <meta name="twitter:app:url:iphone" content="se-zaphod://stackoverflow.com/questions/28075131/how-to-delete-a-text-node" />
+    <meta name="twitter:app:name:ipad" content="Stack Exchange iOS" />
+    <meta name="twitter:app:id:ipad" content="871299723" />
+    <meta name="twitter:app:url:ipad" content="se-zaphod://stackoverflow.com/questions/28075131/how-to-delete-a-text-node" />
+    <meta name="twitter:app:name:googleplay" content="Stack Exchange Android">
+    <meta name="twitter:app:url:googleplay" content="http://stackoverflow.com/questions/28075131/how-to-delete-a-text-node">
+    <meta name="twitter:app:id:googleplay" content="com.stackexchange.marvin">
+    <script>
+        
+        StackExchange.ready(function () {
+                
+                StackExchange.using("snippets", function () {
+                    StackExchange.snippets.initSnippetRenderer();
+                });
+                
+
+            StackExchange.using("postValidation", function () {
+                StackExchange.postValidation.initOnBlurAndSubmit($('#post-form'), 2, 'answer');
+            });
+
+            
+            StackExchange.question.init({votesCast:[],autoShowCommentHelp:true,showAnswerHelp:true,totalCommentCount:1,shownCommentCount:1,highlightColor:'#F4A83D',backgroundColor:'#FFF',questionId:28075131});
+
+            styleCode();
+
+                StackExchange.realtime.subscribeToQuestion('1', '28075131');
+            
+                    });
+    </script>
+
+
+    <script>
+        StackExchange.init({"locale":"en","stackAuthUrl":"https://stackauth.com","serverTime":1421869526,"networkMetaHostname":"meta.stackexchange.com","routeName":"Questions/Show","styleCode":true,"enableUserHovercards":true,"snippets":{"enabled":true,"domain":"stacksnippets.net"},"site":{"name":"Stack Overflow","description":"Q&A for professional and enthusiast programmers","isNoticesTabEnabled":true,"recaptchaPublicKey":"6LdchgIAAAAAAJwGpIzRQSOFaO0pU6s44Xt8aTwc","recaptchaAudioLang":"en","enableNewTagCreationWarning":true,"nonAsciiTags":true,"enableSocialMediaInSharePopup":true},"user":{"fkey":"b3bedd4fb9a7d9acd7d19af3646e94ec","isRegistered":true,"userType":3,"userId":4428074,"accountId":5588022,"gravatar":"<div><img src=\"https://www.gravatar.com/avatar/2baefaed15afdf62fdfc2cb29a9eaa47?s=32&d=identicon&r=PG&f=1\" alt=\"\" width=\"32\" height=\"32\"></div>","profileUrl":"http://stackoverflow.com/users/4428074/stackow6","notificationsUnviewedCount":5,"inboxUnviewedCount":12,"ab":{"search_improvements":{"v":"experiment_18","g":1}}}});
+        StackExchange.using.setCacheBreakers({"js/prettify-full.en.js":"d9e9805a3135","js/moderator.en.js":"7ae78f8d46ec","js/full-anon.en.js":"71e10a70d5b5","js/full.en.js":"ad250c1693a6","js/wmd.en.js":"7de6fa6890b4","js/third-party/jquery.autocomplete.min.js":"e5f01e97f7c3","js/third-party/jquery.autocomplete.min.en.js":"","js/mobile.en.js":"09426bfe50aa","js/help.en.js":"b5f40fd81205","js/tageditor.en.js":"ac84a2ac428b","js/tageditornew.en.js":"dbe04e731699","js/inline-tag-editing.en.js":"48f13b102998","js/revisions.en.js":"e707189c34fa","js/review.en.js":"fae3b685f3f4","js/tagsuggestions.en.js":"b278f9a0b23b","js/post-validation.en.js":"083b79d3af2a","js/explore-qlist.en.js":"4e6f969d97ee","js/events.en.js":"334d1c139b64","js/keyboard-shortcuts.en.js":"3751786e61e3","js/external-editor.en.js":"d2dcaa7b0819","js/external-editor.en.js":"d2dcaa7b0819","js/snippet-javascript.en.js":"85a34fe08a0a","js/snippet-javascript-codemirror.en.js":"4f3962a5609a"});
+        StackExchange.using("gps", function() {
+             StackExchange.gps.init(true);
+        });
+    </script>
+    
+    
+    
+</head>
+<body class="question-page new-topbar">
+    <noscript><div id="noscript-padding"></div></noscript>
+    <div id="notify-container"></div>
+    <div id="overlay-header"></div>
+    <div id="custom-header"></div>
+
+
+
+
+<div class="topbar">
+    <div class="topbar-wrapper">
+
+        <div class="js-topbar-dialog-corral">
+
+<div class="topbar-dialog siteSwitcher-dialog dno">
+    <div class="header">
+        <h3><a href="//stackoverflow.com">current community</a></h3>
+    </div>
+    <div class="modal-content current-site-container">
+        <ul class="current-site">
+                <li>
+                        <div class="related-links">
+            <a href="http://chat.stackoverflow.com" class="js-gps-track"     data-gps-track="site_switcher.click({ item_type:6 })"
+>chat</a>
+                    <a href="http://blog.stackoverflow.com" class="js-gps-track"     data-gps-track="site_switcher.click({ item_type:7 })"
+>blog</a>
+                    <a href="/users/logout" class="js-gps-track"     data-gps-track="site_switcher.click({ item_type:8 })"
+>log out</a>
+    </div>
+
+
+
+
+    <a href="//stackoverflow.com"
+       class="current-site-link site-link js-gps-track"
+       data-id="1"
+       data-gps-track="
+        site_switcher.click({ item_type:3 })">
+        <div class="site-icon favicon favicon-stackoverflow" title="Stack Overflow"></div>
+        Stack Overflow
+    </a>
+
+                </li>
+                <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    
+
+
+
+    <a href="http://meta.stackoverflow.com"
+       class="site-link js-gps-track"
+       data-id="552"
+       data-gps-track="
+            site.switch({ target_site:552, item_type:3 }),
+        site_switcher.click({ item_type:4 })">
+        <div class="site-icon favicon favicon-stackoverflowmeta" title="Meta Stack Overflow"></div>
+        Meta Stack Overflow
+    </a>
+
+                </li>
+                            <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    <a class="site-link js-gps-track"
+                       href="//careers.stackoverflow.com?utm_source=stackoverflow.com&utm_medium=site-ui&utm_campaign=multicollider"
+                            data-gps-track="site_switcher.click({ item_type:9 })"
+>
+                        <div class="site-icon favicon favicon-careers" title="Stack Overflow Careers"></div>
+                        Stack Overflow Careers
+                    </a>
+                </li>
+        </ul>
+    </div>
+    
+    <div class="header" id="your-communities-header">
+        <h3>
+                <a href="//stackexchange.com/users/5588022/?tab=accounts">your communities</a>
+        </h3>
+            
+            <a href="#" id="edit-pinned-sites">edit</a>
+            <a href="#" id="cancel-pinned-sites" style="display: none;">cancel</a>
+    </div>
+    <div class="modal-content" id="your-communities-section">
+            
+            <ul class="my-sites">
+                    <li>
+                        
+
+
+
+    <a href="//stackoverflow.com"
+       class="site-link js-gps-track"
+       data-id="1"
+       data-gps-track="
+            site.switch({ target_site:1, item_type:3 }),
+        site_switcher.click({ item_type:1 })">
+        <div class="site-icon favicon favicon-stackoverflow" title="Stack Overflow"></div>
+        Stack Overflow
+            <span class="rep-score">6</span>
+    </a>
+
+                    </li>
+            </ul>
+                <div class="pinned-site-editor-container" style="display: none;">
+                    <input id="js-site-search-txt"
+                           type="text"
+                           class="site-filter-input"
+                           value=""
+                           placeholder="Add a Stack Exchange community"/>
+                    <input type="submit" id="pin-site-btn" value="Add" disabled="disabled"/>
+                    <ul class="js-found-sites found-sites"></ul>
+                    <ul class="pinned-site-list sortable" data-custom-list="False">
+                    </ul>
+                    <input type="submit" value="Save" id="save-pinned-sites-btn" disabled="disabled"/>
+                    <a href="#" id="reset-pinned-sites">reset to default list</a>
+                </div>
+    </div>
+    
+    <div class="header">
+        <h3><a href="//stackexchange.com/sites">more stack exchange communities</a></h3>
+    </div>
+    <div class="modal-content">
+            <div class="child-content"></div>
+    </div>
+</div>
+        </div>
+
+        <div class="network-items">
+
+            <a href="//stackexchange.com"
+               class="topbar-icon icon-site-switcher yes-hover js-site-switcher-button js-gps-track"
+               data-gps-track="site_switcher.show"
+               title="A list of all 134 Stack Exchange sites">
+                <span class="hidden-text">Stack Exchange</span>
+            </a>
+
+                <a href="#"
+                   class="topbar-icon icon-inbox yes-hover js-inbox-button"
+                   title="You have unread inbox messages">
+                    <span class="hidden-text">Inbox</span>
+                    <span class="unread-count" style="">15</span>
+                </a>
+                <a href="#"
+                   class="topbar-icon icon-achievements yes-hover js-achievements-button icon-achievements-unread"
+                   data-unread-class="icon-achievements-unread"
+                   title="You have new reputation changes">
+                    <span class="hidden-text">Reputation and Badges</span>
+                    <span class="unread-count" style="">
+                        +5
+                    </span>
+                </a>
+        </div>
+
+        <div class="topbar-links">
+
+                <a href="/users/4428074/stackow6" class="profile-me js-gps-track" data-gps-track="profile_summary.click()">
+                    <div title="stackow6"><img src="https://www.gravatar.com/avatar/2baefaed15afdf62fdfc2cb29a9eaa47?s=24&d=identicon&r=PG&f=1" alt="" width="24" height="24" class="avatar-me js-avatar-me"></div>
+                    <div class="links-container topbar-flair">
+
+                        <span class="reputation" title="your reputation: 6">
+                            6
+                        </span>
+<span title="1 bronze badge"><span class="badge3"></span><span class="badgecount">1</span></span>                    </div>
+                </a>
+                <div class="links-container">
+                    <span class="topbar-menu-links">
+
+
+
+
+    <a href="#" class="icon-help js-help-button" title="Help Center and other resources">
+        help
+        <span class="triangle"></span>
+    </a>
+    <div class="topbar-dialog help-dialog js-help-dialog dno">
+        <div class="modal-content">
+            <ul>
+                                    <li>
+                        <a href="/tour" class="js-gps-track" data-gps-track="help_popup.click({ item_type:1 })">
+                            Tour
+                            <span class="item-summary">
+                                Start here for a quick overview of the site
+                            </span>
+                        </a>
+                    </li>
+                <li>
+                    <a href="/help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:4 })">
+                        Help Center
+                        <span class="item-summary">
+                            Detailed answers to any questions you might have
+                        </span>
+                    </a>
+                </li>
+                    <li>
+                        <a href="//meta.stackoverflow.com" class="js-gps-track" data-gps-track="help_popup.click({ item_type:2 })">
+                            Meta
+                            <span class="item-summary">
+                                Discuss the workings and policies of this site
+                            </span>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+
+                    </span>
+                </div>
+
+            <div class="search-container">
+                <form id="search" action="/search" method="get" autocomplete="off">
+                    <input name="q" type="text" placeholder="search" value="" tabindex="1" autocomplete="off" maxlength="240" />
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+    <script>
+        StackExchange.ready(function() { StackExchange.topbar.init(); });
+    </script>
+
+    <div class="container">
+        <div id="header">
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="/">
+                    Stack Overflow
+                </a>
+            </div>
+            <div id="hmenus">
+                <div class="nav mainnavs">
+                    <ul>
+                        <li class="youarehere"><a id="nav-questions" href="/questions">Questions</a></li>
+                        <li><a id="nav-tags" href="/tags">Tags</a></li>
+                        <li><a id="nav-users" href="/users">Users</a></li>
+                        <li><a id="nav-badges" href="/help/badges">Badges</a></li>
+                        <li><a id="nav-unanswered" href="/unanswered">Unanswered</a></li>
+                    </ul>
+                </div>
+                <div class="nav askquestion">
+                    <ul>
+                        <li>
+                            <a id="nav-askquestion"  href="/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+        <div id="content" class="snippet-hidden">
+            
+
+<div itemscope itemtype="http://schema.org/Question">
+	<link itemprop="image" href="//cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png">
+			<div id="question-header">
+			<h1 itemprop="name"><a href="/questions/28075131/how-to-delete-a-text-node" class="question-hyperlink">how to delete a text node?</a></h1>
+		</div>
+			<div id="mainbar">
+
+			
+
+<div class="question" data-questionid="28075131"  id="question">
+
+        <input type="hidden" id="28075131-only-allow-inform-moderator-flagging" value="true" />
+    <script>
+                var ados = ados || {};ados.run = ados.run || [];
+                ados.run.push(function() { ados_add_placement(22,8277,"adzerk1326220357",4).setZone(43) ; });                    
+            </script>
+            <div class="everyonelovesstackoverflow" id="adzerk1326220357">
+            </div>    <table>
+        <tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input type="hidden" name="_id_" value="28075131">
+    <a class="vote-up-off" title="This question shows research effort; it is useful and clear (click again to undo)">up vote</a>
+    <span itemprop="upvoteCount" class="vote-count-post ">-2</span>
+    <a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful (click again to undo)">down vote</a>
+    
+    <a class="star-off" href="#" title="This is a favorite question (click again to undo)">favorite</a>
+    <div class="favoritecount"><b></b></div>   
+
+</div>
+
+            </td>
+            
+<td class="postcell">
+<div>
+    <div class="post-text" itemprop="text">
+
+        <p>please help remove the text node "Бесплатно!".</p>
+
+<p>here's my attempt on <a href="http://jsfiddle.net/njrx95td/2/" rel="nofollow">jsfiddle</a>. the problem is that I only delete the first node, but others remain</p>
+
+<p>Here is the simplified code:</p>
+
+<pre><code>&lt;ul class="product_list_widget"&gt;
+    &lt;li&gt;
+        &lt;a href="http://qqq.ru/shop/granit/104/" title="qqq"&gt;
+            &lt;img width="90" height="90" src="http://qqq.ru/wp-content/uploads/2013/08/104-90x90.jpg" class="attachment-shop_thumbnail wp-post-image" alt="104"&gt;
+            qqq                 
+        &lt;/a&gt; 
+
+        &lt;div class="star-rating" title="Рейтинг 3.50 из 5"&gt;
+            &lt;span style="width:70%"&gt;
+                &lt;strong class="rating"&gt;3.50&lt;/strong&gt; из 5&lt;/span&gt;
+                &lt;b class="rate_content"&gt;Рейтинг 3.50 из 5&lt;/b&gt;
+        &lt;/div&gt;deleteNode
+    &lt;/li&gt;
+
+    ......
+    ......
+    ......
+    ......
+&lt;/ul&gt;
+
+
+&lt;script&gt;
+// priceless hide
+document.querySelector('.star-rating').parentNode.removeChild( document.querySelector('.star-rating').nextSibling );
+&lt;/script&gt;
+</code></pre>
+
+    </div>
+    <div class="post-taglist">
+        <a href="/questions/tagged/javascript" class="post-tag" title="show questions tagged 'javascript'" rel="tag">javascript</a> <a href="/questions/tagged/jquery" class="post-tag" title="show questions tagged 'jquery'" rel="tag">jquery</a> <a href="/questions/tagged/html" class="post-tag" title="show questions tagged 'html'" rel="tag">html</a> 
+    </div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+<div class="post-menu"><a href="/q/28075131/4428074" title="short permalink to this question" class="short-link" id="link-post-28075131">share</a><span class="lsep">|</span><a href="/posts/28075131/edit" class="edit-post" title="revise and improve this post">edit</a><span class="lsep">|</span><a href="#"
+               id="delete-post-28075131" 
+               title="vote to delete this post" 
+               class=""
+               data-fancy-delete="true"
+               data-delete-prompt="Delete this post?"
+               data-undelete-prompt="Undelete this post?">delete</a><span class="lsep">|</span><a href="#"
+       class="flag-post-link"
+       title="flag this post for serious problems or moderator attention"
+       data-postid="28075131">flag</a></div>        
+    </td>
+    <td class="post-signature owner">
+        <div class="user-info ">
+    <div class="user-action-time">
+        asked <span title="2015-01-21 19:21:48Z" class="relativetime">23 mins ago</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/4428074/stackow6"><div><img src="https://www.gravatar.com/avatar/2baefaed15afdf62fdfc2cb29a9eaa47?s=32&d=identicon&r=PG&f=1" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/4428074/stackow6">stackow6</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">6</span><span title="1 bronze badge"><span class="badge3"></span><span class="badgecount">1</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </table>
+</div>
+</td>
+        </tr>
+                
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-28075131" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0"
+                       data-canpost="true"
+                       data-cansee="false"
+                       data-comments-unavailable="false"
+                       data-addlink-disabled="false">
+
+
+
+    <tr id="comment-44529790" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received"
+                                      class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Well, <code>querySelector</code> <i>does</i> select only a single element. If you want to remove multiple nodes, you&#39;ll need to use <code>querySelectorAll</code> and then loop over them.</span>
+                &ndash;&nbsp;
+                    <a href="/users/1048572/bergi"
+                       title="115769 reputation"
+                       class="comment-user">Bergi</a>
+                <span class="comment-date" dir="ltr"><span title="2015-01-21 19:34:26Z" class="relativetime-clean">10 mins ago</span></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+				    <tfoot>
+					    <tr>
+						    <td></td>
+						    <td class="comment-form">
+							    <form id="add-comment-28075131" 
+							          class="" 
+							          data-placeholdertext="Use comments to reply to other users or notify them of changes. If you are adding new information, edit your post instead of commenting."></form>
+						    </td>
+					    </tr>
+				    </tfoot>
+		    </table>
+	    </div>
+            <div id="comments-link-28075131" >
+
+                <a class="js-add-link comments-link "
+                   title="Use comments to reply to other users or notify them of changes. If you are adding new information, edit your post instead of commenting."
+                   href=#>add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span><a class="js-show-link comments-link dno" title="expand to show all comments on this post, or add one of your own" href=# onclick=""></a>
+            </div>
+    </td>
+</tr>        </table>
+</div>
+
+			<div id="answers">
+
+				<a name="tab-top"></a>
+				<div id="answers-header">
+					<div class="subheader answers-subheader">
+						<h2>
+								4 Answers
+                                <span style="display:none;" itemprop="answerCount">4</span>
+						</h2>
+						<div>
+							<div id="tabs">
+        <a href="/questions/28075131/how-to-delete-a-text-node?answertab=active#tab-top" title="Answers with the latest activity first">active</a>
+        <a href="/questions/28075131/how-to-delete-a-text-node?answertab=oldest#tab-top" title="Answers in the order they were provided">oldest</a>
+        <a class="youarehere" href="/questions/28075131/how-to-delete-a-text-node?answertab=votes#tab-top" title="Answers with the highest score first">votes</a>
+</div>
+						</div>
+					</div>    
+				</div>    
+
+
+
+
+  
+<a name="28075485"></a>
+<div id="answer-28075485" class="answer" data-answerid="28075485"  itemscope itemtype="http://schema.org/Answer">
+    <table>
+        <tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input type="hidden" name="_id_" value="28075485">
+    <a class="vote-up-off" title="This answer is useful (click again to undo)">up vote</a>
+    <span itemprop="upvoteCount" class="vote-count-post ">0</span>
+    <a class="vote-down-off" title="This answer is not useful (click again to undo)">down vote</a>
+    
+
+
+    <a id="vote-accepted-28075485" 
+        class="vote-accepted-off " 
+        href="javascript:void(0);"
+        data-title-accept="Click to accept this answer because it solved your problem or was the most helpful in finding your solution (click again to undo)" 
+        data-verb-accept="accept"
+        data-title-unaccept="Click to undo acceptance of this answer; you accepted this answer " 
+        data-verb-unaccept="unaccept"></a>
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>Your "Бесплатно!" text is not in an element by itself. It is under the li element, and removing that element would not be desirable I imagine. You could manipulate its <code>innerHTML</code> to remove that text.</p>
+
+<p><div class="snippet" data-lang="js" data-hide="false">
+<div class="snippet-code">
+<pre class="snippet-code-js lang-js prettyprint-override"><code>var li = document.querySelectorAll('li');
+for (i = 0; i &lt; li.length; i++) {
+  li[i].innerHTML = li[i].innerHTML.replace("Бесплатно!", "");
+}</code></pre>
+<pre class="snippet-code-html lang-html prettyprint-override"><code>&lt;ul class="product_list_widget"&gt;
+  &lt;li&gt;
+    &lt;a href="http://plastushka.ru/shop/granit/103/" title="Мансуровский"&gt;
+      &lt;img width="90" height="90" src="http://plastushka.ru/wp-content/uploads/2013/08/1031-90x90.jpg" class="attachment-shop_thumbnail wp-post-image" alt="103" /&gt;Мансуровский
+    &lt;/a&gt;
+    &lt;div class="star-rating" title="Рейтинг 5.00 из 5"&gt;&lt;span style="width:100%"&gt;&lt;strong class="rating"&gt;5.00&lt;/strong&gt; из 5&lt;/span&gt;&lt;b class="rate_content"&gt;Рейтинг 5.00 из 5&lt;/b&gt;
+
+    &lt;/div&gt;Бесплатно!&lt;/li&gt;
+  &lt;li&gt;
+    &lt;a href="http://plastushka.ru/shop/granit/193/" title="Сахара"&gt;
+      &lt;img width="90" height="90" src="http://plastushka.ru/wp-content/uploads/2013/08/193-90x90.jpg" class="attachment-shop_thumbnail wp-post-image" alt="193"&gt;Сахара&lt;/a&gt;
+    &lt;div class="star-rating" title="Рейтинг 5.00 из 5"&gt;&lt;span style="width:100%"&gt;&lt;strong class="rating"&gt;5.00&lt;/strong&gt; из 5&lt;/span&gt;&lt;b class="rate_content"&gt;Рейтинг 5.00 из 5&lt;/b&gt;
+
+    &lt;/div&gt;Бесплатно!&lt;/li&gt;
+  &lt;li&gt;
+    &lt;a href="http://plastushka.ru/shop/granit/215/" title="Южно-Султаевский"&gt;
+      &lt;img width="90" height="90" src="http://plastushka.ru/wp-content/uploads/2013/08/215-90x90.jpg" class="attachment-shop_thumbnail wp-post-image" alt="215"&gt;Южно-Султаевский&lt;/a&gt;
+    &lt;div class="star-rating" title="Рейтинг 4.67 из 5"&gt;&lt;span style="width:93.4%"&gt;&lt;strong class="rating"&gt;4.67&lt;/strong&gt; из 5&lt;/span&gt;&lt;b class="rate_content"&gt;Рейтинг 4.67 из 5&lt;/b&gt;
+
+    &lt;/div&gt;Бесплатно!&lt;/li&gt;
+  &lt;li&gt;
+    &lt;a href="http://plastushka.ru/shop/granit/287/" title="Жельтау-5"&gt;
+      &lt;img width="90" height="90" src="http://plastushka.ru/wp-content/uploads/2013/08/287-90x90.jpg" class="attachment-shop_thumbnail wp-post-image" alt="287"&gt;Жельтау-5&lt;/a&gt;
+    &lt;div class="star-rating" title="Рейтинг 4.50 из 5"&gt;&lt;span style="width:90%"&gt;&lt;strong class="rating"&gt;4.50&lt;/strong&gt; из 5&lt;/span&gt;&lt;b class="rate_content"&gt;Рейтинг 4.50 из 5&lt;/b&gt;
+
+    &lt;/div&gt;Бесплатно!&lt;/li&gt;
+  &lt;li&gt;
+    &lt;a href="http://plastushka.ru/shop/granit/104/" title="Камбулатовский"&gt;
+      &lt;img width="90" height="90" src="http://plastushka.ru/wp-content/uploads/2013/08/104-90x90.jpg" class="attachment-shop_thumbnail wp-post-image" alt="104"&gt;Камбулатовский&lt;/a&gt;
+    &lt;div class="star-rating" title="Рейтинг 3.50 из 5"&gt;&lt;span style="width:70%"&gt;&lt;strong class="rating"&gt;3.50&lt;/strong&gt; из 5&lt;/span&gt;&lt;b class="rate_content"&gt;Рейтинг 3.50 из 5&lt;/b&gt;
+
+    &lt;/div&gt;Бесплатно!&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+</div>
+</div>
+</p>
+    </div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+<div class="post-menu"><a href="/a/28075485/4428074" title="short permalink to this answer" class="short-link" id="link-post-28075485">share</a><span class="lsep">|</span><a href="/posts/28075485/edit" class="suggest-edit-post" title="revise and improve this post">edit</a></div>                    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2015-01-21 19:40:30Z" class="relativetime">4 mins ago</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/4180481/ozan"><div><img src="https://www.gravatar.com/avatar/4d4a92eb3175c0e0b706c06adde415f4?s=32&d=identicon&r=PG&f=1" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/4180481/ozan">Ozan</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">310</span><span title="7 bronze badges"><span class="badge3"></span><span class="badgecount">7</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-28075485" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0"
+                       data-canpost="true"
+                       data-cansee="false"
+                       data-comments-unavailable="false"
+                       data-addlink-disabled="false">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+				    <tfoot>
+					    <tr>
+						    <td></td>
+						    <td class="comment-form">
+							    <form id="add-comment-28075485" 
+							          class="" 
+							          data-placeholdertext="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."></form>
+						    </td>
+					    </tr>
+				    </tfoot>
+		    </table>
+	    </div>
+            <div id="comments-link-28075485" >
+
+                <a class="js-add-link comments-link "
+                   title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."
+                   href=#>add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span><a class="js-show-link comments-link dno" title="expand to show all comments on this post, or add one of your own" href=# onclick=""></a>
+            </div>
+    </td>
+</tr>    </table>
+</div>
+<script>
+                var ados = ados || {};ados.run = ados.run || [];
+                ados.run.push(function() { ados_add_placement(22,8277,"adzerk159878500",4).setZone(44) ; });                    
+            </script>
+            <div class="everyonelovesstackoverflow" id="adzerk159878500">
+            </div>
+  
+<a name="28075440"></a>
+<div id="answer-28075440" class="answer" data-answerid="28075440"  itemscope itemtype="http://schema.org/Answer">
+    <table>
+        <tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input type="hidden" name="_id_" value="28075440">
+    <a class="vote-up-off" title="This answer is useful (click again to undo)">up vote</a>
+    <span itemprop="upvoteCount" class="vote-count-post ">0</span>
+    <a class="vote-down-off" title="This answer is not useful (click again to undo)">down vote</a>
+    
+
+
+    <a id="vote-accepted-28075440" 
+        class="vote-accepted-off " 
+        href="javascript:void(0);"
+        data-title-accept="Click to accept this answer because it solved your problem or was the most helpful in finding your solution (click again to undo)" 
+        data-verb-accept="accept"
+        data-title-unaccept="Click to undo acceptance of this answer; you accepted this answer " 
+        data-verb-unaccept="unaccept"></a>
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>If you're looking to delete every element containing "Бесплатно!" using jQuery (is this what you mean by text node?) then you can use the jQuery <code>:contains</code> selector to find these elements, and remove them:</p>
+
+<pre><code>$("li:contains('Бесплатно!')").remove();
+</code></pre>
+
+<p>Here's a <a href="http://jsfiddle.net/1zmwfwtu/1/" rel="nofollow">JSFiddle</a> demonstrating this.</p>
+
+<p>If you're not looking to delete the entire node (it's not so clear from your question), then <code>$("li:contains('Бесплатно!')")</code> is a jQuery object containing all of the elements whose children you're looking to delete elements from.  This would make it easier for you to find the appropriate <code>&lt;li&gt;</code> children and remove them from the DOM.</p>
+    </div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+<div class="post-menu"><a href="/a/28075440/4428074" title="short permalink to this answer" class="short-link" id="link-post-28075440">share</a><span class="lsep">|</span><a href="/posts/28075440/edit" class="suggest-edit-post" title="revise and improve this post">edit</a></div>                    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2015-01-21 19:38:21Z" class="relativetime">7 mins ago</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/3474146/alex"><div><img src="https://www.gravatar.com/avatar/ac6516bca08c0d659b6645eadf870220?s=32&d=identicon&r=PG&f=1" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/3474146/alex">alex</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">598</span><span title="1 silver badge"><span class="badge2"></span><span class="badgecount">1</span></span><span title="20 bronze badges"><span class="badge3"></span><span class="badgecount">20</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-28075440" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0"
+                       data-canpost="true"
+                       data-cansee="false"
+                       data-comments-unavailable="false"
+                       data-addlink-disabled="false">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+				    <tfoot>
+					    <tr>
+						    <td></td>
+						    <td class="comment-form">
+							    <form id="add-comment-28075440" 
+							          class="" 
+							          data-placeholdertext="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."></form>
+						    </td>
+					    </tr>
+				    </tfoot>
+		    </table>
+	    </div>
+            <div id="comments-link-28075440" >
+
+                <a class="js-add-link comments-link "
+                   title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."
+                   href=#>add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span><a class="js-show-link comments-link dno" title="expand to show all comments on this post, or add one of your own" href=# onclick=""></a>
+            </div>
+    </td>
+</tr>    </table>
+</div>
+
+  
+<a name="28075402"></a>
+<div id="answer-28075402" class="answer" data-answerid="28075402"  itemscope itemtype="http://schema.org/Answer">
+    <table>
+        <tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input type="hidden" name="_id_" value="28075402">
+    <a class="vote-up-off" title="This answer is useful (click again to undo)">up vote</a>
+    <span itemprop="upvoteCount" class="vote-count-post ">0</span>
+    <a class="vote-down-off" title="This answer is not useful (click again to undo)">down vote</a>
+    
+
+
+    <a id="vote-accepted-28075402" 
+        class="vote-accepted-off " 
+        href="javascript:void(0);"
+        data-title-accept="Click to accept this answer because it solved your problem or was the most helpful in finding your solution (click again to undo)" 
+        data-verb-accept="accept"
+        data-title-unaccept="Click to undo acceptance of this answer; you accepted this answer " 
+        data-verb-unaccept="unaccept"></a>
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<pre><code>document.querySelector('.star-rating')
+</code></pre>
+
+<p>will give you only <strong>first matching node</strong>.</p>
+
+<p>You should use document.querySelectorAll which will return a <strong>node list</strong></p>
+
+<pre><code>var x = document.querySelectorAll('.star-rating');
+for(var i in x){
+    x[i].parentNode.removeChild( x[i].nextSibling );
+}
+</code></pre>
+    </div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+<div class="post-menu"><a href="/a/28075402/4428074" title="short permalink to this answer" class="short-link" id="link-post-28075402">share</a><span class="lsep">|</span><a href="/posts/28075402/edit" class="suggest-edit-post" title="revise and improve this post">edit</a></div>                    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2015-01-21 19:36:49Z" class="relativetime">8 mins ago</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/870183/sanya-zol"><div class="gravatar-wrapper-32"><img src="https://www.gravatar.com/avatar/82c02a424be0d0c40bc096dbbb74c871?s=32&d=identicon&r=PG" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/870183/sanya-zol">Sanya_Zol</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">169</span><span title="1 silver badge"><span class="badge2"></span><span class="badgecount">1</span></span><span title="6 bronze badges"><span class="badge3"></span><span class="badgecount">6</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-28075402" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0"
+                       data-canpost="true"
+                       data-cansee="false"
+                       data-comments-unavailable="false"
+                       data-addlink-disabled="false">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+				    <tfoot>
+					    <tr>
+						    <td></td>
+						    <td class="comment-form">
+							    <form id="add-comment-28075402" 
+							          class="" 
+							          data-placeholdertext="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."></form>
+						    </td>
+					    </tr>
+				    </tfoot>
+		    </table>
+	    </div>
+            <div id="comments-link-28075402" >
+
+                <a class="js-add-link comments-link "
+                   title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."
+                   href=#>add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span><a class="js-show-link comments-link dno" title="expand to show all comments on this post, or add one of your own" href=# onclick=""></a>
+            </div>
+    </td>
+</tr>    </table>
+</div>
+
+  
+<a name="28075310"></a>
+<div id="answer-28075310" class="answer" data-answerid="28075310"  itemscope itemtype="http://schema.org/Answer">
+    <table>
+        <tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input type="hidden" name="_id_" value="28075310">
+    <a class="vote-up-off" title="This answer is useful (click again to undo)">up vote</a>
+    <span itemprop="upvoteCount" class="vote-count-post ">-1</span>
+    <a class="vote-down-off" title="This answer is not useful (click again to undo)">down vote</a>
+    
+
+
+    <a id="vote-accepted-28075310" 
+        class="vote-accepted-off " 
+        href="javascript:void(0);"
+        data-title-accept="Click to accept this answer because it solved your problem or was the most helpful in finding your solution (click again to undo)" 
+        data-verb-accept="accept"
+        data-title-unaccept="Click to undo acceptance of this answer; you accepted this answer " 
+        data-verb-unaccept="unaccept"></a>
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>Set some id to that nod and remove it with 
+$( "#that-nod-id" ).remove();</p>
+    </div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+<div class="post-menu"><a href="/a/28075310/4428074" title="short permalink to this answer" class="short-link" id="link-post-28075310">share</a><span class="lsep">|</span><a href="/posts/28075310/edit" class="suggest-edit-post" title="revise and improve this post">edit</a></div>                    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2015-01-21 19:31:19Z" class="relativetime">14 mins ago</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/4479761/dijana-cukic"><div class="gravatar-wrapper-32"><img src="http://graph.facebook.com/100000792693970/picture?type=large" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/4479761/dijana-cukic">Dijana Cukic</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">1</span><span title="1 bronze badge"><span class="badge3"></span><span class="badgecount">1</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-28075310" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0"
+                       data-canpost="true"
+                       data-cansee="false"
+                       data-comments-unavailable="false"
+                       data-addlink-disabled="false">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+				    <tfoot>
+					    <tr>
+						    <td></td>
+						    <td class="comment-form">
+							    <form id="add-comment-28075310" 
+							          class="" 
+							          data-placeholdertext="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."></form>
+						    </td>
+					    </tr>
+				    </tfoot>
+		    </table>
+	    </div>
+            <div id="comments-link-28075310" >
+
+                <a class="js-add-link comments-link "
+                   title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."
+                   href=#>add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span><a class="js-show-link comments-link dno" title="expand to show all comments on this post, or add one of your own" href=# onclick=""></a>
+            </div>
+    </td>
+</tr>    </table>
+</div>
+									<a name='new-answer'></a>
+						<form id="post-form" action="/questions/28075131/answer/submit" method="post"  class="dno post-form">
+						    <input type="hidden" id="post-id" value="28075131" />
+                            <input type="hidden" id="qualityBanWarningShown" name="qualityBanWarningShown" value="false" />
+                            <input type="hidden" name="referrer" value="http://stackoverflow.com/questions/ask"/>
+							<h2 class="space">Your Answer</h2>
+
+
+
+            <script>
+            StackExchange.ifUsing("editor", function () {
+                StackExchange.using("externalEditor", function () {
+                    StackExchange.using("snippets", function () {
+                        StackExchange.snippets.init();
+                    });
+                });
+            }, "code-snippets");
+        </script>
+    
+
+<script>
+    StackExchange.ready(function() {
+        initTagRenderer("".split(" "), "".split(" "));
+       
+        StackExchange.using("externalEditor", function() {
+            // Have to fire editor after snippets, if snippets enabled
+            if (StackExchange.options.snippets.enabled) {
+                StackExchange.using("snippets", function() {
+                    createEditor();
+                });
+            }
+            else {
+                createEditor();
+            }
+        });
+
+        function createEditor() {
+            prepareEditor({
+                heartbeatType: 'answer',
+                bindNavPrevention: true,
+                postfix: "",
+                    onDemand: false,
+                    discardSelector: ".discard-answer"
+                ,immediatelyShowMarkdownHelp:true
+                });
+                
+
+        }
+    });  
+</script>
+
+
+<div id="post-editor" class="post-editor">
+
+    <div style="position: relative;">     
+        <div class="wmd-container">
+            <div id="wmd-button-bar" class="wmd-button-bar"></div>
+            <textarea id="wmd-input" class="wmd-input" name="post-text" cols="92" rows="15" tabindex="101" data-min-length=""></textarea>
+        </div>
+    </div>
+
+    <div class="fl" style="margin-top: 8px; height:24px;">&nbsp;</div>
+    <div id="draft-saved" class="draft-saved community-option fl" style="margin-top: 8px; height:24px; display:none;">draft saved</div>
+
+    <div id="draft-discarded" class="draft-discarded community-option fl" style="margin-top: 8px; height:24px; display:none;">draft discarded</div>
+
+
+
+    <div id="wmd-preview" class="wmd-preview"></div>
+    <div></div>
+    <div class="edit-block">
+        <input id="fkey" name="fkey" type="hidden" value="b3bedd4fb9a7d9acd7d19af3646e94ec">
+        <input id="author" name="author" type="text">
+    </div>
+</div>
+							<div style="position: relative;">
+								
+							</div>
+           
+															<div class="form-submit cbt">
+									<input id="submit-button" type="submit" value="Post Your Answer" tabindex="110">
+									<a href="#" class="discard-answer dno">discard</a>
+								</div>
+						</form>
+							<div id="show-editor-button" class="form-submit">
+                                <input type="button"
+                                       value="Answer Your Question"
+                                       data-confirm-text="Are you sure you want to answer your own question?
+
+    If you&#39;re responding to answers left on your question, enter comments under each answer.
+
+    If you need to add details to your question, use the edit link under your question."
+                                       data-confirm-use-fancy="True"
+                                       data-confirm-fancy-title="Are you sure you want to answer your question?"
+                                       data-confirm-fancy-body="<b>Comment</b> if you&#39;re trying to respond to an answer. <br/><br/> <b>Edit your question</b> if you need to add more details. <br/><br/>"
+                                       data-confirm-fancy-accept-button="Yes, I want to post an answer"/>
+							</div>
+							<script>
+								StackExchange.ready(function () {
+								    $("#show-editor-button input").click(function () {
+								        var showEditor = function() {
+								            $("#show-editor-button").hide();
+								            $("#post-form").removeClass("dno");
+								            StackExchange.editor.finallyInit();
+								        };
+
+								        var useFancy = $(this).data('confirm-use-fancy');
+								        if(useFancy == 'True') {
+								            var popupTitle = $(this).data('confirm-fancy-title');
+								            var popupBody = $(this).data('confirm-fancy-body');
+								            var popupAccept = $(this).data('confirm-fancy-accept-button');
+                                            
+								            $(this).loadPopup({
+								                url: '/post/self-answer-popup',
+								                loaded: function(popup) {
+								                    var pTitle = $(popup).find('h2');
+								                    var pBody = $(popup).find('.popup-body');
+								                    var pSubmit = $(popup).find('.popup-submit');
+
+								                    pTitle.text(popupTitle);
+								                    pBody.html(popupBody);
+								                    pSubmit.val(popupAccept).click(showEditor);
+								                }
+								            })
+								        } else{
+								            var confirmText = $(this).data('confirm-text');
+								            if (confirmText ? confirm(confirmText) : true) {
+								                showEditor();
+								            }
+								        }
+									});
+								});
+							</script>
+
+
+
+<div>
+    <h2 class="bottom-notice">
+        Would you like to have responses to your questions <a id="inbox-notify-c45c51dfeceb49818910704a3c66f861" href="#">sent to you via email</a>?
+    </h2>
+    <div id="inbox-notify-c45c51dfeceb49818910704a3c66f861-container" style="display: none; ">
+        <div>
+            <input type="checkbox" id="inbox-notify-c45c51dfeceb49818910704a3c66f861-enable" />
+            <label for="inbox-notify-c45c51dfeceb49818910704a3c66f861-enable">
+                Email me my unread inbox messages
+            </label>
+            <select id="inbox-notify-c45c51dfeceb49818910704a3c66f861-freq">
+                <option value="3">every 3 hours</option>
+                <option value="24">daily</option>
+                <option value="168">weekly</option>
+            </select>
+        </div>
+        <div>
+            Send emails to
+            <input id="inbox-notify-c45c51dfeceb49818910704a3c66f861-address" style="width: 300px;" value="stackow6@yandex.ru" />
+        </div>
+        <div>
+            <input class="email-save" type="button" value="Save email settings" disabled="disabled" />
+        </div>
+        <div class="email-confirmation"></div>
+        <hr />
+    </div>
+</div>
+<script>
+    StackExchange.ready(function () {
+        var inboxSettingsShown = false;
+        $("#inbox-notify-c45c51dfeceb49818910704a3c66f861").click(function () {
+            var ec = $('#inbox-notify-c45c51dfeceb49818910704a3c66f861-container');
+            var btn = ec.find(".email-save");
+            var result = ec.find(".email-confirmation");
+            
+            var enableSave = function () {
+                btn.removeAttr("disabled");
+                result.html('');
+            };
+
+            var disableSave = function () {
+                btn.attr("disabled", "disabled");
+            };
+            disableSave();
+
+            if (ec.is(':visible')) {
+                ec.slideUp('fast');
+            } else {
+                if (!inboxSettingsShown) {
+                    StackExchange.gps.track('inbox_settings.show', { location: 4 });
+                    inboxSettingsShown = true;
+                }
+                ec.slideDown('fast');
+            }
+            
+            $("#inbox-notify-c45c51dfeceb49818910704a3c66f861-freq").val(24).on("click focus", function () { $("#inbox-notify-c45c51dfeceb49818910704a3c66f861-enable").prop("checked", true); });
+            $("#inbox-notify-c45c51dfeceb49818910704a3c66f861-address").focus().keyup(enableSave);
+            $("#inbox-notify-c45c51dfeceb49818910704a3c66f861-enable, #inbox-notify-c45c51dfeceb49818910704a3c66f861-freq").change(enableSave);
+
+            btn.click(function () {
+                var req =
+                {
+                    email: $('#inbox-notify-c45c51dfeceb49818910704a3c66f861-address').val(),
+                    fkey: StackExchange.options.user.fkey,
+                    optin: $('#inbox-notify-c45c51dfeceb49818910704a3c66f861-enable').is(':checked'),
+                    freq: $('#inbox-notify-c45c51dfeceb49818910704a3c66f861-freq').val(),
+                    location: 4
+                };
+                ec.addSpinner();
+                $.post(
+                    '/accounts/verified-email-set',
+                    req,
+                    function (data) {
+                        ec.removeSpinner();
+                        result.html(data.message).fadeIn();
+
+                        if (data.success) disableSave();
+                    },
+                    'json');
+            });
+
+            return false;
+        });
+    });
+</script>
+
+			</div>
+		</div>
+				<div id="sidebar" class="show-votes">
+
+
+
+<script>
+    window.showNewUser = false;
+
+</script>
+
+<div class="module newuser newuser-greeting" id="newuser-box" style="display:none;">
+    <h4>Hello World!</h4>
+    <div>
+        <p>This is a collaboratively edited question and answer site for <b>professional and enthusiast programmers</b>. It's 100% free, no registration required.</p><p>Got a question about the site itself? <a href="http://meta.stackoverflow.com">meta</a> is the place to talk about things like what questions are appropriate, what tags we should use, etc.</p>
+        <p class="ar">
+                <a href="/tour?mnu=1">about &raquo;</a>&nbsp;&nbsp;&nbsp;
+            <a href="/help?mnu=1">help &raquo;</a>
+                &nbsp; <a href="http://meta.stackoverflow.com">meta &raquo;</a>
+        </p>
+    </div>
+</div>
+    <script>
+    if (showNewUser) {
+        document.getElementById('newuser-box').style.display = '';
+    }
+    </script>						    <div class="module question-stats">
+			        <table id="qinfo">
+			            <tr>
+			                <td>
+			                    <p class="label-key">asked</p>
+			                </td>
+			                <td style="padding-left: 10px">
+			                    <p class="label-key" title="2015-01-21 19:21:48Z"><b>today</b></p>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                    <p class="label-key">viewed</p>
+			                </td>
+
+			                <td style="padding-left: 10px">
+			                    <p class="label-key">
+			                        <b>34 times</b>
+			                    </p>
+			                </td>
+			            </tr>
+			                <tr>
+			                    <td>
+			                        <p class="label-key">active</p>
+			                    </td>
+			                    <td style="padding-left: 10px">
+			                        <p class="label-key"><b><a href="?lastactivity" class="lastactivity-link" title="2015-01-21 19:40:30Z">today</a></b></p>
+			                    </td>
+			                </tr>
+			        </table>
+			    </div>
+			<div class="module community-bulletin" data-tracker="cb=1">
+    <div class="related">
+                <div class="bulletin-title">
+                    Blog
+                </div>
+                <hr />
+    <div class="spacer">
+        <div class="bulletin-item-type">
+                <a href="http://blog.stackoverflow.com/2015/01/andreessen-horowitz-invests-in-stack-exchange/" class="question-hyperlink">
+<div class="favicon favicon-stackexchangemeta" title="Meta Stack Exchange"></div>                </a>
+            </div>
+                <div class="bulletin-item-content">
+                    <a href="http://blog.stackoverflow.com/2015/01/andreessen-horowitz-invests-in-stack-exchange/" class="question-hyperlink">Andreessen Horowitz Invests in Stack Exchange</a>
+                </div>
+                <br class="cbt" />
+            </div>
+                <div class="bulletin-title">
+                    Hot Meta Posts
+                </div>
+                <hr />
+    <div class="spacer">
+        <div class="bulletin-item-type">
+                <span title="Vote score (upvotes - downvotes)">17</span>
+            </div>
+                <div class="bulletin-item-content">
+                    <a href="http://meta.stackoverflow.com/questions/284074/burninate-inclusion" class="question-hyperlink">Burninate [inclusion]</a>
+                </div>
+                <br class="cbt" />
+            </div>
+    <div class="spacer">
+        <div class="bulletin-item-type">
+                <span title="Vote score (upvotes - downvotes)">4</span>
+            </div>
+                <div class="bulletin-item-content">
+                    <a href="http://meta.stackoverflow.com/questions/284152/search-for-questions-without-comments" class="question-hyperlink">Search for questions without comments</a>
+                </div>
+                <br class="cbt" />
+            </div>
+    <div class="spacer">
+        <div class="bulletin-item-type">
+                <span title="Vote score (upvotes - downvotes)">9</span>
+            </div>
+                <div class="bulletin-item-content">
+                    <a href="http://meta.stackoverflow.com/questions/284159/layout-in-moderator-tools-is-inconsistent" class="question-hyperlink">Layout in Moderator Tools is inconsistent</a>
+                </div>
+                <br class="cbt" />
+            </div>
+    </div>
+</div>			
+			<script>
+                var ados = ados || {};ados.run = ados.run || [];
+                ados.run.push(function() { ados_add_placement(22,8277,"adzerk2103570147",[17,2221]).setZone(45) ; });                    
+            </script>
+            <div class="everyonelovesstackoverflow" id="adzerk2103570147">
+            </div>  
+        <div id="hireme">
+            <script>
+;(function(e){var a=window.$,p=window.StackExchange,f=100,c="div#hireme,div.hireme",g=decodeURIComponent,i=encodeURIComponent,r=setTimeout,h=document,q,b,m={},l=location.hash;if(l.length>1){l.substr(1).split("&").forEach(function(t){var u=t.split("=");this[g(u[0])]=g(u[1])},m)}b=m.ac||m.accountid||(p&&p.options&&p.options.user&&p.options.user.accountId);if(b){m.ac=b}if(!m.tags){q=a(".post-taglist .post-tag").map(function(){return a(this).text()});if(q.length>0){m.tags=Array.prototype.join.call(q,",")}}if(l==="#large"){m.l=1}if(l==="#abort"){m.abort=1}function j(t){return a(t).html().replace(/\s+/g,"").length>0}function s(){var t=a("#sidebar [id^='adzerk'].everyonelovesstackoverflow");if(t.length===0){return true}return !j(t)}function n(){var t=a(c);if(t.length>0){if(m.l||a("#careersadsdoublehigh").length>0){m.l=1}var v=t.map(function(z,y){return"d="+y.id}).get().join("&");var x=["l","ip","ac","eng","prov","tags"];var u=Object.keys(m).filter(function(y){return x.indexOf(y)!==-1}).map(function(y){return i(y)+"="+i(m[y])}).join("&");if(u){v+="&"+u}var w=h.createElement("script");w.type="text/javascript";w.src=e+(e.indexOf("?")===-1?"?":"&")+v;h.body.appendChild(w)}}function o(){if(s()){d=r(o,f);return}if(m.abort){k()}n()}function k(){clearTimeout(d);a(c).each(function(){var t=a(this);if(!j(t)){var v=t;var u=t.parents(".everyonelovesstackoverflow").first();if(u.length>0){v=u}v.remove()}})}r(k,2000);var d=r(o,f)}).apply(null, ["//clc.stackoverflow.com/j/p"]);            </script>
+            
+        </div>
+			<div class="module" id="chat-feature">
+    
+
+    
+<h4><a href="http://chat.stackoverflow.com" id="h-chat-link">Visit Chat</a></h4>
+
+<div class="related" id="ad502-rooms"></div>
+<script>
+// <!--
+    StackExchange.ready(
+    function () {
+        var options = {
+            chatUrl: 'http://chat.stackoverflow.com',
+            reloadUrl: '/api/recent-chat',
+            preloadData: {"activeUsers":143,"activeRooms":52,"rooms":[{"name":"JavaScript","id":17,"lastPost":1421858454,"posts":2390426,"users":[{"name":"ssube","id":129032,"emailhash":"e8bea8f9e6972dfd3113d67da68e6933","lastPost":1421858455},{"name":"Nick Dugger","id":1408759,"emailhash":"!http://i.stack.imgur.com/qqrwQ.jpg?s=128\u0026g=1","lastPost":1421858454},{"name":"Loktar","id":322395,"emailhash":"!http://i.stack.imgur.com/ToSp3.png?s=128\u0026g=1","lastPost":1421858447},{"name":"Jhawins","id":1596138,"emailhash":"244f50b31987c6aa4113a176ef8c4027","lastPost":1421858437},{"name":"Bartek Banachewicz","id":752976,"emailhash":"c95a3a507154b3dc672f04bb36bdcd1f","lastPost":1421858427},{"name":"Mourdos","id":1603340,"emailhash":"3d289eb43df83638c17690eafc9acb0d","lastPost":1421858420},{"name":"rlemon","id":829835,"emailhash":"!http://i.stack.imgur.com/bge3y.png?s=128\u0026g=1","lastPost":1421858344}],"messages":[{"date":1421858454,"user":"Nick Dugger","userid":1408759}],"singleImage":false,"tags":["ecmascript","es6","javascript"]},{"name":"PHP","id":11,"lastPost":1421858389,"posts":1786935,"users":[{"name":"Danack","id":778719,"emailhash":"!http://i.stack.imgur.com/01t5l.jpg?s=128\u0026g=1","lastPost":1421858389},{"name":"bwoebi","id":2153758,"emailhash":"3659fff22e890aaa5d7b03e799f9047f","lastPost":1421858380},{"name":"ircmaxell","id":338665,"emailhash":"a32a990c257433d3252980e059341546","lastPost":1421858304},{"name":"Paul Crovella","id":3942918,"emailhash":"!http://i.stack.imgur.com/Rup3Y.jpg?s=128\u0026g=1","lastPost":1421857901},{"name":"rdlowrey","id":895378,"emailhash":"!http://i.stack.imgur.com/XBUdZ.jpg?s=128\u0026g=1","lastPost":1421857862},{"name":"Patrick","id":2834339,"emailhash":"!http://i.stack.imgur.com/rmnMl.jpg?s=128\u0026g=1","lastPost":1421857835},{"name":"Jimbo","id":736809,"emailhash":"!http://i.stack.imgur.com/cJbY9.jpg?s=128\u0026g=1","lastPost":1421857686}],"messages":[{"date":1421858389,"user":"Danack","userid":778719}],"singleImage":false,"tags":["php"]}]} 
+        };
+
+        StackExchange.chatAd.init(options);
+    });
+// -->
+</script>
+
+</div>  
+    
+            
+
+				<div class="module sidebar-related">
+					<h4 id="h-related">Related</h4>
+                    <div class="related js-gps-related-questions" data-tracker="rq=1">
+                        <div class="spacer">
+<a href="/q/111102" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted extra-large">3361
+    </div>
+</a><a href="/questions/111102/how-do-javascript-closures-work" class="question-hyperlink">How do JavaScript closures work?</a>
+</div>
+<div class="spacer">
+<a href="/q/152975" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted large">774
+    </div>
+</a><a href="/questions/152975/how-to-detect-a-click-outside-an-element" class="question-hyperlink">How to detect a click outside an element?</a>
+</div>
+<div class="spacer">
+<a href="/q/166221" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes extra-large">1338
+    </div>
+</a><a href="/questions/166221/how-can-i-upload-files-asynchronously" class="question-hyperlink">How can I upload files asynchronously?</a>
+</div>
+<div class="spacer">
+<a href="/q/298750" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted large">249
+    </div>
+</a><a href="/questions/298750/how-do-i-select-text-nodes-with-jquery" class="question-hyperlink">How do I select text nodes with jQuery?</a>
+</div>
+<div class="spacer">
+<a href="/q/499126" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted large">296
+    </div>
+</a><a href="/questions/499126/jquery-set-cursor-position-in-text-area" class="question-hyperlink">jQuery Set Cursor Position in Text Area</a>
+</div>
+<div class="spacer">
+<a href="/q/503093" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted extra-large">3138
+    </div>
+</a><a href="/questions/503093/how-can-i-make-a-redirect-page" class="question-hyperlink">How can I make a redirect page?</a>
+</div>
+<div class="spacer">
+<a href="/q/901115" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted extra-large">2708
+    </div>
+</a><a href="/questions/901115/how-can-i-get-query-string-values-in-javascript" class="question-hyperlink">How can I get query string values in JavaScript?</a>
+</div>
+<div class="spacer">
+<a href="/q/1279957" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted large">655
+    </div>
+</a><a href="/questions/1279957/how-to-move-an-element-into-another-element" class="question-hyperlink">How to move an element into another element?</a>
+</div>
+<div class="spacer">
+<a href="/q/1309452" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted large">361
+    </div>
+</a><a href="/questions/1309452/how-to-replace-innerhtml-of-a-div-using-jquery" class="question-hyperlink">How to replace innerHTML of a div using jQuery?</a>
+</div>
+<div class="spacer">
+<a href="/q/1643227" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted large">906
+    </div>
+</a><a href="/questions/1643227/get-selected-text-from-drop-down-list-select-box-using-jquery" class="question-hyperlink">Get selected text from drop down list (select box) using jQuery</a>
+</div>
+
+                    </div>
+				</div>
+            
+<div id="hot-network-questions" class="module">
+    <h4>
+        <a href="//stackexchange.com/questions?tab=hot" 
+           class="js-gps-track" 
+           data-gps-track="posts_hot_network.click({ item_type:1, location:11 })">
+            Hot Network Questions
+        </a>
+    </h4>
+    <ul>
+            <li >
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="http://worldbuilding.stackexchange.com/questions/9035/dragons-and-aviation-bureaucracy" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Dragons and aviation bureaucracy
+                </a>
+
+            </li>
+            <li >
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="http://academia.stackexchange.com/questions/37236/as-an-instructor-how-to-use-the-first-day-of-class" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    As an instructor, how to use the first day of class?
+                </a>
+
+            </li>
+            <li >
+                <div class="favicon favicon-aviation" title="Aviation Stack Exchange"></div><a href="http://aviation.stackexchange.com/questions/11827/why-do-passenger-jets-accept-input-that-will-cause-the-aircraft-to-perform-dange" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:528 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why do passenger jets accept input that will cause the aircraft to perform dangerous maneuvers it was not designed for?
+                </a>
+
+            </li>
+            <li >
+                <div class="favicon favicon-security" title="Information Security Stack Exchange"></div><a href="http://security.stackexchange.com/questions/79667/how-is-hashing-safe-if-a-given-string-always-generates-the-same-hash" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:162 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How is hashing safe if a given string always generates the same hash?
+                </a>
+
+            </li>
+            <li >
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="http://academia.stackexchange.com/questions/37233/is-it-appropriate-to-attend-a-class-one-is-not-registered-for" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is it appropriate to attend a class one is not registered for?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-emacs" title="Emacs Stack Exchange"></div><a href="http://emacs.stackexchange.com/questions/7602/what-is-the-point-of-quote-with-single-argument-and-comma-quote-arg" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:583 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is the point of quote with single argument and comma? (quote ,arg)
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/1113357/examples-of-functions-with-vertical-asymptotes-in-real-life" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    examples of functions with vertical asymptotes in real life
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-programmers" title="Programmers Stack Exchange"></div><a href="http://programmers.stackexchange.com/questions/270728/class-in-oop-language-and-type" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:131 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    class in OOP language and type
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-music" title="Music: Practice &amp; Theory Stack Exchange"></div><a href="http://music.stackexchange.com/questions/28969/alternate-tunings-on-a-12-string-guitar" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:240 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Alternate tunings on a 12 string guitar
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-tridion" title="Tridion Stack Exchange"></div><a href="http://tridion.stackexchange.com/questions/10879/component-un-publish-themselves" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:485 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Component un-publish themselves?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/1113276/how-to-find-center-of-a-circle" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to find center of a circle
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="http://scifi.stackexchange.com/questions/79745/anime-about-a-boy-and-a-girl-who-ride-ostrich-like-creatures-through-a-valley" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Anime about a boy and a girl who ride ostrich-like creatures through a valley
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-tex" title="TeX - LaTeX Stack Exchange"></div><a href="http://tex.stackexchange.com/questions/224185/using-powers-in-dimexpr" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:85 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Using powers in \dimexpr
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-aviation" title="Aviation Stack Exchange"></div><a href="http://aviation.stackexchange.com/questions/11871/who-decides-how-fast-commercial-aircraft-fly-the-pilots-or-atc" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:528 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Who decides how fast commercial aircraft fly: the pilots or ATC?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-superuser" title="Super User"></div><a href="http://superuser.com/questions/867127/determine-which-cpu-a-process-is-running-on" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:3 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Determine which CPU a process is running on
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="http://stackoverflow.com/questions/28064692/why-override-equals-instead-of-using-another-method-name" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why override equals instead of using another method name
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-money" title="Personal Finance &amp; Money Stack Exchange"></div><a href="http://money.stackexchange.com/questions/43491/investment-strategy-for-401k-when-rolling-over-soon" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:93 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Investment strategy for 401k when rolling over soon
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-travel" title="Travel Stack Exchange"></div><a href="http://travel.stackexchange.com/questions/42248/disembark-flight-at-unplanned-refuelling-stop-if-the-stop-is-same-as-ultimate-d" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:273 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Disembark flight at unplanned refuelling stop, if the stop is same as ultimate destination?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-tex" title="TeX - LaTeX Stack Exchange"></div><a href="http://tex.stackexchange.com/questions/224132/how-to-do-centered-interlinear-text-in-latex" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:85 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to do centered interlinear text in LaTeX
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-codereview" title="Code Review Stack Exchange"></div><a href="http://codereview.stackexchange.com/questions/78234/shoot-the-messenger-part-4" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:196 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Shoot The Messenger Part 4
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="http://rpg.stackexchange.com/questions/55679/does-casting-a-ranged-spell-while-threatened-provoke-attacks-of-opportunity-more" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Does Casting a Ranged Spell While Threatened Provoke Attacks of Opportunity More Than Once?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="http://english.stackexchange.com/questions/222502/is-there-a-word-that-describes-a-statement-whose-negative-is-senseless-or-would" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is there a word that describes a statement whose negative is senseless or would otherwise never be used?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/44765/identity-sequences-on-the-rubiks-cube" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Identity sequences on the Rubik&#39;s Cube
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/1109433/can-you-be-1-12th-cherokee" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Can you be 1/12th Cherokee?
+                </a>
+
+            </li>
+    </ul>
+
+        <a href="#" 
+           class="show-more js-show-more js-gps-track" 
+           data-gps-track="posts_hot_network.click({ item_type:3, location:11 })">
+            more hot questions
+        </a>
+</div>
+		</div>
+	
+<div id="feed-link">
+    <div id="feed-link-text">
+        <a href="/feeds/question/28075131" title="feed of this question and its answers">
+            <span class="feed-icon"></span>question feed
+        </a>
+    </div>
+</div>	<script>
+StackExchange.ready(function(){$.get('/posts/28075131/ivc/9998');});
+</script>
+<noscript>
+    <div><img src="/posts/28075131/ivc/9998" class="dno" alt="" width="0" height="0"></div>
+</noscript><div style="display:none" id="prettify-lang">default</div></div>
+
+
+
+        </div>
+    </div>
+    <div id="footer" class="categories">
+        <div class="footerwrap">
+            <div id="footer-menu">
+                <div class="top-footer-links">
+                        <a href="/tour">tour</a>
+                    <a href="/help">help</a>
+                    <a href="http://blog.stackoverflow.com?blb=1">blog</a>
+                        <a href="http://chat.stackoverflow.com">chat</a>
+                    <a href="http://data.stackexchange.com">data</a>
+                    <a href="http://stackexchange.com/legal">legal</a>
+                    <a href="http://stackexchange.com/legal/privacy-policy">privacy policy</a>
+                    <a href="http://stackexchange.com/work-here">work here</a>
+                    <a href="http://stackexchange.com/mediakit">advertising info</a>
+
+                    <a onclick='StackExchange.switchMobile("on")'>mobile</a>
+                    <b><a href="/contact">contact us</a></b>
+                        <b><a href="http://meta.stackoverflow.com">feedback</a></b>
+                    
+                </div>
+                <div id="footer-sites">
+                    <table>
+    <tr>
+            <th colspan=3>
+                Technology
+            </th>
+            <th >
+                Life / Arts
+            </th>
+            <th >
+                Culture / Recreation
+            </th>
+            <th >
+                Science
+            </th>
+            <th >
+                Other
+            </th>
+    </tr>
+    <tr>
+            <td>
+                <ol>
+                        <li><a href="//stackoverflow.com" title="professional and enthusiast programmers">Stack Overflow</a></li>
+                        <li><a href="//serverfault.com" title="system and network administrators">Server Fault</a></li>
+                        <li><a href="//superuser.com" title="computer enthusiasts and power users">Super User</a></li>
+                        <li><a href="//webapps.stackexchange.com" title="power users of web applications">Web Applications</a></li>
+                        <li><a href="//askubuntu.com" title="Ubuntu users and developers">Ask Ubuntu</a></li>
+                        <li><a href="//webmasters.stackexchange.com" title="pro webmasters">Webmasters</a></li>
+                        <li><a href="//gamedev.stackexchange.com" title="professional and independent game developers">Game Development</a></li>
+                        <li><a href="//tex.stackexchange.com" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="//programmers.stackexchange.com" title="professional programmers interested in conceptual questions about software development">Programmers</a></li>
+                        <li><a href="//unix.stackexchange.com" title="users of Linux, FreeBSD and other Un*x-like operating systems.">Unix &amp; Linux</a></li>
+                        <li><a href="//apple.stackexchange.com" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
+                        <li><a href="//wordpress.stackexchange.com" title="WordPress developers and administrators">WordPress Development</a></li>
+                        <li><a href="//gis.stackexchange.com" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
+                        <li><a href="//electronics.stackexchange.com" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
+                        <li><a href="//android.stackexchange.com" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
+                        <li><a href="//security.stackexchange.com" title="Information security professionals">Information Security</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="//dba.stackexchange.com" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
+                        <li><a href="//drupal.stackexchange.com" title="Drupal developers and administrators">Drupal Answers</a></li>
+                        <li><a href="//sharepoint.stackexchange.com" title="SharePoint enthusiasts">SharePoint</a></li>
+                        <li><a href="//ux.stackexchange.com" title="user experience researchers and experts">User Experience</a></li>
+                        <li><a href="//mathematica.stackexchange.com" title="users of Mathematica">Mathematica</a></li>
+                        <li><a href="//salesforce.stackexchange.com" title="Salesforce administrators, implementation experts, developers and anybody in-between">Salesforce</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#technology" class="more">
+                                more (14)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="//photo.stackexchange.com" title="professional, enthusiast and amateur photographers">Photography</a></li>
+                        <li><a href="//scifi.stackexchange.com" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
+                        <li><a href="//graphicdesign.stackexchange.com" title="Graphic Design professionals, students, and enthusiasts">Graphic Design</a></li>
+                        <li><a href="//cooking.stackexchange.com" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
+                        <li><a href="//diy.stackexchange.com" title="contractors and serious DIYers">Home Improvement</a></li>
+                        <li><a href="//money.stackexchange.com" title="people who want to be financially literate">Personal Finance &amp; Money</a></li>
+                        <li><a href="//academia.stackexchange.com" title="academics and those enrolled in higher education">Academia</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#lifearts" class="more">
+                                more (10)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="//english.stackexchange.com" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
+                        <li><a href="//skeptics.stackexchange.com" title="scientific skepticism">Skeptics</a></li>
+                        <li><a href="//judaism.stackexchange.com" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
+                        <li><a href="//travel.stackexchange.com" title="road warriors and seasoned travelers">Travel</a></li>
+                        <li><a href="//christianity.stackexchange.com" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
+                        <li><a href="//gaming.stackexchange.com" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
+                        <li><a href="//bicycles.stackexchange.com" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
+                        <li><a href="//rpg.stackexchange.com" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#culturerecreation" class="more">
+                                more (21)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="//math.stackexchange.com" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
+                        <li><a href="//stats.stackexchange.com" title="people interested in statistics, machine learning, data analysis, data mining, and data visualization">Cross Validated (stats)</a></li>
+                        <li><a href="//cstheory.stackexchange.com" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
+                        <li><a href="//physics.stackexchange.com" title="active researchers, academics and students of physics">Physics</a></li>
+                        <li><a href="//mathoverflow.net" title="professional mathematicians">MathOverflow</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#science" class="more">
+                                more (7)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="//stackapps.com" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
+                        <li><a href="//meta.stackexchange.com" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Exchange</a></li>
+                        <li><a href="//area51.stackexchange.com" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
+                        <li><a href="//careers.stackoverflow.com">Stack Overflow Careers</a></li>
+                    
+                </ol>
+            </td>
+    </tr>
+</table>
+                </div>
+            </div>
+
+            <div id="copyright">
+                site design / logo &#169; 2015 stack exchange inc; user contributions licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc by-sa 3.0</a>                   with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+            <div id="svnrev">
+                rev 2015.1.21.2207
+            </div>
+            
+        </div>
+    </div>
+    <noscript>
+        <div id="noscript-warning">Stack Overflow works best with JavaScript enabled<img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"></div>
+    </noscript>
+<script>var p = "http", d = "static"; if (document.location.protocol == "https:") { p += "s"; d = "engine"; } var z = document.createElement("script"); z.type = "text/javascript"; z.async = true; z.src = p + "://" + d + ".adzerk.net/ados.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(z, s);</script>
+<script>
+    var ados = ados || {};
+    ados.run = ados.run || [];
+    ados.run.push(function () { ados_setKeywords('javascript,jquery,html,x-user-registered');; ados_load(); });         
+</script>
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m);
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-5620270-1');        
+        ga('set', 'dimension1', '5588022');         
+        ga('set', 'dimension2', '|javascript|jquery|html|');         
+        ga('send', 'pageview');
+        var _qevents = _qevents || [],
+            _comscore = _comscore || [];
+        (function () {
+            var ssl='https:'==document.location.protocol,
+                s=document.getElementsByTagName('script')[0],
+                qc=document.createElement('script');
+            qc.async=true;
+            qc.src=(ssl?'https://secure':'http://edge')+'.quantserve.com/quant.js';
+            s.parentNode.insertBefore(qc, s);
+            var sc=document.createElement('script');
+            sc.async=true;
+            sc.src=(ssl?'https://sb':'http://b') + '.scorecardresearch.com/beacon.js';
+            s.parentNode.insertBefore(sc, s);
+        })();
+        _comscore.push({ c1: "2", c2: "17440561" });
+        _qevents.push({ qacct: "p-c1rF4kxgLUzNc" });
+    </script>        
+    
+    </body>
+</html>

@@ -1,0 +1,2007 @@
+
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta content='width=1024' name='viewport'>
+
+
+    <title>Аутентификация в Rails-приложениях с помощью Devise. Часть 1: базовая настройка / Хабрахабр</title>
+
+    <meta name='yandex-verification' content='67d46b975fa41645' /> <!-- яндекс вебмастер - верификация -->
+
+    <meta name="description" content="Предлагаю вашему вниманию один из лучших, на мой взгляд, гемов для аутентификации в rails-приложениях. К сожалению, русскоязычной информации по данному гему очень мало, в том числе и на хабре,..." />
+    <meta name="keywords" content="devise, аутентификация пользователей" />
+
+    	<meta property="fb:app_id"      content="444736788986613" /> 
+<meta property="og:type"        content="article" /> 
+<meta property="og:url"         content="http://habrahabr.ru/post/208056/" /> 
+<meta property="og:title"       content="Аутентификация в Rails-приложениях с помощью Devise. Часть 1: базовая настройка" /> 
+	
+	<meta property="og:image"       content="http://habrahabr.ru/i/habralogo.jpg" />
+	<link rel="image_src" href="http://habrahabr.ru/i/habralogo.jpg" />
+<meta property="og:description" content="Предлагаю вашему вниманию один из лучших, на мой взгляд, гемов для аутентификации в rails-приложениях. К сожалению, русскоязычной информации по данному гему..." />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@habrahabr" />
+	<meta property="al:ios:url" content="habrahabr://post/208056" />
+<meta property="al:ios:app_store_id" content="778613673" />
+<meta property="al:ios:app_name" content="Habrahabr" />
+<meta property="al:android:url" content="habrahabr://post/208056" />
+<meta property="al:android:app_name" content="Habrahabr" />
+<meta property="al:android:package" content="ru.habrahabr" />
+<meta property="al:windows_phone:url" content="habrahabr://post/208056" />
+<meta property="al:windows_phone:app_name" content="Habrahabr" />
+<meta property="al:windows_phone:app_id" content="460a6bd6-8955-470f-935e-9ea1726a6060" />
+	<link rel="canonical" href="http://habrahabr.ru/post/208056/"/>
+    <link rel="alternate" media="only screen and (max-width: 640px)" href="http://m.habrahabr.ru/post/208056/" >
+
+
+
+
+    <link href="/styles/1429261672/assets/global_main.css" rel="stylesheet" media="all" />
+    <script type="text/javascript" src="/javascripts/1429261672/assets/global_main.js"></script>
+        <link href="/styles/1429261672/assets/post_common_css.css" rel="stylesheet" media="all" />
+    <link href="/styles/1429261672/users/all.css" rel="stylesheet" media="all" />
+
+    <link href="/styles/1429261672/printer.css" rel="stylesheet" media="print" />
+
+    
+    
+
+
+
+
+        <script type="text/javascript" src="/javascripts/1429261672/assets/post_common_js.js"></script>
+    <script type="text/javascript" src="/javascripts/1429261672/users/all.js"></script>
+
+
+      <!-- www.criteo.com/ru -->
+<script type='text/javascript'>
+  var crtg_nid="2580";
+  var crtg_cookiename="cto_rtt";
+  var crtg_varname="crtg_content";
+  function crtg_getCookie(c_name){
+    var i,x,y,ARRCookies=document.cookie.split(";");
+    for(i=0;i<ARRCookies.length;i++){
+      x=ARRCookies[i].substr(0,ARRCookies[i].indexOf("="));
+      y=ARRCookies[i].substr(ARRCookies[i].indexOf("=")+1);
+      x=x.replace(/^\s+|\s+$/g,"");
+      if(x==c_name){return unescape(y);}
+    }
+    return'';
+  }
+  var crtg_content = crtg_getCookie(crtg_cookiename);var crtg_rnd=Math.floor(Math.random()*99999999999);
+  var crtg_url=location.protocol+'//rtax.criteo.com/delivery/rta/rta.js?netId='+escape(crtg_nid);crtg_url+='&cookieName='+escape(crtg_cookiename);crtg_url+='&rnd='+crtg_rnd;crtg_url+='&varName=' + escape(crtg_varname);
+  var crtg_script=document.createElement('script');crtg_script.type='text/javascript';crtg_script.src=crtg_url;crtg_script.async=true;
+  if(document.getElementsByTagName("head").length>0)document.getElementsByTagName("head")[0].appendChild(crtg_script);
+  else
+  if(document.getElementsByTagName("body").length>0)document.getElementsByTagName("body")[0].appendChild(crtg_script);
+</script>
+      <script >
+        var N = 5;
+        var ar_duo1 = Math.floor(Math.random()*N+1);
+      </script>
+      <script type="text/javascript" src="/javascripts/1429261672/adriver.core.2.js"></script>
+
+    <link title="Хабрахабр / Комментарии к публикации «Аутентификация в Rails-приложениях с помощью Devise. Часть 1: базовая настройка»" type="application/rss+xml" rel="alternate" href="http://habrahabr.ru/rss/post/208056/"/>
+
+    
+<script type="text/javascript">
+
+    var user_type = "guest";
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-726094-1',  'auto' );
+    ga('create', 'UA-726094-24', 'auto', {'name': 'HGM'});
+
+  ga('require', 'displayfeatures');
+  ga('set', 'dimension1', user_type); // user type - guest/readonly/habrauser
+  //ga('set', 'dimension2', username); // username
+
+
+
+  if(typeof removeUtms === 'undefined') {
+    removeUtms = function(){};
+  }
+  ga('HGM.send', 'pageview');
+  ga('HGM.set', 'dimension1', user_type);
+  ga('HGM.set', 'dimension2', "habrahabr");
+  ga('send', 'pageview', { 'hitCallback': removeUtms });
+
+</script>
+
+
+    <meta content='Хабрахабр' name='apple-mobile-web-app-title'>
+<link href='/images/apple-touch-icon_142x142.png' rel='apple-touch-icon' type='image/png'>
+  </head>
+
+  <body>
+    <div id="TMpanel">
+  <div class="container">
+    <div class="menu">
+      <a href="http://tmfeed.ru?utm_source=tm_habrahabr&utm_medium=tm_top_panel&utm_campaign=tm_promo">TM Feed</a>
+      <a href="http://habrahabr.ru?utm_source=tm_habrahabr&utm_medium=tm_top_panel&utm_campaign=tm_promo" class="current">Хабрахабр</a>
+      <a href="http://megamozg.ru?utm_source=tm_habrahabr&utm_medium=tm_top_panel&utm_campaign=tm_promo">Мегамозг</a>
+      <a href="http://geektimes.ru?utm_source=tm_habrahabr&utm_medium=tm_top_panel&utm_campaign=tm_promo">Geektimes</a>
+      <a href="http://toster.ru?utm_source=tm_habrahabr&utm_medium=tm_top_panel&utm_campaign=tm_promo">Тостер</a>
+      <a href="http://brainstorage.me?utm_source=tm_habrahabr&utm_medium=tm_top_panel&utm_campaign=tm_promo">Brainstorage</a>
+      <a href="http://freelansim.ru?utm_source=habrahabr&utm_medium=referral&utm_campaign=mainpage&utm_content=head_link">Фрилансим</a>
+    </div>
+      <div class="menu special"></div>
+  </div>
+</div>
+
+
+    <div id="layout">
+      <div id="navbar_overlay" class="hidden"></div>
+<div id="navbar">
+    <div class="nav_panel">
+        <a href="/" class="logo"></a>
+
+            <a href="/posts/" class="tab tab_menu" data-tab="menu_tab" title="Меню"><span class="g-icon g-icon-burger"></span></a>
+            <a href="https://habrahabr.ru/auth/login/" class="tab tab_login" id="login" title="Войти"><span class="g-icon g-icon-lock"></span></a>
+
+        <a href="" class="tab tab_print  hidden" id="print_tab" target="_blank" data-post-id="208056"></a>
+
+        <a href="#" class="scroll_to_up hidden scroll_to_up_for_guest" id="scroll_to_top" title="Наверх"></a>
+    </div>
+    <div class="nav_tabs_content ">
+
+        <div class="nav_tab hidden" id="menu_tab">
+            <div class="title">Разделы</div>
+            <form action="/search/" method="get" class="global_search_form">
+                <div>
+                    <input type="text" name="q" placeholder="Поиск" />
+                </div>
+            </form>
+            <div class="menu">
+                <a href="/posts/top/">Публикации</a>
+                <a href="/hubs/">Хабы</a>
+                <a href="/companies/">Компании</a>
+                <a href="/users/">Пользователи</a>
+                <a href="http://toster.ru/"    class="new_window">Q&A</a>
+                <a href="/sandbox/">Песочница</a>
+                <a href="/exchange/">Биржа авторов</a>
+
+
+
+            </div>
+
+                
+
+                        <div class="line"></div>
+                        <div class="title">Спецпроекты</div>
+                        <div class="menu">
+
+                        <a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&ad=482836&bt=21&pid=1730497&bid=3502321&bn=3502321&rnd=124687018" target="_blank">AZURE бесплатно</a>
+
+                        <a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&ad=506846&bt=21&pid=1853254&bid=3754276&bn=3754276&rnd=190963099" target="_blank">Простое SEO</a>
+
+                        <a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&ad=521150&bt=21&pid=1948643&bid=3829267&bn=3829267&rnd=1368140591" target="_blank">Все в Ажуре</a>
+                        </div>
+
+
+        </div>
+
+
+    </div>
+</div>
+
+      <div class="inner">
+        
+
+        
+
+        
+    <div class="user_header">
+
+	<a class="avatar" href="http://habrahabr.ru/users/modjolees/"><img src="//habrastorage.org/getpro/habr/avatars/a54/31a/216/a5431a216dc5e588451e21058c02c886.jpg" alt="avatar" /></a>
+	<h2 class="username"><a  href="http://habrahabr.ru/users/modjolees/">modjolees</a></h2>
+
+
+
+	<div class="karma">
+		<div class="label">карма</div>
+		<div class="score">
+				
+
+				<div class="num">7,0</div>
+
+				
+		</div>
+		<div class="votes" >7 голосов</div>
+	</div>
+	<div class="rating">
+		<div class="label">рейтинг</div>
+		<div class="num">0,7</div>
+	</div>
+
+
+	<div class="clear"></div>
+</div>
+
+  <div class="content_left">
+  	
+<table class="menu">
+    <tr>
+        <td class="item ">
+            <a href="http://habrahabr.ru/users/modjolees/"  ><span class="name">Профиль</span></a>
+        </td>
+        <td class="item  active">
+            <a href="http://habrahabr.ru/users/modjolees/topics/"  ><span class="name">Публикации (<span class="count">2</span>)</span></a>
+        </td>
+        <td class="item ">
+            <a href="http://habrahabr.ru/users/modjolees/comments/"  ><span class="name">Комментарии (<span class="count">6</span>)</span></a>
+        </td>
+        <td class="item ">
+            <a href="http://habrahabr.ru/users/modjolees/favorites/"  ><span class="name">Избранное (<span class="count">63</span>)</span></a>
+        </td>
+    </tr>
+</table>
+<div class="submenu ">
+
+</div>
+<div class="clear"></div>
+
+
+
+    <div class="post_show">
+  	  
+  <div class="post shortcuts_item" id="post_208056">
+  	<div class="published"> 4 января 2014 в 04:02</div>  
+    <h1 class="title">
+    
+      
+      
+
+      
+        <span class="post_title">Аутентификация в Rails-приложениях с помощью Devise. Часть 1: базовая настройка</span>
+			
+  		<a href="/sandbox/" class="flag flag_sandbox" title="Перейти в песочницу">из песочницы</a>
+			
+			
+
+  	</h1>
+  	
+  	<div class="hubs">
+		<a href="http://habrahabr.ru/hub/ror/" class="hub " title="Вы не подписаны на этот хаб" >Ruby on Rails</a><span class="profiled_hub" title="Профильный хаб">*</span>, 
+		<a href="http://habrahabr.ru/hub/ruby/" class="hub " title="Вы не подписаны на этот хаб" >Ruby</a><span class="profiled_hub" title="Профильный хаб">*</span>
+</div>
+
+  	
+    <div class="content html_format">
+			Предлагаю вашему вниманию один из лучших, на мой взгляд, гемов для аутентификации в rails-приложениях. К сожалению, русскоязычной информации по данному гему очень мало, в том числе и на хабре, поэтому хочу осветить данную тему. Статья, в первую очередь, рассчитана на новичков и представляет из себя подробный туториал по настройке аутентификации на основе упомянутого гема. В первой части я освещу шаги по базовой настройке. Далее подробнее о геме.<br/>
+<br/>
+<b>Devise</b> — это ruby-гем, предоставляющий возможности для аутентификации в rails-приложениях. Devise работает в связке с гемом Warden, который в свою очередь предоставляет сам механизм для аутентификации в rack-базированных ruby-приложениях. Основные особенности Devise описаны ниже:<br/>
+<ul>
+<li>основан на Rack;</li>
+<li>является законченным MVC-решением, основанным на Rails;</li>
+<li>разрешает вход в систему по нескольким моделям одновременно;</li>
+<li>основан на модульности: использует только то, что вам действительно необходимо.</li>
+</ul><br/>
+Итак, приступим к установке и настройке Devise для вашего rails-приложения. Дальнейший процесс для удобочитаемости будет разбит на отдельные шаги.<br/>
+<a name="habracut"></a><br/>
+<i>Примечание</i>: вся установка и настройка мною производилась для rails версии 4.0.1.<br/>
+<br/>
+<b>Шаг 1.</b> Добавим гем в Gemfile<br/>
+<pre><code class="ruby">gem 'devise'
+</code></pre><br/>
+Либо с указанием точной версии (следующая версия у меня стабильно работает с rails 4.0.1)<br/>
+<pre><code class="ruby">gem 'devise', '3.2.2'
+</code></pre><br/>
+Запустим bundle для установки новых гемов<br/>
+<pre><code class="bash">bundle install
+</code></pre><br/>
+В качестве зависимостей будут установлены дополнительно следующие гемы:<br/>
+<b>warden</b> — связующее ПО, предоставляющее возможность аутентификации для Rack-приложений;<br/>
+<b>orm_adapter</b> — предоставляет единую точку входа для использования основных функций Ruby ORMs;<br/>
+<b>bcrypt-ruby</b> — предоставляет простую обертку для работы с паролями. В основе лежит криптографическая хэш-функция bcrypt();<br/>
+<b>thread_safe</b> — предоставляет потоко-безопасные коллекции и утилиты для Ruby;<br/>
+<b>railties</b> — внутренние компоненты Rails, такие как загрузчики приложения, плагины, генераторы и rake-задачи.<br/>
+<br/>
+<b>Шаг 2.</b> Итак, гем был скачан, но еще никак не взаимодействует с нашим приложением. Devise имеет в своем арсенале удобные генераторы, одним из которых мы сейчас и воспользуемся. Выполним установку Devise путем запуска следующего генератора:<br/>
+<pre><code class="bash">rails generate devise:install
+</code></pre><br/>
+Этот генератор установит инициализатор, в котором описаны все конфигурационные настройки Devise, необходимые для работы, а также файл с базовой локалью (английский язык). Также установщик предложит нам выполнить базовую настройку.<br/>
+<br/>
+<b>Шаг 3.</b> Произведем базовую настройку гема после установки<br/>
+3.1. Сейчас нам необходимо задать настройки мейлера (отправщика почты) для каждой из сред выполнения. Для среды разработки необходимо добавить следующую строку в файл <i>config/environments/development.rb</i>:<br/>
+<pre><code class="ruby">config.action_mailer.default_url_options = { :host =&gt; 'localhost:3000' }
+</code></pre><br/>
+Для продакшн-среды необходимо заменить значение ключа <i>:host</i> на актуальное.<br/>
+<br/>
+3.2. После входа пользователя в систему, подтверждения аккаунта или обновления пароля, Devise будет искать путь для последующего перенаправления. По умолчанию он выполнит перенаправление к <b>user_root_path</b>, если тот существует. В противном случае Devise выполнит перенаправление к <b>root_path</b>. Поэтому этот путь должен быть обязательно определен в приложении. Проверьте свой файл роутов <i>config/routes.rb</i> на наличие строки следующего вида:<br/>
+<pre><code class="ruby">root 'home#index'
+</code></pre><br/>
+Думаю, вы со мной согласитесь, что не очень логично после входа перенаправлять пользователя на главную страницу приложения. В связи с этим, давайте настроим перенаправление после успешного входа на страницу профиля пользователя. Для этого добавим следующий маршрут в <i>config/routes.rb</i>:<br/>
+<pre><code class="ruby">get 'persons/profile', as: 'user_root'
+</code></pre><br/>
+<i>Примечание</i>:<br/>
+1) Предварительно необходимо создать контроллер и экшен. Это можно выполнить через консоль с помощью удобного генератора:<br/>
+<pre><code class="bash">rails generate controller persons profile
+</code></pre><br/>
+2) В итоге, генератор создаст контроллер <i>persons_controller</i> с одним методом (экшеном) <i>profile</i>, а также вид для этого экшена.<br/>
+Список роутов можно получить через консоль. Достаточно ввести команду:<br/>
+<pre><code class="bash">bundle exec rake routes
+</code></pre><br/>
+В нашем случае должен быть доступен следующий роутер<br/>
+<pre><code class="bash">user_root GET    /persons/profile(.:format)  persons#profile
+</code></pre><br/>
+для которого будет доступен хэлпер <b>user_root_path</b><br/>
+<br/>
+Существует также и другой путь, с помощью которого можно задать собственные перенаправления как после входа, так и после выхода. Для этого необходимо переопределить в <i>ApplicationController</i> (<i>app/controllers/application_controller.rb</i>) существующие devise-методы <b>after_sign_in_path_for</b> и <b>after_sign_out_path_for</b>. Лично мне, больше понравился этот вариант настройки перенаправлений:<br/>
+<pre><code class="ruby">def after_sign_in_path_for(resource)
+  current_user_path
+end
+</code></pre><br/>
+После входа пользователь будет перенаправлен на страницу, описанную хэлпером <b>current_user_path</b><br/>
+<pre><code class="ruby">def after_sign_out_path_for(resource_or_scope)
+  request.referrer
+end
+</code></pre><br/>
+После выхода пользователь останется на той же странице.<br/>
+<br/>
+3.3. Необходимо в шаблон добавить вывод уведомлений и предупреждений<br/>
+<pre><code class="html">&lt;p class=&quot;notice&quot;&gt;&lt;%= notice %&gt;&lt;/p&gt;
+&lt;p class=&quot;alert&quot;&gt;&lt;%= alert %&gt;&lt;/p&gt;
+</code></pre><br/>
+3.4. Если вы разворачиваете приложение на <i>Heroku</i> с использованием Rails версии 3.2, то нужно добавить следующую строку в <i>config/application.rb</i><br/>
+<pre><code class="ruby">config.assets.initialize_on_precompile = false
+</code></pre><br/>
+3.5. Мы можем настроить файлы видов под свои нужды. Для этого необходимо их скопировать из гема в свое приложения путем запуска следующей команды:<br/>
+<pre><code class="bash">rails generate devise:views
+</code></pre><br/>
+В директории <i>app/views/devise</i> вы найдете все используемые гемом файлы видов. Можете настроить их по своему желанию, под общий стиль вашего приложения.<br/>
+<br/>
+<b>Шаг 4.</b> Теперь подошло время создать модель пользователя, которая будет выполнять аутентификацию. Мы будем генерировать модель пользователя, поэтому назовем ее <i>User</i>. Модель может также называться <i>Admin</i>:<br/>
+<pre><code class="bash">rails generate devise User
+</code></pre><br/>
+Данный генератор создаст новую модель, если ее не существовало ранее и сконфигурирует ее с учетом используемых по умолчанию модулей. Скорее всего, вы получите следующий код в <i>app/models/user.rb</i> (код несколько отформатирован):<br/>
+<pre><code class="ruby">class User &lt; ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable,
+         :registerable,
+         :recoverable,
+         :rememberable,
+         :trackable,
+         :validatable
+
+end
+</code></pre><br/>
+Devise имеет в своем арсенале 10 модулей. По умолчанию у вас будет подключено 6 модулей. Вы можете отредактировать этот список. Описание всех доступных модулей привожу ниже:<br/>
+<br/>
+1. <b>Database Authenticatable</b>: предоставляет возможность входа в систему на основе зашифрованного и хранимого в базе данных пароля. Вход может быть выполнен посредством отправки POST-запроса или с помощью HTTP Basic Authentication.<br/>
+2. <b>Omniauthable</b>: добавляет поддержку Omniauth (<a href="https://github.com/intridea/omniauth">https://github.com/intridea/omniauth</a>).<br/>
+3. <b>Confirmable</b>: позволяет отправлять письмо с инструкциями для подтверждения аккаунта, созданного во время регистрации.<br/>
+4. <b>Recoverable</b>: позволяет восстанавливать забытый пароль. Отправляет инструкции по восстановлению на почту.<br/>
+5. <b>Registerable</b>: управляет регистрацией пользователей, позволяет редактировать и удалять аккаунты.<br/>
+6. <b>Rememberable</b>: позволяет запоминать пользователей на основе cookies. Управляет созданием и удалением токенов.<br/>
+7. <b>Trackable</b>: ведет статистику количества входов, учитывает время и IT-адреса.<br/>
+8. <b>Timeoutable</b>: отвечает за продолжительность сессии активности пользователя в системе;<br/>
+9. <b>Validatable</b>: предоставляет инструменты валидации e-mail и пароля. Модуль может быть легко настроен, вы можете определить собственные валидаторы.<br/>
+10. <b>Lockable</b>: блокирует аккаунт после указанного в настройках количество неудачных попыток авторизации. Аккаунт может быть разблокирован посредством email или через определенный период времени.<br/>
+<br/>
+Также команда, которую мы выполнили выше, создаст файл миграции БД и роут. Файл миграции выглядит следующим образом:<br/>
+<pre><code class="ruby">class DeviseCreateUsers &lt; ActiveRecord::Migration
+  def change
+    create_table(:users) do |t|
+      ## Database authenticatable
+      t.string :email,              :null =&gt; false, :default =&gt; ''
+      t.string :encrypted_password, :null =&gt; false, :default =&gt; ''
+
+      ## Recoverable
+      t.string   :reset_password_token
+      t.datetime :reset_password_sent_at
+
+      ## Rememberable
+      t.datetime :remember_created_at
+
+      ## Trackable
+      t.integer  :sign_in_count, :default =&gt; 0, :null =&gt; false
+      t.datetime :current_sign_in_at
+      t.datetime :last_sign_in_at
+      t.string   :current_sign_in_ip
+      t.string   :last_sign_in_ip
+
+      ## Confirmable
+      # t.string   :confirmation_token
+      # t.datetime :confirmed_at
+      # t.datetime :confirmation_sent_at
+      # t.string   :unconfirmed_email # Only if using reconfirmable
+
+      ## Lockable
+      # t.integer  :failed_attempts, :default =&gt; 0, :null =&gt; false # Only if lock strategy is :failed_attempts
+      # t.string   :unlock_token # Only if unlock strategy is :email or :both
+      # t.datetime :locked_at
+
+
+      t.timestamps
+    end
+
+    add_index :users, :email,                :unique =&gt; true
+    add_index :users, :reset_password_token, :unique =&gt; true
+    # add_index :users, :confirmation_token,   :unique =&gt; true
+    # add_index :users, :unlock_token,         :unique =&gt; true
+  end
+end
+</code></pre><br/>
+Здесь мы видим, что создается таблица пользователей (3-я строка кода). Так как мы назвали нашу модель <i>User</i>, то таблица имеет такое же название, но во множественном числе (согласно соглашению по именованию <i>ActiveRecord</i>). Далее последовательно описываются поля, которые будут добавлены в таблицу при создании. Как мы видим из кода, только 6 модулям Devise для работы могут потребоваться поля в таблице.<br/>
+<br/>
+Если вы не используете какие-то из модулей, то не забудьте закомментировать соответствующие поля в миграции. И, наоборот, когда делаете какой-то из модулей активным, то также не забудьте раскомментировать соответствующие строки.<br/>
+<br/>
+В файле <i>config/routes.rb</i> будет создан следующий маршрут:<br/>
+<pre><code class="ruby">devise_for :users
+</code></pre><br/>
+Напомню, что список существующих маршрутов можно посмотреть по команде:<br/>
+<pre><code class="bash">bundle exec rake routes
+</code></pre><br/>
+<br/>
+<b>Шаг 5.</b> Итак, с модулями мы разобрались, необходимые подключили, просмотрели файл миграции. Теперь необходимо выполнить миграцию, которая создаст таблицу пользователей с необходимым набором полей. Выполним следующую команду:<br/>
+<pre><code class="bash">bundle exec rake db:migrate
+</code></pre><br/>
+<br/>
+<b>Шаг 6.</b> Далее обязательно нужно перезапустить приложение, чтобы все изменения вступили в силу. Если этого не сделать, то можно столкнуться с различного рода ошибками.<br/>
+Так как мое приложение работает под управлением сервера <i>Unicorn</i>, то я перезапускаю именно его. Если вы тестируете свое приложение под сервером <i>Webrick</i>, то достаточно будет остановить его с помощью комбинации клавиш <i>CTRL+C</i>, а затем запустить заново:<br/>
+<pre><code class="bash">rails server
+</code></pre><br/>
+<br/>
+<b>Шаг 7.</b> Наш модуль и наше приложение готовы к работе. Следующим шагом будет добавление в шаблон ссылок для входа и регистрации. Это можно сделать следующим образом:<br/>
+<pre><code class="html">&lt;% if user_signed_in? %&gt;
+    &lt;span&gt;Здравствуйте, &lt;%= current_user.email %&gt;&lt;/span&gt;
+    &lt;%= link_to 'Выйти', destroy_user_session_path, :method =&gt; :delete %&gt;
+&lt;% else %&gt;
+    &lt;%= link_to 'Войти', new_user_session_path %&gt; или &lt;%= link_to 'Зарегистрироваться', new_user_registration_path %&gt;
+&lt;% end %&gt;
+</code></pre><br/>
+Если пользователь вошел на сайт, то пишем ему «Здравствуйте, [почта пользователя]» и рядом размещаем ссылку для выхода. Если пользователь еще не вошел на сайт, то располагаем рядом две ссылки «Войти» и «Зарегистрироваться». В качестве путей для ссылок используем существующие хелперы. Напомню, что маршруты были установлены в четвертом шаге и им список можно посмотреть по следующей команде. Хелпер состоит из префикса (самая левая колонка + '_path')<br/>
+<pre><code class="bash">bundle exec rake routes
+</code></pre><br/>
+<br/>
+<b>Шаг 8.</b> Самое время начать использовать Devise по назначению — для ограничения доступа неавторизованному пользователю к определенным разделам сайта. Допустим, мы хотим разрешить выполнять заказ лишь авторизованному пользователю. Для этого в соответствующий контроллер мы должны добавить фильтр:<br/>
+<pre><code class="ruby">class OrdersController &lt; ApplicationController
+  before_filter :authenticate_user!, except =&gt; [:show, :index]
+
+  def index
+    # do something
+  end
+
+  def show
+    # do something
+  end
+
+  def create
+    # do something
+  end
+end
+</code></pre><br/>
+Здесь, в коде, вторым параметром в метод <b>before_filter</b> мы передает список методов контроллера, которые не должны фильтроваться. Таким образом, авторизация необходима только лишь для выполнения заказа (доступа к работе метода <i>order</i>). Если необходимо фильтровать все методы контроллера, то второй параметр передавать не нужно. Достаточно лишь написать:<br/>
+<pre><code class="ruby">before_filter :authenticate_user!
+</code></pre><br/>
+<br/>
+<h5>Список полезных методов-хэлперов</h5><br/>
+Devise содержит полезные хэлперы, которые можно использовать внутри контроллеров и видов. Некоторые из них привожу ниже.<br/>
+<i>Проверить факт входа пользователя в систему можно с помощью следующего хэлпера:</i><br/>
+<pre><code class="ruby">user_signed_in?
+</code></pre><br/>
+<i>С помощью следующего хэлпера мы получим объект пользователя, авторизованного в данный момент на сайте</i><br/>
+<pre><code class="ruby">current_user
+</code></pre><br/>
+<i>Вывести электронную почту пользователя можно следующим образом</i><br/>
+<pre><code class="ruby">current_user.email
+</code></pre><br/>
+<i>Доступ к текущей сессии можно получить так:</i><br/>
+<pre><code class="ruby">user_session
+</code></pre><br/>
+<br/>
+На этом окончу первую часть, а в следующей части планирую написать о других не менее важных и не менeе интересных настройках этого замечательного гема для аутентификации.<br/>
+<br/>
+<h6>Список используемой литературы:</h6><br/>
+В качестве основного источника материала использовалась официальная документация по гему — <a href="https://github.com/plataformatec/devise">github.com/plataformatec/devise</a>, дополненная собственным опытом настройки.
+			<div class="clear"></div>
+    </div>
+
+    
+<ul class="tags">
+	<li ><a href="http://habrahabr.ru/search/?q=%5Bdevise%5D&target_type=posts" rel="tag">devise</a></li><li >, <a href="http://habrahabr.ru/search/?q=%5B%D0%B0%D1%83%D1%82%D0%B5%D0%BD%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D1%8F%20%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D0%B5%D0%B9%5D&target_type=posts" rel="tag">аутентификация пользователей</a></li>
+</ul>
+
+		<div class="infopanel_wrapper">
+	<div class="infopanel " id="infopanel_post_208056">
+
+				<div class="voting   ">
+	
+						<span class="plus" title="Голосовать могут только зарегистрированные пользователи."></span>
+	
+					<div class="mark positive ">
+							<span class="score" title="Всего 29: &uarr;22 и &darr;7">+15</span>
+					</div>
+					
+						<span class="minus" title="Голосовать могут только зарегистрированные пользователи."></span>
+		
+				</div>
+	
+		<div class="pageviews" title="Просмотры публикации">22961</div>
+			
+		<div class="favorite">
+				<a class="guest"	href="#" onclick="return false;" title="Только зарегистрированные пользователи могут добавлять публикации в избранное"></a>
+		</div>
+		<div class="favs_count" title="Количество пользователей, добавивших публикацию в избранное">130</div>
+		
+		
+		
+	
+	
+	
+	
+				<div class="author">
+					<a title="Автор текста" href="http://habrahabr.ru/users/modjolees/" >modjolees</a>
+					<span class="rating" title="рейтинг пользователя">0,7</span>
+						<a href="https://plus.google.com/100053786165494037103" class="googleplus_profile" rel="publisher">G+</a>
+				</div>
+		
+	
+
+			<div class="share">
+				<div class="twitter">
+					<a href="http://twitter.com/intent/tweet?text=%D0%90%D1%83%D1%82%D0%B5%D0%BD%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D1%8F+%D0%B2+Rails-%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F%D1%85+%D1%81+%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D1%8C%D1%8E+Devise.+%D0%A7%D0%B0%D1%81%D1%82%D1%8C+1%3A+%D0%B1%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D1%8F+%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B0+http://habr.ru/p/208056/+via+%40habrahabr+%23habr" title="Опубликовать ссылку в Twitter" target="_blank"></a>
+				</div>
+				<div class="vkontakte">
+					<a href="https://vk.com/share.php?url=http://habrahabr.ru/post/208056/" title="Опубликовать ссылку во ВКонтакте" onclick="window.open(this.href, 'Опубликовать ссылку во Вконтакте', 'width=800,height=300'); return false"></a>
+				</div>
+				<div class="facebook">
+					<a href="https://www.facebook.com/sharer/sharer.php?u=http://habrahabr.ru/post/208056/" title="Опубликовать ссылку в Facebook" onclick="window.open(this.href, 'Опубликовать ссылку в Facebook', 'width=640,height=436,toolbar=0,status=0'); return false"></a>
+				</div>
+				<div class="googleplus">
+					<a href="https://plus.google.com/share?url=http://habrahabr.ru/post/208056/" title="Опубликовать ссылку в Google Plus" onclick="window.open(this.href, 'Опубликовать ссылку в Google Plus', 'width=800,height=300'); return false"></a>
+				</div>
+			</div>
+	
+	</div>
+	<div class="clear"></div>
+</div>
+
+
+
+
+    
+		
+	</div>
+
+    </div>
+
+  	
+  <div id="adriver_banner_132032996"></div>
+
+  <script type="text/javascript">
+      /** Для блоков гугла **/
+      function requireAdsafe(file){
+          var head = document.getElementsByTagName("head")[0];
+          var script = document.createElement('script');
+          script.src = file;
+          script.type = 'text/javascript';
+          head.appendChild(script);
+      }
+
+      function show_inner_banner_block(name, url){
+          if( typeof(name) !== 'undefined'){
+              //$.get('/html/'+name+'/1429261672/', function(html){
+              $.get('http://special.habrahabr.ru/api/htmlblock/'+name+'/', function(html){
+                  $('#adriver_banner_132032996').html(html);
+                  $('.'+name+'_inner_banner').removeClass('hidden');
+                  if( typeof(url) !== 'undefined'){
+                      $('.'+name+'_inner_banner .block_url').attr('href', url);
+                  }
+              }, 'html')
+          }
+      }
+
+        $(function(){
+          var check_scroll_position = function() {
+            var height = $(window).height();
+            var scrollTop = $(window).scrollTop();
+            var scrollBottom = $(window).scrollTop() + height;
+            var blockTop = $('#adriver_banner_132032996').position().top;
+            var show = scrollTop < blockTop && blockTop < scrollBottom;
+
+            if( show ){
+                $( window ).off('scroll', check_scroll_position);
+                $( window ).trigger('show_bn3');
+            }
+          };
+
+          $( window ).on('scroll', check_scroll_position);
+
+          $( window ).on('show_bn3', function(){
+            var keyword = '';
+            if (typeof crtg_content !== 'undefined' && crtg_content) { keyword = crtg_content; }
+            var custom = { 4:ar_duo1 };
+                custom[1] = 'ror';
+                custom[2] = 'ruby';
+
+            //if (true)
+            //    show_inner_banner_block('raiffaizen2');
+            //else
+                new adriver("adriver_banner_132032996", {sid: 176776, bt: 52, bn: 3, custom: custom, keyword: keyword});
+          });
+
+          //$( window ).trigger('show_bn3');
+        });
+    </script>
+
+
+
+
+
+      <div class="block_after_post">
+        
+
+
+<div class="block similar_posts">
+
+    <div class="title">Похожие публикации</div>
+    <div class="posts_list">
+        <div class="post_item">
+            <a class="post_name"
+               onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'similar_posts', $(this).parents('.similar_posts').hasClass('float_block') ? 'float' : 'common'); }"
+               href="/post/255183/">Двухфакторная аутентификация для корпоративных веб-сервисов</a>
+            <span class="when"> 7 апреля в 16:39</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name"
+               onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'similar_posts', $(this).parents('.similar_posts').hasClass('float_block') ? 'float' : 'common'); }"
+               href="/post/254047/">Qbaka Vision — анализ поведения пользователей сайта</a>
+            <span class="when">26 марта в 13:20</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name"
+               onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'similar_posts', $(this).parents('.similar_posts').hasClass('float_block') ? 'float' : 'common'); }"
+               href="/post/248511/">Сайт без бекэнда: аутентификация пользователя в BaaS parse.com через социальные сети</a>
+            <span class="when">22 января в 05:22</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name"
+               onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'similar_posts', $(this).parents('.similar_posts').hasClass('float_block') ? 'float' : 'common'); }"
+               href="/post/241185/">Gmail добавил возможность аутентификации пользователя с Security Key</a>
+            <span class="when">22 октября 2014 в 11:34</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name"
+               onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'similar_posts', $(this).parents('.similar_posts').hasClass('float_block') ? 'float' : 'common'); }"
+               href="/post/229157/">TrulySecure: биометрическая аутентификация пользователя для мобильных устройств</a>
+            <span class="when"> 8 июля 2014 в 18:16</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name"
+               onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'similar_posts', $(this).parents('.similar_posts').hasClass('float_block') ? 'float' : 'common'); }"
+               href="/post/189964/">Ад с учётными записями — почему в одной компании пользователей было в 3 раза больше, чем сотрудников</a>
+            <span class="when">14 августа 2013 в 14:47</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name"
+               onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'similar_posts', $(this).parents('.similar_posts').hasClass('float_block') ? 'float' : 'common'); }"
+               href="/post/177813/">Google присоединился к FIDO Alliance для поиска надежной альтернативы парольной аутентификации пользователей</a>
+            <span class="when">24 апреля 2013 в 11:27</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name"
+               onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'similar_posts', $(this).parents('.similar_posts').hasClass('float_block') ? 'float' : 'common'); }"
+               href="/post/177551/">Классификация механизмов аутентификации пользователей и их обзор</a>
+            <span class="when">22 апреля 2013 в 18:27</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name"
+               onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'similar_posts', $(this).parents('.similar_posts').hasClass('float_block') ? 'float' : 'common'); }"
+               href="/post/154107/">Новая система аутентификации пользователей использует уникальные характеристики видеоадаптеров</a>
+            <span class="when"> 9 октября 2012 в 01:29</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name"
+               onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'similar_posts', $(this).parents('.similar_posts').hasClass('float_block') ? 'float' : 'common'); }"
+               href="/post/107934/">Аутентификация пользователя без регистрации — в массы</a>
+            <span class="when">11 ноября 2010 в 02:58</span>
+        </div>
+    </div>
+</div>
+
+
+
+      </div>
+
+  		    <div class="comments_list " id="comments">
+
+        <h2 class="title ">Комментарии (<span
+            id="comments_count">18</span>)
+            
+
+        </h2>
+
+        
+
+            <div class="comment_item" id="comment_7165676" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7165676">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7165676" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 3: &uarr;3 и &darr;0">+3</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Eklykti/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/194/022/2ce/1940222ce5c9e99cb135fa90c9f90185_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/Eklykti/" class="username">Eklykti</a>
+            <time> 4 января 2014 в 09:41</time>
+
+            <a href="#comment_7165676" class="link_to_comment">#</a>
+            
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Это всё хорошо, когда есть один сайт со своей регистрацией и больше никто не нужен. При наличии нескольких проектов с общей базой юзеров гораздо проще воспользоваться <a href="https://github.com/rubycas/">rubycas</a>, заодно получаем халявный Single sign-on.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7165676">
+    </div>
+</div>
+
+            <div class="comment_item" id="comment_7165844" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7165844">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7165844" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 6: &uarr;4 и &darr;2">+2</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/alwxndr/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/137/d9f/e56/137d9fe56f4bc1d0c44b9f594d5377e1_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/alwxndr/" class="username">alwxndr</a>
+            <time> 4 января 2014 в 13:10</time>
+
+            <a href="#comment_7165844" class="link_to_comment">#</a>
+            
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            &gt; К сожалению, русскоязычной информации по данному гему очень мало<br/>
+<br/>
+А зачем она нужна при наличии целого вагона англоязычной информации?
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7165844">
+        <div class="comment_item" id="comment_7165866" >
+
+    <span class="parent_id" data-parent_id="7165844"></span>
+    <div class="comment_body ">
+        <div class="info  is_topic_starter  " rel="7165866">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7165866" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  negative">
+                    <span class="score" title="Всего 3: &uarr;1 и &darr;2">–1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/modjolees/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/a54/31a/216/a5431a216dc5e588451e21058c02c886_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/modjolees/" class="username">modjolees</a>
+            <time> 4 января 2014 в 13:35</time>
+
+            <a href="#comment_7165866" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="7165866" data-parent_id="7165844" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_7165844" data-id="7165866" data-parent_id="7165844" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format bad bad1">
+            Не все хорошо владеют английским языком. Да и те кто владеют, по-моему, лучше воспринимают информацию на родном языке, на котором говорят каждый день. Я могу ошибаться, но это мое мнение.<br/>
+<br/>
+В статье попытался организовать информацию по настройке гема в виде туториала, чтобы разработчик в случае, если ему когда-нибудь еще нужно будет настроить аутентификацию в новом проекте, смог открыть эту статью из закладок и произвести пошаговую настройку. В частности, писал еще эту статью и для себя, так как знаю, что настроив гем сегодня, не вспомню как это делал год назад — проще воспользоваться статьей, где все шаги зафиксированы.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7165866">
+        <div class="comment_item" id="comment_7165884" >
+
+    <span class="parent_id" data-parent_id="7165866"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7165884">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7165884" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 2: &uarr;2 и &darr;0">+2</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/alwxndr/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/137/d9f/e56/137d9fe56f4bc1d0c44b9f594d5377e1_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/alwxndr/" class="username">alwxndr</a>
+            <time> 4 января 2014 в 13:41</time>
+
+            <a href="#comment_7165884" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="7165884" data-parent_id="7165866" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_7165866" data-id="7165884" data-parent_id="7165866" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Просто есть RailsCasts.<br/>
+А английский язык надо учить, без него далеко не уйдешь, особенно в IT.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7165884">
+        <div class="comment_item" id="comment_7167824" >
+
+    <span class="parent_id" data-parent_id="7165884"></span>
+    <div class="comment_body ">
+        <div class="info  is_topic_starter  " rel="7167824">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7167824" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/modjolees/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/a54/31a/216/a5431a216dc5e588451e21058c02c886_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/modjolees/" class="username">modjolees</a>
+            <time> 5 января 2014 в 14:09</time>
+
+            <a href="#comment_7167824" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="7167824" data-parent_id="7165884" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_7165884" data-id="7167824" data-parent_id="7165884" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Согласен с Вами на все 100%. Сам, особенно в последнее время, активно совершенствую свой английский потому что понимаю, что вся основная документация по IT написана именно на нем. Но, если на хабре публикуют переводы, значит они кому-то нужны.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7167824">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+            <div class="comment_item" id="comment_7165864" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body ">
+        <div class="info  is_topic_starter  " rel="7165864">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7165864" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/modjolees/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/a54/31a/216/a5431a216dc5e588451e21058c02c886_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/modjolees/" class="username">modjolees</a>
+            <time> 4 января 2014 в 13:34<span class="time_changed"> (комментарий был изменён)</span></time>
+
+            <a href="#comment_7165864" class="link_to_comment">#</a>
+            
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Прошу прощения, поторопился — не в той ветке написал, ответил выше
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7165864">
+    </div>
+</div>
+
+            <div class="comment_item" id="comment_7165872" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7165872">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7165872" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 2: &uarr;1 и &darr;1">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Mox/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+            <a href="http://habrahabr.ru/users/Mox/" class="username">Mox</a>
+            <time> 4 января 2014 в 13:36</time>
+
+            <a href="#comment_7165872" class="link_to_comment">#</a>
+            
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Я всегда ощущаю себя каким-то старым пердуном, когда смотрю на devise. Ну нах это все нужно, нах столько городить ради простой авторизации.<br/>
+Да, current_user — хорошо. А когда дело дошло до авторизации через SMS ( и id у юзера был телефон, а не email), я помню выломал нафиг его из проекта и больше к нему не возвращался. :/
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7165872">
+        <div class="comment_item" id="comment_7165896" >
+
+    <span class="parent_id" data-parent_id="7165872"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7165896">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7165896" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  negative">
+                    <span class="score" title="Всего 2: &uarr;0 и &darr;2">–2</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/alwxndr/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/137/d9f/e56/137d9fe56f4bc1d0c44b9f594d5377e1_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/alwxndr/" class="username">alwxndr</a>
+            <time> 4 января 2014 в 13:47</time>
+
+            <a href="#comment_7165896" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="7165896" data-parent_id="7165872" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_7165872" data-id="7165896" data-parent_id="7165872" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format bad bad2">
+            Ну, там не настолько уж и много всего. Это же универсальный компонент, в котором есть восстановление пароля, подтверждение по e-mail и так далее.<br/>
+Другое дело, что давно пора отказываться от всего этого в пользу OAuth, используя, например, Omniauth (https://github.com/intridea/omniauth)
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7165896">
+        <div class="comment_item" id="comment_7165904" >
+
+    <span class="parent_id" data-parent_id="7165896"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7165904">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7165904" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 3: &uarr;3 и &darr;0">+3</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Renius/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+            <a href="http://habrahabr.ru/users/Renius/" class="username">Renius</a>
+            <time> 4 января 2014 в 13:54</time>
+
+            <a href="#comment_7165904" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="7165904" data-parent_id="7165896" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_7165896" data-id="7165904" data-parent_id="7165896" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Вам ничего не мешает использовать OAuth и devise.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7165904">
+        <div class="comment_item" id="comment_7165952" >
+
+    <span class="parent_id" data-parent_id="7165904"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7165952">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7165952" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/alwxndr/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/137/d9f/e56/137d9fe56f4bc1d0c44b9f594d5377e1_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/alwxndr/" class="username">alwxndr</a>
+            <time> 4 января 2014 в 14:13</time>
+
+            <a href="#comment_7165952" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="7165952" data-parent_id="7165904" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_7165904" data-id="7165952" data-parent_id="7165904" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            И? Я писал о том, что нужно отказываться от обычной авторизации в пользу только OAuth. При чем тут что я могу и что не могу?
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7165952">
+        <div class="comment_item" id="comment_7165986" >
+
+    <span class="parent_id" data-parent_id="7165952"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7165986">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7165986" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Renius/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+            <a href="http://habrahabr.ru/users/Renius/" class="username">Renius</a>
+            <time> 4 января 2014 в 14:24</time>
+
+            <a href="#comment_7165986" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="7165986" data-parent_id="7165952" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_7165952" data-id="7165986" data-parent_id="7165952" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Очевидно, я не совсем точно вас понял.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7165986">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_7165918" >
+
+    <span class="parent_id" data-parent_id="7165872"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7165918">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7165918" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 2: &uarr;2 и &darr;0">+2</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Renius/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+            <a href="http://habrahabr.ru/users/Renius/" class="username">Renius</a>
+            <time> 4 января 2014 в 14:00</time>
+
+            <a href="#comment_7165918" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="7165918" data-parent_id="7165872" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_7165872" data-id="7165918" data-parent_id="7165872" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Devise подключается за одну минуту и отключается тоже за одну минуту. Поэтому термин «городить» в условиях простой авторизации девайсом звучит несколько… лицемерно, что ли.<br/>
+В большинстве случаев девайс предоставляет необходимый и достаточный функционал, за одну минуту.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7165918">
+    </div>
+</div>
+
+        <div class="comment_item" id="comment_7166284" >
+
+    <span class="parent_id" data-parent_id="7165872"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7166284">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7166284" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 1: &uarr;1 и &darr;0">+1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/kugaevsky/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/485/d38/1ff/485d381ff41a3d0d3a6a4b31c3e0cd0a_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/kugaevsky/" class="username">kugaevsky</a>
+            <time> 4 января 2014 в 17:43</time>
+
+            <a href="#comment_7166284" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="7166284" data-parent_id="7165872" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_7165872" data-id="7166284" data-parent_id="7165872" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Во-первых, аутентификации.<br/>
+Во-вторых, реализация минимально необходимой обкрутки практически любой аутентификации: регистрация, правильное хранение и восстановление ключа, контроль времени сессии, блокировка аккаунта — занимает существенно больше времени, чем «сунуть в куку идентификатор сессии». <br/>
+<br/>
+Если на вашем проекте всё это не нужно, то очевидно, что devise не для вас. Зачем вообще гвозди микроскопом забивать?
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7166284">
+    </div>
+</div>
+
+    </div>
+</div>
+
+            <div class="comment_item" id="comment_7166130" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7166130">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7166130" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 3: &uarr;3 и &darr;0">+3</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/k2m30/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/109/80c/fc6/10980cfc60900ff34dd0324222eaf8e5_small.png" alt="" /></a>
+            <a href="http://habrahabr.ru/users/k2m30/" class="username">k2m30</a>
+            <time> 4 января 2014 в 15:48</time>
+
+            <a href="#comment_7166130" class="link_to_comment">#</a>
+            
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            вольный пересказ Ryan Bates и/или devise readme.<br/>
+надеюсь, последуют другие части с большей пользой. например, как добавить поля авторизации в строку меню или в поп-ап, нестандартную авторизацию и пр.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7166130">
+    </div>
+</div>
+
+            <div class="comment_item" id="comment_7167304" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7167304">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7167304" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/YourWest/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/c4e/1c1/0d4/c4e1c10d46ef9c0d5eb24efada34bb45_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/YourWest/" class="username">YourWest</a>
+            <time> 5 января 2014 в 05:52</time>
+
+            <a href="#comment_7167304" class="link_to_comment">#</a>
+            
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Забыли добавить к ссылке для выхода <code>&quot;method: :delete&quot;</code>
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7167304">
+        <div class="comment_item" id="comment_7167818" >
+
+    <span class="parent_id" data-parent_id="7167304"></span>
+    <div class="comment_body ">
+        <div class="info  is_topic_starter  " rel="7167818">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7167818" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/modjolees/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/a54/31a/216/a5431a216dc5e588451e21058c02c886_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/modjolees/" class="username">modjolees</a>
+            <time> 5 января 2014 в 14:05</time>
+
+            <a href="#comment_7167818" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="7167818" data-parent_id="7167304" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_7167304" data-id="7167818" data-parent_id="7167304" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Спасибо, исправил.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7167818">
+    </div>
+</div>
+
+    </div>
+</div>
+
+            <div class="comment_item" id="comment_7171094" >
+
+    <span class="parent_id" data-parent_id="0"></span>
+    <div class="comment_body ">
+        <div class="info  " rel="7171094">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7171094" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark positive ">
+                    <span class="score" title="Всего 1: &uarr;1 и &darr;0">+1</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/Silaev/" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="" /></a>
+            <a href="http://habrahabr.ru/users/Silaev/" class="username">Silaev</a>
+            <time> 6 января 2014 в 17:46</time>
+
+            <a href="#comment_7171094" class="link_to_comment">#</a>
+            
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            Девайз довольно сложно поддается кастомизации — это раз.<br/>
+У девайза довольно сомнительная архитектура(например посылает письма из модели) — это два.<br/>
+Девайз довольно тяжелый, что добавляет времени для прохождения тестов — это три.<br/>
+Альтернативы:<br/>
+<a href="https://github.com/NoamB/sorcery">github.com/NoamB/sorcery</a> — от EvilMartians<br/>
+<a href="http://railscasts.com/episodes/270-authentication-in-rails-3-1">railscasts.com/episodes/270-authentication-in-rails-3-1</a> — самописная<br/>
+<br/>
+Конечно, девайз дает довольно мощный инструмент за пару минут, но если вдруг придется как-то кастомизировать аутентификацию, то вы столкнетесь с огромным скопом проблем, которые заставят вас потратить не один час гугления в поисках решения.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7171094">
+        <div class="comment_item" id="comment_7178412" >
+
+    <span class="parent_id" data-parent_id="7171094"></span>
+    <div class="comment_body ">
+        <div class="info  is_topic_starter  " rel="7178412">
+            <div class="folding-dot-holder"><div class="folding-dot"></div></div>
+            <div id="voting_7178412" class="voting   ">
+                <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
+                <div class="mark  ">
+                    <span class="score" title="Всего 0: &uarr;0 и &darr;0">0</span>
+                </div>
+            </div>
+            <a href="http://habrahabr.ru/users/modjolees/" class="avatar"><img src="//habrastorage.org/getpro/habr/avatars/a54/31a/216/a5431a216dc5e588451e21058c02c886_small.jpg" alt="" /></a>
+            <a href="http://habrahabr.ru/users/modjolees/" class="username">modjolees</a>
+            <time> 9 января 2014 в 00:23</time>
+
+            <a href="#comment_7178412" class="link_to_comment">#</a>
+            
+                <div class="show_tree" data-id="7178412" data-parent_id="7171094" title="Показать ветку комментариев">&#8629;</div>
+                <a href="#comment_7171094" data-id="7178412" data-parent_id="7171094" class="to_parent">&uarr;</a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="message html_format ">
+            <blockquote>Девайз довольно сложно поддается кастомизации — это раз.</blockquote><br/>
+Не спорю. Devise лучше использовать как коробочный вариант — когда вы точно знаете, что вам нужно и этот гем изначально отвечает всем поставленным требованиям.<br/>
+<br/>
+<blockquote>Девайз довольно тяжелый, что добавляет времени для прохождения тестов — это три.</blockquote><br/>
+Здесь нужно выбирать: либо разработчик хочет решение из коробки со всеми плюшками, либо ему нужно что-то быстрое и у него есть в запасе достаточно времени на настройку и тестирование.<br/>
+<br/>
+<blockquote>railscasts.com/episodes/270-authentication-in-rails-3-1 — самописная</blockquote><br/>
+Думаю, что смысл есть лишь в двух случаях:<br/>
+1. для самообразования;<br/>
+2. у вас супер-пупер крутая система и вам нужно собственная уникальная система авторизации.<br/>
+<br/>
+Во всех остальных случаях лучше не изобретать велосипеды, а использовать готовые решения. Благо, что ruby-сообщество может похвастаться разнообразием.<br/>
+<br/>
+<blockquote>github.com/NoamB/sorcery — от EvilMartians</blockquote><br/>
+Большое спасибо Вам. Обязательно, в свободное время рассмотрю эту альтернативу.
+        </div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            
+        </div>
+    </div>
+
+    <div class="reply_comments" id="reply_comments_7178412">
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+
+
+  					<p class="for_users_only_msg">Только зарегистрированные пользователи могут оставлять комментарии. <a href="https://habrahabr.ru/auth/login/">Войдите</a>, пожалуйста.</p>
+
+
+  	
+<form action="/json/favorites/" method="post" id="edit_tags_form" class="hidden">
+  <input type="hidden" name="action" value="add" />
+  <input type="hidden" name="ti" value="0" />
+  <input type="hidden" name="tt" value="0" />
+  <label>Пометьте топик понятными вам метками, если хотите</label>
+  <input type="text" name="tags_string" class="tags_string" />
+  <div class="description">Метки лучше разделять запятой. Например: <i>общение, социальные сети, myspace.com, подростки, мердок</i></div>
+  <input type="submit" value="Сохранить" class="submit" /> или <a href="#" class="close" onclick="return close_edit_tags()">закрыть</a>
+</form>
+
+
+
+  </div>
+  <div class="sidebar_right">
+  			<div class="banner_300x500">
+		<div id="adriver_banner_1863387959"></div>
+		<script type="text/javascript">
+            function show_bn1_block(name, url){
+                console.log('show' + name);
+                if( typeof(name) !== 'undefined'){
+                    $.get('/html/'+name+'/1429261672/', function(html){
+                        $('#adriver_banner_1863387959').html(html);
+                        if( typeof(url) !== 'undefined'){
+                            $('.'+name+'_inner_banner .block_url').attr('href', url);
+                        }
+                    })
+                }
+            }
+
+
+
+			$(function(){
+
+                // конвертирут кириллицу в cp1251
+                // doc: http://www.adriver.ru/doc/edu-n/pub/settargt/standtrgt/scentrgt/scentrgt.html#9
+				function esc(s){
+                    for(var i=0,l=s.length,r='';i<l;i++){
+                        var c = s.charCodeAt(i);r += String.fromCharCode(c>1039&&c<1104 ? c-848 : c==1105 ? 184 : c==1025 ? 168 : c);
+                    }
+                    return r;
+                }
+
+                var keyword = '';
+
+                if (typeof crtg_content !== 'undefined' && crtg_content) { keyword = crtg_content; }
+                
+                
+
+				var custom = {4:ar_duo1};
+					custom[1] = 'ror';
+					custom[2] = 'ruby';
+
+                 new adriver("adriver_banner_1863387959", {sid: 176776, bt: 52, bn: 1, custom: custom, keyword: keyword});
+			}());
+
+
+
+            
+		</script>
+	</div>
+
+  		
+  		
+<div class="block daily_best_posts">
+  <div class="title">Популярное за сутки</div>
+  <div class="posts_list">
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/256017/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">Супер муравейник на ClojureCLR</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/company/eset/blog/256037/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">Уязвимость CVE-2015-1635 (MS15-034) эксплуатируется in-the-wild</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/256047/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">Phalcon 2 вышел</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/256021/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">Что такое HL7 Continuity of Care Document (CCD)</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/233129/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">Исследуем результат работы php-транслятора</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/256035/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">Тонкости использования ReactJS в MeteorJS приложении</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/company/reactos/blog/256029/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">Доклад Алексея Брагина на Russian Open Source Summit 2015</a>
+      </div>
+      <div class="post_item">
+        
+				
+				
+				
+				
+				
+
+        <a href="http://habrahabr.ru/post/256033/"
+           onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'daily_best_posts', $(this).parents('.daily_best_posts').hasClass('float_block') ? 'float' : 'common'); }"
+           class="post_name">Intel Xeon`ы врываются на рынок отказоустойчивых RISC-серверов, построенных по лекалам mainframe</a>
+      </div>
+  </div>
+  <div class="all"><a href="/top/">все лучшие</a></div>
+</div>
+
+	    
+
+<div class="block geektimes_top">
+	<a href="http://geektimes.ru" data-utm="?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo" class="title">Лучшее на Geektimes</a>
+	<div class="posts_list">
+  		<div class="post_item">
+  			<a class="post_name" href="http://geektimes.ru/post/249184/" data-utm="?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Black Swift: использование EJTAG</a>
+  		</div>
+  		<div class="post_item">
+  			<a class="post_name" href="http://geektimes.ru/post/249194/" data-utm="?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Вышло третье издание «Искусства Схемотехники» Хоровитца и Хилла</a>
+  		</div>
+  		<div class="post_item">
+  			<a class="post_name" href="http://geektimes.ru/post/249182/" data-utm="?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Тизер «Бэтмена против Супермена»</a>
+  		</div>
+  		<div class="post_item">
+  			<a class="post_name" href="http://geektimes.ru/post/249196/" data-utm="?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Зачем существуют секс и разделение на мужчин и женщин?</a>
+  		</div>
+  		<div class="post_item">
+  			<a class="post_name" href="http://geektimes.ru/post/249192/" data-utm="?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">OnePlus приглашает: 20 апреля они представят что-то…</a>
+  		</div>
+	</div>
+	<div class="all"><a href="http://geektimes.ru/" data-utm="?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">все публикации</a></div>
+</div>
+
+	  	
+
+<div class="block geektimes_top">
+    <a href="http://megamozg.ru" data-utm="?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo" class="title">Лучшее на Мегамозге</a>
+    <div class="posts_list">
+        <div class="post_item">
+            <a class="post_name" href="http://megamozg.ru/post/14388/" data-utm="?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Как я стал инвестором</a>
+        </div>
+        <div class="post_item">
+            <a class="post_name" href="http://megamozg.ru/post/14394/" data-utm="?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Власти Франции предлагают защитить национальный бизнес от недобросовестной конкуренции Google</a>
+        </div>
+        <div class="post_item">
+            <a class="post_name" href="http://megamozg.ru/post/14396/" data-utm="?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Напутственные слова выступающему на конференции в первый раз</a>
+        </div>
+        <div class="post_item">
+            <a class="post_name" href="http://megamozg.ru/post/14392/" data-utm="?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Android или ios — выбираем систему для написания прототипа мобильного приложения</a>
+        </div>
+
+    </div>
+    <div class="all"><a href="http://megamozg.ru/" data-utm="?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">все публикации</a></div>
+</div>
+
+
+  	  
+
+
+  		
+
+	<div class="block live_broadcast">
+		<div class="title">Что обсуждают? </div>
+
+		<div class="live_broadcast_activity">
+				<div class="posts_list">
+							<div class="post_item">
+								<a href="/post/256047#comments" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'post'); }" class="post_name">Phalcon 2 вышел</a>&nbsp;<span class="count">11</span>
+							</div>
+							<div class="post_item">
+								<a href="/post/256051#comments" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'post'); }" class="post_name">Отрава, которая живет в вашем мозге 3 года</a>&nbsp;<span class="count">12</span>
+							</div>
+							<div class="post_item">
+								<a href="/post/256023#comments" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'post'); }" class="post_name">Задача о мудрецах. Решение</a>&nbsp;<span class="count">49</span>
+							</div>
+							<div class="post_item">
+								<a href="/post/256043#comments" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'post'); }" class="post_name">Windows Update KB3045999 приводит к BSOD</a>&nbsp;<span class="count">12</span>
+							</div>
+							<div class="post_item">
+								<a href="/post/255927#comments" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'post'); }" class="post_name">Intel Edison официально в России: предзаказ и конкурс проектов</a>&nbsp;<span class="count">38</span>
+							</div>
+							<div class="post_item">
+								<a href="/post/255705#comments" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'post'); }" class="post_name">Системы компьютерной алгебры: блеск, нищета или почему многие задачи не решаются «в лоб»</a>&nbsp;<span class="count">31</span>
+							</div>
+							<div class="post_item">
+								<a href="/post/219965#comments" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'post'); }" class="post_name">Программные продукты Intel — Как корабль назовешь…</a>&nbsp;<span class="count">19</span>
+							</div>
+							<div class="post_item">
+								<a href="/post/256037#comments" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'post'); }" class="post_name">Уязвимость CVE-2015-1635 (MS15-034) эксплуатируется in-the-wild</a>&nbsp;<span class="count">9</span>
+							</div>
+							<div class="post_item">
+								<a href="/post/256011#comments" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'post'); }" class="post_name">Символьный LCD дисплей (Видео урок 1)</a>&nbsp;<span class="count">10</span>
+							</div>
+							<div class="post_item">
+								<a href="/post/256033#comments" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'post'); }" class="post_name">Intel Xeon`ы врываются на рынок отказоустойчивых RISC-серверов, построенных по лекалам mainframe</a>&nbsp;<span class="count">13</span>
+							</div>
+				</div>
+				<div class="all"><a href="/posts/" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'live_broadcast_activity', 'all_posts'); }">все публикации</a></div>
+		</div>
+
+	</div>
+
+  		<!--  AdRiver code START. Type:AjaxJS Site: habrahabr PZ: 0 BN: 2 -->
+
+<div id="adriver_banner_480931290" class="adbanner"></div>
+
+
+<script type="text/javascript">
+    function show_bn2_block(name, url){
+        if( typeof(name) !== 'undefined'){
+            $.get('/html/'+name+'/1429261672/', function(html){
+                $('#adriver_banner_480931290').html(html);
+                if( typeof(url) !== 'undefined'){
+                    $('.'+name+'_inner_banner .block_url').attr('href', url);
+                }
+            })
+        }
+    }
+
+    $(function(){
+
+        var check_scroll_position = function() {
+            var height = $(window).height();
+            var scrollTop = $(window).scrollTop();
+            var scrollBottom = $(window).scrollTop() + height;
+            var blockTop = $('#adriver_banner_480931290').position().top;
+            var show = scrollTop < blockTop && blockTop < scrollBottom;
+            if( show ){
+                $( window ).off('scroll', check_scroll_position);
+                $( window ).trigger('show_bn2');
+            }
+        };
+        $( window ).on('scroll', check_scroll_position);
+
+        $( window ).on('show_bn2', function(){
+            var keyword = '';
+            if (typeof crtg_content !== 'undefined' && crtg_content) { keyword = crtg_content; }
+            var custom = {4:ar_duo1};
+            custom[1] = 'ror';
+            custom[2] = 'ruby';
+            new adriver("adriver_banner_480931290", {sid: 176776, bt: 52, bn: 2, custom: custom, keyword: keyword});
+        });
+    });
+    </script>
+<!--  AdRiver code END  -->
+
+  		
+<div class="block best_company">
+
+		<div class="title">Компания дня <img src="/images/bg_cicle_help.png" title="
+Компания, чья публикация набрала максимальное количество баллов<br>
+среди всех опубликованных в корпоративных блогах публикаций за <br>
+прошедшие сутки. Учитываются публикации, для которых истек срок голосования <br>(3 дня с момента публикации)." class="help-tip"></div>
+
+		<div class="company_info">
+			<div class="name">
+			 <img class="favicon" src="//habrastorage.org/getpro/habr/company/7e9/4c7/f39/7e94c7f393c5b95ea3d70250c83a53e9_small.jpg" alt="Журнал Хакер" height="16" width="16" />
+			 <div class="company_name"><a href="http://habrahabr.ru/company/xakep/" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'best_company', 'title'); }" class="title">Журнал Хакер</a></div>
+			</div>
+
+			<p>Последняя публикация:
+				<a href="http://habrahabr.ru/company/xakep/blog/253997/" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'best_company', 'post'); }">Яблочный forensic. Извлекаем данные из iOS-устройств при помощи open source инструментов</a>
+			</p>
+
+			<div class="buttons">
+  			<div id="fans_count">3989 подписчиков</div>
+			</div>
+		</div>
+
+	</div>
+
+
+  		
+  		
+  		
+  </div>
+  <div class="clear"></div>
+
+  <script>
+    // hubs to GA
+      ga('send', 'event', 'Post_view', 'ror (Ruby on Rails)',  window.location.pathname + window.location.search);
+      ga('send', 'event', 'Post_view', 'ruby (Ruby)',  window.location.pathname + window.location.search);
+  </script>
+
+
+
+
+        	
+	<div class="rotated_posts">
+			<div class="rotated_post ">
+				<a href="http://habrahabr.ru/post/249661/" class="grey" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'posts_rotation_block'); }">Чтобы распознавать картинки, не нужно распознавать картинки</a>
+			</div>
+			<div class="rotated_post ">
+				<a href="http://habrahabr.ru/post/253943/" class="grey" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'posts_rotation_block'); }">Критическая уязвимость в безопасности на fl.ru</a>
+			</div>
+			<div class="rotated_post last">
+				<a href="http://habrahabr.ru/post/249535/" class="grey" onclick="if (typeof ga === 'function') { ga('send', 'event', 'tm_block', 'posts_rotation_block'); }">Искусственный рассвет</a>
+			</div>
+		<div class="clear"></div>
+	</div>
+
+        <div class="bottom_promo_blocks">
+    <div class="left">
+            
+	<div class="block new_vacanies">
+  <a href="http://brainstorage.me/jobs" data-utm="?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo" class="title">Brainstorage</a>
+  <div class="vacancies">
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/28951" data-utm="?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">HTML-верстальщик</a>
+		</div>
+		<div class="job_item marked">
+			<a href="http://brainstorage.me/jobs/23257" data-utm="?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Системный администратор и DBA и DevOps инженер</a>
+		</div>
+		<div class="job_item marked">
+			<a href="http://brainstorage.me/jobs/9435" data-utm="?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Аккаунт-менеджер (стажер)</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/28755" data-utm="?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Разработка плагина для Битрикса</a>
+		</div>
+		<div class="job_item marked">
+			<a href="http://brainstorage.me/jobs/18441" data-utm="?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Системный программист iOS, OS X (реверс инженер)</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/18447" data-utm="?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">IOS Developer</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/28923" data-utm="?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">PHP-разработчик</a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/15819" data-utm="?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Front-end разработчик / Верстальщик в команду (JS, SASS/LESS, GRUNT)</a>
+		</div>
+		<div class="job_item marked">
+			<a href="http://brainstorage.me/jobs/28795" data-utm="?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">UX-дизайнер мобильных приложений </a>
+		</div>
+		<div class="job_item ">
+			<a href="http://brainstorage.me/jobs/25729" data-utm="?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">Python Developer [World of Tanks - UI]</a>
+		</div>
+  </div>
+  <div class="all"><a href="http://brainstorage.me/jobs" data-utm="?utm_source=tm_habrahabr&utm_medium=tm_block&utm_campaign=tm_promo">все вакансии</a></div>
+</div>
+
+    </div>
+    <div class="right">
+        
+	<div class="block freelansim">
+	  <a href="http://freelansim.ru" data-utm="?utm_source=habrahabr&utm_medium=referral&utm_campaign=mainpage&utm_content=block_freelansim" class="title"></a>
+	  <div class="tasks">
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/106321" data-utm="?utm_source=habrahabr&utm_medium=referral&utm_campaign=mainpage&utm_content=block_freelansim">Текстовая симуляция игры Вари</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/107573" data-utm="?utm_source=habrahabr&utm_medium=referral&utm_campaign=mainpage&utm_content=block_freelansim">Генерация PDF-файла на стороне сервера (ubuntu)</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/107563" data-utm="?utm_source=habrahabr&utm_medium=referral&utm_campaign=mainpage&utm_content=block_freelansim">PHP-приложение для проведения опросов</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/107557" data-utm="?utm_source=habrahabr&utm_medium=referral&utm_campaign=mainpage&utm_content=block_freelansim">Подправить дизайн + Сделать ландинг</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/107545" data-utm="?utm_source=habrahabr&utm_medium=referral&utm_campaign=mainpage&utm_content=block_freelansim">Написать авторегистратор аккаунтов, Delphi</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/107541" data-utm="?utm_source=habrahabr&utm_medium=referral&utm_campaign=mainpage&utm_content=block_freelansim">Панель управления услугами пользователя и панель администратора</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/107515" data-utm="?utm_source=habrahabr&utm_medium=referral&utm_campaign=mainpage&utm_content=block_freelansim">Разработка дизайна сайта девелоперской компании</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/107475" data-utm="?utm_source=habrahabr&utm_medium=referral&utm_campaign=mainpage&utm_content=block_freelansim">Адаптивный дизайн интернет-магазина</a>
+				</div>
+				<div class="task marked">
+					<a href="http://freelansim.ru/tasks/107271" data-utm="?utm_source=habrahabr&utm_medium=referral&utm_campaign=mainpage&utm_content=block_freelansim">Адаптивная верстка</a>
+				</div>
+				<div class="task ">
+					<a href="http://freelansim.ru/tasks/107455" data-utm="?utm_source=habrahabr&utm_medium=referral&utm_campaign=mainpage&utm_content=block_freelansim">Сервис виджетов "Обратный звонок с сайта" для внутреннего применения</a>
+				</div>
+
+	  </div>
+	  <div class="all"><a href="http://freelansim.ru/tasks" data-utm="?utm_source=habrahabr&utm_medium=referral&utm_campaign=mainpage&utm_content=block_freelansim">все заказы</a></div>
+	</div>
+
+    </div>
+    <div class="clear"></div>
+</div>
+
+
+
+        <div class="clear"></div>
+
+        <div class="footer_panel">
+          <div id="footer">
+	<dl>
+		<dd><a href="https://habrahabr.ru/auth/login/">Войти</a></dd>
+		<dd><a href="https://habrahabr.ru/auth/register/">Регистрация</a></dd>
+	</dl>
+	<dl>
+		<dt>Разделы</dt>
+		<dd><a href="http://habrahabr.ru/posts/top/">Публикации</a></dd>
+		<dd><a href="http://habrahabr.ru/hubs/">Хабы</a></dd>
+		<dd><a href="http://habrahabr.ru/companies/">Компании</a></dd>
+		<dd><a href="http://habrahabr.ru/users/">Пользователи</a></dd>
+		<dd><a href="http://toster.ru/?_aa=press_anykey">Q&amp;A</a></dd>
+		<dd><a href="http://habrahabr.ru/sandbox/">Песочница</a></dd>
+		
+	</dl>	
+	<dl>
+		<dt>Инфо</dt>
+		<dd><a href="/info/about/">О сайте</a></dd>
+		<dd><a href="/info/help/rules/">Правила</a></dd>
+		<dd><a href="/info/help/">Помощь</a></dd>
+		<dd><a href="/info/agreement/">Соглашение</a></dd>
+	</dl>
+	<dl>
+		<dt>Услуги</dt>
+		<dd><a href="http://special.habrahabr.ru/advertising/">Реклама</a></dd>
+        <dd><a href="http://special.habrahabr.ru/">Спецпроекты</a></dd>
+        <dd><a href="http://special.habrahabr.ru/corporate/">Тарифы</a></dd>
+        <dd><a href="http://special.habrahabr.ru/content/">Контент</a></dd>
+        <dd><a href="http://special.habrahabr.ru/workshops/">Семинары</a></dd>
+	</dl>
+	<dl>
+		<dt>Разное</dt>
+		<dd><a href="/apps/">Приложения</a></dd>
+		<dd><a href="/special/testdrive/">Тест-драйвы</a></dd>
+		<dd><a href="http://special.habrahabr.ru/hello_startup/habrahabr/">Помощь стартапам</a></dd>
+	</dl>
+	<div class="copyright">
+
+		<div class="about">
+			<a href="http://tmtm.ru/">© TM</a>
+			
+			<br><br>
+			<a href="http://habrahabr.ru/feedback/">Служба поддержки</a><br><br>
+                <a href="http://m.habrahabr.ru/post/208056/?mobile=yes">Мобильная версия</a><br><br>
+			
+
+			<div class="social_accounts">
+				<a href="https://twitter.com/habrahabr" class="tw"></a>
+				<a href="https://www.facebook.com/habrahabr.ru" class="fb"></a>
+				<a href="http://vk.com/habr" class="vk"></a>
+				<!-- <a href="" class="gp"></a> //-->
+			</div>
+
+		</div>
+	</div>
+
+</div>
+
+        </div>
+      </div>
+    </div>
+
+
+      <script type="text/javascript" src="/javascripts/1429261672/libs/jquery.cookie.js"></script>
+      <script type="text/javascript">
+        $(document).ready( function(){
+          window.tmidLogin = function(){ return false; };
+          if( $.cookie('tmid_no_check') == undefined ) {
+            var expire = new Date();
+            expire.setMinutes(expire.getMinutes() + 10 );
+            $.cookie('tmid_no_check', 1, { expires: expire } );
+            $.getScript("https://id.tmtm.ru/checklogin/", function(){
+              if( window.tmidLogin() ) {
+
+                  var href = $('#login').attr('href');
+
+                  if( href !== undefined ) {
+                      window.location.href = href;
+                  }
+              }
+            });
+          }
+        });
+      </script>
+
+    <script type="text/javascript">
+  // global vars
+  var g_base_url = 'habrahabr.ru';
+  var g_show_xpanel = false;
+  var g_base_fullurl = 'http://habrahabr.ru/';
+  var g_is_guest = false;
+</script> 
+
+      <script type="text/javascript" src="/javascripts/1429261672/assets/shortcuts.js"></script>
+
+    <script type="text/javascript" src="/javascripts/1429261672/assets/global_footer_main.js"></script>
+
+    	<script type="text/javascript" src="http://habrahabr.ru/viewcount/post/208056/"></script>
+
+    
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+(function (d, w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter24049213 = new Ya.Metrika({id:24049213,
+                    webvisor:true,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true});
+        } catch(e) { }
+    });
+
+    var n = d.getElementsByTagName("script")[0],
+        s = d.createElement("script"),
+        f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f, false);
+    } else { f(); }
+})(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="//mc.yandex.ru/watch/24049213" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+
+<!-- adriver counter //-->
+<span style="position:absolute;left:-9999px;">
+  <img src="http://ad.adriver.ru/cgi-bin/rle.cgi?sid=1&ad=505035&bt=21&pid=1844619&bid=3690116&bn=3690116&rnd=1193213628" width="1" height="1"  alt="" />
+</span>
+<!-- adriver counter end //-->
+
+
+    
+
+    <!-- Хабр не резиновый! -->
+  </body>
+</html>

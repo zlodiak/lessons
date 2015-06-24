@@ -1,0 +1,1873 @@
+<!doctype html>
+
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="ru"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="ru"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="ru"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ru"> <!--<![endif]-->
+
+<head>
+	
+
+<meta name='wmail-verification' content='de1699940c7a8c04' />
+<meta name='yandex-verification' content='40b71db5e2f1cb83' />
+<meta name="google-site-verification" content="9t8AVolKULjUMuqnvNwAzZgLgdglhj7N4bUQ-LxQjMk" />
+<meta name="verify-admitad" content="7fc26129d9" />
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<title>Как написать сниппет для MODX, часть 2 / Блог им. kschingiz / JNET.KZ</title>
+	
+	<meta name="description" content="Всем привет, я представляю вам вторую часть статьи из цикла “Как написать сниппет для MODX”, и сегодня мы познакомимся с">
+	
+	
+			<meta property="og:title" content="Как написать сниппет для MODX, часть 2"/>
+		<meta property="og:url" content="http://jnet.kz/kschingiz/2013/07/25/kak-napisat-snippet-dlya-modx-chast-2.html"/>
+				<meta property="og:description" content="Всем привет, я представляю вам вторую часть статьи из цикла “Как написать сниппет для MODX”, и сегодня мы познакомимся с"/>
+		<meta property="og:site_name" content="JNET.KZ"/>
+		<meta property="og:type" content="article"/>
+		<meta name="twitter:card" content="summary">
+		
+	<link rel='stylesheet' type='text/css' href='http://jnet.kz/templates/skin/jupiter/themes/boxed/bootstrap/css/bootstrap.min.css' />
+<link rel='stylesheet' type='text/css' href='http://jnet.kz/templates/skin/jupiter/css/base.css' />
+<link rel='stylesheet' type='text/css' href='http://jnet.kz/templates/skin/jupiter/css/responsive.css' />
+<link rel='stylesheet' type='text/css' href='http://jnet.kz/engine/lib/external/jquery/markitup/skins/simple/style.css' />
+<link rel='stylesheet' type='text/css' href='http://jnet.kz/engine/lib/external/jquery/markitup/sets/default/style.css' />
+<link rel='stylesheet' type='text/css' href='http://jnet.kz/engine/lib/external/jquery/jcrop/jquery.Jcrop.css' />
+<link rel='stylesheet' type='text/css' href='http://jnet.kz/engine/lib/external/prettify/prettify.css' />
+<link rel='stylesheet' type='text/css' href='http://jnet.kz/templates/skin/jupiter/css/smoothness/jquery-ui.css' />
+<link rel='stylesheet' type='text/css' href='http://jnet.kz/templates/skin/jupiter/themes/boxed/style.css' />
+<link rel='stylesheet' type='text/css' href='http://jnet.kz/plugins/company/templates/skin/jupiter/css/style.css' />
+<link rel='stylesheet' type='text/css' href='http://jnet.kz/plugins/freelance/templates/skin/default/css/main.css?v=2' />
+<link rel='stylesheet' type='text/css' href='http://jnet.kz/plugins/blocksmaster/templates/skin/default/css/style.css' />
+
+	
+			<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+		
+	<link href="http://jnet.kz/templates/skin/jupiter/images/favicon.ico?v1" rel="shortcut icon" />
+	<link rel="search" type="application/opensearchdescription+xml" href="http://jnet.kz/search/opensearch/" title="JNET.KZ" />
+
+
+			<link rel="alternate" type="application/rss+xml" href="http://jnet.kz/rss/comments/3135/" title="Как написать сниппет для MODX, часть 2">
+	
+			<link rel="canonical" href="http://jnet.kz/kschingiz/2013/07/25/kak-napisat-snippet-dlya-modx-chast-2.html" />
+		
+		
+	
+	<script type="text/javascript">
+		var DIR_WEB_ROOT 			= 'http://jnet.kz';
+		var DIR_STATIC_SKIN 		= 'http://jnet.kz/templates/skin/jupiter';
+		var DIR_ROOT_ENGINE_LIB 	= 'http://jnet.kz/engine/lib';
+		var LIVESTREET_SECURITY_KEY = 'ff1b50c76b994dd2e74cd26e9615bbc7';
+		var SESSION_ID				= 'q5eje08f7c0qrd925uqjm1a743';
+		var BLOG_USE_TINYMCE		= '';
+		
+		var TINYMCE_LANG = 'en';
+					TINYMCE_LANG = 'ru';
+		
+		var aRouter = new Array();
+					aRouter['error'] = 'http://jnet.kz/error/';
+					aRouter['registration'] = 'http://jnet.kz/registration/';
+					aRouter['profile'] = 'http://jnet.kz/profile/';
+					aRouter['my'] = 'http://jnet.kz/my/';
+					aRouter['blog'] = 'http://jnet.kz/blog/';
+					aRouter['personal_blog'] = 'http://jnet.kz/personal_blog/';
+					aRouter['index'] = 'http://jnet.kz/index/';
+					aRouter['topic'] = 'http://jnet.kz/topic/';
+					aRouter['login'] = 'http://jnet.kz/login/';
+					aRouter['people'] = 'http://jnet.kz/people/';
+					aRouter['settings'] = 'http://jnet.kz/settings/';
+					aRouter['tag'] = 'http://jnet.kz/tag/';
+					aRouter['talk'] = 'http://jnet.kz/talk/';
+					aRouter['comments'] = 'http://jnet.kz/comments/';
+					aRouter['rss'] = 'http://jnet.kz/rss/';
+					aRouter['link'] = 'http://jnet.kz/link/';
+					aRouter['question'] = 'http://jnet.kz/question/';
+					aRouter['blogs'] = 'http://jnet.kz/blogs/';
+					aRouter['search'] = 'http://jnet.kz/search/';
+					aRouter['admin'] = 'http://jnet.kz/admin/';
+					aRouter['ajax'] = 'http://jnet.kz/ajax/';
+					aRouter['feed'] = 'http://jnet.kz/feed/';
+					aRouter['stream'] = 'http://jnet.kz/stream/';
+					aRouter['photoset'] = 'http://jnet.kz/photoset/';
+					aRouter['subscribe'] = 'http://jnet.kz/subscribe/';
+					aRouter['language'] = 'http://jnet.kz/language/';
+					aRouter['less'] = 'http://jnet.kz/less/';
+					aRouter['blocksmaster'] = 'http://jnet.kz/blocksmaster/';
+					aRouter['company'] = 'http://jnet.kz/company/';
+					aRouter['companies'] = 'http://jnet.kz/companies/';
+					aRouter['freelance'] = 'http://jnet.kz/freelance/';
+					aRouter['job'] = 'http://jnet.kz/job/';
+					aRouter['mainpreview'] = 'http://jnet.kz/mainpreview/';
+			</script>
+	
+	
+	<script type='text/javascript' src='http://jnet.kz/templates/cache/jupiter/bd76015ab5ef357915fb1c42ff59a9ef.js'></script>
+<!--[if lt IE 9]><script type='text/javascript' src='http://jnet.kz/engine/lib/external/html5shiv.js'></script><![endif]-->
+<script type='text/javascript' src='http://yandex.st/share/share.js'></script>
+
+
+	
+	<script type="text/javascript">
+		var tinyMCE = false;
+		ls.lang.load({"blog_join":"\u0432\u0441\u0442\u0443\u043f\u0438\u0442\u044c \u0432 \u0431\u043b\u043e\u0433","blog_leave":"\u043f\u043e\u043a\u0438\u043d\u0443\u0442\u044c \u0431\u043b\u043e\u0433"});
+		ls.registry.set('comment_max_tree',7);
+		ls.registry.set('block_stream_show_tip',true);
+	</script>
+	
+	
+		
+	
+	<script type="text/javascript">
+	var LS_ROUTER_ACTION = 'blog';
+	var LS_ROUTER_EVENT = '3135.html';
+</script>
+
+	
+	<!--[if lt IE 9]>
+		<script src="http://jnet.kz/templates/skin/jupiter/js/html5shiv.js"></script>
+		<script src="http://jnet.kz/templates/skin/jupiter/js/respond.min.js"></script>
+	<![endif]-->
+</head>
+
+
+
+	
+	
+
+
+
+
+<body class=" ls-user-role-guest ls-user-role-not-admin">
+
+
+
+	
+		
+				<div class="modal fade in modal-login" id="window_login_form">
+		<div class="modal-dialog">
+			<div class="modal-content">
+	
+				<header class="modal-header">
+					<button type="button" class="close jqmClose" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Авторизация</h4>
+				</header>
+		
+				<script type="text/javascript">
+					jQuery(function($){
+						$('#popup-login-form').bind('submit',function(){
+							ls.user.login('popup-login-form');
+							return false;
+						});
+						$('#popup-login-form-submit').attr('disabled',false);
+					});
+				</script>
+		
+				<div class="modal-body">
+					<ul class="nav nav-tabs">
+						<li class="active js-block-popup-login-item" data-type="login"><a href="#">Войти</a></li>
+													<li><a href="http://jnet.kz/registration/">Регистрация</a></li>
+												<li class="js-block-popup-login-item" data-type="reminder"><a href="#">Восстановление пароля</a></li>
+					</ul>
+					<br />
+					
+					<div class="tab-content js-block-popup-login-content" data-type="login">
+						
+						
+						<form action="http://jnet.kz/login/" method="post" id="popup-login-form">
+							
+							
+							<div class="form-group">
+								<label for="popup-login">Логин или эл. почта</label>
+								<input type="text" name="login" id="popup-login" class="form-control">
+							</div>
+							
+							<div class="form-group">
+								<label for="popup-password">Пароль</label>
+								<input type="password" name="password" id="popup-password" class="form-control">
+								<p class="help-block"><small class="text-danger validate-error-hide validate-error-login"></small></p>
+							</div>
+							
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" name="remember" checked> Запомнить меня
+								</label>
+							</div>
+							
+							
+							
+							<input type="hidden" name="return-path" value="http://jnet.kz/kschingiz/2013/07/25/kak-napisat-snippet-dlya-modx-chast-2.html">
+							<button type="submit" name="submit_login" class="btn btn-success" id="popup-login-form-submit" disabled="disabled">Войти</button>
+						
+						</form>
+						
+						
+					</div>
+
+
+								
+			
+					<div data-type="reminder" class="tab-content js-block-popup-login-content" style="display:none;">
+						<script type="text/javascript">
+							jQuery(document).ready(function($){
+								$('#popup-reminder-form').bind('submit',function(){
+									ls.user.reminder('popup-reminder-form');
+									return false;
+								});
+								$('#popup-reminder-form-submit').attr('disabled',false);
+							});
+						</script>
+						
+						<form action="http://jnet.kz/login/reminder/" method="POST" id="popup-reminder-form">
+						
+							<div class="form-group">
+								<label for="popup-reminder-mail">Ваш e-mail</label>
+								<input type="text" name="mail" id="popup-reminder-mail" class="form-control" />
+								<p class="help-block"><small class="text-danger validate-error-hide validate-error-reminder"></small></p>
+							</div>
+					
+							<div class="form-group">
+								<button type="submit" name="submit_reminder" class="btn btn-success" id="popup-reminder-form-submit" disabled="disabled">Получить ссылку на изменение пароля</button>
+							</div>
+							
+						</form>
+					</div>
+				</div>
+			
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+		
+	
+	<header id="header" role="banner">
+	
+	
+	
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+				
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			
+				
+				<a class="navbar-brand" href="http://jnet.kz">JNET.KZ</a>
+			</div>
+			
+			
+			
+			<div class="collapse navbar-collapse navbar-ex1-collapse">
+    				<ul class="nav navbar-nav">
+
+					<li ><a href="http://jnet.kz/blogs/">Блоги</a></li>
+					<li ><a href="http://jnet.kz/people/">Люди</a></li>
+					<li ><a href="http://jnet.kz/stream/">Активность</a></li>
+
+					<li ><a href='http://jnet.kz/companies/'>Компании</a> <i></i></li>
+<li ><a href="http://jnet.kz/freelance/">Заказы</a><i></i></li><li ><a href='http://jnet.kz/job/'>Работа</a><i></i></li>
+
+
+				</ul> 
+				
+				<form action="http://jnet.kz/search/topics/" class="hidden-sm hidden-md navbar-form navbar-left" role="search">
+					<div class="form-group">
+						<input type="text" placeholder="Поиск" maxlength="255" name="q" class="form-control">
+					</div>
+				</form>
+				
+				
+				
+				<ul class="nav navbar-nav navbar-right">
+											
+						<li><a href="http://jnet.kz/login/" class="js-login-form-show">Войти</a></li>
+						<li class="hidden-sm"><a href="http://jnet.kz/registration/" class="js-registration-form-show">Зарегистрироваться</a></li>
+									</ul>
+			</div>
+			
+		</div>
+	</nav>
+	
+	<hgroup class="site-info mt-50">
+		<div class="container">
+		
+		</div>
+	</hgroup>
+	
+	
+	
+</header>
+	<nav id="nav" class="clearfix">
+	<div class="container">
+		<div class="nav-inner">
+		
+												
+		</div>
+	</div>
+</nav>
+
+
+	
+	<section id="container" class="">
+
+
+
+		<div id="wrapper" class="container ">
+			<div class="row">
+			
+				 
+	
+				<div id="content" role="main" 
+					class="col-md-9 col-lg-9 content"
+					>
+										
+
+						
+
+	
+					
+					
+			
+					
+
+
+		
+<article class="topic topic-type-topic js-topic">
+	<header class="topic-header">
+		<h1 class="topic-title">							Как написать сниппет для MODX, часть 2
+						
+						
+					</h1>
+		<div class="text-muted topic-info">
+			<a href="http://jnet.kz/my/kschingiz/" class="topic-blog">Блог им. kschingiz</a> / 
+			
+			<time datetime="2013-07-25T17:30:10+04:00" title="25 июля 2013, 17:30">
+				25 июля 2013, 17:30
+			</time>
+			
+					</div>
+	</header>
+
+
+
+
+<script type="text/javascript" >
+$(function(){
+	$('.nav-inner').hide(0);
+});
+</script>
+
+
+
+
+<div class="topic-content text">
+	
+	
+			Всем привет, я представляю вам вторую часть статьи из цикла “Как написать сниппет для MODX”, и сегодня мы познакомимся с чанк процессингом, операциями над ресурсами, программного подключения внешних файлов и тд.<br/>
+Очень надеюсь, что статья будет полезной для Вас.<br/>
+<a name="cut" rel="nofollow"></a> <br/>
+<h4>Операции над ресурсами</h4><br/>
+Есть класс <b>modX</b>, в котором определены различные методы, в том числе и работа с ресурсами, пользователями, чанками и тд. <br/>
+Полный список доступных методов можете посмотреть здесь <a href="http://rtfm.modx.com/display/revolution20/modX" rel="nofollow">rtfm.modx.com/display/revolution20/modX</a><br/>
+Так как modX наследует класс <b>xPDO</b>, вы можете пользоваться и его методами:<br/>
+<a href="http://rtfm.modx.com/display/XPDO10/xPDO" rel="nofollow">rtfm.modx.com/display/XPDO10/xPDO</a><br/>
+Внутри сниппета объектом класса <b>modX</b> является <b>$modx</b>, а <b>xPDO — $xpdo</b>.<br/>
+Для того, что получить что-то, мы должны воспользоваться методом:<br/>
+<pre class="prettyprint"><code>getObject(TYPE, $id);</code></pre><br/>
+для ресурсов вместо TYPE, пишем <b>modResource</b><br/>
+для юзверей – <b>modUser</b><br/>
+Второй параметр, ясень пень, — идентификатор ресурса или пользователя.<br/>
+Давайте возьмем ресурс с ID = 5 и вернем его контент:<br/>
+<pre class="prettyprint"><code>$res = $modx-&gt;getObject('modResource', 5);
+return $res-&gt;content;</code></pre><br/>
+во второй строке мы возвращаем свойство <b>content</b>, в котором хранится контент ресурса.<br/>
+Ниже я привожу таблицу свойств modResource:<br/>
+<img src="http://stick.kz/img/2013-07/25/9org1m32f4hbv9o7zth71j6bk.png" alt="There must be a picture"/><br/>
+Сделаем такой бесполезный сниппет, в которую мы передаем <b>ID</b> документа, а сниппет выводит его содержимое на страницу, я назвал его <b>showResource</b>:<br/>
+<pre class="prettyprint"><code>$id = isset($id) ? $id : 1;
+$res = $modx-&gt;getObject('modResource', $id);
+return $res-&gt;content;</code></pre><br/>
+и вызываем где-нибудь:<br/>
+<pre class="prettyprint"><code>[[!showResource? &id=`6`]]</code></pre><br/>
+Результат:<br/>
+<img src="http://stick.kz/img/2013-07/25/u05dwm40lfp0wg7klaf78o9in.png" alt="And there must be a picture"/><br/>
+Также вы можете воспользоваться любым свойством из таблицы, но если вам необходимо возвращать свойства и плюс еще и разметку, <b>ни в коем случае не пишите</b>, что-то типа такого:<br/>
+<pre class="prettyprint"><code>return '&lt;h1&gt;'. $res-&gt;pagetitle . '&lt;/h1&gt; &lt;p&gt;' . $res-&gt;content . '&lt;/p&gt;';</code></pre><br/>
+<b>потому что</b>, во первых, в сниппете должен быть только РНР код, а во вторых, задачу эту можно решить более лаконично, прочитав эту статью до конца.<br/>
+<br/>
+<h4>Чанк Процессинг</h4><br/>
+Что такое чанк? <br/>
+Если сниппет — кусок РНР кода, то чанк это кусок HTML кода. В чанках мы можем оставить <b>плейсхолдеры</b>, которые в дальнейшем будут спроцессированы сниппетом. <br/>
+К примеру, у нас имеется чанк <b>tpl_res </b>с такой разметкой:<br/>
+<pre class="prettyprint"><code>&lt;h2&gt; [[+title]] &lt;/h2&gt;
+&lt;p&gt; [[+content]] &lt;/p&gt;</code></pre><br/>
+<b>title и content</b>, в данном случае, являются <b>плейсхолдерами</b>. <br/>
+Передав данный чанк в сниппет, мы можем указать сниппету, что вместо плейсхолдеров надо вывести соответствующие данные. Это и есть <b>чанк процессинг</b>.<br/>
+Возвращаемся к нашему сниппету, давайте сделаем так, чтобы он работал с чанками.<br/>
+<br/>
+<pre class="prettyprint"><code>$id = isset($id) ? $id : 1;
+$res = $modx-&gt;getObject('modResource', $id);
+
+$placeholders = array(
+    'title' =&gt; $res-&gt;pagetitle,  // Вместо плейсходера title выводим название страницы
+    'content' =&gt; $res-&gt;content   // Вместо плейсходера content выводим содержимое
+);
+$output = $modx-&gt;getChunk('tpl_res', $placeholders);
+
+return $output;</code></pre><br/>
+<br/>
+В этом сниппете мы объявляем ассоциативный массив ключом, которого являются наши плейсхолдеры, а значения – нужные данные. После, мы берем чанк <b>tpl_res</b> и передаем в него наш массив, MODX автоматически заменят все плейсхолдеры на нужные данные из этого массива. <br/>
+Вызовем наш сниппет:<br/>
+<pre class="prettyprint"><code>[[!showResource? &id=`8`]]</code></pre><br/>
+и видим следующее:<br/>
+<img src="http://stick.kz/img/2013-07/25/5wlbdia9c78z3uznekarnqu5y.png" alt="Where is a picture?"/><br/>
+Обратите внимание на разметку, она формируется в соответствии с нашим чанком. Чанк в данный момент служит<b>шаблоном вывода</b> для сниппета, будет лучше, если такие чанки в названии будут иметь префикс <b>tpl_</b>, чтобы легче было опрeделить чанк это шаблон для сниппета или нет.<br/>
+Добавим такой функционал – в данный сниппет мы передаем, название чанка, которую будем процессировать, а если не передаем, то используем дефолтный чанк (<b>tpl_res</b>). <br/>
+Создаем чанк <b>tpl_content</b>:<br/>
+<pre class="prettyprint"><code>&lt;h2&gt;[[+title]]&lt;/h2&gt;
+&lt;p&gt;[[+description]]&lt;/p&gt;
+&lt;p&gt;[[+content]]&lt;/p&gt;</code></pre><br/>
+Как видим, в чанке выше мы добавили плейсхолдер для описания ресурса, модифицируем сниппет:<br/>
+<pre class="prettyprint"><code>$tpl = isset( $tpl ) ? $tpl : 'tpl_res'; // шаблон вывода
+$id = isset($id) ? $id : 1; 
+$res = $modx-&gt;getObject('modResource', $id);
+
+$placeholders = array(
+    'title' =&gt; $res-&gt;pagetitle,
+    'description' =&gt; $res-&gt;description,
+    'content' =&gt; $res-&gt;content
+);
+$output = $modx-&gt;getChunk($tpl, $placeholders);
+
+return $output;</code></pre><br/>
+Теперь у нас есть несколько вариантов вызова нашего сниппета:<br/>
+<pre class="prettyprint"><code>[[!showResource]]  - выводит ресурс с ИД = 1
+[[!showResource? &id=`8`]] - выводит ресурс с ИД = 8, используя дефолтный шаблон вывода  tpl_res
+[[!showResource? &tpl=`tpl_content` &id=`8`]] - выводит ресурс с ИД = 8, используя шаблон  tpl_content</code></pre><br/>
+Результат последнего вызова, кстати:<br/>
+<img src="http://stick.kz/img/2013-07/25/vi7glrw6sdscsnsv1krs1r4hv.png" alt="NO PICTURE!!!"/><br/>
+<br/>
+<h4>Программное подключение стилей и скриптов</h4><br/>
+При использовании сниппетов часто возникает необходимость подключения внешних фалов, будь то css, js. И будет удобней, если нам не придется самим лазить в шаблон и подключать файлы, а чтобы сниппет программно подключал их.<br/>
+Усложним наш сниппет, сделаем так чтобы он подключал стили, и через параметр <b>useStyle</b>, можно было решать какой именно стиль нам надо подключить.<br/>
+Для начала создаем дефолтный стиль <b>defalut.css </b>сохраняем в папке <b>assets/styles/</b>:<br/>
+<pre class="prettyprint"><code>h2{
+    margin-bottom: 5px;
+    color: rgb(29, 87, 142);
+    font-size: 18px;
+    font-family: Georgia;
+}
+p{
+    font-size: 22px;
+    margin-top: 2px;
+    margin-bottom: 10px;
+    color: rgb(202, 65, 116);
+}</code></pre><br/>
+Стили эти спионерил с jnet, надеюсь разрабы не обидятся. Возвращаемся в наш сниппет и дописываем эти две строки:<br/>
+<pre class="prettyprint"><code>$useStyle = isset ($useStyle) ? $useStyle : 'assets/styles/default.css'; // В начало сниппета
+$modx-&gt;regClientCSS($useStyle); // в конец, но только до return</code></pre><br/>
+Смотрим на вторую строку, где мы методом <b>regClientCSS</b> подключаем нужный нам стиль.<br/>
+Результат:<br/>
+<img src="http://stick.kz/img/2013-07/25/hf0x7tb5uozjuiqy8niptb8yr.png" alt="There&amp;#39;s no picture"/><br/>
+Можете создать стиль и подключить его. Например вот таким вызовом:<br/>
+<pre class="prettyprint"><code>[[!showResource? &useStyle=`assets/styles/YOUR_STYLE.css` ]] </code></pre><br/>
+Похожие методы:<br/>
+<pre class="prettyprint"><code>– regClientScript  - подключаем JS файлы
+– regClientHTMLBlock – HTML файл</code></pre><br/>
+Как видим ничего сложного нет.<br/>
+На этом, я думаю заканчивается 2 часть, надеюсь статья была полезной и вы много чего почерпнули из данной информации. <br/>
+Я не знаю про что писать в третьей части, давайте вместе обсудим :)
+		
+	
+</div> 
+
+				
+
+	<footer class="topic-footer">
+		<small>
+			<ul class="text-muted list-unstyled list-inline topic-tags js-favourite-insert-after-form js-favourite-tags-topic-3135">
+				<li><span class="glyphicon glyphicon-tags"></span></li>
+			
+				<li><a rel="tag" href="http://jnet.kz/tag/cms/">cms</a></li><li>, <a rel="tag" href="http://jnet.kz/tag/modx/">modx</a></li><li>, <a rel="tag" href="http://jnet.kz/tag/snippet/">snippet</a></li>			</ul>
+		</small>
+		
+		
+		<div class="topic-share" id="topic_share_3135">
+			
+				<div class="yashare-auto-init" data-yashareTitle="Как написать сниппет для MODX, часть 2" data-yashareLink="http://jnet.kz/kschingiz/2013/07/25/kak-napisat-snippet-dlya-modx-chast-2.html" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="yaru,vkontakte,facebook,twitter,odnoklassniki,moimir,lj,gplus"></div>
+			
+		</div>
+
+		
+		<small>
+			<ul class="list-unstyled list-inline topic-info">
+				<li class="topic-info-author">
+					<a href="http://jnet.kz/profile/kschingiz/"><img src="http://jnet.kz/uploads/images/00/14/12/2013/08/01/avatar_24x24.png?095404" alt="kschingiz" class="avatar" /></a>
+											<a rel="author" href="http://jnet.kz/profile/kschingiz/">
+															Shynggys
+													</a>
+									</li>
+				<li class="topic-info-favourite">
+					<a href="#" onclick="return ls.favourite.toggle(3135,this,'topic');" class="favourite "><span class="glyphicon glyphicon-star-empty"></span></a>
+					<span class="text-muted favourite-count" id="fav_count_topic_3135">0</span>
+				</li>
+				<li class="topic-info-share"><a href="#" class="glyphicon glyphicon-share-alt" title="Поделиться" onclick="jQuery('#topic_share_3135').slideToggle(); return false;"></a></li>
+				
+							
+				<li id="vote_area_topic_3135" class="pull-right vote 
+																																																						vote-count-positive
+																																																			
+																	">
+																					<div class="vote-down" onclick="return ls.vote.vote(3135,this,-1,'topic');"><span class="glyphicon glyphicon-thumbs-down"></span></div>
+					<div class="vote-count js-infobox-vote-topic" id="vote_total_topic_3135" title="всего проголосовало: 2">
+													+2
+											</div>
+					<div class="vote-up" onclick="return ls.vote.vote(3135,this,1,'topic');"><span class="glyphicon glyphicon-thumbs-up"></span></div>
+											<div id="vote-info-topic-3135" style="display: none;">
+							<ul class="list-unstyled vote-topic-info">
+								<li><span class="glyphicon glyphicon-thumbs-up"></span>2</li>
+								<li><span class="glyphicon glyphicon-thumbs-down"></span>0</li>
+								<li><span class="glyphicon glyphicon-eye-open"></span>0</li>
+								
+							</ul>
+						</div>
+									</li>
+			
+				
+			</ul>
+		</small>
+
+
+					
+			</footer>
+</article> <!-- /.topic -->
+
+
+
+
+
+
+
+
+
+
+	<!-- Blocksmaster plugin -->
+						
+			<div class="CustomBlock Blocksmaster">
+				<a href="https://hoster.kz/"><img src="http://jnet.kz/uploads/images/00/00/04/2014/11/09/1b2ee4.jpg"  alt="" /></a>			</div>
+			
+			
+			
+			
+				<!-- /Blocksmaster plugin -->
+
+
+<div class="comments" id="comments">
+	<header class="comments-header">
+		<h3><span id="count-comments">12</span> комментариев</h3>
+		
+			
+		<a name="comments"></a>
+	</header>
+
+
+						
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_44761">
+		
+		
+
+<section id="comment_id_44761" class="comment
+														
+														">
+			<a name="comment44761"></a>
+		
+		
+		<a href="http://jnet.kz/profile/yakooobin/"><img src="http://jnet.kz/uploads/images/00/00/04/2010/11/15/avatar_48x48.jpg?230216" alt="yakooobin" class="comment-avatar" /></a>
+		
+		<small>
+			<ul class="list-unstyled comment-info">
+				<li class="comment-author">
+											<a href="http://jnet.kz/profile/yakooobin/"  >
+															Андрей Якубин
+													</a>
+									</li>
+				<li class="comment-date">
+					<a href="#comment44761" class="link-dotted" title="Ссылка на комментарий">
+						<time datetime="2013-07-25T21:06:28+04:00">25 июля 2013, 21:06</time>
+					</a>
+				</li>
+			
+								<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+			
+			
+										
+					<li id="vote_area_comment_44761" class="vote 
+																																							vote-count-positive
+																			    
+																		
+																			">
+						<div class="vote-down" onclick="return ls.vote.vote(44761,this,-1,'comment');"><span class="glyphicon glyphicon-thumbs-down"></span></div>
+						<span class="vote-count" id="vote_total_comment_44761">+2</span>
+						<div class="vote-up" onclick="return ls.vote.vote(44761,this,1,'comment');"><span class="glyphicon glyphicon-thumbs-up"></span></div>
+					</li>
+							
+			
+							</ul>
+		</small>
+		
+		
+		<div id="comment_content_id_44761" class="comment-content text">
+			Можно еще от частного к общему. То есть рассказать всем о структуре modx, его преимуществах и удобствах. Так скажем завлечь общей конструкцией, а потом можно и продолжить о каких то частных вещах. Ибо тут многие работали с drupal, joomla, wordpress, фреймворками. Есть и чистые программисты матерые.<br/>
+Я бы назвал статью «Почему modx»
+		</div>
+			
+			
+				
+</section>
+ 
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_44764">
+		
+		
+
+<section id="comment_id_44764" class="comment
+														
+														">
+			<a name="comment44764"></a>
+		
+		
+		<a href="http://jnet.kz/profile/yrnt/"><img src="http://jnet.kz/uploads/images/00/12/79/2013/11/18/avatar_48x48.jpg?202820" alt="yrnt" class="comment-avatar" /></a>
+		
+		<small>
+			<ul class="list-unstyled comment-info">
+				<li class="comment-author">
+											<a href="http://jnet.kz/profile/yrnt/"  >
+															Ернат Асанов
+													</a>
+									</li>
+				<li class="comment-date">
+					<a href="#comment44764" class="link-dotted" title="Ссылка на комментарий">
+						<time datetime="2013-07-25T21:13:39+04:00">25 июля 2013, 21:13</time>
+					</a>
+				</li>
+			
+									<li class="goto-comment-parent"><a href="#" onclick="ls.comments.goToParentComment(44764,44761); return false;" title="Ответ на">↑</a></li>
+								<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+			
+			
+										
+					<li id="vote_area_comment_44764" class="vote 
+																			    
+																		
+																			">
+						<div class="vote-down" onclick="return ls.vote.vote(44764,this,-1,'comment');"><span class="glyphicon glyphicon-thumbs-down"></span></div>
+						<span class="vote-count" id="vote_total_comment_44764">0</span>
+						<div class="vote-up" onclick="return ls.vote.vote(44764,this,1,'comment');"><span class="glyphicon glyphicon-thumbs-up"></span></div>
+					</li>
+							
+			
+							</ul>
+		</small>
+		
+		
+		<div id="comment_content_id_44764" class="comment-content text">
+			Вот с этим согласен
+		</div>
+			
+			
+				
+</section>
+ 
+									
+				
+					</div>
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_44766">
+		
+		
+
+<section id="comment_id_44766" class="comment
+														
+														">
+			<a name="comment44766"></a>
+		
+		
+		<a href="http://jnet.kz/profile/webman/"><img src="http://jnet.kz/uploads/images/00/01/24/2011/02/11/avatar_48x48.gif?092733" alt="webman" class="comment-avatar" /></a>
+		
+		<small>
+			<ul class="list-unstyled comment-info">
+				<li class="comment-author">
+											<a href="http://jnet.kz/profile/webman/"  >
+															Ренат
+													</a>
+									</li>
+				<li class="comment-date">
+					<a href="#comment44766" class="link-dotted" title="Ссылка на комментарий">
+						<time datetime="2013-07-25T21:24:15+04:00">25 июля 2013, 21:24</time>
+					</a>
+				</li>
+			
+									<li class="goto-comment-parent"><a href="#" onclick="ls.comments.goToParentComment(44766,44761); return false;" title="Ответ на">↑</a></li>
+								<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+			
+			
+										
+					<li id="vote_area_comment_44766" class="vote 
+																			    
+																		
+																			">
+						<div class="vote-down" onclick="return ls.vote.vote(44766,this,-1,'comment');"><span class="glyphicon glyphicon-thumbs-down"></span></div>
+						<span class="vote-count" id="vote_total_comment_44766">0</span>
+						<div class="vote-up" onclick="return ls.vote.vote(44766,this,1,'comment');"><span class="glyphicon glyphicon-thumbs-up"></span></div>
+					</li>
+							
+			
+							</ul>
+		</small>
+		
+		
+		<div id="comment_content_id_44766" class="comment-content text">
+			<a href="http://alimbekov.kz/veb-razrabotka-2/obzor-sistemyi-upravleniya-modx.html" rel="nofollow">alimbekov.kz/veb-razrabotka-2/obzor-sistemyi-upravleniya-modx.html</a><br/>
+Правда там слегка однобоко
+		</div>
+			
+			
+				
+</section>
+ 
+									
+				
+					</div>
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_44767">
+		
+		
+
+<section id="comment_id_44767" class="comment
+														
+														">
+			<a name="comment44767"></a>
+		
+		
+		<a href="http://jnet.kz/profile/webman/"><img src="http://jnet.kz/uploads/images/00/01/24/2011/02/11/avatar_48x48.gif?092733" alt="webman" class="comment-avatar" /></a>
+		
+		<small>
+			<ul class="list-unstyled comment-info">
+				<li class="comment-author">
+											<a href="http://jnet.kz/profile/webman/"  >
+															Ренат
+													</a>
+									</li>
+				<li class="comment-date">
+					<a href="#comment44767" class="link-dotted" title="Ссылка на комментарий">
+						<time datetime="2013-07-25T21:26:45+04:00">25 июля 2013, 21:26</time>
+					</a>
+				</li>
+			
+									<li class="goto-comment-parent"><a href="#" onclick="ls.comments.goToParentComment(44767,44761); return false;" title="Ответ на">↑</a></li>
+								<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+			
+			
+										
+					<li id="vote_area_comment_44767" class="vote 
+																			    
+																		
+																			">
+						<div class="vote-down" onclick="return ls.vote.vote(44767,this,-1,'comment');"><span class="glyphicon glyphicon-thumbs-down"></span></div>
+						<span class="vote-count" id="vote_total_comment_44767">0</span>
+						<div class="vote-up" onclick="return ls.vote.vote(44767,this,1,'comment');"><span class="glyphicon glyphicon-thumbs-up"></span></div>
+					</li>
+							
+			
+							</ul>
+		</small>
+		
+		
+		<div id="comment_content_id_44767" class="comment-content text">
+			Тоже когда то пытался написать серию статей, но чот руки не дошли
+		</div>
+			
+			
+				
+</section>
+ 
+									
+				
+					</div>
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_44768">
+		
+		
+
+<section id="comment_id_44768" class="comment
+														
+														">
+			<a name="comment44768"></a>
+		
+		
+		<a href="http://jnet.kz/profile/Claus/"><img src="http://jnet.kz/uploads/images/00/02/18/2010/11/04/avatar_48x48.jpg?234040" alt="Claus" class="comment-avatar" /></a>
+		
+		<small>
+			<ul class="list-unstyled comment-info">
+				<li class="comment-author">
+											<a href="http://jnet.kz/profile/Claus/"  >
+															Claus
+													</a>
+									</li>
+				<li class="comment-date">
+					<a href="#comment44768" class="link-dotted" title="Ссылка на комментарий">
+						<time datetime="2013-07-25T21:33:50+04:00">25 июля 2013, 21:33</time>
+					</a>
+				</li>
+			
+									<li class="goto-comment-parent"><a href="#" onclick="ls.comments.goToParentComment(44768,44761); return false;" title="Ответ на">↑</a></li>
+								<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+			
+			
+										
+					<li id="vote_area_comment_44768" class="vote 
+																			    
+																		
+																			">
+						<div class="vote-down" onclick="return ls.vote.vote(44768,this,-1,'comment');"><span class="glyphicon glyphicon-thumbs-down"></span></div>
+						<span class="vote-count" id="vote_total_comment_44768">0</span>
+						<div class="vote-up" onclick="return ls.vote.vote(44768,this,1,'comment');"><span class="glyphicon glyphicon-thumbs-up"></span></div>
+					</li>
+							
+			
+							</ul>
+		</small>
+		
+		
+		<div id="comment_content_id_44768" class="comment-content text">
+			Я бы не стал выжимать из человека какой то текст. Если желание есть узнать о структуре, то качаем сорцы и видим структуру. Преимущества можно увидеть в тестах. Удобства можно увидеть в админке. Кто подсел на modx, тот подсел, а посты про разработку и доработку интересней будет чем сравнения. Было бы желание, а информация найдётся…
+		</div>
+			
+			
+				
+</section>
+ 
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_44769">
+		
+		
+
+<section id="comment_id_44769" class="comment
+														
+														">
+			<a name="comment44769"></a>
+		
+		
+		<a href="http://jnet.kz/profile/yakooobin/"><img src="http://jnet.kz/uploads/images/00/00/04/2010/11/15/avatar_48x48.jpg?230216" alt="yakooobin" class="comment-avatar" /></a>
+		
+		<small>
+			<ul class="list-unstyled comment-info">
+				<li class="comment-author">
+											<a href="http://jnet.kz/profile/yakooobin/"  >
+															Андрей Якубин
+													</a>
+									</li>
+				<li class="comment-date">
+					<a href="#comment44769" class="link-dotted" title="Ссылка на комментарий">
+						<time datetime="2013-07-25T21:41:12+04:00">25 июля 2013, 21:41</time>
+					</a>
+				</li>
+			
+									<li class="goto-comment-parent"><a href="#" onclick="ls.comments.goToParentComment(44769,44768); return false;" title="Ответ на">↑</a></li>
+								<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+			
+			
+										
+					<li id="vote_area_comment_44769" class="vote 
+																			    
+																		
+																			">
+						<div class="vote-down" onclick="return ls.vote.vote(44769,this,-1,'comment');"><span class="glyphicon glyphicon-thumbs-down"></span></div>
+						<span class="vote-count" id="vote_total_comment_44769">0</span>
+						<div class="vote-up" onclick="return ls.vote.vote(44769,this,1,'comment');"><span class="glyphicon glyphicon-thumbs-up"></span></div>
+					</li>
+							
+			
+							</ul>
+		</small>
+		
+		
+		<div id="comment_content_id_44769" class="comment-content text">
+			Дело не в выжимании. Когда тебе что-то нравится, ты сам об этом пишешь. А если бы человеку не нравилось, он бы и про сниппеты не писал такие подробные и интересные посты. Как то так наверно.
+		</div>
+			
+			
+				
+</section>
+ 
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_44773">
+		
+		
+
+<section id="comment_id_44773" class="comment
+														
+														">
+			<a name="comment44773"></a>
+		
+		
+		<a href="http://jnet.kz/profile/Claus/"><img src="http://jnet.kz/uploads/images/00/02/18/2010/11/04/avatar_48x48.jpg?234040" alt="Claus" class="comment-avatar" /></a>
+		
+		<small>
+			<ul class="list-unstyled comment-info">
+				<li class="comment-author">
+											<a href="http://jnet.kz/profile/Claus/"  >
+															Claus
+													</a>
+									</li>
+				<li class="comment-date">
+					<a href="#comment44773" class="link-dotted" title="Ссылка на комментарий">
+						<time datetime="2013-07-25T23:45:09+04:00">25 июля 2013, 23:45</time>
+					</a>
+				</li>
+			
+									<li class="goto-comment-parent"><a href="#" onclick="ls.comments.goToParentComment(44773,44769); return false;" title="Ответ на">↑</a></li>
+								<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+			
+			
+										
+					<li id="vote_area_comment_44773" class="vote 
+																			    
+																		
+																			">
+						<div class="vote-down" onclick="return ls.vote.vote(44773,this,-1,'comment');"><span class="glyphicon glyphicon-thumbs-down"></span></div>
+						<span class="vote-count" id="vote_total_comment_44773">0</span>
+						<div class="vote-up" onclick="return ls.vote.vote(44773,this,1,'comment');"><span class="glyphicon glyphicon-thumbs-up"></span></div>
+					</li>
+							
+			
+							</ul>
+		</small>
+		
+		
+		<div id="comment_content_id_44773" class="comment-content text">
+			Скажи честно, сам на modx что то делал или будешь делать после прочтения? Я думаю что у тебя выработался опыт по определённым cms, и сейчас работа шпарит на потоке, и разбираться с чем то новым нет времени. Взять хотя бы тот же robotnik, признайся что подзабил на него, потому что нет времени и он не в приоритете, что тогда говорить про изучение новых cms )
+		</div>
+			
+			
+				
+</section>
+ 
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_44848">
+		
+		
+
+<section id="comment_id_44848" class="comment
+														
+														">
+			<a name="comment44848"></a>
+		
+		
+		<a href="http://jnet.kz/profile/yakooobin/"><img src="http://jnet.kz/uploads/images/00/00/04/2010/11/15/avatar_48x48.jpg?230216" alt="yakooobin" class="comment-avatar" /></a>
+		
+		<small>
+			<ul class="list-unstyled comment-info">
+				<li class="comment-author">
+											<a href="http://jnet.kz/profile/yakooobin/"  >
+															Андрей Якубин
+													</a>
+									</li>
+				<li class="comment-date">
+					<a href="#comment44848" class="link-dotted" title="Ссылка на комментарий">
+						<time datetime="2013-07-29T10:26:03+04:00">29 июля 2013, 10:26</time>
+					</a>
+				</li>
+			
+									<li class="goto-comment-parent"><a href="#" onclick="ls.comments.goToParentComment(44848,44773); return false;" title="Ответ на">↑</a></li>
+								<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+			
+			
+										
+					<li id="vote_area_comment_44848" class="vote 
+																			    
+																		
+																			">
+						<div class="vote-down" onclick="return ls.vote.vote(44848,this,-1,'comment');"><span class="glyphicon glyphicon-thumbs-down"></span></div>
+						<span class="vote-count" id="vote_total_comment_44848">0</span>
+						<div class="vote-up" onclick="return ls.vote.vote(44848,this,1,'comment');"><span class="glyphicon glyphicon-thumbs-up"></span></div>
+					</li>
+							
+			
+							</ul>
+		</small>
+		
+		
+		<div id="comment_content_id_44848" class="comment-content text">
+			на modx есть в портфолио несколько сайтов<br/>
+но мы временно от него отказались<br/>
+были некоторые причины
+		</div>
+			
+			
+				
+</section>
+ 
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_44859">
+		
+		
+
+<section id="comment_id_44859" class="comment
+														
+														">
+			<a name="comment44859"></a>
+		
+		
+		<a href="http://jnet.kz/profile/kschingiz/"><img src="http://jnet.kz/uploads/images/00/14/12/2013/08/01/avatar_48x48.png?095404" alt="kschingiz" class="comment-avatar" /></a>
+		
+		<small>
+			<ul class="list-unstyled comment-info">
+				<li class="comment-author">
+											<a href="http://jnet.kz/profile/kschingiz/"  title="Автор топика" class="comment-topic-author">
+															Shynggys
+													</a>
+									</li>
+				<li class="comment-date">
+					<a href="#comment44859" class="link-dotted" title="Ссылка на комментарий">
+						<time datetime="2013-07-29T20:47:19+04:00">29 июля 2013, 20:47</time>
+					</a>
+				</li>
+			
+									<li class="goto-comment-parent"><a href="#" onclick="ls.comments.goToParentComment(44859,44848); return false;" title="Ответ на">↑</a></li>
+								<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+			
+			
+										
+					<li id="vote_area_comment_44859" class="vote 
+																			    
+																		
+																			">
+						<div class="vote-down" onclick="return ls.vote.vote(44859,this,-1,'comment');"><span class="glyphicon glyphicon-thumbs-down"></span></div>
+						<span class="vote-count" id="vote_total_comment_44859">0</span>
+						<div class="vote-up" onclick="return ls.vote.vote(44859,this,1,'comment');"><span class="glyphicon glyphicon-thumbs-up"></span></div>
+					</li>
+							
+			
+							</ul>
+		</small>
+		
+		
+		<div id="comment_content_id_44859" class="comment-content text">
+			А по каким причинам, можете уточнить? мне просто интересно.
+		</div>
+			
+			
+				
+</section>
+ 
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_44863">
+		
+		
+
+<section id="comment_id_44863" class="comment
+														
+														">
+			<a name="comment44863"></a>
+		
+		
+		<a href="http://jnet.kz/profile/yakooobin/"><img src="http://jnet.kz/uploads/images/00/00/04/2010/11/15/avatar_48x48.jpg?230216" alt="yakooobin" class="comment-avatar" /></a>
+		
+		<small>
+			<ul class="list-unstyled comment-info">
+				<li class="comment-author">
+											<a href="http://jnet.kz/profile/yakooobin/"  >
+															Андрей Якубин
+													</a>
+									</li>
+				<li class="comment-date">
+					<a href="#comment44863" class="link-dotted" title="Ссылка на комментарий">
+						<time datetime="2013-07-30T07:45:12+04:00">30 июля 2013, 07:45</time>
+					</a>
+				</li>
+			
+									<li class="goto-comment-parent"><a href="#" onclick="ls.comments.goToParentComment(44863,44859); return false;" title="Ответ на">↑</a></li>
+								<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+			
+			
+										
+					<li id="vote_area_comment_44863" class="vote 
+																			    
+																		
+																			">
+						<div class="vote-down" onclick="return ls.vote.vote(44863,this,-1,'comment');"><span class="glyphicon glyphicon-thumbs-down"></span></div>
+						<span class="vote-count" id="vote_total_comment_44863">0</span>
+						<div class="vote-up" onclick="return ls.vote.vote(44863,this,1,'comment');"><span class="glyphicon glyphicon-thumbs-up"></span></div>
+					</li>
+							
+			
+							</ul>
+		</small>
+		
+		
+		<div id="comment_content_id_44863" class="comment-content text">
+			На модексе сайты чаще ломали у нас раньше.<br/>
+Потом непонятно как себя позиционирует данная CMS. Какие сайты на ней лучше всего делать?<br/>
+Универсальных то движков нет. Например битрикс неплохая система, но меня раздражает, что они заявляют то, что на битриксе можно сделать все. Наверно поэтому.<br/>
+<br/>
+Потом у modx коммьюнити не большое, плагинов не много.
+		</div>
+			
+			
+				
+</section>
+ 
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_44944">
+		
+		
+
+<section id="comment_id_44944" class="comment
+														
+														">
+			<a name="comment44944"></a>
+		
+		
+		<a href="http://jnet.kz/profile/kschingiz/"><img src="http://jnet.kz/uploads/images/00/14/12/2013/08/01/avatar_48x48.png?095404" alt="kschingiz" class="comment-avatar" /></a>
+		
+		<small>
+			<ul class="list-unstyled comment-info">
+				<li class="comment-author">
+											<a href="http://jnet.kz/profile/kschingiz/"  title="Автор топика" class="comment-topic-author">
+															Shynggys
+													</a>
+									</li>
+				<li class="comment-date">
+					<a href="#comment44944" class="link-dotted" title="Ссылка на комментарий">
+						<time datetime="2013-07-31T18:13:32+04:00">31 июля 2013, 18:13</time>
+					</a>
+				</li>
+			
+									<li class="goto-comment-parent"><a href="#" onclick="ls.comments.goToParentComment(44944,44863); return false;" title="Ответ на">↑</a></li>
+								<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+			
+			
+										
+					<li id="vote_area_comment_44944" class="vote 
+																			    
+																		
+																			">
+						<div class="vote-down" onclick="return ls.vote.vote(44944,this,-1,'comment');"><span class="glyphicon glyphicon-thumbs-down"></span></div>
+						<span class="vote-count" id="vote_total_comment_44944">0</span>
+						<div class="vote-up" onclick="return ls.vote.vote(44944,this,1,'comment');"><span class="glyphicon glyphicon-thumbs-up"></span></div>
+					</li>
+							
+			
+							</ul>
+		</small>
+		
+		
+		<div id="comment_content_id_44944" class="comment-content text">
+			В modx недавно была обнаружена серьезная дыра, но разрабы оперативно исправили её. Насчет коммьюнити и плагинов согласен.<br/>
+Я бы не стал делать большие проекты на modx, особенно интернет-магазины и более менее крупные, но для быстрой разработки сайтов количество страниц, которых &lt;5K он идеал ИМХО.<br/>
+Лично я считаю modx это что-то между CMS и CMF, именно конкретному не могу отнести.
+		</div>
+			
+			
+				
+</section>
+ 
+									
+									
+					</div>
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_45058">
+		
+		
+
+<section id="comment_id_45058" class="comment
+														
+														">
+			<a name="comment45058"></a>
+		
+		
+		<a href="http://jnet.kz/profile/Electrica/"><img src="http://jnet.kz/uploads/images/00/15/13/2013/03/25/avatar_48x48.jpg?124433" alt="Electrica" class="comment-avatar" /></a>
+		
+		<small>
+			<ul class="list-unstyled comment-info">
+				<li class="comment-author">
+											<a href="http://jnet.kz/profile/Electrica/"  >
+															Electrica
+													</a>
+									</li>
+				<li class="comment-date">
+					<a href="#comment45058" class="link-dotted" title="Ссылка на комментарий">
+						<time datetime="2013-08-09T15:20:03+04:00">9 августа 2013, 15:20</time>
+					</a>
+				</li>
+			
+									<li class="goto-comment-parent"><a href="#" onclick="ls.comments.goToParentComment(45058,44944); return false;" title="Ответ на">↑</a></li>
+								<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+			
+			
+										
+					<li id="vote_area_comment_45058" class="vote 
+																			    
+																		
+																			">
+						<div class="vote-down" onclick="return ls.vote.vote(45058,this,-1,'comment');"><span class="glyphicon glyphicon-thumbs-down"></span></div>
+						<span class="vote-count" id="vote_total_comment_45058">0</span>
+						<div class="vote-up" onclick="return ls.vote.vote(45058,this,1,'comment');"><span class="glyphicon glyphicon-thumbs-up"></span></div>
+					</li>
+							
+			
+							</ul>
+		</small>
+		
+		
+		<div id="comment_content_id_45058" class="comment-content text">
+			Ну вот тут я в корне не согласен. Почему не стали бы делать интернет магазин? А Minishop2 от Василия Наумкина Вам чем не угодил?<br/>
+ЗЫ Очень большое спасибо за уроки! Делаю на MODx вот начинаю учиться делать снипеты. Думаю что поможете)
+		</div>
+			
+			
+				
+</section>
+ 
+							</div></div></div></div></div></div></div></div>    
+			</div>				
+	
+	
+
+
+
+
+			Только зарегистрированные и авторизованные пользователи могут оставлять комментарии.
+	
+
+
+					
+				</div> <!-- /content -->
+
+									<aside class="col-md-3 col-lg-3 sidebar">
+	
+
+					
+							
+								<section class="panel panel-default block block-type-stream">
+	<div class="panel-body">
+
+		<header class="block-header">
+			<h3><a href="http://jnet.kz/comments/" title="Весь эфир">Прямой эфир</a></h3>
+		</header>
+
+		
+	
+		<div class="block-content">
+			<ul class="nav nav-pills js-block-stream-nav" style="display: none;">
+				<li class="active js-block-stream-item" data-type="comment"><a href="#">Комментарии</a></li>
+				<li class="js-block-stream-item" data-type="topic"><a href="#">Публикации</a></li>
+				<li class="js-block-stream-item" data-type="freelance_order_comment"><a href="#">К заказам</a></li><script type="text/javascript">
+    var ls = ls || { };
+    ls.blocks.options.type.stream_feedback={ url: aRouter['company']+'ajax/streamfeedback/' };
+</script>
+<li class="js-block-stream-item" data-type="feedback"><a href="#">Отзывы</a></li>
+			</ul>
+		
+			<ul class="nav nav-pills js-block-stream-dropdown" >
+				<li class="dropdown active js-block-stream-dropdown-trigger">
+					<a href="#">Комментарии</a><b class="caret"></b>
+					
+					<ul class="dropdown-menu js-block-stream-dropdown-items">
+						<li class="active js-block-stream-item" data-type="comment"><a href="#">Комментарии</a></li>
+						<li class="js-block-stream-item" data-type="topic"><a href="#">Публикации</a></li>
+						<li class="js-block-stream-item" data-type="freelance_order_comment"><a href="#">К заказам</a></li><script type="text/javascript">
+    var ls = ls || { };
+    ls.blocks.options.type.stream_feedback={ url: aRouter['company']+'ajax/streamfeedback/' };
+</script>
+<li class="js-block-stream-item" data-type="feedback"><a href="#">Отзывы</a></li>
+					</ul>
+				</li>
+			</ul>
+		
+			<div class="js-block-stream-content">
+				<ul class="list-unstyled item-list">
+									
+		<li class="media js-title-comment" title="Тут соглашусь, очень точное соответствие дат и оклада. И это не только в Астане и Алмате так....">
+		
+					
+			<div class="media-body">
+				<a href="http://jnet.kz/webdevelopment/2015/04/25/vopros-opytnym-php-razrabotchikam-kakoe-minimalnoe-ozhidanie-po-zarplate-zastavilo-by-vas-zadumatsya-o-smene-mesta-raboty.html#comment49063" class="stream-topic">Вопрос опытным PHP разработчикам: Какое минимальное ожидание по зарплате заставило бы вас задуматься о смене места работы?</a>
+				
+				<p class="text-muted">
+					<small>
+						<time datetime="2015-04-28T05:14:29+03:00">
+							 7 часов назад
+						</time>
+					</small>
+				</p>
+			</div>
+		</li>
+									
+		<li class="media js-title-comment" title="Не до 7, а до 17. Приказ вступает в законную силу спустя 10 дней после подписания. 
+ 
+По поводу...">
+		
+					
+			<div class="media-body">
+				<a href="http://jnet.kz/view/2015/04/21/servera-za-predelami-kazahstana.html#comment49048" class="stream-topic">Сервера за пределами Казахстана.</a>
+				
+				<p class="text-muted">
+					<small>
+						<time datetime="2015-04-26T16:03:58+03:00">
+							26 апреля 2015, 16:03
+						</time>
+					</small>
+				</p>
+			</div>
+		</li>
+									
+		<li class="media js-title-comment" title="PS: быстрый пинг из Казахстана, в отличии от того же Хетзнера.">
+		
+					
+			<div class="media-body">
+				<a href="http://jnet.kz/lioprograms/2015/04/05/razocharovanie-rossiyskim-hostingom.html#comment49044" class="stream-topic">Разочарование российским хостингом</a>
+				
+				<p class="text-muted">
+					<small>
+						<time datetime="2015-04-25T22:06:51+03:00">
+							25 апреля 2015, 22:06
+						</time>
+					</small>
+				</p>
+			</div>
+		</li>
+									
+		<li class="media js-title-comment" title="А если нужен удаленный веб разработчик, то оставьте свой майл. Может чем поможем)">
+		
+					
+			<div class="media-body">
+				<a href="http://jnet.kz/trebuu/2015/04/09/rabota-dlya-web--programmistov.html#comment49019" class="stream-topic">Работа для web  программистов</a>
+				
+				<p class="text-muted">
+					<small>
+						<time datetime="2015-04-21T15:57:06+03:00">
+							21 апреля 2015, 15:57
+						</time>
+					</small>
+				</p>
+			</div>
+		</li>
+									
+		<li class="media js-title-comment" title="«Пишут, что кеш работает медленнее, чем полноценный SSD диск.» 
+ 
+На ссд от самсунга стоит кеш...">
+		
+					
+			<div class="media-body">
+				<a href="http://jnet.kz/lioprograms/2015/04/16/vseh-na-ssd.html#comment49015" class="stream-topic">ВСЕХ НА SSD!!!</a>
+				
+				<p class="text-muted">
+					<small>
+						<time datetime="2015-04-17T06:16:52+03:00">
+							17 апреля 2015, 06:16
+						</time>
+					</small>
+				</p>
+			</div>
+		</li>
+									
+		<li class="media js-title-comment" title="Ты становишься экспертом по всяким интернет сервисам :)">
+		
+							<a href="http://jnet.kz/services/2015/04/14/3-ochen-poleznyh-veb-servisa-vypusk-3.html" class="pull-left"><img class="media-object topic_preview" src="http://jnet.kz/uploads/topics/preview/00/00/35/93/2c12de82e0_85crop.png"></a>
+					
+			<div class="media-body">
+				<a href="http://jnet.kz/services/2015/04/14/3-ochen-poleznyh-veb-servisa-vypusk-3.html#comment49006" class="stream-topic">3 очень полезных веб-сервиса. Выпуск №3</a>
+				
+				<p class="text-muted">
+					<small>
+						<time datetime="2015-04-14T10:44:50+03:00">
+							14 апреля 2015, 10:44
+						</time>
+					</small>
+				</p>
+			</div>
+		</li>
+									
+		<li class="media js-title-comment" title="Ну что, Мегахост, в этом году похвастаться будет нечем?">
+		
+							<a href="http://jnet.kz/megahost/2015/01/28/stepen-dostupnosti-serverov-kazahstanskih-hosterov-za-2014-god.html" class="pull-left"><img class="media-object topic_preview" src="http://jnet.kz/uploads/topics/preview/00/00/35/72/796c2ebe86_85crop.jpg"></a>
+					
+			<div class="media-body">
+				<a href="http://jnet.kz/megahost/2015/01/28/stepen-dostupnosti-serverov-kazahstanskih-hosterov-za-2014-god.html#comment49005" class="stream-topic">Степень доступности серверов казахстанских хостеров за 2014 год</a>
+				
+				<p class="text-muted">
+					<small>
+						<time datetime="2015-04-11T14:22:22+03:00">
+							11 апреля 2015, 14:22
+						</time>
+					</small>
+				</p>
+			</div>
+		</li>
+									
+		<li class="media js-title-comment" title="цена 15 долларов за час iOS разработчика вполне адекватна. Вверху комментаторы, как я понял,...">
+		
+							<a href="http://jnet.kz/antspro/2015/01/08/skolko-stoit-razrabotka-mobilnogo-prilozheniya-v-kazahstane-prozrachnaya-metodologiya-rascheta.html" class="pull-left"><img class="media-object topic_preview" src="http://jnet.kz/uploads/topics/preview/00/00/35/67/4470355331_85crop.jpg"></a>
+					
+			<div class="media-body">
+				<a href="http://jnet.kz/antspro/2015/01/08/skolko-stoit-razrabotka-mobilnogo-prilozheniya-v-kazahstane-prozrachnaya-metodologiya-rascheta.html#comment49003" class="stream-topic">Сколько стоит разработка мобильного приложения в Казахстане? Прозрачная методология расчета.</a>
+				
+				<p class="text-muted">
+					<small>
+						<time datetime="2015-04-10T12:20:41+03:00">
+							10 апреля 2015, 12:20
+						</time>
+					</small>
+				</p>
+			</div>
+		</li>
+									
+		<li class="media js-title-comment" title="не такие уж они и супер полезные, да и бояны дикие к тому же.">
+		
+							<a href="http://jnet.kz/services/2015/04/07/3-ochen-poleznyh-veb-servisa.html" class="pull-left"><img class="media-object topic_preview" src="http://jnet.kz/uploads/topics/preview/00/00/35/91/0cbb58b208_85crop.png"></a>
+					
+			<div class="media-body">
+				<a href="http://jnet.kz/services/2015/04/07/3-ochen-poleznyh-veb-servisa.html#comment48989" class="stream-topic">3 очень полезных веб-сервиса</a>
+				
+				<p class="text-muted">
+					<small>
+						<time datetime="2015-04-07T14:41:30+03:00">
+							7 апреля 2015, 14:41
+						</time>
+					</small>
+				</p>
+			</div>
+		</li>
+									
+		<li class="media js-title-comment" title="Пока нет">
+		
+					
+			<div class="media-body">
+				<a href="http://jnet.kz/gohost/2015/04/01/ocherednoe-povyshenie-cen-na-okolohostingovye-uslugi.html#comment48988" class="stream-topic">Очередное повышение цен на &quot;околохостинговые&quot; услуги</a>
+				
+				<p class="text-muted">
+					<small>
+						<time datetime="2015-04-07T13:55:54+03:00">
+							7 апреля 2015, 13:55
+						</time>
+					</small>
+				</p>
+			</div>
+		</li>
+									
+		<li class="media js-title-comment" title="Ни одним не пользовался раньше. Эх, гдеж столько времени то взять? Миллион сервисов :)">
+		
+							<a href="http://jnet.kz/services/2015/03/31/daydzhest-internet-servisov-vypusk-1.html" class="pull-left"><img class="media-object topic_preview" src="http://jnet.kz/uploads/topics/preview/00/00/35/88/19a0545817_85crop.png"></a>
+					
+			<div class="media-body">
+				<a href="http://jnet.kz/services/2015/03/31/daydzhest-internet-servisov-vypusk-1.html#comment48946" class="stream-topic">Дайджест Интернет сервисов. Выпуск №1</a>
+				
+				<p class="text-muted">
+					<small>
+						<time datetime="2015-04-01T09:48:30+03:00">
+							1 апреля 2015, 09:48
+						</time>
+					</small>
+				</p>
+			</div>
+		</li>
+									
+		<li class="media js-title-comment" title="Прошел полный месяц после продавливания цены на домены отдельно взятых регистраторов. Таки и шо...">
+		
+							<a href="http://jnet.kz/FrancuZZZ/2015/01/14/povyshenie-stoimosti-domenov-kz.html" class="pull-left"><img class="media-object topic_preview" src="http://jnet.kz/uploads/topics/preview/00/00/35/71/2ec04d8f6d_85crop.jpg"></a>
+					
+			<div class="media-body">
+				<a href="http://jnet.kz/FrancuZZZ/2015/01/14/povyshenie-stoimosti-domenov-kz.html#comment48941" class="stream-topic">Повышение стоимости доменов kz</a>
+				
+				<p class="text-muted">
+					<small>
+						<time datetime="2015-04-01T06:21:42+03:00">
+							1 апреля 2015, 06:21
+						</time>
+					</small>
+				</p>
+			</div>
+		</li>
+									
+		<li class="media js-title-comment" title="если начать статью с этой фразы — то было бы меньше негативных отзывов )) в любом случае материал...">
+		
+							<a href="http://jnet.kz/mobiapps/2015/02/14/analiz-sms-bota-dlya-android-chast-i.html" class="pull-left"><img class="media-object topic_preview" src="http://jnet.kz/uploads/topics/preview/00/00/35/79/75fca43527_85crop.jpg"></a>
+					
+			<div class="media-body">
+				<a href="http://jnet.kz/mobiapps/2015/02/14/analiz-sms-bota-dlya-android-chast-i.html#comment48936" class="stream-topic">Анализ sms-бота для Android. Часть I</a>
+				
+				<p class="text-muted">
+					<small>
+						<time datetime="2015-03-31T09:10:26+03:00">
+							31 марта 2015, 09:10
+						</time>
+					</small>
+				</p>
+			</div>
+		</li>
+									
+		<li class="media js-title-comment" title="Судя по скринам, очень удобно. Хотя это станет понятно только после пользования сайтом">
+		
+							<a href="http://jnet.kz/zerokz/2015/03/16/proekt-sayta-dlya-obsuzhdeniya-prosba-ocenit.html" class="pull-left"><img class="media-object topic_preview" src="http://jnet.kz/uploads/topics/preview/00/00/35/84/32aabcea62_85crop.png"></a>
+					
+			<div class="media-body">
+				<a href="http://jnet.kz/zerokz/2015/03/16/proekt-sayta-dlya-obsuzhdeniya-prosba-ocenit.html#comment48935" class="stream-topic">Проект сайта для обсуждения. Просьба оценить</a>
+				
+				<p class="text-muted">
+					<small>
+						<time datetime="2015-03-20T07:49:38+03:00">
+							20 марта 2015, 07:49
+						</time>
+					</small>
+				</p>
+			</div>
+		</li>
+									
+		<li class="media js-title-comment" title="Это наш первый кейс на шару   
+Прикольно!  
+На шару рождаются кейсы :)">
+		
+							<a href="http://jnet.kz/limeon/2015/03/02/keys-proekta-audarukz.html" class="pull-left"><img class="media-object topic_preview" src="http://jnet.kz/uploads/topics/preview/00/00/35/81/3d619f98aa_85crop.png"></a>
+					
+			<div class="media-body">
+				<a href="http://jnet.kz/limeon/2015/03/02/keys-proekta-audarukz.html#comment48934" class="stream-topic">Кейс проекта audaru.kz</a>
+				
+				<p class="text-muted">
+					<small>
+						<time datetime="2015-03-10T21:53:02+03:00">
+							10 марта 2015, 21:53
+						</time>
+					</small>
+				</p>
+			</div>
+		</li>
+									
+		<li class="media js-title-comment" title="а здесь есть такие ?)">
+		
+							<a href="http://jnet.kz/jnetwork/2015/03/07/specializirovannaya-microsoft-azure-konferenciya.html" class="pull-left"><img class="media-object topic_preview" src="http://jnet.kz/uploads/topics/preview/00/00/35/82/7704dcdca4_85crop.jpg"></a>
+					
+			<div class="media-body">
+				<a href="http://jnet.kz/jnetwork/2015/03/07/specializirovannaya-microsoft-azure-konferenciya.html#comment48933" class="stream-topic">Специализированная Microsoft Azure конференция</a>
+				
+				<p class="text-muted">
+					<small>
+						<time datetime="2015-03-09T12:12:02+03:00">
+							9 марта 2015, 12:12
+						</time>
+					</small>
+				</p>
+			</div>
+		</li>
+									
+		<li class="media js-title-comment" title="Мобильное приложение порадовало, довольно удобно, спасибо :)">
+		
+					
+			<div class="media-body">
+				<a href="http://jnet.kz/hoster/2015/02/10/novosti-ot-hosterkz-tehpodderka-247-ssd-hosting-mobilnoe-prilozhenie-i-1s-bitriks.html#comment48927" class="stream-topic">Новости от Hoster.KZ - техподдерка 24\7, SSD хостинг, мобильное приложение и 1С-Битрикс</a>
+				
+				<p class="text-muted">
+					<small>
+						<time datetime="2015-03-02T20:36:28+03:00">
+							2 марта 2015, 20:36
+						</time>
+					</small>
+				</p>
+			</div>
+		</li>
+									
+		<li class="media js-title-comment" title="Плюсую в карму за проделанную работу.">
+		
+							<a href="http://jnet.kz/husssni/2015/02/27/prodvizhenie-internet-magazina-chast-1.html" class="pull-left"><img class="media-object topic_preview" src="http://jnet.kz/uploads/topics/preview/00/00/35/80/8d3b7e493e_85crop.png"></a>
+					
+			<div class="media-body">
+				<a href="http://jnet.kz/husssni/2015/02/27/prodvizhenie-internet-magazina-chast-1.html#comment48920" class="stream-topic">Продвижение интернет-магазина. Часть 1.</a>
+				
+				<p class="text-muted">
+					<small>
+						<time datetime="2015-03-01T11:23:12+03:00">
+							1 марта 2015, 11:23
+						</time>
+					</small>
+				</p>
+			</div>
+		</li>
+									
+		<li class="media js-title-comment" title="Ваш мобильный оператор знает о вас больше, чем ваша девушка. Но как это связанно с бесплатностью...">
+		
+							<a href="http://jnet.kz/yakooobin/2015/01/30/vchera-obnaruzhil-chto-vatsapom-mozhno-polzovatsya-s-laptopa-kto-nibud-znal-ob-etom-whatsapp-dlya-pc.html" class="pull-left"><img class="media-object topic_preview" src="http://jnet.kz/uploads/topics/preview/00/00/35/73/b89b273ad2_85crop.jpg"></a>
+					
+			<div class="media-body">
+				<a href="http://jnet.kz/yakooobin/2015/01/30/vchera-obnaruzhil-chto-vatsapom-mozhno-polzovatsya-s-laptopa-kto-nibud-znal-ob-etom-whatsapp-dlya-pc.html#comment48913" class="stream-topic">Вчера обнаружил, что Ватсапом можно пользоваться с лаптопа. Кто-нибудь знал об этом? WhatsApp для PC</a>
+				
+				<p class="text-muted">
+					<small>
+						<time datetime="2015-02-26T15:02:10+03:00">
+							26 февраля 2015, 15:02
+						</time>
+					</small>
+				</p>
+			</div>
+		</li>
+									
+		<li class="media js-title-comment" title="Добрый день! 
+Нас тоже добавьте: 
+— Geekz Lab (Ертіс 32, +7775 7557777, e@lin.kz) — Мукушев...">
+		
+							<a href="http://jnet.kz/webkz/2014/11/08/veb-razrabotchiki-astany.html" class="pull-left"><img class="media-object topic_preview" src="http://jnet.kz/uploads/topics/preview/00/00/35/56/e4e061b395_85crop.jpg"></a>
+					
+			<div class="media-body">
+				<a href="http://jnet.kz/webkz/2014/11/08/veb-razrabotchiki-astany.html#comment48908" class="stream-topic">Веб-разработчики Астаны. Топ 10-ка компаний и все все все... Никого не забыли?</a>
+				
+				<p class="text-muted">
+					<small>
+						<time datetime="2015-02-24T18:11:57+03:00">
+							24 февраля 2015, 18:11
+						</time>
+					</small>
+				</p>
+			</div>
+		</li>
+	</ul>
+
+<footer>
+	<small class="text-muted">
+		<a href="http://jnet.kz/comments/">Весь эфир</a> · <a href="http://jnet.kz/rss/allcomments/">RSS</a>
+	</small>
+</footer>
+
+			</div>
+		</div>
+		
+	</div>
+</section>
+
+				
+								
+				
+								<div class="panel panel-default block block-type-blogs" id="block_blogs">
+	<div class="panel-body">
+	
+		<header class="block-header">
+			<h3>Блоги</h3>
+		</header>
+	
+		<div class="block-content">
+						
+			<div class="js-block-blogs-content">
+				<ul class="list-unstyled item-list">
+			<li class="media">
+			<a href="http://jnet.kz/blog/seo/" class="pull-left"><img src="http://jnet.kz/uploads/images/00/00/01/2010/09/01/avatar_blog_seo_48x48.png" width="48" height="48" class="media-object avatar" /></a>
+			<div class="media-body">
+				<a href="http://jnet.kz/blog/seo/" class="media-heading blog-top" >Продвижение, SEO</a>
+				<p class="text-muted"><small>Рейтинг: <strong>6.74</strong></small></p>
+			</div>
+		</li>
+			<li class="media">
+			<a href="http://jnet.kz/blog/kontent/" class="pull-left"><img src="http://jnet.kz/uploads/images/00/00/01/2010/09/01/avatar_blog_kontent_48x48.jpg" width="48" height="48" class="media-object avatar" /></a>
+			<div class="media-body">
+				<a href="http://jnet.kz/blog/kontent/" class="media-heading blog-top" >Тексты, переводы, контент</a>
+				<p class="text-muted"><small>Рейтинг: <strong>6.27</strong></small></p>
+			</div>
+		</li>
+			<li class="media">
+			<a href="http://jnet.kz/blog/jnetwork/" class="pull-left"><img src="http://jnet.kz/uploads/images/00/00/01/2014/10/24/avatar_blog_jnetwork_48x48.png" width="48" height="48" class="media-object avatar" /></a>
+			<div class="media-body">
+				<a href="http://jnet.kz/blog/jnetwork/" class="media-heading blog-top" >Встречи, общение казахстанских разработчиков</a>
+				<p class="text-muted"><small>Рейтинг: <strong>6.18</strong></small></p>
+			</div>
+		</li>
+			<li class="media">
+			<a href="http://jnet.kz/blog/urokinew/" class="pull-left"><img src="http://jnet.kz/uploads/images/00/00/01/2010/09/01/avatar_blog_urokinew_48x48.gif" width="48" height="48" class="media-object avatar" /></a>
+			<div class="media-body">
+				<a href="http://jnet.kz/blog/urokinew/" class="media-heading blog-top" >Уроки создания сайтов для новичков</a>
+				<p class="text-muted"><small>Рейтинг: <strong>5.69</strong></small></p>
+			</div>
+		</li>
+			<li class="media">
+			<a href="http://jnet.kz/blog/services/" class="pull-left"><img src="http://jnet.kz/uploads/images/00/00/01/2010/09/01/avatar_blog_services_48x48.jpg" width="48" height="48" class="media-object avatar" /></a>
+			<div class="media-body">
+				<a href="http://jnet.kz/blog/services/" class="media-heading blog-top" >Интересные сайты и веб-сервисы</a>
+				<p class="text-muted"><small>Рейтинг: <strong>5.68</strong></small></p>
+			</div>
+		</li>
+			<li class="media">
+			<a href="http://jnet.kz/blog/freelance/" class="pull-left"><img src="http://jnet.kz/uploads/images/00/10/13/2014/10/28/avatar_blog_freelance_48x48.png" width="48" height="48" class="media-object avatar" /></a>
+			<div class="media-body">
+				<a href="http://jnet.kz/blog/freelance/" class="media-heading blog-top" >Заявки от заказчиков</a>
+				<p class="text-muted"><small>Рейтинг: <strong>5.66</strong></small></p>
+			</div>
+		</li>
+			<li class="media">
+			<a href="http://jnet.kz/blog/pokupki/" class="pull-left"><img src="http://jnet.kz/uploads/images/00/00/01/2014/10/28/avatar_blog_pokupki_48x48.jpg" width="48" height="48" class="media-object avatar" /></a>
+			<div class="media-body">
+				<a href="http://jnet.kz/blog/pokupki/" class="media-heading blog-top" >Покупки в интернет. Ebay, amazon, ozon, flip и др.</a>
+				<p class="text-muted"><small>Рейтинг: <strong>5.50</strong></small></p>
+			</div>
+		</li>
+			<li class="media">
+			<a href="http://jnet.kz/blog/domains/" class="pull-left"><img src="http://jnet.kz/uploads/images/00/06/11/2010/11/19/avatar_blog_domains_48x48.png" width="48" height="48" class="media-object avatar" /></a>
+			<div class="media-body">
+				<a href="http://jnet.kz/blog/domains/" class="media-heading blog-top" >Домены, хостинг</a>
+				<p class="text-muted"><small>Рейтинг: <strong>5.18</strong></small></p>
+			</div>
+		</li>
+			<li class="media">
+			<a href="http://jnet.kz/blog/webdevelopment/" class="pull-left"><img src="http://jnet.kz/uploads/images/00/00/01/2014/10/28/avatar_blog_webdevelopment_48x48.jpg" width="48" height="48" class="media-object avatar" /></a>
+			<div class="media-body">
+				<a href="http://jnet.kz/blog/webdevelopment/" class="media-heading blog-top" >Веб-разработка</a>
+				<p class="text-muted"><small>Рейтинг: <strong>4.75</strong></small></p>
+			</div>
+		</li>
+			<li class="media">
+			<a href="http://jnet.kz/blog/httml/" class="pull-left"><img src="http://jnet.kz/uploads/images/00/00/01/2010/09/01/avatar_blog_httml_48x48.jpg" width="48" height="48" class="media-object avatar" /></a>
+			<div class="media-body">
+				<a href="http://jnet.kz/blog/httml/" class="media-heading blog-top" >HTML, верстка, кодинг, CSS</a>
+				<p class="text-muted"><small>Рейтинг: <strong>4.69</strong></small></p>
+			</div>
+		</li>
+	</ul>
+
+			</div>
+
+			<footer>
+				<small><a href="http://jnet.kz/blogs/">Все блоги</a></small>
+			</footer>
+		</div>
+		
+	</div>
+</div>
+
+				
+			
+</aside>
+
+								
+			</div> <!-- /row -->
+		</div> <!-- /wrapper -->
+	</section> <!-- /container -->
+	
+	
+
+
+
+	<footer id="footer">
+		<div class="container">
+			<div class="row">
+			
+				<div class="col-sm-4 col-lg-2">
+					<a class="footer-brand" href="http://jnet.kz">JNET.KZ</a>
+				</div>
+			
+				<div class="col-sm-4 col-md-4 col-lg-2">
+											<ul class="list-unstyled footer-list">
+							<li class="footer-list-header word-wrap">Вы можете</li>
+							<li><a class="js-registration-form-show" href="http://jnet.kz/registration/" class="js-registration-form-show">Зарегистрироваться</a></li>
+							<li><a class="js-login-form-show" href="http://jnet.kz/login/" class="js-login-form-show sign-in">Войти</a></li>
+							
+						</ul>
+									</div>
+			
+				<div class="col-sm-4 col-md-4 col-lg-2">
+					<ul class="list-unstyled footer-list">
+						<li class="footer-list-header">Разделы</li>
+						<li><a href="http://jnet.kz">Топики</a></li>
+						<li><a href="http://jnet.kz/blogs/">Блоги</a></li>
+						<li><a href="http://jnet.kz/people/">Люди</a></li>
+						<li><a href="http://jnet.kz/stream/">Активность</a></li>
+						
+					</ul>
+				</div>
+			
+				<div class="col-sm-4 col-md-4 col-lg-2">
+					<ul class="list-unstyled footer-list">
+						<li class="footer-list-header">Информация</li>
+						<li><a href="#">О проекте</a></li>
+						<li><a href="#">Правила</a></li>
+						<li><a href="#">Реклама</a></li>
+						<li><a href="/">Помощь</a></li>
+						
+					</ul>
+				</div>
+				
+				<div class="col-sm-4 col-md-4 col-lg-2 col-lg-offset-2 copyright">
+					<!--&copy; Powered by <a href="http://livestreet.ru/?utm_source=site&utm_medium=copyright&utm_campaign=livestreet">LiveStreet CMS</a>
+					<br />
+					Автор шаблона &mdash; <a href="http://kulesh-vladimir.by/">вOFFка</a>-->
+				</div>
+				
+			</div>
+			
+		</div>
+	</footer>
+
+      
+       
+	<aside class="toolbar hidden-xs">
+	
+
+					
+					
+							
+						
+
+							
+					<section class="toolbar-scrollup" id="toolbar_scrollup">
+	<a href="#" onclick="return ls.toolbar.up.goUp();" title="Вверх" class="toolbar-topic-prev"><span class="glyphicon glyphicon-chevron-up"></span></a>
+</section>
+
+			
+</aside>
+
+
+	
+			<script type="text/javascript">
+			var _lsIsLoadGA=(typeof(window._gaq)=='undefined') ? false : true ;
+
+			  var _gaq = _gaq || [];
+			  _gaq.push(['lscounter._setAccount', 'UA-28922093-1']);
+			  _gaq.push(['lscounter._trackPageview']);
+
+			if (!_lsIsLoadGA) {
+			  (function() {
+				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			  })();
+			}
+			</script>
+		
+
+</body>
+</html>
+

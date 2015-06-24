@@ -1,0 +1,17 @@
+strftime наплевать на текущую локаль. В принципе. Чтобы локализовать даты, установите локаль в конфиге (или где вам угодно), а затем форматируйте даты следующим образом:
+
+I18n.l(diary.created_at.to_time, :format => '%e %b %Y')
+Гем Russian магически ваш код тоже не изменит. Чтобы форматировать даты с его помощью, пишите явно:
+
+Russian::strftime(diary.created_at.to_time)
+
+
+====================
+
+You should use the I18n localize helper (it has a short alias l):
+<%= l diary.created_at, format: :long %>
+
+You can also specify the format explicitly:
+<%= l diary.created_at, format: "%e %b %Y" %>
+
+http://apidock.com/rails/ActionView/Helpers/TranslationHelper/localize

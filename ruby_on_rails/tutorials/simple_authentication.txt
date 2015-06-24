@@ -1,0 +1,86 @@
+создадим простейшую аутентикацию и регистрацию пользователя. без фронтэнда, через консоль
+
+=====================
+добавим в таблицу пользователей поля name, email, password_digest
+
+class CreateTableUsers < ActiveRecord::Migration
+  def change
+    create_table :users do |t|
+      t.string :name
+      t.string :email
+
+      t.timestamps
+    end
+  end
+end
+
+
+class AddPasswordDigestToUsers < ActiveRecord::Migration
+  def change
+    add_column :users, :password_digest, :string
+  end
+end
+
+
+=====================
+валидации в модели:
+class User < ActiveRecord::Base
+
+	before_save	{	self.email	=	email.downcase	}
+
+	validates :name, presence: true, length: { maximum: 50 }
+	VALID_EMAIL_REGEX	=	/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+	validates :email, presence: true, format: {with: VALID_EMAIL_REGEX }, uniqueness: true
+
+	has_secure_password
+	validates	:password,	length:	{	minimum:	6	}
+
+end
+
+
+
+здесь has_secure_password добавляет методы валидации для сравнения(подтверждения) паролей в обоих полях
+
+
+
+=====================
+установим гем:
+gem	'bcrypt-ruby',	'3.1.2'
+
+=====================
+проверяем в консоли:
+
+$	rails	console
+>>	User.create(name:	"Aybek",	email:	"aybek@example.com",
+?>													password:	"foobar",	password_confirmation:	"foobar")
+=>	#<User	id:	1,	name:	"Aybek",	email:	"aybek@example.com",
+created_at:	"2014-03-11	20:45:19",	updated_at:	"2013-03-11	20:45:19",
+password_digest:	"$2a$10$kn4cQDJTzV76ZgDxOWk6Je9A0Ttn5sKNaGTEmT0jU7.n...">
+
+
+
+>>	user	=	User.find_by(email:	"aybek@example.com")
+>>	user.password_digest
+=>	"$2a$10$kn4cQDJTzV76ZgDxOWk6Je9A0Ttn5sKNaGTEmT0jU7.ncBJ/60gHq"
+
+
+
+
+>>	user.authenticate("invalid")
+=>	false
+>>	user.authenticate("foobar")
+=>	#<User	id:	1,	name:	"Aybek",	email:	"aybek@example.com",
+created_at:	"2013-03-11	20:45:19",	updated_at:	"2013-03-11	20:45:19",
+password_digest:	"$2a$10$kn4cQDJTzV76ZgDxOWk6Je9A0Ttn5sKNaGTEmT0jU7.n...">
+
+
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================

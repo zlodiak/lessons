@@ -1,0 +1,146 @@
+=======================
+генерация модели и миграции:
+rails generate model Article title:string text:text
+
+запуск всех миграций
+rake db:migrate
+
+создать контроллер:
+rails g controller News
+
+создать контроллер с экшном:
+rails g controller News new
+
+
+==================
+в меню сформируем динамические ссылки:
+	<ul>
+		<li>
+			<%= link_to 'Главная', main_index_path %>
+		</li>
+		
+		<li>
+			<%= link_to 'Документы', docs_index_path %>
+		</li>
+
+		<li>
+			<%= link_to 'Контакты', contacts_index_path %>
+		</li>
+
+		<li>
+			<%= link_to 'Гостевая', guest_index_path %>
+		</li>							
+	</ul>
+
+в результате можно перемещаться по страница через ссылки
+
+
+==================
+ссылка на controller/action/id:
+
+controller:
+class NewsController < ApplicationController
+  def index
+    @news = News.all.order(created_at: :desc)
+  end
+
+  def show
+    @news = News.all.order(created_at: :desc)
+  end  
+end
+
+
+tpl:
+<% @news.each do |news_item| %>
+	  <div>
+	    <span>title:</span>
+	    <span><%= news_item.title %></span>
+	  </div>
+
+	  <div>
+	    <span>Date:</span>
+	    <span><%= news_item.created_at.to_s(:ru_datetime_for_news) %></span>
+	  </div>
+
+    <!--<%= link_to 'Подробнее', controller: "news", action: "show", id: news_item.id %>-->
+
+	  <br>
+<% end %>
+
+в результате для каждой новости будет сформирована ссылка типа: 
+http://localhost:3000/news/show?id=1
+http://localhost:3000/news/show?id=2
+http://localhost:3000/news/show?id=3
+http://localhost:3000/news/show?id=4
+
+==================
+ссылка на controller/action/id для блока текста:
+<% @news.each do |news_item| %>
+    <!--<%= link_to(url_for({controller: "news", action: "show", id: news_item.id})) do %>-->
+    <%= link_to(news_show_path + '/' + news_item.id.to_s) do %>
+  	  <div>
+  	    <span>title:</span>
+  	    <span><%= news_item.title %></span>
+  	  </div>
+
+  	  <div>
+  	    <span>Date:</span>
+  	    <span><%= news_item.created_at.to_s(:ru_datetime_for_news) %></span>
+  	  </div>
+    <% end %>
+
+    <%= link_to 'More', controller: "news", action: "show", id: news_item.id %>
+
+    <br>
+    <br>
+	  <br>
+<% end %>
+
+==================
+GEMS:
+
+посмотреть список установленных gems:
+gem list
+
+при этом все gems подключаются в файле Gemfile
+
+поискать гем в удалённном репозитории:
+gem search -r
+или:
+gem search -r | grep paperclip
+или:
+gem search -r html
+
+Флаг --remote / -r показывает, что мы хотим проверить официальный RubyGems.org репозиторий (поведение по-умолчанию). С флагом --local / -l вы можете совершить локальный поиск среди установленных у вас гемов.
+
+пример установки конкретного гема:
+gem install rails
+или:
+gem install rails --version 3.0
+
+чтобы установить:
+нужно установить и прописать в файле Gemfile
+
+
+Gemfile это что-то типа файла, в котором указаны пакеты для установки(если версия не указана, то подразумевается последняя).
+bundle update
+bundle install 
+устанавлявают все гемы из этого файла
+
+
+
+
+==================
+==================
+==================
+==================
+==================
+==================
+==================
+==================
+==================
+==================
+==================
+==================
+==================
+==================DD

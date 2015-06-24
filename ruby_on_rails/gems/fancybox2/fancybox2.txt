@@ -1,0 +1,55 @@
+fancybox2:
+https://github.com/kyparn/fancybox2-rails
+
+=============+
+gem 'jquery-rails'
+gem 'fancybox2-rails', '~> 0.2.8'
+
+
+=============+
+app/assets/javascripts/application.js file and add the following line:
+
+//= require jquery
+//= require fancybox
+
+=============+
+app/assets/stylesheets/application.css file to look something like:
+
+/*
+ *= require_self
+ *= require fancybox
+ *= require_tree .
+ */
+
+=============+
+app/assets/javascripts/application.js
+
+$(document).ready(function() {
+  $("a.fancybox").fancybox();
+});
+
+=============+
+html:
+<% if @user.avatar_file_name %>
+  <%= link_to @user.avatar.url, class: 'fancybox' do %>
+    <%= image_tag(@user.avatar.url(:thumb) , class: "thumb_icon thumb_icon_h2 pull-left", alt: '') %>
+  <% end %>
+<% else %>
+  <%= image_tag('/images/no-user-image.gif', class: "thumb_icon thumb_icon_h2 pull-left", width: '30', height: '30', alt: '') %>
+<% end %>
+
+=============+
+=============+
+=============+
+=============+
+=============+
+=============+
+=============+
+=============+
+=============+
+=============+
+=============+
+=============+
+=============+
+=============+
+=============+

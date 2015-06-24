@@ -1,0 +1,46 @@
+Installation
+
+Download Package Control and use the Package Control: Install Package command from the command palette. The command palette is opened via ctrl+shift+p on Windows and Linux, and cmd+shift+p on OS X.
+
+Once you run the Package Control: Install Package command, a list of packages will appear. Type in SFTP and hit enter. Using Package Control ensures Sublime SFTP will stay up to date automatically.
+
+Without a license, Sublime SFTP runs in evaluation mode. This mode includes full functionality and there is no time limit, however, continued usage requires the purchase of a license. A reminder will appear every so often.
+
+Testing Version
+
+If you are having trouble with the stable version (v1.10.2) of SFTP, please use the instructions below to install the testing version (v1.10.2.6), which includes quite a number of bug fixes.
+
+Run the Package Control: Add Repository command from the command palette
+Paste the URL http://sublime.wbond.net/testing/packages.json into the input box at the bottom of Sublime Text and press enter
+Run the Package Control: Upgrade Package command from the command palette and select SFTP
+Restart Sublime Text
+
+
+
+=======+
+sublime3:
+
+import urllib.request,os,hashlib; h = '2deb499853c4371624f5a07e27c334aa' + 'bf8c4e67d14fb0525ba4f89698a6d7e1'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)
+
+
+=======+
+sublime2:
+import urllib2,os,hashlib; h = '2deb499853c4371624f5a07e27c334aa' + 'bf8c4e67d14fb0525ba4f89698a6d7e1'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); os.makedirs( ipp ) if not os.path.exists(ipp) else None; urllib2.install_opener( urllib2.build_opener( urllib2.ProxyHandler()) ); by = urllib2.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); open( os.path.join( ipp, pf), 'wb' ).write(by) if dh == h else None; print('Error validating download (got %s instead of %s), please try manual install' % (dh, h) if dh != h else 'Please restart Sublime Text to finish installation')
+
+=======+
+=======+
+=======+
+=======+
+=======+
+=======+
+=======+
+=======+
+=======+
+=======+
+=======+
+=======+
+=======+
+=======+
+=======+
+=======+
+=======+

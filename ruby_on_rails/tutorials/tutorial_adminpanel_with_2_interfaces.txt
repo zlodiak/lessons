@@ -1,0 +1,318 @@
+создадим 2 ресурса. один будет доступен незарегистрированному пользователю, второй - зарегистрированному. из экшенов второго можно менять данные первого. антизадача, но может пригодиться
+
+==============
+в applicationController добавляем общие методы:
+
+class ApplicationController < ActionController::Base
+
+  protect_from_forgery with: :exception
+
+	private
+
+		def render_403
+			render file: 'public/403.html', status: 403
+		end
+
+		def check_if_admin
+			render_403 unless params[:admin]
+		end	  
+
+		def get_pages_list
+			p  'pages get'
+			@pages_all = Page.all
+		end  
+
+
+end
+
+
+==============
+
+rails g resource page
+
+контроллер стандартен:
+
+class PagesController < ApplicationController
+  before_action :set_page, only: [:show, :edit, :update, :destroy]
+  before_action :get_pages_list
+  #before_filter :authenticate, only: [:new, :edit, :update, :destroy, :create]
+
+  layout 'layout_right_sidebar'
+
+  # GET /pages
+  # GET /pages.json
+  #def index
+  #  @pages = Page.all
+  #end
+
+  # GET /pages/1
+  # GET /pages/1.json
+  def show
+    
+  end
+
+  # GET /pages/new
+  def new
+    render_403
+    #redirect_to :action => "show", :id => 4
+    @page = Page.new
+  end
+
+  # GET /pages/1/edit
+  def edit
+    render_403
+   #render layout: "admin_panel"
+  end
+
+  # POST /pages
+  # POST /pages.json
+  #def create
+  #  @page = Page.new(page_params)
+
+  #  respond_to do |format|
+  #    if @page.save
+  #      format.html { redirect_to @page, notice: 'Page was successfully created.' }
+  #      format.json { render action: 'show', status: :created, location: @page }
+  #    else
+  #      format.html { render action: 'new' }
+  #      format.json { render json: @page.errors, status: :unprocessable_entity }
+  #    end
+  #  end
+  #end
+
+  # PATCH/PUT /pages/1
+  # PATCH/PUT /pages/1.json
+  def update
+    respond_to do |format|
+      if @page.update(page_params)
+        format.html { redirect_to @page, notice: 'Page was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @page.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /pages/1
+  # DELETE /pages/1.json
+  def destroy
+    @page.destroy
+    respond_to do |format|
+      format.html { redirect_to pages_url }
+      format.json { head :no_content }
+    end
+  end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_page
+      @page = Page.find(params[:id])
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def page_params
+      params.require(:page).permit(:parent_id, :name, :content)
+    end
+end
+
+
+здесь закомментируем и защитим при помощи render_403 экшены, не нужные незарегистрированому пользователю
+
+==============
+в модели page.rb пропишем подключенный ранее gem:
+
+class Page < ActiveRecord::Base
+	acts_as_tree
+end
+
+==============
+rails g controller adminka
+
+генерируем страничку админки
+
+==============
+защитим контроллер adminka basic-аутентификацией:
+class AdminkaController < ApplicationController
+
+	before_filter :authenticate
+
+  def index
+  	render layout: "admin_panel"
+  end
+end
+
+
+==============
+view странички админки:
+
+<h1>Adminka#index</h1>
+
+<div class="cell">
+<%= link_to 'список страниц', pages_controls_path %>
+</div>
+
+
+==============
+генерируем второй ресурс:
+
+
+==============
+генерируем второй ресурс. он будет доступен для зарегистрированных пользователей. он будет работать с ресурсом pages:
+
+class PagesControlsController < PagesController
+
+  before_filter :authenticate
+  before_action :set_pages_control, only: [:show, :edit, :update, :destroy]
+
+  layout 'admin_panel'
+
+  def index
+    @pages_controls = Page.all
+  end
+
+  # GET /pages_controls/1
+  # GET /pages_controls/1.json
+  def show
+    @pages_control = Page.find(params[:id])
+  end
+
+  # GET /pages_controls/new
+  def new
+    @pages_control = Page.new
+  end
+
+  # GET /pages_controls/1/edit
+  def edit
+    @pages_control = Page.find(params[:id])
+  end
+
+  # POST /pages_controls
+  # POST /pages_controls.json
+  def create
+    @pages_control = PagesControl.new(pages_control_params)
+
+    respond_to do |format|
+      if @pages_control.save
+        format.html { redirect_to @pages_control, notice: 'Pages control was successfully created.' }
+        format.json { render action: 'show', status: :created, location: @pages_control }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @pages_control.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH/PUT /pages_controls/1
+  # PATCH/PUT /pages_controls/1.json
+  def update
+    p 'up_dateeeeeeeeeee'
+    respond_to do |format|
+      if @pages_control.update(pages_control_params)
+        p 111
+        format.html { redirect_to @pages_control, notice: 'Pages control was successfully updated.' }
+        format.json { head :no_content }
+      else
+        p 2222
+        format.html { render action: 'edit' }
+        format.json { render json: @pages_control.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /pages_controls/1
+  # DELETE /pages_controls/1.json
+  def destroy
+    @pages_control.destroy
+    respond_to do |format|
+      format.html { redirect_to pages_controls_url }
+      format.json { head :no_content }
+    end
+  end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_pages_control
+      @pages_control = Page.find(params[:id])
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def pages_control_params
+      params[:pages_control]
+    end
+    
+end
+
+
+
+так же защитим его
+before_filter :authenticate
+
+==============
+конфиг роутов выглядит так:
+
+Layouts::Application.routes.draw do
+  resources :pages_controls
+
+  get "adminka/index"
+  get "admin/index"
+  resources :pages
+
+  resources :news
+
+  root 'index#index'
+
+  get 'services' => 'services#index'
+  get 'admin' => 'admin#index'
+  get 'adminka' => 'adminka#index'
+
+==============
+
+по адресу http://localhost:3000/pages_controls выводится список страниц с сылками действий:
+
+  <tbody>
+    <% @pages_controls.each do |pages_control| %>
+      <tr>
+        <td><%= pages_control.name %></td>
+        <td><%= link_to 'Edit', edit_pages_control_path(pages_control) %></td>
+        <td><%= link_to 'Destroy', pages_control, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+
+
+<br>
+
+<%= link_to 'New Pages control', new_pages_control_path %>
+
+
+==============
+важно в контроллере pages_control сделать подобные замены:
+
+  def new
+    @pages_control = Page.new
+  end
+
+
+ при этом форма редактирования будет всё равно ссылаться на экшены контроллера pagesController
+
+==============
+==============
+==============
+==============
+==============
+==============
+==============
+==============
+==============
+==============
+==============
+==============
+==============
+==============
+==============
+==============
+==============
+==============
+==============
+==============

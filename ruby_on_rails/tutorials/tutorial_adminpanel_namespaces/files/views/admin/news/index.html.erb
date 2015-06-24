@@ -1,0 +1,33 @@
+<h1>Listing news</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @news.each do |news| %>
+      <tr>
+        <td><%= image_tag(news.image_url, height: '32', width: '32', alt: 'img', class: 'image') %></td>
+        <td><%= news.title%></td>
+        <td><%= truncate(news.body, length: 200) %></td>
+        <td><%= link_to 'Show', admin_news_path(news) %></td>
+        <td><%= link_to 'Edit', edit_admin_news_path(news) %></td>
+        <td><%= link_to 'Destroy', admin_news_path(news), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+
+<%= will_paginate %>
+
+<br>
+
+<%= link_to 'New News', new_admin_news_path %>

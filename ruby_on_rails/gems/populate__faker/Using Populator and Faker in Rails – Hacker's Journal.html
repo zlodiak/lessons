@@ -1,0 +1,270 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>Using Populator and Faker in Rails &#8211; Hacker's Journal</title>
+<meta name="description" content="How to fill dummy data using faker and populator in your Rails app">
+<meta name="keywords" content="ruby, rails, faker, populator, dummy, data">
+<!-- Twitter Cards -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://sudharti.github.io/images/">
+<meta name="twitter:title" content="Using Populator and Faker in Rails">
+<meta name="twitter:description" content="How to fill dummy data using faker and populator in your Rails app">
+<meta name="twitter:creator" content="@sudharshan_iyer">
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Using Populator and Faker in Rails">
+<meta property="og:description" content="How to fill dummy data using faker and populator in your Rails app">
+<meta property="og:url" content="http://sudharti.github.io/articles/using-faker-and-populator-rails">
+<meta property="og:site_name" content="Hacker's Journal">
+
+<!-- Webmaster Tools verfication -->
+<meta name="google-site-verification" content="8hCr2mAx-864VaDr4RveyYeVznYWg0_PMy29V_ETJ1g">
+
+
+
+<link rel="canonical" href="http://sudharti.github.io/articles/using-faker-and-populator-rails">
+<link href="http://sudharti.github.io/feed.xml" type="application/atom+xml" rel="alternate" title="Hacker's Journal Feed">
+<link rel="author" href="https://plus.google.com/110752291044075779531/?rel=author">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google Webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700|PT+Serif:400,700,400italic' rel='stylesheet' type='text/css'>
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://sudharti.github.io/assets/css/main.min.css">
+
+<!--[if (lt IE 9) & (!IEMobile)]>
+<link rel="stylesheet" href="http://sudharti.github.io/assets/css/ie.min.css">
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- Load Modernizr -->
+<script src="http://sudharti.github.io/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="http://sudharti.github.io/favicon.ico">
+<!-- 32x32 -->
+<link rel="shortcut icon" href="http://sudharti.github.io/favicon.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="http://sudharti.github.io/images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://sudharti.github.io/images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://sudharti.github.io/images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://sudharti.github.io/images/apple-touch-icon-144x144-precomposed.png">
+
+</head>
+
+<body class="article" itemscope itemtype="http://schema.org/WebPage">
+
+<!--[if lt IE 9]><div class="browser-upgrade alert alert-info">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div><![endif]-->
+
+<div class="navigation-wrapper">
+	<div class="site-name">
+		<a href="http://sudharti.github.io">Hacker's Journal</a>
+	</div><!-- /.site-name -->
+	<div class="top-navigation">
+		<nav role="navigation" itemscope itemtype="http://schema.org/SiteNavigationElement">
+		    <ul>
+		        
+				<li><a href="http://sudharti.github.io/about/" >About</a></li>
+		        
+				<li><a href="/articles/" target="_blank">Articles</a></li>
+		        
+		        <li><i class="icon-feed"></i> <a href="http://sudharti.github.io/feed.xml" title="Atom/RSS feed">Feed</a>
+		    </ul>
+		</nav>
+	</div><!-- /.top-navigation -->
+</div><!-- /.navigation-wrapper -->
+
+
+
+<div id="main" role="main" itemprop="mainContentOfPage" itemscope itemtype="http://schema.org/Blog">
+  <div class="article-author-side">
+    <img src="http://sudharti.github.io/images/sudharsanan.png" class="bio-photo" alt="Sudharsanan Muralidharan bio photo"></a>
+<h3>Sudharsanan Muralidharan</h3>
+<p>A Rubyist, Hacker, Blogger and Gadget Freak. Rails, Ember & Android</p>
+<a href="http://github.com/sudharti" class="author-social" target="_blank"><i class="icon-github"></i> Github</a>
+<a href="http://twitter.com/sudharshan_iyer" class="author-social" target="_blank"><i class="icon-twitter"></i> Twitter</a>
+<a href="http://linkedin.com/in/sudharsananm" class="author-social" target="_blank"><i class="icon-linkedin"></i> LinkedIn</a>
+<a href="http://facebook.com/sudharshan.muralidharan" class="author-social" target="_blank"><i class="icon-facebook"></i> Facebook</a>
+<a href="https://plus.google.com/110752291044075779531/" class="author-social" target="_blank"><i class="icon-google-plus"></i> Google+</a>
+<a href="http://instagram.com/sudhar_ti" class="author-social" target="_blank"><i class="icon-instagram"></i> Instagram</a>
+
+
+  </div>
+  <article itemscope itemtype="http://schema.org/BlogPosting" itemprop="blogPost">
+    <div class="headline-wrap">
+      <h1 itemprop="name">Using Populator and Faker in Rails</h1>
+      <h2></h2>
+    </div><!--/ .headline-wrap -->
+    <div class="article-wrap" itemprop="text">
+      <p>Faker and Populator gems are used to fill your app database with dummy data. Add it to the Gemfile grouped under development( If you are testing only in development mode).</p>
+
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">group</span> <span class="ss">:development</span> <span class="k">do</span>
+  <span class="n">gem</span> <span class="s1">&#39;faker&#39;</span>
+  <span class="n">gem</span> <span class="s1">&#39;populator&#39;</span>
+<span class="k">end</span></code></pre></div>
+
+<h3 id="rake-task-to-populate-data">Rake Task to populate data</h3>
+
+<p>We will start by writing our own rake task to populate data. Create a rake task under lib/tasks/[task-name].rake (Example lib/tasks/populate.rake)</p>
+
+<p><br />Here is a sample rake task which is intended to create an Admin user.</p>
+
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">namespace</span> <span class="ss">:db</span> <span class="k">do</span>
+  <span class="n">desc</span> <span class="s2">&quot;Create Admin user&quot;</span>
+  <span class="n">task</span> <span class="ss">:populate</span> <span class="o">=&gt;</span> <span class="ss">:environment</span> <span class="k">do</span>
+  	<span class="n">admin</span> <span class="o">=</span> <span class="no">Admin</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="s2">&quot;Sudharshan&quot;</span><span class="p">,</span> <span class="ss">email</span><span class="p">:</span> <span class="s2">&quot;user@example.com&quot;</span><span class="p">,</span> <span class="ss">admin</span><span class="p">:</span> <span class="kp">true</span><span class="p">)</span>
+  	<span class="n">admin</span><span class="o">.</span><span class="n">save</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></div>
+
+<p>To run the rake task</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># rake [namespace]:[task]</span>
+rake db:populate</code></pre></div>
+
+<p><a href="http://guides.rubyonrails.org/command_line.html#custom-rake-tasks">http://guides.rubyonrails.org/command_line.html#custom-rake-tasks</a></p>
+
+<h3 id="faker-and-populator">Faker and Populator</h3>
+
+<p>Before filling the database here is the documentation for <a href="http://rubydoc.info/github/stympy/faker/master/frames">Faker</a> and <a href="http://rubydoc.info/gems/populator/1.0.0/frames">Populator</a>. Refer the documentation for methods and namespace that we are going to use in the rake task.</p>
+
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">namespace</span> <span class="ss">:db</span> <span class="k">do</span>
+  <span class="n">desc</span> <span class="s2">&quot;Create 100 users with random names and descriptions&quot;</span>
+  <span class="n">task</span> <span class="ss">:populate</span> <span class="o">=&gt;</span> <span class="ss">:environment</span> <span class="k">do</span>
+	<span class="nb">require</span> <span class="s1">&#39;populator&#39;</span>
+	<span class="nb">require</span> <span class="s1">&#39;faker&#39;</span>
+	  <span class="no">User</span><span class="o">.</span><span class="n">populate</span> <span class="mi">100</span> <span class="k">do</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span>
+		<span class="n">user</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="no">Faker</span><span class="o">::</span><span class="no">Name</span><span class="o">.</span><span class="n">name</span>
+		<span class="n">user</span><span class="o">.</span><span class="n">email</span> <span class="o">=</span> <span class="no">Faker</span><span class="o">::</span><span class="no">Internet</span><span class="o">.</span><span class="n">email</span>
+		<span class="n">user</span><span class="o">.</span><span class="n">about</span> <span class="o">=</span> <span class="no">Faker</span><span class="o">::</span><span class="no">Lorem</span><span class="o">.</span><span class="n">sentence</span><span class="p">(</span><span class="n">word_count</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="n">supplemental</span> <span class="o">=</span> <span class="kp">false</span><span class="p">,</span> <span class="n">random_words_to_add</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+		<span class="nb">puts</span> <span class="n">user</span><span class="o">.</span><span class="n">name</span>
+	  <span class="k">end</span>
+	  <span class="nb">puts</span> <span class="s1">&#39;All done&#39;</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></div>
+
+<p>First we add ‘populator’ and ‘faker’ to the take task. The ‘populator’ gem adds the method <strong>populate</strong> to all Active Record models. This is really useful while generating more than one record(Just pass the number of records to insert). 
+<br /><br />Faker has a number of namespaces (like Faker::Internet) each with a number of methods that return valid random content. For example Faker::Internet.email will return a <em>valid</em> email address that has been constructed from random content. The above rake task populates 100 users with random name, email and description. That’s it. Using Populator and Faker is pretty simple right? Watch the Railscast for more.
+<br /><br />Here is the Railscast for Faker and Populator <a href="http://railscasts.com/episodes/126-populating-a-database">Railscast - Populating a Database</a></p>
+
+      <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+      <hr />
+      <footer role="contentinfo">
+        <div class="article-author-bottom">
+          <img src="http://sudharti.github.io/images/sudharsanan.png" class="bio-photo" alt="Sudharsanan Muralidharan bio photo"></a>
+<h3>Sudharsanan Muralidharan</h3>
+<p>A Rubyist, Hacker, Blogger and Gadget Freak. Rails, Ember & Android</p>
+<a href="http://github.com/sudharti" class="author-social" target="_blank"><i class="icon-github"></i> Github</a>
+<a href="http://twitter.com/sudharshan_iyer" class="author-social" target="_blank"><i class="icon-twitter"></i> Twitter</a>
+<a href="http://linkedin.com/in/sudharsananm" class="author-social" target="_blank"><i class="icon-linkedin"></i> LinkedIn</a>
+<a href="http://facebook.com/sudharshan.muralidharan" class="author-social" target="_blank"><i class="icon-facebook"></i> Facebook</a>
+<a href="https://plus.google.com/110752291044075779531/" class="author-social" target="_blank"><i class="icon-google-plus"></i> Google+</a>
+<a href="http://instagram.com/sudhar_ti" class="author-social" target="_blank"><i class="icon-instagram"></i> Instagram</a>
+
+
+        </div>
+        <p class="byline"><strong>Using Populator and Faker in Rails</strong> was published on <time datetime="2014-01-18T00:00:00-06:00" itemprop="datePublished">January 18, 2014</time> and last modified on <time datetime="2014-01-18" itemprop="dateModified">January 18, 2014</time> by <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><a href="http://sudharti.github.io/about" title="About Sudharsanan Muralidharan" itemprop="url">Sudharsanan Muralidharan</a></span></span>.</p>
+      </footer>
+      <div id="disqus_thread"></div>
+          <script type="text/javascript">
+              /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+              var disqus_shortname = 'sudhartigithubio'; // required: replace example with your forum shortname
+
+              /* * * DON'T EDIT BELOW THIS LINE * * */
+              (function() {
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+              })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+          <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </script>
+      </div>
+    </div><!-- /.article-wrap -->
+  </article>
+</div><!-- /#main -->
+
+<div class="footer-wrap">
+  <div class="related-articles">
+  <h4>You might also enjoy <small class="pull-right">(<a href="http://sudharti.github.io/articles">View all articles</a>)</small></h4>
+    <ul>
+    
+      
+      
+        
+          
+        
+      
+      
+      <li><a href="http://sudharti.github.io/articles/ember-todo-firebase" title="Building a Todo app using Ember.js & Firebase">Building a Todo app using Ember.js & Firebase</a></li>
+      
+    
+      
+      
+        
+          
+        
+      
+      
+      <li><a href="http://sudharti.github.io/articles/user-authentication-from-scratch-rails-3" title="User Authentication in Rails - Part 3">User Authentication in Rails - Part 3</a></li>
+      
+    
+      
+      
+        
+          
+        
+      
+      
+      <li><a href="http://sudharti.github.io/articles/user-authentication-from-scratch-rails-2" title="User Authentication in Rails - Part 2">User Authentication in Rails - Part 2</a></li>
+      
+    
+    </ul>
+    <hr />
+  </div><!-- /.related-articles -->
+  <footer>
+    <span>&copy; 2015 Sudharsanan Muralidharan. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">Minimal Mistakes</a> theme.</span>
+
+  </footer>
+</div><!-- /.footer-wrap -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="http://sudharti.github.io/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="http://sudharti.github.io/assets/js/scripts.min.js"></script>
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  var _gaq = _gaq || [];
+  var pluginUrl = 
+ '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+  _gaq.push(['_setAccount', 'UA-47230802-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+	        
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+создадим ленту новостей. или список документов
+
+=======================
+генерируем модель и миграцию:
+rails generate model Document title:string text:text 
+
+запускаем миграцию:
+rake db:migrate
+
+=======================
+создаём контроллер с экшеном index:
+rails generate controller documents index
+
+class DocumentsController < ApplicationController
+  def index
+  	@documents = Document.all.order(created_at: :desc)
+  end
+end
+
+
+=======================
+прописываем роуты:
+  get "documents/index"
+
+=======================
+формируем шаблон:
+<h2>Listing documents</h2>
+ <br />
+ <br />
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Text</th>
+    <th>Author</th>
+    <th></th>
+  </tr>
+ 
+  <% @documents.each do |document| %>
+    <tr>
+      <td><%= document.title %></td>
+      <td><%= truncate(strip_tags(document.text), length: 80)    %></td>
+      <td><%= document.author %></td>
+      <td>
+
+      	<%= link_to 'Read more', controller: "documents", action: "show", id: document %>
+
+
+    </tr>
+  <% end %>
+</table>
+
+=======================
+ручками прописываем экшен show в контроллере DocumentsController:
+  def show
+  	@document = Document.find(params[:id])
+  end  
+
+=======================
+прописываем роуты:
+  get "documents/show"
+  get "(documents/show/:id)"  => "documents#show"
+
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <title>Комфортное управление пакетами в Ruby</title>
+  <meta name="description" content="Настройка RVM для гибкого управления пакетами в ruby.">
+  <meta charset="utf-8">
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="initial-scale=1.0, width=device-width">
+  <link rel="icon" href="http://www.unix-lab.org/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="http://www.unix-lab.org/favicon.ico" type="image/x-icon">
+  <link href="http://www.unix-lab.org/styles/main.css?ver=4.1.5" rel="stylesheet">
+  <link rel="alternate" type="application/atom+xml" title="unix-lab.org" href="http://www.unix-lab.org/feeds/atom.xml">
+  <link rel="alternate" type="application/rss+xml" title="unix-lab.org"  href="http://www.unix-lab.org/feeds/rss.xml">
+</head>
+<body>
+<div id="shadow"></div>
+<div class="container">
+  <form action="http://www.google.ru" class="search" target="_blank">
+    <div class="field">
+      <input type="hidden" name="cx" value="partner-pub-0274826855760565:5519237508" />
+      <input type="hidden" name="ie" value="UTF-8" />
+      <input type="text" class="input-search" id="input-search" name="q" pattern=".{1,}" required>
+      <label for="input-search">Search</label>
+    </div>
+  </form>
+</div>
+  <header role="banner" class="main-header content-wrapper">
+  <input type="checkbox" id="menu-checkbox" />
+  <nav role="navigation" class="center-wrapper nav-main">
+    <a href="/archive/">Публикации</a>
+    <a class="blog-logo" href="http://www.unix-lab.org" tabindex="1" rel="canonical">unix-lab</a>
+    <a href="/about/">О блоге</a>
+    <a href="http://google.ru" id="search" target="_blank">Поиск</a>
+    <label for="menu-checkbox" class="toggle-button" data-open="☰" data-close="☰" onclick></label>
+  </nav>
+</header>
+
+  
+  
+  
+  
+  
+    <aside class="sidebar" role="note">
+  
+    <div class="cover">
+      <div class="cover-text">
+        <div class="heading"><a rel="nofollow" href="/tags/ruby.html">ruby</a> </div>
+        <p>Настройка RVM для гибкого управления пакетами в ruby.</p>
+      </div>
+    </div>
+    <div id="switcher"></div>
+    </aside>
+  
+  <main class="content-wrapper">
+  <article>
+    <h1>Комфортное управление пакетами в Ruby</h1>
+    <div class="post-meta">redVi, 12 ноября 2013</div>
+
+<p>RVM &mdash; Ruby Version Manager (менеджер управления пакетами в ruby)
+сослужит хорошую службу в тех частых ситуациях, когда вам может потребоваться
+запуск нескольких версий ruby на одной машине или же нескольких проектов с разными
+наборами gem&#39;ов для них. Чем-то напоминает <a href="/posts/virtualenv/">virtualenv</a>,
+если сравнивать с аналогичным приложением для python.</p>
+
+<p>Данный пост предположительно рассчитан на новоиспечённых рубистов и п
+редназначен для облегчения и в какой-то мере даже автоматизации их труда.</p>
+
+<p><em>Что такое gem?</em></p>
+
+<p>Gem (драгоценный камень, жемчужина) &mdash; пакет ruby, предоставляющий
+какую-то функциональность. Например, библиотека <code>redcarpet</code>, доступная в
+виде gem&#39;а, обеспечивает поддержку markdown.</p>
+
+<p><em>Что такое gemset?</em></p>
+
+<p>Gemset (set: набор, комплект) &mdash; набор gem&#39;ов.</p>
+
+<h3 id="Установка-rvm">Установка RVM</h3>
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="se">\c</span>url -L https://get.rvm.io <span class="p">|</span> bash
+<span class="go">Downloading RVM branch master</span>
+<span class="gp">%</span> Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+<span class="go">                              Dload  Upload   Total   Spent    Left  Speed</span>
+<span class="go">100   124  100   124    0     0    107      0  0:00:01  0:00:01 --:--:--   120</span>
+<span class="go">100 1084k  100 1084k    0     0   234k      0  0:00:04  0:00:04 --:--:--  458k</span>
+<span class="go">* To start using RVM you need to run `source /home/user/.rvm/scripts/rvm`</span>
+</code></pre></div>
+<p>Перезапускаем консоль и убеждаемся в том, что <code>rvm</code> был успешно установлен:</p>
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> rvm -v
+<span class="go">rvm 1.23.13</span>
+</code></pre></div>
+<p>Дальше любопытно было бы просмотреть список доступных для установки и уже установленных пакетов ruby.</p>
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> rvm list known <span class="c"># просмотреть все доступные для установки версии Ruby</span>
+<span class="gp">$</span> rvm list       <span class="c"># все установленные версии Ruby</span>
+<span class="go">rvm rubies</span>
+<span class="go">=* ruby-1.9.3-p448 [ x86_64 ]</span>
+<span class="gp">#</span> <span class="o">=</span>&gt; - current - текущая версия
+<span class="gp">#</span> <span class="o">=</span>* - current <span class="o">&amp;&amp;</span> default - текущая и спользуется по-умолчанию
+<span class="gp">#</span>  * - default - используемая по-умолчанию версия
+</code></pre></div>
+<h3 id="Использование-разных-версий-ruby-и-gemset&#39;ы">Использование разных версий ruby и gemset&#39;ы</h3>
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">source</span> ~/.rvm/scripts/rvm <span class="c"># активировать rvm</span>
+<span class="gp">$</span> rvm install 1.9.3 <span class="c"># установить несколько версий ruby</span>
+<span class="gp">$</span> rvm install 2.0.0
+<span class="gp">$</span> rvm use ruby-2.0.0-p247 --default <span class="c"># переключиться на ruby 2 и использовать v2 по-умолчанию</span>
+<span class="gp">$</span> rvm list
+<span class="go">   ruby-1.9.3-p448 [ x86_64 ]</span>
+<span class="go">=* ruby-2.0.0-p247 [ x86_64 ]</span>
+
+<span class="gp">#</span> <span class="o">=</span>&gt; - <span class="nv">current</span>
+<span class="gp">#</span> <span class="o">=</span>* - current <span class="o">&amp;&amp;</span> default
+<span class="gp">#</span>  * - default
+</code></pre></div>
+<p>Для примера создадим gemset <code>jekyll</code>, где будут собраны все нужные одноимённому генератору статических страниц gem&#39;ы.</p>
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">source</span> ~/.rvm/scripts/rvm <span class="c"># «включаем» rvm</span>
+<span class="gp">$</span> rvm use 1.9.3@jekyll --create <span class="c"># создать gemset</span>
+<span class="gp">$</span> rvm use 1.9.3@jekyll --default <span class="c"># выбирать его по-умолчанию</span>
+<span class="gp">$</span> gem install jekyll jekyll-tagging i18n <span class="c"># установка gem&#39;ов</span>
+<span class="gp">$</span> gem list <span class="c"># просмотр установленных в выбранном gemset&#39;е gem&#39;ов</span>
+<span class="go">i18n (0.6.5)</span>
+<span class="go">jekyll (1.2.1)</span>
+<span class="go">jekyll-tagging (0.5.0)</span>
+<span class="go">liquid (2.5.3)</span>
+<span class="go">maruku (0.7.0)</span>
+</code></pre></div>
+<p>Gemset&#39;ы создаются для определённой версии ruby. Так, при переключении с одной версии на другую вы будете всегда видеть разный набор gemset&#39;ов: отображаются они также лишь для своей версии.</p>
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> rvm gemset list <span class="c"># набор gemset&#39;ов для ruby2</span>
+
+<span class="go">gemsets for ruby-2.0.0-p247</span>
+<span class="go">   (default)</span>
+<span class="go">=&gt; example</span>
+<span class="go">   global</span>
+
+<span class="gp">$</span> <span class="nb">cd </span>workspace/jekyll <span class="c"># переход в директорию проекта, где используется ruby1.9</span>
+<span class="gp">$</span> rvm gemset list     <span class="c"># набор gemset&#39;ов для ruby1.9</span>
+
+<span class="go">gemsets for ruby-1.9.3-p448</span>
+<span class="go">   (default)</span>
+<span class="go">   global</span>
+<span class="go">=&gt; jekyll</span>
+</code></pre></div>
+<p>Но здесь мы забежали чуть вперёд. Дело в том, что при переходе в директорию проекта, автоматически меняется версия ruby и набор gemset&#39;ов, о чём речь пойдёт чуть ниже.</p>
+
+<p>Gemset&#39;ы можно удалять(delete), очищать(), экспортировать(export) и импортировать(import) gem&#39;ы из одного в gemset&#39;a в другой. Наиболее часто используемые действия отражены в данной ниже таблице.</p>
+
+<table><thead>
+<tr>
+<th>команда</th>
+<th>описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>rvm gemset create</td>
+<td>создать новый gemset</td>
+</tr>
+<tr>
+<td>rvm gemset export new.gems</td>
+<td>экспорт списка gem&#39;ов в файл new.gems</td>
+</tr>
+<tr>
+<td>rvm gemset import new.gems</td>
+<td>импорт в текущий gemset списка gem&#39;ов из файла new.gems</td>
+</tr>
+<tr>
+<td>rvm gemset delete</td>
+<td>удалить gemset</td>
+</tr>
+<tr>
+<td>rvm gemset empty</td>
+<td>очистить gemset</td>
+</tr>
+<tr>
+<td>rvm gemset delete example &ndash;force</td>
+<td>полностью удалить gemset example</td>
+</tr>
+<tr>
+<td>rvmreset</td>
+<td>перезагрузка RVM</td>
+</tr>
+<tr>
+<td>rvm uninstall</td>
+<td>удалить версию Ruby, оставить исходники</td>
+</tr>
+<tr>
+<td>rvm implode</td>
+<td>полностью удалить RVM!</td>
+</tr>
+<tr>
+<td>rvm list known</td>
+<td>получить список всех версий ruby доступных для установки</td>
+</tr>
+<tr>
+<td>rvm list</td>
+<td>отобразить список установленных версий ruby</td>
+</tr>
+<tr>
+<td>rvm gemset list</td>
+<td>просмотреть список gemset&#39;ов в выбранной версии ruby</td>
+</tr>
+<tr>
+<td>rvm install 1.9.3</td>
+<td>установить ruby версии 1.9.3</td>
+</tr>
+<tr>
+<td>rvm remove 1.9.3</td>
+<td>удалить ruby версии 1.9.3</td>
+</tr>
+<tr>
+<td>rvm use 1.9.3</td>
+<td>переключиться на ruby версии 1.9.3</td>
+</tr>
+<tr>
+<td>rvm use 1.9.3@jekyll &ndash;default</td>
+<td>использовать версию ruby 1.9.3 c gemset jekyll по умолчанию</td>
+</tr>
+<tr>
+<td>rvm use system</td>
+<td>использовать системную версию ruby</td>
+</tr>
+</tbody></table>
+
+<h3 id="Создание-отдельного-окружения-для-проекта">Создание отдельного окружения для проекта</h3>
+
+<p>Бывают случаи, когда необходимо не просто использовать разные версии ruby, но и разные версии gemset&#39;ов для разных проектов. В этом посильную помощь может оказать создание своего окружения для каждого из проектов.</p>
+
+<p>В примере выше мы создали gemset <code>jekyll</code>, который использует версию ruby 1.9.3 и собственный набор gem&#39;ов. Теперь у нас имеется два пути для работы с ним.</p>
+
+<p><em>Переключение между gemset&#39;ами</em></p>
+
+<p>Во-первых, можно переключаться между gemsets при необходимости.</p>
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> rvm gemset use global
+<span class="gp">$</span> rvm gemset use jekyll
+</code></pre></div>
+<p><em>Окружение?</em></p>
+
+<p>Но зачастую быстрее один раз внести необходимые настройки. Для этого следует создать два файла в каталоге с проектом: <code>.ruby-gemset</code> и <code>.ruby-version</code>, куда и поместить информацию об используемом в проекте gemset&#39;е и версии ruby соответственно.</p>
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> cat ~/workspace/jekyll/.ruby-gemset
+<span class="go">jekyll</span>
+<span class="gp">$</span> cat ~/workspace/jekyll/.ruby-version
+<span class="go">ruby-1.9.3-p448</span>
+</code></pre></div>
+<p>Теперь достаточно просто зайти в директорию проекта, и нужные нам параметры будут установлены автоматически.</p>
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">cd </span>workspace/jekyll
+<span class="gp">$</span> rvm list
+
+<span class="go">=&gt; ruby-1.9.3-p448 [ x86_64 ]</span>
+<span class="go"> * ruby-2.0.0-p247 [ x86_64 ]</span>
+
+<span class="gp">#</span> <span class="o">=</span>&gt; - <span class="nv">current</span>
+<span class="gp">#</span> <span class="o">=</span>* - current <span class="o">&amp;&amp;</span> default
+<span class="gp">#</span>  * - default
+</code></pre></div>
+<p>То есть, если вы использовали версию ruby 2, после перехода в каталог с проектом, она автоматически изменится на версию, указанную в <code>.ruby-version</code>, что достаточно удобно.</p>
+
+<section class="share-buttons">
+  <a rel="nofollow" target="_blank" href="http://vk.com/share.php?url=http://www.unix-lab.org//posts/ruby-rvm" title="vkontakte"><i class="icon icon-vkontakte"></i></a>
+  <a rel="nofollow" target="_blank" href="https://plus.google.com/share?url=http://www.unix-lab.org//posts/ruby-rvm" title="google plus"><i class="icon icon-gplus"></i></a>
+  <a rel="nofollow" target="_blank" href="http://www.facebook.com/sharer.php?u=http://www.unix-lab.org//posts/ruby-rvm" title="facebook"><i class="icon icon-facebook"></i></a>
+  <a rel="nofollow" target="_blank" href="http://twitter.com/share?text=http://www.unix-lab.org//posts/ruby-rvm" title="twitter"><i class="icon icon-twitter"></i></a>
+</section>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- unixlab-after-post -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-0274826855760565"
+     data-ad-slot="7942161106"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'unixlab'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript><small><i>Совет: для отображения формы комментариев включите Java Script</i></small></noscript>
+
+</article>
+
+  </main>
+  <footer role="contentinfo" class="content-wrapper">
+    <p>&copy; 2011-2015 unix-lab.org</p>
+</footer>
+<script src="http://www.unix-lab.org/js/scripts.min.js" async defer></script>
+<script src="http://www.unix-lab.org/js/statistic.js"></script>
+
+</body>
+</html>

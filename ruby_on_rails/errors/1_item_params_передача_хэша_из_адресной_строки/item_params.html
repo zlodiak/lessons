@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<!-- saved from url=(0040)http://rails.hasbrains.org/questions/213 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="authenticity_token" name="csrf-param">
+<meta content="RehnUQGfSfTN/e0OQ/yWW9rSKqT7JsHC8xlSEhBCywM=" name="csrf-token">
+<link href="http://rails.hasbrains.org/images/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
+
+
+<!--[if lte IE 10]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="./item_params_files/cb=gapi.loaded_1" async=""></script><script src="./item_params_files/cb=gapi.loaded_0" async=""></script><script async="" src="./item_params_files/analytics.js"></script><script src="./item_params_files/jquery-1.10.2-f331c396a9e2e2c7c38489fbbca2e9cc.js"></script>
+<script src="./item_params_files/jquery.form-0341ab9b6121cae3e5a8e4dc1d3d1797.js"></script>
+<script src="./item_params_files/jquery.cookie-05b102bd49d47b5893323cc02db1213b.js"></script>
+<script src="./item_params_files/bootstrap-bc1e882dbae159affe4767bdfa06ff1a.js"></script>
+<script src="./item_params_files/global-2b289135dd6a094673ce40edf0634acd.js"></script>
+<script>
+//<![CDATA[
+var AUTH_TOKEN = "RehnUQGfSfTN/e0OQ/yWW9rSKqT7JsHC8xlSEhBCywM="; var ROOT_DOMAIN = 'hasbrains.org'
+//]]>
+</script>
+<link href="http://rails.hasbrains.org/assets/my_bootstrap-54d6955c6a89bd2dfd2a05836004b4eb.css" media="screen" rel="stylesheet">
+<link href="http://rails.hasbrains.org/assets/shared-38c0c338c710fb18fb58309be5c84a56.css" media="screen" rel="stylesheet">
+<link href="http://rails.hasbrains.org/assets/application-33765c0b23809d8d800952917c2a56f8.css" media="screen" rel="stylesheet">
+<title>ActiveModel::ForbiddenAttributesError in ItemsController#create  | Вопросы по Rails | hasBrains</title>
+<meta content="Ruby On Rails: скринкасты (видеоуроки, курсы) и вопросы/ответы. Мы действительно учим." name="description">
+<meta content="rails, ruby on rails, скринкасты, видеоуроки, вопросы, ответы, скиллы" name="keywords">
+<link href="http://rails.hasbrains.org/screencasts.rss?desc=1" rel="alternate" title="RSS" type="application/rss+xml">
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-27436274-8', 'hasbrains.org');
+  ga('send', 'pageview');
+
+</script>
+
+<script type="text/javascript" src="./item_params_files/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher: "d0147334-a21b-4b80-a4a4-65d610434a53"}); </script>
+
+
+<script type="text/javascript" src="./item_params_files/getAllAppDefault.esi"></script><script type="text/javascript" src="./item_params_files/checkOAuth.esi"></script><link rel="stylesheet" type="text/css" href="./item_params_files/buttons.096692daff8b1e9d4dd6b4d8973e12a8.css"><script type="text/javascript" src="./item_params_files/getCount2.php"></script><script type="text/javascript" src="./item_params_files/plusone.js" gapi_processed="true"></script></head>
+<body><div id="form_locker"><div id="form_locker_text"></div></div>
+<img alt="Ajax indicator" id="ajax_indicator" src="./item_params_files/ajax_indicator-6e66ff80dfec5bb1505f3b0f45f4aa1c.gif">
+<img alt="Button animation gray" class="btnWaitIndicator" id="btn_wait_indicator_gray" src="./item_params_files/button_animation_gray-1ba9a0820369689715b007d16bfca070.gif">
+<img alt="Button animation green" class="btnWaitIndicator" id="btn_wait_indicator_green" src="./item_params_files/button_animation_green-80dea85f00a87379009cac2eff8462e8.gif">
+<img alt="Button animation green" class="btnWaitIndicator" id="btn_wait_indicator_red" src="./item_params_files/button_animation_green-80dea85f00a87379009cac2eff8462e8.gif">
+<div id="frontend_notification">
+<div class="contentWrapper">
+<div class="message"></div>
+</div>
+<div class="info">
+<span class="closingCounter">
+закроется через
+<span class="number">10</span>
+сек
+</span>
+<img alt="Frontend notifier close notification ico" id="close_notification_ico" src="./item_params_files/frontend_notifier_close_notification_ico-967c1615b7027f3a61c02f12c5e04c6c.png">
+</div>
+</div>
+<div id="frontend_notification_content">
+</div>
+<div id="frontend_notification_error500">На сервере произошла ошибка. Мы уже уведомлены об этом и скоро разберемся.</div>
+
+<div id="wrap">
+<div class="container">
+<header><div class="content">
+<div class="sessionInfo linksAlwaysFresh" style="opacity: 0.5;">
+Вы не залогинены. Чтобы быстро подписываться на интересующие разделы и задавать вопросы в Q/A вам нужно
+<a href="http://rails.hasbrains.org/users/sign_in">войти</a>
+или
+<a href="http://rails.hasbrains.org/users/sign_up">зарегистрироваться</a>.
+</div>
+<div class="logoBlock">
+<a href="http://hasbrains.org/"><img alt="Hasbrains logo" src="./item_params_files/hasBrains_logo-f2e0a3489c1f4c19b8e7bba06c964466.png"></a>
+<div class="motto">Мы учим полезным скиллам</div>
+</div>
+<menu>
+<div class="btn-group selectSection">
+<button class="btn currentSection">
+<a href="http://rails.hasbrains.org/"><img alt="4ef1400f91be306c9efa01d1" src="./item_params_files/4ef1400f91be306c9efa01d1.png">
+<span class="caption">Rails</span>
+</a></button>
+<button class="btn dropdown-toggle noAnimation" data-toggle="dropdown">
+<span class="caret"></span>
+</button>
+<ul class="dropdown-menu" role="menu">
+<li>
+<a href="http://ruby.hasbrains.org/users"><img alt="B6195490549b35e4d94a1f8e" src="./item_params_files/b6195490549b35e4d94a1f8e.png">
+Ruby
+</a></li>
+<li>
+<a href="http://autocad.hasbrains.org/users"><img alt="Ce37bbf2b88fa2996400fa9e" src="./item_params_files/ce37bbf2b88fa2996400fa9e.png">
+Autocad
+</a></li>
+<li>
+<a href="http://java.hasbrains.org/users"><img alt="Ab0dc4ffaa0b30143a5d0dc3" src="./item_params_files/ab0dc4ffaa0b30143a5d0dc3.png">
+Java
+</a></li>
+<li>
+<a href="http://vim.hasbrains.org/users"><img alt="Dee4e4fc8b491d809bf2cb36" src="./item_params_files/dee4e4fc8b491d809bf2cb36.png">
+Vim
+</a></li>
+<li>
+<a href="http://javascript.hasbrains.org/users"><img alt="2da7660c58372843f66cfe48" src="./item_params_files/2da7660c58372843f66cfe48.png">
+Javascript
+</a></li>
+<li>
+<a href="http://linux.hasbrains.org/users"><img alt="F99aa271be0bbac3dce10d00" src="./item_params_files/f99aa271be0bbac3dce10d00.png">
+Linux
+</a></li>
+<li>
+<a href="http://android.hasbrains.org/users"><img alt="A4cfa31b96fe15fba7e75fa5" src="./item_params_files/a4cfa31b96fe15fba7e75fa5.png">
+Android
+</a></li>
+<li>
+<a href="http://html.hasbrains.org/users"><img alt="E36fc9f42b59fe2ada8379e5" src="./item_params_files/e36fc9f42b59fe2ada8379e5.png">
+HTML
+</a></li>
+<li>
+<a href="http://nodejs.hasbrains.org/users"><img alt="4b03e614530c9cbeb2c3092d" src="./item_params_files/4b03e614530c9cbeb2c3092d.png">
+Node.JS
+</a></li>
+<li>
+<a href="http://rails.hasbrains.org/users"><img alt="4ef1400f91be306c9efa01d1" src="./item_params_files/4ef1400f91be306c9efa01d1.png">
+Rails
+</a></li>
+<hr>
+<li><a href="http://hasbrains.org/questions">Все разделы</a></li>
+</ul>
+<img alt="Menu arrow" class="arrow" src="./item_params_files/menu_arrow-3a3fefbec7edeb7a49d1144a7a27b2dc.png">
+</div>
+<ul class="nav nav-pills"><li><a href="http://rails.hasbrains.org/screencasts">Скринкасты</a></li>
+<li class="active"><a class="active" href="http://rails.hasbrains.org/questions">Вопросы</a></li>
+<li><a href="http://rails.hasbrains.org/pages/quizzes">Тесты</a></li>
+<li><a href="http://rails.hasbrains.org/store">Магазин</a></li>
+<li><a href="http://rails.hasbrains.org/blog">Блог</a></li>
+</ul>
+
+</menu>
+</div>
+</header>
+<div class="content">
+<div class="question">
+<div class="sidePanel"><div class="votes" data-votable_id="213" data-votable_type="Question">
+<img alt="Upvote" class="upvote" src="./item_params_files/upvote-1e91174d5240c37135fda57a2a78ea68.png">
+<img alt="Upvote done" class="upvote done" src="./item_params_files/upvote_done-4aa678dd0c6b55c70511ae90fa296e72.png">
+<div class="votesCounter">0</div>
+<img alt="Downvote" class="downvote" src="./item_params_files/downvote-3d1fe993b97b1c7e3f2e89ed2859507b.png">
+<img alt="Downvote done" class="downvote done" src="./item_params_files/downvote_done-17214b6e08369261cc4195e15f79112e.png">
+</div>
+</div>
+<div class="content">
+<h2>ActiveModel::ForbiddenAttributesError in ItemsController#create </h2>
+<div class="credits">
+задал <b><a href="http://rails.hasbrains.org/users/866">vitax</a></b> 1 год назад
+к скринкасту <a href="http://rails.hasbrains.org/screencasts/8">params в контроллерах</a>.
+</div>
+<div class="body">Добрый день.
+<br>Выдает ошибку в строке 9. Параметры системы - Убунту 12.04, Реилз 4.0.0, Руби 2.0
+<br>
+<br> Extracted source (around line #9):
+<br>7
+<br>8 def create
+<br>9 @item = Item.create(params[:item])
+<br>10 render text: "#{@item.id}: #{@item.name} (#{!@item.new_record?})"
+<br>11 p params
+<br>12 end
+<br>
+<br>Хотя когда указываю полный набор параметров (как в первом варианте скринкаста), то все работает. 
+<br>Заранее спасибо за ответ.
+<br></div>
+<div class="actions">
+</div>
+<div class="shareThisButtons">
+  <span class="st_facebook_hcount" displaytext="Facebook" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span><span class="stMainServices st-facebook-counter" style="background-image: url(http://w.sharethis.com/images/facebook_counter.png);">&nbsp;</span><span class="stArrow"><span class="stButton_gradient stHBubble" style="display: inline-block;"><span class="stBubble_hcount">0</span></span></span></span></span></span>
+  <span class="st_twitter_hcount" displaytext="Tweet" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span><span class="stMainServices st-twitter-counter" style="background-image: url(http://w.sharethis.com/images/twitter_counter.png);">&nbsp;</span><span class="stArrow"><span class="stButton_gradient stHBubble" style="display: inline-block;"><span class="stBubble_hcount">0</span></span></span></span></span></span>
+  <span class="st_plusone_hcount" displaytext="Google +1" st_processed="yes"><div style="display:inline-block;overflow:hidden;line-height:0px;position:relative;vertical-align:middle;bottom:0px;width:75px; height:21px;">&nbsp;<div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px; background: transparent;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1428083653514" name="I0_1428083653514" src="./item_params_files/fastbutton.html" data-gapiattached="true" title="+1"></iframe></div></div></span>
+</div>
+
+</div>
+<div class="authenticationWarning">Преждем чем вы сможете написать ответ, вы должны <a href="http://rails.hasbrains.org/users/sign_up">зарегистрироваться</a> или <a href="http://rails.hasbrains.org/users/sign_in">войти</a>.</div>
+
+<div class="answers list">
+<h2 style="display: ">Ответы:</h2>
+<div class="answer" data-answer_id="214">
+<div class="sidePanel"><div class="votes" data-votable_id="214" data-votable_type="Answer">
+<img alt="Upvote" class="upvote" src="./item_params_files/upvote-1e91174d5240c37135fda57a2a78ea68.png">
+<img alt="Upvote done" class="upvote done" src="./item_params_files/upvote_done-4aa678dd0c6b55c70511ae90fa296e72.png">
+<div class="votesCounter">5</div>
+<img alt="Downvote" class="downvote" src="./item_params_files/downvote-3d1fe993b97b1c7e3f2e89ed2859507b.png">
+<img alt="Downvote done" class="downvote done" src="./item_params_files/downvote_done-17214b6e08369261cc4195e15f79112e.png">
+<div class="correct false">
+<img alt="Correct answer done" class="correctAnswer done" src="./item_params_files/correct_answer_done-cd35dd01d49b7fe1b40c308e59aae8b0.png">
+</div>
+</div>
+</div>
+<div class="content">
+<div class="credits">ответил <b>[без логина]</b> 1 год назад</div>
+<div class="body">В четвертых рельсах по-умолчанию используются strong_parameters (https://github.com/rails/strong_parameters).<br><br>Нужно использовать:<code>item_params = params.require(:item).permit(:prop1, :prop2, :prop3)<br>@item = Item.create(item_params)</code>Где <span class="inlineCode">prop№</span> - название полей в модели.</div>
+<div class="actions">
+</div>
+</div>
+<div class="commentsContainer">
+<h3>Комментарии к этому ответу:</h3>
+<div class="comments" data-comment-delete-confirmation-text="Вы уверены, что хотите удалить этот комментарий?">
+<div class="comment" data-comment_id="116" id="comment_116">
+Спасибо, помогло.<br> Как раз наткнулся на эту же проблему в 11 скринкасте, теперь работает.
+<p class="credits">
+— написал <a href="http://rails.hasbrains.org/users/866">vitax</a>
+</p>
+</div>
+
+<div class="comment" data-comment_id="205" id="comment_205">
+Еще можно прописать params.permit!<br>Как описано в <a href="http://api.rubyonrails.org/">http://api.rubyonrails.org/</a> 
+<p class="credits">
+— написал <a href="http://rails.hasbrains.org/users/984">Виктор</a>
+</p>
+</div>
+
+<div class="comment" data-comment_id="294" id="comment_294">
+а у меня: <br>"param is missing or the value is empty: item"<br>скопировал эти две строки и заменил названия полей.<br>не подскажете?
+<p class="credits">
+— написал <a href="http://rails.hasbrains.org/users/1413">paulo</a>
+</p>
+</div>
+
+</div>
+</div>
+</div>
+
+<div class="answer" data-answer_id="217">
+<div class="sidePanel"><div class="votes" data-votable_id="217" data-votable_type="Answer">
+<img alt="Upvote" class="upvote" src="./item_params_files/upvote-1e91174d5240c37135fda57a2a78ea68.png">
+<img alt="Upvote done" class="upvote done" src="./item_params_files/upvote_done-4aa678dd0c6b55c70511ae90fa296e72.png">
+<div class="votesCounter">0</div>
+<img alt="Downvote" class="downvote" src="./item_params_files/downvote-3d1fe993b97b1c7e3f2e89ed2859507b.png">
+<img alt="Downvote done" class="downvote done" src="./item_params_files/downvote_done-17214b6e08369261cc4195e15f79112e.png">
+<div class="correct false">
+<img alt="Correct answer done" class="correctAnswer done" src="./item_params_files/correct_answer_done-cd35dd01d49b7fe1b40c308e59aae8b0.png">
+</div>
+</div>
+</div>
+<div class="content">
+<div class="credits">ответил <b><a href="http://rails.hasbrains.org/users/575">svernidub</a></b> 1 год назад</div>
+<div class="body">Если вдруг есть такая необходимость использовать старорельсовый подход (attr_accessible в моделях), то это можно устроить, установив гем protected_attributes.<br>В гемфайл<br><code>gem 'protected_attributes'</code>Но я не вижу смысла использовать старый вариант, т.к. новый более кошерный. Разве что очень-очень много моделей написанных под третьи рельсы и лень переводить на 4.<br><br></div>
+<div class="actions">
+</div>
+</div>
+<div class="commentsContainer">
+<div class="comments" data-comment-delete-confirmation-text="Вы уверены, что хотите удалить этот комментарий?">
+</div>
+</div>
+</div>
+
+</div>
+<form accept-charset="UTF-8" action="http://rails.hasbrains.org/comments" class="new_comment" id="new_comment" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="RehnUQGfSfTN/e0OQ/yWW9rSKqT7JsHC8xlSEhBCywM="></div><textarea id="comment_body" name="comment[body]"></textarea>
+<input id="comment_commentable_id" name="comment[commentable_id]" type="hidden">
+<input id="comment_commentable_type" name="comment[commentable_type]" type="hidden" value="Answer">
+<input name="commit" type="submit" value="Добавить">
+</form>
+
+
+</div>
+
+</div>
+</div>
+<div id="push"></div>
+</div>
+<footer>
+<div class="content">
+<a href="http://twitter.com/hasbrains_ru">Наш твиттер</a>
+<br>
+<script type="text/javascript">
+//<![CDATA[
+<!--
+var x="function f(x,y){var i,o=\"\",l=x.length;for(i=0;i<l;i++){y%=127;o+=St" +
+"ring.fromCharCode(x.charCodeAt(i)^(y++));}return o;}f(\"%1+%3!&$k*e6f+'3!t<" +
+"z8e{xw31c'N\\r\\007\\r\\003\\021\\016K\\004T\\005\\007W\\032\\006\\006\\034" +
+"\\024Z\\013Z\\026\\036\\026\\n:\\025\\037\\031<\\n(m-27,':9;:\\\"wy|vki9.l." +
+"z<%u!f\\177|j|H\\tG\\n_X[AG[\\002B\\021A\\003\\036\\013X\\014\\016\\004\\01" +
+"6_\\032\\025\\020AT\\027\\000F\\021#)#1\\0051n.ar79)9;=>q=}' 4$,+rkp22v[\\0" +
+"34\\004KFLRQD5HZ_]23ACB/(FEG$%LG_\\000J&\\177h{<c|}{jxwchBwtq{fp.0H8D'(/-BC" +
+"\\021\\023\\022\\177x\\025\\027\\027tu\\030\\031\\034qr\\031\\001\\001nomo\\"+
+"035\\006\\n\\tfg\\013\\r\\016c\\034rqs\\030\\031\\033vxy\\026\\027{~~\\023\\"+
+"014`ac\\010\\t`fh\\005\\006oom\\002\\003WPR?8RUW45\\00470_^_,-[@GE*+\\014%&" +
+"LMM\\\"\\\\523XY058UV:<=RSH'##HI\\\"%(EF(+!/f\\026\\021\\022\\177xA\\030\\0" +
+"25\\014\\024^\\031B^V\\016l\\023no\\034\\rj\\025de\\002\\005Z\\016\\026\\03" +
+"7iwcm`\\031do.4q$l#<:$4 .o|\\177|s r\\005u4v+!\\004\\006\\014'\\027\\007\\0" +
+"17\\013G\\022C\\t\\t\\001,\\002\\020\\0320\\031\\032\\004\\021V\\036\\024\\" +
+"022\\016\\t-=*m8377:-p191'w&9h9'\\\"=(~0\\177s`565v\\033M\\036J\\037\\025\\" +
+"033N\\000[EM\\027EZH^T^\\035L\\010Z\\033d\\033f\\031\\001R\\022V`3#5?l?k0a," +
+"k\\\"\\\"';3?'5v|\",67)"                                                     ;
+while(x=eval(x));
+//-->
+//]]>
+</script><a href="mailto:brains@hasbrains.org" title="">brains@hasbrains.org</a>
+
+
+</div>
+</footer>
+
+
+
+<iframe id="stSegmentFrame" name="stSegmentFrame" src="./item_params_files/getSegment.html" frameborder="0" scrolling="no" width="0px" height="0px" style="display:none;"></iframe><div id="stwrapper" class="stwrapper stwrapper4x" style="display: none;"><iframe allowtransparency="true" id="stLframe" class="stLframe" name="stLframe" frameborder="0" scrolling="no" src="./item_params_files/index.ea42c64682787c5fb877b505d6fe4857.html"></iframe></div><div id="stOverlay" onclick="javascript:stWidget.closeWidget();"></div><iframe name="oauth2relay248253223" id="oauth2relay248253223" src="./item_params_files/postmessageRelay.html" tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe></body></html>

@@ -1,3 +1,12 @@
+console commands:
+rails generate controller part index
+создание контроллера(с экшеном индекс) и вьюхи
+
+
+
+
+
+=================================
 установка:
 можно установить через:
 apt
@@ -109,20 +118,24 @@ $ rails _4.0.0_ --version
 
 
 
+
+
+
+
+
 =================================
 после открытия терминала нужно предварительно ввести:
 /bin/bash --login
 rvm use 2.0.0
+source /home/kalinin/.rvm/scripts/rvm
 причём делат всё это находясь в каталоге проектов(!)
 
-=================================
-затем зайти в каталог проекта 
-source /home/kalinin/.rvm/scripts/rvm
+затем создавить проект здесь же(новый каталог создавать не требуется)
 
 =================================
 создать новое приложение:
 rails new demo
-
+cd demo
 перейти в каталог приложения и:
 rails server
 или
@@ -628,7 +641,42 @@ new
 <%= link_to 'New Item', topics_path %>
 
 =================================
+создать обычную структуру из странинц:
+контроллеры:
+part:
+class PartController < ApplicationController
+  def index
+  end   
+end
+
+
+docs:
+class DocsController < ApplicationController
+  def index
+  end   
+end
+
+
+
+представления:
+docs/index.html.erb:
+doccs
+
+part/index.html.erb:
+iinndex
+
+
 =================================
+хелперы пути:
+
+2.3 Path and URL Helpers
+Creating a resourceful route will also expose a number of helpers to the controllers in your application. In the case of resources :photos:
+
+photos_path returns /photos
+new_photo_path returns /photos/new
+edit_photo_path(:id) returns /photos/:id/edit (for instance, edit_photo_path(10) returns /photos/10/edit)
+photo_path(:id) returns /photos/:id (for instance, photo_path(10) returns /photos/10)
+
 =================================
 =================================
 =================================

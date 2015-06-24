@@ -1,0 +1,214 @@
+создадим сайт с админпанелью. при этом зарегистрированный пользователь может через формы добавлять странички. есть иерархия страниц. аутентификация basic
+
+важно. на каждой страничке показывается сайдбар со списком внутренних страниц одного уровня
+
+======================
+в Gemfile прописать: 
+gem 'acts_as_tree'
+
+затем bundle install
+
+======================
+rails g scaffold pages
+
+rake db:migrate
+
+при этом роут пропишется сам
+
+======================
+создадим метод, который будет проверять авторизовался ли пользователь
+
+class ApplicationController < ActionController::Base
+
+	private
+
+		def authenticate
+		  	authenticate_or_request_with_http_basic do |username, password|
+		    username == "foo" && password == "bar"
+		  end
+		end	  
+end
+
+======================
+в контроллере pages будем при помощи фильтра проверять аутентификацию пользователя:
+так же зададим layouts для каждого экшена и контроллера вообще:
+
+class PagesController < ApplicationController
+  before_filter :authenticate, only: [:new, :edit, :update, :destroy, :create]
+
+  layout 'layout_right_sidebar'
+
+  def index
+    @pages = Page.all
+  end
+
+  def show
+    
+  end
+
+  def new
+    @page = Page.new
+    render layout: "admin_panel"
+  end
+
+  def edit
+    render layout: "admin_panel"
+  end
+
+  .....................
+ end
+
+======================
+пример лейоута admin_panel.html.erb:
+
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8" />
+		
+		<title>Test</title>	
+		
+		<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+		<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+		<%= csrf_meta_tags %>		
+	</head>
+	
+	<body>		
+		<div class="wrap">				
+			<div class="" style="background: red; color: #fff; margin-bottom: 10px;">admin panel</div>
+			<div class="content">
+				<div class="content_inner width1100 clearfix">
+					<%= yield :offers %>	
+					
+					<div class="main content_format">
+						<%= yield %>
+					</div>
+				</div>
+			</div>
+			
+			<div class="footer_correct"></div>
+		</div>				
+	</body>
+</html>
+
+
+======================
+в модели page.rb пропишем подключенный ранее gem:
+
+class Page < ActiveRecord::Base
+	acts_as_tree
+end
+
+
+======================
+создадим partial _form.html.erb для добавления новых страниц:
+<%= form_for(@page) do |f| %>
+  <% if @page.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@page.errors.count, "error") %> prohibited this page from being saved:</h2>
+
+      <ul>
+      <% @page.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :parent_id %><br />  
+    <%= f.collection_select :parent_id, Page.all(:order => "name"), :id, :name, :include_blank => true %>    
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :content %><br>
+    <%= f.text_area :content %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
+теперь можно создавать страницы и дочерник страницы(через выпадающий список, указывая радителя)
+
+======================
+в шаблоне index выведем список доступных для просмотра страниц:
+
+    <% @pages.each do |page| %>
+      <tr>
+        <td><%= page.parent_id %></td>
+        <td><%= page.name %></td>
+        <td><%= page.content %></td>
+        <td><%= link_to 'Show', page %></td>
+        <td><%= link_to 'Edit', edit_page_path(page) %></td>
+        <td><%= link_to 'Destroy', page, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+      <tr>
+      <td>
+      <hr />
+      </td>
+      </tr>
+    <% end %>
+
+======================
+в шаблоне show выведем содержание конкретной страницы:
+
+title: <%= @page.name %>  
+<%= simple_format(@page.content) %>  
+<p>  
+  <%= link_to "Edit", edit_page_path(@page) %> |  
+  <%= link_to "Destroy", @page, :confirm => 'Are you sure?', :method => :delete %> |  
+  <%= link_to "View All", pages_path %>  
+</p> 
+
+<hr>
+
+<ul id="submenu">  
+  <% for page in @page.children %>  
+  <li><%= link_to h(page.name), page %></li>  
+  <% end %>  
+</ul>  
+
+======================
+создадим главную страничку админки:
+
+rails g controller admin index
+
+не забудем прописать роут:
+  get 'admin' => 'admin#index'
+
+======================
+на этой страничке поместим ссылку на форму для создания страницы:
+<div>
+	<%= link_to 'create page', new_page_path %>
+</div>
+
+
+======================
+в публичном layout выведем в виде меню страницы ыверхнего уровня(у которых нет родителя):
+<nav class="nav_top">
+	<h2 class="h2 hide">Навигация верхняя</h2>
+	<ul id="menu">  
+	  <% for page in Page.roots %>  
+	    <li><%= link_to h(page.name), page %></li>  
+	  <% end %>  
+	</ul>  	
+</nav>
+
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================

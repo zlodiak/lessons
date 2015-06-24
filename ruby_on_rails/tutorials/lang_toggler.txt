@@ -1,0 +1,51 @@
+переключатель языков
+общая идея такая. при клике на ссылку языка происходит вызов экшена и передача параметра в него, экшен меняет настройку локали и перенаправляет на главную страничку.
+
+желательно перенаправлять не на главную, а на ту же, с которой пришёл пользователь. но это трудно
+
+===============
+class PagesController < ApplicationController
+  def lang_toggle
+    if params[:locale] == 'ru'
+      p 'en'
+      I18n.locale = 'en'
+    else
+      p 'ru'
+      I18n.locale = 'ru'
+    end
+
+    # redirect_to :back
+    # redirect_to root_url
+    redirect_to proc { :back }
+  end   
+
+end
+
+
+===============
+routes:
+get 'pages/lang_toggle/:locale' => 'pages#lang_toggle', :as => :pages_lang_toggle
+
+===============
+template:
+<nav class="language_area col-xs-6">
+  <%= link_to 'Рус',  pages_lang_toggle_path(locale: 'ru'), class: 'pull-right active' %>
+  <%= link_to 'Eng',  pages_lang_toggle_path(locale: 'en'), class: 'pull-right' %>
+</nav>
+
+===============
+application.rb:
+    config.i18n.default_locale = :ru
+    config.i18n.available_locales = [:ru, :en]
+    I18n.locale = :ru
+    
+===============
+===============
+===============
+===============
+===============
+===============
+===============
+===============
+===============
+===============

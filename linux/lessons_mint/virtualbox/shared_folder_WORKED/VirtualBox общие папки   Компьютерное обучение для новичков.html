@@ -1,0 +1,1726 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru-RU">
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>VirtualBox общие папки | Компьютерное обучение для новичков</title>
+<script type="text/javascript" src="http://the-komp.ru/wp-content/themes/carpentry/script.js"></script>
+<link rel="stylesheet" href="http://the-komp.ru/wp-content/themes/carpentry/style.css" type="text/css" media="screen" />
+<!--[if IE 6]><link rel="stylesheet" href="http://the-komp.ru/wp-content/themes/carpentry/style.ie6.css" type="text/css" media="screen" /><![endif]-->
+<!--[if IE 7]><link rel="stylesheet" href="http://the-komp.ru/wp-content/themes/carpentry/style.ie7.css" type="text/css" media="screen" /><![endif]-->
+<link rel="alternate" type="application/rss+xml" title="RSS-лента Компьютерное обучение для новичков" href="http://the-komp.ru/feed" />
+<link rel="alternate" type="application/atom+xml" title="Atom-лента Компьютерное обучение для новичков" href="http://the-komp.ru/feed/atom" /> 
+<link rel="pingback" href="http://the-komp.ru/xmlrpc.php" />
+
+<link rel="alternate" type="application/rss+xml" title="Компьютерное обучение для новичков &raquo; Лента комментариев к &laquo;VirtualBox общие папки&raquo;" href="http://the-komp.ru/virtualbox-obshhie-papki.html/feed" />
+<link rel='stylesheet' id='yarppWidgetCss-css'  href='http://the-komp.ru/wp-content/plugins/yet-another-related-posts-plugin/style/widget.css?ver=4.1' type='text/css' media='all' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://the-komp.ru/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://the-komp.ru/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='VirtualBox разрешение экрана' href='http://the-komp.ru/virtualbox-razreshenie-ekrana.html' />
+<link rel='next' title='VirtualBox USB' href='http://the-komp.ru/virtualbox-usb.html' />
+<meta name="generator" content="WordPress 4.1" />
+<link rel='shortlink' href='http://the-komp.ru/?p=3180' />
+
+<!-- All in One SEO Pack 2.2.3.1 by Michael Torbert of Semper Fi Web Design[356,385] -->
+<meta name="description"  content="Гостевая ОС изолирована от &quot;внешнего мира&quot;, и если вы хотите получить доступ к каким либо файлам, для этого вам нужно будет создать общие папки." />
+
+<meta name="keywords"  content="virtualbox общие папки,virtualbox,настройки" />
+
+<link rel="canonical" href="http://the-komp.ru/virtualbox-obshhie-papki.html" />
+<!-- /all in one seo pack -->
+<link rel="shortcut icon" href="http://the-komp.ru/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+<div id="art-page-background-simple-gradient">
+    <div id="art-page-background-gradient"></div>
+</div>
+<div id="art-page-background-glare">
+    <div id="art-page-background-glare-image"></div>
+</div>
+<!--LiveInternet counter--><script type="text/javascript"><!--
+new Image().src = "//counter.yadro.ru/hit?r"+
+escape(document.referrer)+((typeof(screen)=="undefined")?"":
+";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+";h"+escape(document.title.substring(0,80))+
+";"+Math.random();//--></script><!--/LiveInternet-->
+<div id="art-main">
+<div class="art-sheet">     
+	<div class="art-sheet-tl"></div>
+    <div class="art-sheet-tr"></div>     
+	<div class="art-sheet-bl"></div>
+    <div class="art-sheet-br"></div>
+    <div class="art-sheet-tc"></div>
+    <div class="art-sheet-bc"></div>
+    <div class="art-sheet-cl"></div>
+    <div class="art-sheet-cr"></div>
+    <div class="art-sheet-cc"></div>     
+	<div class="art-sheet-body">
+<div class="art-nav">
+<!--noindex-->
+    <a href="http://feedburner.google.com/fb/a/mailverify?uri=The-komp&amp;loc=ru_RU" rel="nofollow" target="_blank" class="art-podpiska" title="Подписка на обновление по E-mail"></a>
+<!--/noindex-->
+	<a href="http://the-komp.ru/feed" target="_blank" class="art-rss-tag-icon" title="RSS"></a>
+	<!--noindex-->
+	<a href="https://twitter.com/#!/FoxSpiritFox" rel="nofollow" target="_blank" class="twitter" title="Читайте меня в Твитере"></a>
+	<!--/noindex-->
+	<div class="l"></div>	 
+	<div class="r"></div>	
+	<ul class="art-menu">
+		<li><a href="http://the-komp.ru"><span class="l"></span><span class="r"></span><span class="t">Главная</span></a></li><li class="page_item page-item-194"><a href="http://the-komp.ru/o-sajte"><span class="l"></span><span class="r"></span><span class="t">О сайте</span></a></li>
+<li class="page_item page-item-1251"><a href="http://the-komp.ru/karta-sajta"><span class="l"></span><span class="r"></span><span class="t">Карта сайта</span></a></li>
+ 
+		</ul>
+</div>
+<div class="art-header">
+    <div class="art-header-jpeg"></div>
+<div class="art-logo">
+<h1 id="name-text" class="art-logo-name">
+        <a href="http://the-komp.ru/">Компьютерное обучение для новичков</a></h1>
+    <div id="slogan-text" class="art-logo-text">
+        </div>
+		
+<div class="art-blockcontent-body-poisk">
+<!-- block-content -->
+<form method="get" name="searchform" action="http://the-komp.ru/">
+<input type="text" value="" name="s" style="width: 86%;" />
+<span class="art-button-wrapper">
+	<span class="l"> </span>
+	<span class="r"> </span>
+	<input class="art-button" type="submit" name="search" value="Поиск" />
+</span>
+</form>
+<!-- /block-content -->
+    </div>
+
+</div>
+
+</div><div class="art-content-layout">
+    <div class="art-content-layout-row">
+<div class="art-layout-cell art-content">
+
+<div class="art-post">
+    <div class="art-post-body">
+<div class="art-post-inner art-article">
+
+<div class="art-postcontent">
+    <!-- article-content -->
+
+<div class="navigation">
+	<div class="alignleft">&laquo; <a href="http://the-komp.ru/virtualbox-razreshenie-ekrana.html" rel="prev">VirtualBox разрешение экрана</a></div>
+	<div class="alignright"><a href="http://the-komp.ru/virtualbox-usb.html" rel="next">VirtualBox USB</a> &raquo;</div>
+</div>
+
+    <!-- /article-content -->
+</div>
+<div class="cleared"></div>
+
+
+</div>
+
+		<div class="cleared"></div>
+    </div>
+</div>
+
+<div class="art-post">
+    <div class="art-post-body">
+<div class="art-post-inner art-article">
+<div class="art-postmetadataheader">
+<h2 class="art-postheader">
+  <img src="http://the-komp.ru/wp-content/themes/carpentry/images/postheadericon.png" width="29" height="29" alt="postheadericon" />
+<a href="http://the-komp.ru/virtualbox-obshhie-papki.html" rel="bookmark" title="Постоянная ссылка на VirtualBox общие папки">
+VirtualBox общие папки</a>
+</h2>
+
+</div>
+<div class="art-postheadericons art-metadata-icons">
+<img class="art-metadata-icon" src="http://the-komp.ru/wp-content/themes/carpentry/images/postdateicon.png" width="17" height="18" alt="" />
+25.12.2011 | <img class="art-metadata-icon" src="http://the-komp.ru/wp-content/themes/carpentry/images/postauthoricon.png" width="14" height="14" alt="" />
+Автор: <a href="http://the-komp.ru/author/admin" title="Записи admin" rel="author">admin</a>
+</div>
+<center>
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-6218040961270424";
+/* Перед статьёй */
+google_ad_slot = "2009997523";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+<div class="art-postcontent">
+    <!-- article-content -->
+
+          <h1 style="text-align: center;">VirtualBox создание общей папки</h1>
+<p>Установив операционную систему на виртуальную машину VirtualBox, у вас может возникнуть желание получить доступ из гостевой ОС к некоторым файлам хранящимся на вашем жестком диске. Ведь гостевая ОС изолирована от &#171;внешнего мира&#187;, и если вы хотите получить доступ к каким либо файлам, для этого вам нужно будет создать общие папки.<span id="more-3180"></span></p>
+<p>В этой статье будут рассмотрены две самые популярные системы: Windows и Ubuntu (Linux).</p>
+<p><strong>Сразу хочу предупредить вас о возможных проблемах:</strong></p>
+<p>Когда вы создадите общие папки, гостевая ОС перестанет быть изолированной. Соответственно все те вирусы и прочие вредоносные программы, которые вы &#171;приобретете&#187; в гостевой ОС, могут проникнуть в основную операционную систему.</p>
+<p>Чтобы этого не произошло, не пренебрегайте элементарными правилами безопасности, как минимум у вас должна быть установлена антивирусная программа.</p>
+<h2 style="text-align: center;"> </h2><p style="text-align: center;"><!-- Яндекс.Директ -->
+<script type="text/javascript">
+//<![CDATA[
+yandex_partner_id = 80200;
+yandex_stat_id = 456;
+yandex_site_bg_color = 'FFFFFF';
+yandex_site_charset = 'utf-8';
+yandex_ad_format = 'direct';
+yandex_font_size = 1;
+yandex_direct_type = 'flat';
+yandex_direct_limit = 1;
+yandex_direct_title_font_size = 2;
+yandex_direct_title_color = '0000CC';
+yandex_direct_url_color = '777777';
+yandex_direct_all_color = '777777';
+yandex_direct_text_color = '000000';
+yandex_direct_hover_color = '0066FF';
+yandex_direct_favicon = true;
+document.write('<sc'+'ript type="text/javascript" src="http://an.yandex.ru/system/context.js"></sc'+'ript>');
+//]]&gt;
+</script></p>
+<h2 style="text-align: center;">VirtualBox общие папки Windows</h2><p style="text-align: center;"><!-- Яндекс.Директ -->
+<script type="text/javascript">
+//<![CDATA[
+yandex_partner_id = 80200;
+yandex_stat_id = 456;
+yandex_site_bg_color = 'FFFFFF';
+yandex_site_charset = 'utf-8';
+yandex_ad_format = 'direct';
+yandex_font_size = 1;
+yandex_direct_type = 'flat';
+yandex_direct_limit = 1;
+yandex_direct_title_font_size = 2;
+yandex_direct_title_color = '0000CC';
+yandex_direct_url_color = '777777';
+yandex_direct_all_color = '777777';
+yandex_direct_text_color = '000000';
+yandex_direct_hover_color = '0066FF';
+yandex_direct_favicon = true;
+document.write('<sc'+'ript type="text/javascript" src="http://an.yandex.ru/system/context.js"></sc'+'ript>');
+//]]&gt;
+</script></p>
+<p><em>Пояснение: в качестве гостевой ОС используется Windows.</em></p>
+<p><strong>1)</strong> Установите дополнения к гостевой ОС (если они у вас еще не установлены). Как это сделать, читайте в статье «<a href="http://the-komp.ru/virtualbox-dopolneniya-gostevoj-os.html" title="VirtualBox дополнения гостевой ОС"  target="_blank">VirtualBox дополнения гостевой ОС»</a>.</p>
+<p><strong>2)</strong> Находясь в виртуальной ОС перейдите из меню VirtualBox по следующему пути:<br />Устройства\Общие папки&#8230;</p>
+<p style="text-align: center;"><img class="aligncenter size-full wp-image-3188" style="border-style: initial; border-color: initial; border-image: initial; border-width: 0px;" title="VirtualBox общие папки Windows" src="http://the-komp.ru/wp-content/uploads/2011/12/obshie-papki.jpg" alt="VirtualBox общие папки Windows" width="499" height="170" /></p>
+<p>Добавьте нужную вам папку, для этого нажмите на значок &#171;папка с плюсиком&#187; (или нажмите кнопку Insert).<br />Укажите путь к папке, имя папки будет указанно автоматически (вы можете его изменить, если хотите). Именно это имя в дальнейшем будет использоваться для подключения общей папки.</p>
+<p>Поставьте галочку &#171;Создать постоянную папку&#187;.<br />Ставить ли галочку &#171;Только для чтения&#187;, решайте сами. Если не поставите, вирусы смогут пробраться из гостевой ОС в основную. Если поставите, гостевая ОС будет лишена<br />возможности записи в эту папку.</p>
+<p style="text-align: center;"><img class="aligncenter size-full wp-image-3190" style="border-style: initial; border-color: initial; border-image: initial; border-width: 0px;" title="VirtualBox общие папки Windows" src="http://the-komp.ru/wp-content/uploads/2011/12/obshie-papki2.jpg" alt="VirtualBox общие папки Windows" width="315" height="246" /></p>
+<p>После создания общей папки, гостевую ОС необходимо перезагрузить.</p>
+<p><strong>3)</strong> Подключенную папку вы сможете найти в сетевом окружении:</p>
+<p>Сетевое окружение\Вся сеть\VirtualBox Shared Folders\Vboxsvr\</p>
+<p>Для удобства, можете создать ярлык на рабочем столе. Другой вариант, подключите сетевой диск, тогда он будет отображаться в &#171;Моем компьютере&#187;.</p>
+<ul>
+<li>Мой компьютер\Сервис\Подключить сетевой диск&#8230; (для XP).</li>
+<li>Мой компьютер\Подключить сетевой диск (для Семерки).</li>
+</ul>
+<p>Выберите любую букву диска, в поле &#171;Папка&#187; введите: \\Vboxsvr\имя вашей папки, поставьте галочку &#171;Восстанавливать при входе в систему&#187;.</p>
+<p>&nbsp;</p>
+<h2 style="text-align: center;">VirtualBox общие папки Ubuntu</h2><p style="text-align: center;"><!-- Яндекс.Директ -->
+<script type="text/javascript">
+//<![CDATA[
+yandex_partner_id = 80200;
+yandex_stat_id = 456;
+yandex_site_bg_color = 'FFFFFF';
+yandex_site_charset = 'utf-8';
+yandex_ad_format = 'direct';
+yandex_font_size = 1;
+yandex_direct_type = 'flat';
+yandex_direct_limit = 1;
+yandex_direct_title_font_size = 2;
+yandex_direct_title_color = '0000CC';
+yandex_direct_url_color = '777777';
+yandex_direct_all_color = '777777';
+yandex_direct_text_color = '000000';
+yandex_direct_hover_color = '0066FF';
+yandex_direct_favicon = true;
+document.write('<sc'+'ript type="text/javascript" src="http://an.yandex.ru/system/context.js"></sc'+'ript>');
+//]]&gt;
+</script></p>
+<p><em>Пояснение: в качестве гостевой ОС используется Ubuntu.</em></p>
+<p><strong>1)</strong> У вас должны быть установлены дополнения к гостевой ОС. Если они у вас еще не установлены, установите их, и только потом переходите к следующим пунктам. О том, как установить эти дополнения, вы можете прочесть в статье &#171;VirtualBox дополнения гостевой ОС&#187; (ссылка находится в начале данной статьи, в пункте первом).</p>
+<p><strong>2)</strong> Добавьте общую папку, через меню VirtualBox (о том, как это сделать см. выше, пункт второй). Есть только одно уточнение, при добавлении папки, в пункте &#171;Имя папки&#187;, имя должно быть прописано только английскими буквами (запомните это имя).</p>
+<p><strong>3)</strong> Запустите терминал, и введите следующую команду:</p>
+<pre>cat /etc/group | grep plugdev</pre>
+<p>У вас появится в терминале вот такая строка plugdev:x:46:. Нам нужна получившееся в результате выполнения команды цифра (46)  запомните эту цифру (у вас она скорее всего будет такая же).</p>
+<p>Открываем на редактирование файл fstab, пишем в терминале:</p>
+<pre>sudo gedit /etc/fstab</pre>
+<p>У вас будет запрошен пароль, введите его и нажмите Enter.</p>
+<p>В открывшемся файле надо будет сделать следующую запись:</p>
+<p>papka /media/papka vboxsf defaults,gid=46 0 0</p>
+<p>Добавьте эту строчку в самый конец файла. Вам нужно внести в эту запись кое какие изменения:</p>
+<ul>
+<li>Вместо papka &#8212; напишите имя своей общей папки (то самое, которое вы получили выполняя второй пункт).</li>
+<li>gid=46 &#8212; число, которое мы узнали ранее (если у вас оно другое, измените на свое).</li>
+</ul>
+<p>Не забудьте сохранить отредактированный документ.</p>
+<p> Создаем каталог под названием papka, в терминале введите следующее:</p>
+<pre>sudo mkdir /media/papka</pre>
+<p>Вместо papka напишите имя своей общей папки. Теперь надо перезагрузить гостевую ОС.</p>
+<p>Ищите созданный каталог в расположении: Файловая система/media/.</p>
+                  
+    <!-- /article-content -->
+</div>
+<p><strong><em><span style="font-size: large;">Понравилась статья? Поделитесь с друзьями!</span></em></strong></p>
+<div style="margin: auto auto auto auto;">
+<center><g:plusone count="false"></g:plusone></center>
+</div>
+<center>
+<script type="text/javascript" src="http://the-komp.ru/Download/socknopki/share42.js"></script>
+<script type="text/javascript">share42('http://the-komp.ru/Download/socknopki/')</script>
+</center>
+<div class='yarpp-related'>
+<p>С этой статьей так же читают:</p><ol>
+<li><a href="http://the-komp.ru/virtualbox-razreshenie-ekrana.html" rel="bookmark" title="VirtualBox разрешение экрана">VirtualBox разрешение экрана </a></li>
+<li><a href="http://the-komp.ru/virtualbox-usb.html" rel="bookmark" title="VirtualBox USB">VirtualBox USB </a></li>
+<li><a href="http://the-komp.ru/virtualbox-dopolneniya-gostevoj-os.html" rel="bookmark" title="VirtualBox дополнения гостевой ОС">VirtualBox дополнения гостевой ОС </a></li>
+<li><a href="http://the-komp.ru/kak-polzovatsya-virtualbox.html" rel="bookmark" title="Как пользоваться VirtualBox">Как пользоваться VirtualBox </a></li>
+<li><a href="http://the-komp.ru/peremeshhenie-sistemnyx-papok-windows-7.html" rel="bookmark" title="Перемещение системных папок Windows 7">Перемещение системных папок Windows 7 </a></li>
+</ol>
+</div>
+<center>
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-6218040961270424";
+/* После статьи */
+google_ad_slot = "5223459944";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+<div class="cleared"></div>
+<div class="art-postmetadatafooter">
+<div class="art-postfootericons art-metadata-icons">
+<img class="art-metadata-icon" src="http://the-komp.ru/wp-content/themes/carpentry/images/postcategoryicon.png" width="18" height="18" alt="" />
+Опубликовано в рубрике <a href="http://the-komp.ru/category/programmy" rel="category tag">Программы</a> | <img class="art-metadata-icon" src="http://the-komp.ru/wp-content/themes/carpentry/images/posttagicon.png" width="18" height="18" alt="" />
+Метки: <a href="http://the-komp.ru/tag/virtualbox" rel="tag">VirtualBox</a>, <a href="http://the-komp.ru/tag/nastrojki" rel="tag">настройки</a> 
+</div>
+
+</div>
+
+</div>
+
+		<div class="cleared"></div>
+    </div>
+</div>
+
+
+<!-- You can start editing here. -->
+
+
+<div class="art-post">
+    <div class="art-post-body">
+<div class="art-post-inner art-article">
+
+<div class="art-postcontent">
+    <!-- article-content -->
+
+<h3 id="comments">34 комментариев к записи &#8220;VirtualBox общие папки&#8221;</h3>
+
+
+
+    <!-- /article-content -->
+</div>
+<div class="cleared"></div>
+
+
+</div>
+
+		<div class="cleared"></div>
+    </div>
+</div>
+
+
+	<ul class="commentlist">
+       <li class="comment even thread-even depth-1" id="li-comment-1639">
+     <div id="comment-1639">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://1.gravatar.com/avatar/1593442c3a7567226db1fa79c8f004bb?s=48&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex>Юрий</noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-1639">21.01.2012- 20:49</a></div>
+
+      <p>Спасибо, создал в виртуалке Убунту, а общая папка никак не подключалась. Теперь все в порядке.</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=1639#respond' onclick='return addComment.moveForm( "comment-1639", "1639", "respond", "3180" )' aria-label='Комментарий к записи Юрий'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+<ul class="children">
+   <li class="comment byuser comment-author-admin bypostauthor odd alt depth-2" id="li-comment-1640">
+     <div id="comment-1640">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://1.gravatar.com/avatar/515ff93f720ba1d08005243d27e4baf8?s=48&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex><a href="http://the-komp.ru"  rel='external nofollow' class='url'>admin</a></noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-1640">21.01.2012- 21:46</a></div>
+
+      <p>Пожалуйста Юрий!</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=1640#respond' onclick='return addComment.moveForm( "comment-1640", "1640", "respond", "3180" )' aria-label='Комментарий к записи admin'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-1751">
+     <div id="comment-1751">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://0.gravatar.com/avatar/a779e6e5507ee835ad4a5dff4d71ce6b?s=48&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex>Max</noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-1751">31.01.2012- 16:26</a></div>
+
+      <p>Спасибо! Работает на Linux Mint.</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=1751#respond' onclick='return addComment.moveForm( "comment-1751", "1751", "respond", "3180" )' aria-label='Комментарий к записи Max'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+<ul class="children">
+   <li class="comment byuser comment-author-admin bypostauthor odd alt depth-2" id="li-comment-1753">
+     <div id="comment-1753">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://1.gravatar.com/avatar/515ff93f720ba1d08005243d27e4baf8?s=48&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex><a href="http://the-komp.ru"  rel='external nofollow' class='url'>admin</a></noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-1753">31.01.2012- 20:02</a></div>
+
+      <p>Всегда пожалуйста!</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=1753#respond' onclick='return addComment.moveForm( "comment-1753", "1753", "respond", "3180" )' aria-label='Комментарий к записи admin'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+   <li class="comment even thread-even depth-1" id="li-comment-2251">
+     <div id="comment-2251">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://0.gravatar.com/avatar/a0d43a90075f9fab12ad356a5d4a8d2b?s=48&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex>Mak</noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-2251">28.02.2012- 02:31</a></div>
+
+      <p>Здравствуйте..<br />
+при перезагрузке, гостевой ос ubuntu, пишет ошибка подключения директории, нажмите s для отмены или м для ручного исправления..<br />
+подскажите , что может быть?<br />
+после загрузки, папка создалась, но с основной ос не связанна..</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=2251#respond' onclick='return addComment.moveForm( "comment-2251", "2251", "respond", "3180" )' aria-label='Комментарий к записи Mak'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+<ul class="children">
+   <li class="comment byuser comment-author-admin bypostauthor odd alt depth-2" id="li-comment-2252">
+     <div id="comment-2252">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://1.gravatar.com/avatar/515ff93f720ba1d08005243d27e4baf8?s=48&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex><a href="http://the-komp.ru"  rel='external nofollow' class='url'>admin</a></noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-2252">28.02.2012- 04:07</a></div>
+
+      <p>Здравствуйте, значит что то сделано не правильно, или что то не сделано. Дополнение к гостевой ОС установлено? Корректно установлено?</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=2252#respond' onclick='return addComment.moveForm( "comment-2252", "2252", "respond", "3180" )' aria-label='Комментарий к записи admin'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-5183">
+     <div id="comment-5183">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://1.gravatar.com/avatar/5410a7c9e33d7ac4651b94eaa928c53d?s=48&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex>Андрей</noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-5183">04.07.2012- 13:31</a></div>
+
+      <p>Такая же проблема как и у Mak<br />
+по ходу корявая сборка Ubuntu(именно сборка, случайно скачал). попробую на оригинале.</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=5183#respond' onclick='return addComment.moveForm( "comment-5183", "5183", "respond", "3180" )' aria-label='Комментарий к записи Андрей'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+<ul class="children">
+   <li class="comment byuser comment-author-admin bypostauthor odd alt depth-2" id="li-comment-5191">
+     <div id="comment-5191">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://1.gravatar.com/avatar/515ff93f720ba1d08005243d27e4baf8?s=48&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex><a href="http://the-komp.ru"  rel='external nofollow' class='url'>admin</a></noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-5191">04.07.2012- 18:08</a></div>
+
+      <p>Возможно да, а может быть и нет&#8230;, но в любом случае стоит использовать только оригинальные дистрибутивы!</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=5191#respond' onclick='return addComment.moveForm( "comment-5191", "5191", "respond", "3180" )' aria-label='Комментарий к записи admin'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+   <li class="comment even thread-even depth-1" id="li-comment-5193">
+     <div id="comment-5193">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://1.gravatar.com/avatar/5410a7c9e33d7ac4651b94eaa928c53d?s=48&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex>Андрей</noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-5193">04.07.2012- 18:45</a></div>
+
+      <p>С оригиналом все как по нотам!<br />
+Так что можно примечание сделать что со сборками может не идти.<br />
+Спасибо!</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=5193#respond' onclick='return addComment.moveForm( "comment-5193", "5193", "respond", "3180" )' aria-label='Комментарий к записи Андрей'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+<ul class="children">
+   <li class="comment byuser comment-author-admin bypostauthor odd alt depth-2" id="li-comment-5194">
+     <div id="comment-5194">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://1.gravatar.com/avatar/515ff93f720ba1d08005243d27e4baf8?s=48&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex><a href="http://the-komp.ru"  rel='external nofollow' class='url'>admin</a></noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-5194">04.07.2012- 19:07</a></div>
+
+      <p>Пожалуйста! Со сборками вообще лучше не связываться!</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=5194#respond' onclick='return addComment.moveForm( "comment-5194", "5194", "respond", "3180" )' aria-label='Комментарий к записи admin'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-7251">
+     <div id="comment-7251">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://0.gravatar.com/avatar/45f38e6772f559c4a619207d755bb8b8?s=48&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex>Mike</noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-7251">05.09.2012- 10:29</a></div>
+
+      <p>Спасибо! Много сатей прочитал, но подключить не получалось. Только у вас нашел, что надо подключить «VirtualBox дополнения гостевой ОС».И сразу все заработало.</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=7251#respond' onclick='return addComment.moveForm( "comment-7251", "7251", "respond", "3180" )' aria-label='Комментарий к записи Mike'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+<ul class="children">
+   <li class="comment byuser comment-author-admin bypostauthor odd alt depth-2" id="li-comment-7256">
+     <div id="comment-7256">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://1.gravatar.com/avatar/515ff93f720ba1d08005243d27e4baf8?s=48&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex><a href="http://the-komp.ru"  rel='external nofollow' class='url'>admin</a></noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-7256">05.09.2012- 11:35</a></div>
+
+      <p>Пожалуйста! Имею определенный опыт работы с VirtualBox, и с радостью делюсь этими знаниями!</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=7256#respond' onclick='return addComment.moveForm( "comment-7256", "7256", "respond", "3180" )' aria-label='Комментарий к записи admin'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+   <li class="comment even thread-even depth-1" id="li-comment-8730">
+     <div id="comment-8730">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://0.gravatar.com/avatar/4383f19d110988261a3d1f6e7663aa71?s=48&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex>Игорь</noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-8730">17.10.2012- 21:19</a></div>
+
+      <p>поставил все норм кроме общей папки и драйверами для видео у меня стоит 7ка сэмулировал ХР скачал драйвера для видео карты с оф сайта при установке в эмулированой ОС пишет не найдено совместимых устройств как быть?</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=8730#respond' onclick='return addComment.moveForm( "comment-8730", "8730", "respond", "3180" )' aria-label='Комментарий к записи Игорь'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+<ul class="children">
+   <li class="comment byuser comment-author-admin bypostauthor odd alt depth-2" id="li-comment-8734">
+     <div id="comment-8734">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://1.gravatar.com/avatar/515ff93f720ba1d08005243d27e4baf8?s=48&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex><a href="http://the-komp.ru"  rel='external nofollow' class='url'>admin</a></noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-8734">17.10.2012- 22:57</a></div>
+
+      <p>Вы пытаетесь на виртуальную ОС поставить скачанные драйвера? Это не правильно, они и не будут устанавливаться!<br />
+Вам нужно установить гостевые дополнения (это по сути и есть драйвера для гостевой ОС). На данном сайте есть отдельная статья про это (посмотрите ссылки после статьи).</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=8734#respond' onclick='return addComment.moveForm( "comment-8734", "8734", "respond", "3180" )' aria-label='Комментарий к записи admin'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-8905">
+     <div id="comment-8905">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://1.gravatar.com/avatar/5be1d0fc5cc5e8c7f54e3132efee68d1?s=48&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex>adsorores</noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-8905">21.10.2012- 06:37</a></div>
+
+      <p>Подскажите, как убрать каталог, созданный с помощью: sudo mkdir /media/My_folder?<br />
+Создал общую папку, но файлы в ней гостевая ОС Убунта в упор не видит. Кстати, у меня почему-то по адресу: Файловая система/media появляются 2 папки: My_folder и sf_My_folder вместо одной ожидаемой My_folder.<br />
+И ещё. Вот здесь My_folder /media/My_folder vboxsf defaults,gid=46 0 0. Что значат нули?<br />
+Эту команду в конце файла поместить с новой строки или как продолжение последней?</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=8905#respond' onclick='return addComment.moveForm( "comment-8905", "8905", "respond", "3180" )' aria-label='Комментарий к записи adsorores'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+<ul class="children">
+   <li class="comment byuser comment-author-admin bypostauthor odd alt depth-2" id="li-comment-8963">
+     <div id="comment-8963">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://1.gravatar.com/avatar/515ff93f720ba1d08005243d27e4baf8?s=48&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex><a href="http://the-komp.ru"  rel='external nofollow' class='url'>admin</a></noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-8963">22.10.2012- 12:30</a></div>
+
+      <p>Команду писать только с новой строки. Нули, это не делать проверку и резервную копию.<br />
+Каталог можно убрать командой sudo rm -r /media/My_folder<br />
+Автоматически монтируемым папкам добавляется эта самая приставка sf.<br />
+Если не видно файлы, значит что то не так сделано.</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=8963#respond' onclick='return addComment.moveForm( "comment-8963", "8963", "respond", "3180" )' aria-label='Комментарий к записи admin'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+   <li class="comment even thread-even depth-1" id="li-comment-9127">
+     <div id="comment-9127">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://1.gravatar.com/avatar/5be1d0fc5cc5e8c7f54e3132efee68d1?s=48&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex>adsorores</noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-9127">25.10.2012- 09:15</a></div>
+
+      <p>Разобрался! VirtualBox создаёт папку в /media с префиксом sf_. Таким образом, моя виндовая My_folder превратилась в Убунте 12.04 в sf_My_folder. Но открыть папку нам не удастся, т.к. VirtualBox создаёт эту общую папку с правами группы vboxsf, в которую администратор, как ни странно, не входит. Чтобы добавить пользователя в группу vboxsf заходим Система -&gt; Администрирование -&gt; Пользователи и группы. Кнопка &#171;Управление группами&#187;, ищем группу &#171;vboxsf&#187;, нажимаем &#171;Свойства&#187;, у имени пользователя ставим галочку. Перезагружаемся. И будет работать без всяких команд и правок fstab.</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=9127#respond' onclick='return addComment.moveForm( "comment-9127", "9127", "respond", "3180" )' aria-label='Комментарий к записи adsorores'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+</li><!-- #comment-## -->
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-13240">
+     <div id="comment-13240">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://1.gravatar.com/avatar/3323ab4e16f3275c5760742f090e82c3?s=48&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex>isFes</noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-13240">18.12.2012- 20:47</a></div>
+
+      <p>adsorores:<br />
+Огромное спасибо за то что написал как решил проблему! хотя и знаю, что ты этот пост не увидишь, но спасибо!</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=13240#respond' onclick='return addComment.moveForm( "comment-13240", "13240", "respond", "3180" )' aria-label='Комментарий к записи isFes'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+</li><!-- #comment-## -->
+   <li class="comment even thread-even depth-1" id="li-comment-28051">
+     <div id="comment-28051">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://0.gravatar.com/avatar/43a731c237f7216e5db7c920e5f70e87?s=48&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex>Михаил</noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-28051">10.06.2013- 11:04</a></div>
+
+      <p>А после удаления общей папки  всё равно вирусы будут проникать в главную windows?</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=28051#respond' onclick='return addComment.moveForm( "comment-28051", "28051", "respond", "3180" )' aria-label='Комментарий к записи Михаил'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+<ul class="children">
+   <li class="comment byuser comment-author-admin bypostauthor odd alt depth-2" id="li-comment-28080">
+     <div id="comment-28080">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://1.gravatar.com/avatar/515ff93f720ba1d08005243d27e4baf8?s=48&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex><a href="http://the-komp.ru"  rel='external nofollow' class='url'>admin</a></noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-28080">10.06.2013- 18:59</a></div>
+
+      <p>Если виртуальную ОС и реальную не чего не будет связывать, то вирусы проникнуть не должны.</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=28080#respond' onclick='return addComment.moveForm( "comment-28080", "28080", "respond", "3180" )' aria-label='Комментарий к записи admin'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-30026">
+     <div id="comment-30026">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://1.gravatar.com/avatar/5bc15227b5581d4cb7b3e7ff8dff2485?s=48&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex>Николай</noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-30026">09.07.2013- 21:44</a></div>
+
+      <p>Все работает. Спасибо за статью.</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=30026#respond' onclick='return addComment.moveForm( "comment-30026", "30026", "respond", "3180" )' aria-label='Комментарий к записи Николай'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+<ul class="children">
+   <li class="comment byuser comment-author-admin bypostauthor odd alt depth-2" id="li-comment-30029">
+     <div id="comment-30029">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://1.gravatar.com/avatar/515ff93f720ba1d08005243d27e4baf8?s=48&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex><a href="http://the-komp.ru"  rel='external nofollow' class='url'>admin</a></noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-30029">09.07.2013- 23:54</a></div>
+
+      <p>Пожалуйста Николай.</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=30029#respond' onclick='return addComment.moveForm( "comment-30029", "30029", "respond", "3180" )' aria-label='Комментарий к записи admin'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+   <li class="comment even thread-even depth-1" id="li-comment-45884">
+     <div id="comment-45884">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://0.gravatar.com/avatar/462bfe668304ef85d347f34b9ee6bf37?s=48&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex>Стас</noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-45884">28.10.2013- 09:50</a></div>
+
+      <p>Спасибо, работает. Я уже весь инет перерыл на трёх языках, ничего толкового. Ну а здесь в двух словах. Здорово! Делюсь со всеми.</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=45884#respond' onclick='return addComment.moveForm( "comment-45884", "45884", "respond", "3180" )' aria-label='Комментарий к записи Стас'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+<ul class="children">
+   <li class="comment byuser comment-author-admin bypostauthor odd alt depth-2" id="li-comment-45892">
+     <div id="comment-45892">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://1.gravatar.com/avatar/515ff93f720ba1d08005243d27e4baf8?s=48&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex><a href="http://the-komp.ru"  rel='external nofollow' class='url'>admin</a></noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-45892">28.10.2013- 16:12</a></div>
+
+      <p>Пожалуйста Стас!</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=45892#respond' onclick='return addComment.moveForm( "comment-45892", "45892", "respond", "3180" )' aria-label='Комментарий к записи admin'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-46309">
+     <div id="comment-46309">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://1.gravatar.com/avatar/73ca451b433e4afd3579844be2aefd4c?s=48&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex>Юрий</noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-46309">19.11.2013- 02:51</a></div>
+
+      <p>Всё сделал. Несколько раз переделывал всё равно та же проблема что у ребят выше ошибка подключения директории, нажмите s для отмены или м для ручного исправления. Ничего не исправляю загружаю и при этом каждый раз образуется новая папка с приставкой fs_ и если её просматривать через терминал с правами суперпользователя, то всё ок! В ней есть файлы! Но из под меню &#171;файлы&#187; не открывает папку, говорит у вас не достаточно прав.</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=46309#respond' onclick='return addComment.moveForm( "comment-46309", "46309", "respond", "3180" )' aria-label='Комментарий к записи Юрий'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+</li><!-- #comment-## -->
+   <li class="comment odd alt thread-even depth-1" id="li-comment-46324">
+     <div id="comment-46324">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://1.gravatar.com/avatar/73ca451b433e4afd3579844be2aefd4c?s=48&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex>Юрий</noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-46324">19.11.2013- 23:29</a></div>
+
+      <p>Моя проблема решалась бы так:</p>
+<blockquote><p>
+Система -&gt; Администрирование -&gt; Пользователи и группы. Кнопка «Управление группами», ищем группу «vboxsf», нажимаем «Свойства», у имени пользователя ставим галочку. Перезагружаемся. И будет работать без всяких команд и правок fstab.
+</p></blockquote>
+<p>Но у меня Убунту 13.10 в упор не вижу там администрирования и т.д. <img src="http://the-komp.ru/wp-includes/images/smilies/icon_sad.gif" alt=":(" class="wp-smiley" /></p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=46324#respond' onclick='return addComment.moveForm( "comment-46324", "46324", "respond", "3180" )' aria-label='Комментарий к записи Юрий'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+<ul class="children">
+   <li class="comment byuser comment-author-admin bypostauthor even depth-2" id="li-comment-46326">
+     <div id="comment-46326">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://1.gravatar.com/avatar/515ff93f720ba1d08005243d27e4baf8?s=48&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex><a href="http://the-komp.ru"  rel='external nofollow' class='url'>admin</a></noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-46326">20.11.2013- 01:15</a></div>
+
+      <p>Сейчас если честно с Linux уже давно не работал, и новую версию Ubuntu даже не видел, может там что то и изменилось, Я не знаю.</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=46326#respond' onclick='return addComment.moveForm( "comment-46326", "46326", "respond", "3180" )' aria-label='Комментарий к записи admin'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-46854">
+     <div id="comment-46854">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://0.gravatar.com/avatar/eed8ccb5dc83520be9e4fd7292555853?s=48&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex>Василий</noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-46854">21.12.2013- 05:36</a></div>
+
+      <p>А как сделать так, чтобы в виртуальной машине (Virtualbox) можно было установить программу, которая поддерживается на XP? А то у меня Windows 8.1.</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=46854#respond' onclick='return addComment.moveForm( "comment-46854", "46854", "respond", "3180" )' aria-label='Комментарий к записи Василий'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+<ul class="children">
+   <li class="comment byuser comment-author-admin bypostauthor even depth-2" id="li-comment-46857">
+     <div id="comment-46857">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://1.gravatar.com/avatar/515ff93f720ba1d08005243d27e4baf8?s=48&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex><a href="http://the-komp.ru"  rel='external nofollow' class='url'>admin</a></noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-46857">21.12.2013- 14:01</a></div>
+
+      <p>Что простите? Не понял вопроса. Напишите какая основная ОС, а какая виртуальная, и вопрос в более понятной форме.</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=46857#respond' onclick='return addComment.moveForm( "comment-46857", "46857", "respond", "3180" )' aria-label='Комментарий к записи admin'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+   <li class="comment odd alt thread-even depth-1" id="li-comment-46864">
+     <div id="comment-46864">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://0.gravatar.com/avatar/eed8ccb5dc83520be9e4fd7292555853?s=48&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex>Василий</noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-46864">21.12.2013- 16:44</a></div>
+
+      <p>У меня установлен на компьютере Windows 8, а я в интернете наткнулся на одну программу которая поддерживается тока на XP или Vista. Я спросил одного человека про это, а он мне посоветовал программу VirtualBox, что типо с помощью него установишь любую программу которая даже поддерживается на XP или Vista! Я скачал VirtualBox, а как дальше не знаю.</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=46864#respond' onclick='return addComment.moveForm( "comment-46864", "46864", "respond", "3180" )' aria-label='Комментарий к записи Василий'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+<ul class="children">
+   <li class="comment byuser comment-author-admin bypostauthor even depth-2" id="li-comment-46870">
+     <div id="comment-46870">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://1.gravatar.com/avatar/515ff93f720ba1d08005243d27e4baf8?s=48&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex><a href="http://the-komp.ru"  rel='external nofollow' class='url'>admin</a></noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-46870">21.12.2013- 18:43</a></div>
+
+      <p>Ну теперь все понятно! Да, человек правильно сказал, программу можно запустить таким образом. Правда есть такие программы, которые могут и не работать (например какая нибудь игра).<br />
+Что нужно Вам сделать:<br />
+1) Установить в VirtualBox виртуальную ОС, в Вашем случае это будет Windows XP. Как это сделать читайте в этой статье:<br />
+<!--noindex--><a href="http://the-komp.ru/kak-polzovatsya-virtualbox.html"  rel="nofollow">http://the-komp.ru/kak-polzovatsya-virtualbox.html</a><!--/noindex--><br />
+2) Запускаете виртуальную ОС (XP), и устанавливаете там нужную программу.</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=46870#respond' onclick='return addComment.moveForm( "comment-46870", "46870", "respond", "3180" )' aria-label='Комментарий к записи admin'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-52732">
+     <div id="comment-52732">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://0.gravatar.com/avatar/298be3ba8740161f34a69f1141a70d49?s=48&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex>Саша</noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-52732">13.10.2014- 17:43</a></div>
+
+      <p>Не подключается общая папка. При загрузке пишет: произошла ошибка при подключении /media/shared.<br />
+shared-имя моей общей папки. В mtab прописана другая общая папка: sf_shared и другой gid=999.<br />
+Менять в mtab боюсь &#8212; всё перепутаю. Что делать?</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=52732#respond' onclick='return addComment.moveForm( "comment-52732", "52732", "respond", "3180" )' aria-label='Комментарий к записи Саша'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+<ul class="children">
+   <li class="comment byuser comment-author-admin bypostauthor even depth-2" id="li-comment-52811">
+     <div id="comment-52811">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://1.gravatar.com/avatar/515ff93f720ba1d08005243d27e4baf8?s=48&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex><a href="http://the-komp.ru"  rel='external nofollow' class='url'>admin</a></noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-52811">15.10.2014- 03:57</a></div>
+
+      <p>Попробуйте сделать так, как выше пользователь под ником adsorores.</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=52811#respond' onclick='return addComment.moveForm( "comment-52811", "52811", "respond", "3180" )' aria-label='Комментарий к записи admin'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+<ul class="children">
+   <li class="comment odd alt depth-3" id="li-comment-52929">
+     <div id="comment-52929">
+<div class="art-post">
+         <div class="art-post-body">
+     <div class="art-post-inner art-article">
+     
+<div class="art-postcontent">
+         <!-- article-content -->
+     
+      <div class="comment-author vcard">
+         <img alt='' src='http://0.gravatar.com/avatar/298be3ba8740161f34a69f1141a70d49?s=48&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D48&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />         <cite class="fn"><noindex>Саша</noindex>:</cite>
+      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://the-komp.ru/virtualbox-obshhie-papki.html/comment-page-1#comment-52929">17.10.2014- 20:46</a></div>
+
+      <p>Всё сделал, папка работает, но при загрузке системы появляется надпись &#171;Не удалось подключить /media/shared&#187;.</p>
+
+      <div class="reply">
+         <a class='comment-reply-link' href='/virtualbox-obshhie-papki.html?replytocom=52929#respond' onclick='return addComment.moveForm( "comment-52929", "52929", "respond", "3180" )' aria-label='Комментарий к записи Саша'>Ответить</a>      </div>
+
+          <!-- /article-content -->
+      </div>
+      <div class="cleared"></div>
+      
+
+      </div>
+      
+      		<div class="cleared"></div>
+          </div>
+      </div>
+      
+     </div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+  </ul>
+
+
+ 
+
+<div class="art-post">
+    <div class="art-post-body">
+<div class="art-post-inner art-article">
+
+<div class="art-postcontent">
+    <!-- article-content -->
+
+<div id="respond">
+  
+  <h3>Оставить комментарий</h3>
+
+<div class="cancel-comment-reply">
+	<small><a rel="nofollow" id="cancel-comment-reply-link" href="/virtualbox-obshhie-papki.html#respond" style="display:none;">Нажмите, чтобы отменить ответ.</a></small>
+</div>
+
+
+<form action="http://the-komp.ru/wp-comments-post.php" method="post" id="commentform">
+
+
+<p><input type="text" name="author" id="author" value="" size="22" tabindex="1" aria-required='true' />
+<label for="author"><small>Имя (обязательно)</small></label></p>
+
+<p><input type="text" name="email" id="email" value="" size="22" tabindex="2" aria-required='true' />
+<label for="email"><small>Mail (не будет опубликовано) (обязательно)</small></label></p>
+
+
+<p>Перед отправкой сообщения рекомендуется прочитать <a title="Правила комментирования на сайте" href="http://the-komp.ru/pravila-kommentirovaniya-na-sajte" target="_blank"><span style="color: #ff0000;">правила комментирования</span></a>.</p>
+<!--<p><small><strong>XHTML:</strong> Вы можете использовать следующие теги: <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; </code></small></p>-->
+
+<p><textarea name="comment" id="comment" cols="100%" rows="10" tabindex="4"></textarea></p>
+
+<p>
+	<span class="art-button-wrapper">
+		<span class="l"> </span>
+		<span class="r"> </span>
+		<input class="art-button" type="submit" name="submit" tabindex="5" value="Отправить" />
+	</span>
+<input type='hidden' name='comment_post_ID' value='3180' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p>
+
+
+	<p style="clear: both;" class="subscribe-to-comments">
+	<input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" />
+	<label for="subscribe">Оповещать о новых комментариях по почте.</label>
+	</p>
+
+
+
+</form>
+
+</div>
+
+    <!-- /article-content -->
+</div>
+<div class="cleared"></div>
+
+
+</div>
+
+		<div class="cleared"></div>
+    </div>
+</div>
+
+
+</div>
+<div class="art-layout-cell art-sidebar1">      
+
+
+<div class="art-block">
+    <div class="art-block-body">
+<div class="art-blockheader">
+    <div class="l"></div>
+    <div class="r"></div>
+     <div class="text-pocentry">Получать новости с сайта</div>
+</div>
+<div class="art-blockcontent">
+    <div class="art-blockcontent-body">
+<form style="padding:3px;text-align:center;" 
+action="http://feedburner.google.com/fb/a/mailverify" 
+method="post" target="popupwindow" 
+onsubmit="window.open('http://feedburner.google.com/fb/a/mailverify?uri=The-komp', 
+'popupwindow', 'scrollbars=yes,width=550,height=520');return true">
+<p><span style="color: #000000;">Ваш E-mail:</span></p>
+<p><input type="text" style="width:140px" name="email"/></p>
+<input type="hidden" value="The-komp" name="uri"/><input type="hidden" name="loc" 
+value="ru_RU"/><input type="submit" value="Подписаться" /></form>
+<div class="cleared"></div>
+</div>
+</div>
+<div class="cleared"></div>
+ </div>
+</div>
+
+<div class="art-block">
+    <div class="art-block-body">
+<div class="art-blockheader">
+    <div class="l"></div>
+    <div class="r"></div>
+     <div class="t">Рубрики</div>
+</div>
+<div class="art-blockcontent">
+    <div class="art-blockcontent-body">
+<!-- block-content -->
+<ul>
+  	<li class="cat-item cat-item-1"><a href="http://the-komp.ru/category/windows-7" >Windows 7</a>
+<ul class='children'>
+	<li class="cat-item cat-item-12"><a href="http://the-komp.ru/category/windows-7/nastrojka" >Настройка</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="http://the-komp.ru/category/windows-7/optimizaciya" >Оптимизация</a>
+</li>
+	<li class="cat-item cat-item-14"><a href="http://the-komp.ru/category/windows-7/polezno-znat" >Полезно знать</a>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-36"><a href="http://the-komp.ru/category/windows-8" >Windows 8</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://the-komp.ru/category/bezopasnost" >Безопасность</a>
+</li>
+	<li class="cat-item cat-item-15"><a href="http://the-komp.ru/category/internet" >Интернет</a>
+<ul class='children'>
+	<li class="cat-item cat-item-42"><a href="http://the-komp.ru/category/internet/socialnye-seti" >Социальные сети</a>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-16"><a href="http://the-komp.ru/category/programmy" >Программы</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://the-komp.ru/category/ustrojstvo-pk" >Устройство ПК</a>
+</li>
+</ul>
+<!-- /block-content -->
+
+		<div class="cleared"></div>
+    </div>
+</div>
+		<div class="cleared"></div>
+    </div>	
+</div>
+
+<center>
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-6218040961270424";
+/* В сайдбаре */
+google_ad_slot = "3400997238";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+                
+
+
+</div>    </div>
+</div>
+<div class="cleared"></div>
+
+<div class="art-footer">
+    <div class="art-footer-inner">
+        
+        <div class="art-footer-text">
+		<p>		
+</p>
+<noindex>
+<!--LiveInternet logo--><a href="http://www.liveinternet.ru/click" rel="nofollow"
+target="_blank"><img src="//counter.yadro.ru/logo?41.1"
+title="LiveInternet"
+alt="" border="0" width="31" height="31" /></a><!--/LiveInternet-->
+</noindex>
+<noindex>
+<!-- begin of Top100 code -->
+<script id="top100Counter" type="text/javascript" src="http://counter.rambler.ru/top100.jcn?2566138"></script>
+<noscript>
+<a href="http://top100.rambler.ru/navi/2566138/" rel="nofollow">
+<img src="http://counter.rambler.ru/top100.cnt?2566138" alt="Rambler's Top100" border="0" />
+</a>
+</noscript>
+<!-- end of Top100 code -->
+</noindex>
+<p class="art-page-footer"> Copyright � 2015 http://the-komp.ru 
+Все права защищены.
+</p>
+</div>
+    </div>
+    <div class="art-footer-background">
+    </div>
+</div>
+
+		<div class="cleared"></div>
+    </div>
+</div>
+<div class="cleared"></div>
+
+
+</div>
+<!-- 34 запросов. 0,272 секунд. -->
+<div><link rel='stylesheet' id='yarppRelatedCss-css'  href='http://the-komp.ru/wp-content/plugins/yet-another-related-posts-plugin/style/related.css?ver=4.1' type='text/css' media='all' />
+</div><!-- Разместите этот тег в теге head или непосредственно перед закрывающим тегом body -->
+<script type="text/javascript" src="https://apis.google.com/js/plusone.js">
+  {lang: 'ru'} </script>
+<script>function lc_get_cookie(name) {var c = document.cookie;if (c.indexOf(name) != -1) {var x = c.indexOf(name)+name.length+1;var y = c.indexOf(";",x);if (y < 0) y = c.length;return decodeURIComponent(c.substring(x,y));} else return "";}if ((d = document.getElementById("commentform")) != null) { e = d.elements;var z = lc_get_cookie("comment_author_email_2bbc5d51ea8f0c09576c77f3feafbe8c");if (z != "") e["email"].value = z;z = lc_get_cookie("comment_author_2bbc5d51ea8f0c09576c77f3feafbe8c");if (z != "") e["author"].value = z;z = lc_get_cookie("comment_author_url_2bbc5d51ea8f0c09576c77f3feafbe8c");if (z != "") e["url"].value = z;}</script></body></html>

@@ -1,0 +1,73 @@
+добавить картинки в модель через paperclip
+http://habrahabr.ru/sandbox/40855/
+http://stackoverflow.com/questions/21897725/papercliperrorsmissingrequiredvalidatorerror-with-rails-4
+
+
+
+==============
+gem install paperclip
+
+==============
+создадим миграцию и добавим поле:
+class AddAvatarColumnsToUser < ActiveRecord::Migration 
+  def self.up     
+    change_table :users do |t|  
+      t.has_attached_file :avatar     
+    end 
+  end 
+   
+  def self.down   
+    drop_attached_file :users, :avatar   
+  end 
+end
+
+==============
+После нам необходимо добавить в нашу модель такой код:
+
+сlass User < ActiveRecord::Base
+
+  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }
+  validates_attachment_content_type :avatar, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
+  validates_attachment_file_name :avatar, :matches => [/png\Z/, /jpe?g\Z/, /gif\Z/]
+
+end
+
+==============
+форма:
+  <div class="row">
+    <div class="col-xs-12 col-sm-2">
+      <%= f.label :avatar %>
+    </div>
+    <div class="col-xs-12 col-sm-10">
+      <%= f.file_field  :avatar %>
+    </div>
+  </div> 
+
+==============
+Ссылки на объявленные версии можно получить так:
+
+user.avatar.url(:medium)
+user.avatar.url(:medium)
+
+==============
+картинки хранятся в public
+
+==============
+==============
+==============
+==============
+==============
+==============
+==============
+==============
+==============
+==============
+==============
+==============
+==============
+==============
+==============
+==============
+==============
+==============
+==============

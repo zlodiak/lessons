@@ -1,0 +1,756 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru-RU">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<title>RDR3R > Простое форматирование дат в Ruby on Rails | Ruby on Rails c нуля!</title>
+
+	<meta name="generator" content="WordPress 3.7.5" /> <!-- leave this for stats -->
+
+	<link rel="stylesheet" href="http://rubydev.ru/wp-content/themes/blueprint-theme/css/screen.css" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="http://rubydev.ru/wp-content/themes/blueprint-theme/css/blueprint-wp.css" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="http://rubydev.ru/wp-content/themes/blueprint-theme/css/print.css" type="text/css" media="print">
+
+	<!-- To use a custom stylesheet, uncomment the next line: -->
+	<!-- <link rel="stylesheet" href="http://rubydev.ru/wp-content/themes/blueprint-theme/css/custom.css" type="text/css" media="screen, projection"> -->
+
+	<!-- Javascripts  -->
+	<!-- <script type="text/javascript" src="http://rubydev.ru/wp-content/themes/blueprint-theme/js/jquery-1.1.3.1.pack.js"></script> -->
+	<script type="text/javascript" src="http://rubydev.ru/wp-content/themes/blueprint-theme/js/functions.js"></script>
+	<!--[if lt IE 7]>
+	<script defer type="text/javascript" src="http://rubydev.ru/wp-content/themes/blueprint-theme/js/pngfix.js"></script>
+	<![endif]-->
+
+	<!-- Show the grid and baseline  -->
+	<style type="text/css">
+/*		.container { background: url(http://rubydev.ru/wp-content/themes/blueprint-theme/css/lib/img/grid.png); }*/
+	</style>
+
+	<link rel="alternate" type="application/rss+xml" title="Ruby on Rails c нуля! RSS Feed" href="http://rubydev.ru/feed/" />
+	<link rel="pingback" href="http://rubydev.ru/xmlrpc.php" />
+
+	<link rel="alternate" type="application/rss+xml" title="Ruby on Rails c нуля! &raquo; Лента комментариев к &laquo;RDR3R &gt; Простое форматирование дат в Ruby on Rails&raquo;" href="http://rubydev.ru/2011/08/rdr3t-ruby-on-rails-date-and-time-format/feed/" />
+<link rel='stylesheet' id='prettify-gc-syntax-highlighter-css'  href='http://rubydev.ru/wp-content/plugins/prettify-gc-syntax-highlighter/prettify.css?ver=3.7.5' type='text/css' media='all' />
+<link rel='stylesheet' id='shCore.css-css'  href='http://rubydev.ru/wp-content/plugins/syntaxhighlighterpro/styles/shCore.css?ver=2.1.364' type='text/css' media='all' />
+<link rel='stylesheet' id='shThemeDefault.css-css'  href='http://rubydev.ru/wp-content/plugins/syntaxhighlighterpro/styles/shThemeDefault.css?ver=2.1.364' type='text/css' media='all' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://rubydev.ru/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://rubydev.ru/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Этапы развития программного проекта' href='http://rubydev.ru/2011/08/etapy-razvitiya-programmnogo-proekta/' />
+<link rel='next' title='jQuery ч.1: jQuery(document).ready()' href='http://rubydev.ru/2011/08/jquery-1-document-ready/' />
+<meta name="generator" content="WordPress 3.7.5" />
+<link rel='shortlink' href='http://rubydev.ru/?p=996' />
+	
+<!-- START: Syntax Highlighter ComPress -->
+<script type="text/javascript" src="http://rubydev.ru/wp-content/plugins/syntax-highlighter-compress/scripts/shCore.js"></script>
+<script type="text/javascript" src="http://rubydev.ru/wp-content/plugins/syntax-highlighter-compress/scripts/shAutoloader.js"></script>
+<link type="text/css" rel="stylesheet" href="http://rubydev.ru/wp-content/plugins/syntax-highlighter-compress/styles/shCoreDefault.css"/>
+<!-- END: Syntax Highlighter ComPress -->
+
+  
+<!-- All in One SEO Pack 2.1 by Michael Torbert of Semper Fi Web Design[299,388] -->
+<meta name="description" content="В этой совсем простой статья я расскажу о том как легко и просто можно форматировать дату и время в ваших приложениях на основе Ruby on Rails без использо" />
+
+<meta name="keywords" content="ruby on rails,tuts,ruby on rails 3" />
+
+<link rel="canonical" href="http://rubydev.ru/2011/08/rdr3t-ruby-on-rails-date-and-time-format/" />
+<!-- /all in one seo pack -->
+ 
+<script type="text/javascript">
+(function() {
+    window.PinIt = window.PinIt || { loaded:false };
+    if (window.PinIt.loaded) return;
+    window.PinIt.loaded = true;
+    function async_load(){
+        var s = document.createElement("script");
+        s.type = "text/javascript";
+        s.async = true;
+        if (window.location.protocol == "https:")
+            s.src = "https://assets.pinterest.com/js/pinit.js";
+        else
+            s.src = "http://assets.pinterest.com/js/pinit.js";
+        var x = document.getElementsByTagName("script")[0];
+        x.parentNode.insertBefore(s, x);
+    }
+    if (window.attachEvent)
+        window.attachEvent("onload", async_load);
+    else
+        window.addEventListener("load", async_load, false);
+})();
+</script>
+<script type="text/javascript">
+(function() {
+var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+po.src = 'https://apis.google.com/js/plusone.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+})();
+</script>
+
+
+
+</head>
+<body>
+
+<div class="container">
+<div style="z-index: 999; width: 1000px;">
+<a href = "http://locum.ru" target="_Blank" class="logo"><img src="http://rubydev.ru/wp-content/uploads/2011/12/locum4rubydev.png" /></a>
+<a href = "http://railsclub.ru/" target="_Blank" class="logo"><img src="http://rubydev.ru/wp-content/uploads/2014/08/RailsClub_2014-360x40_1.png" /></a>
+</div>
+	<!-- Header -->
+  <div class="column span-12 first" id="header">
+
+					<!-- Search -->
+					
+<div id="search">
+	<form method="get" id="searchform" action="http://rubydev.ru/">
+		<div>
+			<input type="text" name="s" id="s"
+						 value="Search"
+						 onFocus="clearInput('s', 'Search')" 
+						 onBlur="clearInput('s', 'Search')"
+			/>
+		</div>
+	</form>
+</div>					
+					<!-- Site Name -->
+					<a href="http://rubydev.ru/" class="logo">
+					<h1>Ruby on Rails c нуля!</h1></a> 
+					<!-- If not using logo:
+          <a href="http://rubydev.ru/" class="logo"><h1>Ruby on Rails c нуля!</h1></a> -->
+					<div class="description">- блог изучающего Ruby, Ruby on Rails и другие технологии     </div>
+
+  </div> <!-- #header -->
+	
+	<!-- Navigation -->
+  <div class="column span-12 first large" id="nav">
+			<div class="content">
+
+				<ul>
+					<li class="current_page_item first"><a href="http://rubydev.ru">Home</a></li>
+					<li class="page_item page-item-145"><a href="http://rubydev.ru/contact/">Author</a></li>
+<li class="page_item page-item-1018"><a href="http://rubydev.ru/jquery/">jQuery</a></li>
+<li class="page_item page-item-736"><a href="http://rubydev.ru/javascript_tutorial/">JavaScript</a></li>
+<li class="page_item page-item-738"><a href="http://rubydev.ru/ruby_tutorial/">Ruby</a></li>
+<li class="page_item page-item-154"><a href="http://rubydev.ru/ruchebnik-ruby-on-rails/">Ruby on Rails</a></li>
+<li class="page_item page-item-1724"><a href="http://rubydev.ru/postgresql/">PostgreSQL</a></li>
+				</ul>
+			</div>
+  </div>
+	<!-- End Navigation -->
+<div id="page">
+
+	<div class="column span-9 first" id="maincontent">
+
+		<div class="content">
+
+			
+				<!-- <div class="navigation small">
+					<div class="alignleft">&laquo; <a href="http://rubydev.ru/2011/08/etapy-razvitiya-programmnogo-proekta/" rel="prev">Этапы развития программного проекта</a></div>
+					<div class="alignright"><a href="http://rubydev.ru/2011/08/jquery-1-document-ready/" rel="next">jQuery ч.1: jQuery(document).ready()</a> &raquo;</div>
+				</div> 
+
+				<div style="padding-bottom: 15px;"></div> -->
+
+				<div class="post" id="post-996">
+					<h2><a href="http://rubydev.ru/2011/08/rdr3t-ruby-on-rails-date-and-time-format/" rel="bookmark" title="Permanent Link: RDR3R > Простое форматирование дат в Ruby on Rails">RDR3R > Простое форматирование дат в Ruby on Rails</a></h2>
+					<p class="small">
+						августа 3, 2011 &nbsp;|&nbsp; 
+						<!-- by admin -->
+						Published in
+						<a href="http://rubydev.ru/category/ruby-on-rails/" title="Просмотреть все записи в рубрике &laquo;Ruby on Rails&raquo;" rel="category tag">Ruby on Rails</a>, <a href="http://rubydev.ru/category/ruby-on-rails/ruby-on-rails-3/" title="Просмотреть все записи в рубрике &laquo;Ruby on Rails 3&raquo;" rel="category tag">Ruby on Rails 3</a> &nbsp;|&nbsp; <a href="#comments">10 Comments</a>					</p>
+					
+					<div class="entry">
+						<p><a href="http://rubydev.ru/wp-content/uploads/2011/03/rdr3t_logo.png"><img class="alignleft size-full wp-image-728" title="rdr3t_logo" src="http://rubydev.ru/wp-content/uploads/2011/03/rdr3t_logo.png" alt="" width="250" height="150" /></a>В этой совсем простой статья я расскажу о том как легко и просто можно форматировать дату и время в ваших приложениях на основе Ruby on Rails без использования стороннего кода.</p>
+<p>Начну с того, что в Ruby on Rails, а точнее в ActiveSupport в расширениях для Ruby присутствует расширения для класса Date. Полный путь, если что выглядит так: <a href="https://github.com/rails/rails/blob/v3.0.9/activesupport/lib/active_support/core_ext/date/conversions.rb" target="_blank">ActiveSupport::CoreExtensions::Time::Conversions</a>.  Это расширение базового Date содержит в себе константу DATE_FORMATS которая позволяет сохранять форматы даты и времени и давать им имена (DATE_FORMATS является хэшем). Благодаря этому вы можете один единственный раз определив необходимый вам формат повсеместно использовать его в вашем приложении.<br />
+<span id="more-996"></span><br />
+<strong>Рассказываю свой рецепт:</strong></p>
+<p><strong>1. Открываю файл</strong> ../config/environment.rb.</p>
+<p><strong>2. Определяю формат:</strong></p>
+<pre class="brush:ruby">
+Time::DATE_FORMATS[:ru_datetime] = "%Y.%m.%d в %k:%M:%S"
+#поскольку я использовал кириллицу, мне пришлось в начале прописать:
+# #encoding: utf-8
+</pre>
+<p><strong>3. Использую необходимое форматирование:</strong></p>
+<pre class="brush:ruby">
+article.created_at.to_s(:ru_datetime)
+</pre>
+<p><strong>4. Смотрю результат:</strong><br />
+2011.08.01 в 20:50:36</p>
+<p>Все очень просто!</p>
+<p>В качестве бонуса привожу список спецсимволов с описанием, список на английском взят здесь(<a href="http://www.wetware.co.nz/blog/2009/07/rails-date-formats-strftime/" target="_blank">Rails Date Formats strftime</a>):</p>
+<p><span style="color: #333399;"><strong>Коды форматирования для strftime в  Ruby on Rails:</strong></span><br />
+<span style="color: #99cc00;"><strong>Год</strong></span><br />
+<strong><span style="color: #333399;">%Y</span></strong>     год и столетие (2011)<br />
+<strong><span style="color: #333399;">%y </span></strong>    только год (11)<br />
+<strong><span style="color: #333399;">%C</span></strong>     столетие (год деленный на 100)</p>
+<p><strong><span style="color: #99cc00;">Месяц</span></strong><br />
+<span style="color: #333399;"><strong>%B</strong></span>     полное название месяца January<br />
+<span style="color: #333399;"><strong>%b</strong></span>     сокращенное название месяца Jan<br />
+<span style="color: #333399;"><strong>%h</strong></span>     то же, что и %b Jan<br />
+<span style="color: #333399;"><strong>%m </strong></span>    месяц числом (01-12)</p>
+<p><strong><span style="color: #99cc00;">Неделя</span></strong><br />
+<span style="color: #333399;"><strong>%U</strong></span>     номер недели, первый день &#8212; воскресенье (00-53)<br />
+<span style="color: #333399;"><strong>%W</strong></span>     номер недели, первый день &#8212; понедельник (00-53)</p>
+<p><strong><span style="color: #99cc00;">День</span></strong><br />
+<span style="color: #333399;"><strong>%A </strong></span>    название дня недели Wednesday<br />
+<span style="color: #333399;"><strong>%a </strong></span>    сокращенное название дня недели Wed<br />
+<span style="color: #333399;"><strong>%d</strong></span>     день месяца (01-31)<br />
+<span style="color: #333399;"><strong>%e </strong></span>    день месяца без нуля ( 1-31)<br />
+<span style="color: #333399;"><strong>%j</strong></span>     день года (001-366)<br />
+<span style="color: #333399;"><strong>%w</strong></span>     номер дня недели, 0 &#8212; воскресенье (0-6)<br />
+<span style="color: #333399;"><strong>%u</strong></span>     номер дня недели, 0 &#8212; понедельник(1-7)</p>
+<p><strong><span style="color: #99cc00;">Время</span></strong><br />
+<span style="color: #333399;"><strong>%H</strong></span>     час (00-23)<br />
+<span style="color: #333399;"><strong>%k </strong></span>    час без нуля ( 0-23)<br />
+<span style="color: #333399;"><strong>%I </strong></span>    час в двенадцати-часовом формате (01-12)<br />
+<span style="color: #333399;"><strong>%l </strong></span>    час в двенадцати-часовом формате без нуля ( 1-12)<br />
+<span style="color: #333399;"><strong>%M</strong></span>     минута (00-59)<br />
+<span style="color: #333399;"><strong>%S </strong></span>    секунда (00-59)<br />
+<span style="color: #333399;"><strong>%p  </strong></span>   указываем время до полудня(AM) и после полудня(PM)<br />
+<span style="color: #333399;"><strong>%Z</strong></span>     имя временной соны или аббревиатура EDT<br />
+<span style="color: #333399;"><strong>%z</strong></span>     временное смещение от UTC (координированное универсальное время) -0400</p>
+<p><strong><span style="color: #99cc00;">Предопределенные шаблоны форматирования</span></strong><br />
+<span style="color: #333399;"><strong>%D</strong></span>     формат даты как при %m/%d/%y (05/16/11)<br />
+<span style="color: #333399;"><strong>%v </strong></span>    формат даты как при %e-%b-%Y (16-May-2011)<br />
+<span style="color: #333399;"><strong>%F</strong></span>     формат даты как при %Y-%m-%d 2011-05-16<br />
+<span style="color: #333399;"><strong>%R</strong></span>     формат времени в 24 ч. представлении, ка при %H:%M (18:06)<br />
+<span style="color: #333399;"><strong>%T</strong></span>     формат времени в 24 ч. представлении, ка при %H:%M:%S 18:06:15<br />
+<span style="color: #333399;"><strong>%r </strong></span>    формат времени в 12 ч. представлении, ка при %I:%M:%S %p 06:06:15 PM</p>
+<p><strong><span style="color: #99cc00;">Дополнительное форматирование</span></strong><br />
+<span style="color: #333399;"><strong>%n</strong></span>     символ новой строки<br />
+<span style="color: #333399;"><strong>%t </strong></span>    символ табуляции<br />
+<span style="color: #333399;"><strong>%% </strong></span>    символ &#171;процент&#187;</p>
+<p>При помощи всего этого вы можете создавать практически любые необходимые вам форматы даты и времени.<br />
+<strong>Болеесложное форматирование даты и времени в Ruby on Rails</strong><br />
+Что делать, если вам необходимо более сложное форматирование, помещение в форматирование логики, например вывод русских названий дней и месяцов, или текстовой, а не числовое представление времени и даты и т.д.? &#8212; Для этого можно воспользоваться, например лямбдой:</p>
+<pre class="brush:ruby">
+Time::DATE_FORMATS[:my_super_duper_format] = lambda { |dt|
+  #а здесь у нас особая уличная магия!
+}
+</pre>
+<p><span style="color: #333399;"><strong>Удачи вам в изучении Ruby on Rails! Спасибо за внимание к проекту RubyDev.ru.</strong></span></p>
+<p><span style="color: #ff0000;"><strong>Лучшая благодарность автору &#8212; ваши комментарии!</strong></span></p>
+
+<style>#socialbuttonnav li{list-style:none;overflow:hidden;margin:0 auto;background:none;overflow:hidden;width:62px; height:70px; line-height:10px; margin-right:1px; float:left; text-align:center;}</style>
+<ul id="socialbuttonnav">
+<li><!-- Facebook like--><iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Frubydev.ru%2F2011%2F08%2Frdr3t-ruby-on-rails-date-and-time-format%2F&amp;send=false&amp;layout=box_count&amp;width=44&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=90&amp;appId=220231561331594" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:44px; height:90px;" allowTransparency="true"></iframe></li>
+<li><!-- Google plus one--><g:plusone size="tall" count="true"></g:plusone></li>
+<li><!-- Twitter--><a name="twitter_share" data-count="vertical" href="http://twitter.com/share" class="twitter-share-button" >Tweet</a></li>
+<li><!-- linkedin--><div><script type="in/share" data-counter="top"></script></div></li>
+<li><!-- stumbleupon--><div><script src="http://www.stumbleupon.com/hostedbadge.php?s=5"></script></div></li>
+<li><!-- Pinterest like--> <a href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2Frubydev.ru%2F2011%2F08%2Frdr3t-ruby-on-rails-date-and-time-format%2F&media=http://rubydev.ru/wp-content/uploads/2011/03/rdr3t_logo.png" class="pin-it-button" count-layout="vertical">Pin It</a></li>
+</ul>						
+						<div class="tags-post">Tags: <a href="http://rubydev.ru/tag/ruby-on-rails/" rel="tag">Ruby on Rails</a>, <a href="http://rubydev.ru/tag/tuts/" rel="tag">tuts</a></div>
+					</div>
+				</div>
+
+			
+<!-- You can start editing here. -->
+
+	<h2 id="comments">Responses</h2>
+
+	<div class="small">
+		<span class="feedlink"><a href='http://rubydev.ru/2011/08/rdr3t-ruby-on-rails-date-and-time-format/feed/'>Feed</a></span>
+		<span class="trackbacklink"><a href="http://rubydev.ru/2011/08/rdr3t-ruby-on-rails-date-and-time-format/trackback/" title="Copy this URI to trackback this entry.">Trackback Address</a></span>	</div>
+
+	<ol class="commentlist">
+
+	
+		<li class="comments-alt" id="comment-2085">
+			<img alt='' src='http://1.gravatar.com/avatar/fe6e5f6512dbe0ef93b2dcc204a2e996?s=40&amp;d=&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />			<cite>developer</cite> says:
+						<br />
+
+			<p class="small">августа 4, 2011 at 03:42 (<a href="#comment-2085" title="">#</a>) </p>
+
+			<p>А чем плох способ использования стандартного механизма локализации rails? Для конфигурирования используем ru.yml, а выводим с помощью хелпера l @date, :formats =&gt; :our_format.</p>
+
+		</li>
+
+	
+	
+		<li id="comment-2087">
+			<img alt='' src='http://1.gravatar.com/avatar/da02dfa5b60fb8ab4e35067b777efb6b?s=40&amp;d=&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />			<cite><a href='http://vladalive.com' rel='external nofollow' class='url'>Vlad Alive</a></cite> says:
+						<br />
+
+			<p class="small">августа 4, 2011 at 08:03 (<a href="#comment-2087" title="">#</a>) </p>
+
+			<p>Кстати, <a href="http://strfti.me/" rel="nofollow">http://strfti.me/</a> очень помогает в подборе шаблона даты и времени.</p>
+
+		</li>
+
+	
+	
+		<li class="comments-alt" id="comment-2088">
+			<img alt='' src='http://1.gravatar.com/avatar/56c4c90ab6d3d179eda5946b7c40dc04?s=40&amp;d=&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />			<cite>Yury</cite> says:
+						<br />
+
+			<p class="small">августа 4, 2011 at 10:18 (<a href="#comment-2088" title="">#</a>) </p>
+
+			<p>можно использовать трюк с локализацией</p>
+<p># config/locales/en.yml </p>
+<p>en:<br />
+  date:<br />
+    formats:<br />
+      numeric: &#171;%m/%d/%y&#187;</p>
+<p>I18n.l(date, :format =&gt; :numeric)</p>
+
+		</li>
+
+	
+	
+		<li id="comment-2089">
+			<img alt='' src='http://1.gravatar.com/avatar/9a878f08b4fabd6ec196af1a212dc129?s=40&amp;d=&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />			<cite><a href='http://torqueo.net' rel='external nofollow' class='url'>Andy</a></cite> says:
+						<br />
+
+			<p class="small">августа 4, 2011 at 10:57 (<a href="#comment-2089" title="">#</a>) </p>
+
+			<p>Можно еще проще (и лучше, на мой взгляд): <a href="http://guides.rubyonrails.org/i18n.html#adding-date-time-formats" rel="nofollow">http://guides.rubyonrails.org/i18n.html#adding-date-time-formats</a></p>
+
+		</li>
+
+	
+	
+		<li class="comments-alt" id="comment-2090">
+			<img alt='' src='http://1.gravatar.com/avatar/9a878f08b4fabd6ec196af1a212dc129?s=40&amp;d=&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />			<cite><a href='http://torqueo.net' rel='external nofollow' class='url'>Andy</a></cite> says:
+						<br />
+
+			<p class="small">августа 4, 2011 at 10:58 (<a href="#comment-2090" title="">#</a>) </p>
+
+			<p>Единственное что, сложное форматирование так не сделать.</p>
+
+		</li>
+
+	
+	
+		<li id="comment-2091">
+			<img alt='' src='http://1.gravatar.com/avatar/d0fce0d0c982f0ed2301ce51f7715153?s=40&amp;d=&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />			<cite><a href='http://gonzih.github.com' rel='external nofollow' class='url'>Gonzih</a></cite> says:
+						<br />
+
+			<p class="small">августа 4, 2011 at 10:58 (<a href="#comment-2091" title="">#</a>) </p>
+
+			<p>есть очень клевый гем для хуман френдли форматирования времени<br />
+<a href="https://github.com/jeremyw/stamp" rel="nofollow">https://github.com/jeremyw/stamp</a></p>
+
+		</li>
+
+	
+	
+		<li class="comments-alt" id="comment-2092">
+			<img alt='' src='http://0.gravatar.com/avatar/e317f99efbd38a2a7e1733f67b6a8cf1?s=40&amp;d=&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />			<cite>admin</cite> says:
+						<br />
+
+			<p class="small">августа 4, 2011 at 11:45 (<a href="#comment-2092" title="">#</a>) </p>
+
+			<p>Gonzih, спасибо, я о нем уже писал: <a href="http://rubydev.ru/2011/07/stamp-date-time-formatting/" rel="nofollow">http://rubydev.ru/2011/07/stamp-date-time-formatting/</a></p>
+
+		</li>
+
+	
+	
+		<li id="comment-2093">
+			<img alt='' src='http://0.gravatar.com/avatar/e317f99efbd38a2a7e1733f67b6a8cf1?s=40&amp;d=&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />			<cite>admin</cite> says:
+						<br />
+
+			<p class="small">августа 4, 2011 at 11:54 (<a href="#comment-2093" title="">#</a>) </p>
+
+			<p>Developer, Yury, Andy, i18n ничем не плох кроме того, что, как заметил Andy, сложное форматирование там невозможно, например как сделать, чтобы дата представлялась в текстовом формате &#171;третье августа триста сорок восьмого года, ровно в полдень&#187;? Используя представленный в статье рецепт можно написать очень крутую логику представления, это необходимо редко, но все же.</p>
+
+		</li>
+
+	
+	
+		<li class="comments-alt" id="comment-2738">
+			<img alt='' src='http://0.gravatar.com/avatar/4e2596fdb7b5a4b7a953cb7f363fa8af?s=40&amp;d=&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />			<cite><a href='http://www.inst.tk/' rel='external nofollow' class='url'>inst</a></cite> says:
+						<br />
+
+			<p class="small">февраля 18, 2012 at 22:38 (<a href="#comment-2738" title="">#</a>) </p>
+
+			<p>Доброго времени суток!</p>
+<p>Подскажите, пожалуйста, как сделать вывод даты в формате &#171;10 Фев&#187;? У меня не получается русифицировать это сообщение.</p>
+<p>gem russian &#8212; первый в Gemfile!</p>
+<pre class="brush:ruby">config.i18n.default_locale = :ru</pre>
+<p>в application.rb установлено!</p>
+<pre class="brush:ruby">post.posted_at.strftime '%d %b'</pre>
+<p>А этот код всё равно упорно продолжает возвращать &#171;10 Feb&#187;.<br />
+ЧЯДНТ?</p>
+
+		</li>
+
+	
+	
+		<li id="comment-2739">
+			<img alt='' src='http://0.gravatar.com/avatar/a81783da80523f23803df36d4cb19d00?s=40&amp;d=&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />			<cite>itsNikolay</cite> says:
+						<br />
+
+			<p class="small">февраля 19, 2012 at 17:19 (<a href="#comment-2739" title="">#</a>) </p>
+
+			<p>Иногда требуется вывести дату в отечественном формате.<br />
+Вот маленький туториал :)</p>
+<p>[:day, :month, :year,], :discard_hour=&gt;true, :discard_minute=&gt;true, :default=&gt;DateTime.now %&gt;</p>
+<p>:order=&gt;[:day, :month, :year,] # Порядок вывода слева-направо<br />
+:discard_hour=&gt;true, :discard_minute=&gt;true # Не выводить часы и минуты<br />
+:default=&gt;DateTime.now # Собственно значение по умолчанию</p>
+
+		</li>
+
+	
+	
+	</ol>
+
+
+ 
+
+
+<h2 id="respond">Leave a Response</h2>
+
+
+<form action="http://rubydev.ru/wp-comments-post.php" method="post" id="commentform">
+
+
+<p><input type="text" name="author" id="author" value="" size="22" tabindex="1" />
+<label for="author"><small>Name (required)</small></label></p>
+
+<p><input type="text" name="email" id="email" value="" size="22" tabindex="2" />
+<label for="email"><small>Email (will not be published) (required)</small></label></p>
+
+<p><input type="text" name="url" id="url" value="" size="22" tabindex="3" />
+<label for="url"><small>Website</small></label></p>
+
+
+<p><small> Для подсветки кода используйте BB - коды: <b>[language]...[/language]</b>, где language может быть: ruby, javascript, css, html.</small> </p>
+
+<p><textarea name="comment" id="comment" cols="10" rows="20" tabindex="4"></textarea></p>
+
+<p><input name="submit" type="submit" id="submit" tabindex="5" value="Submit Comment" />
+<input type="hidden" name="comment_post_ID" value="996" />
+</p>
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="0be00178f5" /></p>
+</form>
+
+
+
+			
+		</div> <!-- /content -->
+	</div> <!-- /maincontent-->
+
+	<div class="column span-3 last" id="sidebar">
+	
+		<ul>
+			<li id="text-4" class="widget widget_text"><h2 class="widgettitle">Интересно? -Подпишись!</h2>
+			<div class="textwidget"><a href="http://feeds.feedburner.com/Ruby-on-Rails"><img src="http://feeds.feedburner.com/~fc/Ruby-on-Rails?bg=33CCCC&amp;fg=000000&amp;anim=0" height="26" width="88" style="border:0" alt="" /></a>
+
+<script type="text/javascript" src="http://userapi.com/js/api/openapi.js?47"></script>
+<!-- VK Widget -->
+<div id="vk_groups"></div>
+<script type="text/javascript">
+VK.Widgets.Group("vk_groups", {mode: 1, width: "150", height: "400"}, 31022447);
+</script></div>
+		</li>
+<li id="text-6" class="widget widget_text"><h2 class="widgettitle">Уведомления</h2>
+			<div class="textwidget"><script src="http://feeds.feedburner.com/RubyNonamePodcast?format=sigpro" type="text/javascript" ></script><noscript><p>Subscribe to RSS headline updates from: <a href="http://feeds.feedburner.com/RubyNonamePodcast"></a><br/>Powered by FeedBurner</p> </noscript></div>
+		</li>
+<li id="categories-3" class="widget widget_categories"><h2 class="widgettitle">Рубрики</h2>
+		<ul>
+	<li class="cat-item cat-item-92"><a href="http://rubydev.ru/category/bash/" title="Просмотреть все записи в рубрике &laquo;bash&raquo;">bash</a>
+</li>
+	<li class="cat-item cat-item-167"><a href="http://rubydev.ru/category/best-practices/" title="Просмотреть все записи в рубрике &laquo;Best Practices&raquo;">Best Practices</a>
+</li>
+	<li class="cat-item cat-item-23"><a href="http://rubydev.ru/category/clientside/" title="Просмотреть все записи в рубрике &laquo;ClientSide&raquo;">ClientSide</a>
+</li>
+	<li class="cat-item cat-item-28"><a href="http://rubydev.ru/category/cms/" title="Просмотреть все записи в рубрике &laquo;CMS&raquo;">CMS</a>
+<ul class='children'>
+	<li class="cat-item cat-item-138"><a href="http://rubydev.ru/category/cms/quasarlog/" title="Просмотреть все записи в рубрике &laquo;QuasarLog&raquo;">QuasarLog</a>
+</li>
+	<li class="cat-item cat-item-29"><a href="http://rubydev.ru/category/cms/radiant-cms/" title="Просмотреть все записи в рубрике &laquo;Radiant CMS&raquo;">Radiant CMS</a>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-13"><a href="http://rubydev.ru/category/css-i-verstka/" title="Просмотреть все записи в рубрике &laquo;CSS и верстка&raquo;">CSS и верстка</a>
+</li>
+	<li class="cat-item cat-item-38"><a href="http://rubydev.ru/category/development-processes/" title="Просмотреть все записи в рубрике &laquo;Development Processes&raquo;">Development Processes</a>
+<ul class='children'>
+	<li class="cat-item cat-item-39"><a href="http://rubydev.ru/category/development-processes/upravlenie-versiyami/" title="Просмотреть все записи в рубрике &laquo;Управление Версиями&raquo;">Управление Версиями</a>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-46"><a href="http://rubydev.ru/category/english/" title="Просмотреть все записи в рубрике &laquo;English&raquo;">English</a>
+<ul class='children'>
+	<li class="cat-item cat-item-47"><a href="http://rubydev.ru/category/english/grammar/" title="Просмотреть все записи в рубрике &laquo;Grammar&raquo;">Grammar</a>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-17"><a href="http://rubydev.ru/category/help/" title="Просмотреть все записи в рубрике &laquo;Help&raquo;">Help</a>
+</li>
+	<li class="cat-item cat-item-112"><a href="http://rubydev.ru/category/http-rest/" title="Просмотреть все записи в рубрике &laquo;HTTP &amp; REST&raquo;">HTTP &amp; REST</a>
+</li>
+	<li class="cat-item cat-item-168"><a href="http://rubydev.ru/category/in-english/" title="Просмотреть все записи в рубрике &laquo;In English&raquo;">In English</a>
+</li>
+	<li class="cat-item cat-item-57"><a href="http://rubydev.ru/category/javascript-2/" title="Просмотреть все записи в рубрике &laquo;JavaScript&raquo;">JavaScript</a>
+<ul class='children'>
+	<li class="cat-item cat-item-71"><a href="http://rubydev.ru/category/javascript-2/jquery/" title="Просмотреть все записи в рубрике &laquo;jQuery&raquo;">jQuery</a>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-89"><a href="http://rubydev.ru/category/linux/" title="Просмотреть все записи в рубрике &laquo;Linux&raquo;">Linux</a>
+</li>
+	<li class="cat-item cat-item-21"><a href="http://rubydev.ru/category/rack/" title="Просмотреть все записи в рубрике &laquo;Rack&raquo;">Rack</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://rubydev.ru/category/ruby/" title="Просмотреть все записи в рубрике &laquo;Ruby&raquo;">Ruby</a>
+<ul class='children'>
+	<li class="cat-item cat-item-4"><a href="http://rubydev.ru/category/ruby/ruby-gems/" title="Просмотреть все записи в рубрике &laquo;Ruby Gems&raquo;">Ruby Gems</a>
+</li>
+	<li class="cat-item cat-item-80"><a href="http://rubydev.ru/category/ruby/stdlib/" title="Просмотреть все записи в рубрике &laquo;STDLIB&raquo;">STDLIB</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="http://rubydev.ru/category/ruby/osnovy/" title="Просмотреть все записи в рубрике &laquo;Основы&raquo;">Основы</a>
+</li>
+	<li class="cat-item cat-item-42"><a href="http://rubydev.ru/category/ruby/rasshireniya/" title="Просмотреть все записи в рубрике &laquo;Расширения&raquo;">Расширения</a>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-9"><a href="http://rubydev.ru/category/ruby-on-rails/" title="Просмотреть все записи в рубрике &laquo;Ruby on Rails&raquo;">Ruby on Rails</a>
+<ul class='children'>
+	<li class="cat-item cat-item-156"><a href="http://rubydev.ru/category/ruby-on-rails/model-ruby-on-rails/" title="Просмотреть все записи в рубрике &laquo;Model&raquo;">Model</a>
+</li>
+	<li class="cat-item cat-item-15"><a href="http://rubydev.ru/category/ruby-on-rails/ruby-on-rails-3/" title="Просмотреть все записи в рубрике &laquo;Ruby on Rails 3&raquo;">Ruby on Rails 3</a>
+</li>
+	<li class="cat-item cat-item-84"><a href="http://rubydev.ru/category/ruby-on-rails/view/" title="Просмотреть все записи в рубрике &laquo;View&raquo;">View</a>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-93"><a href="http://rubydev.ru/category/sequel/" title="Просмотреть все записи в рубрике &laquo;Sequel&raquo;">Sequel</a>
+</li>
+	<li class="cat-item cat-item-66"><a href="http://rubydev.ru/category/sinatra/" title="Просмотреть все записи в рубрике &laquo;Sinatra&raquo;">Sinatra</a>
+</li>
+	<li class="cat-item cat-item-157"><a href="http://rubydev.ru/category/tipstricks/" title="Просмотреть все записи в рубрике &laquo;Tips&amp;Tricks&raquo;">Tips&amp;Tricks</a>
+</li>
+	<li class="cat-item cat-item-20"><a href="http://rubydev.ru/category/bazy-dannyx/" title="Просмотреть все записи в рубрике &laquo;Базы данных&raquo;">Базы данных</a>
+<ul class='children'>
+	<li class="cat-item cat-item-111"><a href="http://rubydev.ru/category/bazy-dannyx/mongodb-bazy-dannyx/" title="Просмотреть все записи в рубрике &laquo;MongoDB&raquo;">MongoDB</a>
+</li>
+	<li class="cat-item cat-item-128"><a href="http://rubydev.ru/category/bazy-dannyx/postgresql/" title="Просмотреть все записи в рубрике &laquo;PostgreSQL&raquo;">PostgreSQL</a>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-72"><a href="http://rubydev.ru/category/intervyu/" title="Просмотреть все записи в рубрике &laquo;Интервью&raquo;">Интервью</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="http://rubydev.ru/category/%d0%bd%d0%be%d0%b2%d0%be%d1%81%d1%82%d0%b8/" title="Просмотреть все записи в рубрике &laquo;Новости&raquo;">Новости</a>
+</li>
+	<li class="cat-item cat-item-137"><a href="http://rubydev.ru/category/primat-sovetchik/" title="Просмотреть все записи в рубрике &laquo;Примат &#8212; советчик&raquo;">Примат &#8212; советчик</a>
+</li>
+	<li class="cat-item cat-item-41"><a href="http://rubydev.ru/category/si-i-c/" title="Просмотреть все записи в рубрике &laquo;Си и C++&raquo;">Си и C++</a>
+</li>
+	<li class="cat-item cat-item-34"><a href="http://rubydev.ru/category/testirovanie/" title="Просмотреть все записи в рубрике &laquo;Тестирование&raquo;">Тестирование</a>
+<ul class='children'>
+	<li class="cat-item cat-item-35"><a href="http://rubydev.ru/category/testirovanie/bdd/" title="Просмотреть все записи в рубрике &laquo;BDD&raquo;">BDD</a>
+</li>
+	<li class="cat-item cat-item-36"><a href="http://rubydev.ru/category/testirovanie/rspec/" title="Просмотреть все записи в рубрике &laquo;RSpec&raquo;">RSpec</a>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-59"><a href="http://rubydev.ru/category/ugolok-filosofa/" title="Просмотреть все записи в рубрике &laquo;Уголок философа&raquo;">Уголок философа</a>
+</li>
+		</ul>
+</li>
+<li id="tag_cloud-3" class="widget widget_tag_cloud"><h2 class="widgettitle">Облако тегов</h2>
+<div class="tagcloud"><a href='http://rubydev.ru/tag/activerecord/' class='tag-link-51' title='15 записей' style='font-size: 15.357664233577pt;'>ActiveRecord</a>
+<a href='http://rubydev.ru/tag/bdd/' class='tag-link-35' title='5 записей' style='font-size: 11.065693430657pt;'>BDD</a>
+<a href='http://rubydev.ru/tag/c/' class='tag-link-97' title='3 записи' style='font-size: 9.2262773722628pt;'>C</a>
+<a href='http://rubydev.ru/tag/cms/' class='tag-link-28' title='3 записи' style='font-size: 9.2262773722628pt;'>CMS</a>
+<a href='http://rubydev.ru/tag/core/' class='tag-link-37' title='3 записи' style='font-size: 9.2262773722628pt;'>core</a>
+<a href='http://rubydev.ru/tag/css/' class='tag-link-5' title='3 записи' style='font-size: 9.2262773722628pt;'>css</a>
+<a href='http://rubydev.ru/tag/database/' class='tag-link-19' title='18 записей' style='font-size: 16.175182481752pt;'>database</a>
+<a href='http://rubydev.ru/tag/english-2/' class='tag-link-48' title='6 записей' style='font-size: 11.78102189781pt;'>english</a>
+<a href='http://rubydev.ru/tag/enumerable/' class='tag-link-33' title='6 записей' style='font-size: 11.78102189781pt;'>enumerable</a>
+<a href='http://rubydev.ru/tag/functions/' class='tag-link-62' title='3 записи' style='font-size: 9.2262773722628pt;'>functions</a>
+<a href='http://rubydev.ru/tag/gem/' class='tag-link-6' title='12 записей' style='font-size: 14.43795620438pt;'>gem</a>
+<a href='http://rubydev.ru/tag/git/' class='tag-link-40' title='4 записи' style='font-size: 10.248175182482pt;'>Git</a>
+<a href='http://rubydev.ru/tag/interview/' class='tag-link-77' title='4 записи' style='font-size: 10.248175182482pt;'>interview</a>
+<a href='http://rubydev.ru/tag/javascript/' class='tag-link-24' title='14 записей' style='font-size: 15.153284671533pt;'>javascript</a>
+<a href='http://rubydev.ru/tag/jquery/' class='tag-link-71' title='4 записи' style='font-size: 10.248175182482pt;'>jQuery</a>
+<a href='http://rubydev.ru/tag/linux-2/' class='tag-link-90' title='3 записи' style='font-size: 9.2262773722628pt;'>linux</a>
+<a href='http://rubydev.ru/tag/log/' class='tag-link-63' title='3 записи' style='font-size: 9.2262773722628pt;'>log</a>
+<a href='http://rubydev.ru/tag/metaprogramming/' class='tag-link-56' title='7 записей' style='font-size: 12.29197080292pt;'>metaprogramming</a>
+<a href='http://rubydev.ru/tag/mongodb/' class='tag-link-53' title='6 записей' style='font-size: 11.78102189781pt;'>mongodb</a>
+<a href='http://rubydev.ru/tag/orm/' class='tag-link-95' title='4 записи' style='font-size: 10.248175182482pt;'>orm</a>
+<a href='http://rubydev.ru/tag/pattern/' class='tag-link-82' title='3 записи' style='font-size: 9.2262773722628pt;'>pattern</a>
+<a href='http://rubydev.ru/tag/postgresql-2/' class='tag-link-130' title='3 записи' style='font-size: 9.2262773722628pt;'>postgresql</a>
+<a href='http://rubydev.ru/tag/rack/' class='tag-link-21' title='2 записи' style='font-size: 8pt;'>Rack</a>
+<a href='http://rubydev.ru/tag/rails/' class='tag-link-10' title='8 записей' style='font-size: 12.802919708029pt;'>rails</a>
+<a href='http://rubydev.ru/tag/rails-3-1/' class='tag-link-58' title='4 записи' style='font-size: 10.248175182482pt;'>Rails 3.1</a>
+<a href='http://rubydev.ru/tag/rdr3t/' class='tag-link-55' title='4 записи' style='font-size: 10.248175182482pt;'>RDR3T</a>
+<a href='http://rubydev.ru/tag/refactoring/' class='tag-link-124' title='4 записи' style='font-size: 10.248175182482pt;'>refactoring</a>
+<a href='http://rubydev.ru/tag/rspec/' class='tag-link-36' title='7 записей' style='font-size: 12.29197080292pt;'>RSpec</a>
+<a href='http://rubydev.ru/tag/ruby/' class='tag-link-3' title='69 записей' style='font-size: 22pt;'>Ruby</a>
+<a href='http://rubydev.ru/tag/ruby-on-rails/' class='tag-link-9' title='35 записей' style='font-size: 19.036496350365pt;'>Ruby on Rails</a>
+<a href='http://rubydev.ru/tag/rvm/' class='tag-link-12' title='4 записи' style='font-size: 10.248175182482pt;'>rvm</a>
+<a href='http://rubydev.ru/tag/sinatra/' class='tag-link-66' title='3 записи' style='font-size: 9.2262773722628pt;'>Sinatra</a>
+<a href='http://rubydev.ru/tag/tense/' class='tag-link-52' title='3 записи' style='font-size: 9.2262773722628pt;'>tense</a>
+<a href='http://rubydev.ru/tag/tips/' class='tag-link-158' title='5 записей' style='font-size: 11.065693430657pt;'>tips</a>
+<a href='http://rubydev.ru/tag/tricks/' class='tag-link-159' title='5 записей' style='font-size: 11.065693430657pt;'>tricks</a>
+<a href='http://rubydev.ru/tag/tuts/' class='tag-link-8' title='64 записи' style='font-size: 21.591240875912pt;'>tuts</a>
+<a href='http://rubydev.ru/tag/krasivyj-kod/' class='tag-link-27' title='12 записей' style='font-size: 14.43795620438pt;'>Красивый код</a>
+<a href='http://rubydev.ru/tag/razvertyvanie/' class='tag-link-11' title='2 записи' style='font-size: 8pt;'>Развертывание</a>
+<a href='http://rubydev.ru/tag/si/' class='tag-link-43' title='7 записей' style='font-size: 12.29197080292pt;'>Си</a>
+<a href='http://rubydev.ru/tag/blog/' class='tag-link-16' title='17 записей' style='font-size: 15.970802919708pt;'>блог</a>
+<a href='http://rubydev.ru/tag/imperativnaya-paradigma/' class='tag-link-141' title='3 записи' style='font-size: 9.2262773722628pt;'>императивная парадигма</a>
+<a href='http://rubydev.ru/tag/intervyu-2/' class='tag-link-73' title='6 записей' style='font-size: 11.78102189781pt;'>интервью</a>
+<a href='http://rubydev.ru/tag/procedurnye-yazyki/' class='tag-link-142' title='3 записи' style='font-size: 9.2262773722628pt;'>процедурные языки</a>
+<a href='http://rubydev.ru/tag/testirovanie-2/' class='tag-link-45' title='7 записей' style='font-size: 12.29197080292pt;'>тестирование</a>
+<a href='http://rubydev.ru/tag/filosofiya/' class='tag-link-60' title='6 записей' style='font-size: 11.78102189781pt;'>философия</a></div>
+</li>
+<li id="text-5" class="widget widget_text"><h2 class="widgettitle">Ruby on Rails сообщество</h2>
+			<div class="textwidget"><a style="font-size:1.2em; font-style:bold; font-family: Verdana, Tahoma, Helvetica; text-decoration:underline;" href="http://rubynarium.ru/" target="_Blank"><b>Rubynarium</b></a> - агрегатор статей о Ruby и Rails.<br /><br />
+
+<a style="font-size:1.2em; font-style:bold; font-family: Verdana, Tahoma, Helvetica; text-decoration:underline;" href="http://www.rubyflow.ru/" target="_Blank"><b>RubyFlow</b></a> - главный русскоязычный агрегатор статей и новостей о Ruby и Rails.<br /><br />
+
+<a style="font-size:1.2em; font-style:bold; font-family: Verdana, Tahoma, Helvetica; text-decoration:underline;" href="http://rusrails.ru/" target="_Blank"><b>RusRails</b></a> - перевод Rails Guides и блог.<br /><br />
+
+<a style="font-size:1.2em; font-style:bold; font-family: Verdana, Tahoma, Helvetica; text-decoration:underline;" href="http://ruby-toolbox.com/categories.html" target="_Blank"><b>The Ruby Toolbox</b></a> - каталог расширений Rails и RubyGems разбитых на категории с ранжирование по популярности.<br /><br />
+
+<a style="font-size:1.2em; font-style:bold; font-family: Verdana, Tahoma, Helvetica; text-decoration:underline;" href="http://torqueo.net/" target="_Blank"><b>Neurons to bytes</b></a> - блог о  Ruby, Rails, JavaScript и мерзопакостном РНР ;-) <br /><br />
+
+<a style="font-size:1.2em; font-style:bold; font-family: Verdana, Tahoma, Helvetica; text-decoration:underline;" href="http://blog.alno.name/ru/" target="_Blank"><b>Alno's Blog</b></a> - блог опытного программиста посвященный разработке на C++, Java и Rails.<br /><br />
+
+<a style="font-size:1.2em; font-style:bold; font-family: Verdana, Tahoma, Helvetica; text-decoration:underline;" href="http://rbdev.ru/" target="_Blank"><b>Are you in software?</b></a> - Персональный блог Печорина Андрея.<br /><br />
+
+<a style="font-size:1.2em; font-style:bold; font-family: Verdana, Tahoma, Helvetica; text-decoration:underline;" href="http://avastor.pp.ua/" target="_Blank"><b>Avastor</b></a> - молодой блог о Ruby и Rails.<br /><br />
+
+</div>
+		</li>
+<li id="meta-3" class="widget widget_meta"><h2 class="widgettitle">Мета</h2>
+			<ul>
+			<li><a href="http://rubydev.ru/wp-login.php?action=register">Регистрация</a></li>			<li><a href="http://rubydev.ru/wp-login.php">Войти</a></li>
+			<li><a href="http://rubydev.ru/feed/" title="Подпишитесь на RSS-ленту этого сайта"><abbr title="Really Simple Syndication">RSS</abbr> записей</a></li>
+			<li><a href="http://rubydev.ru/comments/feed/" title="Последние комментарии ко всем записям в RSS"><abbr title="Really Simple Syndication">RSS</abbr> комментариев</a></li>
+			<li><a href="http://ru.wordpress.org/" title="Сайт работает на WordPress &#8212; современной персональной платформе для публикаций.">WordPress.org</a></li>						</ul>
+</li>
+<li id="archives-3" class="widget widget_archive"><h2 class="widgettitle">Архив</h2>
+		<ul>
+			<li><a href='http://rubydev.ru/2014/12/'>Декабрь 2014</a></li>
+	<li><a href='http://rubydev.ru/2014/09/'>Сентябрь 2014</a></li>
+	<li><a href='http://rubydev.ru/2014/04/'>Апрель 2014</a></li>
+	<li><a href='http://rubydev.ru/2013/11/'>Ноябрь 2013</a></li>
+	<li><a href='http://rubydev.ru/2013/05/'>Май 2013</a></li>
+	<li><a href='http://rubydev.ru/2013/01/'>Январь 2013</a></li>
+	<li><a href='http://rubydev.ru/2012/11/'>Ноябрь 2012</a></li>
+	<li><a href='http://rubydev.ru/2012/09/'>Сентябрь 2012</a></li>
+	<li><a href='http://rubydev.ru/2012/08/'>Август 2012</a></li>
+	<li><a href='http://rubydev.ru/2012/07/'>Июль 2012</a></li>
+	<li><a href='http://rubydev.ru/2012/06/'>Июнь 2012</a></li>
+	<li><a href='http://rubydev.ru/2012/05/'>Май 2012</a></li>
+	<li><a href='http://rubydev.ru/2012/04/'>Апрель 2012</a></li>
+	<li><a href='http://rubydev.ru/2012/03/'>Март 2012</a></li>
+	<li><a href='http://rubydev.ru/2012/02/'>Февраль 2012</a></li>
+	<li><a href='http://rubydev.ru/2011/12/'>Декабрь 2011</a></li>
+	<li><a href='http://rubydev.ru/2011/11/'>Ноябрь 2011</a></li>
+	<li><a href='http://rubydev.ru/2011/10/'>Октябрь 2011</a></li>
+	<li><a href='http://rubydev.ru/2011/09/'>Сентябрь 2011</a></li>
+	<li><a href='http://rubydev.ru/2011/08/'>Август 2011</a></li>
+	<li><a href='http://rubydev.ru/2011/07/'>Июль 2011</a></li>
+	<li><a href='http://rubydev.ru/2011/06/'>Июнь 2011</a></li>
+	<li><a href='http://rubydev.ru/2011/05/'>Май 2011</a></li>
+	<li><a href='http://rubydev.ru/2011/04/'>Апрель 2011</a></li>
+	<li><a href='http://rubydev.ru/2011/03/'>Март 2011</a></li>
+	<li><a href='http://rubydev.ru/2011/02/'>Февраль 2011</a></li>
+	<li><a href='http://rubydev.ru/2011/01/'>Январь 2011</a></li>
+	<li><a href='http://rubydev.ru/2010/12/'>Декабрь 2010</a></li>
+	<li><a href='http://rubydev.ru/2010/11/'>Ноябрь 2010</a></li>
+	<li><a href='http://rubydev.ru/2010/10/'>Октябрь 2010</a></li>
+	<li><a href='http://rubydev.ru/2010/09/'>Сентябрь 2010</a></li>
+	<li><a href='http://rubydev.ru/2010/08/'>Август 2010</a></li>
+	<li><a href='http://rubydev.ru/2010/07/'>Июль 2010</a></li>
+	<li><a href='http://rubydev.ru/2010/06/'>Июнь 2010</a></li>
+	<li><a href='http://rubydev.ru/2010/05/'>Май 2010</a></li>
+		</ul>
+</li>
+<li id="text-3" class="widget widget_text">			<div class="textwidget"><br /><hr /><br /><!--LiveInternet counter--><script type="text/javascript"><!--
+document.write("<a href='http://www.liveinternet.ru/click' "+
+"target=_blank><img src='//counter.yadro.ru/hit?t14.1;r"+
+escape(document.referrer)+((typeof(screen)=="undefined")?"":
+";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+";"+Math.random()+
+"' alt='' title='LiveInternet: number of pageviews for 24 hours,"+
+" of visitors for 24 hours and for today is shown' "+
+"border='0' width='88' height='31'><\/a>")
+//--></script><!--/LiveInternet-->
+
+
+<a href="http://www.blogbooster.ru/" title="Каталог блогов"><img src="http://www.blogbooster.ru/button1.gif" border="0" width="80" height="15" alt="Каталог блогов"></a>
+
+
+<div id="clustrmaps-widget"></div><script type="text/javascript">var _clustrmaps = {'url' : 'http://rubydev.ru', 'user' : 935538, 'server' : '4', 'id' : 'clustrmaps-widget', 'version' : 1, 'date' : '2011-09-25', 'lang' : 'en', 'corners' : 'square' };(function (){ var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = 'http://www4.clustrmaps.com/counter/map.js'; var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);})();</script><noscript><a href="http://www4.clustrmaps.com/user/b2fe4672"><img src="http://www4.clustrmaps.com/stats/maps-no_clusters/rubydev.ru-thumb.jpg" alt="Locations of visitors to this page" /></a></noscript>
+</div>
+		</li>
+
+		</ul>
+</div> <!-- /sidebar -->
+
+	</div> <!-- /page -->
+
+	<div id="footer">
+		&copy;2015 Ruby on Rails c нуля!<br />
+		Powered by <a href="http://wordpress.org/">WordPress</a> using <a href="http://www.fireandknowledge.org/blueprint/">Blueprint</a>.
+
+		<!-- 25 queries. 0,368 seconds. -->
+	</div>
+
+</div> <!-- /container -->
+
+		 
+		<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+		<script src="http://platform.linkedin.com/in.js" type="text/javascript"></script>
+		
+<!-- START: Syntax Highlighter ComPress -->
+<script type="text/javascript">
+    SyntaxHighlighter.autoloader(
+        'applescript			http://rubydev.ru/wp-content/plugins/syntax-highlighter-compress/scripts/shBrushAppleScript.js',
+        'actionscript3 as3		http://rubydev.ru/wp-content/plugins/syntax-highlighter-compress/scripts/shBrushAS3.js',
+        'bash shell				http://rubydev.ru/wp-content/plugins/syntax-highlighter-compress/scripts/shBrushBash.js',
+        'coldfusion cf			http://rubydev.ru/wp-content/plugins/syntax-highlighter-compress/scripts/shBrushColdFusion.js',
+        'cpp c					http://rubydev.ru/wp-content/plugins/syntax-highlighter-compress/scripts/shBrushCpp.js',
+        'c# c-sharp csharp		http://rubydev.ru/wp-content/plugins/syntax-highlighter-compress/scripts/shBrushCSharp.js',
+        'css					http://rubydev.ru/wp-content/plugins/syntax-highlighter-compress/scripts/shBrushCss.js',
+        'delphi pascal pas		http://rubydev.ru/wp-content/plugins/syntax-highlighter-compress/scripts/shBrushDelphi.js',
+        'diff patch			    http://rubydev.ru/wp-content/plugins/syntax-highlighter-compress/scripts/shBrushDiff.js',
+        'erl erlang				http://rubydev.ru/wp-content/plugins/syntax-highlighter-compress/scripts/shBrushErlang.js',
+        'groovy					http://rubydev.ru/wp-content/plugins/syntax-highlighter-compress/scripts/shBrushGroovy.js',
+        'java					http://rubydev.ru/wp-content/plugins/syntax-highlighter-compress/scripts/shBrushJava.js',
+        'jfx javafx				http://rubydev.ru/wp-content/plugins/syntax-highlighter-compress/scripts/shBrushJavaFX.js',
+        'js jscript javascript	http://rubydev.ru/wp-content/plugins/syntax-highlighter-compress/scripts/shBrushJScript.js',
+        'perl pl				http://rubydev.ru/wp-content/plugins/syntax-highlighter-compress/scripts/shBrushPerl.js',
+        'php					http://rubydev.ru/wp-content/plugins/syntax-highlighter-compress/scripts/shBrushPhp.js',
+        'text plain				http://rubydev.ru/wp-content/plugins/syntax-highlighter-compress/scripts/shBrushPlain.js',
+        'powershell ps          http://rubydev.ru/wp-content/plugins/syntax-highlighter-compress/scripts/shBrushPowerShell.js',
+        'py python				http://rubydev.ru/wp-content/plugins/syntax-highlighter-compress/scripts/shBrushPython.js',
+        'ruby rails ror rb		http://rubydev.ru/wp-content/plugins/syntax-highlighter-compress/scripts/shBrushRuby.js',
+        'sass scss              http://rubydev.ru/wp-content/plugins/syntax-highlighter-compress/scripts/shBrushSass.js',
+        'scala					http://rubydev.ru/wp-content/plugins/syntax-highlighter-compress/scripts/shBrushScala.js',
+        'sql					http://rubydev.ru/wp-content/plugins/syntax-highlighter-compress/scripts/shBrushSql.js',
+        'vb vbnet				http://rubydev.ru/wp-content/plugins/syntax-highlighter-compress/scripts/shBrushVb.js',
+        'xml xhtml xslt html	http://rubydev.ru/wp-content/plugins/syntax-highlighter-compress/scripts/shBrushXml.js'
+    );
+                        SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.all();
+</script>
+<!-- END: Syntax Highlighter ComPress -->
+
+	<script type="text/javascript">SyntaxHighlighter.config.clipboardSwf = "http://rubydev.ru/wp-content/plugins/syntaxhighlighterpro/scripts/clipboard.swf";SyntaxHighlighter.all();</script><script type='text/javascript' src='http://rubydev.ru/wp-content/plugins/prettify-gc-syntax-highlighter/prettify.js?ver=3.7.5'></script>
+<script type='text/javascript' src='http://rubydev.ru/wp-content/plugins/prettify-gc-syntax-highlighter/launch.js?ver=3.7.5'></script>
+<script type='text/javascript' src='http://rubydev.ru/wp-content/plugins/syntaxhighlighterpro/scripts/shCore.js?ver=2.1.364'></script>
+<script type='text/javascript' src='http://rubydev.ru/wp-content/plugins/syntaxhighlighterpro/scripts/shBrushBash.js?ver=2.1.364'></script>
+<script type='text/javascript' src='http://rubydev.ru/wp-content/plugins/syntaxhighlighterpro/scripts/shBrushCpp.js?ver=2.1.364'></script>
+<script type='text/javascript' src='http://rubydev.ru/wp-content/plugins/syntaxhighlighterpro/scripts/shBrushCSharp.js?ver=2.1.364'></script>
+<script type='text/javascript' src='http://rubydev.ru/wp-content/plugins/syntaxhighlighterpro/scripts/shBrushCss.js?ver=2.1.364'></script>
+<script type='text/javascript' src='http://rubydev.ru/wp-content/plugins/syntaxhighlighterpro/scripts/shBrushGroovy.js?ver=2.1.364'></script>
+<script type='text/javascript' src='http://rubydev.ru/wp-content/plugins/syntaxhighlighterpro/scripts/shBrushJava.js?ver=2.1.364'></script>
+<script type='text/javascript' src='http://rubydev.ru/wp-content/plugins/syntaxhighlighterpro/scripts/shBrushJScript.js?ver=2.1.364'></script>
+<script type='text/javascript' src='http://rubydev.ru/wp-content/plugins/syntaxhighlighterpro/scripts/shBrushPerl.js?ver=2.1.364'></script>
+<script type='text/javascript' src='http://rubydev.ru/wp-content/plugins/syntaxhighlighterpro/scripts/shBrushPhp.js?ver=2.1.364'></script>
+<script type='text/javascript' src='http://rubydev.ru/wp-content/plugins/syntaxhighlighterpro/scripts/shBrushPlain.js?ver=2.1.364'></script>
+<script type='text/javascript' src='http://rubydev.ru/wp-content/plugins/syntaxhighlighterpro/scripts/shBrushRuby.js?ver=2.1.364'></script>
+<script type='text/javascript' src='http://rubydev.ru/wp-content/plugins/syntaxhighlighterpro/scripts/shBrushSql.js?ver=2.1.364'></script>
+<script type='text/javascript' src='http://rubydev.ru/wp-content/plugins/syntaxhighlighterpro/scripts/shBrushXml.js?ver=2.1.364'></script>
+</body>
+</html>

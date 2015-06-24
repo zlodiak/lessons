@@ -1,0 +1,69 @@
+протестируем модель. проверим можно ли создать новый объект без заполнения обязательного свойства на стадии инициализации
+
+model:
+class Document < ActiveRecord::Base
+	validates :body, presence: true
+end
+
+
+
+test/models/document_text.rb:
+require 'test_helper'
+
+class DocumentTest < ActiveSupport::TestCase
+	test "should save doc with title and body" do
+	  document = Document.new(title: 'qwery', body: 'bbbb')
+	  assert document.save
+	end
+
+	test "should save doc with title and without body" do
+	  document = Document.new(title: 'qwery')
+	  assert document.save
+	end	
+end
+
+
+
+
+console:
+sergey@sergey-H61M-D2-B3 ~/rails/project1 $ rake test test/models/document_test.rb
+Run options: --seed 60913
+
+# Running tests:
+
+.F
+
+Finished tests in 0.174352s, 11.4710 tests/s, 11.4710 assertions/s.
+
+  1) Failure:
+DocumentTest#test_should_save_doc_with_title_and_without_body [/home/sergey/rails/project1/test/models/document_test.rb:11]:
+Failed assertion, no message given.
+
+2 tests, 2 assertions, 1 failures, 0 errors, 0 skips
+
+
+
+как видим, первый тест прошёл, а второй - нет. это потому что в модели существует правило валидации validates :body, presence: true
+
+важно! так же возможны сообщения типа error в случае ошибочно написания самого теста
+
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================

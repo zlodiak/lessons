@@ -1,0 +1,149 @@
+вложенные роуты на примере блога.
+есть пользователи. у каждого пользователя есть блог. каждый блок состоит из записей
+вывод всех дневников: http://localhost:3000/pages/all_diary
+вывод дневников одного пользователя: http://localhost:3000/users/1/posts
+вывод одного поста из дневника конкретного пользователя: http://localhost:3000/users/1/posts/1
+
+=======================
+routes.rb:
+
+  resources :users
+
+  resources :users do
+    resources :posts
+  end  
+
+  get 'pages/all_diary'
+
+=======================
+class PagesController < ApplicationController
+  def home
+  end
+
+  def all_diary
+    @all_diary = User.all
+  end
+
+
+
+=======================
+views:pages:all_diary:
+
+    <% @all_diary.each do |diary| %>
+      <tr>
+        <td>
+          <%= link_to user_posts_url(diary.id) do %>
+            <div class="col-sm-3"><%= diary.diary_name %></div>
+            <div class="col-sm-3"><%= diary.name %></div>
+            <div class="col-sm-3"><%= l diary.created_at, format: "%e %b %Y" %></div>
+            <div class="col-sm-3"><%= l diary.updated_at, format: "%e %b %Y" %></div>
+          <% end %>  
+        </td>
+      </tr>
+    <% end %>  
+
+=======================
+class PostsController < ApplicationController
+  def index
+    @user = User.find(params[:user_id])    
+    @posts = @user.posts
+  end
+
+
+
+
+
+
+=======================
+views:posts:index:
+    <% @posts.each do |post| %>
+      <tr>
+        <td>
+          <%= link_to user_post_path(@user.id, post.id) do %>
+            <div class="col-sm-3"><%= post.title %> | <%= post.id %></div>
+            <div class="col-sm-3"><%= truncate(post.body, length: 50) %></div>
+            <div class="col-sm-3"><%= l post.created_at, format: "%e %b %Y" %></div>
+            <div class="col-sm-3"><%= l post.updated_at, format: "%e %b %Y" %></div>
+          <% end %>  
+        </td>
+      </tr>
+    <% end %> 
+
+
+=======================
+class PostsController < ApplicationController
+  def show
+    @user = User.find(params[:user_id])
+    @posts = @user.posts    
+  end
+
+
+
+
+=======================
+views:posts:Show:
+<p>
+  <strong>Title:</strong>
+  <%= @post.title %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @post.body %>
+</p>
+
+
+
+
+=======================
+kalinin@kalinin ~/rails/ZSUM $ rake routes
+             Prefix Verb   URI Pattern                              Controller#Action
+           sessions POST   /sessions(.:format)                      sessions#create
+        new_session GET    /sessions/new(.:format)                  sessions#new
+            session DELETE /sessions/:id(.:format)                  sessions#destroy
+              users GET    /users(.:format)                         users#index
+                    POST   /users(.:format)                         users#create
+           new_user GET    /users/new(.:format)                     users#new
+          edit_user GET    /users/:id/edit(.:format)                users#edit
+               user GET    /users/:id(.:format)                     users#show
+                    PATCH  /users/:id(.:format)                     users#update
+                    PUT    /users/:id(.:format)                     users#update
+                    DELETE /users/:id(.:format)                     users#destroy
+         user_posts GET    /users/:user_id/posts(.:format)          posts#index
+                    POST   /users/:user_id/posts(.:format)          posts#create
+      new_user_post GET    /users/:user_id/posts/new(.:format)      posts#new
+     edit_user_post GET    /users/:user_id/posts/:id/edit(.:format) posts#edit
+          user_post GET    /users/:user_id/posts/:id(.:format)      posts#show
+                    PATCH  /users/:user_id/posts/:id(.:format)      posts#update
+                    PUT    /users/:user_id/posts/:id(.:format)      posts#update
+                    DELETE /users/:user_id/posts/:id(.:format)      posts#destroy
+                    GET    /users(.:format)                         users#index
+                    POST   /users(.:format)                         users#create
+                    GET    /users/new(.:format)                     users#new
+                    GET    /users/:id/edit(.:format)                users#edit
+                    GET    /users/:id(.:format)                     users#show
+                    PATCH  /users/:id(.:format)                     users#update
+                    PUT    /users/:id(.:format)                     users#update
+                    DELETE /users/:id(.:format)                     users#destroy
+         pages_home GET    /pages/home(.:format)                    pages#home
+    pages_all_diary GET    /pages/all_diary(.:format)               pages#all_diary
+pages_popular_diary GET    /pages/popular_diary(.:format)           pages#popular_diary
+  pages_lasts_diary GET    /pages/lasts_diary(.:format)             pages#lasts_diary
+             signup GET    /signup(.:format)                        users#new
+             signin GET    /signin(.:format)                        sessions#new
+            signout DELETE /signout(.:format)                       sessions#destroy
+               root GET    /                                        pages#home
+
+               
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================

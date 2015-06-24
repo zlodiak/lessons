@@ -1,0 +1,230 @@
+после открытия терминала нужно предварительно ввести:
+/bin/bash --login
+rvm use 2.0.0
+source /home/kalinin/.rvm/scripts/rvm
+причём делат всё это находясь в каталоге проектов(!)
+
+затем создавить проект здесь же(новый каталог создавать не требуется)
+
+=================================
+
+
+если происходит непонятная фигня после rail s , то нужно править hosts:
+
+Please check your host file. I assume you are using ubuntu then just type
+
+sudo nano /etc/hosts
+If the below line exists then ok else just insert the line.
+
+127.0.0.1       localhost
+And use localhost:3000 not Localhost:3000
+
+то есть прописать 127.0.0.1       localhost
+
+=================================
+
+если после bundle install происходит непонятное, то нужно установить:
+libpq-dev 
+
+https://www.linux.org.ru/forum/web-development/11650375
+
+
+=================================
+создать новое приложение:
+rails new demo
+cd demo
+перейти в каталог приложения и:
+rails server
+или
+rails server webrick
+
+при этом если появляется сообщение о старте сервера и 'exiting', то проще закрыть терминал и открыть новый. 
+но теоретически нужно убить процесс запущенного сервера
+
+в браузере http://localhost:3000/
+
+
+=======================
+создалим контроллер для главной страницы:
+rails g controller main
+
+в результате создастся соотв контроллер и соотв представление(index.html.erb)
+
+
+=======================
+назначим главную страничку:
+в routes.rb:
+Visit::Application.routes.draw do
+  get "main/index"
+
+  root 'main#index'
+
+при этом экшн  index создавать не нужно. при запросе контроллера по умолчанию активизируется экшн index
+
+создадим и другие контроллеры подобным образом
+при этом не забудем добавлять их в routes.rb
+
+=======================
+поместим код основного шаблона вёрстки в:
+views/layouts/application.html.erb
+
+css, js, images перетащим в:
+assets/
+
+fonts - в assets/css
+
+трубопровод всё подключает автоматически 
+
+=======================
+в основном шаблоне картинки подключаем:
+<%= image_tag "images/logo.jpg", class: "logo_pic", size: "350x170", alt: "Test logo" %>
+
+css, js подключается само
+
+при этом из css-файла к картинкам и шрифтам обращаться без ../
+
+основноё контент выводится через:
+<%= yield %>
+
+скрипты инициализации указывать в основном хтмл-шаблоне внизу. например так:
+	<script>
+		$( document ).ready(function() {
+			$('#slider').nivoSlider();
+		});
+	</script>	
+
+=======================
+разнесём код шаблона по партиалам:
+создадим views/layout/_footer.html.erb
+
+вырежем код футера из основного шаблона и поместим в views/layout/_footer.html.erb
+
+а в основном шаблоне будем пропишем ссылку:
+<%= render 'layouts/footer' %>	
+
+и т.д.
+
+=======================
+в меню сформируем динамические ссылки:
+	<ul>
+		<li>
+			<%= link_to 'Главная', main_index_path %>
+		</li>
+		
+		<li>
+			<%= link_to 'Документы', docs_index_path %>
+		</li>
+
+		<li>
+			<%= link_to 'Контакты', contacts_index_path %>
+		</li>
+
+		<li>
+			<%= link_to 'Гостевая', guest_index_path %>
+		</li>							
+	</ul>
+
+в результате можно перемещаться по страница через ссылки
+
+=======================
+чтобы объявить ресурс нужно в routs.rb просто прописать:
+resources :articles
+
+в результате:
+kalinin@kalinin ~/rails/visit $ rake routes
+      articles GET    /articles(.:format)          articles#index
+               POST   /articles(.:format)          articles#create
+   new_article GET    /articles/new(.:format)      articles#new
+  edit_article GET    /articles/:id/edit(.:format) articles#edit
+       article GET    /articles/:id(.:format)      articles#show
+               PATCH  /articles/:id(.:format)      articles#update
+               PUT    /articles/:id(.:format)      articles#update
+               DELETE /articles/:id(.:format)      articles#destroy
+          root GET    /   
+
+
+затем:
+rails g controller articles
+
+и ручками создавать экшны и представления
+
+
+
+=======================
+туториал для пагинации:
+
+model:
+class CreateNews < ActiveRecord::Migration
+  def change
+    create_table :news do |t|
+      t.string :title
+      t.text :text
+
+      t.timestamps
+    end
+  end
+end
+
+
+controller:
+class NewsController < ApplicationController
+  def index
+    #@news = News.all.order(created_at: :desc)
+    @news = News.page(params[:page])
+  end
+
+  def show
+    
+
+  end  
+end
+
+
+
+view:
+<h1>news</h1>
+
+<% @news.each do |news_item| %>
+    <!--<%= link_to(url_for({controller: "news", action: "show", id: news_item.id})) do %>-->
+    <%= link_to(news_show_path + '/' + news_item.id.to_s) do %>
+  	  <div>
+  	    <span>title:</span>
+  	    <span><%= news_item.title %></span>
+  	  </div>
+
+  	  <div>
+  	    <span>Date:</span>
+  	    <span><%= news_item.created_at.to_s(:ru_datetime_for_news) %></span>
+  	  </div>
+    <% end %>
+
+    <%= link_to 'More', controller: "news", action: "show", id: news_item.id %>
+
+    <br>
+    <br>
+	  <br>
+<% end %>
+
+<br />
+
+<br />
+<% News.pgcount.times do |p|%>
+  <%= link_to p+1, "/news/#{p+1}" %>
+<% end %>
+<br />
+
+
+
+routes:
+  get "(news/show/:id)"  => "news#show"
+  get "news(/:page)"     => "news#index"  
+
+
+
+
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================

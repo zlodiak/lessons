@@ -1,0 +1,1 @@
+(function(){stButtons.processCB({"google":117,"clicks_total":119,"youtube":2,"total":119,"shares":[],"url":"http:\/\/rails.hasbrains.org\/questions\/213","ourl":"http:\/\/rails.hasbrains.org\/questions\/213"})})();

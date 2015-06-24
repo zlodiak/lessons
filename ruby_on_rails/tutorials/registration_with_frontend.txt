@@ -1,0 +1,103 @@
+создадим регистрацию через фронтэнд
+
+======================
+ссылка в темплейте или лэйоуте:
+<%=	link_to	"Регистрация",	signup_path,	class:	"btn	btn-lg	btn-primary"	%>
+
+======================
+маршрут в роутере:
+  get 'signup' => 'users#new'
+  #match '/signup',    to: 'users#new',                        via:  'get'
+
+======================
+контроллер:
+class UsersController < ApplicationController
+	def new
+		@user	=	User.new
+	end
+
+	def	show
+		@user	=	User.find(params[:id])
+	end  
+
+	def	create
+			@user	=	User.new(user_params)				#	Not	the	final	implementation!
+			if	@user.save
+					redirect_to	@user
+			else
+					render	'new'
+			end	
+	end	
+
+	private
+			def user_params
+					params.require(:user).permit(:name, :email, :password, :password_confirmation)
+			end	
+end
+
+
+======================
+темплейт new:
+<h1>Sign	up</h1>
+<div	class="row">
+		<div	class="col-md-6	col-md-offset-3">
+				<%=	form_for(@user) do |f|	%>
+						<%=	f.label	:name	%>
+						<%=	f.text_field	:name	%>
+						<%=	f.label	:email	%>
+						<%=	f.text_field	:email	%>
+						<%=	f.label	:password	%>
+						<%=	f.password_field	:password	%>
+						<%=	f.label	:password_confirmation,	"Confirmation"	%>
+						<%=	f.password_field	:password_confirmation	%>
+						<%=	f.submit	"Create	my	account",	class:	"btn	btn-primary"	%>
+				<%	end	%>
+		</div>
+</div>
+
+
+======================
+темплейт show:
+
+<h1>
+		<%=	gravatar_for	@user	%>
+		<%=	@user.name	%>
+		<%=	@user.email	%>
+</h1>
+
+
+
+======================
+helper:
+module	UsersHelper
+	#	Returns	the	Gravatar	(http://gravatar.com/)	for	the	given	user.
+	def	gravatar_for(user)
+		gravatar_id	=	Digest::MD5::hexdigest(user.email.downcase)
+		gravatar_url	=	"https://secure.gravatar.com/avatar/#{gravatar_id}"
+		image_tag(gravatar_url,	alt:	user.name,	class:	"gravatar")
+	end
+end
+
+он сопоставляет эмэйл и подсасывает соответствующий аватар в виде графического файла
+
+======================
+
+
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================

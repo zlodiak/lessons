@@ -1,0 +1,9 @@
+<% news_widjet.each do |news| %>
+	<%= link_to(news) do %>
+	  <div>
+	    <span><%= image_tag(news.image_url, height: '56', width: '56', alt: 'img', class: 'image') %></span>
+	    <span><%= news.title %></span>
+	    <div><%= truncate(news.body, length: 100) %></div>
+	  </div>
+	<% end %>
+<% end %>

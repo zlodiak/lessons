@@ -1,0 +1,51 @@
+namespace :db do
+  desc "Create cars"
+  task :populate_cars => :environment do
+	require 'populator'
+	require 'faker'
+	  Car.populate 100 do |car|
+		car.desc = Faker::Lorem.paragraph
+		car.gos_number = Faker::Code.isbn
+		car.car_model_id = Faker::Number.number(1)
+	  end
+	  puts 'All done'
+  end
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=========
+
+
+
+namespace :db do
+  desc "Create car_model"
+  task :populate1 => :environment do
+  	car_model = CarModel.new(name: "uaz")
+  	car_model.save
+  end
+end
+
+
+
+
+===============
+
+запустить так:
+kalinin@kalinin ~/rails/testpager $ rake db:populate_documents
+kalinin@kalinin ~/rails/testpager $ rake db:populate_news
+
