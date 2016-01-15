@@ -1,0 +1,103 @@
+закачка и конвертация в flv видео
+
+============
+необходим gem paperclip
+
+============
+ставим gem 'paperclip-av-transcoder'
+
+============
+ставим библиотеки:
+sudo add-apt-repository ppa:mc3man/trusty-media
+sudo apt-get update
+sudo apt-get dist-upgrade
+sudo apt-get install ffmpeg
+
+
+больше здесь:
+https://www.ffmpeg.org/download.html
+https://launchpad.net/~mc3man/+archive/ubuntu/trusty-media
+
+============
+controller:
+
+
+  def update
+    if @video.update_attributes(video_params)
+      if params[:video]
+        @video.update_attributes(
+          video_file_name: nil, 
+          video_content_type: nil, 
+          video_file_size: nil
+        )
+      end
+      
+      flash[:success] = :profile_updated
+      redirect_to @video
+    else
+      flash[:error] = :profile_update_failed
+      render  'index'
+    end
+  end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def video_params
+      params.require(:video).permit(:title, :video)
+    end  
+
+============
+model:
+class Video < ActiveRecord::Base
+  has_attached_file :video, :styles => {
+    :medium => { :geometry => "640x480", :format => 'flv' },
+    :thumb => { :geometry => "200x100#", :format => 'jpg', :time => 10 }
+  }, :processors => [:transcoder]
+
+  validates_attachment_content_type :video, :content_type => ["video/mp4", "video.mov", "video/mpeg","video/mpeg4", "image/jpg", "image/jpeg"]
+end
+
+
+
+============
+form:
+    <%= form_for(get_videos_new) do |f| %>
+      <div class="row">
+        <div class="col-xs-12 col-sm-2">
+          <%= f.label :title %>
+        </div>
+        <div class="col-xs-12 col-sm-10">
+          <%= f.text_field  :title %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-2">
+          <%= f.label :video %>
+        </div>
+        <div class="col-xs-12 col-sm-10">
+          <%= f.file_field  :video %>
+        </div>
+      </div>       
+
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+    <% end %>
+
+============
+остальное смотреть по гему paperclip
+
+============
+https://github.com/ruby-av/paperclip-av-transcoder
+
+
+============
+============
+============
+============
+============
+============
+============
+============
+============
+============

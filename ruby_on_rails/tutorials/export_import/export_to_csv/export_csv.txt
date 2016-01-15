@@ -1,0 +1,84 @@
+http://railscasts.com/episodes/362-exporting-csv-and-excel
+http://nithinbekal.com/posts/rails-csv-export/
+
+====================
+application controller :
+require 'csv'
+
+====================
+products controller:
+  def export_csv
+    @products = Product.all
+
+    respond_to do |format|
+      format.html
+      format.csv do
+        headers['Content-Disposition'] = "attachment; filename=\"products.csv\""
+        headers['Content-Type'] ||= 'text/csv'
+      end
+    end 
+  end
+
+
+====================
+routes:
+get 'product_export_csv' => 'products#export_csv', as: 'product_export_csv'
+
+====================
+application.html.erb:
+<%= link_to 'Download CSV list', product_export_csv_path(format: :csv) %>
+
+====================
+
+
+
+====================
+app/views/products.export_csv.csv.erb:
+<%- headers = [
+  'id', 
+  'created_at', 
+  'updated_at', 
+  'title', 
+  'price', 
+  'weight', 
+  'color_id', 
+  'is_catalog', 
+  'parent_id', 
+  'lft', 
+  'rgt', 
+  'description'
+] -%>
+<%= CSV.generate_line headers %>
+<%- @products.each do |product| -%>
+  <%= CSV.generate_line([
+    product.id, 
+    product.created_at, 
+    product.updated_at, 
+    product.title, 
+    product.price, 
+    product.weight, 
+    product.color_id, 
+    product.is_catalog, 
+    product.parent_id, 
+    product.lft, 
+    product.rgt, 
+    product.description
+  ]) %>
+<%- end -%>
+
+
+
+====================
+app/views/products.export_csv.html.erb:
+
+====================
+====================
+====================
+====================
+====================
+====================
+====================
+====================
+====================
+====================
+====================

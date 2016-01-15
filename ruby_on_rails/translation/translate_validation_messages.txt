@@ -1,0 +1,51 @@
+nslate validation messages
+
+gem 'russian'
+
+============
+in controller:
+  def create
+    @album = current_user.albums.build(album_params)
+
+    if @album.save
+      render json: @album, :status => 200 
+    else
+      @errors = Array.new
+      p '----------------'
+      @album.errors.full_messages.each do |msg|
+        p msg
+        @errors.push(msg)
+      end    
+      p '----------------'
+      p @errors
+      render json: @errors, :status => 403 
+      #render nothing: true, :status => 403 
+    end
+  end
+
+============
+config/locales/ru.yml:
+ru:
+  activerecord:
+    attributes: 
+      album:    
+        description: Описание
+        title: Название 
+
+============
+application.rb:
+config.i18n.default_locale = :ru
+
+============
+============
+============
+============
+============
+============
+============
+============
+============
+============
+============
+============
+============DD

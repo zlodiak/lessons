@@ -1,0 +1,85 @@
+gem 'activeadmin', github: 'activeadmin'
+
+http://stackoverflow.com/questions/16426398/active-admin-install-with-rails-4
+
+
+================
+gem "meta_search", '>= 1.1.0.pre'
+
+================
+установить devise
+
+================
+затем для установки active admin пользоваться 
+http://activeadmin.info/docs/documentation.html
+
+================
+создание админа, который может входить в админку:
+выаолнить из консоли:
+AdminUser.create!(:email => 'admin@ad.ad', :password => 'qwertyui', :password_confirmation => 'qwertyui')
+
+================
+внимание. нужно заставить активадмин пользоваться таблицей Users:
+When you install ActiveAdmin you shoul skip user generation:
+rails generate active_admin:install --skip-users
+Or told AD use another model name:
+rails g active_admin:install User
+
+возможно, придётся удалить дубликат роута в файле роутов и поправить ссылки а шаблонах. а так же отменить дублирующую миграцию
+
+================
+сделаем так чтобы в админку мог заходить только пользователь с superadmin = true
+
+создадим миграцию:
+class AddSuperadminToUser < ActiveRecord::Migration
+  def up
+    add_column :users, :superadmin, :boolean, :null => false, :default => false
+
+    User.create! do |r|
+      r.email      = 'default@example.com'
+      r.password   = 'password'
+      r.superadmin = true
+    end
+  end
+
+
+
+добавим в конфиг:
+# ==> File: config/initializers/active_admin.rb
+config.authentication_method = :authenticate_active_admin_user!
+
+
+добавим в application controller:
+class ApplicationController < ActionController::Base
+  protect_from_forgery
+
+  def authenticate_active_admin_user!
+    authenticate_user!
+    unless current_user.superadmin?
+      flash[:alert] = "Unauthorized Access!"
+      redirect_to root_path
+    end
+  end
+end
+
+
+
+
+
+rails c
+User.create!(:email => 'superadmin@ad.ad', :password => 'qwertyui', :password_confirmation => 'qwertyui', :superadmin => true)
+
+================
+чтобы добавить ресурс в админку нужно сгенерировать его:
+rails g active_admin:resource product 
+после этого появится файл в  app/admin/product.rb
+
+================
+================
+================
+
+rails g devise:views users
+
+
+
+

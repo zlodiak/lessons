@@ -1,0 +1,110 @@
+breadcrumbs for custom catalog
+gem 'awesome_nested_set'
+gem 'breadcrumbs_on_rails'
+scaffold Product
+fill it
+
+  create_table "products", force: :cascade do |t|
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "title"
+    t.text     "description"
+    t.integer  "price"
+    t.integer  "weight"
+    t.integer  "color_id"
+    t.boolean  "is_catalog"
+    t.integer  "parent_id"
+    t.integer  "lft"
+    t.integer  "rgt"
+  end
+
+
+=======
+
+class ProductsController < ApplicationController
+  before_action :set_product, only: [:show, :edit, :update, :destroy]
+
+  add_breadcrumb "products", :products_path
+
+  def index
+    #add_breadcrumb "products", products_path, :title => "Back to the Index"
+
+    if params[:id]
+      @products = Product.where(parent_id: params[:id]).order(parent_id: :desc)
+      current_product = Product.find(params[:id])
+      @breadcrumbs_products = []
+
+      # construct crumbs
+      add_crumb(current_product)
+
+      # add crumbs to current crumbspath
+      @breadcrumbs_products.reverse.each do |product|
+        add_breadcrumb product.title, product_nested_path(product.id)
+      end
+    else
+      @products = Product.roots
+    end   
+  end
+
+  def show
+    @breadcrumbs_products = []
+    current_product = Product.find(params[:id])
+
+    # construct crumbs
+    add_crumb(current_product)
+
+    # add crumb to current crumbspath
+    @breadcrumbs_products.reverse.each_with_index do |product, index|
+      break if index == @breadcrumbs_products.size - 1
+      add_breadcrumb product.title, product_nested_path(product.id)
+    end
+
+    # add product crumb   
+    add_breadcrumb @product.title, product_path(params[:id])
+  end
+
+  private
+    def add_crumb(product)
+      @breadcrumbs_products.push product
+      add_crumb(Product.find(product.parent_id)) if product.parent_id
+    end  
+end
+
+=======
+Rails.application.routes.draw do
+  get 'maintenance/index'
+
+  get 'catalog/index'
+
+  get 'home/index'
+
+  resources :products do
+    collection { post :import }
+  end
+  get 'product_nested/:id' => 'products#index', as: 'product_nested'
+  get 'product_export_csv' => 'products#export_csv', as: 'product_export_csv'
+
+  get 'delivery/index'
+
+  get 'contacts/index'
+
+  # The priority is based upon order of creation: first created -> highest priority.
+  # See how all your routes lay out with "rake routes".
+
+  # You can have the root of your site routed with "root"
+  root 'home#index'
+end
+=======
+=======
+=======
+=======
+=======
+=======
+=======
+=======
+=======
+=======
+=======
+=======
+=======
+=======D

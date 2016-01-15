@@ -1,0 +1,107 @@
+списо проблем:
+
+
+1. если 
+rake aborted!
+NoMethodError: undefined method `merge!'
+
+то нужно обновить версию гема:
+gem 'devise', '~> 3.4.0'   # or later
+Then run:
+
+bundle update devise
+
+
+2. сгенерированный файл миграции не имеет расширения. его дописать и прогнать миграцию
+
+
+3. pgadmin3 
+найти таблицу можно так:
+bd/схемы/public/таьлицы
+
+
+
+
+в остальном руководствоваться:
+http://habrahabr.ru/post/208056/
+
+=================
+кастомизация и перевод: 
+http://railscasts.com/episodes/210-customizing-devise?view=asciicast
+
+=================
+
+при желании можно изменить количество обязательных символов при вводе пароля здесь config/initializers/devise.rb
+config.password_length = 8..128
+
+
+
+=================
+=================
+добавим дополнительное поле в форму регистрации. посмле отправки формы значение поля будет добавляться в таблицу
+
+создадим миграцию и добавим в users поле name
+
+
+=================
+дополним контроллер
+
+app/controllers/application_controller.rb:
+class ApplicationController < ActionController::Base
+  # Prevent CSRF attacks by raising an exception.
+  # For APIs, you may want to use :null_session instead.
+  protect_from_forgery with: :exception
+
+  include SessionsHelper
+
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
+  protected
+    def configure_permitted_parameters
+      devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:password, :password_confirmation,:current_password,:email,:name) }
+      devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:password, :password_confirmation,:current_password,:email,:name) }
+    end  
+end
+
+
+=================
+роуты оставляем как есть
+
+=================
+добавим поле в форму регистрации:
+
+views/ devise/registrations/new.html.erb
+<h2>Sign up</h2>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div><%= f.label :name %><br />
+  <%= f.text_field :name, :autofocus => true %></div>  
+
+  <div><%= f.label :email %><br />
+  <%= f.email_field :email %></div>
+
+  <div><%= f.label :password %><br />
+  <%= f.password_field :password %></div>
+
+  <div><%= f.label :password_confirmation %><br />
+  <%= f.password_field :password_confirmation %></div>
+
+  <div><%= f.submit "Sign up" %></div>
+<% end %>
+
+<%= render "devise/shared/links" %>
+
+
+
+=================
+
+скрытое поле делается так:
+<%= hidden_field(:user, :status_id, :value => 1) %>
+
+=================
+=================
+=================
+=================
+=================

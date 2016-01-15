@@ -1,0 +1,73 @@
+поставить rspec
+
+group :test do
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+end
+
+bundle install
+
+=============
+application.rb:
+config.generators do |g|
+    g.test_framework        :rspec, fixtures: true, views: false
+    g.fixture_replacement   :factory_girl, dir: 'spec/factories' 
+end
+
+=============
+kalinin@kalinin ~/rails/admin_book $ rails g rspec:install
+      create  .rspec
+      create  spec
+      create  spec/spec_helper.rb
+      create  spec/rails_helper.rb
+kalinin@kalinin ~/rails/admin_book $ 
+
+
+=============
+создать ручками:
+spec/models/item_spec.rb
+
+=============
+spec/models/item_spec.rb
+require 'spec_helper'
+
+=============
+rake db:test:clone
+deprecated
+
+=============
+add to rspec/spec_helper.rb:
+ENV["RAILS_ENV"] ||= 'test'
+require File.expand_path("../../config/environment", __FILE__)
+require 'rspec/rails'
+require 'rspec/autorun'
+
+
+=============
+rails generate rspec:scaffold widget
+rails generate rspec:model widget
+
+will create a new spec file in spec/models/widget_spec.rb.
+
+The same generator pattern is available for all specs:
+
+scaffold
+model
+controller
+helper
+view
+mailer
+observer
+integration
+feature
+job
+
+https://www.relishapp.com/rspec/rspec-rails/docs/generators
+
+=============
+rspec spec
+
+=============
+=============
+=============
+=============

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<!-- saved from url=(0058)http://lan143.ru/4-ruby_on_rails/15-prava_dostupa_i_cancan -->
+<html crossriderapp2258="true" class="js flexbox no-touch rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio js flexbox no-touch rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio" dir="ltr" lang="ru"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+        <meta charset="UTF-8">
+
+        <title>lan143 - Права доступа и CanCan</title>
+
+        <!--iOS/android/handheld specific -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="description" content="CanCan - это гем, который используется для разграничений прав доступа. Для того, чтобы установить его добавьте в ваш Gemfile запись: gem &amp;quot;cancan&amp;quot; и выполните bundle install. После этого создайте файл с привилегиями выполнив...">
+        <meta name="keywords" content="ruby, ruby on rails, rails 4, rails 3, cancan, установка, настройка, привилегии, проверка">
+        <meta name="author" content="lan143">
+
+        <link rel="stylesheet" type="text/css" media="all" href="./lan143 - Права доступа и CanCan_files/style.css">
+
+        <link href="http://lan143.ru/assets/application-12efd540acef1c9c6410cd8660cb887a.css" media="all" rel="stylesheet">
+        <script type="text/javascript" async="" src="./lan143 - Права доступа и CanCan_files/watch.js"></script><script async="" src="./lan143 - Права доступа и CanCan_files/analytics.js"></script><script src="./lan143 - Права доступа и CanCan_files/application-f7e3e2879db2ec83401edca94c1a08a1.js"></script>
+        <link href="http://lan143.ru/images/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
+        <meta content="authenticity_token" name="csrf-param">
+<meta content="SBva9pyuLOC+mATd1/xDW09thh6RNxjDUo0wcciAXbM=" name="csrf-token">
+
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <script src="./lan143 - Права доступа и CanCan_files/modernizr.min.js"></script>
+        <script src="./lan143 - Права доступа и CanCan_files/customscript.js" type="text/javascript"></script>
+
+        <style type="text/css">
+            #header h1, #header h2 {
+                text-indent: -999em;
+                min-width: 200px;
+                margin-top: 0;
+            }
+            #header h1 a, #header h2 a {
+                background: url(/images/logo.png) no-repeat;
+                min-width: 200px;
+                display: block;
+                min-height: 62px;
+                line-height: 28px;
+            }
+            .more a, .bubble a:hover, #commentform input#submit {
+                background-color: #79ACCD;
+            }
+            a, .title a:hover, #navigation ul ul li a:hover, #navigation > ul > li > a:hover {
+                color:#79ACCD;
+            }
+        </style>
+    <style id="holderjs-style" type="text/css"></style></head>
+
+    <body cz-shortcut-listen="true">
+        <header class="main-header">
+            <div class="container">
+                <div id="header">
+                    <h1 id="logo">
+                        <a href="http://lan143.ru/">lan143.ru</a>
+                    </h1><!-- END #logo -->
+                </div><!--#header-->
+            </div><!--.container-->
+        </header>
+
+        <div class="container">
+            <div class="secondary-navigation">
+                <nav id="navigation">
+                    <ul class="menu sf-js-enabled">
+                        <li class="menu-item"><a href="http://lan143.ru/">Главная</a></li>
+                        
+                            <li class="menu-item"><a href="http://lan143.ru/5-web-programmirovanie">Web-программирование</a></li>
+                            <li class="menu-item"><a href="http://lan143.ru/9-programmirovanie">Программирование</a></li>
+                            <li class="menu-item"><a href="http://lan143.ru/10-radioelektronika">Радиоэлектроника</a></li>
+                        <li class="menu-item"><a href="http://lan143.ru/feedbacks/new" rel="nofollow">Добавить отзыв</a></li>
+                    </ul>
+
+                    <select>
+                        <option value="" selected="selected">Выберите раздел...</option>
+                        <option value="/">Главная</option>
+                        
+                            <option value="/5-web-programmirovanie">Web-программирование</option>
+                            <option value="/9-programmirovanie">Программирование</option>
+                            <option value="/10-radioelektronika">Радиоэлектроника</option>
+
+                        <option value="/feedbacks/new">Отзывы</option>
+                    <option selected="selected" value="">Go to...</option><option value="/">Главная</option><option value="/5-web-programmirovanie">Web-программирование</option><option value="/9-programmirovanie">Программирование</option><option value="/10-radioelektronika">Радиоэлектроника</option><option value="/feedbacks/new">Добавить отзыв</option></select>
+                <select><option selected="selected" value="">Go to...</option><option value="/">Главная</option><option value="/5-web-programmirovanie">Web-программирование</option><option value="/9-programmirovanie">Программирование</option><option value="/10-radioelektronika">Радиоэлектроника</option><option value="/feedbacks/new">Добавить отзыв</option></select></nav>
+            </div>
+        </div>
+
+        <div id="page">
+            <div class="content">
+                <article class="article">
+                    <div id="content_box">
+                        <ol class="breadcrumb">
+    <li>
+        <div itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" style="display: inline;">
+            <a href="http://lan143.ru/" itemprop="url">
+                <span itemprop="title">Главная</span>
+</a>        </div>
+    </li>
+	<li>
+		<div itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" style="display: inline;">
+			<a href="http://lan143.ru/5-web-programmirovanie" itemprop="url">
+				<span itemprop="title">Web-программирование</span>
+</a>		</div>
+	</li>
+	<li>
+		<div itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" style="display: inline;">
+			<a href="http://lan143.ru/8-ruby" itemprop="url">
+				<span itemprop="title">Ruby</span>
+</a>		</div>
+	</li>
+	<li>
+		<div itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" style="display: inline;">
+			<a href="http://lan143.ru/4-ruby_on_rails" itemprop="url">
+				<span itemprop="title">Ruby on Rails</span>
+</a>		</div>
+	</li>
+  <li class="active">Права доступа и CanCan</li>
+</ol>
+
+<div class="post excerpt one" itemscope="" itemtype="http://schema.org/Article">
+    <header>
+        <h2 class="title">
+            Права доступа и CanCan
+        </h2>
+        <div class="post-info">
+            <span class="theauthor"><a href="http://lan143.ru/u1" rel="author">Артем Кравченко</a></span>
+            <time>01 ноября 2014 06:02</time>
+            <span class="thecategory"><a href="http://lan143.ru/4-ruby_on_rails" rel="category tag">Ruby on Rails</a></span>
+        </div>
+    </header><!--.header-->
+
+    <div class="post-content image-caption-format-1" itemprop="articleBody">
+        <p></p><p><strong>CanCan</strong> - это гем, который используется для разграничений прав доступа. Для того, чтобы установить его добавьте в ваш <strong>Gemfile</strong> запись:</p>
+
+<pre class="hljs nginx"><span class="hljs-title">gem</span> <span class="hljs-string">"cancan"</span></pre>
+
+<p>и выполните <strong>bundle install</strong>. После этого создайте файл с привилегиями выполнив:</p>
+
+<pre class="hljs css"><span class="hljs-tag">rails</span> <span class="hljs-tag">g</span> <span class="hljs-tag">cancan</span><span class="hljs-pseudo">:ability</span></pre>
+
+<p>Сгенерируется файл <strong>Ability.rb</strong>, который будет лежать в папке с вашими моделями.</p>
+
+<p>CanCan использует метод&nbsp;<strong>current_user</strong> для получения текущего пользователя, который находится в системе. Это сделано для совместимости с другими гемами, такие как&nbsp;<a href="https://github.com/binarylogic/authlogic">Authlogic</a>&nbsp;или&nbsp;<a href="https://github.com/plataformatec/devise">Devise</a>. Если вы хотите написать аутентификацию сами, то вам нужно будет обязательно написать метод <strong>current_user</strong> (например в каком-нибудь хелпере), который будет возвращать текущего пользователя.</p>
+
+<h3>Привилегии</h3>
+
+<p><strong>can</strong> метод используется для объявления прав доступа и требует два аргумента. Первый аргумент это экшен, к которому вы хотите дать доступ пользователю, второй это класс или объект для которого вы устанавливаете права доступа:</p>
+
+<pre class="hljs ruby">can <span class="hljs-symbol">:manage</span>, <span class="hljs-constant">Article</span>  <em><span class="hljs-comment"># пользователь может делать все действия с моделью Article</span></em>
+can <span class="hljs-symbol">:read</span>, <span class="hljs-symbol">:all</span>       <em><span class="hljs-comment"># пользователь может читать все что угодно</span></em>
+can <span class="hljs-symbol">:manage</span>, <span class="hljs-symbol">:all</span>     <em><span class="hljs-comment"># пользователь может производить все действия с чем угодно</span></em></pre>
+
+<p>Пример файла <strong>Ability.rb</strong>:</p>
+
+<pre class="ruby hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Ability</span></span>
+  <span class="hljs-keyword">include</span> <span class="hljs-constant">CanCan::Ability</span>
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> </span>initialize(user)
+    user ||= <span class="hljs-constant">User</span>.new <span class="hljs-comment"># guest user (not logged in)</span>
+    <span class="hljs-keyword">if</span> user.admin?
+      can <span class="hljs-symbol">:manage</span>, <span class="hljs-symbol">:all</span>
+    <span class="hljs-keyword">else</span>
+      can <span class="hljs-symbol">:read</span>, <span class="hljs-symbol">:all</span>
+    <span class="hljs-keyword">end</span>
+  <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span></pre>
+
+<p>Вы можете использовать любые экшены из GRUD набора, или свои собственные. Так же можно описывать несколько экшенов и моделей разом:</p>
+
+<pre class="hljs css"><span class="hljs-tag">can</span> <strong><span class="hljs-attr_selector">[</span></strong><span class="hljs-attr_selector">:update, :destroy</span><strong><span class="hljs-attr_selector">]</span></strong>, <strong><span class="hljs-attr_selector">[</span></strong><span class="hljs-attr_selector">Article, Comment</span><strong><span class="hljs-attr_selector">]</span></strong></pre>
+
+<h3>Проверка привилегий</h3>
+
+<p>Текущие права пользователя можно проверить используя метода <strong>can?</strong> и <strong>cannot?</strong> во вьюхах и контроллерах:</p>
+
+<pre class="hljs ruby"><span class="hljs-prompt">&lt;% if can? :update, @article %&gt;</span>
+  &lt;%= link_to <span class="hljs-string">"Edit"</span>, edit_article_path(<span class="hljs-variable">@article</span>) %&gt;
+<span class="hljs-prompt">&lt;% end %&gt;</span></pre>
+
+<p>Ссылка будет отображена только если у текущего пользователя есть права для работы с экшеном <strong>update</strong> объекта <strong>@article</strong></p>
+
+<p>Но просто скрыть ссылку недостаточно. Умный пользователь может вручную сформировать URL и получить доступ к тому, чему не должен. На этот случай есть методы в контроллеры, для второго уровня проверок.</p>
+
+<p>Метод&nbsp;<strong>authorize!</strong> используется в контроллерах для того, чтобы вызвать исключение, если у пользователя нет прав. Пример:</p>
+
+<pre class="hljs ruby"><span class="hljs-function"><span class="hljs-keyword">def</span> </span>show
+  <span class="hljs-variable">@article</span> = <span class="hljs-constant">Article</span>.find(params[<span class="hljs-symbol">:id</span>])
+  authorize! <span class="hljs-symbol">:read</span>, <span class="hljs-variable">@article</span>
+<span class="hljs-keyword">end</span></pre>
+
+<p>Будет вызвано исключение, если пользователь не может использовать экшен <strong>read</strong> для объекта <strong>@article.&nbsp;</strong>Обрабатывать исключения можно с помощью следующего кода:</p>
+
+<pre class="ruby hljs">rescue_from <span class="hljs-constant">CanCan::AccessDenied</span> <span class="hljs-keyword">do</span> |exception|
+  redirect_to root_path, <span class="hljs-symbol">:alert</span> =&gt; { <span class="hljs-symbol">msg:</span> <span class="hljs-constant">I18n</span>.t(<span class="hljs-string">'info.cant_access'</span>), <span class="hljs-symbol">:class</span> =&gt; <span class="hljs-string">'alert-danger'</span> }
+<span class="hljs-keyword">end</span></pre>
+
+<p>Его следует добавить в <strong>application_controller.rb</strong>. При появлении исключения пользователь будет редиректнут по маршруту <strong>root_path</strong> с выводом соответствующих сообщений.</p>
+
+<p>Но добавление&nbsp;<strong>authorize!&nbsp;</strong>в каждый экшен контроллера может быстро надоесть, поэтому на этот случай есть метод&nbsp;<strong>load_and_authorize_resource.&nbsp;</strong>Он выполняет все теже действия что и&nbsp;<strong>authorize!&nbsp;</strong>но при этом его достаточно объявить всего один раз в начале контроллера. Но обрабатывает экшены он только для GRUD модели, т.е. для своих каких-то экшенов вам нужно будет использовать&nbsp;<strong>authorize!&nbsp;</strong>Пример:</p>
+
+<pre class="hljs ruby"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ArticlesController</span> <span class="hljs-inheritance">&lt; <span class="hljs-parent">ApplicationController</span></span></span>
+  load_and_authorize_resource
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> </span>show
+    <span class="hljs-comment"># <span class="hljs-yardoctag">@article</span> is already loaded and authorized</span>
+  <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span></pre>
+
+<p>Эта статья только первая в цикле. Cancan имеет огромное множество возможностей и багов, все их освятить в одной статье явно не получится. В следующей статье мы подробно рассмотрим настройку привилегий.</p>
+<p></p>
+        
+
+        <div>
+            <div id="vk_like" style="height: 22px; width: 180px; position: relative; clear: both; background: none;"><iframe name="fXD68129" frameborder="0" src="./lan143 - Права доступа и CanCan_files/widget_like.html" width="100%" height="22" scrolling="no" id="vkwidget1" style="overflow: hidden; height: 22px; width: 180px; z-index: 150;"></iframe></div>
+        </div>
+
+        <div style="text-align: center;">
+                <a href="http://lan143.ru/4-ruby_on_rails/14-generatsiya_dereva_katalogov_v_odin_zapros">Генерация дерева каталогов в один запрос</a>
+            |
+                <a href="http://lan143.ru/10-radioelektronika/49-1-wire_v_cubieboard">1-wire в Cubieboard</a>
+        </div>
+        
+            <h3>Нет комментариев.</h3>
+
+
+
+
+
+    <p><a href="http://lan143.ru/4-ruby_on_rails/15-prava_dostupa_i_cancan#" data-toggle="modal" data-target="#SignIn" rel="nofollow">Войдите</a> или <a href="http://lan143.ru/4-ruby_on_rails/15-prava_dostupa_i_cancan#" data-toggle="modal" data-target="#SignUp" rel="nofollow">зарегистрируйтесь</a>, чтобы иметь возможность оставлять комментарии.</p>
+
+    </div>
+</div>
+
+<script src="./lan143 - Права доступа и CanCan_files/openapi.js" type="text/javascript" charset="windows-1251"></script>
+<script type="text/javascript">
+    VK.init({
+        apiId: 4611637,
+        onlyWidgets: true
+    });
+
+    VK.Widgets.Like("vk_like", {type: "button", pageTitle: "Права доступа и CanCan"}, 15);
+    VK.Widgets.Comments('vk_comments_body', {}, 15);
+</script>
+                    </div>
+                </article>
+
+                <aside class="sidebar c-4-12">
+                    <div id="sidebars" class="g">
+                        <div class="sidebar">
+                            <ul class="sidebar_list">
+                                    <li class="widget widget-sidebar">
+                                        <h3>Авторизация</h3>
+                                        <form accept-charset="UTF-8" action="http://lan143.ru/signin" class="new_user" id="signin_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="SBva9pyuLOC+mATd1/xDW09thh6RNxjDUo0wcciAXbM="></div>
+                                            <div style="margin-bottom: 10px;">
+                                                <input class="form-control" id="user_nickname" name="user[nickname]" placeholder="Логин..." style="width: 100%; box-sizing: border-box;" type="text">
+                                            </div>
+
+                                            <div class="control-group">
+                                                <input class="form-control" id="user_password" name="user[password]" placeholder="Пароль..." style="width: 100%; box-sizing: border-box;" type="password">
+                                            </div>
+
+                                            <div class="control-group">
+                                                <label class="control-label" for="user_remember_me">Запомнить</label>
+                                                <input name="user[remember_me]" type="hidden" value="0"><input id="user_remember_me" name="user[remember_me]" type="checkbox" value="1"> 
+                                            </div>
+                                            
+                                            <input class="btn btn-primary" name="commit" type="submit" value="Вход">
+</form>                                    </li>
+                                
+
+                                <li class="widget widget-sidebar">
+                                    <h3>Популярные записи</h3>
+                                    <ul>
+                                                <li><a href="http://lan143.ru/1-1c_bitriks/5-ispolzovanie_razlichnykh_tipov_tsen_v_1s_bitriks_malyy_biznes">Использование различных типов цен в 1С Битрикс Малый бизнес</a></li>
+                                                <li><a href="http://lan143.ru/6-javascript/25-ispolzovanie_plagina_fotorama_chast_pervaya">Использование плагина Fotorama: Часть первая</a></li>
+                                                <li><a href="http://lan143.ru/6-javascript/26-ispolzovanie_plagina_fotorama_chast_vtoraya">Использование плагина Fotorama: Часть вторая</a></li>
+                                                <li><a href="http://lan143.ru/10-radioelektronika/49-1-wire_v_cubieboard">1-wire в Cubieboard</a></li>
+                                                <li><a href="http://lan143.ru/10-radioelektronika/48-sborka_yadra_dlya_cubieboard_cubietruck">Сборка ядра для Cubieboard (Cubietruck)</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div><!--sidebars-->
+                </aside>
+            </div><!--#page-->
+        </div><!--.container-->
+
+        <footer>
+            <div class="container">
+                <div class="footer-widgets">
+                    <div class="f-widget last">
+                        <div class="widget">
+                            <h3>Недавние записи</h3>
+                            <ul>
+                                    <li><a href="http://lan143.ru/12-c_sharp">C#</a></li>
+                                    <li><a href="http://lan143.ru/11-php">PHP</a></li>
+                                    <li><a href="http://lan143.ru/10-radioelektronika">Радиоэлектроника</a></li>
+                                    <li><a href="http://lan143.ru/9-programmirovanie">Программирование</a></li>
+                                    <li><a href="http://lan143.ru/8-ruby">Ruby</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="copyrights">
+                        <div class="row" id="copyright-note">
+                        <span>© 2014-2015</span>. <span>При перепечатывании материалов ссылка на сайт lan143.ru обязательна.</span>
+                        </div>
+                        <div class="top">
+                            <!-- Yandex.Metrika informer -->
+                            <a href="https://metrika.yandex.ru/stat/?id=26805576&from=informer" target="_blank" rel="nofollow"><img src="./lan143 - Права доступа и CanCan_files/3_1_FFFFFFFF_EFEFEFFF_0_pageviews" style="width:88px; height:31px; border:0;" class="pull-right" alt="Яндекс.Метрика" title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)" onclick="try{Ya.Metrika.informer({i:this,id:26805576,lang:&#39;ru&#39;});return false}catch(e){}"></a>
+                            <!-- /Yandex.Metrika informer -->
+                            <noscript>&lt;div&gt;&lt;img src="//mc.yandex.ru/watch/26805576" style="position:absolute; left:-9999px;" alt="" /&gt;&lt;/div&gt;</noscript>
+                            <!-- /Yandex.Metrika counter -->
+                        </div>
+                    </div>
+                </div><!--.footer-widgets-->
+            </div><!--.container-->
+        </footer><!--footer-->
+    
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-55200278-1', 'auto');
+        ga('send', 'pageview');
+
+        (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+        try {
+        w.yaCounter26805576 = new Ya.Metrika({id:26805576,
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true});
+        } catch(e) { }
+        });
+        var n = d.getElementsByTagName("script")[0],
+        s = d.createElement("script"),
+        f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+        if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+        })(document, window, "yandex_metrika_callbacks");
+    </script>
+
+<div id="cboxOverlay" style="display: none;"></div><div id="colorbox" class="" role="dialog" tabindex="-1" style="display: none;"><div id="cboxWrapper"><div><div id="cboxTopLeft" style="float: left;"></div><div id="cboxTopCenter" style="float: left;"></div><div id="cboxTopRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxMiddleLeft" style="float: left;"></div><div id="cboxContent" style="float: left;"><div id="cboxTitle" style="float: left;"></div><div id="cboxCurrent" style="float: left;"></div><button type="button" id="cboxPrevious"></button><button type="button" id="cboxNext"></button><button id="cboxSlideshow"></button><div id="cboxLoadingOverlay" style="float: left;"></div><div id="cboxLoadingGraphic" style="float: left;"></div></div><div id="cboxMiddleRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxBottomLeft" style="float: left;"></div><div id="cboxBottomCenter" style="float: left;"></div><div id="cboxBottomRight" style="float: left;"></div></div></div><div style="position: absolute; width: 9999px; visibility: hidden; display: none; max-width: none;"></div></div><div id="global-zeroclipboard-html-bridge" class="global-zeroclipboard-container" style="position: absolute; left: 0px; top: -9999px; width: 15px; height: 15px; z-index: 999999999;">      <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" id="global-zeroclipboard-flash-bridge" width="100%" height="100%">         <param name="movie" value="/assets/flash/ZeroClipboard.swf?noCache=1443344204161">         <param name="allowScriptAccess" value="sameDomain">         <param name="scale" value="exactfit">         <param name="loop" value="false">         <param name="menu" value="false">         <param name="quality" value="best">         <param name="bgcolor" value="#ffffff">         <param name="wmode" value="transparent">         <param name="flashvars" value="trustedOrigins=lan143.ru%2C%2F%2Flan143.ru%2Chttp%3A%2F%2Flan143.ru">         <embed src="/assets/flash/ZeroClipboard.swf?noCache=1443344204161" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="100%" height="100%" name="global-zeroclipboard-flash-bridge" allowscriptaccess="sameDomain" allowfullscreen="false" type="application/x-shockwave-flash" wmode="transparent" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="trustedOrigins=lan143.ru%2C%2F%2Flan143.ru%2Chttp%3A%2F%2Flan143.ru" scale="exactfit">                </object></div></body></html>

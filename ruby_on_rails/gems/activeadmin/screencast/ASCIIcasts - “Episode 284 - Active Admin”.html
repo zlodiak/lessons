@@ -1,0 +1,435 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0050)http://ru.asciicasts.com/episodes/284-active-admin -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>ASCIIcasts - “Episode 284 - Active Admin”</title>
+    		
+		<meta name="verify-v1" content="ZZD0NP9ixSbulmdPEtvZRRuYOdjt0M73O31vmYuQCSI=">
+		<meta name="description" content="Active Admin allows you to quickly build an admin interface with just a few commands. Not only does it look great, but it is very customizable as shown in this episode.">
+		<link rel="alternate" type="application/rss+xml" title="RSS - Summary" href="http://ru.asciicasts.com/episodes.xml">
+		<link rel="alternate" type="application/rss+xml" title="RSS - Full" href="http://ru.asciicasts.com/full.xml">
+		<link href="./ASCIIcasts - “Episode 284 - Active Admin”_files/asciicasts.css" media="screen" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="./ASCIIcasts - “Episode 284 - Active Admin”_files/print.css" type="text/css" media="print">
+		<!--[if lte IE 6]><link href="/stylesheets/asciicastsie6.css?1351851274" media="screen" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
+		<link href="./ASCIIcasts - “Episode 284 - Active Admin”_files/SyntaxHighlighter.css" media="screen" rel="stylesheet" type="text/css">
+		<script src="./ASCIIcasts - “Episode 284 - Active Admin”_files/cb=gapi.loaded_1" async=""></script><script src="./ASCIIcasts - “Episode 284 - Active Admin”_files/cb=gapi.loaded_0" async=""></script><script type="text/javascript" src="./ASCIIcasts - “Episode 284 - Active Admin”_files/plusone.js" gapi_processed="true"></script>
+	<style type="text/css">.dp-rb .symbol { color: #CC0; }.dp-rb .variable { color: #FF0; font-weight: bold; }</style><style type="text/css">.dp-rb .symbol { color: #CC0; }.dp-rb .variable { color: #FF0; font-weight: bold; }</style><style type="text/css">.dp-rb .symbol { color: #CC0; }.dp-rb .variable { color: #FF0; font-weight: bold; }</style><style type="text/css">.dp-rb .symbol { color: #CC0; }.dp-rb .variable { color: #FF0; font-weight: bold; }</style><style type="text/css">.dp-rb .symbol { color: #CC0; }.dp-rb .variable { color: #FF0; font-weight: bold; }</style><style type="text/css">.dp-rb .symbol { color: #CC0; }.dp-rb .variable { color: #FF0; font-weight: bold; }</style><style type="text/css">.dp-css .value { color: black; }.dp-css .important { color: red; }</style><style type="text/css">.dp-rb .symbol { color: #CC0; }.dp-rb .variable { color: #FF0; font-weight: bold; }</style><style type="text/css">.dp-rb .symbol { color: #CC0; }.dp-rb .variable { color: #FF0; font-weight: bold; }</style><style type="text/css">.dp-rb .symbol { color: #CC0; }.dp-rb .variable { color: #FF0; font-weight: bold; }</style><style type="text/css">.dp-rb .symbol { color: #CC0; }.dp-rb .variable { color: #FF0; font-weight: bold; }</style><style type="text/css">.dp-rb .symbol { color: #CC0; }.dp-rb .variable { color: #FF0; font-weight: bold; }</style><style type="text/css">.dp-css .value { color: black; }.dp-css .important { color: red; }</style><style type="text/css">.dp-css .value { color: black; }.dp-css .important { color: red; }</style><style type="text/css">.dp-rb .symbol { color: #CC0; }.dp-rb .variable { color: #FF0; font-weight: bold; }</style></head>
+	<body class="ru" cz-shortcut-listen="true">
+		<h1><a href="http://ru.asciicasts.com/"><img alt="home" src="./ASCIIcasts - “Episode 284 - Active Admin”_files/asciicasts.png"></a><span>ASCIIcasts</span></h1>
+		<div id="dynamicStuff"></div>
+		<ul id="menu">
+			<li><a href="http://ru.asciicasts.com/">Home</a></li>
+			<li><a href="http://ru.asciicasts.com/languages">Other languages</a></li>
+			<li><a href="http://ru.asciicasts.com/episodes/latest">Newest episode</a></li>
+			<li><a href="http://ru.asciicasts.com/episodes/all">All episodes</a> </li>
+			<li><a href="http://ru.asciicasts.com/about">About ASCIIcasts</a></li>
+			<li id="searchItem">
+				<form action="http://ru.asciicasts.com/search/index" class="searchForm" method="get">
+				  <fieldset>
+					  <label>Search: </label>
+					  <input id="q" name="q" type="text" value="">
+					  <input name="commit" type="submit" value="search">
+					</fieldset>
+				</form>
+			</li>
+		</ul>
+		<div class="sideBar">
+			<div class="tagPanel">
+				<h3 id="tagListHeader">Tags</h3>
+<ul class="tagList">
+	
+	<li><a href="http://ru.asciicasts.com/tags/tools">tools</a></li>
+	
+	<li><a href="http://ru.asciicasts.com/tags/plugins">plugins</a></li>
+	
+	<li><a href="http://ru.asciicasts.com/tags/rails-31">rails-31</a></li>
+	
+	<li><a href="http://ru.asciicasts.com/tags/administration">administration</a></li>
+	
+	<li><a href="http://ru.asciicasts.com/tags/views">views</a></li>
+	
+	<li><a href="http://ru.asciicasts.com/tags/refactoring">refactoring</a></li>
+	
+</ul>
+			</div>
+		</div>
+		<div class="main">
+			
+
+<div class="wrapper ep180">
+  <h2>
+    284:&nbsp;Active Admin&nbsp;
+    <div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px; background: transparent;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1442430288919" name="I0_1442430288919" src="./ASCIIcasts - “Episode 284 - Active Admin”_files/fastbutton.html" data-gapiattached="true" title="+1"></iframe></div>
+  </h2>
+  <p><a href="http://railscasts.com/episodes/284-active-admin">(view original Railscast)</a></p>
+  
+  <p id="otherTranslations">Other translations:
+    
+       <a href="http://asciicasts.com/episodes/284-active-admin"><img alt="En" src="./ASCIIcasts - “Episode 284 - Active Admin”_files/en.png"></a>
+    
+       <a href="http://ja.asciicasts.com/episodes/284-active-admin"><img alt="Ja" src="./ASCIIcasts - “Episode 284 - Active Admin”_files/ja.png"></a>
+    
+       <a href="http://es.asciicasts.com/episodes/284-active-admin"><img alt="Es" src="./ASCIIcasts - “Episode 284 - Active Admin”_files/es.png"></a>
+    
+       <a href="http://fr.asciicasts.com/episodes/284-active-admin"><img alt="Fr" src="./ASCIIcasts - “Episode 284 - Active Admin”_files/fr.png"></a>
+    
+  </p>  
+  
+  
+  <p id="author">Written by Alexander Ulitin </p>
+  
+  
+    <p>В этом эпизоде мы рассмотрим <a href="http://activeadmin.info/">Active Admin</a>. Этот гем позволяет с легкостью добавить административный интерфейс к вашему приложению на Rails. Он создает симпатичные страницы админки и очень гибкок в настройке. Можете посмотреть на него в действии, взглянув на <a href="http://demo.activeadmin.info/admin">live demo</a>.</p>
+
+<p>В этом эпизоде мы добавим Active Admin к уже существующему Rails приложению. Приложение, с которым мы будем работать - простой интернет-магазин, в котором есть товары, у каждого из которых есть цена и принадлежность к категории. Мы используем Active Admin для создания административного интерфейса, чтобы мы смогли управлять товарами.</p>
+
+<div class="imageWrapper">
+  <img src="./ASCIIcasts - “Episode 284 - Active Admin”_files/E284I01.png" width="799" height="460" alt="Наше приложение.">
+</div>
+
+<h3>Установка Active Admin</h3>
+
+<p>Active Admin оформлен как гем и устанавливается как обычно, добавлением ссылки на него в <code>Gemfile</code> и последующим запуском <code>bundle</code>. Наше приложение работает на Rails 3.1, поэтому мы должны убедиться, что мы также включили гем <code>sass-rails</code>, так как Active Admin от него зависит. В Rails 3.0 это не вызывает проблем и не нужно его включать.</p>
+
+<p class="codeFilePath">/Gemfile</p>
+<div class="dp-highlighter nogutter"><div class="bar"></div><ol start="1" class="dp-rb"><li class="alt"><span><span>gem&nbsp;</span><span class="string">'activeadmin'</span><span>&nbsp;&nbsp;</span></span></li></ol></div><pre class="ruby" style="display: none;">gem 'activeadmin'</pre>
+
+<p>Когда Bundler завершит работу, нужно запустить генератор для добавления Active Admin к нашему приложению. Этот генератор предоставит нам инструкции по дополнительной настройке, которую нам надо будет сделать после его запуска. Нужно добавить опцию host в конфигурацию Mailer в среде development, убедиться, что у нас есть root URL, а также добавить сообщения <code>notice</code> и <code>alert</code> к файлу вёрстки приложения.</p>
+
+<pre class="terminal">$ rails g active_admin:install
+      invoke  devise
+    generate    devise:install
+      create    config/initializers/devise.rb
+      create    config/locales/devise.en.yml
+
+==================================================================
+
+Some setup you must do manually if you haven't yet:
+
+  1. Setup default url options for your specific environment. Here is an example of development environment:
+
+       config.action_mailer.default_url_options = { :host =&gt; 'localhost:3000' }
+
+     This is a required Rails configuration. In production it must be the actual host of your application
+
+  2. Ensure you have defined root_url to *something* in your config/routes.rb.
+     For example:
+
+       root :to =&gt; "home#index"
+
+  3. Ensure you have flash messages in app/views/layouts/application.html.erb. For example:
+
+       &lt;p class="notice"&gt;&lt;%= notice %&gt;&lt;/p&gt;
+       &lt;p class="alert"&gt;&lt;%= alert %&gt;&lt;/p&gt;</pre>
+
+<p>Всё это мы уже сделали для нашего приложения, поэтому мы готовы продолжить.</p>
+
+<p>Команда также создает несколько миграций, поэтому запустим их.</p>
+
+<pre class="terminal">$ rake db:migrate</pre>
+
+<h3>Использование Active Admin</h3>
+
+<p>Если взглянуть на <a href="http://activeadmin.info/documentation.html">документацию Active Admin</a>, то мы увидим, что когда мы устанавливаем его, то он создает пользователя с именем <code>admin@example.com</code> и паролем <code>password</code>. Мы можем использовать эти данные для входа. (Вы можете изменить имя и пароль, изменив файл миграции <code>devise_create_admin_users.rb</code> прежде чем их запускать.) Если мы зайдем на <a href="http://localhost:3000/admin">http://localhost:3000/admin</a> с запущенным сервером Rails, то увидим форму аутентификации, на которой мы можем выполнить вход с помощью вышеприведенных данных.</p>
+
+<div class="imageWrapper">
+  <img src="./ASCIIcasts - “Episode 284 - Active Admin”_files/E284I02.png" width="799" height="458" alt="Страница входа Active Admin.">
+</div>
+
+<p>После выполнения входа, мы переместимся в панель управления Active Admin, хотя пока там мало что можно увидеть.</p>
+
+<div class="imageWrapper">
+  <img src="./ASCIIcasts - “Episode 284 - Active Admin”_files/E284I03.png" width="799" height="458" alt="Панель управления Active Admin.">
+</div>
+
+<p>Мы хотим управлять нашими товарами, поэтому добавим ресурс <code>Product</code> к Active Admin, выполнив следующую команду:</p>
+
+<pre class="terminal">$ rails g active_admin:resource product
+      create  app/admin/products.rb</pre>
+
+<p>Этот генератор создает файл <code>products.rb</code> в директории приложения <code>app/admin</code>. Когда мы обновим административную панель управления, то увидим ссылку “Products”. Если мы нажмем на эту ссылку, то попадём на страницу, на которой есть всё для управления нашими товарами.</p>
+
+<div class="imageWrapper">
+  <img src="./ASCIIcasts - “Episode 284 - Active Admin”_files/E284I04.png" width="802" height="474" alt="Административная страница списка товаров.">
+</div>
+
+<p>На этой странице есть возможности для сортировки или фильтрации товаров по любому атрибуту. Active Admin даже обнаружит связи <code>belongs_to</code> с <code>Category</code> и предоставляет нам выпадающее меню, чтобы можно было фильтровать товары по их категориям. Это работает также когда мы создаем новый продукт. Категория показывается в виде выпадающего списка, а остальные атрибуты имеют поля ввода, основанные на их типе данных.</p>
+
+<div class="imageWrapper">
+  <img src="./ASCIIcasts - “Episode 284 - Active Admin”_files/E284I05.png" width="802" height="474" alt="Страница нового товара.">
+</div>
+
+<p>Достаточно просто изменить эту функциональность. Мы начнем с изменения страницы index товаров и уменьшения количества отображаемых колонок. Чтобы это сделать, мы изменим файл <code>/app/admin/products.rb</code>, который был сгенерирован ранее. Мы изменим страницу index, переписав метод <code>index</code>. Этот метод принимает блок, в котором мы определяем колонки, которые хотим видеть на странице с помощью вызова <code>column</code>.</p>
+
+<p class="codeFilePath">/app/admin/products.rb</p>
+<div class="dp-highlighter nogutter"><div class="bar"></div><ol start="1" class="dp-rb"><li class="alt"><span><span>ActiveAdmin.register&nbsp;Product&nbsp;</span><span class="keyword">do</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;index&nbsp;<span class="keyword">do</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;<span class="symbol">:name</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;<span class="symbol">:category</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;<span class="symbol">:released_at</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;<span class="symbol">:price</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;<span class="keyword">end</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">end</span><span>&nbsp;&nbsp;</span></span></li></ol></div><pre class="ruby" style="display: none;">ActiveAdmin.register Product do
+  index do
+    column :name
+    column :category
+    column :released_at
+    column :price
+  end
+end</pre>
+
+<p>Когда мы перезагружаем страницу товаров, мы видим, что она показывает колонки, которые мы хотели.</p>
+
+<div class="imageWrapper">
+  <img src="./ASCIIcasts - “Episode 284 - Active Admin”_files/E284I06.png" width="802" height="474" alt="Страница товаров теперь показывает наши выбранные колонки.">
+</div>
+
+<p>Стоит заметить, что связь <code>Category</code> была выявлена автоматически и правильная категория показывается напротив каждого товара.</p>
+
+<p>Мы можем и дальше продолжать настройку и изменить заголовок колонки, передавая его первым аргументом в column. Мы используем это для изменения имени поля <code>released_at</code>.</p>
+
+<p class="codeFilePath">/app/admin/products.rb</p>
+<div class="dp-highlighter nogutter"><div class="bar"></div><ol start="1" class="dp-rb"><li class="alt"><span><span>ActiveAdmin.register&nbsp;Product&nbsp;</span><span class="keyword">do</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;index&nbsp;<span class="keyword">do</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;<span class="symbol">:name</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;<span class="symbol">:category</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;<span class="string">"Release&nbsp;Date"</span><span>,&nbsp;</span><span class="symbol">:released_at</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;<span class="symbol">:price</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;<span class="keyword">end</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">end</span><span>&nbsp;&nbsp;</span></span></li></ol></div><pre class="ruby" style="display: none;">ActiveAdmin.register Product do
+  index do
+    column :name
+    column :category
+    column "Release Date", :released_at
+    column :price
+  end
+end</pre>
+
+<p>Если мы хотим изменить значения в колонке, мы можем это сделать, передавая блок в <code>column</code>. Поле цены на данный момент не отображает символ валюты, но можно сделать так, чтобы отображало. Метод <code>column</code> может принимать блок и когда мы добавляем его, то текущая модель, в данном случае <code>Product</code>, передается в него. Что бы блок ни вернул, оно будет отображено в этой колонке. Здесь у нас есть доступ к методам хелпера, так чо мы можем использовать <code>number_to_currency</code> для правильного отображения цены.</p>
+
+<p class="codeFilePath">/app/admin/products.rb</p>
+<div class="dp-highlighter nogutter"><div class="bar"></div><ol start="1" class="dp-rb"><li class="alt"><span><span>ActiveAdmin.register&nbsp;Product&nbsp;</span><span class="keyword">do</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;index&nbsp;<span class="keyword">do</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;<span class="symbol">:name</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;<span class="symbol">:category</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;<span class="string">"Release&nbsp;Date"</span><span>,&nbsp;</span><span class="symbol">:released_at</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;<span class="symbol">:price</span><span>&nbsp;</span><span class="keyword">do</span><span>&nbsp;|product|&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;number_to_currency&nbsp;product.price,&nbsp;<span class="symbol">:unit</span><span>&nbsp;=&gt;&nbsp;</span><span class="string">"&amp;pound;"</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;<span class="keyword">end</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">end</span><span>&nbsp;&nbsp;</span></span></li></ol></div><pre class="ruby" style="display: none;">ActiveAdmin.register Product do
+  index do
+    column :name
+    column :category
+    column "Release Date", :released_at
+    column :price do |product|
+      number_to_currency product.price, :unit =&gt; "&amp;pound;"
+    end
+  end
+end</pre>
+
+<p>Если мы сейчас перезагрузим страницу, то увидим измененный заголовок “Release Date” и цену каждого товара, отображаемую в виде валютного значения.</p>
+
+<div class="imageWrapper">
+  <img src="./ASCIIcasts - “Episode 284 - Active Admin”_files/E284I07.png" width="802" height="474" alt="Колонка цены теперь показывает знак валюты.">
+</div>
+
+<p>Изменение значения, возвращаемого полем с ценой означает, что теперь это поле не сортируемо. Также у нас больше нет ссылок изменения и удаления для каждого элемента. Сейчас мы это исправим. Когда бы мы ни использовали блок для настройки значения, мы должны также использовать опцию <code>:sortable</code> чтобы указать Active Admin, каким образом сортировать это поле. Сделаем это и вызовем <code>default_actions</code> чтобы вернуть обратно ссылки редактирования и удаления.</p>
+
+<p class="codeFilePath">/app/admin/products.rb</p>
+<div class="dp-highlighter nogutter"><div class="bar"></div><ol start="1" class="dp-rb"><li class="alt"><span><span>ActiveAdmin.register&nbsp;Product&nbsp;</span><span class="keyword">do</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;index&nbsp;<span class="keyword">do</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;<span class="symbol">:name</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;<span class="symbol">:category</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;<span class="string">"Release&nbsp;Date"</span><span>,&nbsp;</span><span class="symbol">:released_at</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;<span class="symbol">:price</span><span>,&nbsp;</span><span class="symbol">:sortable</span><span>&nbsp;=&gt;&nbsp;</span><span class="symbol">:price</span><span>&nbsp;</span><span class="keyword">do</span><span>&nbsp;|product|&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;number_to_currency&nbsp;product.price,&nbsp;<span class="symbol">:unit</span><span>&nbsp;=&gt;&nbsp;</span><span class="string">"&amp;pound;"</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;default_actions&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;<span class="keyword">end</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">end</span><span>&nbsp;&nbsp;</span></span></li></ol></div><pre class="ruby" style="display: none;">ActiveAdmin.register Product do
+  index do
+    column :name
+    column :category
+    column "Release Date", :released_at
+    column :price, :sortable =&gt; :price do |product|
+      number_to_currency product.price, :unit =&gt; "&amp;pound;"
+    end
+    default_actions
+  end
+end</pre>
+
+<p>Поле цены теперь показывает символ валюты, но будет лучше, если значения также будут выровнены по правому краю. Мы можем это сделать с помощью CSS, но чтобы сделать это, нам для начала потребуется способ ссылаться на колонку. Active Admin предоставляет возможность генерировать HTML, который очень похож на <a href="http://markaby.github.com/">Markaby</a>. Все что нам нужно сделать - вызвать метод с именем тега, который мы хотим сгенерировать. Мы можем передать туда параметр <code>:class</code> чтобы придать тегу что-то, на что мы можем ссылаться в CSS.</p>
+
+<p class="codeFilePath">/app/admin/products.rb</p>
+<div class="dp-highlighter nogutter"><div class="bar"></div><ol start="1" class="dp-rb"><li class="alt"><span><span>ActiveAdmin.register&nbsp;Product&nbsp;</span><span class="keyword">do</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;index&nbsp;<span class="keyword">do</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;<span class="symbol">:name</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;<span class="symbol">:category</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;<span class="string">"Release&nbsp;Date"</span><span>,&nbsp;</span><span class="symbol">:released_at</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;<span class="symbol">:price</span><span>,&nbsp;</span><span class="symbol">:sortable</span><span>&nbsp;=&gt;&nbsp;</span><span class="symbol">:price</span><span>&nbsp;</span><span class="keyword">do</span><span>&nbsp;|product|&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;div&nbsp;<span class="symbol">:class</span><span>&nbsp;=&gt;&nbsp;</span><span class="string">"price"</span><span>&nbsp;</span><span class="keyword">do</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;number_to_currency&nbsp;product.price,&nbsp;<span class="symbol">:unit</span><span>&nbsp;=&gt;&nbsp;</span><span class="string">"&amp;pound;"</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;default_actions&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;<span class="keyword">end</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">end</span><span>&nbsp;&nbsp;</span></span></li></ol></div><pre class="ruby" style="display: none;">ActiveAdmin.register Product do
+  index do
+    column :name
+    column :category
+    column "Release Date", :released_at
+    column :price, :sortable =&gt; :price do |product|
+      div :class =&gt; "price" do
+        number_to_currency product.price, :unit =&gt; "&amp;pound;"
+      end
+    end
+    default_actions
+  end
+end</pre>
+
+<p>Теперь мы можем применить стиль к этой колонке, изменяя файл <code>active_admin.css.scss</code>.</p>
+
+<p class="codeFilePath">/app/assets/stylesheets/active_admin.css.scss</p>
+<div class="dp-highlighter nogutter"><div class="bar"></div><ol start="1" class="dp-css"><li class="alt"><span><span>//&nbsp;Active&nbsp;Admin&nbsp;CSS&nbsp;Styles&nbsp;&nbsp;</span></span></li><li class=""><span>@import&nbsp;<span class="string">"active_admin/mixins"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>@import&nbsp;<span class="string">"active_admin/base"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>//&nbsp;To&nbsp;customize&nbsp;the&nbsp;Active&nbsp;Admin&nbsp;interfaces,&nbsp;add&nbsp;your&nbsp;&nbsp;</span></li><li class=""><span>//&nbsp;styles&nbsp;here:&nbsp;&nbsp;</span></li><li class="alt"><span>.price&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;text-align&nbsp;:<span class="value">right</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li></ol></div><pre class="css" style="display: none;">// Active Admin CSS Styles
+@import "active_admin/mixins";
+@import "active_admin/base";
+
+// To customize the Active Admin interfaces, add your
+// styles here:
+.price {
+  text-align :right;
+}</pre>
+
+<p>Колонка цены теперь выравнивается правильно.</p>
+
+<div class="imageWrapper">
+  <img src="./ASCIIcasts - “Episode 284 - Active Admin”_files/E284I08.png" width="802" height="472" alt="Колонка цены теперь выровнена по правому краю.">
+</div>
+
+<h3>Scopes</h3>
+
+<p>Scopes (области действия) это еще одна важная функция Active Admin. Они работают как заранее заданные фильтры, нужно сделать два шага, чтобы создать scope. Во-первых, мы добавим вызов scope в файле конфигурации Active Admin для наших товаров, передавая имя scope.</p>
+
+<p class="codeFilePath">/app/admin/products.rb</p>
+<div class="dp-highlighter nogutter"><div class="bar"></div><ol start="1" class="dp-rb"><li class="alt"><span><span>ActiveAdmin.register&nbsp;Product&nbsp;</span><span class="keyword">do</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;scope&nbsp;<span class="symbol">:unreleased</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;index&nbsp;<span class="keyword">do</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;<span class="symbol">:name</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;<span class="symbol">:category</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;<span class="string">"Release&nbsp;Date"</span><span>,&nbsp;</span><span class="symbol">:released_at</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;<span class="symbol">:price</span><span>,&nbsp;</span><span class="symbol">:sortable</span><span>&nbsp;=&gt;&nbsp;</span><span class="symbol">:price</span><span>&nbsp;</span><span class="keyword">do</span><span>&nbsp;|product|&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;div&nbsp;<span class="symbol">:class</span><span>&nbsp;=&gt;&nbsp;</span><span class="string">"price"</span><span>&nbsp;</span><span class="keyword">do</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;number_to_currency&nbsp;product.price,&nbsp;<span class="symbol">:unit</span><span>&nbsp;=&gt;&nbsp;</span><span class="string">"&amp;pound;"</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;default_actions&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;<span class="keyword">end</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">end</span><span>&nbsp;&nbsp;</span></span></li></ol></div><pre class="ruby" style="display: none;">ActiveAdmin.register Product do
+  scope :unreleased
+  index do
+    column :name
+    column :category
+    column "Release Date", :released_at
+    column :price, :sortable =&gt; :price do |product|
+      div :class =&gt; "price" do
+        number_to_currency product.price, :unit =&gt; "&amp;pound;"
+      end
+    end
+    default_actions
+  end
+end</pre>
+
+<p>А во-вторых, мы должны вписать scope в модель <code>Product</code>.</p>
+
+<p class="codeFilePath">/app/models/product.rb</p>
+<div class="dp-highlighter nogutter"><div class="bar"></div><ol start="1" class="dp-rb"><li class="alt"><span><span class="keyword">class</span><span>&nbsp;Product&nbsp;&lt;&nbsp;ActiveRecord::Base&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;belongs_to&nbsp;<span class="symbol">:category</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;scope&nbsp;<span class="symbol">:unreleased</span><span>,&nbsp;where(</span><span class="symbol">:released_at</span><span>&nbsp;=&gt;&nbsp;</span><span class="keyword">nil</span><span>)&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">end</span><span>&nbsp;&nbsp;</span></span></li></ol></div><pre class="ruby" style="display: none;">class Product &lt; ActiveRecord::Base
+  belongs_to :category
+  scope :unreleased, where(:released_at =&gt; nil)
+end</pre>
+
+<p>Если мы перезагрузим админ-страницу товаров теперь, то увидим scope в списке. Когда мы нажимаем на него, то показывается список товаров отфильтрованных по данному scope.</p>
+
+<div class="imageWrapper">
+  <img src="./ASCIIcasts - “Episode 284 - Active Admin”_files/E284I09.png" width="802" height="472" alt="Товары отфильтрованы по unreleased scope.">
+</div>
+
+<h3>Настройка панели управления</h3>
+
+<p>Далее рассмотрим вопрос настройки панели управления. Она пуста по умолчанию, поэтому мы изменим ее для отображения списка недавних товаров. Сделаем это, изменив файл <code>/app/admin/dashboards.rb</code>. В этом файле представлена некоторая полезная документация, объясняющая, каким образом работают различные настройки.</p>
+
+<p>Чтобы добавить раздел в панель, воспользуемся методом section. Нам нужно отобразить список недавних товаров в таблице и мы можем это сделать используя команду <code>table_for</code>. В его блоке мы указываем колонки, которые хотим отобразить с помощью <code>column</code> точно так же, как сделали это при настройке админ-страницы index товаров. Также мы добавим ссылку на страницу, которая показывает все товары.</p>
+
+<p class="codeFilePath">/app/admin/dashboards.rb</p>
+<div class="dp-highlighter nogutter"><div class="bar"></div><ol start="1" class="dp-rb"><li class="alt"><span><span>ActiveAdmin::Dashboards.build&nbsp;</span><span class="keyword">do</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;section&nbsp;<span class="string">"Recent&nbsp;Products"</span><span>&nbsp;</span><span class="keyword">do</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;table_for&nbsp;Product.order(<span class="string">"released_at&nbsp;desc"</span><span>).limit(5)&nbsp;</span><span class="keyword">do</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;<span class="symbol">:name</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;<span class="symbol">:released_at</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;strong&nbsp;{&nbsp;link_to&nbsp;<span class="string">"View&nbsp;All&nbsp;Products"</span><span>,&nbsp;admin_products_path&nbsp;}&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;<span class="keyword">end</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">end</span><span>&nbsp;&nbsp;</span></span></li></ol></div><pre class="ruby" style="display: none;">ActiveAdmin::Dashboards.build do
+  section "Recent Products" do
+    table_for Product.order("released_at desc").limit(5) do
+      column :name
+      column :released_at
+    end
+    strong { link_to "View All Products", admin_products_path }
+  end
+end</pre>
+
+<p>Теперь, когда мы перезагржаем страницу панели управления, то увидим пять последних выпущенных товаров наряду со ссылкой.</p>
+
+<div class="imageWrapper">
+  <img src="./ASCIIcasts - “Episode 284 - Active Admin”_files/E284I10.png" width="802" height="472" alt="Самые последние товары отображаются в панели управления.">
+</div>
+
+<p>Страница будет более полезна, если каждый товар в списке будет ссылаться на админ-страницу этого товара. Мы можем это сделать, снова передав блок в метод <code>column</code>, точно так же, как мы это сделали с колонкой цены.</p>
+
+<p class="codeFilePath">/app/admin/dashboards.rb</p>
+<div class="dp-highlighter nogutter"><div class="bar"></div><ol start="1" class="dp-rb"><li class="alt"><span><span>ActiveAdmin::Dashboards.build&nbsp;</span><span class="keyword">do</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;section&nbsp;<span class="string">"Recent&nbsp;Products"</span><span>&nbsp;</span><span class="keyword">do</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;table_for&nbsp;Product.order(<span class="string">"released_at&nbsp;desc"</span><span>).limit(5)&nbsp;</span><span class="keyword">do</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;<span class="symbol">:name</span><span>&nbsp;</span><span class="keyword">do</span><span>&nbsp;|product|&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;link_to&nbsp;product.title,&nbsp;admin_product_path(product)&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;<span class="symbol">:released_at</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;strong&nbsp;{&nbsp;link_to&nbsp;<span class="string">"View&nbsp;All&nbsp;Products"</span><span>,&nbsp;admin_products_path&nbsp;}&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;<span class="keyword">end</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">end</span><span>&nbsp;&nbsp;</span></span></li></ol></div><pre class="ruby" style="display: none;">ActiveAdmin::Dashboards.build do
+  section "Recent Products" do
+    table_for Product.order("released_at desc").limit(5) do
+      column :name do |product|
+        link_to product.title, admin_product_path(product)
+      end
+      column :released_at
+    end
+    strong { link_to "View All Products", admin_products_path }
+  end
+end</pre>
+
+<p>Есть более короткий путь для определения пути в  <code>link_to</code>. Вместо использования <code>admin_product_path(product)</code> мы можем передать массив с первым элементом - символом и вторым элементом - товаром, например так:</p>
+
+<div class="dp-highlighter nogutter"><div class="bar"></div><ol start="1" class="dp-rb"><li class="alt"><span><span>link_to&nbsp;product.title,&nbsp;[</span><span class="symbol">:admin</span><span>,&nbsp;product]&nbsp;&nbsp;</span></span></li></ol></div><pre class="ruby" style="display: none;">link_to product.title, [:admin, product]</pre>
+
+<p>Если мы перезагрузим панель управления, то увидим, что заголовок каждого товара показан в виде ссылки. Когда мы нажимаем на одну из ссылок, то попадаем на админ-страницу данного товара.</p>
+
+<h3>Исправление файлов стилей</h3>
+
+<p>Есть проблема, которую нужно учитывать при использовании Active Admin с Rails 3.1 и мы можем ее увидеть, возвращаясь на основной сайт.</p>
+
+ <div class="imageWrapper">
+  <img src="./ASCIIcasts - “Episode 284 - Active Admin”_files/E284I11.png" width="801" height="435" alt="Домашняя страница имеет неправильные стили.">
+</div>
+
+<p>Страница выглядит не так, как выглядела раньше из-за стилей Active Admin, включеных на всех страницах. Rails 3.1 включает все файлы стилей по умолчанию из-за строчки <code>require_tree .</code> в файле манифеста <code>application.css</code>. Это не то, что мы хотели получить, но в любом случае будет правильно удалить эту строку, чтобы получить больше контроля над стилями нашего приложения. У нас есть единственный другой файл стилей в основном приложении, поэтому мы заменим <code>require_tree .</code> на <code>require products</code>.</p>
+
+<p class="codeFilePath">/app/assets/stylesheets/application.css</p>
+<div class="dp-highlighter nogutter"><div class="bar"></div><ol start="1" class="dp-css"><li class="alt"><span><span class="comment">/*</span>&nbsp;</span></li><li class=""><span><span class="comment">&nbsp;*&nbsp;This&nbsp;is&nbsp;a&nbsp;manifest&nbsp;file&nbsp;that'll&nbsp;automatically&nbsp;include&nbsp;all&nbsp;the&nbsp;stylesheets&nbsp;available&nbsp;in&nbsp;this&nbsp;directory</span>&nbsp;</span></li><li class="alt"><span><span class="comment">&nbsp;*&nbsp;and&nbsp;any&nbsp;sub-directories.&nbsp;You're&nbsp;free&nbsp;to&nbsp;add&nbsp;application-wide&nbsp;styles&nbsp;to&nbsp;this&nbsp;file&nbsp;and&nbsp;they'll&nbsp;appear&nbsp;at</span>&nbsp;</span></li><li class=""><span><span class="comment">&nbsp;*&nbsp;the&nbsp;top&nbsp;of&nbsp;the&nbsp;compiled&nbsp;file,&nbsp;but&nbsp;it's&nbsp;generally&nbsp;better&nbsp;to&nbsp;create&nbsp;a&nbsp;new&nbsp;file&nbsp;per&nbsp;style&nbsp;scope.</span>&nbsp;</span></li><li class="alt"><span><span class="comment">&nbsp;*=&nbsp;require_self</span>&nbsp;</span></li><li class=""><span><span class="comment">&nbsp;*=&nbsp;require&nbsp;products</span>&nbsp;</span></li><li class="alt"><span><span class="comment">*/</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span><span class="comment">/*&nbsp;Остальная&nbsp;часть&nbsp;файла&nbsp;опущена&nbsp;*/</span><span>&nbsp;&nbsp;</span></span></li></ol></div><pre class="css" style="display: none;">/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+ *= require_self
+ *= require products
+*/
+
+/* Остальная часть файла опущена */</pre>
+
+<p>Еще лучшим решением будет переключиться на команду SASS <code>import</code>. Можно переключить основной CSS файл приложения на SASS добавлением расширения <code>.scss</code> к его имени. Затем мы можем убрать манифест наверху файла (часть файла вы можете увидеть в отрывке кода выше) и добавить команду import внизу.</p>
+
+<p class="codeFilePath">/app/assets/stylesheets/application.css.scss</p>
+<div class="dp-highlighter nogutter"><div class="bar"></div><ol start="1" class="dp-css"><li class="alt"><span><span class="comment">/*&nbsp;Стили&nbsp;опущены&nbsp;*/</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>@import&nbsp;<span class="string">"products"</span><span>;&nbsp;&nbsp;</span></span></li></ol></div><pre class="css" style="display: none;">/* Стили опущены */
+
+@import "products";</pre>
+
+<p>Теперь, когда мы перезагружаем страницу, только правильные файлы стилей подключены и страница выглядит корректно.</p>
+
+<h3>Глобальная конфигурация</h3>
+
+<p>У Active Admin есть файл конфигурации в директории <code>/config/initializers</code> и мы посвятим оставшуюся часть этого эпизода рассмотрению этого файла. Файл включает большое количество опций конфигурации, большая часть из которых закомментирована. Одна из работающих строк относится к заголовку административной части сайта и мы изменим ее.</p>
+
+<p class="codeFilePath">/config/initializers/active_admin.rb</p>
+<div class="dp-highlighter nogutter"><div class="bar"></div><ol start="1" class="dp-rb"><li class="alt"><span><span>ActiveAdmin.setup&nbsp;</span><span class="keyword">do</span><span>&nbsp;|config|&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;<span class="comment">#&nbsp;==&nbsp;Site&nbsp;Title</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;<span class="comment">#</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;<span class="comment">#&nbsp;Set&nbsp;the&nbsp;title&nbsp;that&nbsp;is&nbsp;displayed&nbsp;on&nbsp;the&nbsp;main&nbsp;layout</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;<span class="comment">#&nbsp;for&nbsp;each&nbsp;of&nbsp;the&nbsp;active&nbsp;admin&nbsp;pages.</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;<span class="comment">#</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;config.site_title&nbsp;=&nbsp;<span class="string">"Eifion's&nbsp;Store"</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;<span class="comment">#&nbsp;Остальные&nbsp;опции&nbsp;конфигурации&nbsp;опущены.</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">end</span><span>&nbsp;&nbsp;</span></span></li></ol></div><pre class="ruby" style="display: none;">ActiveAdmin.setup do |config|
+
+  # == Site Title
+  #
+  # Set the title that is displayed on the main layout
+  # for each of the active admin pages.
+  #
+  config.site_title = "Eifion's Store"
+
+  # Остальные опции конфигурации опущены.
+end</pre>
+
+<p>Теперь нам надо перезапустить сервер, чтобы изменения вступили в силу, и, когда мы это сделаем, будет показан уже новый заголовок.</p>
+
+<div class="imageWrapper">
+  <img src="./ASCIIcasts - “Episode 284 - Active Admin”_files/E284I12.png" width="801" height="435" alt="Показан новый заголовок.">
+</div>
+
+<p>На этом закончим данный эпизод. Есть еще много того, что мы не рассмотрели на счет Active Admin, поэтому уделите внимание документации, чтобы узнать, что еще можно сделать. Можно настроить внешний вид и функциональность страниц Active Admin для удовлетворения наших потребностей и эти возможности делают Active Admin мощным решением для добавления административной функциональности к вашему приложению на Rails.</p>
+  
+  <div class="episodeLinks">
+    <a href="http://ru.asciicasts.com/episodes/282-upgrading-to-rails-3-1">Previous episode</a>
+    <a href="http://ru.asciicasts.com/episodes/286-draper">Next episode</a>
+  </div>
+</div>
+		</div>	
+    <script src="./ASCIIcasts - “Episode 284 - Active Admin”_files/jquery-1.3.1.min.js" type="text/javascript"></script>
+<script src="./ASCIIcasts - “Episode 284 - Active Admin”_files/shCore.js" type="text/javascript"></script>
+<script src="./ASCIIcasts - “Episode 284 - Active Admin”_files/syntaxHighlight.js" type="text/javascript"></script>
+		<script src="./ASCIIcasts - “Episode 284 - Active Admin”_files/brushes.js" type="text/javascript"></script>
+		
+		<script type="text/javascript" src="./ASCIIcasts - “Episode 284 - Active Admin”_files/ga.js"></script>
+		<script type="text/javascript">
+		try {
+		  var pageTracker = _gat._getTracker("UA-5246537-4");
+		  pageTracker._setDomainName(".asciicasts.com");
+		  pageTracker._trackPageview();
+		} 
+		catch(err) {}
+
+
+		$(document).ready(function () {  
+			$("code,pre").syntaxHighlight({showGutter: false, showControls: false, firstLine: 1});  
+
+  		$('#otherFormats img').click( function () {
+          var fileToTrack = document.location.href;
+          fileToTrack += ($(this).attr('src').indexOf('pdf') > -1) ? '.pdf' : '.epub';
+
+          try {
+      		    var pageTracker = _gat._getTracker("UA-5246537-4");
+      		    pageTracker._setDomainName(".asciicasts.com");
+      		    pageTracker._trackPageview(fileToTrack);
+      		    } 
+          catch(err) {}
+        });
+		});	
+    </script>
+	
+<iframe name="oauth2relay274291347" id="oauth2relay274291347" src="./ASCIIcasts - “Episode 284 - Active Admin”_files/postmessageRelay.html" tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe></body></html>

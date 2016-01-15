@@ -1,0 +1,3775 @@
+<!DOCTYPE html>
+<!-- saved from url=(0116)https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04 -->
+<html class="wf-proximanova-n4-active wf-proximanova-i4-active wf-proximanova-n1-active wf-proximanova-n3-active wf-proximanova-n6-active wf-proximanova-n7-active wf-active"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>How To Deploy a Rails App with Passenger and Apache on Ubuntu 14.04 | DigitalOcean</title>
+
+<meta name="description" content="In this tutorial, we will demonstrate how to install [Phusion Passenger](https://www.phusionpassenger.com) as your Rails-friendly web server, which is easy to install, configure, and maintain. We will integrate it into Apache on Ubuntu 14.04. By the e">
+<meta name="keywords" content="Ruby on Rails Apache Ruby">
+
+<meta name="og:title" content="How To Deploy a Rails App with Passenger and Apache on Ubuntu 14.04 | DigitalOcean">
+<meta name="og:description" content="In this tutorial, we will demonstrate how to install [Phusion Passenger](https://www.phusionpassenger.com) as your Rails-friendly web server, which is easy to install, configure, and maintain. We will integrate it into Apache on Ubuntu 14.04. By the e">
+<meta name="og:site_name" content="DigitalOcean">
+<meta name="og:type" content="article">
+
+<meta name="twitter:site" content="DigitalOcean">
+<meta name="twitter:title" content="How To Deploy a Rails App with Passenger and Apache on Ubuntu 14.04 | DigitalOcean">
+<meta name="twitter:description" content="In this tutorial, we will demonstrate how to install [Phusion Passenger](https://www.phusionpassenger.com) as your Rails-friendly web server, which is easy to install, configure, and maintain. We will integrate it into Apache on Ubuntu 14.04. By the e">
+<meta name="twitter:creator" content="DigitalOcean">
+<meta name="twitter:card" content="photo">
+<meta name="twitter:url" content="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04">
+
+<meta property="og:image" content="https://community-cdn-digitalocean-com.global.ssl.fastly.net/assets/tutorials/images/large/deploy_rails_app_tw.png?1426699773">
+<meta name="twitter:image" content="https://community-cdn-digitalocean-com.global.ssl.fastly.net/assets/tutorials/images/large/deploy_rails_app_tw.png?1426699773">
+
+  <link rel="canonical" href="./rails_apache_passenger_files/rails_apache_passenger.html">
+
+
+    <link rel="stylesheet" media="all" href="https://www.digitalocean.com/assets/community/application-0b76d287bbd7e655fd789740fc6b8e7f.css">
+    <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="2BjirtBITwUWI6qHAWUY5dAGZms9meHTVI/6bZa0peHEOq6h1T+wChft4dU4+j7wemT7bhubS0t465dMppxeOg==">
+    <script src="./rails_apache_passenger_files/bat.js" async=""></script><script async="" src="./rails_apache_passenger_files/fbds.js"></script><script type="text/javascript" async="" src="./rails_apache_passenger_files/conversion_async.js"></script><script type="text/javascript" async="" src="./rails_apache_passenger_files/roundtrip.js"></script><script type="text/javascript" async="" src="./rails_apache_passenger_files/analytics.js"></script><script type="text/javascript" async="" src="./rails_apache_passenger_files/track.js" id="cio-tracker" data-site-id="e7cc779295927747a7c2"></script><script src="./rails_apache_passenger_files/cb=gapi.loaded_0" async=""></script><script async="" id="hn-button.js" src="./rails_apache_passenger_files/hn-button.js"></script><script type="text/javascript" async="" src="./rails_apache_passenger_files/plusone.js" gapi_processed="true"></script><script id="facebook-jssdk" async="" src="./rails_apache_passenger_files/all.js"></script><script id="twitter-wjs" async="" src="./rails_apache_passenger_files/widgets.js"></script><script async="" src="./rails_apache_passenger_files/gtm.js"></script><script type="text/javascript" async="" src="./rails_apache_passenger_files/analytics.min.js"></script><script type="text/javascript" src="./rails_apache_passenger_files/njm7orv.js"></script>
+    <style type="text/css">.tk-proxima-nova{font-family:"proxima-nova",sans-serif;}</style><link rel="stylesheet" href="https://use.typekit.net/c/3630c0/1w;proxima-nova,2,gbm:V:i4,gbg:V:n1,gbj:V:n3,gbl:V:n4,gbq:V:n6,gbs:V:n7/l?3bb2a6e53c9684ffdc9a99ff1a5b2a6236e3628d53226ac77c5f92111ae5f6920cb48cddf84302e7111f93a832ec07dbd04c86ed1235e670c45f37f6392e92d088c67b93ef02ef5f75f15656339824d61ac572b957a0e150535a8f2c21b9430f372abfc8923719c13863433c4dcc8c50d375c29b0714d96a12f5cda32b7379fa743bb8bc18c270d25fb35b2a4af29e25574a664e8a90b7b5c9e7bb1351875a36bbb992b2f23099c7589629692e1cda7e46e809464b8af25dd150ddf34198de032c10cdca80f7d6c606a717dee00419721ae9ec49aaafdcfff2b2f6f6dd78bcc2757e6441e11ff8fe5e35af3e1259fce40c35df3193b4f9be41fad50f5793cbef7570970a0dc79300404b661057b1e7df3fff33a127b79ac14c6bca453d9d3aa7b6e85c288e0bd44ac214e7dbe868b215d6412a3f4cb42eedbfe0f7c6c49d88271d059f0b2fa74c28f2ccd9893dcefebe7c28dde9f1a59b014f3bf54b5b6252efdb8ba169df2bc25efc5dfc45e65feb1f11b7bfb42ce97a74d09196d68458e8b19ade723f2f60" media="all"><script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    <script src="./rails_apache_passenger_files/701281621.js"></script>
+    <script type="text/javascript">
+      if(window.analytics=window.analytics||[],window.analytics.included)window.console&&console.error&&console.error("analytics.js included twice");else{window.analytics.included=!0,window.analytics.methods=["identify","group","track","page","pageview","alias","ready","on","once","off","trackLink","trackForm","trackClick","trackSubmit"],window.analytics.factory=function(a){return function(){var n=Array.prototype.slice.call(arguments);return n.unshift(a),window.analytics.push(n),window.analytics}};for(var i=0;i<window.analytics.methods.length;i++){var key=window.analytics.methods[i];window.analytics[key]=window.analytics.factory(key)}window.analytics.load=function(a){var n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+a+"/analytics.min.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(n,t)},window.analytics.SNIPPET_VERSION="2.0.9",
+      window.analytics.load("puo3uv968t")}
+      window.analytics.page();
+    </script>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="https://www.digitalocean.com/community/tutorials/feed">
+    <script src="./rails_apache_passenger_files/application-75967e85df790b143e43a5b296c8a6aa.js"></script>
+  <style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow-x:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(https://static.xx.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(https://static.xx.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(https://static.xx.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f6f7f8;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3a5795;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{width:auto;height:auto;min-height:initial;min-width:initial;background:none}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{color:#fff;display:block;padding-top:20px;clear:both;font-size:18px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #2f477a;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f6f7f8;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(https://static.xx.fbcdn.net/rsrc.php/v2/yD/r/t-wz8gw1xG1.png);background-repeat:no-repeat;background-position:50% 50%;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}</style><script async="true" type="text/javascript" src="./rails_apache_passenger_files/4IDGVTPEAFC4TM2QKYNQ53"></script><div style="width: 1px; height: 1px; display: inline; position: absolute;"><img height="1" width="1" style="border-style:none;" alt="" src="./rails_apache_passenger_files/out">
+<img height="1" width="1" style="border-style:none;" alt="" src="./rails_apache_passenger_files/out(1)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./rails_apache_passenger_files/out(2)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./rails_apache_passenger_files/out(3)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./rails_apache_passenger_files/out(4)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./rails_apache_passenger_files/out(5)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./rails_apache_passenger_files/out(6)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./rails_apache_passenger_files/out(7)">
+<img height="1" width="1" alt="" style="display:none" src="./rails_apache_passenger_files/tr"><img height="1" width="1" style="border-style:none;" alt="" src="./rails_apache_passenger_files/saved_resource">
+<img src="./rails_apache_passenger_files/seg" width="1" height="1">
+</div></head>
+  <body class="tutorials-controller tutorial-single" data-env="production" ,="" data-prefix="/community" data-user-id="" data-facebook-app-id="694818843983011" cz-shortcut-listen="true">
+    <script>
+//<![CDATA[
+
+//]]>
+</script>
+<!-- Google Tag Manager -->
+<noscript>&lt;iframe src="//www.googletagmanager.com/ns.html?id=GTM-KHWBBT"
+height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;</noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KHWBBT');</script>
+<!-- End Google Tag Manager -->
+    
+
+    <div class="outside_viewport">
+        <div class="table-of-contents  tocify" style="top: 200px;"><ul id="tocify-header0" class="tocify-header" style="display: none;"><li class="tocify-item tocify-focus" data-unique="prerequisites"><a>Prerequisites</a></li></ul><ul id="tocify-header1" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="step-1-—-add-a-sudo-user"><a>Step 1 — Add a Sudo User</a></li></ul><ul id="tocify-header2" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="step-2-(optional)-—-set-up-your-domain"><a>Step 2 (Optional) — Set Up Your Domain</a></li></ul><ul id="tocify-header3" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="step-3-—-install-ruby"><a>Step 3 — Install Ruby</a></li></ul><ul id="tocify-header4" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="step-4-—-install-apache"><a>Step 4 — Install Apache</a></li></ul><ul id="tocify-header5" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="step-5-—-install-passenger"><a>Step 5 — Install Passenger</a></li></ul><ul id="tocify-header6" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="step-6-—-deploy"><a>Step 6 — Deploy</a></li></ul><ul id="tocify-header7" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="step-7-—-update-regularly"><a>Step 7 — Update Regularly</a></li></ul></div>
+  <div id="share-modal" class="modal fade mini-modal" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1>Share</h1>
+          <a class="close-button" data-dismiss="modal" href=""><span class="icon icon-close-light"></span></a>
+        </div>
+        <div class="modal-body">
+
+          <div class="social-sharing social-sharing-container">
+            <ul class="bottom ">
+              <li class="shareBtn" id="sbTwitter">
+                <a href="http://twitter.com/share?text=How%20To%20Deploy%20a%20Rails%20App%20with%20Passenger%20and%20Apache%20on%20Ubuntu%2014.04&url=https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?utm_content=how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04&utm_medium=community&utm_source=twshare" class="share-icon share-popup" title="Share on Twitter">
+                  <span class="sIcon icon-bird"></span>
+                </a>
+                
+                <a href="http://twitter.com/share?text=How%20To%20Deploy%20a%20Rails%20App%20with%20Passenger%20and%20Apache%20on%20Ubuntu%2014.04&url=https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?utm_content=how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04&utm_medium=community&utm_source=twshare" class="share-link share-popup" title="Share on Twitter">
+                  Twitter
+                </a>
+                
+              </li>
+
+              <li class="shareBtn" id="sbFacebook">
+                <a class="share-icon facebook-share" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?utm_content=how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04&utm_medium=community&utm_source=fbshare" onclick="" title="Share on Facebook">
+                  <span class="sIcon icon-facebook-B"></span>
+                </a>
+
+                <a class="share-link facebook-share" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?utm_content=how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04&utm_medium=community&utm_source=fbshare" onclick="" title="Share on Facebook">
+                  Facebook
+                </a>
+              </li>
+              <li class="shareBtn" id="sbGoogle">
+                <a href="https://plus.google.com/share?url=https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?utm_content=how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04&utm_medium=community&utm_source=gpshare" class="share-icon share-popup" title="Share on Google+">
+                  <span class="sIcon icon-google-plus-B"></span>
+                </a>
+
+                <a href="https://plus.google.com/share?url=https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?utm_content=how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04&utm_medium=community&utm_source=gpshare" class="share-link share-popup" title="Share on Google+">
+                  Google+
+                </a>
+              </li>
+              <li class="shareBtn" id="sbYC">
+                <a href="https://news.ycombinator.com/submitlink?t=How%20To%20Deploy%20a%20Rails%20App%20with%20Passenger%20and%20Apache%20on%20Ubuntu%2014.04&u=https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?utm_content=how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04&utm_medium=community&utm_source=hnshare" class="share-icon share-popup " target="_blank" title="Submit to Hacker News">
+                  <span class="sIcon icon-hacker-news"></span>
+                </a>
+
+                <a href="https://news.ycombinator.com/submitlink?t=How%20To%20Deploy%20a%20Rails%20App%20with%20Passenger%20and%20Apache%20on%20Ubuntu%2014.04&u=https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?utm_content=how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04&utm_medium=community&utm_source=hnshare" class="share-link share-popup" target="_blank" title="Submit to Hacker News">
+                  Hacker News
+                </a>
+              </li>
+            </ul>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="contents-modal" class="modal fade mini-modal" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1>Contents</h1>
+          <a class="close-button" data-dismiss="modal" href=""><span class="icon icon-close-light"></span></a>
+        </div>
+        <div class="modal-body">
+
+          <div class="table-of-contents-modal open tocify"><ul id="tocify-header0" class="tocify-header" style="display: none;"><li class="tocify-item tocify-focus" data-unique="prerequisites"><a>Prerequisites</a></li></ul><ul id="tocify-header1" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="step-1-—-add-a-sudo-user"><a>Step 1 — Add a Sudo User</a></li></ul><ul id="tocify-header2" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="step-2-(optional)-—-set-up-your-domain"><a>Step 2 (Optional) — Set Up Your Domain</a></li></ul><ul id="tocify-header3" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="step-3-—-install-ruby"><a>Step 3 — Install Ruby</a></li></ul><ul id="tocify-header4" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="step-4-—-install-apache"><a>Step 4 — Install Apache</a></li></ul><ul id="tocify-header5" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="step-5-—-install-passenger"><a>Step 5 — Install Passenger</a></li></ul><ul id="tocify-header6" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="step-6-—-deploy"><a>Step 6 — Deploy</a></li></ul><ul id="tocify-header7" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="step-7-—-update-regularly"><a>Step 7 — Update Regularly</a></li></ul></div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="share-modal" class="modal fade mini-modal" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1>Share</h1>
+          <a class="close-button" data-dismiss="modal" href=""><span class="icon icon-close-light"></span></a>
+        </div>
+        <div class="modal-body">
+
+          <div class="social-sharing social-sharing-container">
+            <ul class="top ">
+              <li class="shareBtn" id="sbTwitter">
+                <a href="http://twitter.com/share?text=How%20To%20Deploy%20a%20Rails%20App%20with%20Passenger%20and%20Apache%20on%20Ubuntu%2014.04&url=https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?utm_content=how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04&utm_medium=community&utm_source=twshare" class="share-icon share-popup" title="Share on Twitter">
+                  <span class="sIcon icon-bird"></span>
+                </a>
+                
+                <a href="http://twitter.com/share?text=How%20To%20Deploy%20a%20Rails%20App%20with%20Passenger%20and%20Apache%20on%20Ubuntu%2014.04&url=https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?utm_content=how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04&utm_medium=community&utm_source=twshare" class="share-link share-popup" title="Share on Twitter">
+                  Twitter
+                </a>
+                
+              </li>
+
+              <li class="shareBtn" id="sbFacebook">
+                <a class="share-icon facebook-share" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?utm_content=how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04&utm_medium=community&utm_source=fbshare" onclick="" title="Share on Facebook">
+                  <span class="sIcon icon-facebook-B"></span>
+                </a>
+
+                <a class="share-link facebook-share" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?utm_content=how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04&utm_medium=community&utm_source=fbshare" onclick="" title="Share on Facebook">
+                  Facebook
+                </a>
+              </li>
+              <li class="shareBtn" id="sbGoogle">
+                <a href="https://plus.google.com/share?url=https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?utm_content=how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04&utm_medium=community&utm_source=gpshare" class="share-icon share-popup" title="Share on Google+">
+                  <span class="sIcon icon-google-plus-B"></span>
+                </a>
+
+                <a href="https://plus.google.com/share?url=https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?utm_content=how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04&utm_medium=community&utm_source=gpshare" class="share-link share-popup" title="Share on Google+">
+                  Google+
+                </a>
+              </li>
+              <li class="shareBtn" id="sbYC">
+                <a href="https://news.ycombinator.com/submitlink?t=How%20To%20Deploy%20a%20Rails%20App%20with%20Passenger%20and%20Apache%20on%20Ubuntu%2014.04&u=https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?utm_content=how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04&utm_medium=community&utm_source=hnshare" class="share-icon share-popup " target="_blank" title="Submit to Hacker News">
+                  <span class="sIcon icon-hacker-news"></span>
+                </a>
+
+                <a href="https://news.ycombinator.com/submitlink?t=How%20To%20Deploy%20a%20Rails%20App%20with%20Passenger%20and%20Apache%20on%20Ubuntu%2014.04&u=https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?utm_content=how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04&utm_medium=community&utm_source=hnshare" class="share-link share-popup" target="_blank" title="Submit to Hacker News">
+                  Hacker News
+                </a>
+              </li>
+            </ul>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+    </div>
+
+      <div class="mobile-nav">
+  
+<div class="account-buttons">
+    <div id="entrance">
+      <a id="sign-up" class="button" href="https://www.digitalocean.com/community/auth/digitalocean?display=sessionless+register">Sign Up</a>
+      <a id="log-in" class="button" href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a>
+    </div>
+</div>
+    
+  <a class="close-panel icon-close" href="javascript:void(0);"></a>
+
+  <form class="mobile-search" action="https://www.digitalocean.com/community/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
+    <span class="icon icon-search-thin"></span>
+    <input type="text" name="q" id="q" placeholder="Search">
+    <button name="button" type="submit" class="icon-btn">submit</button>
+</form>
+  
+<nav>
+
+  <ul>
+    <li><a href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+    <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+    <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+    <li class="mobile-nav-only"><a href="https://www.digitalocean.com/">Main Site</a></li>
+  </ul>
+</nav>
+
+  
+</div>
+
+
+      
+    	<header>
+  <div class="main-menu-container">
+    <div class="wrapper">
+      <div class="logo">
+        <a class="" href="https://www.digitalocean.com/">
+          <span class="icon icon-cloud"></span>
+</a>
+        <a class="" href="https://www.digitalocean.com/community">
+          <span class="logo-community-text">Community</span>
+</a>      </div>
+      
+      <a class="mobile-nav-toggle icon-menu-thin" data-role="left">
+        <span>Menu</span>
+      </a>
+
+      
+<nav>
+
+  <ul>
+    <li><a href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+    <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+    <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+    <li class="mobile-nav-only"><a href="https://www.digitalocean.com/">Main Site</a></li>
+  </ul>
+</nav>
+
+      
+      
+<div class="account-buttons">
+    <div id="entrance">
+      <a id="sign-up" class="button" href="https://www.digitalocean.com/community/auth/digitalocean?display=sessionless+register">Sign Up</a>
+      <a id="log-in" class="button" href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a>
+    </div>
+</div>
+      <div class="header-search open">
+  <form action="https://www.digitalocean.com/community/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
+    <span class="icon icon-search-thin"></span>
+    <input type="text" name="q" id="q" placeholder="Search" autocomplete="off" spellcheck="off" class="header-search-input" data-algolia-application-id="6ZHEUVKJ88" data-algolia-api-key="c5470567eae7fa1177d43222e18ba086">
+    <button name="button" type="submit" class="icon-btn">submit</button>
+</form></div>
+
+<div class="search-results-dropdown dropdown" data-root-path="https://www.digitalocean.com/community">
+  <div class="container">
+    <div class="header-search-results-list"></div>
+
+    <div id="btn-wrap">
+      <a class="more-search-results" data-search-path="/community/search" href="https://www.digitalocean.com/community/search">
+        <span class="icon-mag"></span>
+        View All Results
+</a>    </div>
+  </div>
+</div>
+
+<script type="text/template" id="autocomplete-hits-template">
+  <div class="inner-search">
+    <ul>
+        {{#hits}}
+          <li>
+            <span class='icon icon-{{type}}'></span>
+            <a href='{{url}}'>{{{_highlightResult.title.value}}}</a>
+          </li>
+        {{/hits}}
+    </ul>
+  </div>
+</script>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  
+
+  <div class="wrapper">
+    
+  </div>
+</header>
+      
+        <div class="flash-container"></div>
+
+
+      
+      
+      <div class="wrapper layout-wrapper">
+
+        
+
+
+
+
+
+
+<div class="section-content section-content-growable content content-has-mobile-image">
+  <div class="postable-info-bar-container">
+  <div class="postable-info-bar">
+    <div class="left-section">
+        <div class="tutorial-author-avatar">
+          <a href="https://www.digitalocean.com/community/users/jkostolansky"><img alt="jkostolansky" class="avatar avatar-small" src="./rails_apache_passenger_files/bc4387bb6bb1349120ba40fd7db034d6" width="80" height="80"></a>
+        </div>
+
+        <div class="author-and-date">
+          <div class="tutorial-author">
+            <div class="by">By: </div>
+            <a href="https://www.digitalocean.com/community/users/jkostolansky">Juraj Kostolanský</a>
+          </div>
+        </div>
+
+      <div class="upvotes upvoted tutorial-upvote"><form data-upvotable="tutorial_1385" data-upvotable-type="tutorial" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=1385&upvote%5Bupvotable_type%5D=Tutorial" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="2BjirtBITwUWI6qHAWUY5dAGZms9meHTVI/6bZa0peHEOq6h1T+wChft4dU4+j7wemT7bhubS0t465dMppxeOg==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="" title="Do you find this tutorial helpful? Show the author by Hearting it!" data-placement="bottom"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count ">13</div></div>
+
+        <div class="tutorial-comments-count">
+          <span class="icon icon-new-comment"></span>
+          36
+        </div>
+
+
+    </div>
+
+    <div class="right-section">
+      <div class="section-item social-sharing-item">
+        <div class="sharing">
+  <a class="share-button" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04#" data-toggle="modal" data-target="#share-modal">
+    <span class="icon icon-share-square"></span>
+    <span class="share-button-text">
+      Share
+    </span>
+  </a>
+</div>
+
+
+      </div>
+
+        <div class="section-item table-of-contents-triggers"><div class="toc-trigger ">
+  <a href="javascript:void(0);">
+    <span class="title">Contents</span>
+    <span class="icon icon-close-light"></span>
+    <span class="icon icon-arrow-down"></span>
+  </a>
+</div>
+
+
+
+<div class="toc-trigger-mobile" data-toggle="modal" data-target="#contents-modal">
+  <a href="javascript:void(0);">
+    <span class="title">Contents</span>
+    <span class="icon icon-arrow-down"></span>
+  </a>
+</div>
+
+
+</div>
+
+
+    </div>
+  </div>
+</div>
+
+
+    <img alt="How To Deploy a Rails App with Passenger and Apache on Ubuntu 14.04" title="How To Deploy a Rails App with Passenger and Apache on Ubuntu 14.04" class="tutorial-image-mobile" src="./rails_apache_passenger_files/deploy_rails_app_tw.png">
+
+  <div class="container">
+      <img alt="How To Deploy a Rails App with Passenger and Apache on Ubuntu 14.04" title="How To Deploy a Rails App with Passenger and Apache on Ubuntu 14.04" class="tutorial-image" src="./rails_apache_passenger_files/deploy_rails_app_tw.png">
+
+      <div class="info-cta">
+    <a class="icon-close-light" href="javascript:void();"></a>
+    We hope you find this tutorial helpful. In addition to guides like this one, we provide simple cloud infrastructure for developers. <a href="https://www.digitalocean.com/?utm_medium=community&utm_source=community_gencta&utm_campaign=needaserver&utm_content=how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04">
+        Learn more →
+</a>  </div>
+
+  
+    <h1 class="content-title">How To Deploy a Rails App with Passenger and Apache on Ubuntu 14.04</h1>
+
+    <span class="meta-section tags">
+      <span class="meta-value"><span class="tutorial-date">Nov 21, 2014</span> <span class="hashtag-icon"></span> <a class="" href="https://www.digitalocean.com/community/tags/ruby-on-rails?type=tutorials">Ruby on Rails</a>, <a class="" href="https://www.digitalocean.com/community/tags/apache?type=tutorials">Apache</a>, <a class="" href="https://www.digitalocean.com/community/tags/ruby?type=tutorials">Ruby</a> <a class="" href="https://www.digitalocean.com/community/tags/ubuntu?type=tutorials">Ubuntu</a></span>
+    </span>
+  </div>
+
+  <div class="container">
+    
+  </div>
+
+    <div class="content-body tutorial-content" data-growable-markdown="">
+      <h3 id="introduction">Introduction</h3>
+
+<p>In this tutorial, we will demonstrate how to install <a href="https://www.phusionpassenger.com/">Phusion Passenger</a> as your Rails-friendly web server, which is easy to install, configure, and maintain. We will integrate it into Apache on Ubuntu 14.04. By the end of this tutorial, we will have a test Rails application deployed on our Droplet.</p>
+
+<p>If you prefer Nginx over Apache, take a look at <a href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-nginx-on-ubuntu-14-04">how to deploy a Rails app with Passenger and Nginx on Ubuntu 14.04</a> by following the link.</p>
+
+<div name="prerequisites" data-unique="prerequisites"></div><h2 id="prerequisites">Prerequisites</h2>
+
+<p>The first step is to create a new Droplet. For smaller sites it is enough to use the 512 MB plan.</p>
+
+<p>You may want to choose the 32-bit Ubuntu image because of smaller memory consumption (64-bit programs use about 50% more memory then their 32-bit counterparts). However, if you need a bigger machine, or there is a chance that you will upgrade to more than 4 GB of RAM, you should consider the 64-bit version.</p>
+
+<p>Be sure to use Ubuntu 14.04. At the time of this writing, Ubuntu 14.10 does not have a Passanger APT repository yet. Moreover, Ubuntu 14.04 has an additional benefit: it's a LTS version, which stands for "long term support." LTS releases are designed to be stable platforms that we can stick with for a long time. Ubuntu guarantees LTS releases will receive security updates and other bug fixes for five years.</p>
+
+<ul>
+<li>Ubuntu 14.04 32-bit Droplet</li>
+</ul>
+
+<div name="step-1-—-add-a-sudo-user" data-unique="step-1-—-add-a-sudo-user"></div><h2 id="step-1-—-add-a-sudo-user">Step 1 — Add a Sudo User</h2>
+
+<p>After the Droplet is created, you should create a system user and secure the server. You can do so by following the <a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-14-04">Initial Server Setup</a> article.</p>
+
+<p>If you want to follow this tutorial, you need a basic user with sudo privileges. We will use the <strong>rails</strong> user in this example. If your user has another name, make sure that you use correct paths in the next steps.</p>
+
+<div name="step-2-(optional)-—-set-up-your-domain" data-unique="step-2-(optional)-—-set-up-your-domain"></div><h2 id="step-2-optional-—-set-up-your-domain">Step 2 (Optional) — Set Up Your Domain</h2>
+
+<p>In order to ensure that your site will be up and visible, you need to set up your DNS records to point your domain name towards your new server. You can find more information on <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-a-host-name-with-digitalocean">setting up a hostname</a> by following the link.</p>
+
+<p>However, this step is optional, since you can access your site via an IP address.</p>
+
+<div name="step-3-—-install-ruby" data-unique="step-3-—-install-ruby"></div><h2 id="step-3-—-install-ruby">Step 3 — Install Ruby</h2>
+
+<p>We will install Ruby manually from source.</p>
+
+<p>Before we do anything else, we should run an update to make sure that all of the packages we want to install are up to date:</p>
+<pre class="code-pre "><code langs="">sudo apt-get update
+</code></pre>
+<p>Next, install some libraries and other dependencies. This will make the installation as smooth as possible:</p>
+<pre class="code-pre "><code langs="">sudo apt-get install build-essential libssl-dev libyaml-dev libreadline-dev openssl curl git-core zlib1g-dev bison libxml2-dev libxslt1-dev libcurl4-openssl-dev libsqlite3-dev sqlite3
+</code></pre>
+<p>Create a temporary folder for the Ruby source files:</p>
+<pre class="code-pre "><code langs="">mkdir ~/ruby
+</code></pre>
+<p>Move to the new folder:</p>
+<pre class="code-pre "><code langs="">cd ~/ruby
+</code></pre>
+<p>Download the latest stable Ruby source code. At the time of this writing, this is version 2.1.4. You can get the current latest version from the <a href="https://www.ruby-lang.org/en/downloads/">Ruby website</a>. If a newer version is available, you will need to replace the link in the following command:</p>
+<pre class="code-pre "><code langs="">wget http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.4.tar.gz
+</code></pre>
+<p>Decompress the downloaded file:</p>
+<pre class="code-pre "><code langs="">tar -xzf ruby-2.1.4.tar.gz
+</code></pre>
+<p>Select the extracted directory:</p>
+<pre class="code-pre "><code langs="">cd ruby-2.1.4
+</code></pre>
+<p>Run the <span class="highlight">configure</span> script. This will take some time as it checks for dependencies and creates a new <strong>Makefile</strong>, which will contain steps that need to be taken to compile the code:</p>
+<pre class="code-pre "><code langs="">./configure
+</code></pre>
+<p>Run the <span class="highlight">make</span> utility, which will use the <strong>Makefile</strong> to build the executable program. This step can take a bit longer:</p>
+<pre class="code-pre "><code langs="">make
+</code></pre>
+<p>Now, run the same command with the <span class="highlight">install</span> parameter. It will try to copy the compiled binaries to the <span class="highlight">/usr/local/bin</span> folder. This step requires root access to write to this directory:</p>
+<pre class="code-pre "><code langs="">sudo make install
+</code></pre>
+<p>Ruby should now be installed on the system. We can check it with the following command, which should print the Ruby version:</p>
+<pre class="code-pre "><code langs="">ruby -v
+</code></pre>
+<p>If your Ruby installation was successful, you should see output like the following:</p>
+<pre class="code-pre "><code langs="">ruby 2.1.4p265 (2014-10-27 revision 48166) [x86_64-linux]
+</code></pre>
+<p>Finally, we can delete the temporary folder:</p>
+<pre class="code-pre "><code langs="">rm -rf ~/ruby
+</code></pre>
+<div name="step-4-—-install-apache" data-unique="step-4-—-install-apache"></div><h2 id="step-4-—-install-apache">Step 4 — Install Apache</h2>
+
+<p>To install Apache, type this command:</p>
+<pre class="code-pre "><code langs="">sudo apt-get install apache2
+</code></pre>
+<p>Yes, that’s all!</p>
+
+<div name="step-5-—-install-passenger" data-unique="step-5-—-install-passenger"></div><h2 id="step-5-—-install-passenger">Step 5 — Install Passenger</h2>
+
+<p>First, install the PGP key for the repository server:</p>
+<pre class="code-pre "><code langs="">sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
+</code></pre>
+<p>Create an APT source file:</p>
+<pre class="code-pre "><code langs="">sudo nano /etc/apt/sources.list.d/passenger.list
+</code></pre>
+<p>Insert the following line to add the Passenger repository to the file:</p>
+<pre class="code-pre "><code langs="">deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main
+</code></pre>
+<p>Press <strong>CTRL+X</strong> to exit, type <strong>Y</strong> to save the file, and then press ENTER to confirm the file location.</p>
+
+<p>Change the owner and permissions for this file to restrict access to <strong>root</strong>:</p>
+<pre class="code-pre "><code langs="">sudo chown root: /etc/apt/sources.list.d/passenger.list
+sudo chmod 600 /etc/apt/sources.list.d/passenger.list
+</code></pre>
+<p>Update the APT cache:</p>
+<pre class="code-pre "><code langs="">sudo apt-get update
+</code></pre>
+<p>Finally, install Passenger:</p>
+<pre class="code-pre "><code langs="">sudo apt-get install libapache2-mod-passenger
+</code></pre>
+<p>Make sure the Passenger Apache module; it maybe enabled already:</p>
+<pre class="code-pre "><code langs="">sudo a2enmod passenger
+</code></pre>
+<p>Restart Apache:</p>
+<pre class="code-pre "><code langs="">sudo service apache2 restart
+</code></pre>
+<p>This step will overwrite our Ruby version to an older one. To resolve this, simply remove the incorrect Ruby location and create a new symlink to the correct Ruby binary file:</p>
+<pre class="code-pre "><code langs="">sudo rm /usr/bin/ruby
+sudo ln -s /usr/local/bin/ruby /usr/bin/ruby
+</code></pre>
+<div name="step-6-—-deploy" data-unique="step-6-—-deploy"></div><h2 id="step-6-—-deploy">Step 6 — Deploy</h2>
+
+<p>At this point you can deploy your own Rails application if you have one ready. If you want to deploy an existing app, you can upload your project to the server and skip to the <code>/etc/apache2/sites-available/default</code> step.</p>
+
+<p>For this tutorial, we will create a new Rails app directly on the Droplet. We will need the <span class="highlight">rails</span> gem to create the new app.</p>
+
+<p>Move to your user's home directory:</p>
+<pre class="code-pre "><code langs="">cd ~
+</code></pre>
+<p>Install the <span class="highlight">rails</span> gem without extra documentation, which makes the installation faster. This will still take a few minutes:</p>
+<pre class="code-pre "><code langs="">sudo gem install --no-rdoc --no-ri rails
+</code></pre>
+<p>Now we can create a new app. In our example, we will use the name <span class="highlight">testapp</span>. If you want to use another name, make sure you update the paths in the other commands and files in this section.</p>
+
+<p>We will skip the Bundler installation because we want to run it manually later.</p>
+<pre class="code-pre "><code langs="">rails new testapp --skip-bundle
+</code></pre>
+<p>Enter the directory:</p>
+<pre class="code-pre "><code langs="">cd testapp
+</code></pre>
+<p>Now we need to install a JavaScript execution environment. It can be installed as the <span class="highlight">therubyracer</span> gem. To install it, first open the <strong>Gemfile</strong>:</p>
+<pre class="code-pre "><code langs="">nano Gemfile
+</code></pre>
+<p>Find the following line:</p>
+<pre class="code-pre "><code langs=""># gem 'therubyracer',  platforms: :ruby
+</code></pre>
+<p>Uncomment it:</p>
+<pre class="code-pre "><code langs="">gem 'therubyracer',  platforms: :ruby
+</code></pre>
+<p>Save the file, and run Bundler:</p>
+<pre class="code-pre "><code langs="">bundle install
+</code></pre>
+<p>Now, we need to create a virtual host file for our project. We'll do this by copying the default Apache virtual host:</p>
+<pre class="code-pre "><code langs="">sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/testapp.conf
+</code></pre>
+<p>Open the config file:</p>
+<pre class="code-pre "><code langs="">sudo nano /etc/apache2/sites-available/testapp.conf
+</code></pre>
+<p>Edit it or replace the existing contents so your final result matches the file shown below. Changes you need to make are highlighted in <span class="highlight">red</span>. Remember to use your own domain name, and the correct path to your Rails app:</p>
+<pre class="code-pre "><code langs="">&lt;VirtualHost *:80&gt;
+    <span class="highlight">ServerName example.com</span>
+    <span class="highlight">ServerAlias www.example.com</span>
+    ServerAdmin webmaster@localhost
+    DocumentRoot <span class="highlight">/home/rails/testapp/public</span>
+    <span class="highlight">RailsEnv development</span>
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+    <span class="highlight">&lt;Directory "/home/rails/testapp/public"&gt;</span>
+        <span class="highlight">Options FollowSymLinks</span>
+        <span class="highlight">Require all granted</span>
+    <span class="highlight">&lt;/Directory&gt;</span>
+&lt;/VirtualHost&gt;
+</code></pre>
+<p>Basically, this file enables listening to our domain name on port 80, sets an alias for the <strong>www</strong> subdomain, sets the mail address of our server administrator, sets the root directory for the public directory of our new project, and allows access to our site. You can learn more about <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-apache-virtual-hosts-on-ubuntu-14-04-lts">Apache virtual hosts</a> by following the link.</p>
+
+<p>To test our setup, we want to see the Rails <strong>Welcome aboard</strong> page. However, this works only if the application is started in the development environment. Passenger starts the application in the production environment by default, so we need to change this with the <strong>RailsEnv</strong> option. If your app is ready for production you'll want to leave this setting out.</p>
+
+<p>If you don't want to assign your domain to this app, you can skip the <code>ServerName</code> and <code>ServerAlias</code> lines, or use your IP address.</p>
+
+<p>Save the file (CTRL+X, Y, ENTER).</p>
+
+<p>Disable the default site, enable your new site, and restart Apache:</p>
+<pre class="code-pre "><code langs="">sudo a2dissite 000-default
+sudo a2ensite testapp
+sudo service apache2 restart
+</code></pre>
+<p>Now your app's website should be accessible. Navigate to your Droplet's domain or IP address:</p>
+<pre class="code-pre "><code langs="">http://droplet_ip_address
+</code></pre>
+<p>Verify that your app is deployed. You should see either your custom application, or the <strong>Welcome aboard</strong> default Rails page:</p>
+
+<p class="growable"><img src="./rails_apache_passenger_files/1.png" alt="Test page"></p>
+
+<p>The Rails app is now live on your server.</p>
+
+<div name="step-7-—-update-regularly" data-unique="step-7-—-update-regularly"></div><h2 id="step-7-—-update-regularly">Step 7 — Update Regularly</h2>
+
+<p>To update Ruby, you will need to compile the latest version as shown in Step 4 in this tutorial.</p>
+
+<p>To update Passenger and Apache, you will need to run a basic system update:</p>
+<pre class="code-pre "><code langs="">sudo apt-get update &amp;&amp; sudo apt-get upgrade
+</code></pre>
+<p>However, if there is a new system Ruby version available, it will probably overwrite our Ruby (installed from source). For this reason, you might need to re-run the commands for removing the existing symlink to the Ruby binary file and creating a new (correct) one. They are listed at the end of Step 6 in this tutorial.</p>
+
+<p>After the update process, you will need to restart the web server:</p>
+<pre class="code-pre "><code langs="">sudo service apache2 restart
+</code></pre>
+    </div>
+</div>
+
+<div class="tutorial-footer">
+  <div class="tutorial-footer-details">
+  <div class="section-content tutorial-public-actions">
+    <div class="share-subscribe-actions">
+      <div class="upvotes upvoted tutorial-upvote large-upvotes"><form data-upvotable="tutorial_1385" data-upvotable-type="tutorial" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=1385&upvote%5Bupvotable_type%5D=Tutorial" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="2BjirtBITwUWI6qHAWUY5dAGZms9meHTVI/6bZa0peHEOq6h1T+wChft4dU4+j7wemT7bhubS0t465dMppxeOg==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="" title="Do you find this tutorial helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count ">13</div></div>
+      <span class="meta-section opt-in-switch off signed-out-subscribe">
+  <span class="meta-label subscribe-label">
+    <span class="subscription-label subscribe">Subscribe</span>
+    <span class="subscription-label subscribed">Subscribed</span>
+  </span>
+  <span class="meta-value"><a data-toggle="modal" data-target="#sign-in-modal" class="mini-switch-container" href="javascript:void(0);"><div class="mini-switch off signed-out-subscribe"><div class="switch-handle"></div></div></a></span>
+</span>
+
+      <div class="sharing">
+  <a class="share-button" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04#" data-toggle="modal" data-target="#share-modal">
+    <span class="icon icon-share-square"></span>
+    <span class="share-button-text">
+      Share
+    </span>
+  </a>
+</div>
+
+
+    </div>
+  </div>
+
+  <div class="section-content tutorial-contributors two">
+      <div class="tutorial-footer-user">
+        <div class="tutorial-footer-user-avatar-container">
+          <a href="https://www.digitalocean.com/community/users/jkostolansky"><img alt="jkostolansky" class="avatar avatar-small" src="./rails_apache_passenger_files/bc4387bb6bb1349120ba40fd7db034d6" width="80" height="80"></a>
+        </div>
+        <div class="user-info">
+          <div class="tutorial-user-type">Author:</div>
+          <a href="https://www.digitalocean.com/community/users/jkostolansky">Juraj Kostolanský</a>
+        </div>
+      </div>
+
+      <div class="tutorial-footer-user">
+        <div class="tutorial-footer-user-avatar-container">
+          <a href="https://www.digitalocean.com/community/users/sharon"><div class="mod-avatar mod-avatar-small"><img alt="sharon" class="avatar avatar-small" src="./rails_apache_passenger_files/8fd05d8678d15b5d66e05af78adf325c" width="80" height="80"><span class="mod-star" title="" data-toggle="tooltip" data-container="body" data-original-title="MOD"><span class="mod-star-icon"></span></span></div></a>
+        </div>
+        <div class="user-info">
+          <div class="tutorial-user-type">Editor:</div>
+          <a class="" href="https://www.digitalocean.com/community/users/sharon">Sharon Campbell</a>
+        </div>
+      </div>
+
+  </div>
+</div>
+
+  
+  <div class="tutorial-ctas">
+  <div class="section-content">
+    <div class="cta-description">
+      <h2>Spin up an SSD cloud server in under a minute.</h2>
+
+      <p>Simple setup. Full root access. Straightforward pricing.</p>
+
+      <a class="cloud-tutorial-cta" href="https://www.digitalocean.com/?utm_medium=community&utm_source=community_gencta&utm_campaign=needaserver&utm_content=how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04">Deploy Server</a>
+    </div>
+  </div>
+</div>
+    <div class="related-tutorials">
+    <div class="section-content">
+      <h2>Related Tutorials</h2>
+
+      <ul>
+        <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-install-cassandra-and-run-a-single-node-cluster-on-ubuntu-14-04">How To Install Cassandra and Run a Single-Node Cluster on Ubuntu 14.04</a></li>
+<li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-set-up-apache-traffic-server-as-a-reverse-proxy-on-ubuntu-14-04">How to Set Up Apache Traffic Server as a Reverse-Proxy on Ubuntu 14.04</a></li>
+<li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-use-the-discourse-one-click-application-on-digitalocean">How to use the Discourse One-Click Application on DigitalOcean</a></li>
+<li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-protect-an-apache-server-with-fail2ban-on-ubuntu-14-04">How To Protect an Apache Server with Fail2Ban on Ubuntu 14.04</a></li>
+<li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-install-apache-kafka-on-ubuntu-14-04">How To Install Apache Kafka on Ubuntu 14.04</a></li>
+
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<div class="content-comments">
+  <div class="section-content">
+    <div class="tutorial commentable" id="tutorial_1385">
+
+  <div class="comments-header">
+    <h4 class="comments-count"><span>36 Comments</span></h4>
+  </div>
+
+  <div class="response no-avatar  response-form">
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form class="content-form disabled-form" id="new_comment" action="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04/comments" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓" disabled="disabled">
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea name="comment[content]" id="comment_content" placeholder="Leave a comment..." class="js-comment-content tutorial-comment-field meltdown_editor" data-markdown="true" disabled="disabled" style="overflow: hidden; word-wrap: break-word; resize: none; height: 120px;"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="log-in-notice "><a href="https://www.digitalocean.com/community/auth/digitalocean">Log In to Comment</a></div>
+
+    <div class="clearfix"></div>
+</form></div>
+
+
+  <div class="comments">
+    <ul class="response-list">
+          <a class="hidden" rel="nofollow" data-remote="true" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04/comments">Load</a>
+    <li id="comment_23329" data-level="0" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/cheikhna"><img alt="cheikhna" class="avatar avatar-small" src="./rails_apache_passenger_files/b227c418601fa2f51a8300ad568467dc" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/cheikhna">cheikhna</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=23329">November 26, 2014</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>Thanks,<br>
+it's working in development mode but how to make this testapp work in production mode ?<br>
+the browser (with my ip address) display 500  Internal Server Error</p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_23329" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=23329&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="4+e8he41W103Bw6v42ZuAVsxYuoM8exP3VV/ZqSiX5//xfCK60KkUjbJRf3a+UgU8VP/7yrzRtfxMRJHlIqkRA==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=23329" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_23329">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+      <li id="comment_23332" data-level="1" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/jkostolansky"><img alt="jkostolansky" class="avatar avatar-small" src="./rails_apache_passenger_files/bc4387bb6bb1349120ba40fd7db034d6" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/jkostolansky">jkostolansky</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=23332">November 26, 2014</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>The <em>Welcome abroad</em> page is visible only in development environment. For a production, you will need a real application, not the empty one created by "rails new" only. This will give you the 500.</p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_23332" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=23332&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="GKn2pg8C99QAOAgNs0WK8Z5gVfTZrDfbPyv+ZJvYFIQEi7qpCnUI2wH2Q1+K2qzkNALI8f+unUMTT5NFq/DvXw==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=23332" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_23332">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_23332"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_23335" data-level="1" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/cheikhna"><img alt="cheikhna" class="avatar avatar-small" src="./rails_apache_passenger_files/b227c418601fa2f51a8300ad568467dc" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/cheikhna">cheikhna</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=23335">November 26, 2014</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>ok thanks<br>
+but the second common problem i often read with installing rails 4, passenger and apache is the assets pipeline. I hope you could help us to use the right way in production by a cool simple tutorial like this one in production mode ^^</p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_23335" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=23335&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="1efiMvjzcoNcLRawySlP1Rc96/GieQLUAy5BOXVb6BDJxa49/YSNjF3jXeLwtmnAvV929IR7qEwvSiwYRXMTyw==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=23335" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_23335">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_23335"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_23339" data-level="1" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/jkostolansky"><img alt="jkostolansky" class="avatar avatar-small" src="./rails_apache_passenger_files/bc4387bb6bb1349120ba40fd7db034d6" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/jkostolansky">jkostolansky</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=23339">November 26, 2014</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>Can you provide more details about problems with the asset pipeline?</p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_23339" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=23339&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="GYa2tibWlJFS+3qtca6IuUhxDewFqGdP0YQloDbnW2gFpPq5I6FrnlM1Mf9IMa6s4hOQ6SOqzdf94EiBBs+gsw==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=23339" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_23339">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_23339"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_23340" data-level="1" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/cheikhna"><img alt="cheikhna" class="avatar avatar-small" src="./rails_apache_passenger_files/b227c418601fa2f51a8300ad568467dc" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/cheikhna">cheikhna</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=23340">November 26, 2014</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>Problems like this :<br>
+do we have to precompile manually or is it done in automagic ?<br>
+do we have to launch first  "rake assets:precompile" ?<br>
+Do we have to edit too /config/environments/production.rb ? <br>
+Do we have to edit config files in rails app to make apache server working with assets ?</p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_23340" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=23340&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="us/ap+avq+kBaMqOkjlmXMZyjEFtbBtwT69LV2guhtKm7Zao49hU5gCmgdyrpkBJbBARREtusehjyyZ2WAZ9CQ==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=23340" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_23340">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_23340"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_23848" data-level="1" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/michaelryu"><img alt="michaelryu" class="avatar avatar-small" src="./rails_apache_passenger_files/c35264147ce5c96e7a6ebc512acade15" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/michaelryu">michaelryu</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=23848">December  6, 2014</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>Hey friend, can you explain how I would go about uploading my rails app? Also, are there things I have to prepare such as it's database.yml/other configurations for this setup? </p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes upvoted comment-upvote"><form data-upvotable="comment_23848" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=23848&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="jMdgFQtS2o5oevVlkUUpO3+fc6m0szMTVkIjzRmaBYaQ5SwaDiUlgWm0vjeo2g8u1f3urJKxmYt6Jk7sKbL+XQ==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=23848" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count ">1</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_23848">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_23848"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_23849" data-level="1" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/jkostolansky"><img alt="jkostolansky" class="avatar avatar-small" src="./rails_apache_passenger_files/bc4387bb6bb1349120ba40fd7db034d6" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/jkostolansky">jkostolansky</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=23849">December  6, 2014</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>Hi! Every rails app can require different steps to deploy. The app can use specific system programms, require specific configuration in different files, etc. The very basic steps are:</p>
+
+<ul>
+<li>setu up the server (web server, database, ...)</li>
+<li>copy source code to the VPS</li>
+<li>configure the app (database.yml, secrets.yml, production.rb and other app-specific configurations)</li>
+<li>run database migrations and populate it (seeds)</li>
+<li>compile assets</li>
+</ul>
+
+<p>I higly recommend using an automation tool (e.g. Capistrano) to automate (some of) these steps.</p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_23849" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=23849&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="vEwswjJGGT4Fthpk312ghMNY44ov3FYX+v4e8UmUOeGgbmDNNzHmMQR4UTbmwoaRaTp+jwne/I/WmnPQebzCOg==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=23849" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_23849">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_23849"></div>
+</div>
+    </div>
+
+  </li>
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_23329"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_23850" data-level="0" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/cheikhna"><img alt="cheikhna" class="avatar avatar-small" src="./rails_apache_passenger_files/b227c418601fa2f51a8300ad568467dc" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/cheikhna">cheikhna</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=23850">December  6, 2014</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>in production mode and after generating static pages  and scaffolding a post ,<br>
+I have still the message 500 Internal Server Error on screen.</p>
+
+<p>Do you have a  step-by-step working  for production mode ?</p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_23850" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=23850&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="BAqOlX+rnjvxmZTqYWCpT/3UhItkQQKDVr1M2+hyI9cYKMKaetxhNPBX37hY/49aV7YZjkJDqBt62SH62FrYDA==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=23850" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_23850">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+      <li id="comment_23852" data-level="1" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/jkostolansky"><img alt="jkostolansky" class="avatar avatar-small" src="./rails_apache_passenger_files/bc4387bb6bb1349120ba40fd7db034d6" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/jkostolansky">jkostolansky</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=23852">December  6, 2014</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>Hi. As I said, every app can require different steps to deploy. For this reason, it is really hard to write a tutorial like How to deploy any rails app.</p>
+
+<p>When you get an error like this, always try to look at the log files. I can't tell you what did you do wrong from the "500" code only. Maybe you didn't compile assets or there is a problem with the database connection.</p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_23852" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=23852&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="WL0hCKJBcRmYi5IgMZo0B28AT71+ep5wEflw0XYKZjZEn20HpzaOFplF2XIIBRISxWLSuFh4NOg9nR3wRiKd7Q==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=23852" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_23852">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_23852"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_23878" data-level="1" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/cheikhna"><img alt="cheikhna" class="avatar avatar-small" src="./rails_apache_passenger_files/b227c418601fa2f51a8300ad568467dc" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/cheikhna">cheikhna</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=23878">December  7, 2014</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>Right , Rails deployment for production got many issues when we don't know the good practices ; This should be a serious problem to simplify for Rails and Passenger teams.</p>
+
+<p>My 500 internal server error was just due to the secrets key that i forgot to add. Now i have issues with 403 forbidden permissions when i use sqlite3 as database , i guess this is why we found only tutorials on internet using mysql (and not sqlite3) as examples in production mode with passenger.</p>
+
+<p>For those as me who get  500 internal server error and never found complete tutorial about the secret key , this is 2 solutions :  </p>
+
+<p>First this is how to know what is the cause of your error by reading your error log : </p>
+
+<p>$ sudo tail -50 /var/log/apache2/error.log</p>
+
+<p>This will tell you about the missing secret key for production , then this is two solutions : </p>
+
+<p># SOLUTION 1 :<br>
+    - in config/secrets.yml file you can read :<br>
+        production:<br>
+              secret<em>key</em>base: &lt;%= ENV["SECRET<em>KEY</em>BASE"] %&gt;</p>
+<pre class="code-pre "><code langs="">- generate secret key by typing  :
+    $ rake secret
+- copy the key value displayed in console to a new entry in the file /etc/apache2/envvars like this :
+    export SECRET_KEY_BASE=7f60ca5fd579049542b7bffd5b9bb8bf...
+</code></pre>
+<p># SOLUTION 2 :<br><br>
+    - generate secret key by typing  :<br>
+        $ rake secret<br>
+    - copy value key displayed in console to the file config/secrets.yml<br>
+    - then restart rails :<br>
+        $  sudo touch tmp/restart.txt<br>
+    (don't forget to ignore file secrets.yml in git)  </p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_23878" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=23878&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="qZYVkTZXVnlsN/OKz6oHKcIWPQJGNi1PyjISawS8CVy1tFmeMyCpdm35uNj2NSE8aHSgB2A0h9fmVn9KNJTyhw==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=23878" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_23878">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_23878"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_23879" data-level="1" class="comment-container">
+    <div class="response deleted-response   " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/cheikhna"><img alt="cheikhna" class="avatar avatar-small" src="./rails_apache_passenger_files/b227c418601fa2f51a8300ad568467dc" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/cheikhna">cheikhna</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=23879">December  7, 2014</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body ">[deleted]</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_23879" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=23879&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="Xb2ag49ljg/KBgVVXkiBvDdPATHc9PLNrKhckAJldPlBn9aMihJxAMvITgdn16epnS2cNPr2WFWAzDGxMk2PIg==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=23879" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_23879">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_23879"></div>
+</div>
+    </div>
+
+  </li>
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_23850"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_23955" data-level="0" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/stevit"><img alt="Stevit" class="avatar avatar-small" src="./rails_apache_passenger_files/9586773aa356e624c7f213a5b8d6a9ad" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/stevit">Stevit</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=23955">December  8, 2014</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>In step 5 on a new 14.04 Droplet when doing </p>
+
+<p><code>sudo apt-get update</code></p>
+
+<p>I got the following error:</p>
+<pre class="code-pre "><code langs="">E: The method driver /usr/lib/apt/methods/https could not be found.
+N: Is the package apt-transport-https installed?
+</code></pre>
+<p>If you get this delete the /etc/apt/sources.list.d/passenger.list file and run:</p>
+<pre class="code-pre "><code langs="">sudo apt-get install apt-transport-https
+</code></pre>
+<p>once done restart step 5 from the sudo nano /etc/apt/sources.list.d/passenger.list line and all will be well. (source: <a href="http://askubuntu.com/a/517693" rel="nofollow">http://askubuntu.com/a/517693</a>)</p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_23955" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=23955&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="pJRH53/yMGrJmBgPr//IkUtnkWWtit38j3YWlMq116y4tgvoeoXPZchWU12WYO6E4QUMYIuId2SjEnu1+p0sdw==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=23955" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_23955">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_23955"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_25250" data-level="0" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/neumerance"><img alt="neumerance" class="avatar avatar-small" src="./rails_apache_passenger_files/2bae7e8501f6ac1cc3b814c02e1b25e8" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/neumerance">neumerance</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=25250">January  2, 2015</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>Im stuck </p>
+
+<p>sudo service apache2 restart<br>
+apache2: Syntax error on line 210 of /etc/apache2/apache2.conf: Syntax error on line 2 of /etc/apache2/mods-enabled/passenger.load: Cannot load /usr/lib/apache2/modules/mod<em>passenger.so into server: /usr/lib/apache2/modules/mod</em>passenger.so: undefined symbol: ap<em>unixd</em>config<br>
+Action 'configtest' failed.<br>
+The Apache error log may have more information.<br>
+   ...fail!</p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_25250" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=25250&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="bPNWWlUgscMvcuKTt8ojJk131/K77QWwBl67n4Do8J1w0RpVUFdOzC68qcGOVQUz5xVK953vrygqOta+sMALRg==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=25250" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_25250">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_25250"></div>
+</div>
+    </div>
+
+  </li>
+
+    
+    
+      <li id="comment_27614" data-level="0" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/clpo13"><img alt="clpo13" class="avatar avatar-small" src="./rails_apache_passenger_files/2601ab33dd4805b0f97c5643a5ba1771" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/clpo13">clpo13</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=27614">February  9, 2015</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>It may be worthwhile to mention <a href="http://rvm.io/" rel="nofollow">RVM</a>, which makes installing and managing Ruby much easier than manually building from source if you want the latest version of Ruby.</p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_27614" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=27614&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="D0gxiKcd0A0gBMDihcHN81DOKoWslz1cLMWZtn8rlH8Tan2HomovAiHKi7C8Xuvm+qy3gIqVl8QAofSXTwNvpA==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=27614" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_27614">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_27614"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_27941" data-level="0" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/gcortes"><img alt="gcortes" class="avatar avatar-small" src="./rails_apache_passenger_files/7c95c2abc51bed2d16b11b05f0425107" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/gcortes">gcortes</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=27941">February 15, 2015</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>These are well written instructions. Unfortunately the make on Ruby died with the following:</p>
+
+<p>linking shared-object fiddle.so<br>
+/usr/bin/ld: ./libffi-3.2.1/.libs/libffi.a(raw<em>api.o): relocation R</em>X86<em>64</em>32 against `.text' can not be used when making a shared object; recompile with -fPIC<br>
+./libffi-3.2.1/.libs/libffi.a: could not read symbols: Bad value<br>
+collect2: ld returned 1 exit status<br>
+make[2]: *** [../../.ext/x86_64-linux/fiddle.so] Error 1</p>
+
+<p>I didn't want to dig into the make files so I ended up going with the RVM install method</p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_27941" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=27941&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="69cZ108p4+WxHstiMMmoGyJ5IdLBI4s84OgkcE7FcdX39VXYSl4c6rDQgDAJVo4OiBu81+chIaTMjElRfu2KDg==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=27941" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_27941">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_27941"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_28921" data-level="0" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/salaseze"><img alt="salaseze" class="avatar avatar-small" src="./rails_apache_passenger_files/01dac0f3a71aa96942c86f2215f64337" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/salaseze">salaseze</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=28921">March  3, 2015</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>does anyone noes this error?</p>
+
+<ul>
+<li>Restarting web server apache2                                               (98)Address already in use: AH00072: make_sock: could not bind to address [::]:80
+                                                                    [fail]
+
+<ul>
+<li>The apache2 instance did not start within 20 seconds. Please read the log files to discover problems</li>
+</ul></li>
+</ul>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_28921" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=28921&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="xl7lbUkxZzzYmWLhxJx95TruDtcrVa/3dvgKBCprPELafKliTEaYM9lXKbP9A1vwkIyT0g1XBW9anGclGkPHmQ==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=28921" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_28921">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+      <li id="comment_29951" data-level="1" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/matugm"><img alt="matugm" class="avatar avatar-small" src="./rails_apache_passenger_files/81c3e738c6c4d4ec282b2df918cf882c" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/matugm">matugm</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=29951">March 22, 2015</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>That means that port 80 is already in use. Maybe you are trying to start multiple copies of Apache? To check out what process is listening on that port you could use the command:** lsof -i:80**</p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_29951" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=29951&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="K1er/mVZlvoh7BV/AH58ffBUlDdEMpJCTqZYT+dKW7U3defxYC5p9SAiXi054VpoWjYJMmIwONpiwjVu12Kgbg==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=29951" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_29951">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_29951"></div>
+</div>
+    </div>
+
+  </li>
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_28921"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_29131" data-level="0" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/n3rve"><img alt="N3RVE" class="avatar avatar-small" src="./rails_apache_passenger_files/41a8480c9742232d23232e672285f5b2" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/n3rve">N3RVE</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=29131">March  6, 2015</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>Juraj, this is a great guide. I just used it to deploy an open source rails app (Fedena) and it was as easy as your guide. Thank you! Quick question, how do we ensure the app gets stared in production mode? </p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_29131" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=29131&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="Qi40y60op7uE/Z4mkFeMPdmRwH7/vZePUz8bK83Znv5eDHjEqF9YtIUz1XSpyKooc/Nde9m/PRd/W3YK/fFlJQ==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=29131" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_29131">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+      <li id="comment_29134" data-level="1" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/jkostolansky"><img alt="jkostolansky" class="avatar avatar-small" src="./rails_apache_passenger_files/bc4387bb6bb1349120ba40fd7db034d6" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/jkostolansky">jkostolansky</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=29134">March  6, 2015</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>Thank you! The default environment in Passenger is production (if you didn's set the <code>RailsEnv</code> option in your Apache settings). There are multiple ways how to determine the current environment:</p>
+
+<ul>
+<li><p>check <code>log/production.log</code>, if there are entries populating it after you hit the app (e.g. open it in your browser), it is in production mode</p></li>
+<li><p>in one of your views use this: <code>&lt;%= Rails.env %&gt;</code>, it should print the current environment</p></li>
+</ul>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_29134" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=29134&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="Bz4rSUcf0gqi2ObKVz+Phq9InW63nq0YAmBbT+zAK4sbHGdGQmgtBaMWrZhuoKmTBSoAa5GcB4AuBDZu3OjQUA==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=29134" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_29134">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_29134"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_29135" data-level="1" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/n3rve"><img alt="N3RVE" class="avatar avatar-small" src="./rails_apache_passenger_files/41a8480c9742232d23232e672285f5b2" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/n3rve">N3RVE</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=29135">March  6, 2015</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>My apologies. The answer was in the guide. Before realizing that, I changed the RailsEnv directive from "development" to "production". Thanks!</p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_29135" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=29135&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="9ggcy2BTl3eJbUOY7OtnSEIoCaAbnW+iJ6YeTaB3uo3qKlDEZSRoeIijCMrVdEFd6EqUpT2fxToLwnNskF9BVg==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=29135" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_29135">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_29135"></div>
+</div>
+    </div>
+
+  </li>
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_29131"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_29434" data-level="0" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/n3rve"><img alt="N3RVE" class="avatar avatar-small" src="./rails_apache_passenger_files/41a8480c9742232d23232e672285f5b2" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/n3rve">N3RVE</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=29434">March 11, 2015</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>There was a passenger update today and after updating my servers, it broke the setup. I can confirm they were a couple of updates from passenger.</p>
+
+<p>I have setup a new server to test this same setup with a rails app (<a href="https://github.com/projectfedena/fedena" rel="nofollow">Project Fedena</a>) and after doing exactly as shown in this guide, I come up with an error: <code>AH01630: client denied by server configuration: /srv/fedena/public/</code></p>
+
+<p>I believe this is related to the absence of an index file in the /app/public directory. Any ideas?</p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes upvoted comment-upvote"><form data-upvotable="comment_29434" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=29434&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="iM1kJTmhuVYIrYDuq7sIRhUpKhSAAgnpBqLhqtVf+ouU7ygqPNZGWQljy7ySJC5Tv0u3EaYAo3EqxoyL5XcBUA==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=29434" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count ">1</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_29434">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+      <li id="comment_29606" data-level="1" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/msveshnikov"><img alt="msveshnikov" class="avatar avatar-small" src="./rails_apache_passenger_files/def3af051c387fc266b3de98abe97a5f" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/msveshnikov">msveshnikov</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=29606">March 15, 2015</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>I had this problem today; just full restart of server solved it.</p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_29606" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=29606&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="wUmabg/ZQemgxyci9l8N/N3g9t6k8hON6k2RSNIId1zda9ZhCq6+5qEJbHDPwCvpd4Jr24LwuRXGKfxp4iCMhw==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=29606" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_29606">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_29606"></div>
+</div>
+    </div>
+
+  </li>
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_29434"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_29491" data-level="0" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/n3rve"><img alt="N3RVE" class="avatar avatar-small" src="./rails_apache_passenger_files/41a8480c9742232d23232e672285f5b2" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/n3rve">N3RVE</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=29491">March 12, 2015</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>If your Apache &amp; Phusion Passenger setup was broken by the Phusion Passenger version 5 release, note that a new apt repository has been published that provides access to Phusion Passenger 4 libraries. See: <a href="https://blog.phusion.nl/2015/03/08/passenger-4-apt-repository-now-available/" rel="nofollow">Passenger 4 APT repository now available</a></p>
+
+<p><code>deb https://oss-binaries.phusionpassenger.com/apt/passenger/4 trusty main</code></p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes upvoted comment-upvote"><form data-upvotable="comment_29491" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=29491&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="qTk7g+zicTyDG0xf6hUXkNVWKB7vh/dEgN6Rb7HFrUi1G3eM6ZWOM4LVBw3TijGFfzS1G8mFXdysuvxOge1Wkw==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=29491" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count ">1</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_29491">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_29491"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_29632" data-level="0" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/alfredobejarano"><img alt="AlfredoBejarano" class="avatar avatar-small" src="./rails_apache_passenger_files/cd9bdd4e967de7c82a8ffb8fb8969cdb" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/alfredobejarano">AlfredoBejarano</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=29632">March 16, 2015</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>Hello, I have a question about deploying my app, I installed all the gems for my app, I made the migrations and all those things, but when I open the url of my droplet, appears a passenger page and says this:</p>
+
+<p>Web application could not be started<br>
+An error occurred while starting up the preloader. It exited before signalling successful startup back to Phusion Passenger. Please read this article for more information about this problem.<br>
+Raw process output:</p>
+
+<p>*** ERROR ***: Cannot execute /usr/bin/ruby: No such file or directory (2)</p>
+
+<p>I suppouse this has something to do with removing the rails directory, this steps:</p>
+
+<p>sudo rm /usr/bin/ruby<br>
+sudo ln -s /usr/local/bin/ruby /usr/bin/ruby</p>
+
+<p>I repeated this steps and restarted the apache2 service but It doesn't works.</p>
+
+<p>any idea what's happening? thanks</p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_29632" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=29632&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="81VCSudzi0956sdiSZ/KM0oqMDt223l60lhKUcTfmsjvdw5F4gR0QHgkjDBwAOwm4EitPlDZ0+L+PCdw9PdhEw==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=29632" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_29632">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+      <li id="comment_29637" data-level="1" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/jkostolansky"><img alt="jkostolansky" class="avatar avatar-small" src="./rails_apache_passenger_files/bc4387bb6bb1349120ba40fd7db034d6" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/jkostolansky">jkostolansky</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=29637">March 16, 2015</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>Hi. It seems there is a problem with your ruby installation. Can you paste the output of these commands?</p>
+<pre class="code-pre "><code langs="">ls -l /usr/bin/ruby
+/usr/local/bin/ruby -v
+/usr/bin/ruby -v    
+</code></pre></div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes upvoted comment-upvote"><form data-upvotable="comment_29637" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=29637&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="mkr+iGxye5/NTvUMWyIGKTG0Iz3RugF1vAaHbID2Ju+GaLKHaQWEkMyAvl5ivSA8m9a+OPe4q+2QYupNsN7dNA==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=29637" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count ">1</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_29637">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_29637"></div>
+</div>
+    </div>
+
+  </li>
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_29632"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_29675" data-level="0" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/alfredobejarano"><img alt="AlfredoBejarano" class="avatar avatar-small" src="./rails_apache_passenger_files/cd9bdd4e967de7c82a8ffb8fb8969cdb" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/alfredobejarano">AlfredoBejarano</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=29675">March 16, 2015</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p><a href="https://www.digitalocean.com/community/users/jkostolansky" class="username-tag">@jkostolansky</a> , sounds logical it's my ruby installation, I installed ruby in a different way because my rails project was made using ruby 2.2.0 with Rails 4.2.0 and in your tutorial the version of ruby is 2.1.3, I installed ruby via rvm</p>
+
+<p>rvm install ruby </p>
+
+<p>also, I installed rails in the same way</p>
+
+<p>rvm install rails</p>
+
+<p>using sudo rails [command] also throws the No such file or directory,</p>
+
+<p>these are the outputs of the commands</p>
+
+<p>user@mydroplet:~$  ls -l /usr/bin/ruby<br>
+lrwxrwxrwx 1 root root 19 Mar 16 00:48 /usr/bin/ruby -&gt; /usr/local/bin/ruby</p>
+
+<p>user@mydroplet:~$  /usr/local/bin/ruby -v<br>
+-bash: /usr/local/bin/ruby: No such file or directory</p>
+
+<p>user@mydroplet:~$ /usr/bin/ruby -v<br><br>
+-bash: /usr/bin/ruby: No such file or directory</p>
+
+<p>I think that the solution is install ruby 2.1.3 in my computer and rebuild my app with ruby 2.1.3 and rails 4.2.0 and follow your tutorial step by step, or (I don't know if this is possible, im new with rails) change the version of ruby that my app requires, the first time I followed your tutorial, the passenger page's output was something like the rails interpreter version was incorrect for the one that the app requires so I destroyed that droplet and made a new one but in the step of this tutorial installing ruby 2.1.3 I installed 2.2.0 instead and the new ruby installation is broken so yeah, maybe that's the problem, still, I don't know how to solve it or fix the installation.</p>
+
+<p>thanks for reading and answering my question.</p>
+
+<p>pd: sorry for my bad English</p>
+
+<p>Alfredo</p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_29675" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=29675&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="PaDpZcg5nK+//FCtheh2Agk9sXE9a/FB5PdgTLHe29khgqVqzU5joL4yG/+8d1AXo18sdBtpW9nIkw1tgfYgAg==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=29675" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_29675">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+      <li id="comment_29684" data-level="1" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/jkostolansky"><img alt="jkostolansky" class="avatar avatar-small" src="./rails_apache_passenger_files/bc4387bb6bb1349120ba40fd7db034d6" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/jkostolansky">jkostolansky</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=29684">March 17, 2015</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>Oh, that's the problem :) You can do two things:</p>
+
+<ol>
+<li><p>Install ruby from source and use the appropiate ruby version from <a href="https://www.ruby-lang.org/en/downloads/" rel="nofollow">this page</a>, like:</p>
+
+<p>wget http://cache.ruby-lang.org/pub/ruby/2.2/ruby-2.2.1.tar.gz</p></li>
+<li><p><strong>Or</strong> install ruby with RVM and skip these commands:</p>
+
+<p>sudo rm /usr/bin/ruby<br>
+sudo ln -s /usr/local/bin/ruby /usr/bin/ruby</p></li>
+</ol>
+
+<p>When you installed ruby from RVM and used these commands, they have broken your ruby installation.</p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes upvoted comment-upvote"><form data-upvotable="comment_29684" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=29684&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="alI7bDjbJeCDKZrAL+nm1iBN6NixvZWGejagtLsp4KR2cHdjPaza74Ln0ZIWdsDDii913Ze/Px5WUs2ViwEbfw==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=29684" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count ">1</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_29684">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_29684"></div>
+</div>
+    </div>
+
+  </li>
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_29675"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_29746" data-level="0" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/alfredobejarano"><img alt="AlfredoBejarano" class="avatar avatar-small" src="./rails_apache_passenger_files/cd9bdd4e967de7c82a8ffb8fb8969cdb" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/alfredobejarano">AlfredoBejarano</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=29746">March 17, 2015</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>I destroyed the droplet and opened a new one, followed the guide step by step and installing Ruby 2.2.0 using wget, now the error changed, the Passenger page says this:</p>
+<pre class="code-pre "><code langs="">cannot load such file -- bundler/setup (LoadError)
+  /usr/lib/ruby/2.1.0/rubygems/core_ext/kernel_require.rb:55:in `require'
+  /usr/lib/ruby/2.1.0/rubygems/core_ext/kernel_require.rb:55:in `require'
+  /usr/lib/ruby/vendor_ruby/phusion_passenger/loader_shared_helpers.rb:278:in `block in run_load_path_setup_code'
+  /usr/lib/ruby/vendor_ruby/phusion_passenger/loader_shared_helpers.rb:381:in `running_bundler'
+  /usr/lib/ruby/vendor_ruby/phusion_passenger/loader_shared_helpers.rb:276:in `run_load_path_setup_code'
+  /usr/share/passenger/helper-scripts/rack-preloader.rb:99:in `preload_app'
+  /usr/share/passenger/helper-scripts/rack-preloader.rb:157:in `&lt;module:App&gt;'
+  /usr/share/passenger/helper-scripts/rack-preloader.rb:29:in `&lt;module:PhusionPassenger&gt;'
+  /usr/share/passenger/helper-scripts/rack-preloader.rb:28:in `&lt;main&gt;'
+</code></pre>
+<p>I executed bundle install and reloaded apache2 service but it doesn't seems to work :(</p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_29746" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=29746&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="jw2rVTKxNesi537GLp6Sdl1wOvh2PXMpYFZg3bTudPqTL+daN8bK5CMpNZQXAbRj9xKn/VA/2bFMMg38hMaPIQ==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=29746" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_29746">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+      <li id="comment_29781" data-level="1" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/zastil"><img alt="zastil" class="avatar avatar-small" src="./rails_apache_passenger_files/6f114d44cdb4af1d35fdbd21f830520a" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/zastil">zastil</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=29781">March 18, 2015</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>I get the same</p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_29781" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=29781&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="dkyxEXaNqcWXrDOEW7AAhlTmGA2p2/E77wMYv+1XS3xqbv0ec/pWypZieNZiLyaT/oSFCI/ZW6PDZ3We3X+wpw==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=29781" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_29781">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_29781"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_37396" data-level="1" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/dechegarayh"><img class="avatar avatar-small" src="./rails_apache_passenger_files/3030fca0c30840ac343e10a150e8ca56361cfc02.png" alt="3030fca0c30840ac343e10a150e8ca56361cfc02"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/dechegarayh">dechegarayh</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=37396">September 14, 2015</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>Hello,</p>
+
+<p>I´m sharing a solution that worked for me. </p>
+
+<p>First of all you need to check the ruby route in passenger with: $ passenger-config about ruby-command . You will get something like this:</p>
+
+<p>passenger-config was invoked through the following Ruby interpreter:<br>
+  Command: /home/deh/.rbenv/versions/2.2.3/bin/ruby<br>
+  Version: ruby 2.2.1p85 (2015-02-26 revision 49769) [x86_64-linux]</p>
+
+<p>You need to remember the line that appear in Command: </p>
+
+<p>At the moment to edit the file:  sudo nano /etc/apache2/sites-available/testapp.conf </p>
+
+<p>you need to add 3 lines: (in PassengerRuby add the line that you get from Command) </p>
+
+<p>&lt;VirtualHost *:80&gt;<br>
+    ServerName example.com<br>
+    <strong>PassengerRuby /home/deh/.rbenv/versions/2.2.3/bin/ruby</strong><br>
+    ServerAlias www.example.com<br>
+    ServerAdmin webmaster@localhost<br>
+    DocumentRoot /home/rails/testapp/public<br>
+    RailsEnv development<br>
+    ErrorLog ${APACHE<em>LOG</em>DIR}/error.log<br>
+    CustomLog ${APACHE<em>LOG</em>DIR}/access.log combined<br>
+    &lt;Directory /home/rails/testapp/public&gt;<br>
+        <strong>Allow from all</strong><br>
+        <strong>Options -MultiViews</strong><br>
+        Require all granted<br>
+    &lt;/Directory&gt;<br>
+&lt;/VirtualHost&gt;</p>
+
+<p>Good luck!</p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_37396" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=37396&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="BdoAc6t+mFOk/CVLzUIHwZ0K9GlATE81vEmXuV3nZ1EZ+Ex8rglnXKUybhn03SHUN2hpbGZO5a2QLfqYbc+cig==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=37396" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_37396">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_37396"></div>
+</div>
+    </div>
+
+  </li>
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_29746"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_29784" data-level="0" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/zastil"><img alt="zastil" class="avatar avatar-small" src="./rails_apache_passenger_files/6f114d44cdb4af1d35fdbd21f830520a" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/zastil">zastil</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=29784">March 18, 2015</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>I got http://46.101.53.95/ forbidden error now</p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_29784" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=29784&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="WAJjE/KetKdgVk3wVjoQj6W3DFP6n3aN5OPxsQ5pbl1EIC8c9+lLqGGYBqJvpTaaD9WRVtyd3BXIh5yQPkGVhg==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=29784" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_29784">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_29784"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_29988" data-level="0" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/abhiram"><img alt="abhiram" class="avatar avatar-small" src="./rails_apache_passenger_files/a22441281fe1f602d0e6a1b804dd6de2" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/abhiram">abhiram</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=29988">March 23, 2015</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>Hi in the server setup "DocumentRoot /home/rails/testapp/public" , the "rails" is the name of the user right? , I have kept the setup as </p>
+<pre class="code-pre "><code langs="">&lt;VirtualHost *:80&gt;
+    ServerName mydomain.com
+    ServerAlias www.mydomain.com
+    ServerAdmin webmaster@localhost
+    DocumentRoot /home/root/testapp/public
+    RailsEnv development
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+    &lt;Directory "/home/root/testapp/public"&gt;
+        Options FollowSymLinks
+        Require all granted
+    &lt;/Directory&gt;
+&lt;/VirtualHost&gt;
+</code></pre>
+<p>So in terms of this root is the user right?<br>
+I am getting a forbidden , you dont have permission to access the error.What am i doing wrong.</p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_29988" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=29988&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="TQiCxB38tcY2djjqNfpkaESzPSlB5Bt20E7bO0nufm9RKs7LGItKyTe4c7gMZUJ97tGgLGfmse78KrYaecaFtA==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=29988" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_29988">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_29988"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_32540" data-level="0" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/shutch190"><img alt="shutch190" class="avatar avatar-small" src="./rails_apache_passenger_files/7b4001d785e93cb30bdf157a5a289267" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/shutch190">shutch190</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=32540">May 18, 2015</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>Uncomment the <code>require all granted</code></p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_32540" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=32540&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="X8/sWXUzFNAcNtCSAYhWUK4f1PPoePPVJjQUOcNuYSJD7aBWcETr3x34m8A4F3BFBH1J9s56WU0KUHkY80aa+Q==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=32540" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_32540">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_32540"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_33615" data-level="0" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/niliushkin"><img alt="niliushkin" class="avatar avatar-small" src="./rails_apache_passenger_files/44a284b996835998a16b95de21f534b4" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/niliushkin">niliushkin</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=33615">June 11, 2015</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>I am getting a forbidden access error and in my apache2 error log it is stating that the client is denied by server configuration, what I am doing wrong here, I followed the guide to the dot?</p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_33615" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=33615&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="S3SNbalp8op15Rz80RF1tfv6qJDAPBVuP/S3r+T680BXVsFirB4NhXQrV67ojlOgUZg1leY+v/YTkNqO1NIImw==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=33615" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_33615">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_33615"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_38493" data-level="0" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/martln"><img alt="martln" class="avatar avatar-small" src="./rails_apache_passenger_files/065700349fc035792b97d51d79b83edc" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/martln">martln</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=38493">October  9, 2015</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>Thank youuuuuuuuuuuuuuuuuuuuuuuu :DDDDDDDDDDD thanks for share!</p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_38493" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=38493&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="gaaZAjpL2qHgxUPxFOLGt+Oo+XstF/ME/dj32qVsrYmdhNUNPzwlruELCKMtfeCiScpkfgsVWZzRvJr7lURWUg==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal">
+      <span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04?comment=38493" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span>
+    </button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_38493">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_38493"></div>
+</div>
+    </div>
+
+  </li></ul><div class="comment-pagination"><span class="previous_page disabled">Previous</span> <em class="current">1</em> <a rel="next nofollow" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04/comments?page=2">2</a> <a class="next_page" rel="next nofollow" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04/comments?page=2">Next</a></div>
+
+      <div class="comments-spinner" style="display: none;"><div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+</div>
+  </div>
+
+  <div class="load-more-container"><a class="load-more" href="javascript:void(0);"><span class="load-more-text">Load More Comments</span><div class="comments-spinner" style="display: none;"><div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+</div></a></div>
+</div>
+
+
+  </div>
+</div>
+
+<div class="creative-commons">
+  <a class="creative-commons-image" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img rel="license" alt="Creative Commons License" src="./rails_apache_passenger_files/creativecommons-654928f5ebfbb75f4543af8903eabfe4.png"></a>
+    <div class="license-text">This work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</div>
+</div>
+
+
+
+
+
+        <div class="clearfix"></div>
+    	</div>
+
+    	<footer class="footer">
+  <div class="footer-icon">
+    <span class="icon icon-sammy"></span>
+  </div>
+
+  <div class="copyright">
+    Copyright © 2015 DigitalOcean™ Inc.
+  </div>
+
+  <ul class="main-nav-links">
+    <li><a href="https://www.digitalocean.com/community">Community</a></li>
+    <li><a href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+    <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+    <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+    <li><a href="https://www.digitalocean.com/community/tags">Tags</a></li>
+    <li>
+      <a href="https://www.digitalocean.com/community/tutorials/feed">
+        RSS <span class="icon-rss"></span>
+</a>    </li>
+  </ul>
+
+  <br>
+
+  <ul class="secondary-nav-links">
+
+    <li><a href="https://www.digitalocean.com/legal/terms/">Terms, Privacy, &amp; Copyright</a></li>
+    <li><a href="https://www.digitalocean.com/security/">Security</a></li>
+      <li><a data-toggle="modal" data-target="#sign-in-modal" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04#">Report a Bug</a></li>
+    <li><a href="https://www.digitalocean.com/community/get-paid-to-write">Get Paid to Write</a></li>
+  </ul>
+</footer>
+
+
+
+
+
+    <div id="sign-in-modal" class="modal fade mini-modal" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1>Sign Up</h1>
+        <a class="close-button" data-dismiss="modal" href=""><span class="icon icon-close-light"></span></a>
+      </div>
+      <div class="modal-body">
+        <div class="sign-in-message">Not so fast, you must have an account before you can do that.</div>
+
+        <div class="sign-in-modal-actions">
+          <a class="sign-in-link button blue-button" data-default-url="/community/auth/digitalocean" href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a>
+          <a class="sign-up-link button green-button" data-default-url="/community/auth/digitalocean?display=sessionless+register" href="https://www.digitalocean.com/community/auth/digitalocean?display=sessionless+register">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+  <script>
+    $(function() {
+      init_sharing();
+      new NewsletterSignup();
+      new GrowableMarkdown({ target: '[data-growable-markdown]' });
+    });
+  </script>
+
+  <div id="report-a-bug-modal" class="modal fade mini-modal" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1>Report a Bug</h1>
+          <a class="close-button" data-dismiss="modal" href=""><span class="icon icon-close-light"></span></a>
+        </div>
+        <div class="modal-body">
+          <div class="report-a-bug-message text-center">Use this form to report bugs related to the Community</div>
+          <div class="report-a-bug-actions do-form">
+            <div class="form-wrap">
+              <form class="new_bug_report" id="new_bug_report" action="https://www.digitalocean.com/community/bug_reports" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="2BjirtBITwUWI6qHAWUY5dAGZms9meHTVI/6bZa0peHEOq6h1T+wChft4dU4+j7wemT7bhubS0t465dMppxeOg==">
+                <fieldset>
+                  <div class="field">
+                    <input placeholder="Name" type="text" name="bug_report[name]" id="bug_report_name">
+                  </div>
+                  <div class="field">
+                    <input placeholder="Email" required="required" type="text" name="bug_report[email]" id="bug_report_email">
+                  </div>
+                  <div class="field">
+                      <textarea placeholder="Message" required="required" name="bug_report[message]" id="bug_report_message" style="overflow: hidden; word-wrap: break-word; resize: none; height: 125px;"></textarea>
+                  </div>
+
+                  <div class="field actions">
+                    <input type="submit" name="commit" value="Submit" class="button">
+                  </div>
+                </fieldset>
+</form>            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+     
+  
+
+<textarea tabindex="-1" style="position: absolute; top: -999px; left: 0px; right: auto; bottom: auto; border: 0px; padding: 0px; box-sizing: content-box; word-wrap: break-word; overflow: hidden; transition: none; height: 0px !important; min-height: 0px !important; font-family: proxima-nova, sans-serif; font-size: 17px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; word-spacing: 0px; text-indent: 0px; line-height: 23.7999992370605px; width: 58px;" class="autosizejs" id="autosizejs"></textarea><a id="scrollUp" href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04#top" style="display: none; position: fixed; z-index: 2147483647;">Scroll to top</a><div id="scrollUp-active" style="position: absolute; top: 300px; width: 100%; border-top-width: 1px; border-top-style: dotted; border-top-color: rgb(0, 255, 255); z-index: 2147483647;"></div><div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./rails_apache_passenger_files/wjDNIDNrTQG.html" style="border: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div><script type="text/javascript" id="">adroll_custom_data={article_tag:google_tag_manager["GTM-KHWBBT"].macro('gtm1446832719687'),tutorial_difficulty:google_tag_manager["GTM-KHWBBT"].macro('gtm1446832719688'),content_type:google_tag_manager["GTM-KHWBBT"].macro('gtm1446832719689'),author:google_tag_manager["GTM-KHWBBT"].macro('gtm1446832719690'),is_community_page:google_tag_manager["GTM-KHWBBT"].macro('gtm1446832719691'),user_signed_in:google_tag_manager["GTM-KHWBBT"].macro('gtm1446832719692'),user_droplet_count:google_tag_manager["GTM-KHWBBT"].macro('gtm1446832719693')};</script><script type="text/javascript" id="">(function(){var a=window._fbq||(window._fbq=[]);if(!a.loaded){var b=document.createElement("script");b.async=!0;b.src="//connect.facebook.net/en_US/fbds.js";var c=document.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c);a.loaded=!0}a.push(["addPixelId","1428881624071898"])})();window._fbq=window._fbq||[];window._fbq.push(["track","PixelInitialized",{}]);</script>
+<noscript>&lt;img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?id=1428881624071898&amp;amp;ev=PixelInitialized"&gt;</noscript><script type="text/javascript" id="">(function(b,c,e,g,d){var f,a;b[d]=b[d]||[];f=function(){var a={ti:"4047822"};a.q=b[d];b[d]=new UET(a);b[d].push("pageLoad")};a=c.createElement(e);a.src=g;a.async=1;a.onload=a.onreadystatechange=function(){var b=this.readyState;b&&"loaded"!==b&&"complete"!==b||(f(),a.onload=a.onreadystatechange=null)};c=c.getElementsByTagName(e)[0];c.parentNode.insertBefore(a,c)})(window,document,"script","//bat.bing.com/bat.js","uetq");</script><noscript>&lt;img src="//bat.bing.com/action/0?ti=4047822&amp;amp;Ver=2" height="0" width="0" style="display:none; visibility: hidden;"&gt;</noscript>
+<script type="text/javascript" id="" src="./rails_apache_passenger_files/pixel"></script><div style="width:0px; height:0px; display:none; visibility:hidden;" id="batBeacon0.9039956263732165"><img style="width:0px; height:0px; display:none; visibility:hidden;" id="batBeacon0.05578484875150025" width="0" height="0" src="./rails_apache_passenger_files/0"><img style="width:0px; height:0px; display:none; visibility:hidden;" id="batBeacon0.051807120675221086" width="0" height="0" src="./rails_apache_passenger_files/0(1)"></div>
+</body></html>

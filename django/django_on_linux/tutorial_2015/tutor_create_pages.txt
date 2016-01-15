@@ -1,0 +1,191 @@
+созданим список танков и выведем его на страничку:
+
+
+============================
+python manage.py startapp app_table
+
+============================
+созданим модель в app_table/models.py:
+
+from django.db import models
+import datetime
+import django.utils.timezone 
+
+class Tank(models.Model):
+  title = models.CharField(
+    verbose_name=u'Название танка', 
+    max_length=60,
+  )
+
+  armor_front = models.IntegerField(
+    verbose_name=u'Броня лобовая',
+    default=0,
+    null=False,
+    blank=False,    
+  )
+
+  armor_side = models.IntegerField(
+    verbose_name=u'Броня боковая',
+    default=0,
+    null=False,
+    blank=False, 
+  )
+
+  armor_back = models.IntegerField(
+    verbose_name=u'Броня задняя',
+    default=0,
+    null=False,
+    blank=False, 
+  )
+
+  create_date = models.DateTimeField(
+    verbose_name=u'Дата создания',
+    default=django.utils.timezone.now,   
+    null=False,
+    blank=False,      
+  )
+
+  update_date = models.DateTimeField(
+    verbose_name=u'Дата изменения',
+    default=django.utils.timezone.now,  
+    null=False,
+    blank=False,       
+  )
+
+============================
+создадим и прогоним миграции:
+python manage.py makemigrations
+python manage.py migrate
+
+============================
+ручками в БД создадим три записи
+
+============================
+убедимся через шелл, что они есть:
+python manage.py shell
+>>> from app_table.models import Tank
+>>> print(Tank.objects.all())
+[<Tank: Tank object>]
+>>> print(Tank.objects.all())
+[<Tank: Tank object>, <Tank: Tank object>, <Tank: Tank object>]
+>>> print(Tank.objects.count())
+3
+
+попробуем создать:
+Tank(title='sd11111', armor_front=2, armor_side=44, armor_back=56).save()
+
+
+============================
+urls.py в корне:
+from django.conf.urls import include, url
+from django.contrib import admin
+
+urlpatterns = [
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^table/', include('app_table.urls')),
+]
+
+
+app_table/urls.py:
+from django.conf.urls import include, url
+from django.contrib import admin
+
+urlpatterns = [
+  url(r'', 'app_table.views.index'),
+]
+
+
+
+
+============================
+создадим view:
+app_table/views.py:
+
+from django.http import HttpResponse, HttpResponseRedirect, Http404, HttpResponseForbidden
+from django.template import loader, RequestContext
+from django.shortcuts import render, render_to_response
+from app_table.models import Tank
+
+def index(request):
+  tanks = Tank.objects.all()
+
+  t = loader.get_template('index.html')
+  c = RequestContext(request, { 
+    'tanks': tanks,   
+  }) 
+  
+  return HttpResponse(t.render(c)) 
+
+
+
+app_table/templates/index.html:
+{% extends "base.html" %}
+
+{% block content %}
+  {% for tank in tanks %}
+    <li class="item">
+      <h3 class="h3">{{ tank.title|truncatechars:30 }}</h3>
+    </li>
+  {% endfor %}
+{% endblock content %}
+
+
+
+
+
+tanks/templates/base.html:
+<!DOCTYPE html>
+
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link rel="icon" href="images/favicon.ico" type="image/x-icon" />-->
+
+    <title>Table of tanks</title>
+  </head>
+
+  <body>
+    {% block content %}{% endblock content %}
+  </body>
+</html>
+
+============================
+не забудем прописать пути к каталогам шаблонов в конфиге:
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [   
+                    os.path.join(BASE_DIR, 'tanks/templates'), 
+                    os.path.join(BASE_DIR, 'app_table/templates'),
+                ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+
+
+
+
+============================
+в результате по адресу http://127.0.0.1:8000/table/ 
+выводится список названий танков
+
+============================
+============================
+============================
+============================
+============================
+============================
+============================
+============================
+============================
+============================

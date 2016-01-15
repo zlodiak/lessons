@@ -1,0 +1,148 @@
+при помощи paperclip добавим поля и инфой о картинке в таблицу users.
+а так же загрузим изображение в public
+
+======================
+  create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "password_digest"
+    t.string   "remember_token"
+    t.string   "phone"
+    t.string   "skype"
+    t.string   "info"
+    t.integer  "gender_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.string   "diary_name"
+    t.boolean  "admin"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+  end
+
+
+
+======================
+user model:
+class User < ActiveRecord::Base
+  before_save { self.email  = email.downcase  }
+  before_create :create_remember_token
+  
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },
+                                    uniqueness: { case_sensitive: false }
+  validates :diary_name, presence: true, uniqueness: { case_sensitive: false }
+  validates :password,  length: { minimum:  6 }  
+  validates :name,  presence: true, length: { maximum:  50  }, uniqueness: { case_sensitive: false }
+
+  has_secure_password
+
+  has_many    :recalls
+  has_many    :posts,  dependent:  :destroy
+  belongs_to  :gender
+
+  has_attached_file :avatar, :styles => { :large => "300x300>", :medium => "100x100>", :thumb => "30x30>" }
+  validates_attachment_content_type :avatar, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
+  validates_attachment_file_name :avatar, :matches => [/png\Z/, /jpe?g\Z/, /gif\Z/]
+
+  def User.new_remember_token
+    SecureRandom.urlsafe_base64
+  end
+  
+  def User.encrypt(token)
+    Digest::SHA1.hexdigest(token.to_s)
+  end  
+
+  GENDER_TYPES = [['-', 1], ['Муж', 2], ['Жен', 3]]
+
+  private
+
+    def create_remember_token
+      self.remember_token = User.encrypt(User.new_remember_token)
+    end    
+end
+
+
+
+
+======================
+user new form:
+<%= form_for(@user) do |f| %>
+  <div class="row">
+    <div class="col-xs-12 col-sm-2">
+      <%= f.label t(:email)  %>
+    </div>
+    <div class="col-xs-12 col-sm-10">
+      <%= f.text_field  :email  %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-2">
+      <%= f.label t(:avatar) %>
+    </div>
+    <div class="col-xs-12 col-sm-10">
+      <%= f.file_field  :avatar %>
+    </div>
+  </div>      
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-2">
+      <%= f.label t(:password) %>
+    </div>
+    <div class="col-xs-12 col-sm-10">
+      <%= f.password_field  :password %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-2">
+      <%= f.label t(:password_confirmation), "Confirmation"  %>
+    </div>
+    <div class="col-xs-12 col-sm-10">
+      <%= f.password_field  :password_confirmation  %>
+    </div>
+  </div>
+
+  <div class="row actions">
+    <div class="col-xs-12 col-sm-2">
+      <%= f.submit t(:update) %>
+    </div>
+  </div>
+<% end %>
+
+
+
+
+
+======================
+user controller:
+
+def create
+  @user = User.new(user_params)   
+  
+  if @user.save
+    sign_in @user
+    flash[:success] = t :user_created
+    redirect_to  @user
+  else
+    flash.now[:error] = t :user_not_created
+    render  'new'
+  end
+end 
+
+def user_params
+  params.require(:user).permit(:name, :email, :diary_name, :password, :gender_id, :password_confirmation, :phone, :skype, :info, :avatar, :delete_avatar)
+end    
+
+
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================

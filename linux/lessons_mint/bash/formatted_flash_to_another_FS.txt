@@ -1,0 +1,78 @@
+Решил написать статью как отформатировать флешку или раздел диска в Debian, Ubuntu или CentOS, думаю для кого то окажется полезной. Для начала нужно посмотреть "название" флешки в системе командой:
+
+sudo fdisk -l
+
+Среди информации обо всех дисках, наверняка увидите и вашу флешку (например, по объему она будет явно отличаться от жестких дисков). Если флешка примонтировалась автоматически, то сначала нужно её отмонтировать:
+
+
+ 
+sudo umount /dev/sdX
+
+Форматируем в fat:
+
+sudo mkfs.vfat /dev/sdX #где sdX - ваша флешка (например sdb1).
+
+Форматируем в ext2:
+
+sudo mkfs.ext2 /dev/sdX
+
+Форматируем в ext3:
+
+sudo mkfs.ext3 /dev/sdX
+
+Форматируем в ext4:
+
+sudo mkfs.ext4 /dev/sdX
+
+Форматируем в MSDOS:
+
+sudo mkfs.msdos /dev/sdX
+
+Форматируем в ReiserFS:
+
+sudo mkfs.reiserfs /dev/sdX
+
+Форматируем в NTFS:
+
+sudo mkfs.ntfs /dev/sdX
+
+
+ 
+Похожие записи:
+
+Как в ubuntu подключить дополнительный жесткий диск.
+Как открыть или создать архив RAR в Linux Ubuntu
+Как открыть файл в формате rm в Debian, Ubuntu / Утилита REALVIDEO в Debian, Ubuntu
+Пакеты, которые будут оставлены в неизменном виде / Проблема с обновлением…
+Как в Ubuntu сменить оболочку (стиль рабочего стола) — 1 часть: Установка KDE / Как…
+Как в Ubuntu сменить оболочку (стиль рабочего стола) — 6 часть: Установка MATE / Как…
+Как в Ubuntu сменить оболочку (стиль рабочего стола) — 2 часть: Установка Cinnamon / Как…
+0
+ Фев 8, 2015 00:27 Иван Семин
+Добавить комментарий
+
+Ваш e-mail не будет опубликован. Обязательные поля помечены *
+
+Имя * 
+
+E-mail * 
+
+Сайт 
+
+Комментарий 
+
+Фев 8, 2015 00:27 Иван Семин я в гугл
+ПОИСК ПО САЙТУ
+
+
+
+РУБРИКИ
+
+Active directory Android ASUS CentOS Cisco Debian DNS Exchange FreeBSD HP/3Com Hyper-V IBM IIS и FTP Juniper Microsoft Office Microsoft SQL server Microsoft System Center NetApp Network News Open-e Oracle Raid scom Supermicro Ubuntu Utilities Veeam Backup & Replication Vmware web и seo Windows 7 Windows 8/8.1 Windows 9 Windows 10 Windows 2008/2008 R2 Windows 2012/2012 R2 Windows XP Wordpress WSUS Безопасность Без рубрики Битрикс Книги администратора СХД Сертификация
+ПОСЛЕДНИЕ ЗАПИСИ
+
+Неполадки сообщения. Возникли неполадки шифрования этого сообщения в MS Outlook 2007
+Как сделать бэкап конфигураций vmware esxi и баз данных SQL
+Не удается подключиться к удаленному компьютеру в Windows Server 2012 R2
+Ошибка vsphere ha virtual machine monitoring error
+Не удалось открыть пул пространства выполнения. Возможно, подключаемый модуль диспетчера серверов WinRM поврежден или отсутствует в Windows Server 2012 R2

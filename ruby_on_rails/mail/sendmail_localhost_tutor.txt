@@ -1,0 +1,90 @@
+development.rb:
+config.action_mailer.raise_delivery_errors = false
+config.action_mailer.delivery_method = :sendmail
+
+
+================
+sudo apt-get install postfix
+убедиться, что он запущен (sudo service postfix start). 
+
+================
+rails g mailer review_mailer 
+
+================
+app/mailers/review_mailer.rb:
+class ReviewMailer < ApplicationMailer
+  default from: 'no-reply@kalinin.ru'
+ 
+  def welcome_email(review)
+    @review = review
+    mail(to: 'prozaik81-2@yandex.ru', subject: 'New review create')
+  end  
+end
+
+
+================
+views/review_mailer/welcome_email.html.erb:
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>email <%= @preview.email %></h1>
+    <p>
+      name: <%= @preview.name %>.<br>
+    </p>
+    <p>
+      message: <%= @preview.message %>.
+    </p>
+    <p>Thanks for joining and have a great day!</p>
+  </body>
+</html>
+
+================
+reviews_controller:
+  def create
+    @review = current_user.reviews.build(review_params)
+
+    if @review.save
+      ReviewMailer.welcome_email(@review).deliver_now
+      flash[:success] = 'review saved'
+      redirect_to root_path
+    else
+      flash.now[:error] = 'review not saved'
+      render 'new'
+    end
+  end
+
+================
+================
+Так же можно отправлять почту через SMTP
+Вам нужно в config/environments/development.rb добавить примерно следующее:
+config.action_mailer.delivery_method = :smtp
+config.action_mailer.smtp_settings = {
+    address:      &nb sp;   "smtp.gmail.com",
+    port:               587,
+    domain:      &nbs p;    "domain.ru",
+    authentication:   "plain",
+    user_name:      & nbsp; "stopanko",
+    password:      &n bsp;  "password",
+    enable_starttls_auto: true
+}
+
+================
+================
+================
+================
+================
+================
+================
+================
+================
+================
+================
+================
+================
+================
+================
+================
+================

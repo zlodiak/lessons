@@ -1,0 +1,85 @@
+знать тип ФС на флешке:
+kalinin@kalinin ~ $ sudo blkid
+[sudo] password for kalinin: 
+/dev/sda1: UUID="A637-D749" TYPE="vfat" 
+/dev/sda2: UUID="24458e12-67fa-4950-af2b-764d368406f2" TYPE="ext4" 
+/dev/sda3: UUID="bc62a36a-a8c0-4f1f-8f5e-694dcdf2406d" TYPE="swap" 
+/dev/sdc1: LABEL="USB-M-QM-^DM-PM-;M-PM-5M-QM-^H-M-PM-=M-PM-0" UUID="4BA46EDC1A43AB0E" TYPE="ntfs" 
+kalinin@kalinin ~ $ sudo lsblk -f
+NAME   FSTYPE LABEL       MOUNTPOINT
+sda                       
+├─sda1 vfat               /boot/efi
+├─sda2 ext4               /
+└─sda3 swap               [SWAP]
+sdc                       
+└─sdc1 ntfs   USB-флеш-на /media/kalinin/USB-флеш-на
+sr0                       
+kalinin@kalinin ~ $ 
+
+
+==========
+kalinin@kalinin ~ $ sudo fdisk -l
+
+WARNING: GPT (GUID Partition Table) detected on '/dev/sda'! The util fdisk doesn't support GPT. Use GNU Parted.
+
+
+Disk /dev/sda: 1000.2 GB, 1000204886016 bytes
+255 heads, 63 sectors/track, 121601 cylinders, total 1953525168 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+Disk identifier: 0x09de09dd
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1               1  1953525167   976762583+  ee  GPT
+Partition 1 does not start on physical sector boundary.
+
+Disk /dev/sdc: 2001 MB, 2001731584 bytes
+44 heads, 57 sectors/track, 1558 cylinders, total 3909632 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x000c2c52
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdc1            2048     3906560     1952256+   7  HPFS/NTFS/exFAT
+
+
+
+Это размер флешки, а не файловой системы на ней. Если внимательно посмотришь чуть ниже этого, то увидишь, что на флешке есть раздел. Далее, если ты посмотришь на вывод df, то увидишь в первой колонке /dev/sdc1 (не /dev/sdc(!)).
+
+==========
+kalinin@kalinin ~ $ df -T
+Filesystem     Type     1K-blocks      Used Available Use% Mounted on
+/dev/sda2      ext4     952667052 165921424 738329836  19% /
+none           tmpfs            4         0         4   0% /sys/fs/cgroup
+udev           devtmpfs   4002920         8   4002912   1% /dev
+tmpfs          tmpfs       803688      1440    802248   1% /run
+none           tmpfs         5120         0      5120   0% /run/lock
+none           tmpfs      4018428     65568   3952860   2% /run/shm
+none           tmpfs       102400        24    102376   1% /run/user
+/dev/sda1      vfat        523248     13400    509848   3% /boot/efi
+/dev/sdc1      fuseblk    1952256     82696   1869560   5% /media/kalinin/USB-флеш-на
+
+
+==========
+==========
+==========
+==========
+==========
+==========
+==========
+==========
+==========
+==========
+==========
+==========
+==========
+==========
+==========
+==========
+==========
+==========
+==========
+==========
+==========

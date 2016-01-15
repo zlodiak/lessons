@@ -1,0 +1,113 @@
+если выскакивает непонятная ошибка, то нужно или удалить will_paginate или добавить код в initializers
+
+
+
+I installed ActiveAdmin successfully:
+
+My gemfile code:
+
+source 'https://rubygems.org'
+
+ gem 'rails', '3.2.10'
+
+ # Bundle edge Rails instead:
+ # gem 'rails', :git => 'git://github.com/rails/rails.git'
+
+ gem 'sqlite3'
+
+
+ # Gems used only for assets and not required
+ # in production environments by default.
+ group :assets do
+   gem 'sass-rails',   '~> 3.2.3'
+   gem 'coffee-rails', '~> 3.2.1'
+
+   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+   # gem 'therubyracer', :platforms => :ruby
+
+   gem 'uglifier', '>= 1.0.3'
+ end
+
+ gem 'jquery-rails'
+
+ gem 'twitter-bootstrap-rails'
+
+ gem 'activeadmin'
+
+  # gem "meta_search",    '>= 1.1.0.pre'
+ gem "spud_photos"
+ gem 'devise'
+
+ gem 'cancan'
+ gem 'rolify'
+and i did this:
+
+ bundle
+ rails g active_admin:install
+ rake db:migrate
+ rails g active_admin:resource product
+I linked some models to ActiveAdmin.
+
+Error after clicking in the dashboard on the product link:
+
+ undefined method `per' for #<ActiveRecord::Relation:0x4d15ee0>
+activeadmin
+shareimprove this question
+asked Feb 19 '13 at 13:14
+
+ddd
+115111
+      
+This helped me: tech-brains.blogspot.in/2012/11/… – RAJ Jun 3 at 7:10
+add a comment
+4 Answers
+activeoldestvotes
+up vote
+23
+down vote
+Active Admin need kaminari pagination If you want to use will paginate, you can make alias for will paginate functions to match kaminari one:
+
+# config/initializers/will_paginate.rb
+if defined?(WillPaginate)
+  module WillPaginate
+    module ActiveRecord
+      module RelationMethods
+        alias_method :per, :per_page
+        alias_method :num_pages, :total_pages
+      end
+    end
+  end
+end
+
+module ActiveRecord
+  class Relation
+    alias_method :total_count, :count
+  end
+end
+
+
+
+
+=====
+
+also:
+will_paginate compatibility
+
+If you use will_paginate in your app, you need to configure an initializer for Kaminari to avoid conflicts. Put this in config/initializers/kaminari.rb
+
+Kaminari.configure do |config|
+  config.page_method_name = :per_page_kaminari
+end
+
+
+
+
+
+
+
+
+
+more: 
+http://activeadmin.info/docs/0-installation.html#gem-compatibility
+http://stackoverflow.com/questions/14958438/rails-activeadmin-undefined-method-per-for-activerecordrelation0x4d15ee 
+https://www.bountysource.com/issues/1093643-kaminari-and-will_paginate-clobber-each-other

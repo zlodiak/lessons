@@ -1,0 +1,67 @@
+custom helper for login
+
+==========+
+helpers/application_helper_spec.rb:
+module Helpers
+  def login_user
+    @user = FactoryGirl.create(:user) 
+    visit new_user_session_path
+
+    fill_in "user_email", :with => @user.email
+    fill_in "user_password", :with => "qwerty"
+    click_button "commitSignIn" #OK sign in
+  end
+end
+
+==========+
+optional
+spec_helper.rb:
+  
+  ....
+  config.include Devise::TestHelpers, type: :controller
+  config.include Devise::TestHelpers, type: :helper
+  config.include ApplicationHelper
+  config.include PollsHelper, type: :polls
+end
+
+
+==========+
+require 'rails_helper'
+require 'helpers/application_helper_spec'
+
+RSpec.configure do |c|
+  c.include Helpers
+end
+
+RSpec.describe PollsController, type: :controller do
+  describe "DELETE #destroy" do
+    before :all do
+      
+    end 
+
+    it "destroys the requested poll" do
+      login_user
+
+      expect {
+        @poll = FactoryGirl.create(:poll, user_id: @user.id)  
+        delete :destroy, { user_id: @user.id, id: @poll.id }
+      }.to change(Poll, :count).by(1)
+    end
+  end
+
+
+end
+
+
+
+==========+
+==========+
+==========+
+==========+
+==========+
+==========+
+==========+
+==========+
+==========+
+==========+
+==========+

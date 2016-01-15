@@ -1,0 +1,61 @@
+запустим rails на apache2. предполагается, что для всего сервера установлена только одна версия ruby
+
+how deploy rails via apache?
+
+please help tune apache2 config for deploy rails application.
+
+on ubuntu14 i install apache2. after i create rails application at: 
+/home/ud2/rails/project2
+
+it worked under webrick server. but i need run rails application via apache server.
+
+/etc/apache2/sites-available/site3.conf:
+<VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /home/ud2/rails/project2/public
+        ServerName site3.ru
+
+        RailsEnv production
+        <Directory /home/ud2/rails/project2/public>
+        Options FollowSymLinks
+        Require all granted
+        </Directory>
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+
+i tune /etc/hosts:
+127.0.0.1 www.site2.ru
+127.0.0.1 site3.ru
+
+.......
+...............
+
+besides i install:
+sudo apt-get install libapache2-mod-passenger 
+and add it to apache via:
+sudo a2enmod passenger
+
+i set 777 -R permission on catalog 'rails'
+
+
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================

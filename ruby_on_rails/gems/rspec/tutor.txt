@@ -1,0 +1,62 @@
+https://github.com/rspec/rspec-rails
+
+rspec install
+
+group :test do
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+end
+
+bundle install
+
+rails generate rspec:install
+
+rails generate rspec:scaffold
+
+==========================
+application.rb:
+    config.generators do |g|
+        g.test_framework        :rspec, fixtures: true, views: false
+        g.fixture_replacement   :factory_girl, dir: 'rspec/factories' 
+    end
+
+
+==========================
+spec_helper:
+ENV["RAILS_ENV"] ||= 'test'
+require File.expand_path("../../config/environment", __FILE__)
+require 'rspec/rails'
+#require 'rspec/autorun'
+
+==========================
+spec/models/album_spec.rb:
+require 'rails_helper'
+
+RSpec.describe Message, type: :model do
+  it 'should do something' do
+    #(1 + 1).should == 2
+    expect(1 + 1).to eq(2)
+  end
+end
+
+
+
+==========================
+rake db:test:clone
+
+==========================
+rspec spec
+
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================

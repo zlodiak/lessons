@@ -1,0 +1,108 @@
+установим activeadmin и divise. будут существовать 2 сида пользователей:
+админ(имеет доступ в админку)
+неадмин(не имеет доступа в админку)
+
+======================
+актив админ связан с можделью AdminUser 
+ rails generate active_admin:install
+
+======================
+Но devise использует модель USer
+rails g devise User
+
+поэтому: 
+rails destroy model AdminUser
+
+роуты тоже уничтожим: 
+devise_for :admin_users, ActiveAdmin::Devise.config
+
+======================
+при этом вход в админку контроллируется в applicationController:
+  def authenticate_active_admin_user!
+     authenticate_user!
+     unless current_user.role?(:admin)
+        flash[:alert] = 'You are not authorized to access this resource!'
+        redirect_to root_path
+     end
+  end  
+
+class User < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
+
+  def role?(r)
+    role.include? r.to_s
+  end         
+end
+
+
+======================
+для кустомизации views их нужно сгенерировать:
+rails generate devise:views
+
+======================
+так же можно сгенерировать контроллеры: 
+rails generate devise:controllers
+
+при этом они будут находиться в каталоге 
+controllers/users и каждый будет наследоваться от 
+class Users::RegistrationsController < Devise::RegistrationsController
+  layout 'layout2'
+
+
+не забыть изменит роуты:
+devise_for :users, controllers: {sessions: 'users/sessions', registrations: 'users/registrations', passwords: 'users/passwords'}
+
+======================
+в админке выбор роли создаётся следующими настройками:
+app/admin/user.rb: 
+ActiveAdmin.register User do
+
+  # See permitted parameters documentation:
+  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
+  permit_params :email, :password, :password_confirmation, :role
+ 
+    index do
+        column :email
+        column :current_sign_in_at
+        column :last_sign_in_at
+        column :sign_in_count
+        column :role
+        actions
+    end
+ 
+    filter :email
+ 
+    form do |f|
+        f.inputs "User Details" do
+            f.input :email
+            f.input :password
+            f.input :password_confirmation
+            f.input :role, as: :radio, collection: {None: "none", Administrator: "admin"}
+        end
+        f.actions
+    end
+
+end
+
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================

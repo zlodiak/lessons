@@ -1,0 +1,1827 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/QAPage">
+<head>
+
+<title>ruby on rails - Where is the list of the types of exceptions? - Stack Overflow</title>
+    <link rel="shortcut icon" href="//cdn.sstatic.net/stackoverflow/img/favicon.ico?v=6cd6089ee7f6">
+    <link rel="apple-touch-icon image_src" href="//cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png?v=41f6e13ade69">
+    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="/opensearch.xml">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content="stackoverflow.com"/>
+    <meta property="og:type" content="website" />
+    <meta property="og:image" itemprop="image primaryImageOfPage" content="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon@2.png?v=ea71a5211a91&a" />
+    <meta name="twitter:title" property="og:title" itemprop="title name" content="Where is the list of the types of exceptions?" />
+    <meta name="twitter:description" property="og:description" itemprop="description" content="Please help me find the official documentation with a list of the types of  of exceptions. I wrote this action:
+
+def show
+  begin
+    @user = User.find(params[:id])   
+  rescue " />
+    <meta property="og:url" content="http://stackoverflow.com/questions/31271588/where-is-the-list-of-the-types-of-exceptions"/>
+    <link rel="canonical" href="http://stackoverflow.com/questions/31271588/where-is-the-list-of-the-types-of-exceptions" />
+
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="//cdn.sstatic.net/Js/stub.en.js?v=1e8f244c13a3"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.sstatic.net/stackoverflow/all.css?v=3f4d490e606d">
+
+            <link rel="alternate" type="application/atom+xml" title="Feed for question &#39;Where is the list of the types of exceptions?&#39;" href="/feeds/question/31271588">
+            <meta name="twitter:app:country" content="US" />
+            <meta name="twitter:app:name:iphone" content="Stack Exchange iOS" />
+            <meta name="twitter:app:id:iphone" content="871299723" />
+            <meta name="twitter:app:url:iphone" content="se-zaphod://stackoverflow.com/questions/31271588/where-is-the-list-of-the-types-of-exceptions" />
+            <meta name="twitter:app:name:ipad" content="Stack Exchange iOS" />
+            <meta name="twitter:app:id:ipad" content="871299723" />
+            <meta name="twitter:app:url:ipad" content="se-zaphod://stackoverflow.com/questions/31271588/where-is-the-list-of-the-types-of-exceptions" />
+            <meta name="twitter:app:name:googleplay" content="Stack Exchange Android">
+            <meta name="twitter:app:url:googleplay" content="http://stackoverflow.com/questions/31271588/where-is-the-list-of-the-types-of-exceptions">
+            <meta name="twitter:app:id:googleplay" content="com.stackexchange.marvin">
+        <script>
+        
+            StackExchange.ready(function () {
+                    
+                    StackExchange.using("snippets", function () {
+                        StackExchange.snippets.initSnippetRenderer();
+                    });
+                    
+
+                StackExchange.using("postValidation", function () {
+                    StackExchange.postValidation.initOnBlurAndSubmit($('#post-form'), 2, 'answer');
+                });
+
+                
+                StackExchange.question.init({votesCast:[],autoShowCommentHelp:true,showAnswerHelp:true,totalCommentCount:3,shownCommentCount:3,highlightColor:'#F4A83D',backgroundColor:'#FFF',questionId:31271588});
+
+                styleCode();
+
+                    StackExchange.realtime.subscribeToQuestion('1', '31271588');
+                                                                    StackExchange.using("gps", function () { StackExchange.gps.trackOutboundClicks('#content', '.post-text'); });
+
+            });
+        </script>
+
+
+    <script>
+        StackExchange.ready(function () {
+            StackExchange.realtime.init('wss://qa.sockets.stackexchange.com,ws://qa.sockets.stackexchange.com');
+            StackExchange.realtime.subscribeToReputationNotifications('1');
+                StackExchange.realtime.subscribeToTopBarNotifications('1');
+        });
+    </script>
+    <script>
+        StackExchange.init({"locale":"en","stackAuthUrl":"https://stackauth.com","serverTime":1436280541,"networkMetaHostname":"meta.stackexchange.com","routeName":"Questions/Show","styleCode":true,"enableUserHovercards":true,"snippets":{"enabled":true,"domain":"stacksnippets.net"},"site":{"name":"Stack Overflow","description":"Q&A for professional and enthusiast programmers","isNoticesTabEnabled":true,"recaptchaPublicKey":"6LdchgIAAAAAAJwGpIzRQSOFaO0pU6s44Xt8aTwc","recaptchaAudioLang":"en","enableNewTagCreationWarning":true,"insertSpaceAfterNameTabCompletion":false,"nonAsciiTags":true,"enableSocialMediaInSharePopup":true},"user":{"fkey":"92e804f1cbc62be1a0aa52aea63a1e91","isRegistered":true,"userType":3,"userId":4560524,"accountId":5779389,"gravatar":"<div class=\"gravatar-wrapper-32\"><img src=\"https://www.gravatar.com/avatar/93fd1b4dc20e90c6123f25003039ed8b?s=32&amp;d=identicon&amp;r=PG&amp;f=1\" alt=\"\" width=\"32\" height=\"32\"></div>","profileUrl":"http://stackoverflow.com/users/4560524/stackov8"}});
+        StackExchange.using.setCacheBreakers({"js/prettify-full.en.js":"d21e9f6d1e05","js/moderator.en.js":"ab2aabcee6b3","js/full-anon.en.js":"f53ebd6a75d2","js/full.en.js":"a21f8f900edc","js/wmd.en.js":"401eb454f553","js/third-party/jquery.autocomplete.min.js":"e5f01e97f7c3","js/third-party/jquery.autocomplete.min.en.js":"","js/mobile.en.js":"f068e8d6a517","js/help.en.js":"57fbb7b9c672","js/tageditor.en.js":"c84618a71b61","js/tageditornew.en.js":"465ab86b0e4d","js/inline-tag-editing.en.js":"7df4b95d9166","js/revisions.en.js":"9e897f24d78d","js/review.en.js":"28be43c7c983","js/tagsuggestions.en.js":"d1ff9b84abe5","js/post-validation.en.js":"7b0784eb9c62","js/explore-qlist.en.js":"4e6f969d97ee","js/events.en.js":"95dc7580911c","js/keyboard-shortcuts.en.js":"2acdb1e9184d","js/external-editor.en.js":"fccec2b4bb15","js/external-editor.en.js":"fccec2b4bb15","js/snippet-javascript.en.js":"7bb3910be476","js/snippet-javascript-codemirror.en.js":"b71d76d243e5"});
+        StackExchange.using("gps", function() {
+             StackExchange.gps.init(true);
+        });
+    </script>
+    
+    
+    
+</head>
+<body class="question-page new-topbar">
+    <noscript><div id="noscript-padding"></div></noscript>
+    <div id="notify-container"></div>
+    <div id="overlay-header"></div>
+    <div id="custom-header"></div>
+
+
+
+
+<div class="topbar">
+    <div class="topbar-wrapper">
+
+        <div class="js-topbar-dialog-corral">
+
+<div class="topbar-dialog siteSwitcher-dialog dno">
+    <div class="header">
+        <h3><a href="//stackoverflow.com">current community</a></h3>
+    </div>
+    <div class="modal-content current-site-container">
+        <ul class="current-site">
+                <li>
+                        <div class="related-links">
+            <a href="http://chat.stackoverflow.com" class="js-gps-track"     data-gps-track="site_switcher.click({ item_type:6 })"
+>chat</a>
+                    <a href="http://blog.stackoverflow.com" class="js-gps-track"     data-gps-track="site_switcher.click({ item_type:7 })"
+>blog</a>
+                    <a href="/users/logout" class="js-gps-track"     data-gps-track="site_switcher.click({ item_type:8 })"
+>log out</a>
+    </div>
+
+
+
+
+    <a href="//stackoverflow.com"
+       class="current-site-link site-link js-gps-track"
+       data-id="1"
+       data-gps-track="
+        site_switcher.click({ item_type:3 })">
+        <div class="site-icon favicon favicon-stackoverflow" title="Stack Overflow"></div>
+        Stack Overflow
+    </a>
+
+                </li>
+                <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    
+
+
+
+    <a href="http://meta.stackoverflow.com"
+       class="site-link js-gps-track"
+       data-id="552"
+       data-gps-track="
+            site.switch({ target_site:552, item_type:3 }),
+        site_switcher.click({ item_type:4 })">
+        <div class="site-icon favicon favicon-stackoverflowmeta" title="Meta Stack Overflow"></div>
+        Meta Stack Overflow
+    </a>
+
+                </li>
+                            <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    <a class="site-link js-gps-track"
+                       href="//careers.stackoverflow.com?utm_source=stackoverflow.com&amp;utm_medium=site-ui&amp;utm_campaign=multicollider"
+                            data-gps-track="site_switcher.click({ item_type:9 })"
+>
+                        <div class="site-icon favicon favicon-careers" title="Stack Overflow Careers"></div>
+                        Stack Overflow Careers
+                    </a>
+                </li>
+        </ul>
+    </div>
+    
+    <div class="header" id="your-communities-header">
+        <h3>
+                <a href="//stackexchange.com/users/5779389/?tab=accounts">your communities</a>
+        </h3>
+            
+            <a href="#" id="edit-pinned-sites">edit</a>
+            <a href="#" id="cancel-pinned-sites" style="display: none;">cancel</a>
+    </div>
+    <div class="modal-content" id="your-communities-section">
+            
+            <ul class="my-sites">
+                    <li>
+                        
+
+
+
+    <a href="//stackoverflow.com"
+       class="site-link js-gps-track"
+       data-id="1"
+       data-gps-track="
+            site.switch({ target_site:1, item_type:3 }),
+        site_switcher.click({ item_type:1 })">
+        <div class="site-icon favicon favicon-stackoverflow" title="Stack Overflow"></div>
+        Stack Overflow
+            <span class="rep-score">89</span>
+    </a>
+
+                    </li>
+            </ul>
+                <div class="pinned-site-editor-container" style="display: none;">
+                    <input id="js-site-search-txt"
+                           type="text"
+                           class="site-filter-input"
+                           value=""
+                           placeholder="Add a Stack Exchange community"/>
+                    <input type="submit" id="pin-site-btn" value="Add" disabled="disabled"/>
+                    <ul class="js-found-sites found-sites"></ul>
+                    <ul class="pinned-site-list sortable" data-custom-list="False">
+                    </ul>
+                    <input type="submit" value="Save" id="save-pinned-sites-btn" disabled="disabled"/>
+                    <a href="#" id="reset-pinned-sites">reset to default list</a>
+                </div>
+    </div>
+    
+    <div class="header">
+        <h3><a href="//stackexchange.com/sites">more stack exchange communities</a></h3>
+    </div>
+    <div class="modal-content">
+            <div class="child-content"></div>
+    </div>
+</div>
+        </div>
+
+        <div class="network-items">
+
+            <a href="//stackexchange.com"
+               class="topbar-icon icon-site-switcher yes-hover js-site-switcher-button js-gps-track"
+               data-gps-track="site_switcher.show"
+               title="A list of all 146 Stack Exchange sites">
+                <span class="hidden-text">Stack Exchange</span>
+            </a>
+
+                <a href="#"
+                   class="topbar-icon icon-inbox yes-hover js-inbox-button"
+                   title="You have unread inbox messages">
+                    <span class="hidden-text">Inbox</span>
+                    <span class="unread-count" style="">80</span>
+                </a>
+                <a href="#"
+                   class="topbar-icon icon-achievements yes-hover js-achievements-button icon-achievements-unread"
+                   data-unread-class="icon-achievements-unread"
+                   title="You have new reputation changes">
+                    <span class="hidden-text">Reputation and Badges</span>
+                    <span class="unread-count" style="">
+                        +86
+                    </span>
+                </a>
+        </div>
+
+        <div class="topbar-links">
+
+                <a href="/users/4560524/stackov8" 
+                   class="profile-me js-gps-track" 
+                   data-gps-track="profile_summary.click()">
+                    
+                    <div class="gravatar-wrapper-24" title="stackov8"><img src="https://www.gravatar.com/avatar/93fd1b4dc20e90c6123f25003039ed8b?s=48&amp;d=identicon&amp;r=PG&amp;f=1" alt="" width="24" height="24" class="avatar-me js-avatar-me"></div>
+
+                    <div class="links-container topbar-flair">
+
+                        <span class="reputation" title="your reputation: 89">
+                            89
+                        </span>
+<span title="8 bronze badges"><span class="badge3"></span><span class="badgecount">8</span></span>                    </div>
+                </a>
+                <div class="links-container">
+                    <span class="topbar-menu-links">
+
+
+
+
+    <a href="#" class="icon-help js-help-button" title="Help Center and other resources">
+        help
+        <span class="triangle"></span>
+    </a>
+    <div class="topbar-dialog help-dialog js-help-dialog dno">
+        <div class="modal-content">
+            <ul>
+                                    <li>
+                        <a href="/tour" class="js-gps-track" data-gps-track="help_popup.click({ item_type:1 })">
+                            Tour
+                            <span class="item-summary">
+                                Start here for a quick overview of the site
+                            </span>
+                        </a>
+                    </li>
+                <li>
+                    <a href="/help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:4 })">
+                        Help Center
+                        <span class="item-summary">
+                            Detailed answers to any questions you might have
+                        </span>
+                    </a>
+                </li>
+                    <li>
+                        <a href="//meta.stackoverflow.com" class="js-gps-track" data-gps-track="help_popup.click({ item_type:2 })">
+                            Meta
+                            <span class="item-summary">
+                                Discuss the workings and policies of this site
+                            </span>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+
+                    </span>
+                </div>
+
+            <div class="search-container">
+                <form id="search" action="/search" method="get" autocomplete="off">
+                    <input name="q" type="text" placeholder="search" value="" tabindex="1" autocomplete="off" maxlength="240" />
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+    <script>
+        StackExchange.ready(function() { StackExchange.topbar.init(); });
+    </script>
+
+    <div class="container">
+        <div id="header">
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="/" >
+                    Stack Overflow
+                </a>
+            </div>
+            <div id="hmenus">
+                <div class="nav mainnavs">
+                    <ul>
+                        <li class="youarehere"><a id="nav-questions" href="/questions">Questions</a></li>
+                        <li><a id="nav-tags" href="/tags">Tags</a></li>
+                        <li><a id="nav-users" href="/users">Users</a></li>
+                        <li><a id="nav-badges" href="/help/badges">Badges</a></li>
+                        <li><a id="nav-unanswered" href="/unanswered">Unanswered</a></li>
+                    </ul>
+                </div>
+                <div class="nav askquestion">
+                    <ul>
+                        <li>
+                            <a id="nav-askquestion"  href="/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+        <div id="content" class="snippet-hidden">
+            
+
+<div itemscope itemtype="http://schema.org/Question">
+    <link itemprop="image" href="//cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png?v=41f6e13ade69">
+			<div id="question-header">
+                <h1 itemprop="name"><a href="/questions/31271588/where-is-the-list-of-the-types-of-exceptions" class="question-hyperlink">Where is the list of the types of exceptions?</a></h1>
+		</div>
+			<div id="mainbar">
+
+			
+
+<div class="question" data-questionid="31271588"  id="question">
+
+        <input type="hidden" id="31271588-only-allow-inform-moderator-flagging" value="true" />
+    <script>
+                var ados = ados || {}; ados.run = ados.run || [];
+                ados.run.push(function () { ados_add_placement(22,8277,"adzerk1861552087",4).setZone(43); });
+            </script>
+            <div class="everyonelovesstackoverflow" id="adzerk1861552087">
+            </div>    <table>
+        <tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="31271588">
+        <a class="vote-up-off" title="This question shows research effort; it is useful and clear (click again to undo)">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">-1</span>
+        <a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful (click again to undo)">down vote</a>
+
+        <a class="star-off" href="#" title="This is a favorite question (click again to undo)">favorite</a>
+        <div class="favoritecount"><b></b></div>
+
+
+</div>
+
+            </td>
+            
+<td class="postcell">
+<div>
+    <div class="post-text" itemprop="text">
+
+<p>Please help me find the official documentation with a list of the types of  of exceptions. I wrote this action:</p>
+
+<pre><code>def show
+  begin
+    @user = User.find(params[:id])   
+  rescue ActiveRecord::RecordNotFound =&gt; e
+    logger.debug e
+    logger.debug "Error #{$!}"
+    render_404      
+  end
+end
+</code></pre>
+
+<p>I need to mention several types of exceptions:</p>
+
+<pre><code>def show
+  begin
+    @user = User.find(params[:id])   
+  rescue ActiveRecord::RecordNotFound =&gt; e
+    logger.debug e
+    logger.debug "Error #{$!}"
+    render_404  
+  rescue anotherExceptionType1 =&gt; e   
+    ......
+    ......
+    ..... 
+  rescue anotherExceptionType2 =&gt; e   
+    ......
+    ......
+    ..... 
+  rescue anotherExceptionType3 =&gt; e   
+    ......
+    ......
+    .....         
+  end
+end
+</code></pre>
+
+<p>but I did not find the list of exceptions in the documentation.</p>
+    </div>
+    <div class="post-taglist">
+        <a href="/questions/tagged/ruby-on-rails" class="post-tag" title="show questions tagged &#39;ruby-on-rails&#39;" rel="tag">ruby-on-rails</a> <a href="/questions/tagged/ruby" class="post-tag" title="show questions tagged &#39;ruby&#39;" rel="tag">ruby</a> 
+    </div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+<div class="post-menu"><a href="/q/31271588/4560524" title="short permalink to this question" class="short-link" id="link-post-31271588">share</a><span class="lsep">|</span><a href="/posts/31271588/edit" class="edit-post" title="revise and improve this post">edit</a><span class="lsep">|</span><a href="#"
+               id="delete-post-31271588" 
+               title="vote to delete this post" 
+               class=""
+               data-fancy-delete="true"
+               data-delete-prompt="Delete this post?"
+               data-undelete-prompt="Undelete this post?">delete</a><span class="lsep">|</span><a href="#"
+       class="flag-post-link"
+       title="flag this post for serious problems or moderator attention"
+       data-postid="31271588">flag</a></div>        
+    </td>
+    <td align="right" class="post-signature">
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="/posts/31271588/revisions" title="show all edits to this post">edited <span title="2015-07-07 14:36:35Z" class="relativetime">12 mins ago</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/314166/sawa"><div class="gravatar-wrapper-32"><img src="http://i.stack.imgur.com/zL1re.jpg?s=32&amp;g=1" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/314166/sawa">sawa</a><br>
+        <span class="reputation-score" title="reputation score 76701" dir="ltr">76.7k</span><span title="12 gold badges"><span class="badge1"></span><span class="badgecount">12</span></span><span title="89 silver badges"><span class="badge2"></span><span class="badgecount">89</span></span><span title="174 bronze badges"><span class="badge3"></span><span class="badgecount">174</span></span>
+    </div>
+</div>    </td>
+    <td class="post-signature owner">
+        <div class="user-info ">
+    <div class="user-action-time">
+        asked <span title="2015-07-07 14:32:56Z" class="relativetime">16 mins ago</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/4560524/stackov8"><div class="gravatar-wrapper-32"><img src="https://www.gravatar.com/avatar/93fd1b4dc20e90c6123f25003039ed8b?s=32&amp;d=identicon&amp;r=PG&amp;f=1" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/4560524/stackov8">stackov8</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">89</span><span title="8 bronze badges"><span class="badge3"></span><span class="badgecount">8</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </table>
+</div>
+</td>
+        </tr>
+                
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-31271588" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0"
+                       data-canpost="true"
+                       data-cansee="false"
+                       data-comments-unavailable="false"
+                       data-addlink-disabled="false">
+
+
+
+    <tr id="comment-50537627" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received"
+                                      class="cool">2</span>
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                                <td>
+                                    <a class="comment-flag" title="Flag this comment for serious problems or moderator attention">flag</a>
+                                </td>
+                        </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Make clear the namespace. Do you only want those within <code>ActiveRecord</code>?</span>
+                &ndash;&nbsp;
+                    <a href="/users/314166/sawa"
+                       title="76701 reputation"
+                       class="comment-user">sawa</a>
+                <span class="comment-date" dir="ltr"><span title="2015-07-07 14:37:19Z" class="relativetime-clean">11 mins ago</span></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-50538196" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                                <td>
+                                    <a class="comment-flag" title="Flag this comment for serious problems or moderator attention">flag</a>
+                                </td>
+                        </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Why are you trying to rescue these exceptions if there is no need to?</span>
+                &ndash;&nbsp;
+                    <a href="/users/3861396/2016rshah"
+                       title="130 reputation"
+                       class="comment-user">2016rshah</a>
+                <span class="comment-date" dir="ltr"><span title="2015-07-07 14:47:58Z" class="relativetime-clean">1 min ago</span></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-50538212" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                                <td>
+                                    <a class="comment-flag" title="Flag this comment for serious problems or moderator attention">flag</a>
+                                </td>
+                        </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">For AR, See <a href="http://www.rubydoc.info/docs/rails/4.1.7/ActiveRecord" rel="nofollow">rubydoc.info/docs/rails/4.1.7/ActiveRecord</a> &amp; <code>RecordNotFound</code> <a href="http://www.rubydoc.info/docs/rails/4.1.7/ActiveRecord/RecordNotFound" rel="nofollow">rubydoc.info/docs/rails/4.1.7/ActiveRecord/RecordNotFound</a></span>
+                &ndash;&nbsp;
+                    <a href="/users/981616/uday"
+                       title="4078 reputation"
+                       class="comment-user">uDaY</a>
+                <span class="comment-date" dir="ltr"><span title="2015-07-07 14:48:21Z" class="relativetime-clean">40 secs ago</span></span>
+                    <span class="edited-yes" title="this comment was edited 1 time"></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+				    <tfoot>
+					    <tr>
+						    <td></td>
+						    <td class="comment-form">
+							    <form id="add-comment-31271588" 
+							          class="" 
+							          data-placeholdertext="Use comments to reply to other users or notify them of changes. If you are adding new information, edit your post instead of commenting."></form>
+						    </td>
+					    </tr>
+				    </tfoot>
+		    </table>
+	    </div>
+
+        <div id="comments-link-31271588" >
+
+                <a class="js-add-link comments-link "
+                   title="Use comments to reply to other users or notify them of changes. If you are adding new information, edit your post instead of commenting."
+                   href=#>add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href=# onclick=""></a>
+        </div>         
+    </td>
+</tr>                <tr>
+            <td class="votecell"></td>
+            <td>
+            <div style="margin-top:20px">
+                <a id="bounty-link bounty" href="/help/bounty" title="offer some of your reputation for better answers">
+question eligible for bounty <span title="2015-07-09 14:32:56Z" class="relativetime-clean">in 2 days</span>                </a>
+            </div>
+            </td>
+            </tr>
+    </table>
+</div>
+
+			<div id="answers">
+
+				<a name="tab-top"></a>
+				<div id="answers-header">
+					<div class="subheader answers-subheader">
+						<h2>
+								3 Answers
+                                <span style="display:none;" itemprop="answerCount">3</span>
+						</h2>
+						<div>
+							<div id="tabs">
+        <a href="/questions/31271588/where-is-the-list-of-the-types-of-exceptions?answertab=active#tab-top" title="Answers with the latest activity first">active</a>
+        <a href="/questions/31271588/where-is-the-list-of-the-types-of-exceptions?answertab=oldest#tab-top" title="Answers in the order they were provided">oldest</a>
+        <a class="youarehere" href="/questions/31271588/where-is-the-list-of-the-types-of-exceptions?answertab=votes#tab-top" title="Answers with the highest score first">votes</a>
+</div>
+						</div>
+					</div>    
+				</div>    
+
+
+
+
+  
+<a name="31271780"></a>
+<div id="answer-31271780" class="answer" data-answerid="31271780"  itemscope itemtype="http://schema.org/Answer">
+
+    <table>
+        <tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="31271780">
+        <a class="vote-up-off" title="This answer is useful (click again to undo)">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">1</span>
+        <a class="vote-down-off" title="This answer is not useful (click again to undo)">down vote</a>
+
+
+
+    <a id="vote-accepted-31271780" 
+        class="vote-accepted-off " 
+        href="javascript:void(0);"
+        data-title-accept="Click to accept this answer because it solved your problem or was the most helpful in finding your solution (click again to undo)" 
+        data-verb-accept="accept"
+        data-title-unaccept="Click to undo acceptance of this answer; you accepted this answer " 
+        data-verb-unaccept="unaccept"></a>
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>If I understand the question correctly, here is the list of available exceptions.</p>
+
+<p><a href="http://ruby-doc.org/core-2.2.2/Exception.html" rel="nofollow">http://ruby-doc.org/core-2.2.2/Exception.html</a></p>
+    </div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+<div class="post-menu"><a href="/a/31271780/4560524" title="short permalink to this answer" class="short-link" id="link-post-31271780">share</a><span class="lsep">|</span><a href="/posts/31271780/edit" class="suggest-edit-post" title="revise and improve this post">edit</a><span class="lsep">|</span><a href="#"
+       class="flag-post-link"
+       title="flag this post for serious problems or moderator attention"
+       data-postid="31271780">flag</a></div>                    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2015-07-07 14:40:17Z" class="relativetime">8 mins ago</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/3869746/william-barron"><div class="gravatar-wrapper-32"><img src="https://www.gravatar.com/avatar/344504d1a716a546bbacea716fd8b0a5?s=32&amp;d=identicon&amp;r=PG&amp;f=1" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/3869746/william-barron">William Barron</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">11</span><span title="5 bronze badges"><span class="badge3"></span><span class="badgecount">5</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-31271780" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0"
+                       data-canpost="true"
+                       data-cansee="false"
+                       data-comments-unavailable="false"
+                       data-addlink-disabled="false">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+				    <tfoot>
+					    <tr>
+						    <td></td>
+						    <td class="comment-form">
+							    <form id="add-comment-31271780" 
+							          class="" 
+							          data-placeholdertext="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."></form>
+						    </td>
+					    </tr>
+				    </tfoot>
+		    </table>
+	    </div>
+
+        <div id="comments-link-31271780" >
+
+                <a class="js-add-link comments-link "
+                   title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."
+                   href=#>add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href=# onclick=""></a>
+        </div>         
+    </td>
+</tr>    </table>
+</div>
+<script>
+                var ados = ados || {}; ados.run = ados.run || [];
+                ados.run.push(function () { ados_add_placement(22,8277,"adzerk1876203157",4).setZone(44); });
+            </script>
+            <div class="everyonelovesstackoverflow" id="adzerk1876203157">
+            </div>
+  
+<a name="31271862"></a>
+<div id="answer-31271862" class="answer" data-answerid="31271862"  itemscope itemtype="http://schema.org/Answer">
+
+    <table>
+        <tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="31271862">
+        <a class="vote-up-off" title="This answer is useful (click again to undo)">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">0</span>
+        <a class="vote-down-off" title="This answer is not useful (click again to undo)">down vote</a>
+
+
+
+    <a id="vote-accepted-31271862" 
+        class="vote-accepted-off " 
+        href="javascript:void(0);"
+        data-title-accept="Click to accept this answer because it solved your problem or was the most helpful in finding your solution (click again to undo)" 
+        data-verb-accept="accept"
+        data-title-unaccept="Click to undo acceptance of this answer; you accepted this answer " 
+        data-verb-unaccept="unaccept"></a>
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>You can see all the subclasses of ActiveRecordError here:
+<a href="https://github.com/rails/rails/blob/master/activerecord/lib/active_record/errors.rb" rel="nofollow">https://github.com/rails/rails/blob/master/activerecord/lib/active_record/errors.rb</a></p>
+    </div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+<div class="post-menu"><a href="/a/31271862/4560524" title="short permalink to this answer" class="short-link" id="link-post-31271862">share</a><span class="lsep">|</span><a href="/posts/31271862/edit" class="suggest-edit-post" title="revise and improve this post">edit</a><span class="lsep">|</span><a href="#"
+       class="flag-post-link"
+       title="flag this post for serious problems or moderator attention"
+       data-postid="31271862">flag</a></div>                    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2015-07-07 14:43:11Z" class="relativetime">5 mins ago</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/4787515/maxim-pontyushenko"><div class="gravatar-wrapper-32"><img src="http://i.stack.imgur.com/CvLjT.jpg?s=32&amp;g=1" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/4787515/maxim-pontyushenko">Maxim Pontyushenko</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">317</span><span title="1 silver badge"><span class="badge2"></span><span class="badgecount">1</span></span><span title="10 bronze badges"><span class="badge3"></span><span class="badgecount">10</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-31271862" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0"
+                       data-canpost="true"
+                       data-cansee="false"
+                       data-comments-unavailable="false"
+                       data-addlink-disabled="false">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+				    <tfoot>
+					    <tr>
+						    <td></td>
+						    <td class="comment-form">
+							    <form id="add-comment-31271862" 
+							          class="" 
+							          data-placeholdertext="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."></form>
+						    </td>
+					    </tr>
+				    </tfoot>
+		    </table>
+	    </div>
+
+        <div id="comments-link-31271862" >
+
+                <a class="js-add-link comments-link "
+                   title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."
+                   href=#>add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href=# onclick=""></a>
+        </div>         
+    </td>
+</tr>    </table>
+</div>
+
+  
+<a name="31271823"></a>
+<div id="answer-31271823" class="answer" data-answerid="31271823"  itemscope itemtype="http://schema.org/Answer">
+
+    <table>
+        <tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="31271823">
+        <a class="vote-up-off" title="This answer is useful (click again to undo)">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">0</span>
+        <a class="vote-down-off" title="This answer is not useful (click again to undo)">down vote</a>
+
+
+
+    <a id="vote-accepted-31271823" 
+        class="vote-accepted-off " 
+        href="javascript:void(0);"
+        data-title-accept="Click to accept this answer because it solved your problem or was the most helpful in finding your solution (click again to undo)" 
+        data-verb-accept="accept"
+        data-title-unaccept="Click to undo acceptance of this answer; you accepted this answer " 
+        data-verb-unaccept="unaccept"></a>
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>I can give you a list of exceptions but I am not sure if that is what you really want. Instead you probably want to figure out which exceptions will be thrown in your specific case. More importantly you probably should not be rescuing exceptions to begin with. For more information take a look at <a href="http://daniel.fone.net.nz/blog/2013/05/28/why-you-should-never-rescue-exception-in-ruby/" rel="nofollow">this link</a></p>
+
+<p>However you asked for a <a href="http://blog.nicksieger.com/articles/2006/09/06/rubys-exception-hierarchy/" rel="nofollow">list</a> so here you go:</p>
+
+<ul>
+<li>Exception</li>
+<li>NoMemoryError</li>
+<li>ScriptError</li>
+<li>LoadError</li>
+<li>NotImplementedError</li>
+<li>SyntaxError</li>
+<li>SignalException</li>
+<li>Interrupt</li>
+<li>StandardError</li>
+<li>ArgumentError</li>
+<li>IOError</li>
+<li>EOFError</li>
+<li>IndexError</li>
+<li>LocalJumpError</li>
+<li>NameError</li>
+<li>NoMethodError</li>
+<li>RangeError</li>
+<li>FloatDomainError</li>
+<li>RegexpError</li>
+<li>RuntimeError</li>
+<li>SecurityError</li>
+<li>SystemCallError</li>
+<li>SystemStackError</li>
+<li>ThreadError</li>
+<li>TypeError</li>
+<li>ZeroDivisionError</li>
+<li>SystemExit</li>
+<li>fatal</li>
+</ul>
+
+<p>You can visit the link to find a hierarchy of the errors as well. </p>
+    </div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+<div class="post-menu"><a href="/a/31271823/4560524" title="short permalink to this answer" class="short-link" id="link-post-31271823">share</a><span class="lsep">|</span><a href="/posts/31271823/edit" class="suggest-edit-post" title="revise and improve this post">edit</a><span class="lsep">|</span><a href="#"
+       class="flag-post-link"
+       title="flag this post for serious problems or moderator attention"
+       data-postid="31271823">flag</a></div>                    </td>
+    <td align="right" class="post-signature">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="/posts/31271823/revisions" title="show all edits to this post">edited <span title="2015-07-07 14:43:20Z" class="relativetime">5 mins ago</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        <br>
+        
+    </div>
+</div>    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2015-07-07 14:41:34Z" class="relativetime">7 mins ago</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/3861396/2016rshah"><div class="gravatar-wrapper-32"><img src="https://www.gravatar.com/avatar/7c5461c6b9136f38ca27541a6b45a6cc?s=32&amp;d=identicon&amp;r=PG&amp;f=1" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/3861396/2016rshah">2016rshah</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">130</span><span title="9 bronze badges"><span class="badge3"></span><span class="badgecount">9</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-31271823" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0"
+                       data-canpost="true"
+                       data-cansee="false"
+                       data-comments-unavailable="false"
+                       data-addlink-disabled="false">
+
+
+
+    <tr id="comment-50537943" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">but this list is not ActiveRecord::RecordNotFound.It means the list is not complete</span>
+                &ndash;&nbsp;
+                    <a href="/users/4560524/stackov8"
+                       title="89 reputation"
+                       class="comment-user owner">stackov8</a>
+                <span class="comment-date" dir="ltr"><span title="2015-07-07 14:43:13Z" class="relativetime-clean">5 mins ago</span></span>
+                                                                    &nbsp;
+                    <a class="comment-delete delete-tag" title="delete this comment">
+                    </a>
+                    <a class="comment-delete-empty" href="#" title="delete this comment"></a>                             </div>
+                    </td>
+    </tr>
+    <tr id="comment-50538241" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                                <td>
+                                    <a class="comment-flag" title="Flag this comment for serious problems or moderator attention">flag</a>
+                                </td>
+                        </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">@stackov8 Downvoted your question because of your comment. Where is it written that you want <code>ActiveRecord::RecordNotFound</code>?</span>
+                &ndash;&nbsp;
+                    <a href="/users/314166/sawa"
+                       title="76701 reputation"
+                       class="comment-user">sawa</a>
+                <span class="comment-date" dir="ltr"><span title="2015-07-07 14:48:57Z" class="relativetime-clean">just now</span></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+				    <tfoot>
+					    <tr>
+						    <td></td>
+						    <td class="comment-form">
+							    <form id="add-comment-31271823" 
+							          class="" 
+							          data-placeholdertext="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."></form>
+						    </td>
+					    </tr>
+				    </tfoot>
+		    </table>
+	    </div>
+
+        <div id="comments-link-31271823" >
+
+                <a class="js-add-link comments-link "
+                   title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."
+                   href=#>add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href=# onclick=""></a>
+        </div>         
+    </td>
+</tr>    </table>
+</div>
+									<a name='new-answer'></a>
+						<form id="post-form" action="/questions/31271588/answer/submit" method="post"  class="dno post-form">
+						    <input type="hidden" id="post-id" value="31271588" />
+                            <input type="hidden" id="qualityBanWarningShown" name="qualityBanWarningShown" value="false" />
+                            <input type="hidden" name="referrer" value="http://stackoverflow.com/questions/ask"/>
+							<h2 class="space">Your Answer</h2>
+
+
+
+            <script>
+            StackExchange.ifUsing("editor", function () {
+                StackExchange.using("externalEditor", function () {
+                    StackExchange.using("snippets", function () {
+                        StackExchange.snippets.init();
+                    });
+                });
+            }, "code-snippets");
+        </script>
+    
+
+<script>
+    StackExchange.ready(function() {
+        initTagRenderer("".split(" "), "".split(" "));
+       
+        StackExchange.using("externalEditor", function() {
+            // Have to fire editor after snippets, if snippets enabled
+            if (StackExchange.options.snippets.enabled) {
+                StackExchange.using("snippets", function() {
+                    createEditor();
+                });
+            }
+            else {
+                createEditor();
+            }
+        });
+
+        function createEditor() {
+            prepareEditor({
+                heartbeatType: 'answer',
+                bindNavPrevention: true,
+                postfix: "",
+                    onDemand: false,
+                    discardSelector: ".discard-answer"
+                ,immediatelyShowMarkdownHelp:true
+                });
+                
+
+        }
+    });  
+</script>
+
+
+<div id="post-editor" class="post-editor js-post-editor">
+
+    <div style="position: relative;">     
+        <div class="wmd-container">
+            <div id="wmd-button-bar" class="wmd-button-bar"></div>
+            <textarea id="wmd-input" class="wmd-input" name="post-text" cols="92" rows="15" tabindex="101" data-min-length=""></textarea>
+        </div>
+    </div>
+
+    <div class="fl" style="margin-top: 8px; height:24px;">&nbsp;</div>
+    <div id="draft-saved" class="draft-saved community-option fl" style="margin-top: 8px; height:24px; display:none;">draft saved</div>
+
+    <div id="draft-discarded" class="draft-discarded community-option fl" style="margin-top: 8px; height:24px; display:none;">draft discarded</div>
+
+    <div class="community-option">
+        <input id="communitymode" name="communitymode" type="checkbox" >
+        <label for="communitymode" title="Marking an answer community wiki encourages others to edit it by lowering the reputation barrier required to edit. However, you will not gain any upvote reputation from it. This cannot be undone.">community wiki</label>
+    </div>
+
+
+    <div id="wmd-preview" class="wmd-preview"></div>
+    <div></div>
+    <div class="edit-block">
+        <input id="fkey" name="fkey" type="hidden" value="92e804f1cbc62be1a0aa52aea63a1e91">
+        <input id="author" name="author" type="text">
+    </div>
+
+
+
+</div>
+							<div style="position: relative;">
+								
+							</div>
+           
+															<div class="form-submit cbt">
+									<input id="submit-button" type="submit" value="Post Your Answer" tabindex="110">
+									<a href="#" class="discard-answer dno">discard</a>
+								</div>
+						</form>
+							<div id="show-editor-button" class="form-submit">
+                                <input type="button"
+                                       value="Answer Your Question"
+                                       data-confirm-text="Are you sure you want to answer your own question?
+
+    If you&#39;re responding to answers left on your question, enter comments under each answer.
+
+    If you need to add details to your question, use the edit link under your question."
+                                       data-confirm-use-fancy="True"
+                                       data-confirm-fancy-title="Are you sure you want to answer your question?"
+                                       data-confirm-fancy-body="<b>Comment</b> if you&#39;re trying to respond to an answer. <br/><br/> <b>Edit your question</b> if you need to add more details. <br/><br/>"
+                                       data-confirm-fancy-accept-button="Yes, I want to post an answer"/>
+							</div>
+							<script>
+								StackExchange.ready(function () {
+								    $("#show-editor-button input").click(function () {
+								        var showEditor = function() {
+								            $("#show-editor-button").hide();
+								            $("#post-form").removeClass("dno");
+								            StackExchange.editor.finallyInit();
+								        };
+
+								        var useFancy = $(this).data('confirm-use-fancy');
+								        if(useFancy == 'True') {
+								            var popupTitle = $(this).data('confirm-fancy-title');
+								            var popupBody = $(this).data('confirm-fancy-body');
+								            var popupAccept = $(this).data('confirm-fancy-accept-button');
+                                            
+								            $(this).loadPopup({
+								                url: '/post/self-answer-popup',
+								                loaded: function(popup) {
+								                    var pTitle = $(popup).find('h2');
+								                    var pBody = $(popup).find('.popup-body');
+								                    var pSubmit = $(popup).find('.popup-submit');
+
+								                    pTitle.text(popupTitle);
+								                    pBody.html(popupBody);
+								                    pSubmit.val(popupAccept).click(showEditor);
+								                }
+								            })
+								        } else{
+								            var confirmText = $(this).data('confirm-text');
+								            if (confirmText ? confirm(confirmText) : true) {
+								                showEditor();
+								            }
+								        }
+									});
+								});
+							</script>
+
+
+
+<div>
+    <h2 class="bottom-notice">
+        Would you like to have responses to your questions <a id="inbox-notify-d4e5c2de8aea46629fd6779d112ae277" href="#">sent to you via email</a>?
+    </h2>
+    <div id="inbox-notify-d4e5c2de8aea46629fd6779d112ae277-container" style="display: none; ">
+        <div>
+            <input type="checkbox" id="inbox-notify-d4e5c2de8aea46629fd6779d112ae277-enable" />
+            <label for="inbox-notify-d4e5c2de8aea46629fd6779d112ae277-enable">
+                Email me my unread inbox messages
+            </label>
+            <select id="inbox-notify-d4e5c2de8aea46629fd6779d112ae277-freq">
+                <option value="3">every 3 hours</option>
+                <option value="24">daily</option>
+                <option value="168">weekly</option>
+            </select>
+        </div>
+        <div>
+            Send emails to
+            <input id="inbox-notify-d4e5c2de8aea46629fd6779d112ae277-address" style="width: 300px;" value="stackov8@yandex.ru" />
+        </div>
+        <div>
+            <input class="email-save" type="button" value="Save email settings" disabled="disabled" />
+        </div>
+        <div class="email-confirmation"></div>
+        <hr />
+    </div>
+</div>
+<script>
+    StackExchange.ready(function () {
+        var inboxSettingsShown = false;
+        $("#inbox-notify-d4e5c2de8aea46629fd6779d112ae277").click(function () {
+            var ec = $('#inbox-notify-d4e5c2de8aea46629fd6779d112ae277-container');
+            var btn = ec.find(".email-save");
+            var result = ec.find(".email-confirmation");
+            
+            var enableSave = function () {
+                btn.removeAttr("disabled");
+                result.html('');
+            };
+
+            var disableSave = function () {
+                btn.attr("disabled", "disabled");
+            };
+            disableSave();
+
+            if (ec.is(':visible')) {
+                ec.slideUp('fast');
+            } else {
+                if (!inboxSettingsShown) {
+                    StackExchange.gps.track('inbox_settings.show', { location: 4 });
+                    inboxSettingsShown = true;
+                }
+                ec.slideDown('fast');
+            }
+            
+            $("#inbox-notify-d4e5c2de8aea46629fd6779d112ae277-freq").val(24).on("click focus", function () { $("#inbox-notify-d4e5c2de8aea46629fd6779d112ae277-enable").prop("checked", true); });
+            $("#inbox-notify-d4e5c2de8aea46629fd6779d112ae277-address").focus().keyup(enableSave);
+            $("#inbox-notify-d4e5c2de8aea46629fd6779d112ae277-enable, #inbox-notify-d4e5c2de8aea46629fd6779d112ae277-freq").change(enableSave);
+
+            btn.click(function () {
+                var req =
+                {
+                    email: $('#inbox-notify-d4e5c2de8aea46629fd6779d112ae277-address').val(),
+                    fkey: StackExchange.options.user.fkey,
+                    optin: $('#inbox-notify-d4e5c2de8aea46629fd6779d112ae277-enable').is(':checked'),
+                    freq: $('#inbox-notify-d4e5c2de8aea46629fd6779d112ae277-freq').val(),
+                    location: 4
+                };
+                ec.addSpinner();
+                $.post(
+                    '/accounts/verified-email-set',
+                    req,
+                    function (data) {
+                        ec.removeSpinner();
+                        result.html(data.message).fadeIn();
+
+                        if (data.success) disableSave();
+                    },
+                    'json');
+            });
+
+            return false;
+        });
+    });
+</script>
+
+			</div>
+		</div>
+				<div id="sidebar" class="show-votes">
+						    <div class="module question-stats">
+			        <table id="qinfo">
+			            <tr>
+			                <td>
+			                    <p class="label-key">asked</p>
+			                </td>
+			                <td style="padding-left: 10px">
+			                    <p class="label-key" title="2015-07-07 14:32:56Z"><b>today</b></p>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                    <p class="label-key">viewed</p>
+			                </td>
+
+			                <td style="padding-left: 10px">
+			                    <p class="label-key">
+			                        <b>20 times</b>
+			                    </p>
+			                </td>
+			            </tr>
+			                <tr>
+			                    <td>
+			                        <p class="label-key">active</p>
+			                    </td>
+			                    <td style="padding-left: 10px">
+			                        <p class="label-key"><b><a href="?lastactivity" class="lastactivity-link" title="2015-07-07 14:43:20Z">today</a></b></p>
+			                    </td>
+			                </tr>
+			        </table>
+			    </div>
+			<div class="module community-bulletin" data-tracker="cb=1">
+    <div class="related">
+                <div class="bulletin-title">
+                    Featured on Meta
+                </div>
+                <hr />
+    <div class="spacer">
+        <div class="bulletin-item-type">
+                <a href="http://meta.stackexchange.com/questions/260153/upcoming-login-changes" class="question-hyperlink">
+<div class="favicon favicon-stackexchangemeta" title="Meta Stack Exchange"></div>                </a>
+            </div>
+                <div class="bulletin-item-content">
+                    <a href="http://meta.stackexchange.com/questions/260153/upcoming-login-changes" class="question-hyperlink">Upcoming login changes</a>
+                </div>
+                <br class="cbt" />
+            </div>
+                <div class="bulletin-title">
+                    Hot Meta Posts
+                </div>
+                <hr />
+    <div class="spacer">
+        <div class="bulletin-item-type">
+                <span title="Vote score (upvotes - downvotes)">57</span>
+            </div>
+                <div class="bulletin-item-content">
+                    <a href="http://meta.stackoverflow.com/questions/298587/user-accounts-that-are-blatant-ads-for-escort-services" class="question-hyperlink">User accounts that are blatant ads for escort services</a>
+                </div>
+                <br class="cbt" />
+            </div>
+    <div class="spacer">
+        <div class="bulletin-item-type">
+                <span title="Vote score (upvotes - downvotes)">23</span>
+            </div>
+                <div class="bulletin-item-content">
+                    <a href="http://meta.stackoverflow.com/questions/298612/do-we-need-a-checklist-for-crc-questions" class="question-hyperlink">Do we need a checklist for [crc] questions?</a>
+                </div>
+                <br class="cbt" />
+            </div>
+    <div class="spacer">
+        <div class="bulletin-item-type">
+                <span title="Vote score (upvotes - downvotes)">18</span>
+            </div>
+                <div class="bulletin-item-content">
+                    <a href="http://meta.stackoverflow.com/questions/298670/this-tag-cant-be-ignored-ignoring" class="question-hyperlink">This tag can&#39;t be ignored, [ignoring]</a>
+                </div>
+                <br class="cbt" />
+            </div>
+    </div>
+</div>			
+			<script>
+                var ados = ados || {}; ados.run = ados.run || [];
+                ados.run.push(function () { ados_add_placement(22,8277,"adzerk1232539431",[17,2221]).setZone(45); });
+            </script>
+            <div class="everyonelovesstackoverflow" id="adzerk1232539431">
+            </div>
+        <div id="hireme">
+            <script>
+;(function(i){var a=window.$,d=20,m=2000,f="#sidebar [id^='adzerk'].everyonelovesstackoverflow",l="div#hireme,div.hireme",t=setTimeout,c=i.adurl,r=i.azw,g=i.azt,u=function(){return new Date().getTime()},s=u();function j(x){var y={},z=window.StackExchange,w=decodeURIComponent,A;if(x.length>1){x.substr(1).split("&").forEach(function(B){var C=B.split("=");this[w(C[0])]=w(C[1])},y)}var v=y.ac||y.accountid||(z&&z.options&&z.options.user&&z.options.user.accountId);if(v){y.ac=v}if(!y.tags){A=a(".post-taglist .post-tag").map(function(){return a(this).text()});if(A.length>0){y.tags=Array.prototype.join.call(A,";")}}if(x==="#large"){y.l=1}if(x==="#abort"){y.abort=1}return y}function k(v){return a(v).html().replace(/\s+/g,"").length>0}var b=false;function o(A,w){if(b){return}b=true;var v=a(l),x=document,y=encodeURIComponent;clearTimeout(e);if(v.length>0){if(A.l||a("#careersadsdoublehigh").length>0){A.l=1}var C=v.map(function(G,F){return"d="+F.id}).get().join("&");var E=["l","ip","ac","eng","prov","tags","theme","remote","seed"];var B=Object.keys(A).filter(function(F){return E.indexOf(F)!==-1}).map(function(F){return y(F)+"="+y(A[F])}).join("&");if(B){C+="&"+B}if(w){C+="&azt=true"}var z=u()-s;C+="&lw="+z;var D=x.createElement("script");D.type="text/javascript";D.src=c+(c.indexOf("?")===-1?"?":"&")+C;x.body.appendChild(D);window.calculonPlacerStart=new Date().getTime()}}function q(w){var v=a(w);if(!k(v)){console.log(w);v.remove()}}var n=j(location.hash);if(n.abort){return}var h=null;if(r){h=t(o,g,n,true)}function p(v){if(k(f)){if(h){clearTimeout(h)}o(v)}else{e=t(p,d,v)}}var e=t(p,d,n);t(q,m,l)}).apply(null, [{"azw":false,"azt":2000,"adurl":"//clc.stackoverflow.com/j/p"}]);            </script>
+        </div>
+			  
+    
+            
+
+				<div class="module sidebar-related">
+					<h4 id="h-related">Related</h4>
+                    <div class="related js-gps-related-questions" data-tracker="rq=1">
+                        <div class="spacer">
+<a href="/q/60658" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted large">129
+    </div>
+</a><a href="/questions/60658/rails-model-view-controller-and-helper-what-goes-where" class="question-hyperlink">Rails Model, View, Controller, and Helper: what goes where?</a>
+</div>
+<div class="spacer">
+<a href="/q/175655" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted large">191
+    </div>
+</a><a href="/questions/175655/how-to-find-where-a-method-is-defined-at-runtime" class="question-hyperlink">How to find where a method is defined at runtime?</a>
+</div>
+<div class="spacer">
+<a href="/q/1068558" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted large">171
+    </div>
+</a><a href="/questions/1068558/oo-design-in-rails-where-to-put-stuff" class="question-hyperlink">OO Design in Rails: Where to put stuff</a>
+</div>
+<div class="spacer">
+<a href="/q/1722749" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted large">190
+    </div>
+</a><a href="/questions/1722749/how-to-use-rspecs-should-raise-with-any-kind-of-exception" class="question-hyperlink">How to use rspec&#39;s should_raise with any kind of exception?</a>
+</div>
+<div class="spacer">
+<a href="/q/5200842" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">66
+    </div>
+</a><a href="/questions/5200842/where-to-define-custom-error-types-in-ruby-and-or-rails" class="question-hyperlink">Where to define custom error types in Ruby and/or Rails?</a>
+</div>
+<div class="spacer">
+<a href="/q/16139481" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="/questions/16139481/backslashes-in-my-params" class="question-hyperlink">Backslashes in my params</a>
+</div>
+<div class="spacer">
+<a href="/q/19135793" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">0
+    </div>
+</a><a href="/questions/19135793/rails-combobox-issue-with-has-many-through-relationship" class="question-hyperlink">Rails combobox issue with has_many :through relationship</a>
+</div>
+<div class="spacer">
+<a href="/q/27724050" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">3
+    </div>
+</a><a href="/questions/27724050/creating-rails-todo-list-app-with-goals-and-tasks-on-one-page-missing-params" class="question-hyperlink">Creating Rails todo list app with goals and tasks on one page - missing params</a>
+</div>
+<div class="spacer">
+<a href="/q/29283678" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">2
+    </div>
+</a><a href="/questions/29283678/trouble-locating-and-displaying-list-of-records-from-a-relationship-model-in-rai" class="question-hyperlink">Trouble locating and displaying list of records from a relationship model in Rails app</a>
+</div>
+<div class="spacer">
+<a href="/q/30726863" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="/questions/30726863/when-chaining-several-queries-together-in-rails-how-does-one-handle-exceptions" class="question-hyperlink">When chaining several queries together in rails, how does one handle exceptions well?</a>
+</div>
+
+                    </div>
+				</div>
+            
+<div id="hot-network-questions" class="module">
+    <h4>
+        <a href="//stackexchange.com/questions?tab=hot" 
+           class="js-gps-track" 
+           data-gps-track="posts_hot_network.click({ item_type:1, location:11 })">
+            Hot Network Questions
+        </a>
+    </h4>
+    <ul>
+            <li >
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="http://academia.stackexchange.com/questions/48344/is-it-normal-to-be-suspicious-of-a-really-interesting-finding-but-in-an-obscure" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is it normal to be suspicious of a really interesting finding but in an obscure journal and/or by authors from unknown universities
+                </a>
+
+            </li>
+            <li >
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="http://english.stackexchange.com/questions/256999/what-is-it-called-when-a-highly-respected-person-commits-an-immoral-act-but-peop" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is it called when a highly respected person commits an immoral act but people don&#39;t believe that he committed the act?
+                </a>
+
+            </li>
+            <li >
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="http://scifi.stackexchange.com/questions/94729/do-terminators-feel-pain" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Do Terminators feel pain?
+                </a>
+
+            </li>
+            <li >
+                <div class="favicon favicon-puzzling" title="Puzzling Stack Exchange"></div><a href="http://puzzling.stackexchange.com/questions/17510/the-jewellers-dilemma" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:559 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    The Jeweller&#39;s Dilemma
+                </a>
+
+            </li>
+            <li >
+                <div class="favicon favicon-gis" title="Geographic Information Systems Stack Exchange"></div><a href="http://gis.stackexchange.com/questions/153514/us-mexican-border" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:79 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    US Mexican border
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-outdoors" title="The Great Outdoors Stack Exchange"></div><a href="http://outdoors.stackexchange.com/questions/8687/what-is-this-tool-on-a-swiss-army-knife-for" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:395 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is this tool on a Swiss Army knife for?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-music" title="Music: Practice &amp; Theory Stack Exchange"></div><a href="http://music.stackexchange.com/questions/33828/what-to-choose-violin-or-piano" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:240 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What to choose? Violin or piano?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="http://english.stackexchange.com/questions/257077/a-synonym-for-picky-with-a-positive-connotation-food" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    A synonym for &quot;picky&quot; with a positive connotation (food)?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-ell" title="English Language Learners Stack Exchange"></div><a href="http://ell.stackexchange.com/questions/61180/breaking-parachute" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:481 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    breaking parachute
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="http://worldbuilding.stackexchange.com/questions/20043/how-well-would-a-soldier-or-army-do-with-one-of-their-hands-replaced-with-a-swor" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How well would a soldier or army do with one of their hands replaced with a sword?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-unix" title="Unix &amp; Linux Stack Exchange"></div><a href="http://unix.stackexchange.com/questions/214274/purpose-of-permissions-such-as-0111-or-0333" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:106 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Purpose of permissions such as 0111 or 0333
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/52701/print-the-flag-of-the-arab-revolt" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Print the Flag of the Arab Revolt!
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/1352523/how-to-find-the-shift-that-minimizes-the-difference-between-two-vectors" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to find the shift that minimizes the difference between two vectors?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-ux" title="User Experience Stack Exchange"></div><a href="http://ux.stackexchange.com/questions/81113/color-palette-for-website-i-am-working-on" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:102 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Color palette for website I am working on
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-gaming" title="Arqade"></div><a href="http://gaming.stackexchange.com/questions/226962/how-to-make-a-teleport-command-that-does-not-work-in-the-nether" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:41 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to make a teleport command that does not work in the Nether?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/52712/brainfuck-to-unary-and-back" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Brainfuck to Unary and Back
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-vi" title="Vi and Vim Stack Exchange"></div><a href="http://vi.stackexchange.com/questions/3862/undo-cr-in-insert-mode" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:599 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Undo &lt;CR&gt; in insert mode
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="http://stackoverflow.com/questions/31266947/ref-keyword-referenceequals" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    ref keyword ReferenceEquals
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-money" title="Personal Finance &amp; Money Stack Exchange"></div><a href="http://money.stackexchange.com/questions/49626/paid-cash-for-a-car-but-dealer-wants-to-change-price" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:93 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Paid cash for a car, but dealer wants to change price
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-electronics" title="Electrical Engineering Stack Exchange"></div><a href="http://electronics.stackexchange.com/questions/179030/what-happens-to-unused-power-in-generators" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:135 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What happens to unused power in generators
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-ux" title="User Experience Stack Exchange"></div><a href="http://ux.stackexchange.com/questions/80767/is-the-folder-structure-dying" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:102 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is the folder structure dying?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-electronics" title="Electrical Engineering Stack Exchange"></div><a href="http://electronics.stackexchange.com/questions/179046/how-to-select-proper-capacitors-and-capacitance-for-lm78xx" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:135 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to select proper capacitors and capacitance for LM78xx?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="http://rpg.stackexchange.com/questions/64421/creating-a-city-made-of-illusion-that-wont-be-quickly-figured-out" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Creating a city made of illusion that won&#39;t be quickly figured out
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-money" title="Personal Finance &amp; Money Stack Exchange"></div><a href="http://money.stackexchange.com/questions/49582/why-does-chase-freedom-require-me-to-activate-my-card-for-rewards-every-quarte" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:93 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why does Chase Freedom require me to &quot;activate&quot; my card for rewards every quarter?
+                </a>
+
+            </li>
+    </ul>
+
+        <a href="#" 
+           class="show-more js-show-more js-gps-track" 
+           data-gps-track="posts_hot_network.click({ item_type:3, location:11 })">
+            more hot questions
+        </a>
+</div>
+		</div>
+	
+<div id="feed-link">
+    <div id="feed-link-text">
+        <a href="/feeds/question/31271588" title="feed of this question and its answers">
+            <span class="feed-icon"></span>question feed
+        </a>
+    </div>
+</div>	<script>
+StackExchange.ready(function(){$.get('/posts/31271588/ivc/82e1');});
+</script>
+<noscript>
+    <div><img src="/posts/31271588/ivc/82e1" class="dno" alt="" width="0" height="0"></div>
+</noscript><div style="display:none" id="prettify-lang">lang-rb</div></div>
+
+
+
+        </div>
+    </div>
+    <div id="footer" class="categories">
+        <div class="footerwrap">
+            <div id="footer-menu">
+                <div class="top-footer-links">
+                        <a href="/tour">tour</a>
+                    <a href="/help">help</a>
+                    <a href="http://blog.stackoverflow.com?blb=1">blog</a>
+                        <a href="http://chat.stackoverflow.com">chat</a>
+                    <a href="http://data.stackexchange.com">data</a>
+                    <a href="http://stackexchange.com/legal">legal</a>
+                    <a href="http://stackexchange.com/legal/privacy-policy">privacy policy</a>
+                    <a href="http://stackexchange.com/work-here">work here</a>
+                    <a href="http://stackexchange.com/mediakit">advertising info</a>
+
+                    <a onclick='StackExchange.switchMobile("on")'>mobile</a>
+                    <b><a href="/contact">contact us</a></b>
+                        <b><a href="http://meta.stackoverflow.com">feedback</a></b>
+                    
+                </div>
+                <div id="footer-sites">
+                    <table>
+    <tr>
+            <th colspan=3>
+                Technology
+            </th>
+            <th >
+                Life / Arts
+            </th>
+            <th >
+                Culture / Recreation
+            </th>
+            <th >
+                Science
+            </th>
+            <th >
+                Other
+            </th>
+    </tr>
+    <tr>
+            <td>
+                <ol>
+                        <li><a href="//stackoverflow.com" title="professional and enthusiast programmers">Stack Overflow</a></li>
+                        <li><a href="//serverfault.com" title="system and network administrators">Server Fault</a></li>
+                        <li><a href="//superuser.com" title="computer enthusiasts and power users">Super User</a></li>
+                        <li><a href="//webapps.stackexchange.com" title="power users of web applications">Web Applications</a></li>
+                        <li><a href="//askubuntu.com" title="Ubuntu users and developers">Ask Ubuntu</a></li>
+                        <li><a href="//webmasters.stackexchange.com" title="pro webmasters">Webmasters</a></li>
+                        <li><a href="//gamedev.stackexchange.com" title="professional and independent game developers">Game Development</a></li>
+                        <li><a href="//tex.stackexchange.com" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="//programmers.stackexchange.com" title="professional programmers interested in conceptual questions about software development">Programmers</a></li>
+                        <li><a href="//unix.stackexchange.com" title="users of Linux, FreeBSD and other Un*x-like operating systems.">Unix &amp; Linux</a></li>
+                        <li><a href="//apple.stackexchange.com" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
+                        <li><a href="//wordpress.stackexchange.com" title="WordPress developers and administrators">WordPress Development</a></li>
+                        <li><a href="//gis.stackexchange.com" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
+                        <li><a href="//electronics.stackexchange.com" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
+                        <li><a href="//android.stackexchange.com" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
+                        <li><a href="//security.stackexchange.com" title="Information security professionals">Information Security</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="//dba.stackexchange.com" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
+                        <li><a href="//drupal.stackexchange.com" title="Drupal developers and administrators">Drupal Answers</a></li>
+                        <li><a href="//sharepoint.stackexchange.com" title="SharePoint enthusiasts">SharePoint</a></li>
+                        <li><a href="//ux.stackexchange.com" title="user experience researchers and experts">User Experience</a></li>
+                        <li><a href="//mathematica.stackexchange.com" title="users of Mathematica">Mathematica</a></li>
+                        <li><a href="//salesforce.stackexchange.com" title="Salesforce administrators, implementation experts, developers and anybody in-between">Salesforce</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#technology" class="more">
+                                more (14)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="//photo.stackexchange.com" title="professional, enthusiast and amateur photographers">Photography</a></li>
+                        <li><a href="//scifi.stackexchange.com" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
+                        <li><a href="//graphicdesign.stackexchange.com" title="Graphic Design professionals, students, and enthusiasts">Graphic Design</a></li>
+                        <li><a href="//cooking.stackexchange.com" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
+                        <li><a href="//diy.stackexchange.com" title="contractors and serious DIYers">Home Improvement</a></li>
+                        <li><a href="//money.stackexchange.com" title="people who want to be financially literate">Personal Finance &amp; Money</a></li>
+                        <li><a href="//academia.stackexchange.com" title="academics and those enrolled in higher education">Academia</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#lifearts" class="more">
+                                more (10)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="//english.stackexchange.com" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
+                        <li><a href="//skeptics.stackexchange.com" title="scientific skepticism">Skeptics</a></li>
+                        <li><a href="//judaism.stackexchange.com" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
+                        <li><a href="//travel.stackexchange.com" title="road warriors and seasoned travelers">Travel</a></li>
+                        <li><a href="//christianity.stackexchange.com" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
+                        <li><a href="//gaming.stackexchange.com" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
+                        <li><a href="//bicycles.stackexchange.com" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
+                        <li><a href="//rpg.stackexchange.com" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#culturerecreation" class="more">
+                                more (21)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="//math.stackexchange.com" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
+                        <li><a href="//stats.stackexchange.com" title="people interested in statistics, machine learning, data analysis, data mining, and data visualization">Cross Validated (stats)</a></li>
+                        <li><a href="//cstheory.stackexchange.com" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
+                        <li><a href="//physics.stackexchange.com" title="active researchers, academics and students of physics">Physics</a></li>
+                        <li><a href="//mathoverflow.net" title="professional mathematicians">MathOverflow</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#science" class="more">
+                                more (7)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="//stackapps.com" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
+                        <li><a href="//meta.stackexchange.com" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Exchange</a></li>
+                        <li><a href="//area51.stackexchange.com" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
+                        <li><a href="//careers.stackoverflow.com">Stack Overflow Careers</a></li>
+                    
+                </ol>
+            </td>
+    </tr>
+</table>
+                </div>
+            </div>
+
+            <div id="copyright">
+                site design / logo &#169; 2015 stack exchange inc; user contributions licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc by-sa 3.0</a> 
+                with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+            <div id="svnrev">
+                rev 2015.7.7.2698
+            </div>
+            
+        </div>
+    </div>
+    <noscript>
+        <div id="noscript-warning">Stack Overflow works best with JavaScript enabled<img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"></div>
+    </noscript>
+<script>var p = "http", d = "static"; if (document.location.protocol == "https:") { p += "s"; d = "engine"; } var z = document.createElement("script"); z.type = "text/javascript"; z.async = true; z.src = p + "://" + d + ".adzerk.net/ados.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(z, s);</script>
+<script>
+    var ados = ados || {};
+    ados.run = ados.run || [];
+    ados.run.push(function () { ados_setKeywords('ruby-on-rails,ruby,x-user-registered');; ados_load(); });         
+</script>
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m);
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-5620270-1');        
+        ga('set', 'dimension1', '5779389');         
+        ga('set', 'dimension2', '|ruby-on-rails|ruby|');         
+        ga('send', 'pageview');
+        var _qevents = _qevents || [],
+            _comscore = _comscore || [];
+        (function () {
+            var ssl='https:'==document.location.protocol,
+                s=document.getElementsByTagName('script')[0],
+                qc=document.createElement('script');
+            qc.async=true;
+            qc.src=(ssl?'https://secure':'http://edge')+'.quantserve.com/quant.js';
+            s.parentNode.insertBefore(qc, s);
+            var sc=document.createElement('script');
+            sc.async=true;
+            sc.src=(ssl?'https://sb':'http://b') + '.scorecardresearch.com/beacon.js';
+            s.parentNode.insertBefore(sc, s);
+        })();
+        _comscore.push({ c1: "2", c2: "17440561" });
+        _qevents.push({ qacct: "p-c1rF4kxgLUzNc" });
+    </script>            
+    </body>
+</html>

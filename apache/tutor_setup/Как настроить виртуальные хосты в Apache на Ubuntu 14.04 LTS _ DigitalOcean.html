@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<!-- saved from url=(0075)https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru -->
+<html class="wf-proximanova-n4-active wf-proximanova-i4-active wf-proximanova-n1-active wf-proximanova-n3-active wf-proximanova-n6-active wf-proximanova-n7-active wf-active"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS | DigitalOcean</title>
+
+<meta name="description" content="Веб-сервер Apache является самым популярным средством размещения веб-контента в интернете. На его счету более половины всех действующих веб-сайтов. Это очень мощный и гибкий инструмент. Apache разделяет свои функциональные возможности и компоненты на">
+<meta name="keywords" content="Getting Started Linux Basics Apache">
+
+<meta name="og:title" content="Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS | DigitalOcean">
+<meta name="og:description" content="Веб-сервер Apache является самым популярным средством размещения веб-контента в интернете. На его счету более половины всех действующих веб-сайтов. Это очень мощный и гибкий инструмент. Apache разделяет свои функциональные возможности и компоненты на">
+<meta name="og:site_name" content="DigitalOcean">
+<meta name="og:type" content="article">
+
+<meta name="twitter:site" content="DigitalOcean">
+<meta name="twitter:title" content="Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS | DigitalOcean">
+<meta name="twitter:description" content="Веб-сервер Apache является самым популярным средством размещения веб-контента в интернете. На его счету более половины всех действующих веб-сайтов. Это очень мощный и гибкий инструмент. Apache разделяет свои функциональные возможности и компоненты на">
+<meta name="twitter:creator" content="DigitalOcean">
+<meta name="twitter:card" content="photo">
+<meta name="twitter:url" content="https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru">
+
+<meta property="og:image" content="https://www.digitalocean.com/assets/community/default_social_sharing-4c803c152c4cc1974dfac71a69fdab63.png">
+<meta name="twitter:image" content="https://www.digitalocean.com/assets/community/default_social_sharing-4c803c152c4cc1974dfac71a69fdab63.png">
+
+  <link rel="canonical" href="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean.html">
+
+        <link rel="alernate" hreflang="en" href="https://www.digitalocean.com/community/tutorials/how-to-set-up-apache-virtual-hosts-on-ubuntu-14-04-lts">
+      <link rel="alernate" hreflang="es" href="https://www.digitalocean.com/community/tutorials/como-configurar-virtual-host-de-apache-en-ubuntu-14-04-lts-es">
+      <link rel="alernate" hreflang="pt" href="https://www.digitalocean.com/community/tutorials/como-configurar-apache-virtual-hosts-no-ubuntu-14-04-lts-pt">
+      <link rel="alernate" hreflang="ru" href="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean.html">
+
+
+    <link rel="stylesheet" media="all" href="https://www.digitalocean.com/assets/community/application-b84c8dd766c9ec8b5f3a3b2e454dad37.css">
+    <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="9HT0IPn74OODFqNZiQ/yQ7/XNtUEr6faZ9xAl8kUl2joVrgv/Iwf7ILY6AuwkNRWFbWr0CKtDUJLuC22+Txssw==">
+    <script src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/bat.js" async=""></script><script async="" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/fbds.js"></script><script type="text/javascript" async="" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/conversion_async.js"></script><script type="text/javascript" async="" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/roundtrip.js"></script><script type="text/javascript" async="" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/analytics.js"></script><script type="text/javascript" async="" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/track.js" id="cio-tracker" data-site-id="e7cc779295927747a7c2"></script><script src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/cb=gapi.loaded_0" async=""></script><script async="" id="hn-button.js" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/hn-button.js"></script><script type="text/javascript" async="" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/plusone.js" gapi_processed="true"></script><script id="facebook-jssdk" async="" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/all.js"></script><script id="twitter-wjs" async="" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/widgets.js"></script><script async="" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/gtm.js"></script><script type="text/javascript" async="" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/analytics.min.js"></script><script type="text/javascript" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/njm7orv.js"></script>
+    <style type="text/css">.tk-proxima-nova{font-family:"proxima-nova",sans-serif;}</style><link rel="stylesheet" href="https://use.typekit.net/c/3630c0/1w;proxima-nova,2,gbm:V:i4,gbg:V:n1,gbj:V:n3,gbl:V:n4,gbq:V:n6,gbs:V:n7/l?3bb2a6e53c9684ffdc9a99ff1a5b2a6236e3628d53226ac77c5f92111ae5f6920cb48cddf84302e7111f93a832ec07dbd04c86ed1235e670c45f37f6392e92d088c67b93ef02ef5f75f15656339824d61ac572b957a0e150535a8f2c21b9430f372abfc8923719c13863433c4dcc8c50d375c29b0714d96a12f5cda32b7379fa743bb8bc18c270d25fb35b2a4af29e25574a664e8a90b7b5c9e7bb1351875a36bbb992b2f23099c7589629692e1cda7e46e809464b8af25dd150ddf34198de032c10cdca80f7d6c606a717dee00419721ae9ec49aaafdcfff2b2f6f6dd78bcc2757e6441e11ff8fe5e35af3e1259fce40c35df3193b4f9be41fad50f5793cbef7570970a0dc79300404b661057b1e7df3fff33a127b79ac14c6bca453d9d3aa7b6e85c288e0bd44ac214e7dbe868b215d6412a3f4cb42eedbfe0f7c6c49d88271d059f0b2fa74c28f2ccd9893dcefebe7c28dde9f1a59b014f3bf54b5b6252efdb8ba169df2bc25efc5dfc45e65feb1f11b7bfb42ce97a74d09196d68458e8b19ade723f2f60" media="all"><script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    <script src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/701281621.js"></script>
+    <script type="text/javascript">
+      if(window.analytics=window.analytics||[],window.analytics.included)window.console&&console.error&&console.error("analytics.js included twice");else{window.analytics.included=!0,window.analytics.methods=["identify","group","track","page","pageview","alias","ready","on","once","off","trackLink","trackForm","trackClick","trackSubmit"],window.analytics.factory=function(a){return function(){var n=Array.prototype.slice.call(arguments);return n.unshift(a),window.analytics.push(n),window.analytics}};for(var i=0;i<window.analytics.methods.length;i++){var key=window.analytics.methods[i];window.analytics[key]=window.analytics.factory(key)}window.analytics.load=function(a){var n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+a+"/analytics.min.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(n,t)},window.analytics.SNIPPET_VERSION="2.0.9",
+      window.analytics.load("puo3uv968t")}
+      window.analytics.page();
+    </script>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="https://www.digitalocean.com/community/tutorials/feed">
+    <script src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/application-75967e85df790b143e43a5b296c8a6aa.js"></script>
+  <style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow-x:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f6f7f8;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3a5795;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{width:auto;height:auto;min-height:initial;min-width:initial;background:none}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{color:#fff;display:block;padding-top:20px;clear:both;font-size:18px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #2f477a;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f6f7f8;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yD/r/t-wz8gw1xG1.png);background-repeat:no-repeat;background-position:50% 50%;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}</style><script async="true" type="text/javascript" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/4IDGVTPEAFC4TM2QKYNQ53"></script><div style="width: 1px; height: 1px; display: inline; position: absolute;"><img height="1" width="1" style="border-style:none;" alt="" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/out">
+<img height="1" width="1" style="border-style:none;" alt="" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/out(1)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/out(2)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/out(3)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/out(4)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/out(5)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/out(6)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/out(7)">
+<img height="1" width="1" alt="" style="display:none" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/tr"><img height="1" width="1" style="border-style:none;" alt="" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/saved_resource">
+<img src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/seg" width="1" height="1">
+</div></head>
+  <body class="tutorials-controller tutorial-single" data-env="production" ,="" data-prefix="/community" data-user-id="" data-facebook-app-id="694818843983011" cz-shortcut-listen="true">
+    <script>
+//<![CDATA[
+
+//]]>
+</script>
+<!-- Google Tag Manager -->
+<noscript>&lt;iframe src="//www.googletagmanager.com/ns.html?id=GTM-KHWBBT"
+height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;</noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KHWBBT');</script>
+<!-- End Google Tag Manager -->
+    
+
+    <div class="outside_viewport">
+        <div class="table-of-contents  tocify" style="top: 10040px;"><ul id="tocify-header0" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="необходимые-условия"><a>Необходимые условия</a></li></ul><ul id="tocify-header1" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="шаг-1-создание-структуры-директорий"><a>Шаг 1 - Создание структуры директорий</a></li></ul><ul id="tocify-header2" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="шаг-2-назначение-прав"><a>Шаг 2 - Назначение прав</a></li></ul><ul id="tocify-header3" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="шаг-3-создание-демо-страниц-для-каждого-виртуального-хоста"><a>Шаг 3 - Создание демо-страниц для каждого виртуального хоста</a></li></ul><ul id="tocify-header4" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="шаг-4-создание-файлов-нового-виртуального-хоста"><a>Шаг 4 - Создание файлов нового виртуального хоста</a></li></ul><ul id="tocify-header5" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="шаг-5-включение-новых-виртуальных-хостов"><a>Шаг 5 - Включение новых виртуальных хостов</a></li></ul><ul id="tocify-header6" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="шаг-6-настройка-файла-локальных-хостов-(опционально)"><a>Шаг 6 - Настройка файла локальных хостов (опционально)</a></li></ul><ul id="tocify-header7" class="tocify-header" style="display: none;"><li class="tocify-item tocify-focus" data-unique="шаг-7-тестирование-результатов"><a>Шаг 7 - Тестирование результатов</a></li></ul></div>
+  <div id="share-modal" class="modal fade mini-modal" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1>Share</h1>
+          <a class="close-button" data-dismiss="modal" href=""><span class="icon icon-close-light"></span></a>
+        </div>
+        <div class="modal-body">
+
+          <div class="social-sharing social-sharing-container">
+            <ul class="bottom ">
+              <li class="shareBtn" id="sbTwitter">
+                <a href="http://twitter.com/share?text=%D0%9A%D0%B0%D0%BA%20%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B8%D1%82%D1%8C%20%D0%B2%D0%B8%D1%80%D1%82%D1%83%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D1%85%D0%BE%D1%81%D1%82%D1%8B%20%D0%B2%20Apache%20%D0%BD%D0%B0%20Ubuntu%2014.04%20LTS&url=https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru?utm_content=apache-ubuntu-14-04-lts-ru&utm_medium=community&utm_source=twshare" class="share-icon share-popup" title="Share on Twitter">
+                  <span class="sIcon icon-bird"></span>
+                </a>
+                
+                <a href="http://twitter.com/share?text=%D0%9A%D0%B0%D0%BA%20%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B8%D1%82%D1%8C%20%D0%B2%D0%B8%D1%80%D1%82%D1%83%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D1%85%D0%BE%D1%81%D1%82%D1%8B%20%D0%B2%20Apache%20%D0%BD%D0%B0%20Ubuntu%2014.04%20LTS&url=https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru?utm_content=apache-ubuntu-14-04-lts-ru&utm_medium=community&utm_source=twshare" class="share-link share-popup" title="Share on Twitter">
+                  Twitter
+                </a>
+                
+              </li>
+
+              <li class="shareBtn" id="sbFacebook">
+                <a class="share-icon facebook-share" href="https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru?utm_content=apache-ubuntu-14-04-lts-ru&utm_medium=community&utm_source=fbshare" onclick="" title="Share on Facebook">
+                  <span class="sIcon icon-facebook-B"></span>
+                </a>
+
+                <a class="share-link facebook-share" href="https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru?utm_content=apache-ubuntu-14-04-lts-ru&utm_medium=community&utm_source=fbshare" onclick="" title="Share on Facebook">
+                  Facebook
+                </a>
+              </li>
+              <li class="shareBtn" id="sbGoogle">
+                <a href="https://plus.google.com/share?url=https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru?utm_content=apache-ubuntu-14-04-lts-ru&utm_medium=community&utm_source=gpshare" class="share-icon share-popup" title="Share on Google+">
+                  <span class="sIcon icon-google-plus-B"></span>
+                </a>
+
+                <a href="https://plus.google.com/share?url=https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru?utm_content=apache-ubuntu-14-04-lts-ru&utm_medium=community&utm_source=gpshare" class="share-link share-popup" title="Share on Google+">
+                  Google+
+                </a>
+              </li>
+              <li class="shareBtn" id="sbYC">
+                <a href="https://news.ycombinator.com/submitlink?t=%D0%9A%D0%B0%D0%BA%20%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B8%D1%82%D1%8C%20%D0%B2%D0%B8%D1%80%D1%82%D1%83%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D1%85%D0%BE%D1%81%D1%82%D1%8B%20%D0%B2%20Apache%20%D0%BD%D0%B0%20Ubuntu%2014.04%20LTS&u=https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru?utm_content=apache-ubuntu-14-04-lts-ru&utm_medium=community&utm_source=hnshare" class="share-icon share-popup " target="_blank" title="Submit to Hacker News">
+                  <span class="sIcon icon-hacker-news"></span>
+                </a>
+
+                <a href="https://news.ycombinator.com/submitlink?t=%D0%9A%D0%B0%D0%BA%20%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B8%D1%82%D1%8C%20%D0%B2%D0%B8%D1%80%D1%82%D1%83%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D1%85%D0%BE%D1%81%D1%82%D1%8B%20%D0%B2%20Apache%20%D0%BD%D0%B0%20Ubuntu%2014.04%20LTS&u=https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru?utm_content=apache-ubuntu-14-04-lts-ru&utm_medium=community&utm_source=hnshare" class="share-link share-popup" target="_blank" title="Submit to Hacker News">
+                  Hacker News
+                </a>
+              </li>
+            </ul>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="translation-modal" class="modal fade mini-modal" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1>Language</h1>
+          <a class="close-button" data-dismiss="modal" href=""><span class="icon icon-close-light"></span></a>
+        </div>
+        <div class="modal-body">
+
+          <div class="content-translations">
+            <div class="current-language">
+              <ul class="languages large">
+                <li class="current">
+                  <span class="language ru"></span>
+                  <span class="icon icon-check-light"></span>
+                  Russian
+                </li>
+
+
+                    <li>
+                      <a class="edit" title="English" href="https://www.digitalocean.com/community/tutorials/how-to-set-up-apache-virtual-hosts-on-ubuntu-14-04-lts">
+                        <span class="language "></span>
+                        English
+</a>                    </li>
+                    <li>
+                      <a class="edit" title="Spanish" href="https://www.digitalocean.com/community/tutorials/como-configurar-virtual-host-de-apache-en-ubuntu-14-04-lts-es">
+                        <span class="language es"></span>
+                        Spanish
+</a>                    </li>
+                    <li>
+                      <a class="edit" title="Portuguese" href="https://www.digitalocean.com/community/tutorials/como-configurar-apache-virtual-hosts-no-ubuntu-14-04-lts-pt">
+                        <span class="language pt"></span>
+                        Portuguese
+</a>                    </li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="contents-modal" class="modal fade mini-modal" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1>Contents</h1>
+          <a class="close-button" data-dismiss="modal" href=""><span class="icon icon-close-light"></span></a>
+        </div>
+        <div class="modal-body">
+
+          <div class="table-of-contents-modal open tocify"><ul id="tocify-header0" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="необходимые-условия"><a>Необходимые условия</a></li></ul><ul id="tocify-header1" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="шаг-1-создание-структуры-директорий"><a>Шаг 1 - Создание структуры директорий</a></li></ul><ul id="tocify-header2" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="шаг-2-назначение-прав"><a>Шаг 2 - Назначение прав</a></li></ul><ul id="tocify-header3" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="шаг-3-создание-демо-страниц-для-каждого-виртуального-хоста"><a>Шаг 3 - Создание демо-страниц для каждого виртуального хоста</a></li></ul><ul id="tocify-header4" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="шаг-4-создание-файлов-нового-виртуального-хоста"><a>Шаг 4 - Создание файлов нового виртуального хоста</a></li></ul><ul id="tocify-header5" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="шаг-5-включение-новых-виртуальных-хостов"><a>Шаг 5 - Включение новых виртуальных хостов</a></li></ul><ul id="tocify-header6" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="шаг-6-настройка-файла-локальных-хостов-(опционально)"><a>Шаг 6 - Настройка файла локальных хостов (опционально)</a></li></ul><ul id="tocify-header7" class="tocify-header" style="display: none;"><li class="tocify-item tocify-focus" data-unique="шаг-7-тестирование-результатов"><a>Шаг 7 - Тестирование результатов</a></li></ul></div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="share-modal" class="modal fade mini-modal" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1>Share</h1>
+          <a class="close-button" data-dismiss="modal" href=""><span class="icon icon-close-light"></span></a>
+        </div>
+        <div class="modal-body">
+
+          <div class="social-sharing social-sharing-container">
+            <ul class="top ">
+              <li class="shareBtn" id="sbTwitter">
+                <a href="http://twitter.com/share?text=%D0%9A%D0%B0%D0%BA%20%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B8%D1%82%D1%8C%20%D0%B2%D0%B8%D1%80%D1%82%D1%83%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D1%85%D0%BE%D1%81%D1%82%D1%8B%20%D0%B2%20Apache%20%D0%BD%D0%B0%20Ubuntu%2014.04%20LTS&url=https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru?utm_content=apache-ubuntu-14-04-lts-ru&utm_medium=community&utm_source=twshare" class="share-icon share-popup" title="Share on Twitter">
+                  <span class="sIcon icon-bird"></span>
+                </a>
+                
+                <a href="http://twitter.com/share?text=%D0%9A%D0%B0%D0%BA%20%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B8%D1%82%D1%8C%20%D0%B2%D0%B8%D1%80%D1%82%D1%83%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D1%85%D0%BE%D1%81%D1%82%D1%8B%20%D0%B2%20Apache%20%D0%BD%D0%B0%20Ubuntu%2014.04%20LTS&url=https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru?utm_content=apache-ubuntu-14-04-lts-ru&utm_medium=community&utm_source=twshare" class="share-link share-popup" title="Share on Twitter">
+                  Twitter
+                </a>
+                
+              </li>
+
+              <li class="shareBtn" id="sbFacebook">
+                <a class="share-icon facebook-share" href="https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru?utm_content=apache-ubuntu-14-04-lts-ru&utm_medium=community&utm_source=fbshare" onclick="" title="Share on Facebook">
+                  <span class="sIcon icon-facebook-B"></span>
+                </a>
+
+                <a class="share-link facebook-share" href="https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru?utm_content=apache-ubuntu-14-04-lts-ru&utm_medium=community&utm_source=fbshare" onclick="" title="Share on Facebook">
+                  Facebook
+                </a>
+              </li>
+              <li class="shareBtn" id="sbGoogle">
+                <a href="https://plus.google.com/share?url=https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru?utm_content=apache-ubuntu-14-04-lts-ru&utm_medium=community&utm_source=gpshare" class="share-icon share-popup" title="Share on Google+">
+                  <span class="sIcon icon-google-plus-B"></span>
+                </a>
+
+                <a href="https://plus.google.com/share?url=https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru?utm_content=apache-ubuntu-14-04-lts-ru&utm_medium=community&utm_source=gpshare" class="share-link share-popup" title="Share on Google+">
+                  Google+
+                </a>
+              </li>
+              <li class="shareBtn" id="sbYC">
+                <a href="https://news.ycombinator.com/submitlink?t=%D0%9A%D0%B0%D0%BA%20%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B8%D1%82%D1%8C%20%D0%B2%D0%B8%D1%80%D1%82%D1%83%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D1%85%D0%BE%D1%81%D1%82%D1%8B%20%D0%B2%20Apache%20%D0%BD%D0%B0%20Ubuntu%2014.04%20LTS&u=https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru?utm_content=apache-ubuntu-14-04-lts-ru&utm_medium=community&utm_source=hnshare" class="share-icon share-popup " target="_blank" title="Submit to Hacker News">
+                  <span class="sIcon icon-hacker-news"></span>
+                </a>
+
+                <a href="https://news.ycombinator.com/submitlink?t=%D0%9A%D0%B0%D0%BA%20%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B8%D1%82%D1%8C%20%D0%B2%D0%B8%D1%80%D1%82%D1%83%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D1%85%D0%BE%D1%81%D1%82%D1%8B%20%D0%B2%20Apache%20%D0%BD%D0%B0%20Ubuntu%2014.04%20LTS&u=https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru?utm_content=apache-ubuntu-14-04-lts-ru&utm_medium=community&utm_source=hnshare" class="share-link share-popup" target="_blank" title="Submit to Hacker News">
+                  Hacker News
+                </a>
+              </li>
+            </ul>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  
+    
+
+
+    </div>
+
+      <div class="mobile-nav">
+  
+<div class="account-buttons">
+    <div id="entrance">
+      <a id="sign-up" class="button" href="https://www.digitalocean.com/community/auth/digitalocean?display=sessionless+register">Sign Up</a>
+      <a id="log-in" class="button" href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a>
+    </div>
+</div>
+    
+  <a class="close-panel icon-close" href="javascript:void(0);"></a>
+
+  <form class="mobile-search" action="https://www.digitalocean.com/community/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
+    <span class="icon icon-search-thin"></span>
+    <input type="text" name="q" id="q" placeholder="Search">
+    <button name="button" type="submit" class="icon-btn">submit</button>
+</form>
+  
+<nav>
+
+  <ul>
+    <li><a href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+    <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+    <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+    <li class="mobile-nav-only"><a href="https://www.digitalocean.com/">Main Site</a></li>
+  </ul>
+</nav>
+
+  
+</div>
+
+
+      
+    	<header>
+  <div class="main-menu-container">
+    <div class="wrapper">
+      <div class="logo">
+        <a class="" href="https://www.digitalocean.com/">
+          <span class="icon icon-cloud"></span>
+</a>
+        <a class="" href="https://www.digitalocean.com/community">
+          <span class="logo-community-text">Community</span>
+</a>      </div>
+      
+      <a class="mobile-nav-toggle icon-menu-thin" data-role="left">
+        <span>Menu</span>
+      </a>
+
+      
+<nav>
+
+  <ul>
+    <li><a href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+    <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+    <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+    <li class="mobile-nav-only"><a href="https://www.digitalocean.com/">Main Site</a></li>
+  </ul>
+</nav>
+
+      
+      
+<div class="account-buttons">
+    <div id="entrance">
+      <a id="sign-up" class="button" href="https://www.digitalocean.com/community/auth/digitalocean?display=sessionless+register">Sign Up</a>
+      <a id="log-in" class="button" href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a>
+    </div>
+</div>
+      <div class="header-search open">
+  <form action="https://www.digitalocean.com/community/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
+    <span class="icon icon-search-thin"></span>
+    <input type="text" name="q" id="q" placeholder="Search" autocomplete="off" spellcheck="off" class="header-search-input" data-algolia-application-id="6ZHEUVKJ88" data-algolia-api-key="c5470567eae7fa1177d43222e18ba086">
+    <button name="button" type="submit" class="icon-btn">submit</button>
+</form></div>
+
+<div class="search-results-dropdown dropdown" data-root-path="https://www.digitalocean.com/community">
+  <div class="container">
+    <div class="header-search-results-list"></div>
+
+    <div id="btn-wrap">
+      <a class="more-search-results" data-search-path="/community/search" href="https://www.digitalocean.com/community/search">
+        <span class="icon-mag"></span>
+        View All Results
+</a>    </div>
+  </div>
+</div>
+
+<script type="text/template" id="autocomplete-hits-template">
+  <div class="inner-search">
+    <ul>
+        {{#hits}}
+          <li>
+            <span class='icon icon-{{type}}'></span>
+            <a href='{{url}}'>{{{_highlightResult.title.value}}}</a>
+          </li>
+        {{/hits}}
+    </ul>
+  </div>
+</script>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  
+
+  <div class="wrapper">
+    
+  </div>
+</header>
+      
+        <div class="flash-container"></div>
+
+
+      
+      
+      <div class="wrapper layout-wrapper">
+
+        
+
+
+
+
+
+
+<div class="section-content section-content-growable content">
+  <div class="postable-info-bar-container">
+  <div class="postable-info-bar">
+    <div class="left-section">
+        <div class="tutorial-author-avatar">
+          <a href="https://www.digitalocean.com/community/users/jellingwood"><div class="mod-avatar mod-avatar-small"><img alt="jellingwood" class="avatar avatar-small" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/60d901f61a6146e14a3e989bc1f4ef11" width="80" height="80"><span class="mod-star" title="" data-toggle="tooltip" data-container="body" data-original-title="MOD"><span class="mod-star-icon"></span></span></div></a>
+        </div>
+
+        <div class="author-and-date">
+          <div class="tutorial-author">
+            <div class="by">By: </div>
+            <a href="https://www.digitalocean.com/community/users/jellingwood">Justin Ellingwood</a>
+          </div>
+        </div>
+
+      <div class="upvotes upvoted tutorial-upvote"><form data-upvotable="tutorial_1393" data-upvotable-type="tutorial" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=1393&upvote%5Bupvotable_type%5D=Tutorial" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="9HT0IPn74OODFqNZiQ/yQ7/XNtUEr6faZ9xAl8kUl2joVrgv/Iwf7ILY6AuwkNRWFbWr0CKtDUJLuC22+Txssw==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal"><span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="" title="" data-placement="bottom" data-original-title="Do you find this tutorial helpful? Show the author by Hearting it!"></span></button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count ">19</div></div>
+
+        <div class="tutorial-comments-count">
+          <span class="icon icon-new-comment"></span>
+          6
+        </div>
+
+
+    </div>
+
+    <div class="right-section">
+      <div class="section-item social-sharing-item">
+        <div class="sharing">
+  <a class="share-button" href="https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru#" data-toggle="modal" data-target="#share-modal">
+    <span class="icon icon-share-square"></span>
+    <span class="share-button-text">
+      Share
+    </span>
+  </a>
+</div>
+
+
+      </div>
+
+          <div class="section-item section-item-translations">
+            <div class="content-translations">
+  <div class="current-language">
+    <a title="Russian" data-toggle="modal" data-target="#translation-modal" href="javascript:void(0);">
+      <span class="language ru"></span>
+      <span class="icon icon-arrow-up"></span>
+      <span class="icon icon-arrow-down"></span>
+</a>  </div>
+</div>
+
+
+
+          </div>
+        <div class="section-item table-of-contents-triggers"><div class="toc-trigger ">
+  <a href="javascript:void(0);">
+    <span class="title">Contents</span>
+    <span class="icon icon-close-light"></span>
+    <span class="icon icon-arrow-down"></span>
+  </a>
+</div>
+
+
+
+<div class="toc-trigger-mobile" data-toggle="modal" data-target="#contents-modal">
+  <a href="javascript:void(0);">
+    <span class="title">Contents</span>
+    <span class="icon icon-arrow-down"></span>
+  </a>
+</div>
+
+
+</div>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+  <div class="container">
+
+      <div class="info-cta">
+    <a class="icon-close-light" href="javascript:void();"></a>
+    We hope you find this tutorial helpful. In addition to guides like this one, we provide simple cloud infrastructure for developers. <a href="https://www.digitalocean.com/?utm_medium=community&utm_source=community_gencta&utm_campaign=needaserver&utm_content=apache-ubuntu-14-04-lts-ru">
+        Learn more →
+</a>  </div>
+
+  
+    <h1 class="content-title">Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS</h1>
+
+    <span class="meta-section tags">
+      <span class="meta-value"><span class="tutorial-date">November 24, 2014</span> <span class="hashtag-icon"></span> <a class="" href="https://www.digitalocean.com/community/tags/apache?type=tutorials">Apache</a>, <a class="" href="https://www.digitalocean.com/community/tags/getting-started?type=tutorials">Getting Started</a>, <a class="" href="https://www.digitalocean.com/community/tags/linux-basics?type=tutorials">Linux Basics</a> <a class="" href="https://www.digitalocean.com/community/tags/ubuntu?type=tutorials">Ubuntu</a></span>
+    </span>
+  </div>
+
+  <div class="container">
+    
+  </div>
+
+    <div class="content-body tutorial-content" data-growable-markdown="">
+      <h3 id="Введение">Введение</h3>
+
+<p>Веб-сервер Apache является самым популярным средством размещения веб-контента в интернете. На его счету более половины всех действующих веб-сайтов. Это очень мощный и гибкий инструмент.</p>
+
+<p>Apache разделяет свои функциональные возможности и компоненты на отдельные части, которые могут быть настроены и сконфигурированы независимо друг от друга. Базовая часть, которая отвечает за отдельный сайт или домен называется <code>виртуальным хостом</code> (<code>virtual host</code>). </p>
+
+<p>Эта система позволяет администратору использовать один сервер, чтобы раздавать несколько сайтов используя один интерфейс или IP. Это удобно для тех, кто хочет использовать один VPS для хранения нескольких сайтов.</p>
+
+<p>Каждый настроенный соответствующим образом домен будет направлять пользователя к определенной директории сервера, содержащей информацию этого сайта, соответствующего домену. При этом посетитель сайта не узнает, что данный сервер хранит и другие сайты. Эта схема может расширяема без каких-либо ограничений со стороны программного обеспечения до тех пор, пока сервер будет справляться с нагрузкой.</p>
+
+<p>В этом руководстве мы расскажем, как настроить виртуальные хосты в Apache на VPS с Ubuntu 14.04. В процессе вы узнаете, как отображать разный контент для разных пользователей в зависимости от того, какой домен они запрашивают.</p>
+
+<div name="необходимые-условия" data-unique="необходимые-условия"></div><h2 id="Необходимые-условия">Необходимые условия</h2>
+
+<p>Перед тем, как приступать, вам необходимо <a href="https://www.digitalocean.com/community/articles/initial-server-setup-with-ubuntu-14-04">создать не-рутового пользователя</a>, как описано в шагах 1-4.</p>
+
+<p>Также у вас должен быть установлен Apache, чтобы проделать описываемые ниже шаги. Если он еще не установлен, вы можете сделать это при помощи команды <code>apt-get</code>:</p>
+<pre class="code-pre "><code langs="">sudo apt-get update
+sudo apt-get install apache2
+</code></pre>
+<p>После завершения этих шагов, мы можем начать настройку виртуальных хостов.</p>
+
+<p>В этом руководстве мы создадим виртуальный хост для доменов <code>example.com</code> и <code>test.com</code>. Мы будет ссылаться на них в руководстве, однако вам следует заменить их на свои домены при настройке ваших виртуальных хостов.</p>
+
+<p>Для <a href="https://www.digitalocean.com/community/articles/how-to-set-up-a-host-name-with-digitalocean">настройки доменных имен в DigitalOcean</a> перейдите по этой ссылке.</p>
+
+<p>Если у вас <em>нет</em> свободных доменов, на которых можно потренироваться, вы можете использовать фиктивные доменные имена.</p>
+
+<p>Чуть позже мы покажем, как отредактировать файл с локальными хостами для проверки конфигурации в случае, если вы используете фиктивные доменные имена. Это позволит протестировать конфигурацию с вашего домашнего компьютера, даже несмотря на то, что контент сайта не будет доступен по этому доменному имени другим пользователям.</p>
+
+<div name="шаг-1-создание-структуры-директорий" data-unique="шаг-1-создание-структуры-директорий"></div><h2 id="Шаг-1-Создание-структуры-директорий">Шаг 1 - Создание структуры директорий</h2>
+
+<p>Первый шаг, который мы собираемся предпринять, это создать структуру директорий, содержащую данные сайта, которые будут отображаться посетителям.</p>
+
+<p>Наш <code>document root</code> (корневой каталог - директория верхнего уровня, которую просматривает Apache в поисках контента для отображения) будет настроен на использование директорий внутри директории <code>/var/www</code>. Здесь мы создадим директории для обоих виртуальных хостов, которые мы планируем сделать в этом руководстве.</p>
+
+<p>В каждой из <em>этих</em> директорий мы создадим вложенную директорию <code>public_html</code>, которая будет содержать реальные файлы. Это дает нам некоторую гибкость в плане хранения контента.</p>
+
+<p>Например, для наших сайтов мы создадим директории следующим образом:</p>
+<pre class="code-pre "><code langs="">sudo mkdir -p /var/www/<span class="highlight">example.com</span>/public_html
+sudo mkdir -p /var/www/<span class="highlight">test.com</span>/public_html
+</code></pre>
+<p>Текст, выделенный красным, представляет собой доменные имена сайтов, которые мы хотим отображать с помощью нашего VPS.</p>
+
+<div name="шаг-2-назначение-прав" data-unique="шаг-2-назначение-прав"></div><h2 id="Шаг-2-Назначение-прав">Шаг 2 - Назначение прав</h2>
+
+<p>Теперь у нас есть структура директорий для наших файлов, но владелец этих директорий - root-пользователь. Если мы хотим, чтобы наши обычные пользователи могли изменять файлы в наших веб-директориях, мы можем изменить их владельца следующим образом:</p>
+<pre class="code-pre "><code langs="">sudo chown -R $USER:$USER /var/www/<span class="highlight">example.com</span>/public_html
+sudo chown -R $USER:$USER /var/www/<span class="highlight">test.com</span>/public_html
+</code></pre>
+<p>Переменная <code>$USER</code> содержит имя пользователя, под которым вы залогинены в текущий момент. Теперь текущий пользователь владеет директориями <code>public_html</code>, в которых мы будем хранить контент.</p>
+
+<p>Нам так же необходимо немного отредактировать права доступа, чтобы убедиться, что доступ на чтение разрешен к общей веб-директории и всем файлам и папкам, содержащимся в ней. Это необходимо для того, чтобы страницы сайта отображались корректно:</p>
+<pre class="code-pre "><code langs="">sudo chmod -R 755 /var/www
+</code></pre>
+<p>Теперь ваш веб-сервер должен иметь разрешения, необходимые для отображения контента. Кроме того, теперь ваш пользователь имеет возможность создавать контент в необходимых директорий.</p>
+
+<div name="шаг-3-создание-демо-страниц-для-каждого-виртуального-хоста" data-unique="шаг-3-создание-демо-страниц-для-каждого-виртуального-хоста"></div><h2 id="Шаг-3-Создание-демо-страниц-для-каждого-виртуального-хоста">Шаг 3 - Создание демо-страниц для каждого виртуального хоста</h2>
+
+<p>Наша структура директорий готова. Давайте создадим какой-нибудь контент для отображения посетителям наших сайтов.</p>
+
+<p>Мы делаем это просто для демонстрации, потому страницы будет очень простыми. Мы собираемся создать по странице <code>index.html</code> для каждого сайта.</p>
+
+<p>Давайте начнем с <code>example.com</code>. Мы можем создать и открыть файл <code>index.html</code> в редакторе, введя команду:</p>
+<pre class="code-pre "><code langs="">nano /var/www/<span class="highlight">example.com</span>/public_html/index.html
+</code></pre>
+<p>В этом файле создайте простой HTML-документ, который показывает, к какому сайту он относится. Наш файл выглядит следующим образом:</p>
+<pre class="code-pre "><code langs="">&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Welcome to <span class="highlight">Example.com</span>!&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Success!  The <span class="highlight">example.com</span> virtual host is working!&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Когда закончите, сохраните и закройте файл.</p>
+
+<p>Вы может скопировать файл, чтобы использовать его как основу для второго сайта:</p>
+<pre class="code-pre "><code langs="">cp /var/www/<span class="highlight">example.com</span>/public_html/index.html /var/www/<span class="highlight">test.com</span>/public_html/index.html
+</code></pre>
+<p>После этого вы можете открыть файл и исправить его содержимое:</p>
+<pre class="code-pre "><code langs="">nano /var/www/<span class="highlight">test.com</span>/public_html/index.html
+</code></pre><pre class="code-pre "><code langs="">&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Welcome to <span class="highlight">Test.com</span>!&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Success!  The <span class="highlight">test.com</span> virtual host is working!&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Сохраните и закройте этот файл. Теперь у вас есть страницы, необходимые для проверки конфигурации виртуальных хостов. </p>
+
+<div name="шаг-4-создание-файлов-нового-виртуального-хоста" data-unique="шаг-4-создание-файлов-нового-виртуального-хоста"></div><h2 id="Шаг-4-Создание-файлов-нового-виртуального-хоста">Шаг 4 - Создание файлов нового виртуального хоста</h2>
+
+<p>Файлы виртуальных хостов задают их конфигурацию, и определяют, как именно веб-сервер Apache будет отвечать на запросы к разным доменам.</p>
+
+<p>По умолчанию, Apache имеет файл виртуального хоста <code>000-default.conf</code>, который мы можем использовать в качестве отправной точки. Мы собираемся скопировать его, чтобы создать файлы виртуального хоста для каждого из наших доменов.</p>
+
+<p>Мы начнем с одного домена, сконфигурируем его, скопируем для другого домена, и затем снова сделаем необходимые правки. Конфигурация Ubuntu по-умолчанию требует, чтобы каждый файл виртуального хоста заканчивался расширением <code>.conf</code>.</p>
+
+<h3 id="Создание-файла-первого-виртуального-хоста">Создание файла первого виртуального хоста</h3>
+
+<p>Начнем с копирования файла для первого домена:</p>
+<pre class="code-pre "><code langs="">sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/<span class="highlight">example.com</span>.conf
+</code></pre>
+<p>Откройте новый файл в редакторе с root-правами:</p>
+<pre class="code-pre "><code langs="">sudo nano /etc/apache2/sites-available/<span class="highlight">example.com</span>.conf
+</code></pre>
+<p>Файл будет похож на этот (мы удалили комментарии, чтобы сделать его более читабельным):</p>
+<pre class="code-pre "><code langs="">&lt;VirtualHost *:80&gt;
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/html
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+&lt;/VirtualHost&gt;
+</code></pre>
+<p>Как видите, файл совсем небольшой. Мы поправим его для нашего первого домена и добавим некоторые новые директивы. Эта секция конфигурации виртуального хоста относится к любом запросам, которые сделаны по 80 порту (порт по-умолчанию для HTTP).</p>
+
+<p>Прежде всего, мы должны изменить директиву <code>ServerAdmin</code> на адрес электронной почты, на который администратор сайта будет получать электронные письма.</p>
+<pre class="code-pre "><code langs="">ServerAdmin <span class="highlight">admin@example.com</span>
+</code></pre>
+<p>Затем мы должны <em>добавить</em> две новые директивы. Первая, <code>ServerName</code>, устанавливает основной домен, который должен соответствовать названию виртуального хоста. Это должно быть ваше доменное имя. Вторая, <code>ServerAlias</code>, определяет другие имена, которые должны интерпретироваться так, как будто это основной домен. Это удобно для использования дополнительных доменных имен, например, с использованием <code>www</code>:</p>
+<pre class="code-pre "><code langs="">ServerName <span class="highlight">example.com</span>
+ServerAlias <span class="highlight">www.example.com</span>
+</code></pre>
+<p>Единственная вещь, которую нам осталось изменить в базовом файле виртуального хоста, это расположение корневого каталога этого домена. Мы уже создали нужную директорию, так что нам осталось изменить директиву <code>DocumentRoot</code> так, чтобы она ссылалась на созданную нами директорию:</p>
+<pre class="code-pre "><code langs="">DocumentRoot /var/www/<span class="highlight">example.com</span>/public_html
+</code></pre>
+<p>Теперь наш файл виртуального хоста должен выглядеть следующим образом:</p>
+<pre class="code-pre "><code langs="">&lt;VirtualHost *:80&gt;
+    ServerAdmin <span class="highlight">admin@example.com</span>
+    ServerName <span class="highlight">example.com</span>
+    ServerAlias <span class="highlight">www.example.com</span>
+    DocumentRoot /var/www/<span class="highlight">example.com</span>/public_html
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+&lt;/VirtualHost&gt;
+</code></pre>
+<p>Сохраните и закройте файл.</p>
+
+<h3 id="Копирование-первого-виртуального-хоста-и-настройка-для-второго-домена">Копирование первого виртуального хоста и настройка для второго домена</h3>
+
+<p>Теперь, когда у нас есть готовый первый виртуальный хост, мы можем создать второй, скопировав файл и поправив его там, где это необходимо.</p>
+
+<p>Начните с копирования:</p>
+<pre class="code-pre "><code langs="">sudo cp /etc/apache2/sites-available/<span class="highlight">example.com</span>.conf /etc/apache2/sites-available/<span class="highlight">test.com</span>.conf
+</code></pre>
+<p>Откройте новый файл в редакторе с правами root-пользователя:</p>
+<pre class="code-pre "><code langs="">sudo nano /etc/apache2/sites-available/<span class="highlight">test.com</span>.conf
+</code></pre>
+<p>Теперь вам нужно поправить всю необходимую информацию для второго домена. Когда вы закончите, файл должен выглядеть похожим образом:</p>
+<pre class="code-pre "><code langs="">&lt;VirtualHost *:80&gt;
+    ServerAdmin <span class="highlight">admin@test.com</span>
+    ServerName <span class="highlight">test.com</span>
+    ServerAlias <span class="highlight">www.test.com</span>
+    DocumentRoot /var/www/<span class="highlight">test.com</span>/public_html
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+&lt;/VirtualHost&gt;
+</code></pre>
+<p>Сохраните и закройте файл после внесения правок.</p>
+
+<div name="шаг-5-включение-новых-виртуальных-хостов" data-unique="шаг-5-включение-новых-виртуальных-хостов"></div><h2 id="Шаг-5-Включение-новых-виртуальных-хостов">Шаг 5 - Включение новых виртуальных хостов</h2>
+
+<p>Теперь, когда мы создали файлы наших виртуальных хостов, мы должны их включить. Apache содержит инструменты, позволяющие нам это сделать.</p>
+
+<p>Мы можем использовать утилиту <code>a2ensite</code> для включения каждого из наших сайтов следующим образом:</p>
+<pre class="code-pre "><code langs="">sudo a2ensite <span class="highlight">example.com</span>.conf
+sudo a2ensite <span class="highlight">test.com</span>.conf
+</code></pre>
+<p>После завершения необходимо перезапустить Apache, чтобы изменения вступили в силу:</p>
+<pre class="code-pre "><code langs="">sudo service apache2 restart
+</code></pre>
+<p>Скорее всего, вы получите сообщение, похожее на это:</p>
+<pre class="code-pre "><code langs=""> * Restarting web server apache2
+ AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1. Set the 'ServerName' directive globally to suppress this message
+</code></pre>
+<p>Это сообщение безобидно и не влияет на наш сайт.</p>
+
+<div name="шаг-6-настройка-файла-локальных-хостов-(опционально)" data-unique="шаг-6-настройка-файла-локальных-хостов-(опционально)"></div><h2 id="Шаг-6-Настройка-файла-локальных-хостов-опционально">Шаг 6 - Настройка файла локальных хостов (опционально)</h2>
+
+<p>Если до этого вы использовали не реальные доменные имена, которыми вы владеете, а тестовые, вы можете протестировать работоспособность виртуальных хостов, временно изменив файл <code>hosts</code> на вашем локальном компьютере.</p>
+
+<p>Это позволит перехватывать любой запрос к доменам, которые вы настроили и перенаправлять его на ваш VPS сервер так, как это сделала бы система DNS в случае использования реально зарегистрированных доменов. Это будет работать только с вашего локального компьютера и используется только для тестирования.</p>
+
+<p>Убедитесь, что дальнейшие шаги вы будете проделывать на вашем локальном компьютере, а не на VPS сервере. Вам необходимо знать пароль администратора или быть членом группы администраторов.</p>
+
+<p>Если вы используете компьютер с Mac или Linux, вы можете редактировать локальный файл с правами администратора, введя команду:</p>
+<pre class="code-pre "><code langs="">sudo nano /etc/hosts
+</code></pre>
+<p>Если у вас компьютер с Windows, вы можете <a href="http://support.microsoft.com/kb/923947">найти инструкции по редактированию файла хостов</a> здесь.</p>
+
+<p>Вам необходимо добавить в файл публичный IP-адрес вашего VPS сервера и, следом, доменное имя, по которому вы хотите обращаться к этому VPS.</p>
+
+<p>Для доменов, используемых в этом руководстве, предположим, что IP-адрес нашего VPS <code>111.111.111.111</code>. В этом случае мы можем добавить следующие строки в конец файла <code>hosts</code>:</p>
+<pre class="code-pre "><code langs="">127.0.0.1   localhost
+127.0.1.1   guest-desktop
+111.111.111.111 <span class="highlight">example.com</span>
+111.111.111.111 <span class="highlight">test.com</span>
+</code></pre>
+<p>В результате этого любые запросы к <code>example.com</code> и <code>test.com</code> с нашего компьютера будут перенаправляться на наш сервер по адресу <code>111.111.111.111</code>. Это удобно для проверки правильности настройки наших виртуальных хостов для случая, когда мы не являемся реальными владельцами этих доменных имен.</p>
+
+<p>Сохраните и закройте файл.</p>
+
+<div name="шаг-7-тестирование-результатов" data-unique="шаг-7-тестирование-результатов"></div><h2 id="Шаг-7-Тестирование-результатов">Шаг 7 - Тестирование результатов</h2>
+
+<p>Теперь, когда ваши виртуальные хосты сконфигурированы, вы можете легко протестировать работоспособность, перейдя в браузере по ранее настроенным адресам:</p>
+<pre class="code-pre "><code langs="">http://<span class="highlight">example.com</span>
+</code></pre>
+<p>Вы должны увидеть похожую страницу:</p>
+
+<p>&lt;img src="https://assets.digitalocean.com/articles/apache_virt_hosts_1404/example.png"&gt;</p>
+
+<p>Аналогично, вы можете зайти на вторую страницу:</p>
+<pre class="code-pre "><code langs="">http://<span class="highlight">test.com</span>
+</code></pre>
+<p>Вы увидите файл, созданный для второго сайта:</p>
+
+<p>&lt;img src="https://assets.digitalocean.com/articles/apache_virt_hosts_1404/test.png"&gt;</p>
+
+<p>Если оба сайта работают, значит вы успешно сконфигурировали <strong>два</strong> виртуальных хоста на одном и том же сервере.</p>
+
+<p>Еси вы вносили изменения в файл <code>hosts</code> на вашем локальном компьютере, теперь можете удалить добавленные строки, т.к. уже убедились в работоспособности конфигурации. Таким образом мы не будем хранить в файле "hosts" ненужные записи.</p>
+
+<p>Если вы хотите, чтобы пользователи могли доступаться к вашим сайтам на постоянной основе, рассмотрите возможность приобретения доменных имен для своих сайтов и их <a href="https://www.digitalocean.com/community/articles/how-to-set-up-a-host-name-with-digitalocean">настройки для работы с вашим VPS сервером</a>.</p>
+
+<h3 id="Заключение">Заключение</h3>
+
+<p>Если вы следовали нашим инструкциям, теперь у вас должен быть один сервер, работающий с двумя разными доменными именами. Для добавления других виртуальных хостов следуйте инструкциям в этом руководстве.</p>
+
+<p>Apache может работать с любым количеством доменных имен, так что можете добавлять новые сайты до тех пор, пока ваш сервер справляется с нагрузкой.</p>
+
+    </div>
+</div>
+
+<div class="tutorial-footer">
+  <div class="tutorial-footer-details">
+  <div class="section-content tutorial-public-actions">
+    <div class="share-subscribe-actions">
+      <div class="upvotes upvoted tutorial-upvote large-upvotes"><form data-upvotable="tutorial_1393" data-upvotable-type="tutorial" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=1393&upvote%5Bupvotable_type%5D=Tutorial" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="9HT0IPn74OODFqNZiQ/yQ7/XNtUEr6faZ9xAl8kUl2joVrgv/Iwf7ILY6AuwkNRWFbWr0CKtDUJLuC22+Txssw==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal"><span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="" title="Do you find this tutorial helpful? Show the author by Hearting it!" data-placement="top"></span></button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count ">19</div></div>
+      <span class="meta-section opt-in-switch off signed-out-subscribe">
+  <span class="meta-label subscribe-label">
+    <span class="subscription-label subscribe">Subscribe</span>
+    <span class="subscription-label subscribed">Subscribed</span>
+  </span>
+  <span class="meta-value"><a data-toggle="modal" data-target="#sign-in-modal" class="mini-switch-container" href="javascript:void(0);"><div class="mini-switch off signed-out-subscribe"><div class="switch-handle"></div></div></a></span>
+</span>
+
+      <div class="sharing">
+  <a class="share-button" href="https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru#" data-toggle="modal" data-target="#share-modal">
+    <span class="icon icon-share-square"></span>
+    <span class="share-button-text">
+      Share
+    </span>
+  </a>
+</div>
+
+
+    </div>
+  </div>
+
+  <div class="section-content tutorial-contributors two">
+      <div class="tutorial-footer-user">
+        <div class="tutorial-footer-user-avatar-container">
+          <a href="https://www.digitalocean.com/community/users/jellingwood"><div class="mod-avatar mod-avatar-small"><img alt="jellingwood" class="avatar avatar-small" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/60d901f61a6146e14a3e989bc1f4ef11" width="80" height="80"><span class="mod-star" title="" data-toggle="tooltip" data-container="body" data-original-title="MOD"><span class="mod-star-icon"></span></span></div></a>
+        </div>
+        <div class="user-info">
+          <div class="tutorial-user-type">Author:</div>
+          <a href="https://www.digitalocean.com/community/users/jellingwood">Justin Ellingwood</a>
+        </div>
+      </div>
+
+
+      <div class="tutorial-footer-user">
+        <div class="tutorial-footer-user-avatar-container">
+          <a href="https://www.digitalocean.com/community/users/maxmikheev"><img alt="maxmikheev" class="avatar avatar-small" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/18ed83519337e5bbb0de52340615977e" width="80" height="80"></a>
+        </div>
+        <div class="user-info">
+          <div class="tutorial-user-type">Translation:</div>
+          <a href="https://www.digitalocean.com/community/users/maxmikheev">maxmikheev</a>
+        </div>
+      </div>
+  </div>
+</div>
+
+  
+  <div class="tutorial-ctas">
+  <div class="section-content">
+    <div class="cta-description">
+      <h2>Spin up an SSD cloud server in under a minute.</h2>
+
+      <p>Simple setup. Full root access. Straightforward pricing.</p>
+
+      <a class="cloud-tutorial-cta" href="https://www.digitalocean.com/?utm_medium=community&utm_source=community_gencta&utm_campaign=needaserver&utm_content=apache-ubuntu-14-04-lts-ru">Deploy Server</a>
+    </div>
+  </div>
+</div>
+    <div class="related-tutorials">
+    <div class="section-content">
+      <h2>Related Tutorials</h2>
+
+      <ul>
+        <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/one-click-install-elixir-on-ubuntu-14-04-with-digitalocean">One-Click Install Elixir on Ubuntu 14.04 with DigitalOcean</a></li>
+<li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-install-cassandra-and-run-a-single-node-cluster-on-ubuntu-14-04">How To Install Cassandra and Run a Single-Node Cluster on Ubuntu 14.04</a></li>
+<li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-set-up-apache-traffic-server-as-a-reverse-proxy-on-ubuntu-14-04">How to Set Up Apache Traffic Server as a Reverse-Proxy on Ubuntu 14.04</a></li>
+<li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-ubuntu-14-04">How To Install and Use Composer on Ubuntu 14.04</a></li>
+<li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-protect-an-apache-server-with-fail2ban-on-ubuntu-14-04">How To Protect an Apache Server with Fail2Ban on Ubuntu 14.04</a></li>
+
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<div class="content-comments">
+  <div class="section-content">
+    <div class="tutorial commentable" id="tutorial_1393">
+
+  <div class="comments-header">
+    <h4 class="comments-count"><span>6 Comments</span></h4>
+  </div>
+
+  <div class="response no-avatar  response-form">
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form class="content-form disabled-form" id="new_comment" action="https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru/comments" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓" disabled="disabled">
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea name="comment[content]" id="comment_content" placeholder="Leave a comment..." class="js-comment-content tutorial-comment-field meltdown_editor" data-markdown="true" disabled="disabled" style="overflow: hidden; word-wrap: break-word; resize: none; height: 120px;"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="log-in-notice "><a href="https://www.digitalocean.com/community/auth/digitalocean">Log In to Comment</a></div>
+
+    <div class="clearfix"></div>
+</form></div>
+
+
+  <div class="comments">
+    <ul class="response-list">
+          <a class="hidden" rel="nofollow" data-remote="true" href="https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru/comments">Load</a>
+    <li id="comment_24650" data-level="0" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/modphoenix"><img alt="MoDPhoenix" class="avatar avatar-small" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/f34c13d99f6208bb215373decd71f975" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/modphoenix">MoDPhoenix</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru?comment=24650">December 20, 2014</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>Спасибо интересная статья! Может кто подсказать как настроить доступ в папке wp-admin к файлу admin-ajax.php, а то по умолчанию он запрашивает доступ к  Apache.</p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_24650" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=24650&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="q2y2Pbqmy6V/xVgmqKuX0BLENs20rHNnDtSkcJOg7PK3Tvoyv9E0qn4LE3SRNLHFuKaryJKu2f8isMlRo4gXKQ==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal"><span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru?comment=24650" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span></button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_24650">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_24650"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_27913" data-level="0" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/kysil"><img class="avatar avatar-small" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/f491d1b53b0c954fac27dced630b702d2af5f7b9.png" alt="F491d1b53b0c954fac27dced630b702d2af5f7b9"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/kysil">kysil</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru?comment=27913">February 14, 2015</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>Скажите, как добавить хосты для 443 порта (три разных сайта  на одном IP) для корректной работы SSL-сертификатов?</p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_27913" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=27913&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="V+rcT5dGz9KWBudnruPaGwtE3PkrwMEmLow1ReuLQPlLyJBAkjEw3ZfIrDWXfPwOoSZB/A3Ca74C6Fhk26O7Ig==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal"><span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru?comment=27913" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span></button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_27913">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_27913"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_28332" data-level="0" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/naneri"><img alt="naneri" class="avatar avatar-small" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/0e83b19966c6c2ac9111c7ad02a670dc" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/naneri">naneri</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru?comment=28332">February 22, 2015</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>У меня при заходе на сайт домена переходит на ip адрес дроплета. В Где я не так настроил?</p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_28332" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=28332&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="ZyB3wZAHmtN+UwGJ1shODQ0yILvOPtGX5f7aFGaKm8Z7AjvOlXBl3H+dStvvV2gYp1C9vug8ew/Jmrc1VqJgHQ==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal"><span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru?comment=28332" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span></button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_28332">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_28332"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_28976" data-level="0" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/taraskin"><img alt="Taraskin" class="avatar avatar-small" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/c45e4a80604c9ac623daaa936d016e3f" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/taraskin">Taraskin</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru?comment=28976">March  3, 2015</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>Кратко и доступно.<br>
+Особенно интересен момент:<br>
+sudo cp /etc/apache2/sites-available/<strong>000-default.conf</strong> /etc/apache2/sites-available/example.com.<strong>conf</strong><br>
+во многих иструкциях этот момент для более древних версий.<br>
+Единственное, при тестировании захода по <br>
+http://example.com (http://test.com):<br>
+Not Found</p>
+
+<p>The requested URL /example.com/public_html/index.html was not found on this server.<br>
+Apache/2.4.7 (Ubuntu) Server at localhost Port 80</p>
+
+<p>куда копать?</p>
+
+<p>мне помогло в списке хостов прописал вместо 111.111.111.111 такие айпи:<br>
+127.0.0.1       localhost<br>
+127.0.1.1  user<br><br>
+127.1.1.1  example.com<br>
+127.1.1.2  test.com<br>
+работает )</p>
+
+<p>Автору спасибо за толковый мануал )</p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_28976" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=28976&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="lLSY1wPHoLhrWsrGYuF98BpEoGmaIrHC91Qx3PMFjIGIltTYBrBft2qUgZRbflvlsCY9bLwgG1rbMFz9wy13Wg==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal"><span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru?comment=28976" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span></button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_28976">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_28976"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_30984" data-level="0" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/glamurg5"><img alt="glamurg5" class="avatar avatar-small" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/54cb93e5f3912c732f265d3cbb064e68" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/glamurg5">glamurg5</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru?comment=30984">April 11, 2015</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>Спасибо<br>
+Статья простая доходчивая, все сделал как вы описали<br>
+Поменяла Ip адрес на локальный все заработало, но работает только простой index.html которая оздала, потом загрузила движок а вот движок никак не хочет работать, то есть не движок а откудо то подгружается файд index.htm страница которая создается по умолчанию когда устанавливаешь Lam но его нет, раньше он находился тут /var/www/html так я его удалила, странно откуда он может подгружатся, получается он еще где то лежит?<br>
+Вот скриншот этого файла траницы<br>
+<a href="http://firepic.org/images/2015-04/11/km5yni7cb1hb.png" rel="nofollow">Example link</a></p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_30984" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=30984&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="nvgmJ8FqoXVZIpAxnsvq/mJJYv59TbS8U+r7lECH3EaC2mooxB1eeljs22OnVMzryCv/+1tPHiR/jpa1cK8nnQ==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal"><span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru?comment=30984" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span></button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_30984">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_30984"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_36891" data-level="0" class="comment-container">
+    <div class="response    " data-highlight="">
+      <div class="response-avatar comment-response-avatar">
+        <a href="https://www.digitalocean.com/community/users/rusell"><img alt="Rusell" class="avatar avatar-small" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/568b72fa9c96991aee6398ca94252a5d" width="80" height="80"></a>
+      </div>
+
+      <div>
+        <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/rusell">Rusell</a></span>
+        <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru?comment=36891">August 28, 2015</a></span>
+
+        
+      </div>
+
+          <div class="response-body content-body "><p>*мне помогло в списке хостов прописал вместо 111.111.111.111 такие айпи:<br>
+127.0.0.1 localhost<br>
+127.0.1.1 user</p>
+
+<p>127.1.1.1 example.com<br>
+127.1.1.2 test.com<br>
+работает )*</p>
+
+<p>Если на запрос <code>localhost</code> в браузере открылась стартовая страница, то используйте для резолва адрес от localhost'а:</p>
+
+<p>Достаточно написать <code>127.0.0.1 example.com</code> и всё полетит, а так же помним про правильные пути к корневым каталогам в системе.</p>
+</div>
+
+      
+
+      <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="content-actions">
+  <div class="comment-actions">
+    <div class="upvotes comment-upvote"><form data-upvotable="comment_36891" data-upvotable-type="comment" class="upvote-form upvote signed-out-upvote" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=36891&upvote%5Bupvotable_type%5D=Comment" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="iL3Yw4erUhHt1sGWIRASxV+UvM2pAJYNZsEBFPPg06uUn5TMgtytHuwYisQYjzTQ9fYhyI8CPJVKpWw1w8gocA==">
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal"><span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru?comment=36891" title="Do you find this comment helpful? Show the author by Hearting it!" data-placement="top"></span></button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count hidden">0</div></div>
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="comment commentable" id="comment_36891">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_36891"></div>
+</div>
+    </div>
+
+  </li></ul>
+
+      <div class="comments-spinner" style="display: none;"><div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+</div>
+  </div>
+
+  <div class="load-more-container"></div>
+</div>
+
+
+  </div>
+</div>
+
+<div class="creative-commons">
+  <a class="creative-commons-image" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img rel="license" alt="Creative Commons License" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/creativecommons-654928f5ebfbb75f4543af8903eabfe4.png"></a>
+    <div class="license-text">This work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</div>
+</div>
+
+
+
+
+
+        <div class="clearfix"></div>
+    	</div>
+
+    	<footer class="footer">
+  <div class="footer-icon">
+    <span class="icon icon-sammy"></span>
+  </div>
+
+  <div class="copyright">
+    Copyright © 2015 DigitalOcean™ Inc.
+  </div>
+
+  <ul class="main-nav-links">
+    <li><a href="https://www.digitalocean.com/community">Community</a></li>
+    <li><a href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+    <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+    <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+    <li><a href="https://www.digitalocean.com/community/tags">Tags</a></li>
+    <li>
+      <a href="https://www.digitalocean.com/community/tutorials/feed">
+        RSS <span class="icon-rss"></span>
+</a>    </li>
+  </ul>
+
+  <br>
+
+  <ul class="secondary-nav-links">
+
+    <li><a href="https://www.digitalocean.com/legal/terms/">Terms, Privacy, &amp; Copyright</a></li>
+    <li><a href="https://www.digitalocean.com/security/">Security</a></li>
+      <li><a data-toggle="modal" data-target="#sign-in-modal" href="https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru#">Report a Bug</a></li>
+    <li><a href="https://www.digitalocean.com/community/get-paid-to-write">Get Paid to Write</a></li>
+  </ul>
+</footer>
+
+
+
+
+
+    <div id="sign-in-modal" class="modal fade mini-modal" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1>Sign Up</h1>
+        <a class="close-button" data-dismiss="modal" href=""><span class="icon icon-close-light"></span></a>
+      </div>
+      <div class="modal-body">
+        <div class="sign-in-message">Not so fast, you must have an account before you can do that.</div>
+
+        <div class="sign-in-modal-actions">
+          <a class="sign-in-link button blue-button" data-default-url="/community/auth/digitalocean" href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a>
+          <a class="sign-up-link button green-button" data-default-url="/community/auth/digitalocean?display=sessionless+register" href="https://www.digitalocean.com/community/auth/digitalocean?display=sessionless+register">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+  <script>
+    $(function() {
+      init_sharing();
+      new NewsletterSignup();
+      new GrowableMarkdown({ target: '[data-growable-markdown]' });
+    });
+  </script>
+
+  <div id="report-a-bug-modal" class="modal fade mini-modal" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1>Report a Bug</h1>
+          <a class="close-button" data-dismiss="modal" href=""><span class="icon icon-close-light"></span></a>
+        </div>
+        <div class="modal-body">
+          <div class="report-a-bug-message text-center">Use this form to report bugs related to the Community</div>
+          <div class="report-a-bug-actions do-form">
+            <div class="form-wrap">
+              <form class="new_bug_report" id="new_bug_report" action="https://www.digitalocean.com/community/bug_reports" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="9HT0IPn74OODFqNZiQ/yQ7/XNtUEr6faZ9xAl8kUl2joVrgv/Iwf7ILY6AuwkNRWFbWr0CKtDUJLuC22+Txssw==">
+                <fieldset>
+                  <div class="field">
+                    <input placeholder="Name" type="text" name="bug_report[name]" id="bug_report_name">
+                  </div>
+                  <div class="field">
+                    <input placeholder="Email" required="required" type="text" name="bug_report[email]" id="bug_report_email">
+                  </div>
+                  <div class="field">
+                      <textarea placeholder="Message" required="required" name="bug_report[message]" id="bug_report_message" style="overflow: hidden; word-wrap: break-word; resize: none; height: 125px;"></textarea>
+                  </div>
+
+                  <div class="field actions">
+                    <input type="submit" name="commit" value="Submit" class="button">
+                  </div>
+                </fieldset>
+</form>            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+
+<textarea tabindex="-1" style="position: absolute; top: -999px; left: 0px; right: auto; bottom: auto; border: 0px; padding: 0px; box-sizing: content-box; word-wrap: break-word; overflow: hidden; transition: none; height: 0px !important; min-height: 0px !important; font-family: proxima-nova, sans-serif; font-size: 17px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; word-spacing: 0px; text-indent: 0px; line-height: 23.7999992370605px; width: 58px;" class="autosizejs" id="autosizejs"></textarea><a id="scrollUp" href="https://www.digitalocean.com/community/tutorials/apache-ubuntu-14-04-lts-ru#top" style="position: fixed; z-index: 2147483647;">Scroll to top</a><div id="scrollUp-active" style="position: absolute; top: 300px; width: 100%; border-top-width: 1px; border-top-style: dotted; border-top-color: rgb(0, 255, 255); z-index: 2147483647;"></div><div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/wjDNIDNrTQG.html" style="border: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div><script type="text/javascript" id="">adroll_custom_data={article_tag:google_tag_manager["GTM-KHWBBT"].macro('gtm1446714169509'),tutorial_difficulty:google_tag_manager["GTM-KHWBBT"].macro('gtm1446714169510'),content_type:google_tag_manager["GTM-KHWBBT"].macro('gtm1446714169511'),author:google_tag_manager["GTM-KHWBBT"].macro('gtm1446714169512'),is_community_page:google_tag_manager["GTM-KHWBBT"].macro('gtm1446714169513'),user_signed_in:google_tag_manager["GTM-KHWBBT"].macro('gtm1446714169514'),user_droplet_count:google_tag_manager["GTM-KHWBBT"].macro('gtm1446714169515')};</script><script type="text/javascript" id="">(function(){var a=window._fbq||(window._fbq=[]);if(!a.loaded){var b=document.createElement("script");b.async=!0;b.src="//connect.facebook.net/en_US/fbds.js";var c=document.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c);a.loaded=!0}a.push(["addPixelId","1428881624071898"])})();window._fbq=window._fbq||[];window._fbq.push(["track","PixelInitialized",{}]);</script>
+<noscript>&lt;img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?id=1428881624071898&amp;amp;ev=PixelInitialized"&gt;</noscript><script type="text/javascript" id="">(function(b,c,e,g,d){var f,a;b[d]=b[d]||[];f=function(){var a={ti:"4047822"};a.q=b[d];b[d]=new UET(a);b[d].push("pageLoad")};a=c.createElement(e);a.src=g;a.async=1;a.onload=a.onreadystatechange=function(){var b=this.readyState;b&&"loaded"!==b&&"complete"!==b||(f(),a.onload=a.onreadystatechange=null)};c=c.getElementsByTagName(e)[0];c.parentNode.insertBefore(a,c)})(window,document,"script","//bat.bing.com/bat.js","uetq");</script><noscript>&lt;img src="//bat.bing.com/action/0?ti=4047822&amp;amp;Ver=2" height="0" width="0" style="display:none; visibility: hidden;"&gt;</noscript>
+<script type="text/javascript" id="" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/pixel"></script><div style="width:0px; height:0px; display:none; visibility:hidden;" id="batBeacon0.8405542480759323"><img style="width:0px; height:0px; display:none; visibility:hidden;" id="batBeacon0.1027111322619021" width="0" height="0" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/0"><img style="width:0px; height:0px; display:none; visibility:hidden;" id="batBeacon0.8831008856650442" width="0" height="0" src="./Как настроить виртуальные хосты в Apache на Ubuntu 14.04 LTS _ DigitalOcean_files/0(1)"></div>
+</body></html>

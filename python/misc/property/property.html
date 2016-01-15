@@ -1,0 +1,146 @@
+
+<!doctype html>
+<head>
+<meta http-equiv="content-type"
+  content="text/html; charset=UTF-8">
+<meta name="google-site-verification"
+  content="piO8SbQfJ-Q5uqgszqb7AicXhdjD1Wiau6OtHP6B6fA">
+<meta name="generator"
+  content="nanoc 3.7.1">
+<meta name="google-site-verification"
+  content="piO8SbQfJ-Q5uqgszqb7AicXhdjD1Wiau6OtHP6B6fA">
+<link rel="alternate" type="application/atom+xml"
+  title="andreypopp.com" href="/rss.xml">
+<link rel="stylesheet" type="text/css"
+  href="/styles/style.css" media="screen">
+
+<link href="https://twitter.com/andreypopp" rel="me">
+<link href="https://github.com/andreypopp" rel="me">
+<link href="http://facebook.com/andrey.popp" rel="me">
+
+<title>О свойствах (property) в Python</title>
+</head>
+
+<div class="wrapper">
+<div class="layout-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <meta itemprop="author" content="Andrey Popp">
+  <meta itemprop="isFamilyFriendly" content="True">
+
+  <article lang="en">
+    <header itemprop="name"><h1>О свойствах (property) в Python</h1></header>
+    <div class="meta">
+      <div class="author">by Andrey Popp</div>
+      <div class="published">
+        <time itemprop="datePublished" datetime="2010/07/23">
+          2010/07/23
+        </time>
+      </div>
+    </div>
+    <article itemprop="articleBody"><p>В Python, есть такая штука, как <em>свойства (property)</em> – это объекты, которые
+реализуют <em><a href="http://docs.python.org/reference/datamodel.html#descriptors">descriptor</a></em>-протокол и позволяют проделывать
+следующее:</p>
+
+<pre><code>class Person(object):
+
+    def __init__(self, first_name, last_name):
+        self.first_name = first_name
+        self.last_name = last_name
+
+    @property
+    def full_name(self):
+        return " ".join([self.first_name, self.last_name])
+
+person = Person("Andrey", "Popp")
+person.full_name # "Andrey Popp"
+</code></pre>
+
+<p>Это реализация <em>attribute getter/setter</em> шаблона. То есть, обращаюсь к
+<code>full_name</code> как к аттрибуту, мы неявно вызываем соответствующий метод и его
+результат как бы становится значением аттрибута.  Почему “как бы”? Потому что
+он будет заново вычисляться при каждом обращении к <code>full_name</code>.</p>
+
+<p>Я стараюсь никогда не использовать свойства, в тех случаях, когда для их
+вычисления приходится производить какие-то побочные эффекты, будь-то I/O или
+даже просто изменение какой-нибудь структуры данных.</p>
+
+<p>Операция обращения к аттрибуту (а именно так выглядит работа с <code>property</code>) по
+своей семантике должна быть “дешёвой”. Со свойствами можно наворотить следующее
+– представьте себе, что вы, находясь в консоли Python и обращаетесь к некоему
+аттрибуту <code>myobj.some_info</code>, в результате чего отправляется запрос в БД и
+вычисление свойства происходит в течении <code>n</code> секунд – крайне неприятно.</p>
+
+<p>Одна из библиотек, с которыми я работал и которая не следует вышеупомянутой
+рекомендации – SQLAlchemy. Там можно настроить маппинг таблиц на модели таким
+образом, что при обращении к свойствам последних их значения будут
+запрашиваться из БД отдельным запросом. Получается если обратиться к такому
+свойству в цикле из 100 итераций, то будет сделано 100 отдельных запросов к БД
+и при этом, программист читающий код, может этого совершенно не заметить.</p>
+
+<p>Отсюда вердикт – если для вычисления свойства нужно произвести побочные
+эффекты, то лучше сделать это свойство методом.</p>
+
+<p><em>P.S. Кстати, аналогичное суждение верно и в языках на подобии Scala, где можно
+опустить <code>()</code> при вызове функций, которые не принимают никаких параметров –
+я считаю, что если функция производит некие побочные эффекты, то <code>()</code> после
+её вызова необходимо оставить.</em></p>
+
+</article>
+    <div class="meta">
+      <p>
+        Have a feedback? You can send me a
+        <a
+            target="_blank"
+            href="https://twitter.com/share?related=andreypopp&text=@andreypopp"
+            class="twitter-share-button"
+            data-lang="en">tweet</a> or an
+        <a href="mailto:8mayday@gmail.com">email</a>
+        message.
+      </p>
+    </div>
+  </article>
+
+  <!--
+  <aside>
+    <p class="go-back"><a href="/">&larr; go back</a></p>
+    <p class="small shadow">
+      published on <time itemprop="datePublished" datetime="2010/07/23">2010/07/23</time>
+      tagged with python, design
+    </p>
+    <p class="small shadow">
+      watch for updates with the <a href="/rss.xml">atom</a> feed
+    </p>
+    <p class="small shadow">
+      have a feedback? you can send me a
+      <a
+          target="_blank"
+          href="https://twitter.com/share?related=andreypopp&text=@andreypopp"
+          class="twitter-share-button"
+          data-lang="en">tweet</a> or an
+      <a href="mailto:8mayday@gmail.com">email</a>
+      message
+    </p>
+  </aside>
+  -->
+
+  <footer>
+  <p>
+  Copyright &copy; 2014. All information placed here is in public domain.</p>
+</footer>
+
+</div>
+</div>
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-4959682-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script');
+    ga.type = 'text/javascript';
+    ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+

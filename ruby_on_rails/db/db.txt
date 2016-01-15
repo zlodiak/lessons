@@ -1,0 +1,34 @@
+reset id and ckear data 
+
+Add gem 'database_cleaner' to your Gemfile, run $ bundle install, and then:
+
+> DatabaseCleaner.clean_with(:truncation, :only => ['yourtablename'])
+You can specify more tables:
+
+> DatabaseCleaner.clean_with(:truncation, :only => ['table1', 'table2', 'table3'])
+If you leave the last parameter out, it will truncate the whole database:
+
+> DatabaseCleaner.clean_with(:truncation) # your database is truncated
+
+
+===============
+восстановить структуру БД можно не через последовательность миграций, а через импорт файла схемы:
+rake db:setup - Эквивалентно выполнению следующей цепочки комманд: rake db:create, rake db:schema:load, rake db:seed
+rake db:schema:dump - Создаёт db/schema.rb файл из текущей схемы базы данных
+rake db:schema:load - Загрузить db/schema.rb в базу данных
+
+===============
+===============
+===============
+===============
+===============
+===============
+===============
+===============
+===============
+===============
+===============
+===============
+===============
+===============
+===============

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <title>DEVACADEMY</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+        <meta name="format-detection" content="telephone=no">
+        <link href="/bundles/daeweb/images/favicon.png?2" rel="icon" type="image/x-icon" />
+
+                        <link rel="stylesheet" href="/bundles/daeweb/css/style.css?2">
+        
+
+    <link rel="stylesheet" href="/bundles/daeweb/libs/highlight/github.css?2">
+    <link rel="stylesheet" href="/bundles/daeweb/libs/social_likes/social-likes_birman.css?2">
+    </head>
+<body>
+
+<div class="wrapper">
+    <header class="header cf">
+        <div class="section">
+            <div class="col span_2_of_12 logo">
+                <a href="/">DEVACADEMY</a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"></button>
+            </div>
+            <div class="navbar-collapse collapse col span_10_of_12">
+                        <ul class="mainmenu col span_6_of_12">
+            
+                <li class="active first">        <a href="/">    Статьи</a>        
+    </li>
+
+    
+                <li class="last">        <a href="/snippets/">    Сниппеты</a>        
+    </li>
+
+
+    </ul>
+
+
+                                    <ul class="col span_6_of_12 login text-right">
+                                                    <li><a href="#" data-popup="login">Войти</a></li>
+                            <li><a href="/register/">Регистрация</a></li>
+                                            </ul>
+                            </div>
+        </div>
+    </header>
+
+        <div class="content section">
+        <div class="group">
+            <div class="col span_8_of_12 maincontent post">
+                                    <a href="javascript:void(0)" class="a-fav" data-popup="login"></a>
+                
+                <div class="category">
+                    <a href="/blogs/ruby/">
+                                                    <img src="/bundles/daeweb/images/ico-ruby.png?2" alt="">
+                                                Ruby
+                        <span class="num">1</span>
+                    </a>
+                </div>
+
+                <h1>Установка Ruby on Rails на Ubuntu 14.04 при помощи RVM</h1>
+
+                <div class="dateline">
+                    <span class="date">1 год назад</span>
+                                    </div>
+
+                <p class="bg-primary">Установка Ruby on Rails на Ubuntu 14.04 при помощи менеджера версий Ruby</p>
+
+                <p>Ruby on Rails - один из самых популярных фреймфорков для разработки сайтов и веб-приложений. Язык программирования Ruby вместе с фреймворком Rails значительно упрощает процесс разработки.</p>
+<p>Так как не существует готового пакета с Ruby on Rails, установка и настройка среды разработки вызывает некоторые трудности. Но, благодаря таким средствам как RVM (Ruby Version Manager - менеджер версий Ruby), установка может быть упрощена. В этой статье мы покажем как установить <strong>rvm</strong> на Ubuntu 14.04, а затем при помощи него запустить стабильную версию Ruby on Rails. Хотя всю настройку можно выполнить под пользователем root, мы исходили из того, что вы не имеете root доступ.</p>
+<h3>Быстрый способ</h3>
+<p>Самый быстрый способ установки Ruby on Rails - это выполнить следующую команду <code>rvm</code> под обычным пользователем:</p>
+<pre><code class="language-bash">\curl -sSL https://get.rvm.io | bash -s stable --rails</code></pre>
+<p>В процессе установки потребуется ввести пароль от вашей учетной запси. </p>
+<p>Давайте более подробно рассмотрим весь процесс. При помощи <code>curl</code> мы получаем скрипт с сайта rvm. Обратный слеш нужен для того, чтобы мы использовали определенную версию curl, а не какую либо измененную в вашей системе.</p>
+<p>Флаг <code>-s</code> указывает, что процесс установки должен быть запущен в так называемом тихом режиме. Флаг -S заставляет curl выдавать сообщения в случае возникновения ошибок. Флаг -L указывает на то, чтобы rvm следовал перенаправлениям (redirect).</p>
+<p>Далее скрипт перенаправляется на обработку bash. Флаг <code>-s</code> указывает на то, что ввод поступает со стандартного средства ввода. Далее мы задаем, что нам требуется последняя стабильная версия rvm и Ruby on Rails.</p>
+<p>После довольно длительной процедуры установки достаточно выполнить следующую команду:</p>
+<pre><code class="language-bash">source ~/.rvm/scripts/rvm</code></pre>
+<p>Эту команду придётся выполнять после каждой перезагрузки, поэтому лучше добавить её в файл  <code>~/.bashrc</code>, таким образом команда будет автоматически загружаться при каждом сеансе с оболочкой, откройте этот файл и добавьте в конец <code>source ~/.rvm/scripts/rvm</code>, затем сохраните и перезапустите систему.</p>
+<p>Теперь на вашей машине должна быть полностью готовая к работе среда разработки Ruby on Rails.</p>
+<h3>Установка определенной версии Ruby on Rails</h3>
+<p>Если вам требуется установка какой либо определенной версии Ruby, то сделать это можно следующим оразом:</p>
+<pre><code class="language-bash">rvm install версия_ruby</code></pre>
+<p>После установки можно просмотреть доступные версии Ruby:</p>
+<pre><code class="language-bash">rvm list</code></pre>
+<p>Переключение между версиями:</p>
+<pre><code class="language-bash">rvm use версия_ruby</code></pre>
+<p>Для каждой версии Rails вы можете использовать свою версию Ruby. Для этого надо создать gemset, а потом в пределах него установить Rails при помощи команды gem:</p>
+<pre><code class="language-bash">rvm gemset create gemset_name    # создание gemset
+rvm ruby_version@gemset_name  # установка версии Ruby и нашего gemset
+gem install rails -v rails_version   # установка определённой версии Rails</code></pre>
+<p>Такие gemsets представляют собой окружение для gem и позволяют нам иметь полностью раздельные среды разработки на Ruby.</p>
+<h3>Дальнейшая информация</h3>
+<p>Мы просмотрели основы установки rvm и Ruby on Rails, но это далеко не полная информация. Обратите внимание на статью <a href="https://digitalocean.com/community/articles/how-to-use-rvm-to-manage-ruby-installations-and-environments-on-a-vps">Как использовать rvm для управления средами Ruby</a>, в ней вы найдете более подробную информацию на эту тему.</p>
+
+                <div class="social-likes" data-url="http://devacademy.ru/posts/ustanovka-ruby-on-rails-na-ubuntu-1404-pri-pomoschi-rvm/" data-title="Установка Ruby on Rails на Ubuntu 14.04 при помощи RVM">
+                    <div class="facebook" title="Поделиться ссылкой на Фейсбуке">Facebook</div>
+                    <div class="twitter" title="Поделиться ссылкой в Твиттере">Twitter</div>
+                    <div class="vkontakte" title="Поделиться ссылкой во Вконтакте">Вконтакте</div>
+                    <div class="plusone" title="Поделиться ссылкой в Гугл-плюсе">Google+</div>
+                </div>
+
+                <div style="margin-bottom: 25px; margin-top: 25px;">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- bottom -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-0720644859827100"
+         data-ad-slot="3248048998"
+         data-ad-format="auto"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>            </div>
+            <div class="col span_3_of_12 sidebar pull-right">
+                
+                <div class="post-status cf">
+                    <ul>
+                        <li><a href="#comments"><i class="ico-comments"></i> 0</a></li>
+                        <li>
+                                                            <a href="javascript:void(0)" class="a-favs" data-popup="login">
+                                    <i class="ico-favs"></i> <span data-count="1">1</span>
+                                </a>
+                                                    </li>
+                        <li><a href><i class="ico-view"></i> 3,851</a></li>
+                    </ul>
+                </div>
+                <div class="profile-bar">
+                    <div class="ava">
+                        <a href="/user/59265837/">
+                                                            <img src="http://devacademy.ru/media/cache/md_avatar/uploads/avatars/557e845b18fe6.jpg" alt="">
+                                                    </a>
+                    </div>
+                    <a href="/user/59265837/" class="a-name">devacademy</a>
+                                            <a href="/user/59265837/" class="a-position">root</a>
+                                        <div class="level"></div>
+                    <nav class="tags">
+                                                    <a href="/tags/ubuntu/posts/">Ubuntu</a>
+                                                    <a href="/tags/ruby/posts/">Ruby</a>
+                                                    <a href="/tags/rvm/posts/">RVM</a>
+                                            </nav>
+                </div>
+
+                
+                <div>
+    <a href="https://www.digitalocean.com/?refcode=90274e4e602d" target="_blank"><img src="/bundles/daeweb/images/do.png?2"></a>
+</div>                <div id="sidebar-container" data-mfx-top-position="20">
+    <div class="content-widget banner">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:300px;height:250px"
+             data-ad-client="ca-pub-0720644859827100"
+             data-ad-slot="3297884992"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    <br>
+    <div class="content-widget banner">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- right_banner_2 -->
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:300px;height:250px"
+             data-ad-client="ca-pub-0720644859827100"
+             data-ad-slot="1771315793"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+</div>            </div>
+        </div>
+
+        <div class="group">
+    <div class="commentswrap">
+        <header>
+            <h3>Комментарии</h3>
+            <div class="num">0</div>
+                            <a class="a-enter pull-right" href="javascript:void(0)" data-popup="login">Войти</a>
+                    </header>
+
+        <div id="comments" class="comments">
+                            <div class="no-comments-container">
+                    Комментариев нет.
+                </div>
+                    </div>
+
+                    <a class="a-enter" href="javascript:void(0)" data-popup="login">Войдите</a> чтобы оставлять комментарии.
+            </div>
+</div>
+    </div>
+
+    <div class="fpadding cf"></div>
+</div>
+
+<footer class="footer">
+    <div class="section">
+        <div class="col span_3_of_12">
+            <p>&copy; 2015 devacademy</p>
+        </div>
+        <div class="col span_3_of_12">
+            <ul>
+                <li><a href="/about/">О проекте</a></li>
+                <li><a href="/advertise/">Реклама</a></li>
+                <li><a href="/privacy_policy/">Приватность</a></li>
+            </ul>
+        </div>
+        <div class="col span_3_of_12">
+            <ul>
+                <li><a href="/terms_and_conditions/">Правила</a></li>
+                <li><a href="/contact/">Контакт</a></li>
+                <li><a href="/feed/posts/latest/">Лента RSS</a></li>
+            </ul>
+        </div>
+        <div class="col span_3_of_12">
+            <ul class="social">
+                <li><a class="a-fb" href="https://www.facebook.com/devacademyru" target="_blank"></a></li>
+                <li><a class="a-vk" href="https://vk.com/devacademy" target="_blank"></a></li>
+                <li><a class="a-gg" href="https://plus.google.com/communities/116209493237787454857" target="_blank"></a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+<div id="login" class="popup plogin">
+    <a href="" class="pclose"></a>
+    <h3>Вход в аккаунт</h3>
+    <form name="dae_security_login" method="post" action="/auth/check_login/">
+
+    <div class="alert alert-danger alert-dismissible errors-container" role="alert">
+        <ul class="list"></ul>
+    </div>
+        <div class="form-group">
+            <input type="email" id="dae_security_login_email" name="dae_security_login[email]" required="required" placeholder="Электронная почта" class="form-control" />
+            <img src="/bundles/daeweb/images/ico-email.png?2" alt="" class="form-ico">
+        </div>
+        <div class="form-group">
+            <input type="password" id="dae_security_login_password" name="dae_security_login[password]" required="required" placeholder="Пароль" class="form-control" />
+            <img src="/bundles/daeweb/images/ico-passw.png?2" alt="" class="form-ico">
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Войти" class="btn">
+            <a href="/register/" class="a-reg">Регистрация</a>
+        </div>
+        <div id="login-errors"></div>
+        <div style="text-align: center">
+            <a href="/restore/password/">Восстановить пароль</a>
+        </div>
+    <input type="hidden" id="dae_security_login__token" name="dae_security_login[_token]" class="form-control" value="2-CnXRUso5nl2cz7ZfT2jBDyAeqUMmj2ibKunkrPlzg" /></form>
+    <br>
+    <h5>Или войти через:</h5>
+    <ul class="sociallinks" style="text-align: center">
+        <li><a href="/connect/facebook" class="a-fb"></a></li>
+        <li><a href="/connect/vkontakte" class="a-vk"></a></li>
+                <li><a href="/connect/github" class="a-gh"></a></li>
+            </ul>
+</div>
+
+
+
+
+
+<div id="preloader"><div id="status">&nbsp;</div></div>
+        <script src="/bundles/daeweb/js/jquery-2.1.1.min.js?2"></script>
+    <script src="/bundles/daeweb/js/jquery.plugins.js?2"></script>
+    <script src="/bundles/daeweb/js/custom.js?2"></script>
+
+
+    <script src="/bundles/daeweb/libs/highlight/highlight.pack.js?2"></script>
+    <script src="/bundles/daeweb/libs/social_likes/social-likes.min.js?2"></script>
+    <script src="/bundles/daecomment/js/comment.ctrl.js?2"></script>
+    <script src="/bundles/daeweb/libs/sticky/jquery.sticky-kit.min.js?2"></script>
+    <script src="/bundles/daepost/js/post.ctrl.js?2"></script>
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-45969487-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+</body>
+</html>

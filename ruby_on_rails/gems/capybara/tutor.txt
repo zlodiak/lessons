@@ -1,0 +1,86 @@
+после подключения rspec можно подключить capybara
+https://github.com/jnicklas/capybara
+
+
+====================
+gem 'capybara'
+
+====================
+spec_helper.rb:
+ENV["RAILS_ENV"] ||= 'test'
+require File.expand_path("../../config/environment", __FILE__)
+require 'rspec/rails'
+#require 'rspec/autorun'
+
+require 'capybara/rails'
+require 'capybara/rspec'
+include Capybara::DSL
+
+
+
+    config.include Devise::TestHelpers, type: :controller
+end
+
+
+====================
+  describe "GET #index" do
+    it "first test capybara" do
+      visit '/'
+      expect(response).to render_template("index")
+    end
+  end  
+
+====================
+установим devise и протестируем логин пользователя
+
+factories:
+FactoryGirl.define do
+  factory :user do
+    sequence(:email){ |i| "us#{i}@ad.ad" }
+    password 'qwertyui'
+    password_confirmation{ |u| u.password }     
+  end 
+end
+
+
+
+====================
+new template:
+<%= f.submit "Log in", id: 'commitSignIn' %>
+
+====================
+spec controllers:
+
+    it "login via capybara" do
+      @user = FactoryGirl.create(:user) 
+      visit new_user_session_path
+
+      fill_in "user_email", :with => @user.email
+      fill_in "user_password", :with => "qwertyui"
+      click_button "commitSignIn"  
+
+      expect(response).to render_template("index")
+    end
+
+====================
+====================
+====================
+====================
+====================
+====================
+====================
+====================
+====================
+====================
+====================
+====================
+====================
+====================
+====================
+====================
+====================
+====================
+====================
+====================
+====================
+====================

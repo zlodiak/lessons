@@ -1,0 +1,180 @@
+ajax link example
+
+model:
+class Album < ActiveRecord::Base
+  validates :title, presence: true
+
+  belongs_to :user
+end
+
+
+========================
+controller:
+
+
+  def destroy
+    if @album.destroy
+      redirect_to user_albums_path
+    end
+  end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_album
+      flash[:success] = :album_deleted
+      @album = Album.find(params[:id])
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def album_params
+      params.require(:album).permit(:title)
+    end
+
+
+========================
+index:
+
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Albums</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody data-current-user="<%= current_user.id %>">
+    <% @albums.each do |album| %>
+      <tr>
+        <td><%= album.title %></td>
+        <td><%= link_to 'Show', user_album_path(current_user, album.id) %></td>
+        <td><%= link_to 'Edit', edit_user_album_path(current_user, album) %></td>
+        <td><%= link_to 'Destroy', user_album_path(current_user, album), method: :delete, data: { confirm: 'Are you sure?' } %>---<span class="destroy_record" data-album-id="<%= album.id %>">destroy</span></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Album', new_user_album_path(current_user) %>
+
+
+========================
+js:
+
+
+$( document ).ready(function() {
+    $('.destroy_record').on('click', function(e){
+      var link = $(this),
+          td = link.closest('td'),
+          tr = td.closest('tr'),
+          currentUserNameId = link.closest('tbody').attr('data-current-user'),
+          albumId = link.attr('data-album-id');
+
+      $.ajax({
+        url: '/users/' + currentUserNameId + '/albums/' + albumId,
+        type: 'POST',
+        data: { _method: 'DELETE' },
+        success: function(result){
+          console.log('del ok');
+          tr.fadeOut(1000);
+          $('.notice_area').html('<div class="alert  alert-success">album is added successfull.</div>');     
+        },
+        error: function(xhr, ajaxOptions, thrownError){
+          $('.notice_area').html('<div class="alert  alert-error">album is added failed.</div>');   
+          console.log(xhr.status);
+          console.log(thrownError);
+        }        
+      })
+    });   
+
+});
+
+
+
+
+========================
+<% if flash %>
+  <div class="notice_area">
+    <% flash.each do |message_type,  message| %>
+      <div class="alert  alert-<%= message_type %>"><%= message %></div>
+    <% end %>  
+  </div>
+<% end %>
+
+
+========================
+добавляем модальные информационные окна:
+
+    $('.destroy_record').on('click', function(e){
+      var link = $(this),
+          td = link.closest('td'),
+          tr = td.closest('tr'),
+          currentUserNameId = link.closest('tbody').attr('data-current-user'),
+          albumId = link.attr('data-album-id');
+
+      $.ajax({
+        url: '/users/' + currentUserNameId + '/albums/' + albumId,
+        type: 'POST',
+        data: { _method: 'DELETE' },
+        success: function(result){
+          console.log('del ok');
+          tr.fadeOut(1000);
+          $('.notice_area').html('<div class="alert  alert-success">album is added successfull.</div>');
+          handleModal('title', 'album is delete successfull', '00ff2a', 2000);
+        },
+        error: function(xhr, ajaxOptions, thrownError){
+          $('.notice_area').html('<div class="alert  alert-error">album is added failed.</div>');   
+          console.log(xhr.status);
+          console.log(thrownError);
+        }        
+      })
+    });  
+
+    function handleModal(title, body, colorHex, timeout){
+      $('#titleModalInfo').html(title).css({'color': '#' + colorHex});
+      $('#bodyModalInfo').html(body);
+      $('#modalInfo').modal();
+
+      setTimeout(deinitializationModalInfo, timeout)
+
+      function deinitializationModalInfo(){
+        $('#modalInfo').modal('hide');
+        $('#titleModalInfo').empty();
+        $('#bodyModalInfo').empty();
+      };
+    }
+
+
+========================
+html:
+
+<!-- Modal info-->
+<div class="modal fade modal_info" id="modalInfo">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <h3 class="title" id="titleModalInfo"></h3>
+      <div class="body" id="bodyModalInfo"></div>
+      <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+    </div>
+  </div>
+</div>
+========================
+========================
+========================
+========================
+========================
+========================
+========================
+========================
+========================
+========================
+========================
+========================
+========================
+========================
+========================
+========================

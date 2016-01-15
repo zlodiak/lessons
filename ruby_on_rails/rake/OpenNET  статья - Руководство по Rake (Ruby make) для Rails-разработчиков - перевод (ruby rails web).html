@@ -1,0 +1,676 @@
+<HTML><HEAD><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=koi8-r"><TITLE>
+OpenNET: статья - Руководство по Rake (Ruby make) для Rails-разработчиков - перевод (ruby rails web)
+</TITLE>
+<meta name="KeyWords" content="ruby, rails, web">
+</HEAD><BODY BGCOLOR="#DDE1C2" TEXT="#002040">
+<LINK REL="stylesheet" href="/opennet4.css" type="text/css">
+<!--htdig_noindex-->
+<FORM method="get" action="http://www.opennet.ru/search.shtml">
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH="100%">
+<TR>
+<TD VALIGN="BOTTOM" BGCOLOR="#E9EAD6" style="background: #E9EAD6 url('/back.gif') repeat-x bottom left">
+<A HREF="http://www.opennet.ru/"><IMG SRC="/opennet2.gif" HEIGHT=60 WIDTH=249 ALT="The OpenNET Project" BORDER="0"></A><br>
+</TD>
+
+<TD BGCOLOR="#B0B190" WIDTH="1"><IMG SRC="/p.gif" HEIGHT=1 WIDTH=1 ALT=""></TD>
+
+<TD VALIGN=TOP ALIGN=RIGHT WIDTH="728" HEIGHT="90" BGCOLOR="#D9DAC6">
+<TABLE BORDER=0 CELLPADDING=0 WIDTH="728">
+<TR>
+<TD HEIGHT=90 BGCOLOR="#D9DAC6">
+</p>
+
+
+</TD>
+</TR>
+</TABLE>
+</TD>
+
+<TD BGCOLOR="#B0B190" WIDTH="1"><IMG SRC="/p.gif" HEIGHT=1 WIDTH=1 ALT=""></TD>
+<TD WIDTH="40" BGCOLOR="#E9EAD6" style="background: #E9EAD6 url('/back.gif') repeat-x bottom left">&nbsp;</TD>
+<TD BGCOLOR="#B0B190" WIDTH="1"><IMG SRC="/p.gif" HEIGHT=1 WIDTH=1 ALT=""></TD>
+
+<TD VALIGN=TOP ALIGN=RIGHT WIDTH="0" BGCOLOR="#E9EAD6" ROWSPAN=3>
+</TD>
+
+</TR>
+
+<TR BGCOLOR="#B0B190"><TD COLSPAN=6><IMG SRC="/p.gif" HEIGHT=1 WIDTH=1 ALT=""></TD></TR>
+
+
+<TR BGCOLOR="#E9EAD6">
+<TD ALIGN=CENTER COLSPAN=5>
+<table width="100%">
+<tr>
+<td rowspan=2 width=300 nowrap class="h">
+<INPUT type=hidden name=exclude value="index|/man.shtml"><A HREF="../../search.shtml" class="h"><u>Поиск</u></A>&nbsp;(<A HREF="../../keywords/" class="h">теги</A>):&nbsp;<INPUT type="text" size="20" name="words" value="" title='для поиска в google наберите "g фраза"'>
+</td><td width="20%">
+&nbsp;   <A HREF="../../opennews/" class="h"><b><u>НОВОСТИ</u></b></A> (<a href="../../news/opennet.shtml" class="h">+</a>)
+</td><td width="20%">
+  <A HREF="../../mp/" class="h"><b><u>КОНТЕНТ</u></b></A>
+</td><td width="19%">
+  <A HREF="http://wiki.opennet.ru" class="h"><b><u>WIKI</u></b></A>
+</td><td width="19%">
+   <A HREF="../../man.shtml" class="h"><b><u>MAN'ы</u></b></A>
+</td><td width="18%">
+   <A HREF="../../forum/" class="h"><b><u>ФОРУМ</u></b></A>
+</td><td width="4%" align=right>
+   <a href="http://twitter.com/opennetru"><img src="/twitter.png" height="16" width="16" alt="twitter" title="Twitter" border="0"></a>
+   <a href="http://vk.com/opennet"><img src="/img/vkontakte.gif" height="16" width="16" title="ВКонтакте" border="0"></a>
+</td></tr>
+</table>
+</TD>
+<TD BGCOLOR="#B0B190" WIDTH="1"><IMG SRC="/p.gif" HEIGHT=1 WIDTH=1 ALT=""></TD>
+</TR>
+<TR BGCOLOR="#B0B190"><TD COLSPAN=7><IMG SRC="/p.gif" HEIGHT=2 WIDTH=1 ALT=""></TD></TR>
+</TABLE>
+
+<div style="float: left; width: 279; text-align: left;padding-right: 60px;" id=adv><A HREF="http://www.ip-as.ru" target=_blank><IMG SRC="/img/ipas3.gif" BORDER="0" width="279" height="40"></A></div>
+<div style="padding-top: 0px;position:absolute;left:50%;margin-left:-235px;width:470px;" id=adv2>
+</div>
+<div style="width: 279;float: right;" id=adv3>
+</div>
+<div style="clear: both;"></div>
+<br>
+
+<script language="JavaScript"><!--
+d=document;a='';r=escape(d.referrer);a+=';r='+r;
+js=10; d.write('<img src="http://top.list.ru/counter'+
+'?id=77689;js='+js+a+';rand='+Math.random()+
+'" alt="" height=1 width=1>');
+if(js>11)d.write('<'+'!-- ')//--></script><noscript><img
+src="http://top.list.ru/counter?js=na;id=77689"
+height=1 width=1 alt="">
+</noscript>
+
+</FORM>
+<!--/htdig_noindex-->
+
+
+<script language="JavaScript" src="/print.js"></script>
+<CENTER><H3><FONT COLOR="#000090">
+Руководство по Rake (Ruby make) для Rails-разработчиков - перевод (ruby rails web)
+</FONT></H3></CENTER>
+<BR>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=1 BGCOLOR="#B0B190" WIDTH="100%">
+<TR><TD>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 BGCOLOR="#E9EAD6" ALIGN=CENTER WIDTH="100%">
+<COL SPAN=5 WIDTH="5*">
+<TR ALIGN=CENTER>
+<TD><small><A HREF="/cgi-bin/opennet/jump.cgi?name=rake_rails.txt&ref=prev">&lt;&lt; Предыдущая</A></TD>
+<TD><small><A HREF="/cgi-bin/opennet/jump.cgi?name=rake_rails.txt&ref=index">ИНДЕКС</A></TD>
+<TD><small><A HREF="/cgi-bin/opennet/jump.cgi?name=rake_rails.txt&ref=edit">Правка</A></TD>
+<TD><small><A HREF="/cgi-bin/opennet/jump.cgi?name=rake_rails.txt&ref=raw">src</A> / <A HREF="#" onClick="pr('none');">Печать</A></TD>
+<TD><small><A HREF="/cgi-bin/opennet/jump.cgi?name=rake_rails.txt&ref=next">Следующая &gt;&gt;</A></TD>
+</TR><TR BGCOLOR="#B0B190"><TD COLSPAN=5><IMG SRC="/p.gif" HEIGHT=2 WIDTH=1 ALT=""></TD></TR>
+</TR></TABLE></TD></TR></TABLE>
+<PRE>
+<b>Ключевые слова:</b> <A href="/cgi-bin/opennet/ks.cgi?mask=ruby">ruby</a>, <A href="/cgi-bin/opennet/ks.cgi?mask=rails">rails</a>, <A href="/cgi-bin/opennet/ks.cgi?mask=web">web</a>,  (<a href="/cgi-bin/opennet/ks.cgi?mask=ruby%20rails%20web">найти похожие документы</a>)<br>
+<FONT COLOR="#0000C0">From: Немытченко И.В. &lt;<A HREF="mailto:inem@REMOVE-THIS-FAKE.bk.ru">inem&#064;bk.ru&#046;</A>&gt;</FONT>
+<FONT COLOR="#0000C0">Newsgroups: email</FONT>
+<FONT COLOR="#0000C0">Date: Mon, 11 Jun 2007 14:31:37 +0000 (UTC)</FONT>
+<FONT COLOR="#0000C0"><B>Subject: Руководство по Rake (Ruby make) для Rails-разработчиков - перевод</B></FONT>
+
+Оригинал расположен <a href="http://www.railsenvy.com/2007/6/11/ruby-on-rails-rake-tutorial">здесь</a>
+Не забудте туда заглянуть, тем есть забавные картинки и фотографии авторов блога.
+
+Автор статьи - Gregg Pollack.
+
+Перевод также опубликован здесь: <a href="http://rubyroid.org/blog/rake-tutorial/">http://rubyroid.org/blog/rake-tutorial/</a>
+
+Как Rails-разработчик, вы наверняка использовали "rake"
+при тестировании или запускали "rake db:migrate" для выполнения
+миграций. Но понимаете ли вы, что происходит внутри этих Rake
+tasks? Вы в курсе, что можно написать свои задания или даже
+создать библиотеку полезных Rake-файлов?
+
+Вот несколько примеров того, для чего я использую Rake tasks:
+<font color="#461b7e">
+ * Создание списка пользователей для почтовой рассылки
+ * Ночные вычисления и формирование отчетов
+ * Сброс и перегенерация закэшированных страниц
+ * Резервное копирование базы данных и репозитория
+ * Выполнение каких угодно скриптов для манипуляции данными
+ * Разлив выпивки по стаканам
+
+</font>
+
+<b style="color: #990000">Почему make? Экскурс в историю.
+</b>
+
+Прежде чем понять, откуда взялся Rake, давайте сначала вспомним про его прадедушку Make.
+
+Давайте мысленно перенесемся в то время, когда каждый кусок кода должен
+был компилироваться, когда интерпретируемые языки и айФоны еще не
+покорили Землю.
+
+В то время вы получали программу в виде кучи исходного кода и
+shell-скрипта. Этот скрипт содержал весь неодходимый код, необходимый
+вашему компьютеру, чтобы собрать приложение. Вы запускали
+"install_me.sh" (этот самый shell-скрипт), выполнялась строчка за
+строчкой (обычно каждая строка - это компиляция одного исходного файла),
+и в итоге вы получали исполняемый файл, который уже можно было
+запустить.
+
+Впринципе это подходило большинству людей, за исключением тех, кого угораздило
+эту программу разрабатывать. Каждый раз даже после незначительного изменения в
+коде, если вы хотели его проверить, вы должны были снова запускать этот скрипт
+и перекомпилировать все заново. Очевидно, это могло занимать много времени для
+больших програм.
+
+В 1977 (в этом году я родился) Stuart Feldman из Bell Labs создал "Make", которые 
+решал проблему долгой перекомпиляции. Make тоже использовался для компиляции
+программ, но с двумя существенными отличиями:
+
+    1. Make   распознавал  какие  исходные  файлы  изменились  с  момента
+       последней  компиляции.  Используя  эту  информацию,  при повторной
+       компиляции  Make  компилировал только изменившиеся исходные файлы.
+       Это  дало  огромный  прирост  в  скорости  перекомпиляции  больших
+       програм.
+
+    2. Кроме  этого  Make  содержал в себе отслеживание зависимостей, так
+       что   вы   могли   сказать   компилятору,   что   чтобы  нормально
+       скомпилироваться,  исходному файу А нужен исходный файл Б, а файлу
+       Б   требуется   файл   В.   Таким   образом,   если  Make-у  нужно
+       скомпилировать   файл   А   и  файл  Б  еще  не  скомпилирован,  Б
+       компилировался в первую очередь.
+
+   Следует также объяснить, что Make - это просто исполняемый файл, такой
+   же   как  "dir"  или  "ls".  Для  того  чтобы  объяснить  Make-у,  как
+   скомпилировать программу,нужно создать "makefile", который содержал бы
+   все   инструкции   и   зависимости   для  компиляции  "исходников".  У
+   makefile-ов  есть  свой  хитровывернутый  синтаксис, который нам здесь
+   знать  не обязательно. Через некоторое время Make эволюционировал и им
+   стали   пользоваться   во   всяких   разных  языках  программирования.
+
+   Действительно,  много  Ruby-программистов пользовались им, пока ему на
+   смену  не  пришел Rake. , спросите вы. Да, Ruby - это интерпретируемый
+   язык,  и нам не надо компилировать наш код, так почему программисты на
+   Ruby использовали Make? Ну, по двум большим причинам:
+
+    1. Создание  заданий  -  В  каждом  большом  приложении  почти всегда
+       возникает   необходимость   в  скриптах,  которые  можно  было  бы
+       запускать  из  командной  строки. Вместо создания десяти отдельных
+       скриптов  (или  одного  универсального),  вы  можете  создать один
+       "Makefile",  в котором все можно разделить на задания. После этого
+       их  можно  выполнять,  просто  набирая  в  командной  строке "make
+       stupid", где stupid - это название вашего задания.
+
+    2. Отслеживание  зависимостей  между  заданиями  - Когда вы начинаете
+       писать  библиотеку для повседневных задач, то сталкиваетесь с тем,
+       что  некоторые задачи частично повторяют друг друга. Например, оба
+       задания  "migrate"  и  "schema:dump"  требуют  соединения  с базой
+       данных.   Я   мог  бы  создать  задание  "connect_to_database",  и
+       установить,  что  "migrate" и "schema:dump" зависят от него. Таким
+       образом,  в  следующий  раз,  когда  я запущу "migrate", перед ним
+       автоматически запустится "connect_to_database"
+
+
+<b style="color: #990000">Откуда у нас появился Rake?
+</b>
+   Несколько  лет  назад  <a href="http://onestepback.org/">Jim  Weirich</a>  работал  над  Java-проектом, в
+   котором  он  использовал Make. Во время написания Makefile он подумал,
+   что  было  бы  удобно писать небольшие куски кода на Ruby прямо внутри
+   мэйкфайлов.  Ну  и  короче  он написал rake. Тут я малость опустил про
+   Джима  Вейриха,  кому  интересно  загляните в <a href="http://www.railsenvy.com/2007/6/11/ruby-on-rails-rake-tutorial">оригинал</a>, там и фотка
+   есть (Jim Weirich в полосатой футболке :)
+
+
+<b style="color: #990000">Ну и как rake уже в конце концов работает?
+</b>
+   Допустим, мы хотим напиться, какие шаги нам нужно предпринять?
+    1. Купить водки (purchaseAlchohol)
+    2. Замешать коктейль (mixDrink)
+    3. Нажратсо (getSmashed)
+
+   Если  бы  я  захотел  использовать  Rake  для вызова таких задач, я бы
+   создал Rake-файл с примерно таким содержимым:
+<font color="#461b7e">
+        task :purchaseAlchohol do
+          puts "Купил водки"
+        end
+
+        task :mixDrink do
+          puts "Замешал коктейль 'Мохнатый пупок'"
+        end
+
+        task :getSmashed do
+          puts "Ччувак, чота ты какой-то размытый.. И-и-ик, накатим еще по стопарю?"
+        end
+
+</font>
+   После   этого   я   могу  исполнять  эти  задания(находясь  в  той  же
+   директории), что-то типа такого:
+<font color="#461b7e">
+        $ rake purchaseAlchohol
+        Купил водки
+
+        $ rake mixDrink
+        Замешал коктейль 'Мохнатый пупок'
+
+        $ rake getSmashed
+        Ччувак, чота ты какой-то размытый.. И-и-ик, накатим еще по стопарю?
+
+</font>
+   Круто,  да? Тем не менее с точки зрения зависимостей, я могу выполнять
+   эти  задания  в  любом  порядке.  Но  вообще говоря, если бы я пожелал
+   "нажратсо" перед "замешать коктейль" или "купить водки", то обычно это
+   находится  за пределами человеческих возможностей (это не про русских,
+   да - прим. переводчика)
+
+
+<b style="color: #990000">Итак, как мне использовать зависимости в Rake?
+</b><font color="#461b7e">
+        task :purchaseAlchohol do
+          puts "Купил водки"
+        end
+
+        task :mixDrink =&gt; :purchaseAlchohol do
+          puts "Замешал коктейль 'Мохнатый пупок'"
+        end
+
+        task :getSmashed =&gt; :mixDrink do
+          puts "Ччувак, чота ты какой-то размытый.. И-и-ик, накатим еще по стопарю?"
+        end
+
+</font>
+   Итак, теперь я говорю, что если я хочу "замешать коктейль", то надо бы
+   сначала  "купить  водки",  а  если  хочу  "нажратсо",  то сначала надо
+   "замешать  коктейль". Как вы уже наверное догадались, в итоге получаем
+   что-то такое:
+<font color="#461b7e">
+        $ rake purchaseAlchohol
+         Purchased Vodka
+
+        $ rake mixDrink
+         Купил водки
+         Замешал коктейль 'Мохнатый пупок'
+
+        $ rake getSmashed
+         Купил водки
+         Замешал коктейль 'Мохнатый пупок'
+         Ччувак, чота ты какой-то размытый.. И-и-ик, накатим еще по стопарю?
+
+</font>
+   Как видно, теперь при попытке "Нажратсо", вызываются зависимые задания
+   "купить  водки"  и  "замешать  коктейль".  Через  какое-то  время  вам
+   возможно   захочется   усугубить  ваши  пристрастия  и  расширить  ваш
+   Rakefile.  И  даже может быть захочется привлечь к этому своих друзей.
+   Сделаем  вид,  что  мы  как  будто  бы в настоещем софтверном проекте,
+   соответственно  если  мы  хотим  добавить  людей  в  команду,  то надо
+   убедиться   что   все  хорошо  задокументировано.  Итак,  закономерный
+   следующий пункт:
+
+
+<b style="color: #990000">Как документируются Rake-задания?
+</b>
+   Собственно в Rake с этим все очень просто. Вызываем desc и вперед:
+<font color="#461b7e">
+        desc "Это задание купит нам водки"
+        task :purchaseAlchohol do
+          puts "Купил водки"
+        end
+
+        desc "Это задание замешает нам отличный коктейль"
+        task :mixDrink =&gt; :purchaseAlchohol do
+          puts "Замешал коктейль 'Мохнатый пупок'"
+        end
+
+        desc "Это задание позволит нам как следует нажраться"
+        task :getSmashed =&gt; :mixDrink do
+          puts "Ччувак, чота ты какой-то размытый.. И-и-ик, накатим еще по стопарю?"
+        end
+
+</font>
+   Ну  вот, теперь у наших заданий есть описания. Теперь я или мои друзья
+   могут вызвать команду "rake -T" или "rake --tasks"
+<font color="#461b7e">
+        $rake --tasks
+
+         rake getSmashed        # Это задание позволит нам как следует нажраться
+         rake mixDrink          # Это задание замешает нам отличный коктейль
+         rake purchaseAlcohol  # Это задание купит нам водки
+
+</font>
+   Ну несложно, да?
+
+
+<b style="color: #990000">Пространства имен в Rake
+</b>
+   Ну  раз  уж  мы  окончательно  пристрастились  к  алкоголю,  мы теперь
+   используем  множество  разных  Rake-заданий,  и  нам не помешало бы их
+   категоризировать.  Для  этого используем пространства имен. Для нашего
+   примера это будет выглядеть так:
+<font color="#461b7e">
+        namespace :alcoholic do
+        desc "Это задание купит нам водки"
+          task :purchaseAlchohol do
+            puts "Купил водки"
+          end
+
+          desc "Это задание замешает нам отличный коктейль"
+          task :mixDrink =&gt; :purchaseAlchohol do
+            puts "Замешал коктейль 'Мохнатый пупок'"
+          end
+
+          desc "Это задание позволит нам как следует нажраться"
+          task :getSmashed =&gt; :mixDrink do
+            puts "Ччувак, чота ты какой-то размытый.. И-и-ик, накатим еще по стопарю?"
+          end
+        end
+
+</font>
+   Пространства  имен позволяют нам группировать задания по категориям и,
+   О  ДА,  может  быть  более одного пространство имен в Rakefile-е. Если
+   теперь запустить "rake --tasks", то вот что мы увидим:
+<font color="#461b7e">
+        $rake --tasks
+
+         rake alcoholic:getSmashed        # Это задание позволит нам как следует нажраться
+         rake alcoholic:mixDrink          # Это задание замешает нам отличный коктейль
+         rake alcoholic:purchaseAlcohol  # Это задание купит нам водки
+
+</font>
+   Ну и чтобы вызвать наши задания, очевидно нужно выполнить команду .
+
+
+<b style="color: #990000">Как мне написать свои задания на Ruby?
+</b>
+   Ну   собственно  берем  и  пишем  на  Ruby.  Без  шуток.  Недавно  мне
+   понадобился  скрипт,  который  создавал  несколько дерикторий, в общем
+   законченное задание выглядит так:
+<font color="#461b7e">
+        desc "Create blank directories if they don't already exist"
+        task(:create_directories) do
+
+          # The folders I need to create
+          shared_folders = &#091;"icons","images","groups"&#093;
+
+          for folder in shared_folders
+
+            # Check to see if it exists
+            if File.exists?(folder)
+              puts "#&#123;folder&#125; exists"
+            else
+              puts "#&#123;folder&#125; doesn't exist so we're creating"
+              Dir.mkdir "#&#123;folder&#125;"
+            end
+
+          end
+        end
+
+</font>
+   По умолчанию, rake имеет доступ ко всему, что есть в <a href="http://corelib.rubyonrails.org/classes/FileUtils.html">File Utils</a>, но
+   ничто  не  мешает вам подключить все что душе угодно, лишь бы оно было
+   на Ruby.
+
+
+<b style="color: #990000">Как мне написать написать свои Rake-задания для моего Rails-приложения?
+</b>
+   В Rails уже имеется некоторое количество готовых rake заданий, которые
+   можно  просмотреть  с  помощью  "rake  --tasks".  Если вы еще этого не
+   сделали,  тогда сделайте, я подожду... Чтобы создать новые задания для
+   вашего  рельсового  приложения, вам надо открыть директорию /lib/tasks
+   (что  вы уже должны были сделать). Если в этой директории вы создадите
+   свой   Rakefile   "something.rake",   соответствующие   задания  будут
+   автоматически  подгружены.  Они  будут добавлены в список существующих
+   заданий  и  вы  можете  запускать  их  обычным способом. Вот так будет
+   выглядеть предыдущий пример в Rails-окружении:
+<font color="#461b7e">
+        namespace :utils do
+          desc "Create blank directories if they don't already exist"
+          task(:create_directories) do
+
+            # The folders I need to create
+            shared_folders = &#091;"icons","images","groups"&#093;
+
+            for folder in shared_folders
+
+              # Check to see if it exists
+              if File.exists?("#&#123;RAILS_ROOT&#125;/public/#&#123;folder&#125;")
+                puts "#&#123;RAILS_ROOT&#125;/public/#&#123;folder&#125; exists"
+              else
+                puts "#&#123;RAILS_ROOT&#125;/public/#&#123;folder&#125; doesn't exist so we're creating"
+                Dir.mkdir "#&#123;RAILS_ROOT&#125;/public/#&#123;folder&#125;"
+              end
+
+            end
+          end
+        end
+
+</font>
+   Заметьте,   что  здесь  мы  можем  использовать  #&#123;RAILS_ROOT&#125;,  чтобы
+   получить  полный  путь.  После  добавления  такого  rake-файла,  "rake
+   --tasks" выдаст нам следующее:
+<font color="#461b7e">
+        ...
+        rake tmp:pids:clear              # Clears all files in tmp/pids
+        rake tmp:sessions:clear          # Clears all files in tmp/sessions
+        rake tmp:sockets:clear           # Clears all files in tmp/sockets
+        rake utils:create_directories    # Create blank directories if they don't alrea
+        dy exist
+        ...
+
+</font>
+   Замечательно,   теперь   можно   рассмотрим  пример,  где  это  просто
+   суперполезно..
+
+
+<b style="color: #990000">Могу я получить доступ к своим Rails-моделям из Rake-задания?
+</b>
+   Всенепременно!  Собственно,  для  этого по большей части я и использую
+   Rake:  Пишу задания, которые необходимо вызывать периодически в ручную
+   или  автоматически  <a href="http://www.aota.net/Script_Installation_Tips/cronhelp.php3">по  крону</a>.  Как я уже сказал в начале статьи, я
+   использую Rake для следующих задач:
+<font color="#461b7e">
+     * Создание списка пользователей для почтовой рассылки
+     * Ночные вычисления и формирование отчетов
+     * Сброс и перегенерация закэшированных страниц
+     * Резервное копирование базы данных и репозитория
+     * Выполнение каких угодно скриптов для манипуляции данными
+
+</font>
+   Обалденно   удобно,   и  легко.  Вот  rake  задание,  которое  находит
+   пользователей,  у  которых  истекает  срок  подписки  и  рассылает  им
+   уведомления:
+<font color="#461b7e">
+        require File.expand_path(File.dirname(__FILE__) + "/../../config/environment")
+
+        namespace :utils do
+          desc "Finds soon to expire subscriptions and emails users"
+          task(:send_expire_soon_emails =&gt; :environment) do
+                # Find users to email
+                for user in User.members_soon_to_expire
+                        puts "Emailing #&#123;user.name&#125;"
+                        UserNotifier.deliver_expire_soon_notification(user)
+                end
+          end
+        end
+
+</font>
+   Как видно, доступ к нашим моделям производится с помощью "require ..."
+   и "=&gt; :environment":
+
+    1. require            File.expand_path(File.dirname(FILE)           +
+       "/../../config/environment")
+    2. task(:send_expire_soon_emails =&gt; :environment) do
+
+   Запускаем  задание на development-базе даных: На "боевой" базе данных:
+   Чтобы задание выполнялось по ночам, можно дабавить в cron следующее:
+<font color="#461b7e">
+        0 0 * * * cd /var/www/apps/rails_app/ &amp;&amp; /usr/local/bin/rake RAILS_ENV=production utils:send_expire_soon_emails
+
+</font>
+   Вот!
+
+
+<b style="color: #990000">Где еще можно почитать про Rake?
+</b>
+   Теперь,  когда  вы  уже  знаете  достаточно,  чтобы начать писать свои
+   суперполезные  rake-задания,  можно дать вам несколько ссылок по теме.
+   Лучший способ улучшить свои программистские навыки - это чтение чужого
+   кода,  несколько  следующих  ссылок  - это как раз наборы готовых rake
+   tasks.
+<font color="#461b7e">
+     * Новые <a href="http://dev.rubyonrails.org/changeset/6849">rake tasks</a> в Edge Rails для создания и сброса БД
+     * Craig Ambrose написал Rake task для <a href="http://blog.craigambrose.com/articles/2007/03/01/a-rake-task-for-database-backups">резервного копирования</a> базы
+       данных.
+     * Adam  Greene  собрал  в  кучу  <a href="http://www.rubyinside.com/advent2006/15-s3rake.html">несколько  Rake  tasks</a>,  которые
+       позволяют ва бэкапить ваши данные на Amazon S3
+     * Jay   Fields   рассказал   про  использование  <a href="http://blog.jayfields.com/2006/11/ruby-testing-rake-tasks.html">rake  tasks</a>  для
+       тестирования
+     * Err the blog написал про <a href="http://errtheblog.com/post/33">новый способ</a> установки RAILS_ENV и про
+       то, как можно загрузить Mysql-консоль из rake (не забудте почитать
+       комментарии).
+     * И  наконец, <a href="http://docs.rubyrake.org/">Rake Bookshelf Books</a> и руководство Мартина Фаулера
+       <a href="http://www.martinfowler.com/articles/rake.html">Using  the  Rake  Build  Language</a>.  Обе  ссылки  дают довольно
+       исчерпывающее описание Rake, но они уже немного устарели.
+
+</font>
+
+<b style="color: #990000">В догонку
+</b>
+   Тут вот товарищ Джим прислал письмо с объяснением, как можно упростить
+   мой скрипт для создания директорий:
+<font color="#461b7e">
+        # This is needed because the existing version of directory in Rake
+        # is slightly broken, but Jim says it'll be fixed in the next version.
+        alias :original_directory :directory
+        def directory(dir)
+          original_directory dir
+          Rake::Task&#091;dir&#093;
+        end
+
+        # Do the directory creation
+        namespace :utils do
+          task :create_directories =&gt; &#091;
+            directory('public/icons'),
+            directory('public/images'),
+            directory('public/groups'),
+          &#093;
+        end
+
+</font></PRE><BR>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=1 BGCOLOR="#B0B190" WIDTH="100%">
+<TR><TD>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 BGCOLOR="#E9EAD6" ALIGN=CENTER WIDTH="100%">
+<COL SPAN=5 WIDTH="5*">
+<TR ALIGN=CENTER>
+<TD><small><A HREF="/cgi-bin/opennet/jump.cgi?name=rake_rails.txt&ref=prev">&lt;&lt; Предыдущая</A></TD>
+<TD><small><A HREF="/cgi-bin/opennet/jump.cgi?name=rake_rails.txt&ref=index">ИНДЕКС</A></TD>
+<TD><small><A HREF="/cgi-bin/opennet/jump.cgi?name=rake_rails.txt&ref=edit">Правка</A></TD>
+<TD><small><A HREF="/cgi-bin/opennet/jump.cgi?name=rake_rails.txt&ref=raw">src</A> / <A HREF="#" onClick="pr('none');">Печать</A></TD>
+<TD><small><A HREF="/cgi-bin/opennet/jump.cgi?name=rake_rails.txt&ref=next">Следующая &gt;&gt;</A></TD>
+</TR><TR BGCOLOR="#B0B190"><TD COLSPAN=5><IMG SRC="/p.gif" HEIGHT=2 WIDTH=1 ALT=""></TD></TR>
+</TR></TABLE></TD></TR></TABLE>
+<br><TABLE BORDER=0 CELLSPACING=0 CELLPADDING=1 BGCOLOR="#B0B190" WIDTH="100%">
+<TR><TD>
+<TABLE  BORDER=0 CELLSPACING=0 CELLPADDING=5 BGCOLOR="#E9EAD6" WIDTH="100%">
+<tr BGCOLOR="#C7CBB1"><td><table width="100%"><tr><td><font color="#000090"><b>Обсуждение</b></font></td>
+<td align=right  style="font-size: 0.5em;">[
+<a href="/cgi-bin/openforum/rss_forum.cgi?forum=vsluhforumID3&om=91678" style="color: rgb(255, 102, 0);">RSS</a>
+]</td>
+</tr></table></td></tr>
+
+<tr bgcolor="E9EAD6"><td id=ln91678 class=ctxt>
+
+
+<table class=cblk><tr><td width="3%">&nbsp;</td><td width="97%">
+
+<a name="1"></a><table class=cblk><tr><td class=chdr><li><a href="/openforum/vsluhforumID3/91678.html#1">1</a>, <a href="/~Andrey%20Zenkov">Andrey Zenkov</a>, 16:10, 12/09/2013  [<a href="/cgi-bin/openforum/vsluhboard.cgi?az=post&om=91678&forum=vsluhforumID3&omm=1">ответить</a>] [<a href="/openforum/vsluhforumID3/91678.html#1">смотреть все</a>] 
+</td><td class=chdr2><span id="vt_2_3_91678_1" class=vt_d2><a href="#" onClick="return o_vote('2_3_91678_1',1);" title="Одобряю"><span class=vt_p>+</span></a>/<a href="#" onClick="return o_vote('2_3_91678_1',-1);" title="Осуждаю"><span class=vt_m>&ndash;</span></a></span></td></tr><tr><td class=ctxt>
+Спасибо большое за статью , очень помогла!
+<br></td><td rowspan=2 valign=top width=55 align=right><a href="/~Andrey%20Zenkov"><img src="http://www.gravatar.com/avatar/7ce4075eacfb7d80d29e9c29337acce3?size=40&d=http%3A%2F%2Fwww.opennet.ru%2Fp.gif" width=40 height=40 border=0></a></td></tr><tr><td>&nbsp;</td></tr></table>
+
+<div id=actshow_0_1>
+</td></tr></table>
+</div>
+
+
+
+<BR></td></tr>
+<tr BGCOLOR="#C7CBB1"><td><font color="#000090"><b>Ваш комментарий</b></font></td></tr>
+<tr BGCOLOR="#DDE1C2"><td>
+<form method="post" action="http://www.opennet.ru/cgi-bin/openforum/vsluhboard.cgi">
+<input type=hidden name="om"  value="91678">
+<input type=hidden name="key_section" value="topic">
+<input type=hidden name="key_sub" value="dev">
+<input type=hidden name="key_item" value="rake_rails">
+<input type=hidden name="forum" value="vsluhforumID3">
+<input type=hidden name="omm" value="">
+<input type="hidden" name="az" value="a_mesg">
+
+Имя:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type=text name="name" 
+ size=30><br>
+E-Mail:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type=text name="email" 
+size=30><br>
+Заголовок: <input type=text name="subject" 
+value="Руководство по Rake (Ruby make) для Rails-разработчиков - перевод (ruby rails web)" 
+size=30 maxlength=60><br>
+Текст:<br>
+<textarea name="body" COLS=50 ROWS=8 WRAP="virtual">
+</textarea><br>
+<INPUT TYPE="submit" NAME="post" VALUE="Отправить">
+</form>
+</td></tr>
+</table>
+</td></tr>
+</table>
+<br>
+<!--htdig_noindex-->
+<noindex>
+<br>
+
+<table id=ibm_adv align=center><tr valign=top><td width="605">
+<iframe src="http://www.opennet.ru/adv_lc.html" height="240" width="605" scrolling="no" name="ibm" border="0" frameborder="0" target="_blank" marginheight="0" marginwidth="0"></iframe>
+</td></tr></table>
+</noindex>
+<!--/htdig_noindex-->
+
+
+<!-- footer -->
+<!--htdig_noindex-->
+<br>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=1 WIDTH="100%" BGCOLOR="#B0B190">
+<TR><TD>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH="100%" VALIGN="MIDDLE">
+<TR>
+<TD WIDTH="35%" BGCOLOR="#E9EAD6" ALIGN=LEFT>
+<FONT SIZE="-1">
+&nbsp;&nbsp;<A HREF="/cgi-bin/opennet/bookmark.cgi">Закладки&nbsp;на&nbsp;сайте</A><BR>
+&nbsp;&nbsp;<A HREF="/cgi-bin/opennet/bookmark.cgi?submit=add" target="blank_">Проследить&nbsp;за&nbsp;страницей</A>
+</FONT>
+</TD>
+<TD WIDTH="65%" ALIGN=RIGHT BGCOLOR="#E9EAD6">
+<FONT SIZE="-1">Created&nbsp;1996-2015&nbsp;by&nbsp;<B><A HREF="/contact.shtml" title="email mc@tyumen.ru">Maxim&nbsp;Chirkov</A></B></FONT>&nbsp;&nbsp;<BR>
+<FONT SIZE="-1"><A HREF="http://www.opennet.ru/add.shtml">Добавить</A>,&nbsp;<A HREF="http://www.opennet.ru/reklama.shtml">Реклама</A>,&nbsp;<A HREF="http://www.opennet.ru/banners2.shtml">Вебмастеру</A>,&nbsp;<A HREF="../../guide.shtml">ГИД</A></FONT>&nbsp;&nbsp;
+</TD>
+</TR>
+</TABLE>
+</TD></TR>
+</TABLE>
+
+
+<div align=right><table><tr><td>
+<a target=_blank href="http://www.runnet.ru"><img src="/img/runnet.gif" border=0 height=31 width=88 alt="RUNNet"></a>
+<a target=_blank href="http://top.list.ru/jump?from=77689"><img src="http://top.list.ru/counter?id=77689;t=75;l=1" border=0 height=31 width=38 alt="TopList"></a>
+<script type="text/javascript"><!--
+document.write("<a href='http://www.liveinternet.ru/click' "+
+"target=_blank><img src='//counter.yadro.ru/hit?t45.6;r"+
+escape(document.referrer)+((typeof(screen)=="undefined")?"":
+";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+";"+Math.random()+
+"' alt='' title='LiveInternet' "+
+"border='0' width='31' height='31'><\/a>")
+//--></script>
+<a target=_blank href="http://counter.rambler.ru/top100/"><img src="http://counter.rambler.ru/top100.cnt?10566" width=1 height=1 border=0><img src="/banner.gif" width=88 height=31 border=0></a>
+</td></tr></table>
+</div>
+</form>
+<!--/htdig_noindex-->
+<!-- end of footer -->
+
+
+
+</BODY></HTML>

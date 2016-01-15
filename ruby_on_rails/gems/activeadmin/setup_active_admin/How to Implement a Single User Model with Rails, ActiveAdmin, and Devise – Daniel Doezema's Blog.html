@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<!-- saved from url=(0102)http://dan.doezema.com/2012/02/how-to-implement-a-single-user-model-with-rails-activeadmin-and-devise/ -->
+<html class=" js no-touch cssanimations csstransitions" lang="en"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>How to Implement a Single User Model with Rails, ActiveAdmin, and Devise – Daniel Doezema's Blog</title>
+<meta name="description" content="Topics focusing on the various aspects of development.">
+<meta name="keywords" content="Ruby, Rails, ActiveAdmin, Devise, Authentication, Authorization, Gem, Model, Controller, User">
+
+<!-- Twitter Cards -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://dan.doezema.com/images/feature_3.jpg">
+
+<meta name="twitter:title" content="How to Implement a Single User Model with Rails, ActiveAdmin, and Devise">
+<meta name="twitter:description" content="Topics focusing on the various aspects of development.">
+<meta name="twitter:creator" content="@DanDoezema">
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to Implement a Single User Model with Rails, ActiveAdmin, and Devise">
+<meta property="og:description" content="Topics focusing on the various aspects of development.">
+<meta property="og:url" content="http://dan.doezema.com/2012/02/how-to-implement-a-single-user-model-with-rails-activeadmin-and-devise">
+<meta property="og:site_name" content="Daniel Doezema&#39;s Blog">
+
+
+
+
+
+<link rel="canonical" href="http://dan.doezema.com/2012/02/how-to-implement-a-single-user-model-with-rails-activeadmin-and-devise">
+<link href="http://dan.doezema.com/feed.xml" type="application/atom+xml" rel="alternate" title="Daniel Doezema&#39;s Blog Feed">
+<link rel="author" href="https://plus.google.com/+DanielDoezema?rel=author">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://dan.doezema.com/assets/css/main.min.css">
+<!-- Webfonts -->
+<link href="./How to Implement a Single User Model with Rails, ActiveAdmin, and Devise – Daniel Doezema's Blog_files/css" rel="stylesheet" type="text/css">
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- Load Modernizr -->
+<div class="fit-vids-style">­<style>               .fluid-width-video-wrapper {                 width: 100%;                              position: relative;                       padding: 0;                            }                                                                                   .fluid-width-video-wrapper iframe,        .fluid-width-video-wrapper object,        .fluid-width-video-wrapper embed {           position: absolute;                       top: 0;                                   left: 0;                                  width: 100%;                              height: 100%;                          }                                       </style></div><script type="text/javascript" async="" src="./How to Implement a Single User Model with Rails, ActiveAdmin, and Devise – Daniel Doezema's Blog_files/inpage_linkid.js" id="undefined"></script><script type="text/javascript" async="" src="./How to Implement a Single User Model with Rails, ActiveAdmin, and Devise – Daniel Doezema's Blog_files/ga.js"></script><script src="./How to Implement a Single User Model with Rails, ActiveAdmin, and Devise – Daniel Doezema's Blog_files/modernizr-2.6.2.custom.min.js"></script>
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="http://dan.doezema.com/favicon.ico">
+<!-- 32x32 -->
+<link rel="shortcut icon" href="http://dan.doezema.com/favicon.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="http://dan.doezema.com/images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://dan.doezema.com/images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://dan.doezema.com/images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://dan.doezema.com/images/apple-touch-icon-144x144-precomposed.png">
+
+
+
+
+<style type="text/css">body {background-image:url(http://dan.doezema.com/images/backgrounds/tweed/tweed.png);}</style>
+
+<script type="text/javascript" async="" src="./How to Implement a Single User Model with Rails, ActiveAdmin, and Devise – Daniel Doezema's Blog_files/embed.js"></script><script async="" type="text/javascript" src="./How to Implement a Single User Model with Rails, ActiveAdmin, and Devise – Daniel Doezema's Blog_files/count.js"></script></head>
+
+<body id="post" class="feature" itemscope="" itemtype="http://schema.org/WebPage" cz-shortcut-listen="true">
+
+<!--[if lt IE 9]><div class="upgrade"><strong><a href="http://whatbrowser.org/">Your browser is quite old!</strong> Why not upgrade to a different browser to better enjoy this site?</a></div><![endif]-->
+<nav id="dl-menu" class="dl-menuwrapper" role="navigation" itemscope="" itemtype="http://schema.org/SiteNavigationElement">
+	<button class="dl-trigger">Open Menu</button>
+	<ul class="dl-menu">
+		<li><a href="http://dan.doezema.com/">Home</a></li>
+		<li>
+			<a href="http://dan.doezema.com/2012/02/how-to-implement-a-single-user-model-with-rails-activeadmin-and-devise/#">About</a>
+			<ul class="dl-submenu"><li class="dl-back"><a href="http://dan.doezema.com/2012/02/how-to-implement-a-single-user-model-with-rails-activeadmin-and-devise/#">back</a></li>
+				<li>
+					<img src="./How to Implement a Single User Model with Rails, ActiveAdmin, and Devise – Daniel Doezema's Blog_files/avatar.jpg" alt="Daniel Doezema photo" class="author-photo">
+					<h4>Daniel Doezema</h4>
+					<p>I'm Full-Stack developer living and working in Indianapolis.</p>
+				</li>
+				<li>
+					<a href="http://github.com/veloper"><i class="icon-github"></i> GitHub</a>
+				</li>
+				
+				<li>
+					<a href="http://twitter.com/DanDoezema"><i class="icon-twitter"></i> Twitter</a>
+				</li>
+				
+				<li>
+					<a href="https://plus.google.com/+DanielDoezema"><i class="icon-google-plus"></i> Google+</a>
+				</li>
+				<li>
+					<a href="http://linkedin.com/in/danieldoezema"><i class="icon-linkedin"></i> LinkedIn</a>
+				</li>
+				
+				
+				
+				
+			</ul><!-- /.dl-submenu -->
+		</li>
+		<li>
+			<a href="http://dan.doezema.com/2012/02/how-to-implement-a-single-user-model-with-rails-activeadmin-and-devise/#">Posts</a>
+			<ul class="dl-submenu"><li class="dl-back"><a href="http://dan.doezema.com/2012/02/how-to-implement-a-single-user-model-with-rails-activeadmin-and-devise/#">back</a></li>
+				<li><a href="http://dan.doezema.com/archive/">All Posts</a></li>
+				<li><a href="http://dan.doezema.com/tags/">All Tags</a></li>
+			</ul>
+		</li>
+		
+	</ul><!-- /.dl-menu -->
+</nav><!-- /.dl-menuwrapper -->
+
+
+
+<div class="entry-header">
+  <div class="entry-image"><img src="./How to Implement a Single User Model with Rails, ActiveAdmin, and Devise – Daniel Doezema's Blog_files/feature_3.jpg" alt="How to Implement a Single User Model with Rails, ActiveAdmin, and Devise" itemprop="image">
+    
+  </div><!-- /.entry-image -->
+</div><!-- /.entry-header -->
+
+
+<div id="main" role="main" itemprop="mainContentOfPage" itemscope="" itemtype="http://schema.org/Blog">
+  <article class="hentry" itemprop="blogPost" itemscope="" itemtype="http://schema.org/BlogPosting">
+    <header class="header-title">
+      <div class="header-title-wrap">
+        
+          <h1 class="entry-title" itemprop="name"><a href="http://dan.doezema.com/2012/02/how-to-implement-a-single-user-model-with-rails-activeadmin-and-devise" rel="bookmark" title="How to Implement a Single User Model with Rails, ActiveAdmin, and Devise" itemprop="url">How to Implement a Single User Model with Rails, ActiveAdmin, and Devise</a></h1>
+        
+        <h2>February 25, 2012</h2>
+      </div><!-- /.header-title-wrap -->
+    </header>
+    <div class="entry-content" itemprop="description">
+      <p>I had just finished the standard installation of <a href="http://activeadmin.info/">ActiveAdmin</a> when I noticed that authentication was implemented using the fantastic <a href="https://github.com/plataformatec/devise">Devise Gem</a>. I had already been planning on using Devise for authentication within my application so I initially thought integration would be a snap. However, as development progressed it became clear that all of the pieces were not quite fitting together.</p>
+
+<h2 id="realization">Realization</h2>
+
+<p>After exploring the idea of using one login for ActiveAdmin and the application I ran into a rather large road block. By default ActiveAdmin uses an <code>AdminUser</code> Devise model to manage user authentication. Why is that such a big problem you ask?</p>
+
+<p>Well, I really wanted to avoid having…</p>
+
+<ul>
+  <li>the application users login via the ActiveAdmin interface</li>
+  <li>a model named <code>AdminUser</code> representing an application user</li>
+  <li>two models that contained much of the same code and functionality</li>
+  <li>to maintain two separate user management systems (Admin vs Application)</li>
+</ul>
+
+<p>In most cases ActiveAdmin would be used by… well, administrators. However, that was not my situation. I had a slew of qualified people that needed access to both ActiveAdmin and the Application; having two sets of credentials was just not the optimal solution.</p>
+
+<h2 id="the-optimal-solution">The Optimal Solution</h2>
+
+<p>What I really wanted was for both the ActiveAdmin and Application users to be…</p>
+
+<ul>
+  <li>able to sign in/out via a single set of Devise controller/actions routes</li>
+  <li>managed by single, Devise configured, <code>User</code> model</li>
+  <li>distinguished by a boolean flag — such as <code>user.superadmin?</code></li>
+  <li>restricted from accessing ActiveAdmin based on the above flag.</li>
+</ul>
+
+<p>After chewing on the problem for a while, reading through ActiveAdmin documentation, and talking to a couple of colleagues I managed to come up with a way of implementing a solution that provided exactly what I was looking for.</p>
+
+<h2 id="setting-up-the-activeadminapplication-user-model">Setting Up the ActiveAdmin/Application User Model</h2>
+
+<p>For the purposes of making this walkthrough more adaptable to other projects I’ve chosen to explain the entire process starting from scratch using a brand new Rails 3.1 project.</p>
+
+<h3 id="step-0-preparation">Step 0: Preparation</h3>
+
+<p>We start off by creating the classic Rails “blog” application…</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre>$ rails new blog
+</pre></div>
+</div>
+</div>
+
+<p>Next, we open the project’s Gemfile and add the required ActiveAdmin and Devise gems…</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="comment"># ==&gt; File: /Gemfile</span>
+
+<span class="comment"># Active Admin + Required Gems</span>
+gem <span class="string"><span class="delimiter">'</span><span class="content">activeadmin</span><span class="delimiter">'</span></span>
+gem <span class="string"><span class="delimiter">'</span><span class="content">sass-rails</span><span class="delimiter">'</span></span>
+gem <span class="string"><span class="delimiter">"</span><span class="content">meta_search</span><span class="delimiter">"</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">&gt;= 1.1.0.pre</span><span class="delimiter">'</span></span>
+
+<span class="comment"># Devise</span>
+gem <span class="string"><span class="delimiter">"</span><span class="content">devise</span><span class="delimiter">"</span></span>, <span class="string"><span class="delimiter">"</span><span class="content">~&gt; 2.0.0</span><span class="delimiter">"</span></span>
+</pre></div>
+</div>
+</div>
+
+<p>We then install the gems with bundler and run the ActiveAdmin installation generator …</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre>$ bundle install
+  ... bundler output ...
+
+$ rails generate active_admin:install
+  invoke    active_record
+  create      db/migrate/20120205064942_devise_create_admin_users.rb
+  create      app/models/admin_user.rb
+  invoke      test_unit
+  create        test/unit/admin_user_test.rb
+  create        test/fixtures/admin_users.yml
+  insert      app/models/admin_user.rb
+   route    devise_for :admin_users
+    gsub    app/models/admin_user.rb
+    gsub    config/routes.rb
+  insert    db/migrate/20120205064942_devise_create_admin_users.rb
+  create  config/initializers/active_admin.rb
+  create  app/admin
+  create  app/admin/dashboards.rb
+   route  ActiveAdmin.routes(self)
+generate  active_admin:assets
+  create  app/assets/javascripts/active_admin.js
+  create  app/assets/stylesheets/active_admin.css.scss
+  create  db/migrate/20120205014944_create_admin_notes.rb
+  create  db/migrate/20120205014945_move_admin_notes_to_comments.rb
+</pre></div>
+</div>
+</div>
+
+<p><strong>Note:</strong> You may see some Devise specific errors at this point, ignore them for now.</p>
+
+<p>At this point the ActiveAdmin gem has been installed and its files and routes have been generated using the steps outlined in the official installation instructions. This is where we leave those instructions behind…</p>
+
+<h3 id="step-1-creating-a-new-devise-user-model">Step 1: Creating a new Devise <code>User</code> model</h3>
+
+<p>First thing’s first, let’s run the Devise 2.0 installation generator.</p>
+
+<p><strong>Note:</strong> Enter “Y” (<em>yes</em>) if you are prompted to overwrite the devise initializer file.</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre>$ rails generate devise:install
+   conflict  config/initializers/devise.rb
+Overwrite blog/config/initializers/devise.rb? (enter "h" for help) [Ynaqdh] Y
+      force  config/initializers/devise.rb
+  identical  config/locales/devise.en.yml
+</pre></div>
+</div>
+</div>
+
+<p>Now, at this point one might ask: “Can’t I just simply rename the <code>AdminUser</code> model?” – Nope! Unfortunately there are no migrations, routes, or tests in place to support a model named <code>User</code> yet.</p>
+
+<p>To fix that let’s go ahead and create them using the Devise model generator.</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre>$ rails generate devise User
+  invoke  active_record
+  create    db/migrate/20120120053416_devise_create_users.rb
+  create    app/models/user.rb
+  invoke    test_unit
+  create      test/unit/user_test.rb
+  create      test/fixtures/users.yml
+  insert    app/models/user.rb
+  route  devise_for :users
+</pre></div>
+</div>
+</div>
+
+<p>Now that the <code>User</code> model has been created a <code>superuser?</code> boolean flag must be added. Additionally we need to insert an initial Superamin User record so that we may login and access ActiveAdmin later on. These two steps can be accomplished with a simple rails migration…</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre>$ rails generate migration AddSuperadminToUser
+invoke  active_record
+create    db/migrate/20120122062203_add_superadmin_to_user.rb
+</pre></div>
+</div>
+</div>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="comment"># ==&gt; File: /db/migrate/20120122062203_add_superadmin_to_user.rb</span>
+
+<span class="keyword">class</span> <span class="class">AddSuperadminToUser</span> &lt; <span class="constant">ActiveRecord</span>::<span class="constant">Migration</span>
+  <span class="keyword">def</span> <span class="function">up</span>
+    add_column <span class="symbol">:users</span>, <span class="symbol">:superadmin</span>, <span class="symbol">:boolean</span>, <span class="symbol">:null</span> =&gt; <span class="predefined-constant">false</span>, <span class="symbol">:default</span> =&gt; <span class="predefined-constant">false</span>
+
+    <span class="constant">User</span>.create! <span class="keyword">do</span> |r|
+      r.email      = <span class="string"><span class="delimiter">'</span><span class="content">default@example.com</span><span class="delimiter">'</span></span>
+      r.password   = <span class="string"><span class="delimiter">'</span><span class="content">password</span><span class="delimiter">'</span></span>
+      r.superadmin = <span class="predefined-constant">true</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+
+  <span class="keyword">def</span> <span class="function">down</span>
+    remove_column <span class="symbol">:users</span>, <span class="symbol">:superadmin</span>
+    <span class="constant">User</span>.find_by_email(<span class="string"><span class="delimiter">'</span><span class="content">default@example.com</span><span class="delimiter">'</span></span>).try(<span class="symbol">:delete</span>)
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre></div>
+</div>
+</div>
+
+<p><strong>Note:</strong> These temporary user credentials will be used later on in <em>Step 4</em>.</p>
+
+<p>Finally, open up the <code>User</code> model and replace its content with the example code below – <em>modify to taste</em>.</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="comment"># ==&gt; File: /app/models/user.rb</span>
+
+<span class="keyword">class</span> <span class="class">User</span> &lt; <span class="constant">ActiveRecord</span>::<span class="constant">Base</span>
+  devise <span class="symbol">:database_authenticatable</span>, <span class="symbol">:recoverable</span>,
+         <span class="symbol">:rememberable</span>, <span class="symbol">:trackable</span>, <span class="symbol">:validatable</span>
+  attr_accessible <span class="symbol">:email</span>, <span class="symbol">:password</span>, <span class="symbol">:password_confirmation</span>,
+                  <span class="symbol">:remember_me</span>
+<span class="keyword">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>Great, you’ve just configured what will be the unified <code>User</code> model!</p>
+
+<h3 id="step-2-reconfiguring-activeadmin">Step 2: Reconfiguring ActiveAdmin</h3>
+<p>As it turns out ActiveAdmin has some nifty configuration settings that allow for its authentication behavior to be modified. Open up the ActiveAdmin initializer file and update it to reflect the configuration settings below…</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="comment"># ==&gt; File: config/initializers/active_admin.rb</span>
+
+config.authentication_method = <span class="symbol">:authenticate_active_admin_user!</span>
+config.current_user_method   = <span class="symbol">:current_user</span>
+config.logout_link_path      = <span class="symbol">:destroy_user_session_path</span>
+config.logout_link_method    = <span class="symbol">:delete</span>
+</pre></div>
+</div>
+</div>
+
+<p>There is a lot here so let’s quickly go over whats happening.</p>
+
+<ul>
+  <li>The ActiveAdmin <code>current_user_method</code> and <code>authentication_method</code> configuration settings specify which methods to call when retrieving and authenticating a user, respectively.</li>
+  <li>When someone attempts to access any of the ActiveAdmin actions a call is made to both methods which are scoped to the Rails <code>ApplicationController</code> instance.</li>
+</ul>
+
+<p>We’ve instructed ActiveAdmin to use a new custom authentication method: <code>authenticate_active_admin_user!</code> It doesn’t exist yet so we must define it in the <code>ApplicationController</code> …</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="keyword">class</span> <span class="class">ApplicationController</span> &lt; <span class="constant">ActionController</span>::<span class="constant">Base</span>
+  protect_from_forgery
+
+  <span class="keyword">def</span> <span class="function">authenticate_active_admin_user!</span>
+    authenticate_user!
+    <span class="keyword">unless</span> current_user.superadmin?
+      flash[<span class="symbol">:alert</span>] = <span class="string"><span class="delimiter">"</span><span class="content">Unauthorized Access!</span><span class="delimiter">"</span></span>
+      redirect_to root_path
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>Perfect, ActiveAdmin is now properly configured to take advantage of the <code>superadmin?</code> user flag.</p>
+
+<h3 id="step-3-cleaning-up-the-code-left-behind-by-activeadmin">Step 3: Cleaning up the code left behind by ActiveAdmin</h3>
+
+<p>Now that the new Devise <code>User</code> model is setup we can start to cleanup the code and files leftover from the ActiveAdmin install generator. We start by deleting the <code>AdminUser</code> model and its associated migration file…</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre>$ cd /path/to/your/rails/project
+
+$ rails destroy model AdminUser
+  invoke  active_record
+  remove    migration.rb
+  remove    app/models/admin_user.rb
+  invoke    test_unit
+  remove      test/unit/admin_user_test.rb
+  remove      test/fixtures/admin_users.yml
+
+$ rm ./db/migrate/*_devise_create_admin_users.rb
+</pre></div>
+</div>
+</div>
+
+<p>Next, we need to make the comments within ActiveAdmin work properly again. Open up the following migration files, do a simple Find &amp; Replace for <code>:admin_user</code> to <code>:user</code>, then save.</p>
+
+<ul>
+  <li><code>20120212124753</code>_create_admin_notes.rb</li>
+  <li><code>20120212124754</code>_move_admin_notes_to_comments.rb</li>
+</ul>
+
+<p><strong>Note:</strong> The <code>timestamps</code> of your migration filenames will be different.</p>
+
+<p>The Devise routes that AdminAdmin generated for the <code>AdminUser</code> model still exist and must be removed. Open up the Rails <code>routes.rb</code> file and delete the following line of code…</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre>devise_for <span class="symbol">:admin_users</span>, <span class="constant">ActiveAdmin</span>::<span class="constant">Devise</span>.config
+</pre></div>
+</div>
+</div>
+
+<p>Great, the project has been clean of any left over files and all the features within ActiveAdmin will now work properly.</p>
+
+<h3 id="step-4-managing-the-devise-user-model-with-activeadmin">Step 4: Managing the Devise <code>User</code> model with ActiveAdmin</h3>
+
+<p>The <code>User</code> model is much more complex than your average <code>ActiveRecord::Base</code> class. It’s configured with Devise authentication options and now has a <code>superadmin?</code> flag that is responsible for controlling access to ActiveAdmin. As a result of this complexity we need to add some custom configuration.</p>
+
+<p>The first thing we need to do is make ActiveAdmin aware of the User model by creating a corresponding registration file, like so…</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre>$ cd /path/to/your/rails/project
+$ touch ./app/admin/user.rb
+</pre></div>
+</div>
+</div>
+
+<p>Open the <code>/app/admin/user.rb</code> file with an editor of your choice and copy/paste the ActiveAdmin model registration code below.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Note:</strong></td>
+      <td>This is the absolute bare minimum configuration that is required to manage users from within ActiveAdmin. Feel free to modify this registration file to suit your needs. Keep in mind that as the <code>User</code> model gains more complexity, the ActiveAdimin registration file will need to grow along with it.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="comment"># ==&gt; File: app/admin/user.rb</span>
+
+<span class="constant">ActiveAdmin</span>.register <span class="constant">User</span> <span class="keyword">do</span>
+
+  form <span class="keyword">do</span> |f|
+    f.inputs <span class="string"><span class="delimiter">"</span><span class="content">User Details</span><span class="delimiter">"</span></span> <span class="keyword">do</span>
+      f.input <span class="symbol">:email</span>
+      f.input <span class="symbol">:password</span>
+      f.input <span class="symbol">:password_confirmation</span>
+      f.input <span class="symbol">:superadmin</span>, <span class="symbol">:label</span> =&gt; <span class="string"><span class="delimiter">"</span><span class="content">Super Administrator</span><span class="delimiter">"</span></span>
+    <span class="keyword">end</span>
+    f.buttons
+  <span class="keyword">end</span>
+
+  create_or_edit = <span class="constant">Proc</span>.new {
+    <span class="instance-variable">@user</span>            = <span class="constant">User</span>.find_or_create_by_id(params[<span class="symbol">:id</span>])
+    <span class="instance-variable">@user</span>.superadmin = params[<span class="symbol">:user</span>][<span class="symbol">:superadmin</span>]
+    <span class="instance-variable">@user</span>.attributes = params[<span class="symbol">:user</span>].delete_if <span class="keyword">do</span> |k, v|
+      (k == <span class="string"><span class="delimiter">"</span><span class="content">superadmin</span><span class="delimiter">"</span></span>) ||
+      ([<span class="string"><span class="delimiter">"</span><span class="content">password</span><span class="delimiter">"</span></span>, <span class="string"><span class="delimiter">"</span><span class="content">password_confirmation</span><span class="delimiter">"</span></span>].include?(k) &amp;&amp; v.empty? &amp;&amp; !<span class="instance-variable">@user</span>.new_record?)
+    <span class="keyword">end</span>
+    <span class="keyword">if</span> <span class="instance-variable">@user</span>.save
+      redirect_to <span class="symbol">:action</span> =&gt; <span class="symbol">:show</span>, <span class="symbol">:id</span> =&gt; <span class="instance-variable">@user</span>.id
+    <span class="keyword">else</span>
+      render active_admin_template((<span class="instance-variable">@user</span>.new_record? ? <span class="string"><span class="delimiter">'</span><span class="content">new</span><span class="delimiter">'</span></span> : <span class="string"><span class="delimiter">'</span><span class="content">edit</span><span class="delimiter">'</span></span>) + <span class="string"><span class="delimiter">'</span><span class="content">.html.erb</span><span class="delimiter">'</span></span>)
+    <span class="keyword">end</span>
+  }
+  member_action <span class="symbol">:create</span>, <span class="symbol">:method</span> =&gt; <span class="symbol">:post</span>, &amp;create_or_edit
+  member_action <span class="symbol">:update</span>, <span class="symbol">:method</span> =&gt; <span class="symbol">:put</span>, &amp;create_or_edit
+
+<span class="keyword">end</span>
+</pre></div>
+</div>
+</div>
+
+<h4 id="step-5-wrapping-it-all-up">Step 5: Wrapping It All Up</h4>
+<p>Now that everything has been created and configured we can finally pull the trigger on the migration files. So let’s go ahead and run them like so…</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre>$ cd /path/to/your/rails/project
+$ rake db:migrate
+</pre></div>
+</div>
+</div>
+
+<p>It’s a good idea to setup some real user credentials so let’s start up the local rails server, by executing <code>$ rails server</code> and opening the browser to <a href="http://localhost:3000/users/sign_in">http://localhost:3000/users/sign_in</a>.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Note:</strong>&nbsp;</td>
+      <td>If page layout looks completely broken <strong>don’t worry</strong>! It just means that you need to <a href="https://github.com/plataformatec/devise/wiki">style or replace the Devise sign in page</a>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Sign in using the temporary email and password that was added via the migration created back in <a href="http://dan.doezema.com/2012/02/how-to-implement-a-single-user-model-with-rails-activeadmin-and-devise/#step-1-creating-a-new-devise-user-model">Step 1</a>.</p>
+
+<p>After you’ve logged in navigate to <a href="http://localhost:3000/admin">http://localhost:3000/admin</a>, click on the Users tab, create a new super administrator user using the credentials of your choice and click save.</p>
+
+<p>Lastly, sign out of ActiveAdmin, then sign in again with your new credentials and delete the temporary user.</p>
+
+<p>That’s it, you’re done!</p>
+
+<h2 id="but-but-what-about">But! But! What About…</h2>
+
+<p>Some may be wondering why I did not use the optional <em>user model parameter</em> in ActiveAdmin install generator script.</p>
+
+<p>Well, I didn’t use it in this post for a few of reasons. Mainly I wanted to make sure this walkthrough was applicable to the widest set of projects and situations. Thus, I wrote this post so that it could be followed by someone who was either starting a new Rails project or just needed to cherry pick some of the steps for their existing application.</p>
+
+<p>I also found that running the ActiveAdmin installation generator over top of a pre-existing <code>User</code> model will cause code to be injected into that User model class file and migrations will be built that change the users table structure.</p>
+
+<p>Lastly, the generator solution alone does not cover all of my other requirements that I listed above. ActiveAdmin would still use it’s own views for the authentication routes, and the <code>superadmin?</code> flag, configuration setting, and authentication method would still need be modified/created by hand.</p>
+
+<p>Thus, I would recommend using it only if you’re aware of the pitfalls in doing so.</p>
+
+<h2 id="environment">Environment</h2>
+
+<p>This walk through was tested and implemented using the following technologies…</p>
+
+<ul>
+  <li>Rails 3.1</li>
+  <li>Ruby 1.9.3</li>
+  <li>ActiveAdmin 0.4.0</li>
+  <li>Devise 2.0</li>
+</ul>
+
+<h2 id="summary">Summary</h2>
+
+<p>This solution was made possible thanks to the work that <a href="https://github.com/gregbell">Greg Bell</a> and the <a href="https://github.com/gregbell/active_admin/contributors">ActiveAdmin Contributors</a> put into making sure the flexibility of ActiveAdmin stayed a top priority.  ActiveAdmin is a truly fantastic (and beautiful looking) gem that spares developers from spending extensive hours and resources building back-end administrative tools – I highly recommend using it.</p>
+
+<p>If you have any suggestion on how to make this process better in anyway please contact me and I’ll make the appropriate updates.</p>
+
+      <footer class="entry-meta">
+        <span class="entry-tags"><a href="http://dan.doezema.com/tags/#Ruby" title="Pages tagged Ruby" rel="tag" class="tag">Ruby</a><a href="http://dan.doezema.com/tags/#Rails" title="Pages tagged Rails" rel="tag" class="tag">Rails</a><a href="http://dan.doezema.com/tags/#ActiveAdmin" title="Pages tagged ActiveAdmin" rel="tag" class="tag">ActiveAdmin</a><a href="http://dan.doezema.com/tags/#Devise" title="Pages tagged Devise" rel="tag" class="tag">Devise</a><a href="http://dan.doezema.com/tags/#Authentication" title="Pages tagged Authentication" rel="tag" class="tag">Authentication</a><a href="http://dan.doezema.com/tags/#Authorization" title="Pages tagged Authorization" rel="tag" class="tag">Authorization</a><a href="http://dan.doezema.com/tags/#Gem" title="Pages tagged Gem" rel="tag" class="tag">Gem</a><a href="http://dan.doezema.com/tags/#Model" title="Pages tagged Model" rel="tag" class="tag">Model</a><a href="http://dan.doezema.com/tags/#Controller" title="Pages tagged Controller" rel="tag" class="tag">Controller</a><a href="http://dan.doezema.com/tags/#User" title="Pages tagged User" rel="tag" class="tag">User</a></span>
+        <span><a href="http://dan.doezema.com/2012/02/how-to-implement-a-single-user-model-with-rails-activeadmin-and-devise" rel="bookmark" title="How to Implement a Single User Model with Rails, ActiveAdmin, and Devise" itemprop="url">How to Implement a Single User Model with Rails, ActiveAdmin, and Devise</a> was published on <span class="entry-date date published updated"><time datetime="2012-02-25T00:00:00-05:00" itemprop="datePublished">February 25, 2012</time></span></span>
+        
+        <span class="author vcard" itemprop="author" itemscope="" itemtype="http://schema.org/Person"><span itemprop="name" class="fn"><a href="http://dan.doezema.com/about" title="About Daniel Doezema" itemprop="url">Daniel Doezema</a></span></span>
+        <div class="social-share">
+          <ul class="socialcount socialcount-small inline-list like js grade-a activate-on-hover" data-url="http://dan.doezema.com/2012/02/how-to-implement-a-single-user-model-with-rails-activeadmin-and-devise" data-share-text="How to Implement a Single User Model with Rails, ActiveAdmin, and Devise">
+            <li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=http://dan.doezema.com/2012/02/how-to-implement-a-single-user-model-with-rails-activeadmin-and-devise" title="Share on Facebook"><span class="count"><i class="icon-facebook-sign"></i> Like</span></a></li>
+            <li class="twitter"><a href="https://twitter.com/intent/tweet?text=http://dan.doezema.com/2012/02/how-to-implement-a-single-user-model-with-rails-activeadmin-and-devise" title="Share on Twitter"><span class="count"><i class="icon-twitter-sign"></i> Tweet</span></a></li>
+            <li class="googleplus"><a href="https://plus.google.com/share?url=http://dan.doezema.com/2012/02/how-to-implement-a-single-user-model-with-rails-activeadmin-and-devise" title="Share on Google Plus"><span class="count"><i class="icon-google-plus-sign"></i> +1</span></a></li>
+          </ul>
+        </div><!-- /.social-share -->
+      </footer>
+    </div><!-- /.entry-content -->
+    <section id="disqus_thread"><iframe id="dsq-1" data-disqus-uid="1" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="./How to Implement a Single User Model with Rails, ActiveAdmin, and Devise – Daniel Doezema's Blog_files/saved_resource.html" style="width: 100% !important; border: none !important; overflow: hidden !important; height: 5020px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe></section><!-- /#disqus_thread -->
+    
+    <div class="read-more">
+      
+        <div class="read-more-header">
+          <a href="http://dan.doezema.com/2011/07/php-output-profiling-echo-vs-concat" class="read-more-btn">Read More</a>
+        </div><!-- /.read-more-header -->
+        <div class="read-more-content">
+          <h3><a href="http://dan.doezema.com/2015/08/php-debugbar-eloquent-collector" title="Add Eloquent ORM Tab to PHP Debug Bar">Add Eloquent ORM Tab to PHP Debug Bar</a></h3>
+          <p>Using Eloquent outside of a Laravel project? – Me too!Collector Class  class PHPDebugBarEloquentCollector extends \DebugBar\DataCollector\PDO\PDOCollector{  ... <a href="http://dan.doezema.com/2015/08/php-debugbar-eloquent-collector">Continue reading</a></p>
+        </div><!-- /.read-more-content -->
+      
+      <div class="read-more-list">
+        
+          <div class="list-item">
+            <h4><a href="http://dan.doezema.com/2015/08/doctrine-2-pdo-object" title="Doctrine 2 PDO Object">Doctrine 2 PDO Object</a></h4>
+            <span>Published on August 17, 2015</span>
+          </div><!-- /.list-item -->
+        
+          <div class="list-item">
+            <h4><a href="http://dan.doezema.com/2014/11/wordpress-domain-changer-2.0" title="WordPress Domain Changer 2.0">WordPress Domain Changer 2.0</a></h4>
+            <span>Published on November 19, 2014</span>
+          </div><!-- /.list-item -->
+        
+      </div><!-- /.read-more-list -->
+      
+    </div><!-- /.read-more -->
+  </article>
+</div><!-- /#main -->
+
+<div class="footer-wrapper">
+  <footer role="contentinfo">
+    <span>© 2015 Daniel Doezema. Powered by <a href="http://jekyllrb.com/" rel="nofollow">Jekyll</a> using the <a href="http://mademistakes.com/" rel="nofollow">HPSTR Theme</a>.</span>
+  </footer>
+</div><!-- /.footer-wrapper -->
+
+<script src="./How to Implement a Single User Model with Rails, ActiveAdmin, and Devise – Daniel Doezema's Blog_files/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="http://dan.doezema.com/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="./How to Implement a Single User Model with Rails, ActiveAdmin, and Devise – Daniel Doezema's Blog_files/scripts.min.js"></script>
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  var _gaq = _gaq || [];
+  var pluginUrl = 
+ '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+  _gaq.push(['_setAccount', 'UA-9602962-6']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'dandoezemacom'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+<noscript>Please enable JavaScript to view the &lt;a href="http://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;</noscript>
+
+
+
+
+<div id="lbOverlay" style="display: none;"></div><div id="lbCenter" style="display: none;"><div id="lbImage"><div style="position: relative;"><a id="lbPrevLink" href="http://dan.doezema.com/2012/02/how-to-implement-a-single-user-model-with-rails-activeadmin-and-devise/#"></a><a id="lbNextLink" href="http://dan.doezema.com/2012/02/how-to-implement-a-single-user-model-with-rails-activeadmin-and-devise/#"></a></div></div></div><div id="lbBottomContainer" style="display: none;"><div id="lbBottom"><a id="lbCloseLink" href="http://dan.doezema.com/2012/02/how-to-implement-a-single-user-model-with-rails-activeadmin-and-devise/#"></a><div id="lbCaption"></div><div id="lbNumber"></div><div style="clear: both;"></div></div></div></body></html>

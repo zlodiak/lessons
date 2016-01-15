@@ -1,0 +1,49 @@
+clean db before rspec test
+
+gem 'database_cleaner'
+
+========+
+spec_helper.rb:
+
+  RSpec.configure do |config|
+
+    config.before(:suite) do
+      DatabaseCleaner.strategy = :transaction
+      DatabaseCleaner.clean_with(:truncation)
+    end
+
+    config.before(:each) do
+      DatabaseCleaner.start
+    end
+
+    #config.after(:each) do
+    #  DatabaseCleaner.clean
+    #end
+  end 
+
+
+
+========+
+http://devblog.avdi.org/2012/08/31/configuring-database_cleaner-with-rails-rspec-capybara-and-selenium/
+
+https://github.com/DatabaseCleaner/database_cleaner
+
+http://stackoverflow.com/questions/32028909/how-to-make-increment-values-for-models
+
+========+
+========+
+========+
+========+
+========+
+========+
+========+
+========+
+========+
+========+
+========+
+========+
+========+
+========+
+========+
+========+
+========+

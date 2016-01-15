@@ -1,0 +1,169 @@
+
+sudo apt-get install apache2
+
+
+
+======================================
+Installing RVM: https://rvm.io/rvm/install :
+
+gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+
+\curl -sSL https://get.rvm.io | bash
+
+\curl -sSL https://get.rvm.io | bash -s stable --ruby
+
+таким образом мы имеем сервер с апачем и менеджером версий руби
+
+======================================
+установим неколько версий руби и gemsets(каждый gemset создаётся, переключившись на определённую версию руби!)
+
+md1@md1 /var/log/apache2 $ rvm gemset list_all
+
+gemsets for ruby-1.9.2-p330 (found in /home/md1/.rvm/gems/ruby-1.9.2-p330)
+   (default)
+   global
+
+
+gemsets for ruby-2.0.0-p643 (found in /home/md1/.rvm/gems/ruby-2.0.0-p643)
+   (default)
+   global
+   proj_r4_0
+
+
+gemsets for ruby-2.2.1 (found in /home/md1/.rvm/gems/ruby-2.2.1)
+   (default)
+   global
+=> proj_r4
+
+
+gemsets for ruby-1.8.6-p420 (found in /home/md1/.rvm/gems/ruby-1.8.6-p420)
+   (default)
+   global
+
+======================================
+включим определенную версию руби и определенный гемсет:
+rvm use 2.2.1@proj_r4 
+
+и утсановим rails:
+gem install rails v 4.2.4
+
+======================================
+для апача создадим в каталоге рельсов файл .rvmrc:
+rvm use 2.2.1@name_gemset
+
+======================================
+поставим модуль passenger на апач:
+https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04 
+only step 5:
+First, install the PGP key for the repository server:
+
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
+Create an APT source file:
+
+sudo nano /etc/apt/sources.list.d/passenger.list
+Insert the following line to add the Passenger repository to the file:
+
+deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main
+Press CTRL+X to exit, type Y to save the file, and then press ENTER to confirm the file location.
+
+Change the owner and permissions for this file to restrict access to root:
+
+sudo chown root: /etc/apt/sources.list.d/passenger.list
+sudo chmod 600 /etc/apt/sources.list.d/passenger.list
+Update the APT cache:
+
+sudo apt-get update
+Finally, install Passenger:
+
+sudo apt-get install libapache2-mod-passenger
+Make sure the Passenger Apache module; it maybe enabled already:
+
+sudo a2enmod passenger
+Restart Apache:
+
+sudo service apache2 restart
+
+
+======================================
+настроим апач
+
+<VirtualHost *:80>
+        ServerAdmin prozaik81-2@yandex.ru
+        DocumentRoot /home/md1/rails/proj_r4/public
+        ServerName proj_r4.ru
+
+        RailsEnv production
+        <Directory /home/md1/rails/proj_r4/public>
+                Options FollowSymLinks
+                Require all granted
+        </Directory>
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+
+
+<VirtualHost *:80>
+        ServerAdmin prozaik81-2@yandex.ru
+        DocumentRoot /home/md1/rails/proj_r4_0/public
+        ServerName proj_r4_0.ru
+
+        RailsEnv production
+        <Directory /home/md1/rails/proj_r4_0/public>
+                Options FollowSymLinks
+                Require all granted
+        </Directory>
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+
+127.0.0.1       localhost proj_r4.ru proj_r4_0.ru
+
+
+
+не забывать в apache2.conf:
+ServerName localhost
+
+======================================
+таким образом браузер по адресу proj_r4.ru должен показывать проект /home/md1/rails/proj_r4 , который крутится на rails4.2.4
+
+======================================
+не забыть поставить node js
+
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================

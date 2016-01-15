@@ -22,7 +22,104 @@ https://github.com/mislav/will_paginate
 
 ====================
 ====================
+setup and options:
+https://github.com/mislav/will_paginate/wiki/API-documentation
+
+
+:class - CSS class name for the generated DIV (default: "pagination")
+:previous_label - default: "« Previous"
+:next_label - default: "Next »"
+:page_links - when false, only previous/next links are rendered (default: true)
+:inner_window - how many links are shown around the current page (default: 4)
+:outer_window - how many links are around the first and the last page (default: 1)
+:link_separator - string separator for page HTML elements (default: single space)
+:param_name - parameter name for page number in URLs (default: :page)
+:params - additional parameters when generating pagination links (eg. :controller => "foo", :action => nil)
+:renderer - class name, class or instance of a link renderer (default in Rails: WillPaginate::ActionView::LinkRenderer)
+:container - toggles rendering of the DIV container for pagination links, set to false only when you are rendering your own pagination markup (default: true)
+All options not recognized by will_paginate will become HTML attributes on the container element for pagination links (the DIV). For example:
+
+<%= will_paginate @posts, :style => 'color:blue' %>
+
+
+Post.order('created_at DESC').page(params[:page]).per_page(10)
+
+
+# for the Post model
+class Post
+  self.per_page = 10
+end
+
+# set per_page globally
+WillPaginate.per_page = 10
+
+
+
 ====================
+bootstrap pagination:
+
+# File config/initializers/will_paginate.rb
+# From https://gist.github.com/1214011
+
+module WillPaginate
+    module ActionView
+        def will_paginate(collection = nil, options = {})
+            options[:renderer] ||= BootstrapLinkRenderer
+            super.try :html_safe
+        end
+
+    class BootstrapLinkRenderer < LinkRenderer
+        protected
+
+        def html_container(html)
+            tag :ul, html, container_attributes
+        end
+
+        def page_number(page)
+            tag :li, link(page, page, :rel => rel_value(page)), :class => ('active' if page == current_page)
+        end
+
+        def previous_or_next_page(page, text, classname)
+            tag :li, link(text, page || '#'), :class => [classname[0..3], classname, ('disabled' unless page)].join(' ')
+        end
+
+        def gap
+            tag :li, link(super, '#'), :class => 'disabled'
+        end
+
+        end
+    end
+end
+
+
+
+styles: 
+.pagination .next a:after{
+  content: '>>';
+}
+
+.pagination .prev a:after{
+  content: '<<';
+}
+
+
+
+tpl:
+<%= will_paginate @images, :previous_label => '', :next_label => '' %>
+
+-----
+
+
+I got this working, with little help from docs, naturally.
+
+Instead of just this:
+
+<%= will_paginate @thing, renderer: BootstrapPagination::Rails %>
+I needed this:
+
+<div class="pagination">
+  <%= will_paginate @thing, renderer: BootstrapPagination::Rails %>
+</div>
 ====================
 ====================
 ====================

@@ -1,0 +1,43 @@
+использование mysql:
+
+gem 'mysql'
+
+===============
+через phpmyadmin создать пользователя с полными привелегиями по БД и таблицам
+  username: adminbook_user
+  password: joker
+
+Create database with same name and grant all privileges
+
+===============
+прописать в файле конфига будущее название БД adminbook_development
+
+database.yml:
+default: &default
+  adapter: sqlite3
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *default
+  adapter: mysql
+  database: adminbook_development
+  pool: 5
+  username: adminbook_user
+  password: joker
+
+===============
+rake db:create
+rake db:migrate
+
+===============
+===============
+===============
+===============
+===============
+===============
+===============
+===============
+===============
+===============
+===============

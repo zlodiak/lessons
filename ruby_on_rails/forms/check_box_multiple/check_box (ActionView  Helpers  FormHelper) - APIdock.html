@@ -1,0 +1,902 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+  <link href="http://apidock.com/rails/notes.rss" rel="alternate" title="All recent notes in Ruby on Rails" type="application/rss+xml" />
+  <link href="http://apidock.com/rails/notes/good.rss" rel="alternate" title="Recent good notes in Ruby on Rails" type="application/rss+xml" />
+
+<link href="http://d3bro1z16yfjvi.cloudfront.net/stylesheets/main_site.css?1349367920" media="screen" rel="stylesheet" type="text/css" />
+<link href="http://d3bro1z16yfjvi.cloudfront.net/stylesheets/application.css?1349367920" media="screen" rel="stylesheet" type="text/css" />
+<link href="http://d3bro1z16yfjvi.cloudfront.net/stylesheets/syntax.css?1349367920" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.3/prototype.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/effects.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/controls.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/dragdrop.js" type="text/javascript"></script>
+
+<script src="http://d3bro1z16yfjvi.cloudfront.net/javascripts/searchdata/rails.js?1429182417" type="text/javascript"></script>
+
+<script src="http://d3bro1z16yfjvi.cloudfront.net/javascripts/search.js?1349367920" type="text/javascript"></script>
+<title>check_box (ActionView::Helpers::FormHelper) - APIdock</title>
+    <link href="http://d3bro1z16yfjvi.cloudfront.net/stylesheets/documentation.css?1349367920" media="screen" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div id="body2">
+      <div id="header">
+  <a href="/" id="apidock_logo"><img alt="Apidock_header" src="http://d3bro1z16yfjvi.cloudfront.net/images/apidock_header.png?1349367920" /></a>
+  <div id="apidock_nav">
+    <ul>
+  <li class="first_tab"><a href="/">Welcome</a></li>
+  <li><a href="/register">Register</a></li>
+  <li><a href="/projects">Projects</a></li>
+  <li><a href="/faq">Help</a></li>
+  <li><a href="/about">About</a></li>
+  <li class="external"><a href="http://blog.nodeta.fi/category/apidock/">Blog</a></li>
+</ul>
+
+  </div>
+  
+  <div id="header_right" class="header_login">
+    <form action="/login" method="post">
+      <a href="#" id="openid_header_link" onclick="Element.toggle(&quot;default_header_login&quot;);
+Element.toggle(&quot;openid_header_login&quot;);
+var openid_link = $('openid_header_link');
+if (openid_link.innerHTML == 'Use login / password') {
+openid_link.update('Use OpenID');
+$(&quot;login&quot;).activate();
+} else {
+openid_link.update('Use login / password');
+$(&quot;openid_url&quot;).activate();
+}; return false;">Use OpenID</a>
+      <span id="default_header_login">
+        <label for="login">Login</label>
+        <input id="login" name="login[login]" size="30" type="text" />
+        <label for="password">Password</label>
+        <input id="password" name="login[password]" size="30" type="password" />
+      </span>
+      <span id="openid_header_login" style="display:none;">
+        <label for="openid_url">OpenID URL</label>
+        <input id="openid_url" name="openid_url" type="text" />
+      </span>
+      <label for="login_remember_me">Remember me</label><input name="login[remember_me]" type="hidden" value="0" /><input id="login_remember_me" name="login[remember_me]" type="checkbox" value="1" />
+      <input src="http://d3bro1z16yfjvi.cloudfront.net/images/submit_login.png?1349367920" type="image" /> 
+    </form>
+  </div>
+
+</div>
+<div id="navigation" style="background-color:#9F3B25;">
+  <ul>
+    <li class="first_tab" id="current"><a href="/rails" onclick="
+          var value = $('nav_search_field').value;
+          if (fieldFocus == true &amp;&amp; value.length != 0) {
+            top.location = '/rails?q=' + value;
+          } else {
+            top.location = '/rails';
+          }; return false;"><img alt="Rails_icon_16" src="http://d3bro1z16yfjvi.cloudfront.net/images/rails_icon_16.png?1349367920" />Ruby on Rails</a></li>
+<li><a href="/rspec" onclick="
+          var value = $('nav_search_field').value;
+          if (fieldFocus == true &amp;&amp; value.length != 0) {
+            top.location = '/rspec?q=' + value;
+          } else {
+            top.location = '/rspec';
+          }; return false;"><img alt="Rspec_icon_16" src="http://d3bro1z16yfjvi.cloudfront.net/images/rspec_icon_16.png?1349367920" />RSpec</a></li>
+<li><a href="/ruby" onclick="
+          var value = $('nav_search_field').value;
+          if (fieldFocus == true &amp;&amp; value.length != 0) {
+            top.location = '/ruby?q=' + value;
+          } else {
+            top.location = '/ruby';
+          }; return false;"><img alt="Ruby_icon_16" src="http://d3bro1z16yfjvi.cloudfront.net/images/ruby_icon_16.png?1349367920" />Ruby</a></li>
+
+  </ul>
+
+  <div id="nav_search">
+    <form action="/rails/ActionView/Helpers/FormHelper/check_box" method="post" onSubmit="return false;">
+      <input autocomplete="off" id="nav_search_field" name="nav_search_field" type="text" />
+      <a class="img_link" href="#" id="submit_nav_search" onclick="window.location.href = '/rails/search?query=' + escape($F('nav_search_field'));; return false;"></a>
+    </form>
+  </div>
+</div>
+<ul id="search_results" style="display:none;">
+  <li></li>
+</ul>
+
+      <div id="content_wrapper">
+        <!-- @flowdock -->
+        <a id="flowdock-tab" title="The group chat tool for software developers from the guys behind APIdock" href="http://flowdock.com/tour/developers?source=apidock">Flowdock</a>
+        <!-- @flowdock -->
+        <div id="content" class="clearfix">
+          
+
+          <div id="docs_container">
+             
+<div id="docs_header">
+  <div id="title" class="clearfix">
+    <div id="title_prefix_method" class="title_prefix">
+      <span>method</span>
+    </div>
+    <div id="title_name">
+      <h1>check_box</h1>
+    </div>
+    <img alt="Importance_5" class="importance" src="http://d3bro1z16yfjvi.cloudfront.net/images/importance_5.png?1349367920" title="Very extensive documentation" />
+  </div>
+  <div id="docs_info">
+
+      <strong>Ruby on Rails latest stable</strong> (v4.2.1)
+ - 
+    <a href="#" onclick="var notes = $('notes');
+scroll(0, notes.cumulativeOffset().top);; return false;">6 notes</a> - 
+    Class: <span><a href="/rails/ActionView">ActionView</a></span><span>::<a href="/rails/ActionView/Helpers">Helpers</a></span><span>::<a href="/rails/ActionView/Helpers/FormHelper">FormHelper</a></span>
+
+    <div id="timeline" class="clearfix">
+  <ul>
+    
+                      <li>
+        <a href="/rails/v1.0.0/ActionView/Helpers/FormHelper/check_box" title="1.0.0"><span class='label'>1.0.0</span>
+          <span class='diff' style='height:0%;'>(0)</span></a>
+        
+            </li>   
+    
+                      <li>
+        <a href="/rails/v1.1.1/ActionView/Helpers/FormHelper/check_box" title="1.1.1"><span class='label'>1.1.1</span>
+          <span class='diff' style='height:0%;'>(0)</span></a>
+        
+            </li>   
+    
+                      <li>
+        <a href="/rails/v1.1.6/ActionView/Helpers/FormHelper/check_box" title="1.1.6"><span class='label'>1.1.6</span>
+          <span class='diff' style='height:0%;'>(0)</span></a>
+        
+            </li>   
+    
+                      <li>
+        <a href="/rails/v1.2.0/ActionView/Helpers/FormHelper/check_box" title="1.2.0"><span class='label'>1.2.0</span>
+          <span class='diff' style='height:0%;'>(0)</span></a>
+        
+            </li>   
+    
+                      <li>
+        <a href="/rails/v1.2.6/ActionView/Helpers/FormHelper/check_box" title="1.2.6"><span class='label'>1.2.6</span>
+          <span class='diff' style='height:0%;'>(0)</span></a>
+        
+            </li>   
+    
+                      <li class='positive'>
+        <a href="/rails/v2.0.0/ActionView/Helpers/FormHelper/check_box" title="2.0.0"><span class='label'>2.0.0</span>
+          <span class='diff' style='height:7%;'>(7)</span></a>
+        
+            </li>   
+    
+                      <li>
+        <a href="/rails/v2.0.3/ActionView/Helpers/FormHelper/check_box" title="2.0.3"><span class='label'>2.0.3</span>
+          <span class='diff' style='height:0%;'>(0)</span></a>
+        
+            </li>   
+    
+                      <li>
+        <a href="/rails/v2.1.0/ActionView/Helpers/FormHelper/check_box" title="2.1.0"><span class='label'>2.1.0</span>
+          <span class='diff' style='height:0%;'>(0)</span></a>
+        
+            </li>   
+    
+                      <li class='positive'>
+        <a href="/rails/v2.2.1/ActionView/Helpers/FormHelper/check_box" title="2.2.1"><span class='label'>2.2.1</span>
+          <span class='diff' style='height:38%;'>(38)</span></a>
+        
+            </li>   
+    
+                      <li>
+        <a href="/rails/v2.3.2/ActionView/Helpers/FormHelper/check_box" title="2.3.2"><span class='label'>2.3.2</span>
+          <span class='diff' style='height:0%;'>(0)</span></a>
+        
+            </li>   
+    
+                      <li>
+        <a href="/rails/v2.3.8/ActionView/Helpers/FormHelper/check_box" title="2.3.8"><span class='label'>2.3.8</span>
+          <span class='diff' style='height:0%;'>(0)</span></a>
+        
+            </li>   
+    
+                      <li class='positive'>
+        <a href="/rails/v3.0.0/ActionView/Helpers/FormHelper/check_box" title="3.0.0"><span class='label'>3.0.0</span>
+          <span class='diff' style='height:10%;'>(10)</span></a>
+        
+            </li>   
+    
+                      <li>
+        <a href="/rails/v3.0.5/ActionView/Helpers/FormHelper/check_box" title="3.0.5"><span class='label'>3.0.5</span>
+          <span class='diff' style='height:0%;'>(0)</span></a>
+        
+            </li>   
+    
+                      <li class='negative'>
+        <a href="/rails/v3.0.9/ActionView/Helpers/FormHelper/check_box" title="3.0.9"><span class='label'>3.0.9</span>
+          <span class='diff' style='height:3%;'>(-3)</span></a>
+        
+            </li>   
+    
+                      <li>
+        <a href="/rails/v3.1.0/ActionView/Helpers/FormHelper/check_box" title="3.1.0"><span class='label'>3.1.0</span>
+          <span class='diff' style='height:0%;'>(0)</span></a>
+        
+            </li>   
+    
+                      <li>
+        <a href="/rails/v3.2.1/ActionView/Helpers/FormHelper/check_box" title="3.2.1"><span class='label'>3.2.1</span>
+          <span class='diff' style='height:0%;'>(0)</span></a>
+        
+            </li>   
+    
+                      <li>
+        <a href="/rails/v3.2.3/ActionView/Helpers/FormHelper/check_box" title="3.2.3"><span class='label'>3.2.3</span>
+          <span class='diff' style='height:0%;'>(0)</span></a>
+        
+            </li>   
+    
+                      <li>
+        <a href="/rails/v3.2.8/ActionView/Helpers/FormHelper/check_box" title="3.2.8"><span class='label'>3.2.8</span>
+          <span class='diff' style='height:0%;'>(0)</span></a>
+        
+            </li>   
+    
+                      <li>
+        <a href="/rails/v3.2.13/ActionView/Helpers/FormHelper/check_box" title="3.2.13"><span class='label'>3.2.13</span>
+          <span class='diff' style='height:0%;'>(0)</span></a>
+        
+            </li>   
+    
+                      <li>
+        <a href="/rails/v4.0.2/ActionView/Helpers/FormHelper/check_box" title="4.0.2"><span class='label'>4.0.2</span>
+          <span class='diff' style='height:0%;'>(0)</span></a>
+        
+            </li>   
+    
+                      <li>
+        <a href="/rails/v4.1.8/ActionView/Helpers/FormHelper/check_box" title="4.1.8"><span class='label'>4.1.8</span>
+          <span class='diff' style='height:0%;'>(0)</span></a>
+        
+            </li>   
+    
+                      <li class='current '>
+        <a href="/rails/v4.2.1/ActionView/Helpers/FormHelper/check_box" title="4.2.1"><span class='label'>4.2.1</span>
+          <span class='diff' style='height:0%;'>(0)</span></a>
+        
+            </li>   
+    
+    <li id="help">
+      <a href="/faq#What-is-the-bar-graph-on-the-top-of-documentation-pages" class="info">What's this?</a>
+    </li>
+  </ul>
+</div>
+
+
+  </div>
+</div>
+<div id="related">
+  <div id="related_title"><h3>Related methods</h3></div>
+  <ul>
+ 
+    
+
+  <li class="related_header">Instance methods (29)</li>
+  
+<li>
+  <img alt="Importance_0_sm" class="importance" src="http://d3bro1z16yfjvi.cloudfront.net/images/importance_0_sm.png?1349367920" title="No documentation" />  <a href="/rails/v4.2.1/ActionView/Helpers/FormHelper/apply_form_for_options%21">apply_form_for_options!</a>  		
+    <img alt="Icon_private_sm" src="http://d3bro1z16yfjvi.cloudfront.net/images/icon_private_sm.png?1349367920" title="private" />
+    
+</li>
+
+<li>
+  <img alt="Importance_5_sm" class="importance" src="http://d3bro1z16yfjvi.cloudfront.net/images/importance_5_sm.png?1349367920" title="Very extensive documentation" />  <a href="/rails/v4.2.1/ActionView/Helpers/FormHelper/check_box">check_box</a>  		
+    
+    
+</li>
+
+<li>
+  <img alt="Importance_1_sm" class="importance" src="http://d3bro1z16yfjvi.cloudfront.net/images/importance_1_sm.png?1349367920" title="Some documentation" />  <a href="/rails/v4.2.1/ActionView/Helpers/FormHelper/color_field">color_field</a>  		
+    
+    
+</li>
+
+<li class='deprecated'>
+  <img alt="Importance_1_sm" class="importance" src="http://d3bro1z16yfjvi.cloudfront.net/images/importance_1_sm.png?1349367920" title="Some documentation" />  <a href="/rails/v3.2.13/ActionView/Helpers/FormHelper/convert_to_model">convert_to_model</a>  		
+    
+    
+    <span class="info">(<= v3.2.13)</span>
+  
+</li>
+
+<li>
+  <img alt="Importance_2_sm" class="importance" src="http://d3bro1z16yfjvi.cloudfront.net/images/importance_2_sm.png?1349367920" title="Moderate documentation" />  <a href="/rails/v4.2.1/ActionView/Helpers/FormHelper/date_field">date_field</a>  		
+    
+    
+</li>
+
+<li>
+  <img alt="Importance_2_sm" class="importance" src="http://d3bro1z16yfjvi.cloudfront.net/images/importance_2_sm.png?1349367920" title="Moderate documentation" />  <a href="/rails/v4.2.1/ActionView/Helpers/FormHelper/datetime_field">datetime_field</a>  		
+    
+    
+</li>
+
+<li>
+  <img alt="Importance_2_sm" class="importance" src="http://d3bro1z16yfjvi.cloudfront.net/images/importance_2_sm.png?1349367920" title="Moderate documentation" />  <a href="/rails/v4.2.1/ActionView/Helpers/FormHelper/datetime_local_field">datetime_local_field</a>  		
+    
+    
+</li>
+
+<li class='deprecated'>
+  <img alt="Importance_0_sm" class="importance" src="http://d3bro1z16yfjvi.cloudfront.net/images/importance_0_sm.png?1349367920" title="No documentation" />  <a href="/rails/v4.1.8/ActionView/Helpers/FormHelper/default_form_builder">default_form_builder</a>  		
+    <img alt="Icon_private_sm" src="http://d3bro1z16yfjvi.cloudfront.net/images/icon_private_sm.png?1349367920" title="private" />
+    
+    <span class="info">(<= v4.1.8)</span>
+  
+</li>
+
+<li>
+  <img alt="Importance_0_sm" class="importance" src="http://d3bro1z16yfjvi.cloudfront.net/images/importance_0_sm.png?1349367920" title="No documentation" />  <a href="/rails/v4.2.1/ActionView/Helpers/FormHelper/default_form_builder_class">default_form_builder_class</a>  		
+    <img alt="Icon_private_sm" src="http://d3bro1z16yfjvi.cloudfront.net/images/icon_private_sm.png?1349367920" title="private" />
+    
+</li>
+
+<li>
+  <img alt="Importance_1_sm" class="importance" src="http://d3bro1z16yfjvi.cloudfront.net/images/importance_1_sm.png?1349367920" title="Some documentation" />  <a href="/rails/v4.2.1/ActionView/Helpers/FormHelper/email_field">email_field</a>  		
+    
+    
+</li>
+
+<li>
+  <img alt="Importance_5_sm" class="importance" src="http://d3bro1z16yfjvi.cloudfront.net/images/importance_5_sm.png?1349367920" title="Very extensive documentation" />  <a href="/rails/v4.2.1/ActionView/Helpers/FormHelper/fields_for">fields_for</a>  		
+    
+    
+</li>
+
+<li>
+  <img alt="Importance_2_sm" class="importance" src="http://d3bro1z16yfjvi.cloudfront.net/images/importance_2_sm.png?1349367920" title="Moderate documentation" />  <a href="/rails/v4.2.1/ActionView/Helpers/FormHelper/file_field">file_field</a>  		
+    
+    
+</li>
+
+<li>
+  <img alt="Importance_5_sm" class="importance" src="http://d3bro1z16yfjvi.cloudfront.net/images/importance_5_sm.png?1349367920" title="Very extensive documentation" />  <a href="/rails/v4.2.1/ActionView/Helpers/FormHelper/form_for">form_for</a>  		
+    
+    
+</li>
+
+<li>
+  <img alt="Importance_4_sm" class="importance" src="http://d3bro1z16yfjvi.cloudfront.net/images/importance_4_sm.png?1349367920" title="Extensive documentation" />  <a href="/rails/v4.2.1/ActionView/Helpers/FormHelper/hidden_field">hidden_field</a>  		
+    
+    
+</li>
+
+<li>
+  <img alt="Importance_0_sm" class="importance" src="http://d3bro1z16yfjvi.cloudfront.net/images/importance_0_sm.png?1349367920" title="No documentation" />  <a href="/rails/v4.2.1/ActionView/Helpers/FormHelper/instantiate_builder">instantiate_builder</a>  		
+    <img alt="Icon_private_sm" src="http://d3bro1z16yfjvi.cloudfront.net/images/icon_private_sm.png?1349367920" title="private" />
+    
+</li>
+
+<li>
+  <img alt="Importance_5_sm" class="importance" src="http://d3bro1z16yfjvi.cloudfront.net/images/importance_5_sm.png?1349367920" title="Very extensive documentation" />  <a href="/rails/v4.2.1/ActionView/Helpers/FormHelper/label">label</a>  		
+    
+    
+</li>
+
+<li>
+  <img alt="Importance_1_sm" class="importance" src="http://d3bro1z16yfjvi.cloudfront.net/images/importance_1_sm.png?1349367920" title="Some documentation" />  <a href="/rails/v4.2.1/ActionView/Helpers/FormHelper/month_field">month_field</a>  		
+    
+    
+</li>
+
+<li>
+  <img alt="Importance_2_sm" class="importance" src="http://d3bro1z16yfjvi.cloudfront.net/images/importance_2_sm.png?1349367920" title="Moderate documentation" />  <a href="/rails/v4.2.1/ActionView/Helpers/FormHelper/number_field">number_field</a>  		
+    
+    
+</li>
+
+<li>
+  <img alt="Importance_2_sm" class="importance" src="http://d3bro1z16yfjvi.cloudfront.net/images/importance_2_sm.png?1349367920" title="Moderate documentation" />  <a href="/rails/v4.2.1/ActionView/Helpers/FormHelper/password_field">password_field</a>  		
+    
+    
+</li>
+
+<li>
+  <img alt="Importance_1_sm" class="importance" src="http://d3bro1z16yfjvi.cloudfront.net/images/importance_1_sm.png?1349367920" title="Some documentation" />  <a href="/rails/v4.2.1/ActionView/Helpers/FormHelper/phone_field">phone_field</a>  		
+    
+    
+</li>
+
+<li>
+  <img alt="Importance_2_sm" class="importance" src="http://d3bro1z16yfjvi.cloudfront.net/images/importance_2_sm.png?1349367920" title="Moderate documentation" />  <a href="/rails/v4.2.1/ActionView/Helpers/FormHelper/radio_button">radio_button</a>  		
+    
+    
+</li>
+
+<li>
+  <img alt="Importance_1_sm" class="importance" src="http://d3bro1z16yfjvi.cloudfront.net/images/importance_1_sm.png?1349367920" title="Some documentation" />  <a href="/rails/v4.2.1/ActionView/Helpers/FormHelper/range_field">range_field</a>  		
+    
+    
+</li>
+
+<li>
+  <img alt="Importance_2_sm" class="importance" src="http://d3bro1z16yfjvi.cloudfront.net/images/importance_2_sm.png?1349367920" title="Moderate documentation" />  <a href="/rails/v4.2.1/ActionView/Helpers/FormHelper/search_field">search_field</a>  		
+    
+    
+</li>
+
+<li>
+  <img alt="Importance_1_sm" class="importance" src="http://d3bro1z16yfjvi.cloudfront.net/images/importance_1_sm.png?1349367920" title="Some documentation" />  <a href="/rails/v4.2.1/ActionView/Helpers/FormHelper/telephone_field">telephone_field</a>  		
+    
+    
+</li>
+
+<li>
+  <img alt="Importance_2_sm" class="importance" src="http://d3bro1z16yfjvi.cloudfront.net/images/importance_2_sm.png?1349367920" title="Moderate documentation" />  <a href="/rails/v4.2.1/ActionView/Helpers/FormHelper/text_area">text_area</a>  		
+    
+    
+</li>
+
+<li>
+  <img alt="Importance_5_sm" class="importance" src="http://d3bro1z16yfjvi.cloudfront.net/images/importance_5_sm.png?1349367920" title="Very extensive documentation" />  <a href="/rails/v4.2.1/ActionView/Helpers/FormHelper/text_field">text_field</a>  		
+    
+    
+</li>
+
+<li>
+  <img alt="Importance_2_sm" class="importance" src="http://d3bro1z16yfjvi.cloudfront.net/images/importance_2_sm.png?1349367920" title="Moderate documentation" />  <a href="/rails/v4.2.1/ActionView/Helpers/FormHelper/time_field">time_field</a>  		
+    
+    
+</li>
+
+<li>
+  <img alt="Importance_1_sm" class="importance" src="http://d3bro1z16yfjvi.cloudfront.net/images/importance_1_sm.png?1349367920" title="Some documentation" />  <a href="/rails/v4.2.1/ActionView/Helpers/FormHelper/url_field">url_field</a>  		
+    
+    
+</li>
+
+<li>
+  <img alt="Importance_1_sm" class="importance" src="http://d3bro1z16yfjvi.cloudfront.net/images/importance_1_sm.png?1349367920" title="Some documentation" />  <a href="/rails/v4.2.1/ActionView/Helpers/FormHelper/week_field">week_field</a>  		
+    
+    
+</li>
+
+
+
+  </ul>
+  <p class="legend">
+    <img alt="Icon_private_sm" src="http://d3bro1z16yfjvi.cloudfront.net/images/icon_private_sm.png?1349367920" /> = private<br />
+    <img alt="Icon_protected_sm" src="http://d3bro1z16yfjvi.cloudfront.net/images/icon_protected_sm.png?1349367920" /> = protected
+  </p>
+</div>
+
+<div id="docs_body">
+  
+
+
+  <code><strong>check_box</strong>(object_name, method, options = {}, checked_value = "1", unchecked_value = "0")</code>
+  <em>public</em>
+  <div class="description">
+    
+    
+<p>Returns a checkbox tag tailored for accessing a specified attribute
+(identified by <tt>method</tt>) on an object assigned to the template
+(identified by <tt>object</tt>). This object must be an instance object
+(@object) and not a local object. It’s intended that <tt>method</tt>
+returns an integer and if that integer is above zero, then the checkbox is
+checked. Additional options on the input tag can be passed as a hash with
+<tt>options</tt>. The <tt>checked_value</tt> defaults to 1 while the
+default <tt>unchecked_value</tt> is set to 0 which is convenient for
+boolean values.</p>
+
+<h4>Gotcha</h4>
+
+<p>The <a href="/rails/HTML">HTML</a> specification says unchecked check boxes
+are not successful, and thus web browsers do not send them. Unfortunately
+this introduces a gotcha: if an <tt>Invoice</tt> model has a <tt>paid</tt>
+flag, and in the form that edits a paid invoice the user unchecks its check
+box, no <tt>paid</tt> parameter is sent. So, any mass-assignment idiom like</p>
+
+<pre><span class="attribute">@invoice</span><span class="punct">.</span><span class="ident">update</span><span class="punct">(</span><span class="ident">params</span><span class="punct">[</span><span class="symbol">:invoice</span><span class="punct">])</span>
+</pre>
+
+<p>wouldn’t update the flag.</p>
+
+<p>To prevent this the helper generates an auxiliary hidden field before the
+very check box. The hidden field has the same name and its attributes mimic
+an unchecked check box.</p>
+
+<p>This way, the client either sends only the hidden field (representing the
+check box is unchecked), or both fields. Since the <a
+href="/rails/HTML">HTML</a> specification says key/value pairs have to be
+sent in the same order they appear in the form, and parameters extraction
+gets the last occurrence of any repeated key in the query string, that
+works for ordinary forms.</p>
+
+<p>Unfortunately that workaround does not work when the check box goes within
+an array-like parameter, as in</p>
+
+<pre><span class="punct">&lt;%=</span><span class="string"> fields_for &quot;project[invoice_attributes][]&quot;, invoice, index: nil do |form| %&gt;
+  &lt;%</span><span class="punct">=</span> <span class="ident">form</span><span class="punct">.</span><span class="ident"><a href="/rails/ActionView/Helpers/FormHelper/check_box">check_box</a></span> <span class="symbol">:paid</span> <span class="punct">%&gt;</span><span class="string">
+  ...
+&lt;% end %</span><span class="punct">&gt;</span>
+</pre>
+
+<p>because parameter name repetition is precisely what <a
+href="/rails/Rails">Rails</a> seeks to distinguish the elements of the
+array. For each item with a checked check box you get an extra ghost item
+with only that attribute, assigned to “0”.</p>
+
+<p>In that case it is preferable to either use <tt>check_box_tag</tt> or to
+use hashes instead of arrays.</p>
+
+<pre><span class="comment"># Let's say that @post.validated? is 1:</span>
+<span class="ident"><a href="/rails/ActionView/Helpers/FormHelper/check_box">check_box</a></span><span class="punct">(&quot;</span><span class="string">post</span><span class="punct">&quot;,</span> <span class="punct">&quot;</span><span class="string">validated</span><span class="punct">&quot;)</span>
+<span class="comment"># =&gt; &lt;input name=&quot;post[validated]&quot; type=&quot;hidden&quot; value=&quot;0&quot; /&gt;</span>
+<span class="comment">#    &lt;input checked=&quot;checked&quot; type=&quot;checkbox&quot; id=&quot;post_validated&quot; name=&quot;post[validated]&quot; value=&quot;1&quot; /&gt;</span>
+
+<span class="comment"># Let's say that @puppy.gooddog is &quot;no&quot;:</span>
+<span class="ident"><a href="/rails/ActionView/Helpers/FormHelper/check_box">check_box</a></span><span class="punct">(&quot;</span><span class="string">puppy</span><span class="punct">&quot;,</span> <span class="punct">&quot;</span><span class="string">gooddog</span><span class="punct">&quot;,</span> <span class="punct">{},</span> <span class="punct">&quot;</span><span class="string">yes</span><span class="punct">&quot;,</span> <span class="punct">&quot;</span><span class="string">no</span><span class="punct">&quot;)</span>
+<span class="comment"># =&gt; &lt;input name=&quot;puppy[gooddog]&quot; type=&quot;hidden&quot; value=&quot;no&quot; /&gt;</span>
+<span class="comment">#    &lt;input type=&quot;checkbox&quot; id=&quot;puppy_gooddog&quot; name=&quot;puppy[gooddog]&quot; value=&quot;yes&quot; /&gt;</span>
+
+<span class="ident"><a href="/rails/ActionView/Helpers/FormHelper/check_box">check_box</a></span><span class="punct">(&quot;</span><span class="string">eula</span><span class="punct">&quot;,</span> <span class="punct">&quot;</span><span class="string">accepted</span><span class="punct">&quot;,</span> <span class="punct">{</span> <span class="keyword">class</span><span class="punct">:</span> <span class="punct">'</span><span class="string">eula_check</span><span class="punct">'</span> <span class="punct">},</span> <span class="punct">&quot;</span><span class="string">yes</span><span class="punct">&quot;,</span> <span class="punct">&quot;</span><span class="string">no</span><span class="punct">&quot;)</span>
+<span class="comment"># =&gt; &lt;input name=&quot;eula[accepted]&quot; type=&quot;hidden&quot; value=&quot;no&quot; /&gt;</span>
+<span class="comment">#    &lt;input type=&quot;checkbox&quot; class=&quot;eula_check&quot; id=&quot;eula_accepted&quot; name=&quot;eula[accepted]&quot; value=&quot;yes&quot; /&gt;</span></pre>
+
+  </div>
+
+  <div class="sourcecode">
+    <a href="#" id="source_link" onclick="Effect.toggle(&quot;dyn_source&quot;,'blind',{duration:0.3});
+var source_link = $('source_link')
+source_link.update((source_link.innerHTML == 'Hide source')? 'Show source':'Hide source');; return false;">Show source</a>    
+    <div id="dyn_source" style="display: none;" >
+      <pre><span class="comment"># File actionview/lib/action_view/helpers/form_helper.rb, line 945</span>
+      <span class="keyword">def </span><span class="method">check_box</span><span class="punct">(</span><span class="ident">object_name</span><span class="punct">,</span> <span class="ident">method</span><span class="punct">,</span> <span class="ident">options</span> <span class="punct">=</span> <span class="punct">{},</span> <span class="ident">checked_value</span> <span class="punct">=</span> <span class="punct">&quot;</span><span class="string">1</span><span class="punct">&quot;,</span> <span class="ident">unchecked_value</span> <span class="punct">=</span> <span class="punct">&quot;</span><span class="string">0</span><span class="punct">&quot;)</span>
+        <span class="constant">Tags</span><span class="punct">::</span><span class="constant">CheckBox</span><span class="punct">.</span><span class="ident">new</span><span class="punct">(</span><span class="ident">object_name</span><span class="punct">,</span> <span class="ident">method</span><span class="punct">,</span> <span class="constant">self</span><span class="punct">,</span> <span class="ident">checked_value</span><span class="punct">,</span> <span class="ident">unchecked_value</span><span class="punct">,</span> <span class="ident">options</span><span class="punct">).</span><span class="ident">render</span>
+      <span class="keyword">end</span></pre>
+    </div>
+  </div>
+
+</div>
+<div id="notes">
+  
+    <span class="info">
+      <a href="/register">Register</a> or 
+      <a href="#" onclick="scroll(0,0);
+new Effect.Pulsate(&quot;header_right&quot;,{duration:1, pulses:2});
+$(&quot;login&quot;).activate();; return false;">log in</a>
+      to add new notes.</span>
+  
+  
+  
+<div class="note" id="1001-Sending-array-parameters">
+
+  <div class="note_info" id="note_info-1001">
+      <div class="info_left">
+    <span class="login"><a href="/users/snatchev"><img alt="Default_avatar_30" class="gravatar" src="http://www.gravatar.com/avatar/d175dccba202a84f1e89ecd2ad9476b3?default=http://apidock.com/images/default_avatar_30.png&amp;size=30" style="width: 30px; height: 30px;" /> snatchev</a> - </span> 
+    October 13, 2010 
+    
+  </div>
+
+  <div class="info_right">
+    <img alt="Loader" class="loader" id="note_loader1001" src="http://d3bro1z16yfjvi.cloudfront.net/images/loader.gif?1349367920" style="display: none;" />
+    <span class="thank_text">12 thanks</span>
+     
+  </div>  
+
+  </div>
+  
+  <div class="note_content" id="note_content-1001">     
+  
+  
+  <h4><a href="/rails/ActionView/Helpers/FormHelper/check_box#1001-Sending-array-parameters">Sending array parameters</a></h4>
+
+<p>Another technique to use when you need to send an array parameter is pass
+in the :multiple option.</p>
+
+<pre><span class="ident"><a href="/rails/ActionView/Helpers/FormHelper/check_box">check_box</a></span><span class="punct">(&quot;</span><span class="string">puppy</span><span class="punct">&quot;,</span> <span class="punct">&quot;</span><span class="string">commands</span><span class="punct">&quot;,</span> <span class="punct">{</span><span class="symbol">:multiple</span> <span class="punct">=&gt;</span> <span class="constant">true</span><span class="punct">},</span> <span class="punct">&quot;</span><span class="string">sit</span><span class="punct">&quot;,</span> <span class="constant">nil</span><span class="punct">)</span>
+<span class="ident"><a href="/rails/ActionView/Helpers/FormHelper/check_box">check_box</a></span><span class="punct">(&quot;</span><span class="string">puppy</span><span class="punct">&quot;,</span> <span class="punct">&quot;</span><span class="string">commands</span><span class="punct">&quot;,</span> <span class="punct">{</span><span class="symbol">:multiple</span> <span class="punct">=&gt;</span> <span class="constant">true</span><span class="punct">},</span> <span class="punct">&quot;</span><span class="string">fetch</span><span class="punct">&quot;,</span> <span class="constant">nil</span><span class="punct">)</span>
+<span class="ident"><a href="/rails/ActionView/Helpers/FormHelper/check_box">check_box</a></span><span class="punct">(&quot;</span><span class="string">puppy</span><span class="punct">&quot;,</span> <span class="punct">&quot;</span><span class="string">commands</span><span class="punct">&quot;,</span> <span class="punct">{</span><span class="symbol">:multiple</span> <span class="punct">=&gt;</span> <span class="constant">true</span><span class="punct">},</span> <span class="punct">&quot;</span><span class="string">roll_over</span><span class="punct">&quot;,</span> <span class="constant">nil</span><span class="punct">)</span>
+</pre>
+
+<p>If all checkboxes are checked, the paramters will be:</p>
+
+<pre><span class="punct">&quot;</span><span class="string">puppy</span><span class="punct">&quot;</span> <span class="punct">=&gt;</span> <span class="punct">{&quot;</span><span class="string">commands</span><span class="punct">&quot;</span> <span class="punct">=&gt;</span> <span class="punct">[&quot;</span><span class="string">sit</span><span class="punct">&quot;,</span> <span class="punct">&quot;</span><span class="string">fetch</span><span class="punct">&quot;,</span> <span class="punct">&quot;</span><span class="string">roll_over</span><span class="punct">&quot;]}</span>
+</pre>
+
+<p>NOTE: because of the gotcha, the hidden fields will be inserted and any
+unchecked boxes will be sent as “” (empty string). You will need to
+filter those values out in your model:</p>
+
+<pre><span class="keyword">class </span><span class="class">Dog</span> <span class="punct">&lt;</span> <span class="constant"><a href="/rails/ActiveRecord">ActiveRecord</a></span><span class="punct">::</span><span class="constant">Base</span>
+  <span class="keyword">def </span><span class="method">commands=</span><span class="punct">(</span><span class="ident">commands</span><span class="punct">)</span>
+    <span class="ident">commands</span><span class="punct">.</span><span class="ident">reject</span><span class="punct">(&amp;</span><span class="symbol">:blank?</span><span class="punct">)</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></pre>
+
+  
+  </div>
+</div>
+<div class="note" id="609-Have-the-check-box-checked-by-default">
+
+  <div class="note_info" id="note_info-609">
+      <div class="info_left">
+    <span class="login"><a href="/users/bquorning"><img alt="Default_avatar_30" class="gravatar" src="http://www.gravatar.com/avatar/f9d47b3d6001500a435163fa341f3a4d?default=http://apidock.com/images/default_avatar_30.png&amp;size=30" style="width: 30px; height: 30px;" /> bquorning</a> - </span> 
+    June 10, 2009 - (v1.0.0 - v2.3.2)
+    
+  </div>
+
+  <div class="info_right">
+    <img alt="Loader" class="loader" id="note_loader609" src="http://d3bro1z16yfjvi.cloudfront.net/images/loader.gif?1349367920" style="display: none;" />
+    <span class="thank_text">5 thanks</span>
+     
+  </div>  
+
+  </div>
+  
+  <div class="note_content" id="note_content-609">     
+  
+  
+  <h4><a href="/rails/ActionView/Helpers/FormHelper/check_box#609-Have-the-check-box-checked-by-default">Have the check_box checked by default</a></h4>
+
+<p>To have the check box checked by default, pass either <tt>:checked =&gt;
+true</tt> or <tt>:checked =&gt; 'checked'</tt> in the options. See <a
+href="/rails/ActionView/Helpers/InstanceTag/to_check_box_tag">ActionView::Helpers::InstanceTag#to_check_box_tag</a>
+for details.</p>
+
+  
+  </div>
+</div>
+<div class="note" id="739-Have-check-box-checked-by-default">
+
+  <div class="note_info" id="note_info-739">
+      <div class="info_left">
+    <span class="login"><a href="/users/spectator"><img alt="Default_avatar_30" class="gravatar" src="http://www.gravatar.com/avatar/c798968646862e6e50f369c34d5f0b82?default=http://apidock.com/images/default_avatar_30.png&amp;size=30" style="width: 30px; height: 30px;" /> spectator</a> - </span> 
+    October 15, 2009 
+    
+  </div>
+
+  <div class="info_right">
+    <img alt="Loader" class="loader" id="note_loader739" src="http://d3bro1z16yfjvi.cloudfront.net/images/loader.gif?1349367920" style="display: none;" />
+    <span class="thank_text">4 thanks</span>
+     
+  </div>  
+
+  </div>
+  
+  <div class="note_content" id="note_content-739">     
+  
+  
+  <h4><a href="/rails/ActionView/Helpers/FormHelper/check_box#739-Have-check-box-checked-by-default">Have check_box checked by default</a></h4>
+
+<p>In addition to comment below, you can make a column with default value so
+in your forms it will be enabled by default and behave correctly with
+validation errors unlike :checked =&gt; true</p>
+
+<h4>in your migration</h4>
+
+<pre><span class="ident">add_column</span> <span class="symbol">:accounts</span><span class="punct">,</span> <span class="symbol">:ssl_enabled</span><span class="punct">,</span> <span class="symbol">:boolean</span><span class="punct">,</span> <span class="symbol">:default</span> <span class="punct">=&gt;</span> <span class="number">1</span>
+</pre>
+
+  
+  </div>
+</div>
+<div class="note" id="1441-Use-strings-as-parameters-not-booleans">
+
+  <div class="note_info" id="note_info-1441">
+      <div class="info_left">
+    <span class="login"><a href="/users/kasper_grubbe"><img alt="Default_avatar_30" class="gravatar" src="http://www.gravatar.com/avatar/5d092b3a14b92207bf2abdbb8f51f450?default=http://apidock.com/images/default_avatar_30.png&amp;size=30" style="width: 30px; height: 30px;" /> kasper_grubbe</a> - </span> 
+    July 23, 2013 
+    
+  </div>
+
+  <div class="info_right">
+    <img alt="Loader" class="loader" id="note_loader1441" src="http://d3bro1z16yfjvi.cloudfront.net/images/loader.gif?1349367920" style="display: none;" />
+    <span class="thank_text">3 thanks</span>
+     
+  </div>  
+
+  </div>
+  
+  <div class="note_content" id="note_content-1441">     
+  
+  
+  <h4><a href="/rails/ActionView/Helpers/FormHelper/check_box#1441-Use-strings-as-parameters-not-booleans">Use strings as parameters, not booleans</a></h4>
+
+<p>I just stumbled across this somewhere in our codebase. The first example is
+faulty, the second one is correct.</p>
+
+<pre><span class="punct">=</span> <span class="ident">f</span><span class="punct">.</span><span class="ident"><a href="/rails/ActionView/Helpers/FormHelper/check_box">check_box</a></span> <span class="symbol">:public</span><span class="punct">,</span> <span class="punct">{},</span> <span class="constant">true</span><span class="punct">,</span> <span class="constant">false</span>
+<span class="comment"># &lt;input id=&quot;event_public&quot; name=&quot;event[public]&quot; type=&quot;checkbox&quot; value=&quot;true&quot; /&gt;</span>
+</pre>
+
+<p>and:</p>
+
+<pre><span class="punct">=</span> <span class="ident">f</span><span class="punct">.</span><span class="ident"><a href="/rails/ActionView/Helpers/FormHelper/check_box">check_box</a></span> <span class="symbol">:public</span><span class="punct">,</span> <span class="punct">{},</span> <span class="punct">&quot;</span><span class="string">true</span><span class="punct">&quot;,</span> <span class="punct">&quot;</span><span class="string">false</span><span class="punct">&quot;</span>
+<span class="comment"># &lt;input name=&quot;event[public]&quot; type=&quot;hidden&quot; value=&quot;false&quot; /&gt;</span>
+<span class="comment"># &lt;input id=&quot;event_public&quot; name=&quot;event[public]&quot; type=&quot;checkbox&quot; value=&quot;true&quot; /&gt;</span></pre>
+
+  
+  </div>
+</div>
+<div class="note" id="1046-Parameter-extraction-logic-changed-in-Rails-2-3-">
+
+  <div class="note_info" id="note_info-1046">
+      <div class="info_left">
+    <span class="login"><a href="/users/jrdioko"><img alt="Default_avatar_30" class="gravatar" src="http://www.gravatar.com/avatar/2d085a853e59e7fe49339202c4952331?default=http://apidock.com/images/default_avatar_30.png&amp;size=30" style="width: 30px; height: 30px;" /> jrdioko</a> - </span> 
+    January 15, 2011 - (v2.3.2 - v2.3.8)
+    
+  </div>
+
+  <div class="info_right">
+    <img alt="Loader" class="loader" id="note_loader1046" src="http://d3bro1z16yfjvi.cloudfront.net/images/loader.gif?1349367920" style="display: none;" />
+    <span class="thank_text">0 thanks</span>
+     
+  </div>  
+
+  </div>
+  
+  <div class="note_content" id="note_content-1046">     
+  
+  
+  <h4><a href="/rails/ActionView/Helpers/FormHelper/check_box#1046-Parameter-extraction-logic-changed-in-Rails-2-3-">Parameter extraction logic changed in Rails 2.3!</a></h4>
+
+<p>What is documented here about <a href="/rails/Rails">Rails</a> parameter
+extraction always getting the first occurrence of a key is apparently
+incorrect (in <a href="/rails/Rails">Rails</a> 2.3 it gets the last
+occurrence).</p>
+
+<p>See the following email thread on [rubyonrails-core]:</p>
+
+<p><a
+href="http://www.mail-archive.com/rubyonrails-core@googlegroups.com/msg08719.html">http://www.mail-archive.com/rubyonrails-core@googlegroups.com/msg08719.html</a></p>
+
+<p>I quote:</p>
+
+<pre><span class="punct">&gt;</span> <span class="constant">In</span> <span class="ident">the</span> <span class="ident">docs</span> <span class="keyword">for</span> <span class="constant"><a href="/rails/ActionView">ActionView</a></span><span class="punct">::</span><span class="constant">Helpers</span><span class="punct">::</span><span class="constant"><a href="/rails/ActionView/Helpers/FormHelper">FormHelper</a></span><span class="comment">#check_box, when</span>
+<span class="punct">&gt;</span> <span class="ident">discussing</span> <span class="ident">why</span> <span class="ident">the</span> <span class="ident">method</span> <span class="ident">adds</span> <span class="ident">a</span> <span class="ident">hidden</span> <span class="ident">input</span> <span class="ident">tag</span> <span class="ident">_after_</span> <span class="ident">the</span> <span class="ident">checkbox</span>
+<span class="punct">&gt;</span> <span class="ident">tag</span><span class="punct">,</span> <span class="ident">it</span> <span class="ident">says</span>
+<span class="punct">&gt;</span>
+<span class="punct">&gt;</span>  <span class="punct">&quot;</span><span class="string">...Rails parameters extraction always gets the first occurrence of
+&gt; any given key...</span><span class="punct">&quot;</span>
+<span class="punct">&gt;</span>
+<span class="punct">&gt;</span> <span class="constant">I</span><span class="punct">'</span><span class="string">m not sure this is still the case.
+
+Indeed it changed in 2.3 but unfortunately the patch didn</span><span class="punct">'</span><span class="ident">t</span> <span class="ident">update</span> <span class="ident">the</span>
+<span class="ident">docs</span><span class="punct">.</span> <span class="ident">We</span> <span class="ident">noticed</span> <span class="ident">this</span> <span class="ident">a</span> <span class="ident">few</span> <span class="ident">days</span> <span class="ident">ago</span><span class="punct">,</span> <span class="ident">they</span> <span class="ident">are</span> <span class="ident">correct</span> <span class="ident">now</span> <span class="keyword">in</span> <span class="ident">edge</span><span class="punct">.</span></pre>
+
+  
+  </div>
+</div>
+<div class="note" id="1592-What-object-name-method-values-will-result-in-checked-chekboxes-">
+
+  <div class="note_info" id="note_info-1592">
+      <div class="info_left">
+    <span class="login"><a href="/users/lakesare"><img alt="Default_avatar_30" class="gravatar" src="http://www.gravatar.com/avatar/670f30d60f74035203752fc751d1cc50?default=http://apidock.com/images/default_avatar_30.png&amp;size=30" style="width: 30px; height: 30px;" /> lakesare</a> - </span> 
+    April  8, 2015 - (v3.1.0 - v4.1.8)
+    
+  </div>
+
+  <div class="info_right">
+    <img alt="Loader" class="loader" id="note_loader1592" src="http://d3bro1z16yfjvi.cloudfront.net/images/loader.gif?1349367920" style="display: none;" />
+    <span class="thank_text">0 thanks</span>
+     
+  </div>  
+
+  </div>
+  
+  <div class="note_content" id="note_content-1592">     
+  
+  
+  <h4><a href="/rails/ActionView/Helpers/FormHelper/check_box#1592-What-object-name-method-values-will-result-in-checked-chekboxes-">What object_name.method values will result in checked chekboxes.</a></h4>
+
+<p>*It’s intended that method returns an integer and if that integer is
+above zero, then the checkbox is checked.* - more exactly, that’s how
+it’s determined whether value will be checked or not:</p>
+
+<p>(`@checked_value` is checked_value, `value` is what object_name.method
+returns)</p>
+
+<pre><span class="keyword">def </span><span class="method">checked?</span><span class="punct">(</span><span class="ident">value</span><span class="punct">)</span>
+  <span class="keyword">case</span> <span class="ident">value</span>
+  <span class="keyword">when</span> <span class="constant"><a href="/rails/TrueClass">TrueClass</a></span><span class="punct">,</span> <span class="constant"><a href="/rails/FalseClass">FalseClass</a></span> 
+    <span class="ident">value</span> <span class="punct">==</span> <span class="punct">!!</span><span class="attribute">@checked_value</span>
+  <span class="keyword">when</span> <span class="constant"><a href="/rails/NilClass">NilClass</a></span>
+    <span class="constant">false</span>
+  <span class="keyword">when</span> <span class="constant"><a href="/rails/String">String</a></span>
+    <span class="ident">value</span> <span class="punct">==</span> <span class="attribute">@checked_value</span>
+  <span class="keyword">else</span>
+    <span class="keyword">if</span> <span class="ident">value</span><span class="punct">.</span><span class="ident">respond_to?</span><span class="punct">(</span><span class="symbol">:include?</span><span class="punct">)</span>
+      <span class="ident">value</span><span class="punct">.</span><span class="ident">include?</span><span class="punct">(</span><span class="attribute">@checked_value</span><span class="punct">)</span>
+    <span class="keyword">else</span>
+      <span class="ident">value</span><span class="punct">.</span><span class="ident">to_i</span> <span class="punct">==</span> <span class="attribute">@checked_value</span><span class="punct">.</span><span class="ident">to_i</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></pre>
+
+  
+  </div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div id="footer">
+  <div id="footer_left">
+    <ul>
+  <li class="first_tab"><a href="/">Welcome</a></li>
+  <li><a href="/register">Register</a></li>
+  <li><a href="/projects">Projects</a></li>
+  <li><a href="/faq">Help</a></li>
+  <li><a href="/about">About</a></li>
+  <li class="external"><a href="http://blog.nodeta.fi/category/apidock/">Blog</a></li>
+</ul>
+
+    <p>
+      <br />
+      APIdock release: IRON STEVE (1.4)<br />
+      If you have any comments, ideas or feedback, feel free to contact us at <script type="text/javascript">eval(decodeURIComponent('%64%6f%63%75%6d%65%6e%74%2e%77%72%69%74%65%28%27%3c%61%20%68%72%65%66%3d%5c%22%6d%61%69%6c%74%6f%3a%74%65%61%6d%40%61%70%69%64%6f%63%6b%2e%63%6f%6d%5c%22%3e%74%65%61%6d%40%61%70%69%64%6f%63%6b%2e%63%6f%6d%3c%5c%2f%61%3e%27%29%3b'))</script>
+    </p>
+    <p class="ndt_copyright">
+      <a href="http://blog.nodeta.com/"><img alt="Go to Nodeta blog" src="http://d3bro1z16yfjvi.cloudfront.net/images/nodeta_logo.png?1349367920" /></a>
+      APIdock copyright Nodeta Oy 2008-2015
+    </p>
+  </div>
+  <!-- @flowdock -->
+    <div id="footer_flowdock">
+      
+      <a href="http://www.flowdock.com/tour/developers" title="Flowdock - Team Inbox With Chat for Software Developers"><img alt="Flowdock" src="http://d3bro1z16yfjvi.cloudfront.net/images/flowdock_promo.png?1349367920" /></a>
+      <a href="http://www.flowdock.com/tour/developers" title="Flowdock - Team Inbox With Chat for Software Developers"><h3>Flowdock - Team Inbox With Chat for Software Developers</h3></a>
+      <p>Check out how the team behind APIdock connects <a href="https://www.flowdock.com/pivotal_tracker">Pivotal Tracker</a>, <a href="https://www.flowdock.com/github">GitHub</a> and group chat to one workflow.</p>
+    </div>
+  <!-- /@flowdock -->
+</div>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-2741725-8']);
+  _gaq.push(['_setDomainName', ".apidock.com"]);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+  })();
+
+</script>
+
+    </div>
+  	<script type="text/javascript">
+var fieldFocus = true;
+var resultsContainer = $('search_results');
+new SearchField($('nav_search_field'), resultsContainer, $('submit_nav_search'), 3, document.searchKeywords, document.searchData, 'rails', '1.0.0','4.2.1');
+// Position the results container
+var navi = $('navigation');
+resultsContainer.setStyle({
+	top: navi.cumulativeOffset().top + navi.getHeight() + 'px'
+});
+</script>
+
+    <script type="text/javascript">
+var msgs = $$('.flash_message');
+msgs.invoke('hide');
+// Observer for messages
+document.observe('dom:loaded', function() {
+  msgs.each(function(elem) { 
+    new Effect.Appear(elem, {duration: 0.5});
+    elem.observe('click', function(event) {
+      var clicked = event.element();
+      if (clicked.match('img')) {
+        new Effect.Fade(elem, {duration: 0.3});
+        etTimeout(function(){elem.remove();}.bind(elem), 400 );
+      }
+    })
+  });
+});
+</script>
+  </body>
+</html>

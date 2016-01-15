@@ -1,0 +1,79 @@
+в новых версиях данные подгружаются через миграции
+
+=====================
+в старых версиях нужно в settings.py указать пути к фикстурам:
+FIXTURE_DIRS = (
+    os.path.join(BASE_DIR, 'app_table/fixtures/'),
+)
+
+=====================
+затем создать файл app_table/fixtures/initial_data.json:
+[
+  {
+    "model": "app_table.tank",
+    "pk": 1,
+    "fields": {
+      "title": "Snake",
+      "armor_front": 1,
+      "armor_side": 23,
+      "armor_back": 13
+    }
+  },
+  {
+    "model": "app_table.tank",
+    "pk": 2,
+    "fields": {
+      "title": "Leopard",
+      "armor_front": 33,
+      "armor_side": 4,
+      "armor_back": 232
+    }
+  },
+  {
+    "model": "app_table.tank",
+    "pk": 3,
+    "fields": {
+      "title": "Tiger",
+      "armor_front": 23,
+      "armor_side": 12,
+      "armor_back": 444
+    }
+  },    
+  {
+    "model": "app_table.tank",
+    "pk": 4,
+    "fields": {
+      "title": "Zubr",
+      "armor_front": 3,
+      "armor_side": 23,
+      "armor_back": 6
+    }
+  }
+]
+
+
+
+
+
+здесь .tank это имя модели
+
+=====================
+затем загрузить данные командой:
+python manage.py syncdb
+
+
+теоретически initial_data дожен загрузаться при старте любой миграции. данные в БД будут затираться
+
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================

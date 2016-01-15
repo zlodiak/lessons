@@ -1,0 +1,134 @@
+чтобы и рельах использовать postgresql нужно:
+1. создать проект rails new myapp --database=postgresql
+2. gem 'pg'
+3. bundle install
+
+в результате конфиг будет выглядеть так:
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: 5
+
+development:
+  <<: *default
+  database: vd_development
+
+
+test:
+  <<: *default
+  database: vd_test
+
+production:
+  <<: *default
+  database: vd_production
+  username: vd
+  password: <%= ENV['VD_DATABASE_PASSWORD'] %>
+
+
+====================
+далее нужно установить postgresql на машину:
+rails new myapp --database=postgresql
+
+далее создать базу и пользователя:
+which psql
+#=> /usr/bin/psql
+
+sudo su - postgres
+psql
+
+CREATE USER yourname WITH PASSWORD 'passwordhere';
+CREATE DATABASE metals-directory_production  WITH OWNER yourname;
+GRANT ALL PRIVILEGES ON DATABASE metals-directory_production TO yourname;
+
+
+
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: metals-directory_development
+  pool: 5
+  username: yourname
+  password: passwordhere   ### password you have specified within psql
+  host: localhost
+  port: 5432               ### you can configure it in file postgresql.conf
+
+
+
+или можно создать все 3 базы средствами rails.
+
+для этого нужно выполнить rake db:setup
+но перед этим обязательно добавить пользователю право создавать БД:
+alter role kalinin NOSUPERUSER CREATEDB;
+
+после этого можно убедиться в ролях пользователей через:
+\du
+
+так же можно посмотреть список БД:
+\l
+
+
+
+
+
+
+
+
+
+
+
+
+
+====================
+giu client navicat/ trial 14 days
+
+скачиваю соответствующий пакет с http://www.navicat.com/download/navicat-for-postgresql
+
+распаковываю его и переношу каталог в /opt
+
+устанавливаю права 777 для start_navicat
+
+находясь в этом каталоге, в соответствии с этим http://wiki.navicat.com/wiki/index.php/Can_I_run_Navicat_on_64-bit_Linux? через консоль выполняю
+
+./start_navicat
+
+====================
+установка pgadmin3:
+http://www.codeproject.com/Articles/898303/Installing-and-Configuring-PostgreSQL-on-Linux-Min
+
+
+deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main
+
+$ sudo apt-get install wget ca-certificates
+$ wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+
+
+$ sudo apt-get update
+$ sudo apt-get upgrade
+
+$ sudo apt-get install pgadmin3
+
+
+затем заполнить конфиг, открыть базу, таблмцу и посмореть записи при помощи ctrl + D
+
+====================
+
+
+
+====================
+====================
+====================
+====================
+====================
+====================
+====================
+====================
+====================
+====================
+====================
+====================
+====================
+====================
+====================

@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://codeonhill.com/devise-cancan-and-activeadmin/ -->
+<html class="no-js csstransforms csstransforms3d csstransitions" lang="en-US"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devise, CanCanCan and ActiveAdmin | CodeOnHill</title>
+  <link rel="profile" href="http://gmpg.org/xfn/11">
+  <link rel="pingback" href="http://codeonhill.com/xmlrpc.php">
+  <link rel="alternate" type="application/rss+xml" title="CodeOnHill » Feed" href="http://codeonhill.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="CodeOnHill » Comments Feed" href="http://codeonhill.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="CodeOnHill » Devise, CanCanCan and ActiveAdmin Comments Feed" href="http://codeonhill.com/devise-cancan-and-activeadmin/feed/">
+<link rel="stylesheet" id="crayon-css" href="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/crayon.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="crayon-theme-github-css" href="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/github.css" type="text/css" media="all">
+<link rel="stylesheet" id="crayon-font-monaco-css" href="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/monaco.css" type="text/css" media="all">
+<link rel="stylesheet" id="sab-plugin-css" href="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/simple-author-box.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="toc-screen-css" href="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/screen.css" type="text/css" media="all">
+<link rel="stylesheet" id="x-stack-css" href="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/integrity-light.css" type="text/css" media="all">
+<link rel="stylesheet" id="x-font-custom-css" href="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/css" type="text/css" media="all">
+<link rel="stylesheet" id="font-awesome-css" href="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/font-awesome.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="genericons-css" href="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/genericons.css" type="text/css" media="all">
+<link rel="stylesheet" id="jetpack_css-css" href="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/jetpack.css" type="text/css" media="all">
+<!-- This site uses the Yoast Google Analytics plugin v5.2.7 - Universal disabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script async="" src="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/saved_resource"></script><script type="text/javascript" async="" src="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/ga.js"></script><script type="text/javascript">
+
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-57876249-1']);
+	_gaq.push(['_gat._forceSSL']);
+	_gaq.push(['_trackPageview']);
+
+	(function () {
+		var ga = document.createElement('script');
+		ga.type = 'text/javascript';
+		ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(ga, s);
+	})();
+
+</script>
+<!-- / Yoast Google Analytics -->
+<script type="text/javascript" src="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/jquery.js"></script>
+<script type="text/javascript" src="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/jquery-migrate.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.6.8","is_admin":"0","ajaxurl":"http:\/\/codeonhill.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/crayon.min.js"></script>
+<script type="text/javascript" src="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/x-head.min.js"></script>
+<link rel="canonical" href="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/Devise, CanCanCan and ActiveAdmin _ CodeOnHill.html">
+<link rel="shortlink" href="http://wp.me/p5uFQq-1e">
+
+<!-- StarBox - the Author Box for Humans 3.0.2, visit: http://wordpress.org/plugins/starbox/ -->
+<!-- /StarBox - the Author Box for Humans -->
+
+<link rel="stylesheet" id="frontend.css-css" href="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/frontend.css" type="text/css" media="all">
+<script type="text/javascript" src="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/frontend.js"></script>
+<link rel="stylesheet" id="hidedefault.css-css" href="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/hidedefault.css" type="text/css" media="all">
+<style type="text/css">div#toc_container {background: #ffffff;border: 1px solid #ffffff;}div#toc_container p.toc_title a:hover,div#toc_container ul.toc_list a:hover {color: #da6861;}div#toc_container p.toc_title a:hover,div#toc_container ul.toc_list a:hover {color: #da6861;}</style><style type="text/css">img#wpstats{display:none}</style>
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Devise, CanCanCan and ActiveAdmin">
+<meta property="og:url" content="http://codeonhill.com/devise-cancan-and-activeadmin/">
+<meta property="og:description" content="Article shows how to integrate Devise, CanCanCan and ActiveAdmin gems in Rails app. Devise allows to authenticate, CanCanCan allows to authorizate the users and ActiveAdmin gives an access to data ...">
+<meta property="article:published_time" content="2015-02-01T18:05:31+00:00">
+<meta property="article:modified_time" content="2015-02-02T13:14:03+00:00">
+<meta property="article:author" content="http://codeonhill.com/author/tomasz-antas/">
+<meta property="og:site_name" content="CodeOnHill">
+<meta property="og:image" content="http://codeonhill.com/wp-content/uploads/2014/12/ruby-on-rails.jpg">
+<meta name="twitter:site" content="@jetpack">
+<meta name="twitter:image:src" content="http://codeonhill.com/wp-content/uploads/2014/12/ruby-on-rails.jpg?w=640">
+<meta name="twitter:card" content="summary_large_image">
+<style type="text/css">.saboxplugin-wrap .saboxplugin-gravatar img {-webkit-border-radius:50%;-moz-border-radius:50%;-ms-border-radius:50%;-o-border-radius:50%;border-radius:50%;}.saboxplugin-wrap .saboxplugin-socials .saboxplugin-icon-color {-webkit-border-radius:50%;-moz-border-radius:50%;-ms-border-radius:50%;-o-border-radius:50%;border-radius:50%;}.saboxplugin-wrap .saboxplugin-gravatar img {-webkit-transition:all .5s ease;-moz-transition:all .5s ease;-o-transition:all .5s ease;transition:all .5s ease;}.saboxplugin-wrap .saboxplugin-gravatar img:hover {-webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);-o-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg);}.saboxplugin-wrap {margin-top:0px;}.saboxplugin-wrap {margin-bottom:0px;}.saboxplugin-wrap .saboxplugin-authorname {font-size:18px; line-height:25px;}.saboxplugin-wrap .saboxplugin-desc {font-size:14px; line-height:21px;}.saboxplugin-wrap .saboxplugin-web {font-size:14px;}.saboxplugin-wrap .saboxplugin-socials .saboxplugin-icon-color {font-size:21px;}.saboxplugin-wrap .saboxplugin-socials .saboxplugin-icon-color:before {width:36px; height:36px; line-height:37px; }.saboxplugin-wrap .saboxplugin-socials .saboxplugin-icon-grey {font-size:18px;}</style><style id="x-customizer-css-output" type="text/css">body{background-color:#f3f3f3;}a,h1 a:hover,h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover,h6 a:hover,.x-topbar .p-info a:hover,.x-breadcrumb-wrap a:hover,.widget ul li a:hover,.widget ol li a:hover,.widget.widget_text ul li a,.widget.widget_text ol li a,.widget_nav_menu .current-menu-item > a,.x-widgetbar .widget ul li a:hover,.x-accordion-heading .x-accordion-toggle:hover,.x-comment-author a:hover,.x-comment-time:hover{color:#ff2a13;}a:hover,.widget.widget_text ul li a:hover,.widget.widget_text ol li a:hover,.x-twitter-widget ul li a:hover,.x-recent-posts a:hover .h-recent-posts{color:#d80f0f;}.rev_slider_wrapper,a.x-img-thumbnail:hover,.x-slider-revolution-container.below,.page-template-template-blank-3-php .x-slider-revolution-container.above,.page-template-template-blank-6-php .x-slider-revolution-container.above{border-color:#ff2a13;}.entry-thumb:before,.pagination span.current,.flex-direction-nav a,.flex-control-nav a:hover,.flex-control-nav a.flex-active,.jp-play-bar,.jp-volume-bar-value,.x-dropcap,.x-skill-bar .bar,.x-pricing-column.featured h2,.h-comments-title small,.x-entry-share .x-share:hover,.x-highlight,.x-recent-posts .x-recent-posts-img,.x-recent-posts .x-recent-posts-img:before,.tp-bullets.simplebullets.round .bullet:hover,.tp-bullets.simplebullets.round .bullet.selected,.tp-bullets.simplebullets.round-old .bullet:hover,.tp-bullets.simplebullets.round-old .bullet.selected,.tp-bullets.simplebullets.square-old .bullet:hover,.tp-bullets.simplebullets.square-old .bullet.selected,.tp-bullets.simplebullets.navbar .bullet:hover,.tp-bullets.simplebullets.navbar .bullet.selected,.tp-bullets.simplebullets.navbar-old .bullet:hover,.tp-bullets.simplebullets.navbar-old .bullet.selected,.tp-leftarrow.default,.tp-rightarrow.default{background-color:#ff2a13;}.x-recent-posts a:hover .x-recent-posts-img,.tp-leftarrow.default:hover,.tp-rightarrow.default:hover{background-color:#d80f0f;}.x-nav-tabs > .active > a,.x-nav-tabs > .active > a:hover{-webkit-box-shadow:inset 0 3px 0 0 #ff2a13;box-shadow:inset 0 3px 0 0 #ff2a13;}.x-container-fluid.width{width:88%;}.x-container-fluid.max{max-width:1200px;}.x-main{width:69.536945%;}.x-sidebar{width:25.536945%;}.x-topbar .p-info,.x-topbar .p-info a,.x-navbar .x-nav > li > a,.x-navbar .sub-menu a,.x-breadcrumb-wrap a,.x-breadcrumbs .delimiter{color:#b7b7b7;}.x-navbar .x-nav > li > a:hover,.x-navbar .x-nav > .sfHover > a,.x-navbar .x-nav > .current-menu-item > a,.x-navbar .sub-menu a:hover,.x-navbar .sub-menu .sfHover > a,.x-navbar .sub-menu .current-menu-item > a,.x-nav .x-megamenu > .sub-menu > li > a{color:#272727;}.x-navbar .x-nav > li > a:hover,.x-navbar .x-nav > .sfHover > a,.x-navbar .x-nav > .current-menu-item > a{-webkit-box-shadow:inset 0 4px 0 0 #ff2a13;box-shadow:inset 0 4px 0 0 #ff2a13;}.x-navbar .x-nav > li > a{height:90px;padding-top:34px;}.sf-menu > li ul{top:75px;;}.x-comment-author,.x-comment-time,.comment-form-author label,.comment-form-email label,.comment-form-url label,.comment-form-rating label,.comment-form-comment label,.widget_calendar #wp-calendar caption,.widget.widget_rss li .rsswidget{font-family:Lato;font-weight:400;}.p-landmark-sub,.p-meta,input,button,select,textarea{font-family:Lato;}@media (max-width:979px){.x-navbar .x-nav-collapse .x-nav li a{color:#b7b7b7;-webkit-box-shadow:none;box-shadow:none;}.x-navbar .x-nav-collapse .x-nav li a:hover,.x-navbar .x-nav-collapse .x-nav .current-menu-item > a{color:#272727;}.x-widgetbar{left:0;right:0;}}body{font-size:14px;font-style:normal;font-weight:400;}a:focus,select:focus,input[type="file"]:focus,input[type="radio"]:focus,input[type="submit"]:focus,input[type="checkbox"]:focus{outline:thin dotted #333;outline:5px auto #ff2a13;outline-offset:-1px;}h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{font-style:normal;font-weight:400;letter-spacing:-1px;}.x-main.full{float:none;display:block;width:auto;}@media (max-width:979px){.x-main.full,.x-main.left,.x-main.right,.x-sidebar.left,.x-sidebar.right{float:none;display:block;width:auto !important;}}.entry-header,.entry-content{font-size:14px;}.x-brand{font-style:normal;font-weight:100;letter-spacing:-3px;}body,input,button,select,textarea{font-family:"Lato","Helvetica Neue",Helvetica,sans-serif;}h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{font-family:"Lato","Helvetica Neue",Helvetica,sans-serif;}.x-brand{font-family:"Lato","Helvetica Neue",Helvetica,sans-serif;}.x-navbar .x-nav > li > a{font-family:"Lato","Helvetica Neue",Helvetica,sans-serif;}.x-btn-widgetbar{border-top-color:#000000;border-right-color:#000000;}.x-btn-widgetbar:hover{border-top-color:#444444;border-right-color:#444444;}.x-navbar{font-size:16px;}.x-navbar-inner{min-height:90px;}.x-logobar-inner{padding-top:15px;padding-bottom:15px;}.x-brand{font-size:64px;font-size:6.4rem;}.x-navbar .x-brand{margin-top:13px;}.x-navbar .x-nav > li > a{font-style:normal;font-weight:300;}.x-btn-navbar{margin-top:20px;;}.x-btn-navbar,.x-btn-navbar.collapsed{font-size:24px;}@media (max-width:979px){}.x-btn,.button,[type="submit"]{color:#ffffff;border-color:#ac1100;background-color:#ff2a13;}.x-btn:hover,.button:hover,[type="submit"]:hover{color:#ffffff;border-color:#600900;background-color:#ef2201;}.x-btn.x-btn-real,.x-btn.x-btn-real:hover{margin-bottom:0.25em;text-shadow:0 0.075em 0.075em rgba(0,0,0,0.65);}.x-btn.x-btn-real{-webkit-box-shadow:0 0.25em 0 0 #a71000,0 4px 9px rgba(0,0,0,0.75);box-shadow:0 0.25em 0 0 #a71000,0 4px 9px rgba(0,0,0,0.75);}.x-btn.x-btn-real:hover{-webkit-box-shadow:0 0.25em 0 0 #a71000,0 4px 9px rgba(0,0,0,0.75);box-shadow:0 0.25em 0 0 #a71000,0 4px 9px rgba(0,0,0,0.75);}.x-btn.x-btn-flat,.x-btn.x-btn-flat:hover{margin-bottom:0;text-shadow:0 0.075em 0.075em rgba(0,0,0,0.65);-webkit-box-shadow:none;box-shadow:none;}.x-btn.x-btn-transparent,.x-btn.x-btn-transparent:hover{margin-bottom:0;border-width:3px;text-shadow:none;text-transform:uppercase;background-color:transparent;-webkit-box-shadow:none;box-shadow:none;}.x-btn-circle-wrap:before{width:172px;height:43px;background:url(http://codeonhill.com/wp-content/themes/x/framework/img/global/btn-circle-top-small.png) center center no-repeat;-webkit-background-size:172px 43px;background-size:172px 43px;}.x-btn-circle-wrap:after{width:190px;height:43px;background:url(http://codeonhill.com/wp-content/themes/x/framework/img/global/btn-circle-bottom-small.png) center center no-repeat;-webkit-background-size:190px 43px;background-size:190px 43px;}.x-btn,.x-btn:hover,.button,.button:hover,[type="submit"],[type="submit"]:hover{margin-bottom:0.25em;text-shadow:0 0.075em 0.075em rgba(0,0,0,0.5);}.x-btn,.button,[type="submit"]{-webkit-box-shadow:0 0.25em 0 0 #a71000,0 4px 9px rgba(0,0,0,0.75);box-shadow:0 0.25em 0 0 #a71000,0 4px 9px rgba(0,0,0,0.75);}.x-btn:hover,.button:hover,[type="submit"]:hover{-webkit-box-shadow:0 0.25em 0 0 #a71000,0 4px 9px rgba(0,0,0,0.75);box-shadow:0 0.25em 0 0 #a71000,0 4px 9px rgba(0,0,0,0.75);}.x-btn,.button,[type="submit"]{border-radius:0.25em;}</style><script type="text/javascript" async="" src="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/embed.js"></script><script async="" type="text/javascript" src="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/count.js"></script><link rel="stylesheet" type="text/css" id="gravatar-card-css" href="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/services.css"></head>
+
+<body class="single single-post postid-76 single-format-standard x-integrity x-integrity-light x-navbar-static-active x-full-width-layout-active x-full-width-active x-post-meta-disabled x-portfolio-meta-disabled x-v2_4_0" cz-shortcut-listen="true">
+
+  
+  <div id="top" class="site"> <!-- BEGIN #top.site -->
+
+  
+  
+
+  <header class="masthead masthead-stacked" role="banner">
+    
+    
+
+  <div class="x-logobar">
+    <div class="x-logobar-inner">
+      <div class="x-container-fluid max width">
+        
+
+<a href="http://codeonhill.com/" class="x-brand text" title="Web Development">
+  CodeOnHill</a>      </div>
+    </div> <!-- end .x-logobar-inner -->
+  </div> <!-- end .x-logobar -->
+
+  <div class="x-navbar-wrap">
+    <div class="x-navbar">
+      <div class="x-navbar-inner">
+        <div class="x-container-fluid max width">
+          
+<a href="http://codeonhill.com/devise-cancan-and-activeadmin/#" class="x-btn-navbar collapsed" data-toggle="collapse" data-target=".x-nav-collapse">
+  <i class="x-icon-bars"></i><span class="visually-hidden">Navigation</span>
+</a>
+
+<nav class="x-nav-collapse collapse" role="navigation">
+
+  <ul id="menu-main" class="x-nav sf-menu sf-js-enabled"><li id="menu-item-37" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-37"><a href="http://codeonhill.com/">Home</a></li>
+<li id="menu-item-40" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-40"><a href="http://codeonhill.com/contact/">Contact</a></li>
+<li class="menu-item menu-item-navbar-search"><a href="http://codeonhill.com/devise-cancan-and-activeadmin/#" class="x-btn-navbar-search"><i class="x-icon x-icon-search"></i><span class="x-hidden-desktop"> Search</span></a></li></ul>
+</nav> <!-- end .x-nav-collapse.collapse -->        </div>
+      </div> <!-- end .x-navbar-inner -->
+    </div> <!-- end .x-navbar -->
+  </div> <!-- end .x-navbar-wrap -->
+
+    
+  
+    <div class="x-breadcrumb-wrap">
+      <div class="x-container-fluid max width cf">
+
+        <div class="x-breadcrumbs"><a href="http://codeonhill.com/"><span class="home"><i class="x-icon-home"></i></span></a> <span class="delimiter"><i class="x-icon-angle-right"></i></span> <span class="current">Devise, CanCanCan and ActiveAdmin</span></div>
+                  
+  <div class="x-nav-articles">
+
+          <a href="http://codeonhill.com/jportilio-responsive-and-filterable-grid-of-items/" title="" class="prev">
+        <i class="x-icon-arrow-left"></i>      </a>
+    
+          <a href="http://codeonhill.com/rails-briefly/" title="" class="next">
+        <i class="x-icon-arrow-right"></i>      </a>
+    
+  </div>
+
+          
+      </div>
+    </div>
+
+    </header>
+
+  
+  
+  
+  <div class="x-container-fluid max width offset cf">
+    <div class="x-main full" role="main">
+
+              
+<article id="post-76" class="post-76 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized tag-activeadmin tag-cancan tag-cancancan tag-devise tag-ruby-on-rails">
+  <div class="entry-featured">
+    <div class="entry-thumb"><img width="1024" height="312" src="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/ruby-on-rails.jpg" class="attachment-entry-integrity-fullwidth wp-post-image" alt="ruby-on-rails"></div>  </div>
+  <div class="entry-wrap">
+    
+<header class="entry-header">
+    <h1 class="entry-title">Devise, CanCanCan and ActiveAdmin</h1>
+    </header>    
+
+
+<div class="entry-content content">
+
+
+  
+                         <div class="abh_box abh_box_up abh_box_business"><ul class="abh_tabs"> <li class="abh_about abh_active"><a href="http://codeonhill.com/devise-cancan-and-activeadmin/#abh_about">About</a></li> <li class="abh_posts"><a href="http://codeonhill.com/devise-cancan-and-activeadmin/#abh_posts">Latest Posts</a></li></ul><div class="abh_tab_content"><section class="vcard abh_about_tab abh_tab" style="display:block"><div class="abh_image"><a href="http://codepany.com/" class="url" target="_blank" title="Tomasz Antas"><img src="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/dscf6248_3b_square.png" class="photo" width="80"></a></div><div class="abh_social"> <div style="clear: both; font-size:12px; font-weight:normal; width: 85px; margin: 0 0 2px auto; line-height: 20px;">Follow me</div><a href="http://twitter.com/@tomasz_antas" title="Twitter" class="abh_twitter" target="_blank" rel="nofollow"></a></div><div class="abh_text"><h3 class="fn name"><a href="http://codepany.com/" class="url" target="_blank">Tomasz Antas</a></h3><div class="abh_job"></div><div class="description note abh_description"></div></div> </section><section class="abh_posts_tab abh_tab"><div class="abh_image"><a href="http://codepany.com/" class="url" target="_blank" title="Tomasz Antas"><img src="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/dscf6248_3b_square.png" class="photo" width="80"></a></div><div class="abh_social"> <div style="clear: both; font-size:12px; font-weight:normal; width: 85px; margin: 0 0 2px auto; line-height: 20px;">Follow me</div><a href="http://twitter.com/@tomasz_antas" title="Twitter" class="abh_twitter" target="_blank" rel="nofollow"></a></div><div class="abh_text"><h4>Latest posts by Tomasz Antas <span class="abh_allposts">(<a href="http://codeonhill.com/author/tomasz-antas/">see all</a>)</span></h4><div class="abh_description note"><ul>				<li>					<a href="http://codeonhill.com/4-minor-rails-features-you-should-to-remember/">4 minor Rails features you should remember</a><span> - June 28, 2015</span>				</li>				<li>					<a href="http://codeonhill.com/activeadmin-custom-column-and-its-filter/">ActiveAdmin: Custom column and its filter</a><span> - May 8, 2015</span>				</li>				<li>					<a href="http://codeonhill.com/paperclip-and-imagemagick-for-images-in-rails/">Paperclip and ImageMagick for images in Rails</a><span> - May 7, 2015</span>				</li></ul></div></div> </section></div> </div><p>Article shows how to integrate Devise, CanCanCan and ActiveAdmin gems in Rails app. Devise allows to&nbsp;authenticate, CanCanCan allows to authorizate the users and ActiveAdmin gives an access to data in our app.</p>
+<p><span id="more-76"></span></p>
+<p>&nbsp;</p>
+<h2>1. Installation</h2>
+<p>Add to Gemfile:</p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-55fc5410d725b142139887" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title">Gemfile</span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">gem 'devise'
+gem 'activeadmin', github: 'gregbell/active_admin'
+gem 'cancancan'</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55fc5410d725b142139887-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d725b142139887-2">2</div><div class="crayon-num" data-line="crayon-55fc5410d725b142139887-3">3</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55fc5410d725b142139887-1"><span class="crayon-i">gem</span><span class="crayon-h"> </span><span class="crayon-s">'devise'</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d725b142139887-2"><span class="crayon-i">gem</span><span class="crayon-h"> </span><span class="crayon-s">'activeadmin'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">github</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">'gregbell/active_admin'</span></div><div class="crayon-line" id="crayon-55fc5410d725b142139887-3"><span class="crayon-i">gem</span><span class="crayon-h"> </span><span class="crayon-s">'cancancan'</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0007 seconds] -->
+<p>
+Run bundler:</p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-55fc5410d7266470441099" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">$ bundle install</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55fc5410d7266470441099-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55fc5410d7266470441099-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-e">bundle </span><span class="crayon-v">install</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0003 seconds] -->
+<p>
+&nbsp;</p>
+<h2>2. Generators</h2>
+<h4>ActiveAdmin</h4>
+<p>Run generator in command shell:</p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-55fc5410d726a364055144" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">$ rails generate active_admin:install</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55fc5410d726a364055144-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55fc5410d726a364055144-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-e">rails </span><span class="crayon-e">generate </span><span class="crayon-v">active_admin</span><span class="crayon-o">:</span><span class="crayon-v">install</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0003 seconds] -->
+<p>
+After all, we need to do few things manually.</p>
+<p>– Open&nbsp;<em>config/environments/development.rb&nbsp;</em>and add:</p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-55fc5410d726f432393551" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">config.action_mailer.default_url_options = { :host =&gt; 'localhost:3000' }</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55fc5410d726f432393551-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55fc5410d726f432393551-1"><span class="crayon-v">config</span><span class="crayon-sy">.</span><span class="crayon-v">action_mailer</span><span class="crayon-sy">.</span><span class="crayon-r">def</span><span class="crayon-v">ault_url_options</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-k ">{</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">host</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-s">'localhost:3000'</span><span class="crayon-h"> </span><span class="crayon-k ">}</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0005 seconds] -->
+<p>
+– We need to place the&nbsp;<em>notices&nbsp;</em>and&nbsp;<em>alerts</em>&nbsp;somewhere in our app. Probably, the most convenient place is&nbsp;<em>application.html.erb,&nbsp;</em>because it’s present in each view of our app. Open&nbsp;<em>app/views/layouts/application.html.erb</em> and add these two lines:</p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-55fc5410d7273359506435" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-mixed-highlight" title="Contains Mixed Languages"></span><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">&lt;p&gt;&lt;%= notice %&gt;&lt;/p&gt;
+&lt;p&gt;&lt;%= alert %&gt;&lt;/p&gt;</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55fc5410d7273359506435-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d7273359506435-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55fc5410d7273359506435-1"><span class="crayon-o">&lt;</span><span class="crayon-e">p</span><span class="crayon-o">&gt;</span><span class="crayon-ta">&lt;%=</span><span class="crayon-h"> </span><span class="crayon-v">notice</span><span class="crayon-h"> </span><span class="crayon-ta">%&gt;</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-e">p</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d7273359506435-2"><span class="crayon-o">&lt;</span><span class="crayon-e">p</span><span class="crayon-o">&gt;</span><span class="crayon-ta">&lt;%=</span><span class="crayon-h"> </span><span class="crayon-v">alert</span><span class="crayon-h"> </span><span class="crayon-ta">%&gt;</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-v">p</span><span class="crayon-o">&gt;</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0008 seconds] -->
+<p>
+&nbsp;</p>
+<h4>Devise</h4>
+<p>Run:</p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-55fc5410d7277259942856" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">$ rails g devise:install</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55fc5410d7277259942856-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55fc5410d7277259942856-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-i">rails</span><span class="crayon-h"> </span><span class="crayon-i">g</span><span class="crayon-h"> </span><span class="crayon-v">devise</span><span class="crayon-o">:</span><span class="crayon-v">install</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0003 seconds] -->
+<p>
+ActiveAdmin invoked the Devise generator, so Devise asks if we want overwrite&nbsp;<em>devise.rb</em> file. We can simply type “Y” and file should be overwritten.</p>
+<p>&nbsp;</p>
+<h4>&nbsp;User</h4>
+<p>Now, we can generate User (or it can take any other name than User) model for devise:</p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-55fc5410d727c407861644" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">$ rails g devise User</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55fc5410d727c407861644-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55fc5410d727c407861644-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-i">rails</span><span class="crayon-h"> </span><span class="crayon-i">g</span><span class="crayon-h"> </span><span class="crayon-e">devise </span><span class="crayon-v">User</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0003 seconds] -->
+<p>
+If our app requires to define different user roles, we can add&nbsp;<em>role</em>&nbsp;attribute to User model:</p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-55fc5410d7280785088607" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">$ rails g migration add_role_to_users role:string</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55fc5410d7280785088607-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55fc5410d7280785088607-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-i">rails</span><span class="crayon-h"> </span><span class="crayon-i">g</span><span class="crayon-h"> </span><span class="crayon-e">migration </span><span class="crayon-e">add_role_to_users </span><span class="crayon-v">role</span><span class="crayon-o">:</span><span class="crayon-t">string</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0004 seconds] -->
+<p>
+Open migration file from previous command:&nbsp;<em>db/migrate/XXX_add_role_to_users.rb</em> and change this file like below:</p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-55fc5410d7284636193485" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">class AddRoleToUsers &lt; ActiveRecord::Migration
+  def change
+    add_column :users, :role, :string
+    
+    User.create! do |u|
+        u.email     = 'admin@admin.com'
+        u.password    = 'adminadmin'
+        u.role = 'admin'
+    end
+    
+  end
+end</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55fc5410d7284636193485-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d7284636193485-2">2</div><div class="crayon-num" data-line="crayon-55fc5410d7284636193485-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d7284636193485-4">4</div><div class="crayon-num" data-line="crayon-55fc5410d7284636193485-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d7284636193485-6">6</div><div class="crayon-num" data-line="crayon-55fc5410d7284636193485-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d7284636193485-8">8</div><div class="crayon-num" data-line="crayon-55fc5410d7284636193485-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d7284636193485-10">10</div><div class="crayon-num" data-line="crayon-55fc5410d7284636193485-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d7284636193485-12">12</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55fc5410d7284636193485-1"><span class="crayon-r">class</span><span class="crayon-h"> </span><span class="crayon-v">AddRoleToUsers</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-h"> </span><span class="crayon-v">ActiveRecord</span><span class="crayon-o">::</span><span class="crayon-i">Migration</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d7284636193485-2"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-r">def</span><span class="crayon-h"> </span><span class="crayon-i">change</span></div><div class="crayon-line" id="crayon-55fc5410d7284636193485-3"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">add_column</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">users</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">role</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-t">string</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d7284636193485-4"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span></div><div class="crayon-line" id="crayon-55fc5410d7284636193485-5"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">User</span><span class="crayon-sy">.</span><span class="crayon-v">create</span><span class="crayon-o">!</span><span class="crayon-h"> </span><span class="crayon-st">do</span><span class="crayon-h"> </span><span class="crayon-o">|</span><span class="crayon-v">u</span><span class="crayon-o">|</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d7284636193485-6"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">u</span><span class="crayon-sy">.</span><span class="crayon-v">email</span><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">'admin@admin.com'</span></div><div class="crayon-line" id="crayon-55fc5410d7284636193485-7"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">u</span><span class="crayon-sy">.</span><span class="crayon-v">password</span><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">'adminadmin'</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d7284636193485-8"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">u</span><span class="crayon-sy">.</span><span class="crayon-v">role</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">'admin'</span></div><div class="crayon-line" id="crayon-55fc5410d7284636193485-9"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">end</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d7284636193485-10"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span></div><div class="crayon-line" id="crayon-55fc5410d7284636193485-11"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-st">end</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d7284636193485-12"><span class="crayon-st">end</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0017 seconds] -->
+<p>
+It will generate a first admin user when we will set up database.</p>
+<p>If you want add more attributes, you can create another migrations or add more attributes in one migration. For example, if you want add&nbsp;<em>role&nbsp;</em>and&nbsp;<em>nickname</em> attributes, you can use followinf command:</p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-55fc5410d7288185721624" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">$ rails g migration add_role_to_users role:string nickname:string</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55fc5410d7288185721624-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55fc5410d7288185721624-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-i">rails</span><span class="crayon-h"> </span><span class="crayon-i">g</span><span class="crayon-h"> </span><span class="crayon-e">migration </span><span class="crayon-e">add_role_to_users </span><span class="crayon-v">role</span><span class="crayon-o">:</span><span class="crayon-t">string</span><span class="crayon-h"> </span><span class="crayon-v">nickname</span><span class="crayon-o">:</span><span class="crayon-t">string</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0004 seconds] -->
+<p>
+&nbsp;</p>
+<h2>3. Integrate ActiveAdmin and Devise</h2>
+<p>Firstly, we need to change configurations in&nbsp;<em>config/initializers/active_admin.rb</em>:</p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-55fc5410d728c998065667" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">config.authentication_method = :authenticate_active_admin_user!
+config.current_user_method   = :current_user
+config.logout_link_path      = :destroy_user_session_path
+config.logout_link_method    = :delete</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55fc5410d728c998065667-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d728c998065667-2">2</div><div class="crayon-num" data-line="crayon-55fc5410d728c998065667-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d728c998065667-4">4</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55fc5410d728c998065667-1"><span class="crayon-v">config</span><span class="crayon-sy">.</span><span class="crayon-v">authentication_method</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">authenticate_active_admin_user</span><span class="crayon-o">!</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d728c998065667-2"><span class="crayon-v">config</span><span class="crayon-sy">.</span><span class="crayon-v">current_user_method</span><span class="crayon-h">&nbsp;&nbsp; </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">current</span><span class="crayon-sy">_</span>user</div><div class="crayon-line" id="crayon-55fc5410d728c998065667-3"><span class="crayon-v">config</span><span class="crayon-sy">.</span><span class="crayon-v">logout_link_path</span><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">destroy_user_session</span><span class="crayon-sy">_</span>path</div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d728c998065667-4"><span class="crayon-v">config</span><span class="crayon-sy">.</span><span class="crayon-v">logout_link_method</span><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">delete</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0010 seconds] -->
+<p>
+In&nbsp;<em>config/initializers/devise.rb</em> change following line:</p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-55fc5410d7290756850917" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">config.sign_out_via = :delete</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table" style="">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55fc5410d7290756850917-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55fc5410d7290756850917-1"><span class="crayon-v">config</span><span class="crayon-sy">.</span><span class="crayon-v">sign_out_via</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">delete</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0003 seconds] -->
+<p>
+to:</p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-55fc5410d7294553664402" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">config.sign_out_via = :get</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55fc5410d7294553664402-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55fc5410d7294553664402-1"><span class="crayon-v">config</span><span class="crayon-sy">.</span><span class="crayon-v">sign_out_via</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">get</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0003 seconds] -->
+<p>
+Now, we need to define&nbsp;<em> authenticate_active_admin_user!</em>, which we use in&nbsp;<em>active_admin.rb</em> as authentication method. Add to&nbsp;<em>app/controllers/application_controller.rb&nbsp;</em>file following method:</p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-55fc5410d7298628169989" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">def authenticate_active_admin_user!
+   authenticate_user!
+   unless current_user.role?(:admin)
+      flash[:alert] = “You are not authorized to access this resource!"
+      redirect_to root_path
+   end
+end</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55fc5410d7298628169989-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d7298628169989-2">2</div><div class="crayon-num" data-line="crayon-55fc5410d7298628169989-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d7298628169989-4">4</div><div class="crayon-num" data-line="crayon-55fc5410d7298628169989-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d7298628169989-6">6</div><div class="crayon-num" data-line="crayon-55fc5410d7298628169989-7">7</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55fc5410d7298628169989-1"><span class="crayon-e">def </span><span class="crayon-v">authenticate_active_admin_user</span><span class="crayon-o">!</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d7298628169989-2"><span class="crayon-h">&nbsp;&nbsp; </span><span class="crayon-v">authenticate_user</span><span class="crayon-o">!</span></div><div class="crayon-line" id="crayon-55fc5410d7298628169989-3"><span class="crayon-h">&nbsp;&nbsp; </span><span class="crayon-e">unless </span><span class="crayon-v">current_user</span><span class="crayon-sy">.</span><span class="crayon-v">role</span><span class="crayon-sy">?</span><span class="crayon-sy">(</span><span class="crayon-o">:</span><span class="crayon-v">admin</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d7298628169989-4"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">flash</span><span class="crayon-sy">[</span><span class="crayon-o">:</span><span class="crayon-v">alert</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span>“<span class="crayon-e">You </span><span class="crayon-e">are </span><span class="crayon-st">not</span><span class="crayon-h"> </span><span class="crayon-e">authorized </span><span class="crayon-st">to</span><span class="crayon-h"> </span><span class="crayon-e">access </span><span class="crayon-r">this</span><span class="crayon-h"> </span><span class="crayon-v">resource</span><span class="crayon-o">!</span>"</div><div class="crayon-line" id="crayon-55fc5410d7298628169989-5"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-e">redirect_to </span><span class="crayon-e">root_path</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d7298628169989-6"><span class="crayon-e">&nbsp;&nbsp; </span><span class="crayon-st">end</span></div><div class="crayon-line" id="crayon-55fc5410d7298628169989-7"><span class="crayon-st">end</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0010 seconds] -->
+<p>
+In&nbsp;<em>application_controller.rb&nbsp;</em>we use&nbsp;<em>User.role?&nbsp;</em>method, so we have to define it in&nbsp;<em>app/models/user.rb</em>:</p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-55fc5410d729d109507219" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">def role?(r)
+  role.include? r.to_s
+end</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55fc5410d729d109507219-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d729d109507219-2">2</div><div class="crayon-num" data-line="crayon-55fc5410d729d109507219-3">3</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55fc5410d729d109507219-1"><span class="crayon-r">def</span><span class="crayon-h"> </span><span class="crayon-v">role</span><span class="crayon-sy">?</span><span class="crayon-sy">(</span><span class="crayon-v">r</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d729d109507219-2"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-v">role</span><span class="crayon-sy">.</span><span class="crayon-v">include</span><span class="crayon-sy">?</span><span class="crayon-h"> </span><span class="crayon-v">r</span><span class="crayon-sy">.</span><span class="crayon-v">to</span><span class="crayon-sy">_</span>s</div><div class="crayon-line" id="crayon-55fc5410d729d109507219-3"><span class="crayon-st">end</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0005 seconds] -->
+<p>
+ActiveAdmin generates its own model – AdminUser, but it’s unnecessary while Devise User model is in use. We can remove AdminUser model from ActiveAdmin:</p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-55fc5410d72a1192808670" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">$ rails destroy model AdminUser</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55fc5410d72a1192808670-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55fc5410d72a1192808670-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-e">rails </span><span class="crayon-e">destroy </span><span class="crayon-e">model </span><span class="crayon-v">AdminUser</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0002 seconds] -->
+<p>
+We have to remove manually also another two files:</p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-55fc5410d72a5728615854" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">$ rm db/migrate/*_devise_create_admin_users.rb
+$ rm app/admin/admin_user.rb</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55fc5410d72a5728615854-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72a5728615854-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55fc5410d72a5728615854-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-r">rm</span><span class="crayon-h"> </span><span class="crayon-v">db</span><span class="crayon-o">/</span><span class="crayon-v">migrate</span><span class="crayon-o">/</span><span class="crayon-o">*</span><span class="crayon-v">_devise_create_admin_users</span><span class="crayon-e">.rb</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72a5728615854-2"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-r">rm</span><span class="crayon-h"> </span><span class="crayon-v">app</span><span class="crayon-o">/</span><span class="crayon-v">admin</span><span class="crayon-o">/</span><span class="crayon-v">admin_user</span><span class="crayon-e">.rb</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0006 seconds] -->
+<p>
+Remove from&nbsp;<em>config/routes.rb</em>:</p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-55fc5410d72a9284359875" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: auto;">devise_for :admin_users, ActiveAdmin::Devise.config</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: auto;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55fc5410d72a9284359875-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55fc5410d72a9284359875-1"><span class="crayon-v">devise_for</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">admin_users</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">ActiveAdmin</span><span class="crayon-o">::</span><span class="crayon-v">Devise</span><span class="crayon-sy">.</span><span class="crayon-v">config</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0004 seconds] -->
+<p>
+Finally, we have to register Devise User model to ActiveAdmin:</p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-55fc5410d72ac838616897" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">$ rails generate active_admin:resource User</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55fc5410d72ac838616897-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55fc5410d72ac838616897-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-e">rails </span><span class="crayon-e">generate </span><span class="crayon-v">active_admin</span><span class="crayon-o">:</span><span class="crayon-e">resource </span><span class="crayon-v">User</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0003 seconds] -->
+<p>
+This generates the&nbsp;<em>app/admin/user.rb</em>. Modify this file like below:</p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-55fc5410d72b0823789710" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">ActiveAdmin.register User do
+
+  # See permitted parameters documentation:
+  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
+  permit_params :email, :password, :password_confirmation, :role
+ 
+    index do
+        column :email
+        column :current_sign_in_at
+        column :last_sign_in_at
+        column :sign_in_count
+        column :role
+        actions
+    end
+ 
+    filter :email
+ 
+    form do |f|
+        f.inputs "User Details" do
+            f.input :email
+            f.input :password
+            f.input :password_confirmation
+            f.input :role, as: :radio, collection: {None: "none", Administrator: "admin"}
+        end
+        f.actions
+    end
+
+end</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55fc5410d72b0823789710-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72b0823789710-2">2</div><div class="crayon-num" data-line="crayon-55fc5410d72b0823789710-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72b0823789710-4">4</div><div class="crayon-num" data-line="crayon-55fc5410d72b0823789710-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72b0823789710-6">6</div><div class="crayon-num" data-line="crayon-55fc5410d72b0823789710-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72b0823789710-8">8</div><div class="crayon-num" data-line="crayon-55fc5410d72b0823789710-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72b0823789710-10">10</div><div class="crayon-num" data-line="crayon-55fc5410d72b0823789710-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72b0823789710-12">12</div><div class="crayon-num" data-line="crayon-55fc5410d72b0823789710-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72b0823789710-14">14</div><div class="crayon-num" data-line="crayon-55fc5410d72b0823789710-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72b0823789710-16">16</div><div class="crayon-num" data-line="crayon-55fc5410d72b0823789710-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72b0823789710-18">18</div><div class="crayon-num" data-line="crayon-55fc5410d72b0823789710-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72b0823789710-20">20</div><div class="crayon-num" data-line="crayon-55fc5410d72b0823789710-21">21</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72b0823789710-22">22</div><div class="crayon-num" data-line="crayon-55fc5410d72b0823789710-23">23</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72b0823789710-24">24</div><div class="crayon-num" data-line="crayon-55fc5410d72b0823789710-25">25</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72b0823789710-26">26</div><div class="crayon-num" data-line="crayon-55fc5410d72b0823789710-27">27</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72b0823789710-28">28</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55fc5410d72b0823789710-1"><span class="crayon-v">ActiveAdmin</span><span class="crayon-sy">.</span><span class="crayon-i">register</span><span class="crayon-h"> </span><span class="crayon-i">User</span><span class="crayon-h"> </span><span class="crayon-st">do</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72b0823789710-2">&nbsp;</div><div class="crayon-line" id="crayon-55fc5410d72b0823789710-3"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-c"># See permitted parameters documentation:</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72b0823789710-4"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-c"># https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters</span></div><div class="crayon-line" id="crayon-55fc5410d72b0823789710-5"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-v">permit_params</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">email</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">password</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">password_confirmation</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-i">role</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72b0823789710-6"><span class="crayon-h"> </span></div><div class="crayon-line" id="crayon-55fc5410d72b0823789710-7"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-i">index</span><span class="crayon-h"> </span><span class="crayon-st">do</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72b0823789710-8"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">column</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-i">email</span></div><div class="crayon-line" id="crayon-55fc5410d72b0823789710-9"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">column</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">current_sign_in</span><span class="crayon-sy">_</span>at</div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72b0823789710-10"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">column</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">last_sign_in</span><span class="crayon-sy">_</span>at</div><div class="crayon-line" id="crayon-55fc5410d72b0823789710-11"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">column</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">sign_in</span><span class="crayon-sy">_</span>count</div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72b0823789710-12"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">column</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-i">role</span></div><div class="crayon-line" id="crayon-55fc5410d72b0823789710-13"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-i">actions</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72b0823789710-14"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">end</span></div><div class="crayon-line" id="crayon-55fc5410d72b0823789710-15"><span class="crayon-h"> </span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72b0823789710-16"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">filter</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-i">email</span></div><div class="crayon-line" id="crayon-55fc5410d72b0823789710-17"><span class="crayon-h"> </span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72b0823789710-18"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-i">form</span><span class="crayon-h"> </span><span class="crayon-st">do</span><span class="crayon-h"> </span><span class="crayon-o">|</span><span class="crayon-v">f</span><span class="crayon-o">|</span></div><div class="crayon-line" id="crayon-55fc5410d72b0823789710-19"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">f</span><span class="crayon-sy">.</span><span class="crayon-i">inputs</span><span class="crayon-h"> </span><span class="crayon-s">"User Details"</span><span class="crayon-h"> </span><span class="crayon-st">do</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72b0823789710-20"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">f</span><span class="crayon-sy">.</span><span class="crayon-v">input</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-i">email</span></div><div class="crayon-line" id="crayon-55fc5410d72b0823789710-21"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">f</span><span class="crayon-sy">.</span><span class="crayon-v">input</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-i">password</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72b0823789710-22"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">f</span><span class="crayon-sy">.</span><span class="crayon-v">input</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">password</span><span class="crayon-sy">_</span>confirmation</div><div class="crayon-line" id="crayon-55fc5410d72b0823789710-23"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">f</span><span class="crayon-sy">.</span><span class="crayon-v">input</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">role</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">as</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">radio</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">collection</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-k ">{</span><span class="crayon-v">None</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"none"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">Administrator</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"admin"</span><span class="crayon-k ">}</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72b0823789710-24"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">end</span></div><div class="crayon-line" id="crayon-55fc5410d72b0823789710-25"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">f</span><span class="crayon-sy">.</span><span class="crayon-i">actions</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72b0823789710-26"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">end</span></div><div class="crayon-line" id="crayon-55fc5410d72b0823789710-27">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72b0823789710-28"><span class="crayon-st">end</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0042 seconds] -->
+<p>
+&nbsp;</p>
+<h2>4. Customizing Devise views and controllers</h2>
+<p>If we want customize devise controllers and views, we have to execute following commands:</p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-55fc5410d72b5843967612" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">$ rails generate devise:views
+$ rails generate devise:controllers</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55fc5410d72b5843967612-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72b5843967612-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55fc5410d72b5843967612-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-e">rails </span><span class="crayon-e">generate </span><span class="crayon-v">devise</span><span class="crayon-o">:</span><span class="crayon-i">views</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72b5843967612-2"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-e">rails </span><span class="crayon-e">generate </span><span class="crayon-v">devise</span><span class="crayon-o">:</span><span class="crayon-v">controllers</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0004 seconds] -->
+<p>
+In&nbsp;<em>config/routes.rb&nbsp;</em>we have to point which controllers’ actions should be used:</p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-55fc5410d72b9732124275" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">devise_for :users, controllers: {sessions: 'users/sessions', registrations: 'users/registrations', passwords: 'users/passwords'}</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55fc5410d72b9732124275-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55fc5410d72b9732124275-1"><span class="crayon-v">devise_for</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">users</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">controllers</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-k ">{</span><span class="crayon-v">sessions</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">'users/sessions'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">registrations</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">'users/registrations'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">passwords</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">'users/passwords'</span><span class="crayon-k ">}</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0007 seconds] -->
+<p>
+It’s possible to modify the routes also. For example, if you want to get access to <em>sing_in</em> under <em>login</em>:</p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-55fc5410d72bd875389641" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">devise_for :users, controllers: {sessions: 'users/sessions', registrations: 'users/registrations', passwords: 'users/passwords'}, path_names: { sign_in: 'login', sign_out: 'logout' }</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55fc5410d72bd875389641-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55fc5410d72bd875389641-1"><span class="crayon-v">devise_for</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">users</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">controllers</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-k ">{</span><span class="crayon-v">sessions</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">'users/sessions'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">registrations</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">'users/registrations'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">passwords</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">'users/passwords'</span><span class="crayon-k ">}</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">path_names</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-k ">{</span><span class="crayon-h"> </span><span class="crayon-v">sign_in</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">'login'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">sign_out</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">'logout'</span><span class="crayon-h"> </span><span class="crayon-k ">}</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0011 seconds] -->
+<p>
+Now, you can use&nbsp;<em>localhost:3000/users/login</em>. If you want to get access to&nbsp;<em>login&nbsp;</em>under&nbsp;<em>localhost:3000/login</em>, add this:</p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-55fc5410d72c2648368136" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">  devise_scope :user do
+    get "login", to: "devise/sessions#new"
+    authenticated :user do
+      root :to =&gt; 'admin/dashboard#index', as: :authenticated_root
+    end
+    unauthenticated :user do
+      root :to =&gt; 'users/sessions#new', as: :unauthenticated_root
+    end
+  end</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55fc5410d72c2648368136-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72c2648368136-2">2</div><div class="crayon-num" data-line="crayon-55fc5410d72c2648368136-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72c2648368136-4">4</div><div class="crayon-num" data-line="crayon-55fc5410d72c2648368136-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72c2648368136-6">6</div><div class="crayon-num" data-line="crayon-55fc5410d72c2648368136-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72c2648368136-8">8</div><div class="crayon-num" data-line="crayon-55fc5410d72c2648368136-9">9</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55fc5410d72c2648368136-1"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-v">devise_scope</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-i">user</span><span class="crayon-h"> </span><span class="crayon-st">do</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72c2648368136-2"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-i">get</span><span class="crayon-h"> </span><span class="crayon-s">"login"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">to</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"devise/sessions#new"</span></div><div class="crayon-line" id="crayon-55fc5410d72c2648368136-3"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">authenticated</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-i">user</span><span class="crayon-h"> </span><span class="crayon-st">do</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72c2648368136-4"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">root</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">to</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-s">'admin/dashboard#index'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">as</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">authenticated</span><span class="crayon-sy">_</span>root</div><div class="crayon-line" id="crayon-55fc5410d72c2648368136-5"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">end</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72c2648368136-6"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">unauthenticated</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-i">user</span><span class="crayon-h"> </span><span class="crayon-st">do</span></div><div class="crayon-line" id="crayon-55fc5410d72c2648368136-7"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">root</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">to</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-s">'users/sessions#new'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">as</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">unauthenticated</span><span class="crayon-sy">_</span>root</div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72c2648368136-8"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">end</span></div><div class="crayon-line" id="crayon-55fc5410d72c2648368136-9"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-st">end</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0019 seconds] -->
+<p>
+The “first” line gives possibilites to change&nbsp;<em>/users/login</em> path to&nbsp;<em>/login&nbsp;</em>path. Another part gives a redirtection. If user is already logged, will be redirected to ActiveAdmin dashboard. In the other hand, user will be redirected to <em>login </em>site.</p>
+<p>&nbsp;</p>
+<h2>&nbsp;5. Running</h2>
+<p>Let’s migrate, run server…</p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-55fc5410d72c6625194799" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">$ rake db:migrate
+$ rails server</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55fc5410d72c6625194799-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72c6625194799-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55fc5410d72c6625194799-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-e">rake </span><span class="crayon-v">db</span><span class="crayon-o">:</span><span class="crayon-i">migrate</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72c6625194799-2"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-e">rails </span><span class="crayon-v">server</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0003 seconds] -->
+<p>
+… and visit localhost:3000/admin. Enter email:&nbsp;<em>admin@admin.com&nbsp;</em>and password:&nbsp;<em>adminadmin</em>.</p>
+<p>If you get any errors, try also make:</p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-55fc5410d72ca044350307" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">$ rake routes</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55fc5410d72ca044350307-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55fc5410d72ca044350307-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-e">rake </span><span class="crayon-v">routes</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0002 seconds] -->
+<p>
+&nbsp;</p>
+<h2>&nbsp;6. Login toolbar as partial</h2>
+<p>Create partial:&nbsp;<em>app/views/layouts/_navbar.html.erb&nbsp;</em>and add following content:</p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-55fc5410d72ce218967412" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-mixed-highlight" title="Contains Mixed Languages"></span><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">&lt;nav class="navbar navbar-inverse navbar-static-top"&gt;
+  &lt;div class="container-fluid"&gt;
+    &lt;!-- Brand and toggle get grouped for better mobile display --&gt;
+    &lt;div class="navbar-header"&gt;
+      &lt;button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"&gt;
+        &lt;span class="sr-only"&gt;Toggle navigation&lt;/span&gt;
+        &lt;span class="icon-bar"&gt;&lt;/span&gt;
+        &lt;span class="icon-bar"&gt;&lt;/span&gt;
+        &lt;span class="icon-bar"&gt;&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;a class="navbar-brand" href="#"&gt;&lt;%= params[:controller].parameterize %&gt;&lt;/a&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Collect the nav links, forms, and other content for toggling --&gt;
+    &lt;div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"&gt;
+      &lt;ul class="nav navbar-nav"&gt;
+        &lt;li class="active"&gt;&lt;a href="#"&gt;Link &lt;span class="sr-only"&gt;(current)&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;%= link_to 'Tasks', tasks_path %&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;form class="navbar-form navbar-left" role="search"&gt;
+        &lt;div class="form-group"&gt;
+          &lt;input type="text" class="form-control" placeholder="Search"&gt;
+        &lt;/div&gt;
+        &lt;button type="submit" class="btn btn-default"&gt;Submit&lt;/button&gt;
+      &lt;/form&gt;
+      &lt;!-- login toolbar : --&gt;
+      &lt;ul class="nav navbar-nav navbar-right"&gt;
+      	&lt;% if signed_in? %&gt;
+	      	&lt;li&gt;&lt;%= link_to current_user.email, edit_user_registration_path %&gt;&lt;/li&gt;
+	    	&lt;li&gt;&lt;%= link_to "Sign out", destroy_user_session_path, method: :delete %&gt;&lt;/li&gt;
+	     	&lt;li&gt;&lt;%= link_to "Admin", admin_root_path %&gt;&lt;/li&gt;
+		&lt;% else %&gt;
+    		&lt;li&gt;&lt;%= link_to "Sign in", new_user_session_path %&gt;&lt;/li&gt;
+		&lt;% end %&gt;
+      &lt;/ul&gt;&lt;!-- /.login toolbar --&gt;
+    &lt;/div&gt;&lt;!-- /.navbar-collapse --&gt;
+  &lt;/div&gt;&lt;!-- /.container-fluid --&gt;
+&lt;/nav&gt;</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55fc5410d72ce218967412-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72ce218967412-2">2</div><div class="crayon-num" data-line="crayon-55fc5410d72ce218967412-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72ce218967412-4">4</div><div class="crayon-num" data-line="crayon-55fc5410d72ce218967412-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72ce218967412-6">6</div><div class="crayon-num" data-line="crayon-55fc5410d72ce218967412-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72ce218967412-8">8</div><div class="crayon-num" data-line="crayon-55fc5410d72ce218967412-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72ce218967412-10">10</div><div class="crayon-num" data-line="crayon-55fc5410d72ce218967412-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72ce218967412-12">12</div><div class="crayon-num" data-line="crayon-55fc5410d72ce218967412-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72ce218967412-14">14</div><div class="crayon-num" data-line="crayon-55fc5410d72ce218967412-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72ce218967412-16">16</div><div class="crayon-num" data-line="crayon-55fc5410d72ce218967412-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72ce218967412-18">18</div><div class="crayon-num" data-line="crayon-55fc5410d72ce218967412-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72ce218967412-20">20</div><div class="crayon-num" data-line="crayon-55fc5410d72ce218967412-21">21</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72ce218967412-22">22</div><div class="crayon-num" data-line="crayon-55fc5410d72ce218967412-23">23</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72ce218967412-24">24</div><div class="crayon-num" data-line="crayon-55fc5410d72ce218967412-25">25</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72ce218967412-26">26</div><div class="crayon-num" data-line="crayon-55fc5410d72ce218967412-27">27</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72ce218967412-28">28</div><div class="crayon-num" data-line="crayon-55fc5410d72ce218967412-29">29</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72ce218967412-30">30</div><div class="crayon-num" data-line="crayon-55fc5410d72ce218967412-31">31</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72ce218967412-32">32</div><div class="crayon-num" data-line="crayon-55fc5410d72ce218967412-33">33</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72ce218967412-34">34</div><div class="crayon-num" data-line="crayon-55fc5410d72ce218967412-35">35</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72ce218967412-36">36</div><div class="crayon-num" data-line="crayon-55fc5410d72ce218967412-37">37</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72ce218967412-38">38</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55fc5410d72ce218967412-1"><span class="crayon-o">&lt;</span><span class="crayon-i">nav</span><span class="crayon-h"> </span><span class="crayon-r">class</span><span class="crayon-o">=</span><span class="crayon-s">"navbar navbar-inverse navbar-static-top"</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72ce218967412-2"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-i">div</span><span class="crayon-h"> </span><span class="crayon-r">class</span><span class="crayon-o">=</span><span class="crayon-s">"container-fluid"</span><span class="crayon-o">&gt;</span></div><div class="crayon-line" id="crayon-55fc5410d72ce218967412-3"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-o">!</span><span class="crayon-o">--</span><span class="crayon-h"> </span><span class="crayon-i">Brand</span><span class="crayon-h"> </span><span class="crayon-st">and</span><span class="crayon-h"> </span><span class="crayon-i">toggle</span><span class="crayon-h"> </span><span class="crayon-i">get</span><span class="crayon-h"> </span><span class="crayon-i">grouped</span><span class="crayon-h"> </span><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-i">better</span><span class="crayon-h"> </span><span class="crayon-i">mobile</span><span class="crayon-h"> </span><span class="crayon-v">display</span><span class="crayon-h"> </span><span class="crayon-o">--</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72ce218967412-4"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-i">div</span><span class="crayon-h"> </span><span class="crayon-r">class</span><span class="crayon-o">=</span><span class="crayon-s">"navbar-header"</span><span class="crayon-o">&gt;</span></div><div class="crayon-line" id="crayon-55fc5410d72ce218967412-5"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-i">button</span><span class="crayon-h"> </span><span class="crayon-v">type</span><span class="crayon-o">=</span><span class="crayon-s">"button"</span><span class="crayon-h"> </span><span class="crayon-r">class</span><span class="crayon-o">=</span><span class="crayon-s">"navbar-toggle collapsed"</span><span class="crayon-h"> </span><span class="crayon-t">data</span><span class="crayon-o">-</span><span class="crayon-v">toggle</span><span class="crayon-o">=</span><span class="crayon-s">"collapse"</span><span class="crayon-h"> </span><span class="crayon-t">data</span><span class="crayon-o">-</span><span class="crayon-v">target</span><span class="crayon-o">=</span><span class="crayon-s">"#bs-example-navbar-collapse-1"</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72ce218967412-6"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-i">span</span><span class="crayon-h"> </span><span class="crayon-r">class</span><span class="crayon-o">=</span><span class="crayon-s">"sr-only"</span><span class="crayon-o">&gt;</span><span class="crayon-i">Toggle</span><span class="crayon-h"> </span><span class="crayon-v">navigation</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-v">span</span><span class="crayon-o">&gt;</span></div><div class="crayon-line" id="crayon-55fc5410d72ce218967412-7"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-i">span</span><span class="crayon-h"> </span><span class="crayon-r">class</span><span class="crayon-o">=</span><span class="crayon-s">"icon-bar"</span><span class="crayon-o">&gt;</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-v">span</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72ce218967412-8"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-i">span</span><span class="crayon-h"> </span><span class="crayon-r">class</span><span class="crayon-o">=</span><span class="crayon-s">"icon-bar"</span><span class="crayon-o">&gt;</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-v">span</span><span class="crayon-o">&gt;</span></div><div class="crayon-line" id="crayon-55fc5410d72ce218967412-9"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-i">span</span><span class="crayon-h"> </span><span class="crayon-r">class</span><span class="crayon-o">=</span><span class="crayon-s">"icon-bar"</span><span class="crayon-o">&gt;</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-v">span</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72ce218967412-10"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-v">button</span><span class="crayon-o">&gt;</span></div><div class="crayon-line" id="crayon-55fc5410d72ce218967412-11"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-i">a</span><span class="crayon-h"> </span><span class="crayon-r">class</span><span class="crayon-o">=</span><span class="crayon-s">"navbar-brand"</span><span class="crayon-h"> </span><span class="crayon-v">href</span><span class="crayon-o">=</span><span class="crayon-s">"#"</span><span class="crayon-o">&gt;</span><span class="crayon-ta">&lt;%=</span><span class="crayon-h"> </span><span class="crayon-v">params</span><span class="crayon-sy">[</span><span class="crayon-o">:</span><span class="crayon-v">controller</span><span class="crayon-sy">]</span><span class="crayon-sy">.</span><span class="crayon-v">parameterize</span><span class="crayon-h"> </span><span class="crayon-ta">%&gt;</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-v">a</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72ce218967412-12"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-v">div</span><span class="crayon-o">&gt;</span></div><div class="crayon-line" id="crayon-55fc5410d72ce218967412-13">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72ce218967412-14"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-o">!</span><span class="crayon-o">--</span><span class="crayon-h"> </span><span class="crayon-i">Collect</span><span class="crayon-h"> </span><span class="crayon-i">the</span><span class="crayon-h"> </span><span class="crayon-i">nav</span><span class="crayon-h"> </span><span class="crayon-v">links</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">forms</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-st">and</span><span class="crayon-h"> </span><span class="crayon-i">other</span><span class="crayon-h"> </span><span class="crayon-i">content</span><span class="crayon-h"> </span><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-v">toggling</span><span class="crayon-h"> </span><span class="crayon-o">--</span><span class="crayon-o">&gt;</span></div><div class="crayon-line" id="crayon-55fc5410d72ce218967412-15"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-i">div</span><span class="crayon-h"> </span><span class="crayon-r">class</span><span class="crayon-o">=</span><span class="crayon-s">"collapse navbar-collapse"</span><span class="crayon-h"> </span><span class="crayon-v">id</span><span class="crayon-o">=</span><span class="crayon-s">"bs-example-navbar-collapse-1"</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72ce218967412-16"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-i">ul</span><span class="crayon-h"> </span><span class="crayon-r">class</span><span class="crayon-o">=</span><span class="crayon-s">"nav navbar-nav"</span><span class="crayon-o">&gt;</span></div><div class="crayon-line" id="crayon-55fc5410d72ce218967412-17"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-i">li</span><span class="crayon-h"> </span><span class="crayon-r">class</span><span class="crayon-o">=</span><span class="crayon-s">"active"</span><span class="crayon-o">&gt;</span><span class="crayon-o">&lt;</span><span class="crayon-i">a</span><span class="crayon-h"> </span><span class="crayon-v">href</span><span class="crayon-o">=</span><span class="crayon-s">"#"</span><span class="crayon-o">&gt;</span><span class="crayon-v">Link</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-i">span</span><span class="crayon-h"> </span><span class="crayon-r">class</span><span class="crayon-o">=</span><span class="crayon-s">"sr-only"</span><span class="crayon-o">&gt;</span><span class="crayon-sy">(</span><span class="crayon-v">current</span><span class="crayon-sy">)</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-v">span</span><span class="crayon-o">&gt;</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-v">a</span><span class="crayon-o">&gt;</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-v">li</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72ce218967412-18"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-v">li</span><span class="crayon-o">&gt;</span><span class="crayon-ta">&lt;%=</span><span class="crayon-h"> </span><span class="crayon-v">link</span><span class="crayon-sy">_</span>to<span class="crayon-h"> </span><span class="crayon-s">'Tasks'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">tasks_path</span><span class="crayon-h"> </span><span class="crayon-ta">%&gt;</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-v">li</span><span class="crayon-o">&gt;</span></div><div class="crayon-line" id="crayon-55fc5410d72ce218967412-19"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-v">ul</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72ce218967412-20"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-i">form</span><span class="crayon-h"> </span><span class="crayon-r">class</span><span class="crayon-o">=</span><span class="crayon-s">"navbar-form navbar-left"</span><span class="crayon-h"> </span><span class="crayon-v">role</span><span class="crayon-o">=</span><span class="crayon-s">"search"</span><span class="crayon-o">&gt;</span></div><div class="crayon-line" id="crayon-55fc5410d72ce218967412-21"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-i">div</span><span class="crayon-h"> </span><span class="crayon-r">class</span><span class="crayon-o">=</span><span class="crayon-s">"form-group"</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72ce218967412-22"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-i">input</span><span class="crayon-h"> </span><span class="crayon-v">type</span><span class="crayon-o">=</span><span class="crayon-s">"text"</span><span class="crayon-h"> </span><span class="crayon-r">class</span><span class="crayon-o">=</span><span class="crayon-s">"form-control"</span><span class="crayon-h"> </span><span class="crayon-v">placeholder</span><span class="crayon-o">=</span><span class="crayon-s">"Search"</span><span class="crayon-o">&gt;</span></div><div class="crayon-line" id="crayon-55fc5410d72ce218967412-23"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-v">div</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72ce218967412-24"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-i">button</span><span class="crayon-h"> </span><span class="crayon-v">type</span><span class="crayon-o">=</span><span class="crayon-s">"submit"</span><span class="crayon-h"> </span><span class="crayon-r">class</span><span class="crayon-o">=</span><span class="crayon-s">"btn btn-default"</span><span class="crayon-o">&gt;</span><span class="crayon-v">Submit</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-v">button</span><span class="crayon-o">&gt;</span></div><div class="crayon-line" id="crayon-55fc5410d72ce218967412-25"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-v">form</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72ce218967412-26"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-o">!</span><span class="crayon-o">--</span><span class="crayon-h"> </span><span class="crayon-i">login</span><span class="crayon-h"> </span><span class="crayon-v">toolbar</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-o">--</span><span class="crayon-o">&gt;</span></div><div class="crayon-line" id="crayon-55fc5410d72ce218967412-27"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-i">ul</span><span class="crayon-h"> </span><span class="crayon-r">class</span><span class="crayon-o">=</span><span class="crayon-s">"nav navbar-nav navbar-right"</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72ce218967412-28"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	</span><span class="crayon-ta">&lt;%</span><span class="crayon-h"> </span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-v">signed_in</span><span class="crayon-sy">?</span><span class="crayon-h"> </span><span class="crayon-ta">%&gt;</span></div><div class="crayon-line" id="crayon-55fc5410d72ce218967412-29"><span class="crayon-h">	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	</span><span class="crayon-o">&lt;</span><span class="crayon-v">li</span><span class="crayon-o">&gt;</span><span class="crayon-ta">&lt;%=</span><span class="crayon-h"> </span><span class="crayon-v">link</span><span class="crayon-sy">_</span>to<span class="crayon-h"> </span><span class="crayon-v">current_user</span><span class="crayon-sy">.</span><span class="crayon-v">email</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">edit_user_registration_path</span><span class="crayon-h"> </span><span class="crayon-ta">%&gt;</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-v">li</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72ce218967412-30"><span class="crayon-h">	&nbsp;&nbsp;&nbsp;&nbsp;	</span><span class="crayon-o">&lt;</span><span class="crayon-v">li</span><span class="crayon-o">&gt;</span><span class="crayon-ta">&lt;%=</span><span class="crayon-h"> </span><span class="crayon-v">link</span><span class="crayon-sy">_</span>to<span class="crayon-h"> </span><span class="crayon-s">"Sign out"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">destroy_user_session_path</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-t">method</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">delete</span><span class="crayon-h"> </span><span class="crayon-ta">%&gt;</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-v">li</span><span class="crayon-o">&gt;</span></div><div class="crayon-line" id="crayon-55fc5410d72ce218967412-31"><span class="crayon-h">	&nbsp;&nbsp;&nbsp;&nbsp; 	</span><span class="crayon-o">&lt;</span><span class="crayon-v">li</span><span class="crayon-o">&gt;</span><span class="crayon-ta">&lt;%=</span><span class="crayon-h"> </span><span class="crayon-v">link</span><span class="crayon-sy">_</span>to<span class="crayon-h"> </span><span class="crayon-s">"Admin"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">admin_root_path</span><span class="crayon-h"> </span><span class="crayon-ta">%&gt;</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-v">li</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72ce218967412-32"><span class="crayon-h">		</span><span class="crayon-ta">&lt;%</span><span class="crayon-h"> </span><span class="crayon-st">else</span><span class="crayon-h"> </span><span class="crayon-ta">%&gt;</span></div><div class="crayon-line" id="crayon-55fc5410d72ce218967412-33"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;		</span><span class="crayon-o">&lt;</span><span class="crayon-v">li</span><span class="crayon-o">&gt;</span><span class="crayon-ta">&lt;%=</span><span class="crayon-h"> </span><span class="crayon-v">link</span><span class="crayon-sy">_</span>to<span class="crayon-h"> </span><span class="crayon-s">"Sign in"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">new_user_session_path</span><span class="crayon-h"> </span><span class="crayon-ta">%&gt;</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-v">li</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72ce218967412-34"><span class="crayon-h">		</span><span class="crayon-ta">&lt;%</span><span class="crayon-h"> </span><span class="crayon-st">end</span><span class="crayon-h"> </span><span class="crayon-ta">%&gt;</span></div><div class="crayon-line" id="crayon-55fc5410d72ce218967412-35"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-v">ul</span><span class="crayon-o">&gt;</span><span class="crayon-o">&lt;</span><span class="crayon-o">!</span><span class="crayon-o">--</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-sy">.</span><span class="crayon-i">login</span><span class="crayon-h"> </span><span class="crayon-v">toolbar</span><span class="crayon-h"> </span><span class="crayon-o">--</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72ce218967412-36"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-v">div</span><span class="crayon-o">&gt;</span><span class="crayon-o">&lt;</span><span class="crayon-o">!</span><span class="crayon-o">--</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-sy">.</span><span class="crayon-v">navbar</span><span class="crayon-o">-</span><span class="crayon-v">collapse</span><span class="crayon-h"> </span><span class="crayon-o">--</span><span class="crayon-o">&gt;</span></div><div class="crayon-line" id="crayon-55fc5410d72ce218967412-37"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-v">div</span><span class="crayon-o">&gt;</span><span class="crayon-o">&lt;</span><span class="crayon-o">!</span><span class="crayon-o">--</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-sy">.</span><span class="crayon-v">container</span><span class="crayon-o">-</span><span class="crayon-v">fluid</span><span class="crayon-h"> </span><span class="crayon-o">--</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72ce218967412-38"><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-v">nav</span><span class="crayon-o">&gt;</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0121 seconds] -->
+<p>
+The login toolbar is embedded inside of Bootstrap navbar. Navbar containing the login toolbar will be added as partial to&nbsp;<em>app/views/layouts/application.html.erb</em>:</p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-55fc5410d72d4280691549" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-mixed-highlight" title="Contains Mixed Languages"></span><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">XHTML</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Tasker&lt;/title&gt;
+  &lt;%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' =&gt; true %&gt;
+  &lt;%= javascript_include_tag 'application', 'data-turbolinks-track' =&gt; true %&gt;
+  &lt;%= csrf_meta_tags %&gt;
+&lt;/head&gt;
+&lt;body id="&lt;%= params[:controller].parameterize %&gt;_controller" &gt;
+	
+&lt;%= render 'layouts/navbar' %&gt;
+
+&lt;p&gt;&lt;%= notice %&gt;&lt;/p&gt;
+&lt;p&gt;&lt;%= alert %&gt;&lt;/p&gt;
+
+&lt;%= yield %&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55fc5410d72d4280691549-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72d4280691549-2">2</div><div class="crayon-num" data-line="crayon-55fc5410d72d4280691549-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72d4280691549-4">4</div><div class="crayon-num" data-line="crayon-55fc5410d72d4280691549-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72d4280691549-6">6</div><div class="crayon-num" data-line="crayon-55fc5410d72d4280691549-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72d4280691549-8">8</div><div class="crayon-num" data-line="crayon-55fc5410d72d4280691549-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72d4280691549-10">10</div><div class="crayon-num" data-line="crayon-55fc5410d72d4280691549-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72d4280691549-12">12</div><div class="crayon-num" data-line="crayon-55fc5410d72d4280691549-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72d4280691549-14">14</div><div class="crayon-num" data-line="crayon-55fc5410d72d4280691549-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72d4280691549-16">16</div><div class="crayon-num" data-line="crayon-55fc5410d72d4280691549-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72d4280691549-18">18</div><div class="crayon-num" data-line="crayon-55fc5410d72d4280691549-19">19</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55fc5410d72d4280691549-1"><span class="crayon-n">&lt;!DOCTYPE html&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72d4280691549-2"><span class="crayon-r ">&lt;html&gt;</span></div><div class="crayon-line" id="crayon-55fc5410d72d4280691549-3"><span class="crayon-r ">&lt;head&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72d4280691549-4"><span class="crayon-i ">&nbsp;&nbsp;</span><span class="crayon-r ">&lt;title&gt;</span><span class="crayon-i ">Tasker</span><span class="crayon-r ">&lt;/title&gt;</span></div><div class="crayon-line" id="crayon-55fc5410d72d4280691549-5"><span class="crayon-i ">&nbsp;&nbsp;<span class="crayon-ta">&lt;%=</span><span class="crayon-h"> </span><span class="crayon-v">stylesheet_link</span><span class="crayon-sy">_</span>tag<span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">'application'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">media</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">'all'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">'data-turbolinks-track'</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-r">true</span><span class="crayon-h"> </span><span class="crayon-ta">%&gt;</span></span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72d4280691549-6"><span class="crayon-i ">&nbsp;&nbsp;<span class="crayon-ta">&lt;%=</span><span class="crayon-h"> </span><span class="crayon-v">javascript_include</span><span class="crayon-sy">_</span>tag<span class="crayon-h"> </span><span class="crayon-s">'application'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">'data-turbolinks-track'</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-r">true</span><span class="crayon-h"> </span><span class="crayon-ta">%&gt;</span></span></div><div class="crayon-line" id="crayon-55fc5410d72d4280691549-7"><span class="crayon-i ">&nbsp;&nbsp;<span class="crayon-ta">&lt;%=</span><span class="crayon-h"> </span><span class="crayon-v">csrf_meta_tags</span><span class="crayon-h"> </span><span class="crayon-ta">%&gt;</span></span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72d4280691549-8"><span class="crayon-r ">&lt;/head&gt;</span></div><div class="crayon-line" id="crayon-55fc5410d72d4280691549-9"><span class="crayon-r ">&lt;body </span><span class="crayon-e ">id</span><span class="crayon-o">=</span><span class="crayon-s ">"<span class="crayon-ta">&lt;%=</span><span class="crayon-h"> </span><span class="crayon-v">params</span><span class="crayon-sy">[</span><span class="crayon-o">:</span><span class="crayon-v">controller</span><span class="crayon-sy">]</span><span class="crayon-sy">.</span><span class="crayon-v">parameterize</span><span class="crayon-h"> </span><span class="crayon-ta">%&gt;</span>_controller"</span><span class="crayon-r "> &gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72d4280691549-10"><span class="crayon-i ">	</span></div><div class="crayon-line" id="crayon-55fc5410d72d4280691549-11"><span class="crayon-i "><span class="crayon-ta">&lt;%=</span><span class="crayon-h"> </span><span class="crayon-i">render</span><span class="crayon-h"> </span><span class="crayon-s">'layouts/navbar'</span><span class="crayon-h"> </span><span class="crayon-ta">%&gt;</span></span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72d4280691549-12">&nbsp;</div><div class="crayon-line" id="crayon-55fc5410d72d4280691549-13"><span class="crayon-r ">&lt;p&gt;</span><span class="crayon-ta">&lt;%=</span><span class="crayon-h"> </span><span class="crayon-v">notice</span><span class="crayon-h"> </span><span class="crayon-ta">%&gt;</span><span class="crayon-r ">&lt;/p&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72d4280691549-14"><span class="crayon-r ">&lt;p&gt;</span><span class="crayon-ta">&lt;%=</span><span class="crayon-h"> </span><span class="crayon-v">alert</span><span class="crayon-h"> </span><span class="crayon-ta">%&gt;</span><span class="crayon-r ">&lt;/p&gt;</span></div><div class="crayon-line" id="crayon-55fc5410d72d4280691549-15">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72d4280691549-16"><span class="crayon-i "><span class="crayon-ta">&lt;%=</span><span class="crayon-h"> </span><span class="crayon-r">yield</span><span class="crayon-h"> </span><span class="crayon-ta">%&gt;</span></span></div><div class="crayon-line" id="crayon-55fc5410d72d4280691549-17">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72d4280691549-18"><span class="crayon-r ">&lt;/body&gt;</span></div><div class="crayon-line" id="crayon-55fc5410d72d4280691549-19"><span class="crayon-r ">&lt;/html&gt;</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0027 seconds] -->
+<p>
+&nbsp;</p>
+<h2>7. CanCanCan</h2>
+<p>At the beginning, we added CanCanCan gem to Gemfile, so it should be already installed with bundler. Now, we can generate&nbsp;<em>ability.rb&nbsp;</em> model:</p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-55fc5410d72d9677276294" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">$ rails g cancan:ability</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55fc5410d72d9677276294-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55fc5410d72d9677276294-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-i">rails</span><span class="crayon-h"> </span><span class="crayon-i">g</span><span class="crayon-h"> </span><span class="crayon-v">cancan</span><span class="crayon-o">:</span><span class="crayon-v">ability</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0003 seconds] -->
+<p>
+Open&nbsp;<em>ability.rb&nbsp;</em>in&nbsp;<em>app/models</em> and modify like following:</p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-55fc5410d72dd049611641" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">class Ability
+  include CanCan::Ability
+
+  def initialize(user)
+      
+    user ||= User.new # guest user
+    if user.role == 'admin'
+        can :manage, :all
+    else
+        can :read, :all
+    end
+    
+  end
+end</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55fc5410d72dd049611641-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72dd049611641-2">2</div><div class="crayon-num" data-line="crayon-55fc5410d72dd049611641-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72dd049611641-4">4</div><div class="crayon-num" data-line="crayon-55fc5410d72dd049611641-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72dd049611641-6">6</div><div class="crayon-num" data-line="crayon-55fc5410d72dd049611641-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72dd049611641-8">8</div><div class="crayon-num" data-line="crayon-55fc5410d72dd049611641-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72dd049611641-10">10</div><div class="crayon-num" data-line="crayon-55fc5410d72dd049611641-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72dd049611641-12">12</div><div class="crayon-num" data-line="crayon-55fc5410d72dd049611641-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-55fc5410d72dd049611641-14">14</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55fc5410d72dd049611641-1"><span class="crayon-r">class</span><span class="crayon-h"> </span><span class="crayon-i">Ability</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72dd049611641-2"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-i">include</span><span class="crayon-h"> </span><span class="crayon-v">CanCan</span><span class="crayon-o">::</span><span class="crayon-i">Ability</span></div><div class="crayon-line" id="crayon-55fc5410d72dd049611641-3">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72dd049611641-4"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-r">def</span><span class="crayon-h"> </span><span class="crayon-e">initialize</span><span class="crayon-sy">(</span><span class="crayon-v">user</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-55fc5410d72dd049611641-5"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72dd049611641-6"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">user</span><span class="crayon-h"> </span><span class="crayon-o">||</span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">User</span><span class="crayon-sy">.</span><span class="crayon-v">new</span><span class="crayon-h"> </span><span class="crayon-c"># guest user</span></div><div class="crayon-line" id="crayon-55fc5410d72dd049611641-7"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-v">user</span><span class="crayon-sy">.</span><span class="crayon-v">role</span><span class="crayon-h"> </span><span class="crayon-o">==</span><span class="crayon-h"> </span><span class="crayon-s">'admin'</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72dd049611641-8"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">can</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">manage</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-i">all</span></div><div class="crayon-line" id="crayon-55fc5410d72dd049611641-9"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">else</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72dd049611641-10"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">can</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">read</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-i">all</span></div><div class="crayon-line" id="crayon-55fc5410d72dd049611641-11"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">end</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72dd049611641-12"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span></div><div class="crayon-line" id="crayon-55fc5410d72dd049611641-13"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-st">end</span></div><div class="crayon-line crayon-striped-line" id="crayon-55fc5410d72dd049611641-14"><span class="crayon-st">end</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0016 seconds] -->
+<p>
+Add following line to the controller of your model:</p><!-- Crayon Syntax Highlighter v2.6.8 -->
+
+		<div id="crayon-55fc5410d72e1333048719" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">load_and_authorize_resource</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55fc5410d72e1333048719-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55fc5410d72e1333048719-1"><span class="crayon-v">load_and_authorize_resource</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0002 seconds] -->
+<p>
+&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-facebook"><a rel="nofollow" data-shared="sharing-facebook-76" class="share-facebook sd-button share-icon" href="http://codeonhill.com/devise-cancan-and-activeadmin/?share=facebook&nb=1" title="Share on Facebook"><span>Facebook</span></a></li><li class="share-twitter"><a rel="nofollow" data-shared="sharing-twitter-76" class="share-twitter sd-button share-icon" href="http://codeonhill.com/devise-cancan-and-activeadmin/?share=twitter&nb=1" title="Click to share on Twitter"><span>Twitter<span class="share-count">4</span></span></a></li><li class="share-pocket"><a rel="nofollow" data-shared="" class="share-pocket sd-button share-icon" href="http://codeonhill.com/devise-cancan-and-activeadmin/?share=pocket&nb=1" title="Click to share on Pocket"><span>Pocket</span></a></li><li class="share-google-plus-1"><a rel="nofollow" data-shared="sharing-google-76" class="share-google-plus-1 sd-button share-icon" href="http://codeonhill.com/devise-cancan-and-activeadmin/?share=google-plus-1&nb=1" title="Click to share on Google+"><span>Google</span></a></li><li class="share-end"></li></ul></div></div></div>  
+
+</div>
+
+  </div>
+  
+  <footer class="entry-footer cf">
+    <a href="http://codeonhill.com/tag/activeadmin/" rel="tag">ActiveAdmin</a><a href="http://codeonhill.com/tag/cancan/" rel="tag">CanCan</a><a href="http://codeonhill.com/tag/cancancan/" rel="tag">CanCanCan</a><a href="http://codeonhill.com/tag/devise/" rel="tag">Devise</a><a href="http://codeonhill.com/tag/ruby-on-rails/" rel="tag">Ruby on Rails</a>  </footer>
+  <span class="visually-hidden"><span class="author vcard"><span class="fn">Tomasz Antas</span></span><span class="entry-title">Devise, CanCanCan and ActiveAdmin</span><time class="entry-date updated" datetime="2015-02-01T18:05:31+00:00">02.01.2015</time></span></article>        
+      
+<div id="disqus_thread"><iframe id="dsq-1" data-disqus-uid="1" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/saved_resource.html" style="width: 100% !important; border: none !important; overflow: hidden !important; height: 939px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe></div>
+
+        
+    </div>
+
+          
+
+    
+  </div>
+
+
+
+  
+  
+    <div class="x-widgetbar collapse">
+      <div class="x-widgetbar-inner">
+        <div class="x-container-fluid max width">
+          <div class="x-row-fluid">
+
+            <div class="x-span6"></div><div class="x-span6"></div>
+          </div> <!-- end .x-row-fluid -->
+        </div> <!-- end .x-container-fluid.max.width -->
+      </div> <!-- end .x-widgetbar-inner.x-container-fluid.max.width -->
+    </div> <!-- end .x-widgetbar.collapse -->
+
+    <a href="http://codeonhill.com/devise-cancan-and-activeadmin/#" class="x-btn-widgetbar collapsed" data-toggle="collapse" data-target=".x-widgetbar">
+      <i class="x-icon-plus-circle"><span class="visually-hidden">Toggle the Widgetbar</span></i>
+    </a>
+
+    
+  
+
+  <footer class="x-colophon top" role="contentinfo">
+    <div class="x-container-fluid max width">
+      <div class="x-row-fluid">
+
+        <div class="x-span4"></div><div class="x-span4"></div><div class="x-span4"></div>
+      </div> <!-- end .x-row-fluid -->
+    </div> <!-- end .x-container-fluid.max.width -->
+  </footer> <!-- end .x-colophon.top -->
+
+
+  
+
+  
+      <div class="x-searchform-overlay">
+        <div class="x-searchform-overlay-inner">
+          <div class="x-container-fluid max width">
+            <form method="get" id="searchform" class="form-search center-text" action="http://codeonhill.com/">
+              <label for="s" class="cfc-h-tx tt-upper">Type and Press “enter” to Search</label>
+              <input type="text" id="s" class="search-query cfc-h-tx center-text tt-upper" name="s">
+            </form>
+          </div>
+        </div>
+      </div>
+
+      
+  </div> <!-- END #top.site -->
+
+  
+	<div style="display:none">
+	</div>
+
+	<script type="text/javascript">
+		WPCOM_sharing_counts = {"http:\/\/codeonhill.com\/devise-cancan-and-activeadmin\/":76}	</script>
+		<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-pocket' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcompocket', 'menubar=1,resizable=1,width=450,height=450' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-google-plus-1' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomgoogle-plus-1', 'menubar=1,resizable=1,width=480,height=550' );
+				return false;
+			});
+		});
+		</script>
+		<script type="text/javascript">
+/* <![CDATA[ */
+var tocplus = {"visibility_show":"show","visibility_hide":"hide","width":"Auto"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/front.js"></script>
+<script type="text/javascript" src="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/devicepx-jetpack.js"></script>
+<script type="text/javascript" src="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/wpgroho.js"></script>
+<script type="text/javascript" src="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/x-body.min.js"></script>
+<script type="text/javascript" src="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/comment-reply.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var embedVars = {"disqusConfig":{"platform":"wordpress@4.1.8","language":""},"disqusIdentifier":"76 http:\/\/codeonhill.com\/?p=76","disqusShortname":"codeonhill","disqusTitle":"Devise, CanCanCan and ActiveAdmin","disqusUrl":"http:\/\/codeonhill.com\/devise-cancan-and-activeadmin\/","options":{"manualSync":false},"postId":"76"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/disqus.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var countVars = {"disqusShortname":"codeonhill"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/count(1).js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/sharing.js"></script>
+
+	<script src="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/e-201538.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	st_go({v:'ext',j:'1:3.3.3',blog:'81192374',post:'76',tz:'0'});
+	var load_cmc = function(){linktracker_init(81192374,76,2);};
+	if ( typeof addLoadEvent != 'undefined' ) addLoadEvent(load_cmc);
+	else load_cmc();
+	</script><img src="./Devise, CanCanCan and ActiveAdmin _ CodeOnHill_files/g.gif" id="wpstats">
+
+  
+
+  
+    
+  
+
+</body></html>
