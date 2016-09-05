@@ -1,0 +1,63 @@
+localstorage это хранилище данных в браузере. 
+типа кук только вместительнее. что бы его использовать, нужно в коллекции или в модели прописать:
+
+APP.GraphCollection = Backbone.Collection.extend({
+
+  model: APP.Graph,
+
+  localStorage: new Backbone.LocalStorage('GraphList')
+
+});
+
+
+
+===================================
+так же нужно подключить скрипт backbone.localStorage-min.js
+
+
+===================================
+теперь при загрузке страницы нужно создать экземляр коллекции и запросить данные из хранилища:
+    if(!APP.graphCollection) {
+      APP.graphCollection = new APP.GraphCollection();
+    };    
+
+    APP.graphCollection.fetch();
+
+
+таким образом даже после рефреша страницы данные не потеряются    
+
+===================================
+при изменении  данных модели(или создании модели ) нужно не забыть использовать метод save() чтбы данные отправились в хранилище:
+
+    var newGraphData = {
+      title: this.$el.find('#fld_title').val(),
+      yMax: this.$el.find('#fld_yMax').val(),
+      yMin: this.$el.find('#fld_yMin').val(),
+      yPeriod: this.$el.find('#fld_yPeriod').val(),
+      xMax: this.$el.find('#fld_xMax').val(),
+      xMin: this.$el.find('#fld_xMin').val(),
+      xPeriod: this.$el.find('#fld_xPeriod').val(),
+      dots: {}
+    };
+
+    var newGraph = new APP.Graph(newGraphData);
+
+    if (newGraph.isValid()) {
+      if(APP.graphCollection.add(newGraph)) { newGraph.save() };  
+
+
+
+
+
+
+===================================
+===================================
+===================================
+===================================
+===================================
+===================================
+===================================
+===================================
+===================================
+===================================
+===================================

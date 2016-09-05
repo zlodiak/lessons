@@ -1,0 +1,159 @@
+создадим коллекцию. заполним объектами.  кликнем ссылку, откроется адрес с гет-параметром. в контроллере вытащим гет-параметр и по нему вытащим объект из коллекции. затем выведем в шаблоне свойства объекта
+
+=======================
+APP.GraphCollection = Backbone.Collection.extend({
+
+  model: APP.Graph,
+
+  localStorage: new Backbone.LocalStorage('GraphList')
+
+});
+
+
+
+
+APP.Graph = Backbone.Model.extend({
+  defaults: {
+    title: undefined,
+    yMax: undefined,
+    yMin: undefined,
+    yPeriod: undefined,
+    xMax: undefined,
+    xMin: undefined,
+    xPeriod: undefined,
+    dots: {}
+  }, 
+})
+
+=======================
+window.APP = window.APP || {};
+
+APP.NavigationRouter = Backbone.Router.extend({
+  routes: {
+    "": "index",  
+    "index": "index", 
+    "graph/:graph_cid": "graph"
+  },
+
+  initialize: function() { 
+    Backbone.history.start();  
+  },  
+
+  index: function () {     
+    var indexView = new APP.IndexView();
+
+    if (indexView) {  
+      indexView.render();
+    }    
+  },
+
+  graph: function (graph_cid) {
+    var graphView = new APP.GraphView({graph_cid: graph_cid});
+
+    if(graphView) {  
+      graphView.render();
+    }
+  }           
+        
+});
+
+
+=======================
+list page:
+
+APP.GraphLinkView = Backbone.View.extend({
+
+  initialize: function() {
+    this.listenTo(this.model, 'change', this.render);
+  },    
+
+  template: _.template($('#graphsListItemTemplate').html()),  
+
+  tagName: 'div',
+
+  className: 'list-group-item',
+
+  render: function() {  console.dir(this.model);
+    this.$el.html(this.template({
+      title: this.model.attributes.title,
+      id: this.model.id,
+      cid: this.model.cid
+    }));
+
+    this.editFieldElem = this.$el.find('.edit_field');
+    this.displayBlock = this.$el.find('.display_block');
+
+
+    return this;
+  }
+
+});
+
+<script type="text/template" id="graphsListItemTemplate">
+  <input class="edit_field hide" type="text" value="<%= title %>" />
+
+  <div class="display_block">
+    <a class="graph_title" href="#graph/<%= cid %>" id="graphTitle_<%= cid %>"><%= title %></a>
+    <div class="action glyphicon glyphicon-remove pull-right"></div>
+    <div class="action glyphicon glyphicon-edit pull-right"></div>  
+  </div>
+</script>
+
+=======================
+detail page:
+
+
+APP.GraphView = Backbone.View.extend({
+
+  initialize: function(options) {
+   this.graph_cid = options.graph_cid;
+   console.log(this.graph_cid + 'gc');
+   this.graphObj = APP.graphCollection.get(this.graph_cid);
+   console.dir('-----');
+   console.dir(this.graphObj);
+  },    
+
+  el: $('#contentContainer'), 
+
+  template: _.template($('#graphTemplate').html()), 
+
+  render: function () {   
+     console.dir('=====');
+     console.dir(this.graphObj);    
+     console.log(this.graphObj.toJSON());    
+    $(this.el).html(this.template(this.graphObj.toJSON()));
+    return this;
+  }
+
+});
+
+
+
+<script type="text/template" id="graphTemplate">
+  <div class="graph">
+    graph: <%= title %>
+    graph: <%= id %>
+  </div>
+</script>
+
+
+
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================

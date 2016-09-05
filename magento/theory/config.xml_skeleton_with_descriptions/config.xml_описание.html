@@ -1,0 +1,417 @@
+<!DOCTYPE xhtml PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0109)http://freaksidea.com/php_and_somethings/show-59-magento-konfighuratsiia-ot-a-do-ia-bazovye-nastroiki-modulia -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      
+   <meta name="title" content="Magento конфигурация от А до Я: базовые настройки модуля - Cвежачок">
+<meta name="keywords" content="magento, модуль, конфигурация, PHP, Magento, Symfony, Doctrine, классы, программирование">
+<meta name="description" content="Magento конфигурация от А до Я: базовые настройки модуля; Magento, как и любая другая современная система, состоит из модулей. Понятно, что любой модуль имеет свои настройки. По-этому для написания дополнительного функционала стоит разораться с их форматом в Magento.
+В Magento основная часть конфигурации модуля находится в файле  etc/config.xml. Для оптим; Интересные статьи о PHP, Magento, Symfony, Doctrine. Много полезных решений, а также исходники">
+   <title>Magento конфигурация от А до Я: базовые настройки модуля - Cвежачок</title>
+   <link type="image/x-icon" rel="shortcut icon" href="http://freaksidea.com/images/favicon.png">
+   <link rel="stylesheet" type="text/css" media="screen" href="./config.xml_описание_files/styles.css">
+   <!--[if lte IE 7]>
+      <link type="text/css" rel="stylesheet" href="/css/ie.css" />
+   <![endif]-->
+   <script src="./config.xml_описание_files/cb=gapi.loaded_1" async=""></script><script src="./config.xml_описание_files/cb=gapi.loaded_0" async=""></script><script src="./config.xml_описание_files/ca-pub-5129274777209544.js"></script><script id="facebook-jssdk" src="./config.xml_описание_files/all.js"></script><script type="text/javascript" async="" src="./config.xml_описание_files/plusone.js" gapi_processed="true"></script><script type="text/javascript" async="" src="./config.xml_описание_files/ga.js"></script><script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-19088556-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}@keyframes fb_transform{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(https://static.xx.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(https://static.xx.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(https://static.xx.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f6f7f9;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #365899;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{width:auto;height:auto;min-height:initial;min-width:initial;background:none}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{color:#fff;display:block;padding-top:20px;clear:both;font-size:18px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;bottom:0;left:0;right:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #29487d;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f6f7f9;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(https://static.xx.fbcdn.net/rsrc.php/v2/yD/r/t-wz8gw1xG1.png);background-repeat:no-repeat;background-position:50% 50%;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}</style></head>
+<body cz-shortcut-listen="true">
+        <div id="wrapper">
+                <div id="top-menu">
+    <a href="http://freaksidea.com/format-rss" class="s-item">RSS</a>
+        <a href="http://freaksidea.com/friends">Мои друзья</a>
+        <a href="http://freaksidea.com/writeme">Контакты</a>
+    </div>
+<div id="header">
+    <a href="http://freaksidea.com/" id="slogan"></a>
+    <a href="http://freaksidea.com/" id="logo"></a>
+    <div id="menu">
+<a href="http://freaksidea.com/main">Свежачок</a><a href="http://freaksidea.com/javascript">Любимый JavaScript</a><a href="http://freaksidea.com/php_and_somethings" class="act">PHP и еще Кое-Что</a><a href="http://freaksidea.com/ruby">Ruby.respond_to?</a><a href="http://freaksidea.com/linux">Linux для Всех</a></div>
+</div>
+        <div id="content">
+            <div class="container">
+                <div class="cwrap">
+                                          <h1><span class="idea"></span><span class="txt"></span>Magento конфигурация от А до Я: базовые настройки модуля</h1>
+<div class="dscr">
+        <div class="page-dscr"><p><em>Magento</em>, как и любая другая современная система, состоит из модулей. Понятно, что любой модуль имеет свои настройки. По-этому для написания дополнительного функционала стоит разораться с их форматом в <em>Magento</em>.</p>
+<p>В <em>Magento</em> основная часть конфигурации модуля находится в файле&nbsp; <em>etc</em>/<em>config.xml</em>. Для оптимизации загрузки модуля, часть конфигурации можно вынести в <em>adminhtml.xml</em>, но об этом позже.</p>
+<h2>Структура конфигурации модуля</h2>
+<p>Любая конфигурация модуля состоит из корневого элемента <em>config</em> (заголовок <em>XML</em>-я необязательный) и нескольких базовых секций: <em>modules</em>, <em>frontend</em>, <em>adminhtml</em>, <em>global</em>, <em>admin</em>, <em>default</em>, <em>crontab</em></p>
+<pre><code class="xml"><span class="tag">&lt;<span class="title">config</span>&gt;</span><br>    <span class="tag">&lt;<span class="title">modules</span>&gt;</span>.................<span class="tag">&lt;/<span class="title">modules</span>&gt;</span><br>    <span class="tag">&lt;<span class="title">frontend</span>&gt;</span>................<span class="tag">&lt;/<span class="title">frontend</span>&gt;</span><br>    <span class="tag">&lt;<span class="title">adminhtml</span>&gt;</span>...............<span class="tag">&lt;/<span class="title">adminhtml</span>&gt;</span><br>    <span class="tag">&lt;<span class="title">global</span>&gt;</span>..................<span class="tag">&lt;/<span class="title">global</span>&gt;</span><br>    <span class="tag">&lt;<span class="title">default</span>&gt;</span>.................<span class="tag">&lt;/<span class="title">default</span>&gt;</span><br>    <span class="tag">&lt;<span class="title">crontab</span>&gt;</span>.................<span class="tag">&lt;/<span class="title">crontab</span>&gt;</span><br>    <span class="tag">&lt;<span class="title">admin</span>&gt;</span>...................<span class="tag">&lt;/<span class="title">admin</span>&gt;</span><br><span class="tag">&lt;/<span class="title">config</span>&gt;</span></code></pre>
+<p>В секции <em>modules</em> находится информация об имени и версии модуля, в случае <em>Mage_Cms</em></p>
+<pre><code class="xml"><span class="tag">&lt;<span class="title">Mage_Cms</span>&gt;</span><br>    <span class="tag">&lt;<span class="title">version</span>&gt;</span>0.7.13<span class="tag">&lt;/<span class="title">version</span>&gt;</span><br><span class="tag">&lt;/<span class="title">Mage_Cms</span>&gt;</span></code></pre>
+<p>Секция <em>frontend</em> задает настройки модуля для фронта (т.е. сайта): настройка роутинга, обсерверов событий, переводов и <em>layout-update</em>-ов.</p>
+<pre><code class="xml"><span class="tag">&lt;<span class="title">frontend</span>&gt;</span><br>  <span class="tag">&lt;<span class="title">routers</span>&gt;</span><br>    <span class="tag">&lt;<span class="title">cms</span>&gt;</span><br>      <span class="tag">&lt;<span class="title">use</span>&gt;</span>standard<span class="tag">&lt;/<span class="title">use</span>&gt;</span><br>      <span class="tag">&lt;<span class="title">args</span>&gt;</span><br>        <span class="tag">&lt;<span class="title">module</span>&gt;</span>Mage_Cms<span class="tag">&lt;/<span class="title">module</span>&gt;</span><br>        <span class="tag">&lt;<span class="title">frontName</span>&gt;</span>cms<span class="tag">&lt;/<span class="title">frontName</span>&gt;</span><br>      <span class="tag">&lt;/<span class="title">args</span>&gt;</span><br>    <span class="tag">&lt;/<span class="title">cms</span>&gt;</span><br>  <span class="tag">&lt;/<span class="title">routers</span>&gt;</span><br>  <span class="tag">&lt;<span class="title">events</span>&gt;</span><br>    <span class="tag">&lt;<span class="title">controller_action_noroute</span>&gt;</span><br>      <span class="tag">&lt;<span class="title">observers</span>&gt;</span><br>        <span class="tag">&lt;<span class="title">cms</span>&gt;</span><br>          <span class="tag">&lt;<span class="title">class</span>&gt;</span>cms/observer<span class="tag">&lt;/<span class="title">class</span>&gt;</span><br>          <span class="tag">&lt;<span class="title">method</span>&gt;</span>noRoute<span class="tag">&lt;/<span class="title">method</span>&gt;</span><br>        <span class="tag">&lt;/<span class="title">cms</span>&gt;</span><br>      <span class="tag">&lt;/<span class="title">observers</span>&gt;</span><br>    <span class="tag">&lt;/<span class="title">controller_action_noroute</span>&gt;</span><br>    <span class="tag">&lt;<span class="title">controller_action_nocookies</span>&gt;</span><br>      <span class="tag">&lt;<span class="title">observers</span>&gt;</span><br>        <span class="tag">&lt;<span class="title">cms</span>&gt;</span><br>          <span class="tag">&lt;<span class="title">class</span>&gt;</span>cms/observer<span class="tag">&lt;/<span class="title">class</span>&gt;</span><br>          <span class="tag">&lt;<span class="title">method</span>&gt;</span>noCookies<span class="tag">&lt;/<span class="title">method</span>&gt;</span><br>        <span class="tag">&lt;/<span class="title">cms</span>&gt;</span><br>      <span class="tag">&lt;/<span class="title">observers</span>&gt;</span><br>    <span class="tag">&lt;/<span class="title">controller_action_nocookies</span>&gt;</span><br>  <span class="tag">&lt;/<span class="title">events</span>&gt;</span><br>  <span class="tag">&lt;<span class="title">translate</span>&gt;</span><br>    <span class="tag">&lt;<span class="title">modules</span>&gt;</span><br>      <span class="tag">&lt;<span class="title">Mage_Cms</span>&gt;</span><br>        <span class="tag">&lt;<span class="title">files</span>&gt;</span><br>          <span class="tag">&lt;<span class="title">default</span>&gt;</span>Mage_Cms.csv<span class="tag">&lt;/<span class="title">default</span>&gt;</span><br>        <span class="tag">&lt;/<span class="title">files</span>&gt;</span><br>      <span class="tag">&lt;/<span class="title">Mage_Cms</span>&gt;</span><br>    <span class="tag">&lt;/<span class="title">modules</span>&gt;</span><br>  <span class="tag">&lt;/<span class="title">translate</span>&gt;</span><br>  <span class="tag">&lt;<span class="title">layout</span>&gt;</span><br>    <span class="tag">&lt;<span class="title">updates</span>&gt;</span><br>      <span class="tag">&lt;<span class="title">cms</span>&gt;</span><br>        <span class="tag">&lt;<span class="title">file</span>&gt;</span>cms.xml<span class="tag">&lt;/<span class="title">file</span>&gt;</span><br>      <span class="tag">&lt;/<span class="title">cms</span>&gt;</span><br>    <span class="tag">&lt;/<span class="title">updates</span>&gt;</span><br>  <span class="tag">&lt;/<span class="title">layout</span>&gt;</span><br><span class="tag">&lt;/<span class="title">frontend</span>&gt;</span></code></pre>
+<p>В секции <em>routers</em> указываем, какие запросы будут обрабатываться контроллерами данного модуля. Каждое правило роутинга имеет свое имя, оно задается в качестве имени первого тега, в данном случае - <em>&lt;cms&gt;</em>, т.е. имя - <strong>cms</strong>. Тег <strong>use</strong> задает, какую модель роутера использовать в данном случае используем стандартный. Для его инициализации нужно передать аргументы и это можно сделать при помощи тега <strong>args</strong>. Для стандартного роутера нужно передать имя модуля и префикс запроса - <strong>frontName</strong>. Теперь все запросы по адресу <em>http://BASE_URL/cms/*</em> будут обрабатываться контроллерами модуля <strong>Mage_CMS</strong>.</p>
+<p>В секции <strong>events</strong> задаем настройки для обсерверов. Имя любого дочернего тега в секции <em>events</em> является названием события в <em>Magento</em>. В случае с модулем <em>Mage_Cms</em> указываем, что при возникновении события <em>controller_action_noroute </em>нужно вызвать метод <strong>noRoute</strong> модели <em>cms/observer</em>. Благодаря этому, в административном интерфейсе существует возможность создать собственную страницу и приаттачить ее на&nbsp; <a href="http://uk.wikipedia.org/wiki/HTTP_404">404 HTTP</a> ошибку.</p>
+<p>В секции <em>translate</em> можно указать название файла для локализации (в <em>Magento</em> для этого используются <a href="http://ru.wikipedia.org/wiki/CSV">csv файлы</a>).</p>
+<p>В секции <em>layout</em> можно указать файл, в котором прописаны настройки для <a href="http://freaksidea.com/php_and_somethings/show-49-magento-konfighuratsiia-ot-a-do-ia-layout-updates">layout-update-ов</a>.</p>
+<p>Для секции <em>adminhtml</em> справедливо все то, что и для <em>frontend</em>. Разница только в том, что эти настройки будут применяться для административной части, а не для фронта. Чтобы файл <em>config.xml</em> не был слишком большим (что замедляет его загрузку и разбор <strong>xml</strong>), все директивы относящиеся к секции <em>adminhtml </em>(т.е. к административному интерфейсу) можно вынести в отдельный файл - <em>adminhtml.xml</em>. Именно так и сделано в модуле <strong>Mage_Cms</strong></p>
+<pre><code class="xml"><span class="tag">&lt;<span class="title">config</span>&gt;</span><br>    <span class="tag">&lt;<span class="title">menu</span>&gt;</span>.....<span class="tag">&lt;/<span class="title">menu</span>&gt;</span><br>    <span class="tag">&lt;<span class="title">acl</span>&gt;</span><br>        <span class="tag">&lt;<span class="title">resources</span>&gt;</span><br>            <span class="tag">&lt;<span class="title">admin</span>&gt;</span><br>                <span class="tag">&lt;<span class="title">children</span>&gt;</span>....<span class="tag">&lt;/<span class="title">children</span>&gt;</span><br>            <span class="tag">&lt;/<span class="title">admin</span>&gt;</span><br>        <span class="tag">&lt;/<span class="title">resources</span>&gt;</span><br>    <span class="tag">&lt;/<span class="title">acl</span>&gt;</span><br><span class="tag">&lt;/<span class="title">config</span>&gt;</span></code></pre>
+<p>Конфигурация обычно состоит из 2 секций: <em>menu</em> и <em>acl</em>, но также можно указывать и другие директивы (например, <em>events</em>, <em>layout-update</em> и т.д.). Первая отвечает за добавление новых элементов в меню административной части, а вторая - за права доступа, т.е. <a href="http://ru.wikipedia.org/wiki/ACL">ACL</a>. Рассмотрим секцию <em>menu</em></p>
+<pre><code class="xml"><span class="tag">&lt;<span class="title">cms</span> <span class="attribute">translate</span>=<span class="value">"title"</span> <span class="attribute">module</span>=<span class="value">"cms"</span>&gt;</span><br>    <span class="tag">&lt;<span class="title">title</span>&gt;</span>CMS<span class="tag">&lt;/<span class="title">title</span>&gt;</span><br>    <span class="tag">&lt;<span class="title">sort_order</span>&gt;</span>70<span class="tag">&lt;/<span class="title">sort_order</span>&gt;</span><br>    <span class="tag">&lt;<span class="title">children</span>&gt;</span><br>        <span class="tag">&lt;<span class="title">page</span> <span class="attribute">translate</span>=<span class="value">"title"</span> <span class="attribute">module</span>=<span class="value">"cms"</span>&gt;</span><br>            <span class="tag">&lt;<span class="title">title</span>&gt;</span>Pages<span class="tag">&lt;/<span class="title">title</span>&gt;</span><br>            <span class="tag">&lt;<span class="title">action</span>&gt;</span>adminhtml/cms_page<span class="tag">&lt;/<span class="title">action</span>&gt;</span><br>            <span class="tag">&lt;<span class="title">sort_order</span>&gt;</span>0<span class="tag">&lt;/<span class="title">sort_order</span>&gt;</span><br>        <span class="tag">&lt;/<span class="title">page</span>&gt;</span><br>        <span class="tag">&lt;<span class="title">block</span> <span class="attribute">translate</span>=<span class="value">"title"</span> <span class="attribute">module</span>=<span class="value">"cms"</span>&gt;</span><br>            <span class="tag">&lt;<span class="title">title</span>&gt;</span>Static Blocks<span class="tag">&lt;/<span class="title">title</span>&gt;</span><br>            <span class="tag">&lt;<span class="title">action</span>&gt;</span>adminhtml/cms_block<span class="tag">&lt;/<span class="title">action</span>&gt;</span><br>            <span class="tag">&lt;<span class="title">sort_order</span>&gt;</span>10<span class="tag">&lt;/<span class="title">sort_order</span>&gt;</span><br>        <span class="tag">&lt;/<span class="title">block</span>&gt;</span><br>    <span class="tag">&lt;/<span class="title">children</span>&gt;</span><br><span class="tag">&lt;/<span class="title">cms</span>&gt;</span></code></pre>
+<p>Чтобы добавить новый элемент меню нужно указать: <em>title</em>, <em>action</em> и <em>sort_order</em>. Атрибут <em>translate</em> указывает, содержимое какого тега нужно переводить, нужно указывать для каждого элемента меню. Атрибут <em>module</em> указывает используемый модуль, не смотря на то, что он указан для каждого тега, его можно задать только для верхнего родительского элемента (в данном случае <strong>cms</strong>), для остальных он пронаследуется.</p>
+<p>Тег <em>action</em> указывает на модель контроллера. Например, <em>adminhtml/cms_page</em> - <strong>Mage_Adminhtml_Cms_PageController</strong>.</p>
+<p>Перейдем к секции <em>acl</em></p>
+<pre><code class="xml"><span class="tag">&lt;<span class="title">cms</span> <span class="attribute">translate</span>=<span class="value">"title"</span> <span class="attribute">module</span>=<span class="value">"cms"</span>&gt;</span><br>    <span class="tag">&lt;<span class="title">title</span>&gt;</span>CMS<span class="tag">&lt;/<span class="title">title</span>&gt;</span><br>    <span class="tag">&lt;<span class="title">sort_order</span>&gt;</span>70<span class="tag">&lt;/<span class="title">sort_order</span>&gt;</span><br>    <span class="tag">&lt;<span class="title">children</span>&gt;</span><br>        <span class="tag">&lt;<span class="title">block</span> <span class="attribute">translate</span>=<span class="value">"title"</span>&gt;</span><br>            <span class="tag">&lt;<span class="title">title</span>&gt;</span>Static Blocks<span class="tag">&lt;/<span class="title">title</span>&gt;</span><br>            <span class="tag">&lt;<span class="title">sort_order</span>&gt;</span>10<span class="tag">&lt;/<span class="title">sort_order</span>&gt;</span><br>        <span class="tag">&lt;/<span class="title">block</span>&gt;</span><br>        <span class="tag">&lt;<span class="title">page</span> <span class="attribute">translate</span>=<span class="value">"title"</span>&gt;</span><br>            <span class="tag">&lt;<span class="title">title</span>&gt;</span>Pages<span class="tag">&lt;/<span class="title">title</span>&gt;</span><br>            <span class="tag">&lt;<span class="title">sort_order</span>&gt;</span>0<span class="tag">&lt;/<span class="title">sort_order</span>&gt;</span><br>            <span class="tag">&lt;<span class="title">children</span>&gt;</span><br>                <span class="tag">&lt;<span class="title">save</span> <span class="attribute">translate</span>=<span class="value">"title"</span>&gt;</span><br>                    <span class="tag">&lt;<span class="title">title</span>&gt;</span>Save Page<span class="tag">&lt;/<span class="title">title</span>&gt;</span><br>                    <span class="tag">&lt;<span class="title">sort_order</span>&gt;</span>0<span class="tag">&lt;/<span class="title">sort_order</span>&gt;</span><br>                <span class="tag">&lt;/<span class="title">save</span>&gt;</span><br>                <span class="tag">&lt;<span class="title">delete</span> <span class="attribute">translate</span>=<span class="value">"title"</span>&gt;</span><br>                    <span class="tag">&lt;<span class="title">title</span>&gt;</span>Delete Page<span class="tag">&lt;/<span class="title">title</span>&gt;</span><br>                    <span class="tag">&lt;<span class="title">sort_order</span>&gt;</span>10<span class="tag">&lt;/<span class="title">sort_order</span>&gt;</span><br>                <span class="tag">&lt;/<span class="title">delete</span>&gt;</span><br>            <span class="tag">&lt;/<span class="title">children</span>&gt;</span><br>        <span class="tag">&lt;/<span class="title">page</span>&gt;</span><br>        <span class="tag">&lt;<span class="title">media_gallery</span> <span class="attribute">translate</span>=<span class="value">"title"</span>&gt;</span><br>            <span class="tag">&lt;<span class="title">title</span>&gt;</span>Media Gallery<span class="tag">&lt;/<span class="title">title</span>&gt;</span><br>            <span class="tag">&lt;<span class="title">sort_order</span>&gt;</span>20<span class="tag">&lt;/<span class="title">sort_order</span>&gt;</span><br>        <span class="tag">&lt;/<span class="title">media_gallery</span>&gt;</span><br>    <span class="tag">&lt;/<span class="title">children</span>&gt;</span><br><span class="tag">&lt;/<span class="title">cms</span>&gt;</span></code></pre>
+<p>В <em>ACL</em> можно задать структуру для возможности изменения прав доступа в административной панели (<strong>System</strong> -&gt; <strong>Permissions</strong> -&gt; <em>Выбрать роль</em> -&gt; <strong>Role Resources</strong> -&gt; <strong>Custom</strong>). Потом проверить имеет ли пользователь права на определенные действия можно при помощи конструкции</p>
+<pre><code class="php">Mage::getSingleton(<span class="string">'admin/session'</span>)-&gt;isAllowed(<span class="string">'cms/page/save'</span>);</code></pre>
+<p>А в контроллере при помощи метода <strong>_isAllowed </strong>(пример взят из <em>Mage_Adminhtml_Cms_PageController</em> класса)<strong><br></strong></p>
+<pre><code class="php"><span class="comment">/**<br> * Check the permission to run it<br> *<br> *<span class="phpdoc"> @return</span> boolean<br> */</span><br><span class="keyword">protected</span> <span class="keyword">function</span> _isAllowed()<br>{<br>    <span class="keyword">switch</span> (<span class="variable">$this</span>-&gt;getRequest()-&gt;getActionName()) {<br>        <span class="keyword">case</span> <span class="string">'new'</span>:<br>        <span class="keyword">case</span> <span class="string">'save'</span>:<br>            <span class="keyword">return</span> Mage::getSingleton(<span class="string">'admin/session'</span>)-&gt;isAllowed(<span class="string">'cms/page/save'</span>);<br>            <span class="keyword">break</span>;<br>        <span class="keyword">case</span> <span class="string">'delete'</span>:<br>            <span class="keyword">return</span> Mage::getSingleton(<span class="string">'admin/session'</span>)-&gt;isAllowed(<span class="string">'cms/page/delete'</span>);<br>            <span class="keyword">break</span>;<br>        <span class="keyword">default</span>:<br>            <span class="keyword">return</span> Mage::getSingleton(<span class="string">'admin/session'</span>)-&gt;isAllowed(<span class="string">'cms/page'</span>);<br>            <span class="keyword">break</span>;<br>    }<br>}</code></pre>
+<p>Будьте внимательны в файле <em>adminhtml.xml</em> можно задавать только права доступа (<em>acl</em>) и добавлять новые элементы меню!</p>
+<p>В секции <em>global</em> можно задавать тоже самое, что и в секции <em>frontend</em>. Директивы из этой секции будут применяться, как для фронта, так и для административной части. Здесь в основном задаются префиксы для имен классов</p>
+<pre><code class="xml"><span class="tag">&lt;<span class="title">blocks</span>&gt;</span><br>    <span class="tag">&lt;<span class="title">cms</span>&gt;</span><span class="tag">&lt;<span class="title">class</span>&gt;</span>Mage_Cms_Block<span class="tag">&lt;/<span class="title">class</span>&gt;</span><span class="tag">&lt;/<span class="title">cms</span>&gt;</span><br><span class="tag">&lt;/<span class="title">blocks</span>&gt;</span><br><span class="tag">&lt;<span class="title">helpers</span>&gt;</span><br>    <span class="tag">&lt;<span class="title">cms</span>&gt;</span><span class="tag">&lt;<span class="title">class</span>&gt;</span>Mage_Cms_Helper<span class="tag">&lt;/<span class="title">class</span>&gt;</span><span class="tag">&lt;/<span class="title">cms</span>&gt;</span><br><span class="tag">&lt;/<span class="title">helpers</span>&gt;</span><br><span class="tag">&lt;<span class="title">models</span>&gt;</span><br>    <span class="tag">&lt;<span class="title">cms</span>&gt;</span><br>        <span class="tag">&lt;<span class="title">class</span>&gt;</span>Mage_Cms_Model<span class="tag">&lt;/<span class="title">class</span>&gt;</span><br>        <span class="tag">&lt;<span class="title">resourceModel</span>&gt;</span>cms_mysql4<span class="tag">&lt;/<span class="title">resourceModel</span>&gt;</span><br>    <span class="tag">&lt;/<span class="title">cms</span>&gt;</span><br>    <span class="tag">&lt;<span class="title">cms_mysql4</span>&gt;</span><br>        <span class="tag">&lt;<span class="title">class</span>&gt;</span>Mage_Cms_Model_Mysql4<span class="tag">&lt;/<span class="title">class</span>&gt;</span><br>        <span class="tag">&lt;<span class="title">entities</span>&gt;</span><br>            <span class="tag">&lt;<span class="title">page</span>&gt;</span><br>                <span class="tag">&lt;<span class="title">table</span>&gt;</span>cms_page<span class="tag">&lt;/<span class="title">table</span>&gt;</span><br>            <span class="tag">&lt;/<span class="title">page</span>&gt;</span><br>            <span class="tag">&lt;<span class="title">page_store</span>&gt;</span><br>                <span class="tag">&lt;<span class="title">table</span>&gt;</span>cms_page_store<span class="tag">&lt;/<span class="title">table</span>&gt;</span><br>            <span class="tag">&lt;/<span class="title">page_store</span>&gt;</span><br>            <span class="tag">&lt;<span class="title">block</span>&gt;</span><br>                <span class="tag">&lt;<span class="title">table</span>&gt;</span>cms_block<span class="tag">&lt;/<span class="title">table</span>&gt;</span><br>            <span class="tag">&lt;/<span class="title">block</span>&gt;</span><br>            <span class="tag">&lt;<span class="title">block_store</span>&gt;</span><br>                <span class="tag">&lt;<span class="title">table</span>&gt;</span>cms_block_store<span class="tag">&lt;/<span class="title">table</span>&gt;</span><br>            <span class="tag">&lt;/<span class="title">block_store</span>&gt;</span><br>        <span class="tag">&lt;/<span class="title">entities</span>&gt;</span><br>    <span class="tag">&lt;/<span class="title">cms_mysql4</span>&gt;</span><br><span class="tag">&lt;/<span class="title">models</span>&gt;</span></code></pre>
+<p>Когда <em>Magento</em> обрабатывает <em>layout-update</em>-ы и видит конструкцию</p>
+<pre><code class="xml"><span class="tag">&lt;<span class="title">block</span> <span class="attribute">type</span>=<span class="value">"cms/block"</span> <span class="attribute">name</span>=<span class="value">"cms_footer_links"</span> <span class="attribute">before</span>=<span class="value">"footer_links"</span> /&gt;</span></code></pre>
+<p>То сначала она разбирает атрибут <em>type</em>, который указывает класс блока. <em>cms/block</em> - первая часть (до слэша) определяет модуль - <strong>Mage_Cms</strong>. Смотрим настройки данного модуля, находим содержимое <em>blocks/cms/class</em>, в данном случае <em>Mage_Cms_Block</em> и добавляем к нему вторую часть от атрибута <em>type</em> (после слэша, в данном случае <strong>block</strong>) и получаем имя класса <strong>Mage_Cms_Block_Block</strong>. Аналогично все происходит для моделей и хелперов.</p>
+<p>Бизнес модель связана с ресурс моделью при помощи тега <em>models/cms/resourceModel</em>, в котором хранится имя другого тега, отвечающего за конфигурацию последней. В данном случае - это тег <strong>cms_mysql4</strong>. В теге <em>models/cms/cms_mysql4/entities</em> указываются имена и элиасы таблиц в базе данных, доступ к которым можно получить в ресурс модели при помощи конструкции</p>
+<pre><code class="php"><span class="variable">$blocksTable</span> = <span class="variable">$this</span>-&gt;getTable(<span class="string">'cms/block'</span>); <span class="comment"># cms_block</span></code></pre>
+<p>В данном случае метод смотрит конфигурацию модуля (<strong></strong><em>models/cms_mysql4/entities/block/table</em>) и возвращает его контент. Если такого тега не существует, то возвращается передаваемая строка. По-этому рекомендуется обращаться к имени таблицы именно таким методом, а не хардкодить или писать, что-то вроде</p>
+<pre><code class="php"><span class="variable">$blocksTable</span> = <span class="variable">$this</span>-&gt;getTable(<span class="string">'cms_block'</span>);</code></pre>
+<p>потому что это неправильно!</p>
+<p>В секции <em>default</em> можно прописать настройки по умолчанию для <em>Magento</em>, именно те, которые можно редактировать в <strong>System</strong> -&gt; <strong>Configuration</strong>. Например, часть секции из модуля <em>Mage_Cms</em></p>
+<pre><code class="xml"><span class="tag">&lt;<span class="title">default</span>&gt;</span><br>    <span class="tag">&lt;<span class="title">cms</span>&gt;</span><br>        <span class="tag">&lt;<span class="title">wysiwyg</span>&gt;</span><br>            <span class="tag">&lt;<span class="title">enabled</span>&gt;</span>enabled<span class="tag">&lt;/<span class="title">enabled</span>&gt;</span><br>        <span class="tag">&lt;/<span class="title">wysiwyg</span>&gt;</span><br>    <span class="tag">&lt;/<span class="title">cms</span>&gt;</span><br>    <br>    <span class="comment">&lt;!-- another configs --&gt;</span><br><span class="tag">&lt;/<span class="title">default</span>&gt;</span></code></pre>
+<p>указывает, что по умолчанию <a href="http://ru.wikipedia.org/wiki/WYSIWYG">WYSIWYG</a> редактор включен.</p>
+<p>В секции <em>crontab</em> можно создать задание, которое выполнится через крон в <em>Magento</em>. Информация о всех заданиях крона хранится в таблице <em>cron_schedule</em>. Рассмотрим пример из модуля <em>Mage_Newsletter</em></p>
+<pre><code class="xml"><span class="tag">&lt;<span class="title">crontab</span>&gt;</span><br>    <span class="tag">&lt;<span class="title">jobs</span>&gt;</span><br>        <span class="tag">&lt;<span class="title">newsletter_send_all</span>&gt;</span><br>            <span class="tag">&lt;<span class="title">schedule</span>&gt;</span><span class="tag">&lt;<span class="title">cron_expr</span>&gt;</span>*/5 * * * *<span class="tag">&lt;/<span class="title">cron_expr</span>&gt;</span><span class="tag">&lt;/<span class="title">schedule</span>&gt;</span><br>            <span class="tag">&lt;<span class="title">run</span>&gt;</span><span class="tag">&lt;<span class="title">model</span>&gt;</span>newsletter/observer::scheduledSend<span class="tag">&lt;/<span class="title">model</span>&gt;</span><span class="tag">&lt;/<span class="title">run</span>&gt;</span><br>        <span class="tag">&lt;/<span class="title">newsletter_send_all</span>&gt;</span><br>    <span class="tag">&lt;/<span class="title">jobs</span>&gt;</span><br><span class="tag">&lt;/<span class="title">crontab</span>&gt;</span></code></pre>
+<p>Имена всех дочерних тегов секции <em>crontab/jobs</em> являются именами заданий в таблице крона и хранятся в поле <em>job_code</em>. В данном случае задача называется <strong>newsletter_send_all</strong>. В секции <em>schedule/cron_expr</em> задается периодичность выполнения задания, в данном случае каждые 5 минут. Формат похож на тот, который используется в <a href="http://ru.wikipedia.org/wiki/Cron">Linux cron табе</a>. В директиве <em>run/model</em> задается модель (<em>newsletter/observer</em>) и метод, который нужно запустить в определенное время (<em>scheduledSend</em>).</p>
+<p>Последняя секции <em>admin</em> - в основном здесь прописываются правила роутинга для административной панели</p>
+<pre><code class="xml"><span class="tag">&lt;<span class="title">admin</span>&gt;</span><br>    <span class="tag">&lt;<span class="title">routers</span>&gt;</span><br>        <span class="tag">&lt;<span class="title">adminhtml</span>&gt;</span><br>            <span class="tag">&lt;<span class="title">args</span>&gt;</span><br>                <span class="tag">&lt;<span class="title">modules</span>&gt;</span><br>                    <span class="tag">&lt;<span class="title">importexport</span> <span class="attribute">before</span>=<span class="value">"Mage_Adminhtml"</span>&gt;</span>Mage_ImportExport_Adminhtml<span class="tag">&lt;/<span class="title">importexport</span>&gt;</span><br>                <span class="tag">&lt;/<span class="title">modules</span>&gt;</span><br>            <span class="tag">&lt;/<span class="title">args</span>&gt;</span><br>        <span class="tag">&lt;/<span class="title">adminhtml</span>&gt;</span><br>    <span class="tag">&lt;/<span class="title">routers</span>&gt;</span><br><span class="tag">&lt;/<span class="title">admin</span>&gt;</span></code></pre>
+<h2>На последок</h2>
+<p>В файле конфигурации также могут быть и нестандартные теги. Например, в модуле <em>Mage_ImportExport</em> есть секция <em>global/importexport</em>. Доступ к нестандартным настройкам можно получить при помощи конструкции</p>
+<pre><code class="php"><span class="variable">$dataArray</span> = Mage::getConfig()-&gt;getNode(<span class="string">'global/importexport'</span>)-&gt;asCanonicalArray();</code></pre></div>
+
+    <div class="public-footer">
+        <div class="f-left">
+            4 ноября 2011 г.            <span>Теги:</span> <a href="http://freaksidea.com/search/tag-33-magento">magento</a>&nbsp;<a href="http://freaksidea.com/search/tag-35-modul">модуль</a>&nbsp;<a href="http://freaksidea.com/search/tag-67-konfighuratsiia">конфигурация</a>&nbsp;        </div>
+        <div class="f-right">
+            <div class="f-left">
+                <!-- G+ -->
+<div class="social_item">
+    <div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px; background: transparent;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1468509165511" name="I0_1468509165511" src="./config.xml_описание_files/fastbutton.html" data-gapiattached="true" title="+1"></iframe></div>
+
+    <script type="text/javascript">
+      window.___gcfg = {lang: 'ru'};
+
+      (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+      })();
+    </script>
+</div>
+
+<!-- Facebook I Like -->
+<div class="social_item">
+    <div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="Facebook Cross Domain Communication Frame" aria-hidden="true" tabindex="-1" id="fb_xdm_frame_http" src="./config.xml_описание_files/bz-D0tzmBsw.html" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="Facebook Cross Domain Communication Frame" aria-hidden="true" tabindex="-1" id="fb_xdm_frame_https" src="./config.xml_описание_files/bz-D0tzmBsw(1).html" style="border: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="f13cb74ce8" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" src="./config.xml_описание_files/ping.html" style="display: none;"></iframe></div></div></div>
+    <script type="text/javascript">(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#appId=152417101503637&xfbml=1";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+    <div class="fb-like fb_iframe_widget" data-href="http://freaksidea.com/php_and_somethings/show-59-magento-konfighuratsiia-ot-a-do-ia-bazovye-nastroiki-modulia" data-send="false" data-layout="button_count" data-width="70" data-show-faces="false" data-font="tahoma" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=152417101503637&amp;container_width=0&amp;font=tahoma&amp;href=http%3A%2F%2Ffreaksidea.com%2Fphp_and_somethings%2Fshow-59-magento-konfighuratsiia-ot-a-do-ia-bazovye-nastroiki-modulia&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;send=false&amp;show_faces=false&amp;width=70"><span style="vertical-align: bottom; width: 61px; height: 20px;"><iframe name="f34e9f0a24" width="70px" height="1000px" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="fb:like Facebook Social Plugin" src="./config.xml_описание_files/like.html" style="border: none; visibility: visible; width: 61px; height: 20px;" class=""></iframe></span></div>
+</div>
+
+<div class="clear"></div>
+            </div>
+            <div class="f-left">
+                                <a target="_blank" href="http://www.facebook.com/sharer.php?src=sp&amp;u=http://freaksidea.com/php_and_somethings/show-59-magento-konfighuratsiia-ot-a-do-ia-bazovye-nastroiki-modulia&amp;t=Magento+%D0%BA%D0%BE%D0%BD%D1%84%D0%B8%D0%B3%D1%83%D1%80%D0%B0%D1%86%D0%B8%D1%8F+%D0%BE%D1%82+%D0%90+%D0%B4%D0%BE+%D0%AF%3A+%D0%B1%D0%B0%D0%B7%D0%BE%D0%B2%D1%8B%D0%B5+%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8+%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D1%8F&amp;description=&amp;picture=" class="fb" rel="nofollow"></a>
+                                <a target="_blank" href="http://twitter.com/intent/tweet?status=Magento+%D0%BA%D0%BE%D0%BD%D1%84%D0%B8%D0%B3%D1%83%D1%80%D0%B0%D1%86%D0%B8%D1%8F+%D0%BE%D1%82+%D0%90+%D0%B4%D0%BE+%D0%AF%3A+%D0%B1%D0%B0%D0%B7%D0%BE%D0%B2%D1%8B%D0%B5+%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8+%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D1%8F+http://freaksidea.com/php_and_somethings/show-59-magento-konfighuratsiia-ot-a-do-ia-bazovye-nastroiki-modulia" class="tw" rel="nofollow"></a>
+                                <a target="_blank" href="http://vkontakte.ru/share.php?url=http://freaksidea.com/php_and_somethings/show-59-magento-konfighuratsiia-ot-a-do-ia-bazovye-nastroiki-modulia&amp;title=Magento+%D0%BA%D0%BE%D0%BD%D1%84%D0%B8%D0%B3%D1%83%D1%80%D0%B0%D1%86%D0%B8%D1%8F+%D0%BE%D1%82+%D0%90+%D0%B4%D0%BE+%D0%AF%3A+%D0%B1%D0%B0%D0%B7%D0%BE%D0%B2%D1%8B%D0%B5+%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8+%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D1%8F&amp;description=&amp;image=" class="vk" rel="nofollow"></a>
+                            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+            <div class="similar">
+        <h3>Читайте также:</h3>
+        <ul>
+                                    <li><a href="http://freaksidea.com/php_and_somethings/show-24-internatsionalizatsiia-v-magento">Интернационализация в Magento</a><span class="date">[7 июля 2012 г.]</span></li>
+                                    <li><a href="http://freaksidea.com/php_and_somethings/show-64-upravlenie-prostranstvom-i-vremenem-magento-cron-esli-prosto">Управление пространством и временем. Magento Cron, если просто</a><span class="date">[12 марта 2012 г.]</span></li>
+                                    <li><a href="http://freaksidea.com/php_and_somethings/show-63-magento-modeli-ot-a-do-ia-sobytiia-i-rewrite-klassov">Magento модели от А до Я: события и rewrite классов</a><span class="date">[26 февраля 2012 г.]</span></li>
+                    </ul>
+    </div>
+    </div>
+      <div class="cmt-wrap dscr">
+        <div id="cmt-form" class="w-440">
+    <h3><a href="http://freaksidea.com/php_and_somethings/show-59-magento-konfighuratsiia-ot-a-do-ia-bazovye-nastroiki-modulia#">Добавить комментарий</a></h3>
+    <form action="http://freaksidea.com/php_and_somethings/show-59-magento-konfighuratsiia-ot-a-do-ia-bazovye-nastroiki-modulia/#cmt-form" method="post" name="comments">
+        <input type="hidden" name="force" value="comment">
+        <input type="hidden" name="comment[reply]" id="comment_reply"><input type="hidden" name="comment[record_id]" value="59" id="comment_record_id"><input type="hidden" name="comment[record_model]" value="CmsContent" id="comment_record_model"><input type="hidden" name="comment[user_name]" id="comment_user_name"><input type="hidden" name="comment[_csrf_token]" value="b13cd14ec4e4b2970ea230b4f0306c4b" id="comment__csrf_token">                <div class="bfield mfield f-left mr-10">
+                        <label for="comment_author_name">Ваше имя</label>            <input type="text" name="comment[author_name]" id="comment_author_name">        </div>
+        <div class="bfield mfield f-left">
+                        <label for="comment_author_email">Ваш e-mail</label>            <input type="text" name="comment[author_email]" id="comment_author_email">        </div>
+        <div class="clear"></div>
+                <div class="bfield mfield f-big" style="visibility: hidden; position: absolute;">
+            <label for="comment_site">Site</label><input type="text" name="comment[site]" id="comment_site"><script type="text/javascript">var e = document.getElementById("comment_site").parentNode;e.style.visibility = "hidden";e.style.position = "absolute";</script><div></div><label for="comment_lastname">Lastname</label><input type="text" name="comment[lastname]" id="comment_lastname"><script type="text/javascript">var e = document.getElementById("comment_lastname").parentNode;e.style.visibility = "hidden";e.style.position = "absolute";</script><div></div>        </div>
+        <div class="bfield mfield">
+            <textarea rows="4" cols="30" name="comment[body]" id="comment_body"></textarea>                    </div>
+        <div align="right">
+            <button class="button" type="submit">Опубликовать</button>
+        </div>
+    </form>
+</div>
+        <div id="comments">
+    <h3>Комментариев: 7</h3>
+                            <ul>
+                        <li id="comment-197">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./config.xml_описание_files/avatar.jpg">
+                        </span>
+                        <span class="name">ForceMan</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/php_and_somethings/show-59-magento-konfighuratsiia-ot-a-do-ia-bazovye-nastroiki-modulia#197" class="small-btn">Ответить</a>
+                        14 ноября 2011 г., 18:59                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            Большое спасибо за труды!                                    </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-198">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./config.xml_описание_files/avatar.jpg">
+                        </span>
+                        <span class="name">ForceMan</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/php_and_somethings/show-59-magento-konfighuratsiia-ot-a-do-ia-bazovye-nastroiki-modulia#198" class="small-btn">Ответить</a>
+                        14 ноября 2011 г., 19:00                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            Если можна предложить тему я бы предложил модели в магенто от А до Я )))                                    </div>
+                                                <ul>
+                    
+<li id="comment-200">
+    <div class="heading">
+        <div class="f-left">
+            <span class="image">
+                <img src="./config.xml_описание_files/avatar.jpg">
+            </span>
+            <span class="name">Сергей (Администратор)</span>
+        </div>
+        <div class="f-right actions">
+            <a href="http://freaksidea.com/php_and_somethings/show-59-magento-konfighuratsiia-ot-a-do-ia-bazovye-nastroiki-modulia#200" class="small-btn">Ответить</a>
+            14 ноября 2011 г., 20:46        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+                    Конечно можно! Возьму на заметку, но сначала будет еще одна статья о конфигурации             </div>
+            <ul>
+        
+    </ul>
+    </li>
+                </ul>
+                            </li>
+                        <li id="comment-271">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./config.xml_описание_files/avatar.jpg">
+                        </span>
+                        <span class="name">Dima</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/php_and_somethings/show-59-magento-konfighuratsiia-ot-a-do-ia-bazovye-nastroiki-modulia#271" class="small-btn">Ответить</a>
+                        29 ноября 2011 г., 23:08                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            Спасибо за статьи!<br>
+Очень интересны темы по Magento.                                    </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-534">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./config.xml_описание_files/avatar.jpg">
+                        </span>
+                        <span class="name">Виктор</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/php_and_somethings/show-59-magento-konfighuratsiia-ot-a-do-ia-bazovye-nastroiki-modulia#534" class="small-btn">Ответить</a>
+                        16 марта 2012 г., 1:49                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            Спасибо. Очень просто и наглядно.                                    </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-5259">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./config.xml_описание_files/avatar.jpg">
+                        </span>
+                        <span class="name">Ирина</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/php_and_somethings/show-59-magento-konfighuratsiia-ot-a-do-ia-bazovye-nastroiki-modulia#5259" class="small-btn">Ответить</a>
+                        16 февраля 2016 г., 16:58                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            <div class="msg-del">Плохие идеи удаляются</div>
+                                    </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-5260">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./config.xml_описание_files/avatar.jpg">
+                        </span>
+                        <span class="name">Ирина</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/php_and_somethings/show-59-magento-konfighuratsiia-ot-a-do-ia-bazovye-nastroiki-modulia#5260" class="small-btn">Ответить</a>
+                        16 февраля 2016 г., 16:58                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            <div class="msg-del">Плохие идеи удаляются</div>
+                                    </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                    </ul>
+    </div>
+    </div>
+                                      </div>
+            </div>
+            <div class="sidebar">
+                <div class="box" id="search">
+    <form action="http://freaksidea.com/search" name="search">
+        <div class="mfield">
+            <label for="s-i">Поиск идей</label>
+            <input type="text" name="form_prepare[txt]" id="s-i">
+        </div>
+    </form>
+</div>
+<div class="banner-block box">
+    <h3>0 Step Checkout</h3>
+    <div class="box-content" style="padding-left:10px">
+        <p>Хотите упростить процесс оформления заказа в Magento? <a href="https://www.magentocommerce.com/magento-connect/0-step-checkout.html" target="_blank">0 Step Checkout</a> поможет Вам решить эту проблему!</p>
+<div align="center">
+<a href="https://www.magentocommerce.com/magento-connect/0-step-checkout.html" target="_blank"><img src="./config.xml_описание_files/BOX-icon.jpg"></a>
+</div>    </div>
+</div>
+<div class="box">
+    <h3>Популярные посты</h3>
+    <div class="box-content">
+                    <h4><a href="http://freaksidea.com/javascript/show-75-best-practises-v-knockout-uproshchaem-vew"><span class="s-idea"></span><span class="txt">Best practisies в Knockout: упрощаем view</span></a></h4>
+                    <h4><a href="http://freaksidea.com/ruby/show-74-vvedenie-ruby-rack"><span class="s-idea"></span><span class="txt">Введение Ruby::Rack</span></a></h4>
+                    <h4><a href="http://freaksidea.com/php_and_somethings/show-24-internatsionalizatsiia-v-magento"><span class="s-idea"></span><span class="txt">Интернационализация в Magento</span></a></h4>
+                    <h4><a href="http://freaksidea.com/javascript/show-71-obrabotka-sobytii-i-rabota-s-poliami-form-v-knockout"><span class="s-idea"></span><span class="txt">Обработка событий и работа с полями форм в Knockout </span></a></h4>
+                    <h4><a href="http://freaksidea.com/javascript/show-69-baindinghi-v-knockout-upravlenie-vidimostiu-i-soderzhimym"><span class="s-idea"></span><span class="txt">Байндинги в KnockOut: управление видимостью и содержимым</span></a></h4>
+                    <h4><a href="http://freaksidea.com/javascript/show-66-knockout-nabliudaem-za-vsem-i-vezde"><span class="s-idea"></span><span class="txt">KnockOut - наблюдаем за всем и везде</span></a></h4>
+                    <h4><a href="http://freaksidea.com/javascript/show-65-vvedenie-v-knockout-novyi-vzghliad-na-postroenie-javascript-prilozhenii"><span class="s-idea"></span><span class="txt">Введение в KnockOut - новый взгляд на построение JavaScript приложений</span></a></h4>
+                    <h4><a href="http://freaksidea.com/php_and_somethings/show-64-upravlenie-prostranstvom-i-vremenem-magento-cron-esli-prosto"><span class="s-idea"></span><span class="txt">Управление пространством и временем. Magento Cron, если просто</span></a></h4>
+                    <h4><a href="http://freaksidea.com/php_and_somethings/show-63-magento-modeli-ot-a-do-ia-sobytiia-i-rewrite-klassov"><span class="s-idea"></span><span class="txt">Magento модели от А до Я: события и rewrite классов</span></a></h4>
+                    <h4><a href="http://freaksidea.com/php_and_somethings/show-62-magento-modeli-ot-a-do-ia-modeli-iadra"><span class="s-idea"></span><span class="txt">Magento модели от А до Я: модели ядра</span></a></h4>
+        </div>
+</div>
+<div class="box">
+   <h3>Теги</h3>
+   <div class="box-content">
+                    <a style="font-size: 90%" href="http://freaksidea.com/search/tag-72-cli">cli</a>&nbsp;
+                    <a style="font-size: 96%" href="http://freaksidea.com/search/tag-53-input">input</a>&nbsp;
+                    <a style="font-size: 108%" href="http://freaksidea.com/search/tag-79-modeli">модели</a>&nbsp;
+                    <a style="font-size: 96%" href="http://freaksidea.com/search/tag-52-faily">файлы</a>&nbsp;
+                    <a style="font-size: 90%" href="http://freaksidea.com/search/tag-30-podsvetka-sintaksisa">подсветка синтаксиса</a>&nbsp;
+                    <a style="font-size: 96%" href="http://freaksidea.com/search/tag-63-symfony">symfony</a>&nbsp;
+                    <a style="font-size: 108%" href="http://freaksidea.com/search/tag-35-modul">модуль</a>&nbsp;
+                    <a style="font-size: 96%" href="http://freaksidea.com/search/tag-48-novinki">новинки</a>&nbsp;
+                    <a style="font-size: 139%" href="http://freaksidea.com/search/tag-82-knockout">knockout</a>&nbsp;
+                    <a style="font-size: 176%" href="http://freaksidea.com/search/tag-44-linux">linux</a>&nbsp;
+                    <a style="font-size: 108%" href="http://freaksidea.com/search/tag-85-observables">observables</a>&nbsp;
+                    <a style="font-size: 96%" href="http://freaksidea.com/search/tag-41-xml">XML</a>&nbsp;
+                    <a style="font-size: 96%" href="http://freaksidea.com/search/tag-45-novichok">новичок</a>&nbsp;
+                    <a style="font-size: 102%" href="http://freaksidea.com/search/tag-26-failovyi-menedzher">файловый менеджер</a>&nbsp;
+                    <a style="font-size: 102%" href="http://freaksidea.com/search/tag-87-bind">bind</a>&nbsp;
+                    <a style="font-size: 90%" href="http://freaksidea.com/search/tag-40-multiple-insert">multiple insert</a>&nbsp;
+                    <a style="font-size: 96%" href="http://freaksidea.com/search/tag-64-i18n">I18n</a>&nbsp;
+                    <a style="font-size: 200%" href="http://freaksidea.com/search/tag-33-magento">magento</a>&nbsp;
+                    <a style="font-size: 121%" href="http://freaksidea.com/search/tag-81-javascript">javascript</a>&nbsp;
+                    <a style="font-size: 96%" href="http://freaksidea.com/search/tag-62-import">import</a>&nbsp;
+                    <a style="font-size: 114%" href="http://freaksidea.com/search/tag-27-ajax">ajax</a>&nbsp;
+                    <a style="font-size: 102%" href="http://freaksidea.com/search/tag-57-upravlenie">управление</a>&nbsp;
+                    <a style="font-size: 90%" href="http://freaksidea.com/search/tag-51-manipuliatsiia">манипуляция</a>&nbsp;
+                    <a style="font-size: 96%" href="http://freaksidea.com/search/tag-54-output">output</a>&nbsp;
+                    <a style="font-size: 96%" href="http://freaksidea.com/search/tag-36-backend">backend</a>&nbsp;
+                    <a style="font-size: 96%" href="http://freaksidea.com/search/tag-39-doctrine">Doctrine</a>&nbsp;
+                    <a style="font-size: 139%" href="http://freaksidea.com/search/tag-59-bash">Bash</a>&nbsp;
+                    <a style="font-size: 102%" href="http://freaksidea.com/search/tag-67-konfighuratsiia">конфигурация</a>&nbsp;
+                    <a style="font-size: 96%" href="http://freaksidea.com/search/tag-65-poisk">поиск</a>&nbsp;
+                    <a style="font-size: 102%" href="http://freaksidea.com/search/tag-84-mvvm">MVVM</a>&nbsp;
+            </div>
+</div>
+<div class="banne-block box banner-fixed" style="position: fixed; top: 5px;">
+    <h3>Реклама</h3>
+    <div class="box-content" style="padding-left:10px">
+        <script type="text/javascript"><!--
+google_ad_client = "ca-pub-5129274777209544";
+/* Баннер справа */
+google_ad_slot = "8551486343";
+google_ad_width = 300;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript" src="./config.xml_описание_files/show_ads.js"></script><ins id="aswift_0_expand" style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><iframe width="300" height="250" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;"></iframe></ins></ins>    </div>
+</div>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div id="footer">
+    <span class="txt">© 2011-2015 Sergiy Stotskiy</span>
+    <div class="counters"><div class="banner-block" id="sj_banner_place_5">
+                        <!-- I.UA counter --><a href="http://www.i.ua/" target="_blank" onclick="this.href=&#39;http://i.ua/r.php?105188&#39;;" title="Rated by I.UA">
+<script type="text/javascript" language="javascript"><!--
+iS='<img src="http://r.i.ua/s?u105188&p62&n'+Math.random();
+iD=document;if(!iD.cookie)iD.cookie="b=b; path=/";if(iD.cookie)iS+='&c1';
+iS+='&d'+(screen.colorDepth?screen.colorDepth:screen.pixelDepth)
++"&w"+screen.width+'&h'+screen.height;
+iT=iD.referrer.slice(7);iH=window.location.href.slice(7);
+((iI=iT.indexOf('/'))!=-1)?(iT=iT.substring(0,iI)):(iI=iT.length);
+if(iT!=iH.substring(0,iI))iS+='&f'+escape(iD.referrer.slice(7));
+iS+='&r'+escape(iH);
+iD.write(iS+'" border="0" width="88" height="31" />');
+//--></script><img src="./config.xml_описание_files/s" border="0" width="88" height="31"></a><!-- End of I.UA counter -->            </div>
+</div>
+</div><!-- #footer -->
+    <script type="text/javascript" src="./config.xml_описание_files/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="./config.xml_описание_files/front.js"></script>
+
+<iframe name="oauth2relay249302972" id="oauth2relay249302972" src="./config.xml_описание_files/postmessageRelay.html" tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe></body></html>

@@ -1,0 +1,137 @@
+передадим параметр graph_id из адресной строки в преставление и далее в шаблон:
+
+window.APP = window.APP || {};
+
+APP.NavigationRouter = Backbone.Router.extend({
+  routes: {
+    "": "index",  
+    "index": "index", 
+    "graph/:graph_id": "graph"
+  },
+
+  initialize: function() { 
+    Backbone.history.start();  
+ 
+  },  
+
+  index: function () {     
+    var indexView = new APP.IndexView();
+
+    if (indexView) {  
+      indexView.render();
+    }    
+  },
+
+
+  graph: function (graph_id) {  console.log('gr');
+    var graphView = new APP.GraphView();
+
+    if (graphView) {  
+      graphView.render(graph_id);
+    }
+  }           
+        
+});
+
+
+==================
+параметр передаётся напрямую в рендер:
+
+APP.GraphView = Backbone.View.extend({
+
+  el: $('#contentContainer'), 
+
+  template: _.template($('#graphTemplate').html()), 
+
+  render: function (graph_id) {   
+    $(this.el).html(this.template({graph_id: graph_id}));
+    return this;
+  }
+
+});
+
+
+
+==================
+и далее в темплейт:
+<script type="text/template" id="graphTemplate">
+  <div class="graph">
+    graph: <%= graph_id %>
+  </div>
+</script>
+
+
+==================
+==================
+второй способ. передаём не в рендер, а в конструктор:
+
+window.APP = window.APP || {};
+
+APP.NavigationRouter = Backbone.Router.extend({
+  routes: {
+    "": "index",  
+    "index": "index", 
+    "graph/:graph_id": "graph"
+  },
+
+  initialize: function() { 
+    Backbone.history.start();  
+ 
+  },  
+
+  index: function () {     
+    var indexView = new APP.IndexView();
+
+    if (indexView) {  
+      indexView.render();
+    }    
+  },
+
+
+  graph: function (graph_id) {  console.log('gr');
+    var graphView = new APP.GraphView();
+
+    if (graphView) {  
+      graphView.render(graph_id);
+    }
+  }           
+        
+});
+
+
+
+==================
+принимаем в блоке инициализации как options:
+
+APP.GraphView = Backbone.View.extend({
+
+  initialize: function(options) {
+   this.graph_id = options.graph_id
+  },    
+
+  el: $('#contentContainer'), 
+
+  template: _.template($('#graphTemplate').html()), 
+
+  render: function (graph_id) {   
+    $(this.el).html(this.template({graph_id: this.graph_id}));
+    return this;
+  }
+
+});
+
+
+==================
+выводим в шаблоне:
+<script type="text/template" id="graphTemplate">
+  <div class="graph">
+    graph: <%= graph_id %>
+  </div>
+</script>
+
+==================
+==================
+==================
+==================
+==================
+==================

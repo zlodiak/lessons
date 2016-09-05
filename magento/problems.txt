@@ -1,0 +1,144 @@
+при установке требовался какой-то модуль для php:
+
+Hope your system is ubuntu as you added the tag.
+
+On Ubuntu when you run sudo apt-get install php5-mcrypt it doesn't actually install the extension into the mods-available. You'll need to symlink it.
+
+sudo ln -s /etc/php5/conf.d/mcrypt.ini /etc/php5/mods-available/mcrypt.ini
+Then enable the extension and restart Apache.
+
+sudo php5enmod mcrypt
+sudo service apache2 reload
+
+
+
+http://stackoverflow.com/questions/26116530/php-extension-mcrypt-must-be-loaded
+
+=======================
+при установке на локальный сервер магента отказывается принимать локальный адрес(она хочет чтобы установка производилась  сразу на сервер)
+
+2 решения:
+
+1:
+Inspect "Base URL" input in firebug
+Remove "validate-url" from the list of classes
+Click "continue"
+
+
+2:
+While installing Magento in the local server, in the configuration section, you may be asked to enter the base url. But the installation wizard will not accept the local server url. It is because
+
+Magento won’t consider the local server url as a valid url.
+
+For this you need to remove the validation for the particular section.
+
+Open \app\design\install\default\default\template\install\config.phtml
+
+Find the textbox where the base url is entered. It will be around line no 85 with name ‘config[unsecure_base_url]‘ Remove ‘validate-url’ from its class and save the file.
+
+OR
+
+Use Ip of your localhost,
+
+http://127.0.0.1/magento/
+
+=======================
+There has been an error processing your request
+
+Если в результате открытия страницы магазина Magento вы видите такое сообщение - это значит, что в программном коде Magento произошла ошибка, непредусмотренная программистами.
+
+Кто виноват:
+неправильная настройка хостинга для Magento
+неправильная настройка основных параметров Magento: например, параметров подключения к базе данных с товарами
+неправильный перенос магазина Magento на хостинг
+внесение неверных правок в стандартный программный код Magento
+
+
+
+Что делать:
+При возникновении подобных ошибок Magento создаёт подробный диагностический отчёт и записывает его в отдельный файл в папку var/reports
+Номер отчёта Magento показывает на экране.
+Например: 
+Error log record number: 1124469878
+
+
+Как настроить Magento на вывод дианостических сообщений на экран:
+Если вы - разработчик, заглядывать постоянно в папку var/reports не очень удобно.
+Вы можете настроить Magento на вывод диагностических сообщений на экран:
+
+1. Откойте файл index.php в корне сайта
+
+2. Найдите там код:
+if (isset($_SERVER['MAGE_IS_DEVELOPER_MODE'])) {
+    Mage::setIsDeveloperMode(true);
+}
+
+#ini_set('display_errors', 1);
+
+
+3. Замените его на:
+#if (isset($_SERVER['MAGE_IS_DEVELOPER_MODE'])) {
+    Mage::setIsDeveloperMode(true);
+#}
+
+ini_set('display_errors', 1);
+
+
+
+Еще найдите в корне Magento файл .htaccess и допишите туда (можно прямо сверху):
+
+php_flag display_errors on
+php_value error_reporting 7
+
+
+errors/local.xml.samle rename to errors/local.xml
+
+
+=======================
+если не создаётся таблица для модуля, то нужно удалить запись о текущей версии модуля в таблице  core_resources, сбросить кеш и обновить страничку. или перелогиниться
+
+=======================
+чтобы пересозать таблицу для модуля нужно в конфиге xml изменить цифру версии и перелогиниться. кеш тоже
+
+=======================
+Если при загрузке сайта вы видите сообщение Warning: simplexml_load_string() 
+
+это значит, что у вашего сайта повредждён один из файлов XML.
+Скорей всего, это один из файлов layout, и чтобы узнать, какой именно, откройте класс Mage_Core_Model_Layout_Update, найдите там функцию getFileLayoutUpdatesXml, там найдите строку:
+
+$fileXml = simplexml_load_string($fileStr, $elementClass);
+
+
+замените эту строку временно на
+
+libxml_use_internal_errors(true);
+$fileXml = simplexml_load_string($fileStr, $elementClass);
+if (!$fileXml) {
+        Mage::log ("Failed loading XML");
+        Mage::log ($filename);
+        foreach(libxml_get_errors() as $error) {
+                Mage::log ($error->message);
+        }
+        Mage::log ($fileStr);
+}
+
+
+
+Откройте ещё раз сайт в браузере, а потом посмотрите, что сайт записал в журнал ошибок. 
+
+
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================

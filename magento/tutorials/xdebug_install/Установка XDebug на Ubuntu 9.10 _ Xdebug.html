@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0028)http://www.xdebug.ru/node/31 -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru" class="js"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>Установка XDebug на Ubuntu 9.10 | Xdebug </title>
+    
+<link rel="shortcut icon" href="http://www.xdebug.ru/sites/all/themes/tech/favicon.ico" type="image/x-icon">
+    <style type="text/css" media="all">@import "/css/eab0fb99f37cb63c6b3df333a41a1b22.css";</style>
+    <script src="./Установка XDebug на Ubuntu 9.10 _ Xdebug_files/ca-pub-6633274161700545.js"></script><script type="text/javascript" src="./Установка XDebug на Ubuntu 9.10 _ Xdebug_files/jquery.js"></script>
+<script type="text/javascript" src="./Установка XDebug на Ubuntu 9.10 _ Xdebug_files/drupal.js"></script>
+<script type="text/javascript">Drupal.extend({ settings: { "googleanalytics": { "trackOutgoing": 1, "trackMailto": 1, "trackDownload": 1, "trackDownloadExtensions": "7z|aac|avi|csv|doc|exe|flv|gif|gz|jpe?g|js|mp(3|4|e?g)|mov|pdf|phps|png|ppt|rar|sit|tar|torrent|txt|wma|wmv|xls|xml|zip", "LegacyVersion": 0 } } });</script>
+</head>
+<body cz-shortcut-listen="true">
+<div id="container">
+	<div id="header">
+		<a href="http://www.xdebug.ru/"><img src="./Установка XDebug на Ubuntu 9.10 _ Xdebug_files/logo.png" alt="" id="logo"></a>	
+		<h2><a href="http://www.xdebug.ru/">Xdebug </a> </h2>
+		<div id="meta-nav">
+			<ul>
+						</ul>
+		</div>
+		<ul id="nav">
+						<li class="page_item"><a href="http://www.xdebug.ru/">Главная</a></li><li class="page_item"><a href="http://xdebug.ru/forum">Форум</a></li><li class="page_item"><a href="http://www.xdebug.ru/updates">Обновления</a></li><li class="page_item"><a href="http://www.xdebug.ru/articles">Статьи</a></li><li class="page_item"><a href="http://www.xdebug.ru/download">Скачать Xdebug</a></li><li class="page_item"><a href="http://www.xdebug.ru/contact">Контакты</a></li>		</ul>
+		<hr>
+		<div id="search">
+            			
+		</div> 
+	</div>
+	<div id="content-wrap">
+		<div id="content">
+						<div class="breadcrumb"><a href="http://www.xdebug.ru/">Главная</a></div>						<h1>Установка XDebug на Ubuntu 9.10</h1>
+									
+			<div id="block-block">
+
+
+  <div id="subnav-wrap"><script async="" src="./Установка XDebug на Ubuntu 9.10 _ Xdebug_files/adsbygoogle.js"></script>
+<!-- xdebug top -->
+<ins class="adsbygoogle" style="display:inline-block;width:468px;height:60px" data-ad-client="ca-pub-6633274161700545" data-ad-slot="7717044959" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:60px;margin:0;padding:0;position:relative;visibility:visible;width:468px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:60px;margin:0;padding:0;position:relative;visibility:visible;width:468px;background-color:transparent"><iframe width="468" height="60" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+</div>					
+									
+									<div id="node-31" class="node">
+
+
+
+    
+    <div class="clear-block clear">
+    <div class="meta">
+        </div>
+
+  <div class="content">
+    <!-- google_ad_section_start --><h1>Введение</h1>
+<p>Расширение XDebug помогает отлаживать скрипты PHP, предоставляя дополнительную, и, часто очень ценную информацию:</p>
+<p>* stack trace’ы и trace’ы функций в сообщениях об ошибках (включает в себя):<br>
+o полное отображение параметров выбранных пользователем функций<br>
+o имя функции, имя файла и номера строк<br>
+o поддержка членов функций</p>
+<p>* информация о выделении памяти<br>
+* защита от бесконечных рекурсий</p>
+<h1>Xdebug так же позволяет производить:</h1>
+<p>* профилирование PHP скриптов<br>
+* анализ кода<br>
+* интерактивную отладку скриптов при помощи debug client</p>
+<h1>Установка XDebug</h1>
+<p>    sudo apt-get install php5-dev php-pear</p>
+<p>    sudo pecl install xdebug</p>
+<p>Далее, ищем, куда установился XDebug:</p>
+<p>    find / -name ‘xdebug.so’ 2&gt; /dev/null</p>
+<p>Затем редактируем php.ini:</p>
+<p>    sudo gedit /etc/php5/apache2/php.ini</p>
+<p>а именно – добавляем в него строчку:</p>
+<p>    zend_extension=”/usr/lib/php5/20060613/xdebug.so”</p>
+<p>(не забываем использовать путь, который нам выдал поиск)</p>
+<p>Ну и, по-традиции, перезагружаем Apache:</p>
+<p>    sudo /etc/init.d/apache2 restart</p>
+<p>Все. Готово :) </p>
+<p>Источник: <a href="http://v-ubuntu.ru/">Блог v-ubuntu.ru</a></p>
+<!-- google_ad_section_end -->  </div>
+
+    	
+		
+  </div>	
+</div><div id="block-block">
+
+
+  <div id="subnav-wrap"><script async="" src="./Установка XDebug на Ubuntu 9.10 _ Xdebug_files/adsbygoogle.js"></script>
+<!-- xdebug подвал -->
+<ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-6633274161700545" data-ad-slot="6240311750" data-adsbygoogle-status="done"><ins id="aswift_1_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><ins id="aswift_1_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><iframe width="728" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+</div>			
+		</div>	
+		<div id="sidebar">
+						<div id="block-block">
+
+  <h3 id="subnav">Информация</h3>
+
+  <div id="subnav-wrap"><p>Это неофициальный ресурс. Если вы нашли на сайте ошибку или у вас есть интересная статья о Xdebug, пожалуйста, сообщите в разделе контакты.</p>
+</div>
+</div>								</div>
+	</div>
+</div>
+    <hr>
+    <div id="footer-outer">
+		<div id="footer">
+			
+<div id="block-block">
+
+
+  <div id="subnav-wrap"><p>Xdebug - незаменимый инструмент PHP программиста. Этот отладчик позволяет получить подробную информацию о работе PHP скрипта, а так же профайлинг и трасировка скриптов все это значительно облегчают работу разработчика. Xdebug создан by Derick Rethans.</p>
+</div>
+</div>			<p class="copy"><a href="http://www.websky.com.ua/">tech</a></p>
+        </div>
+	</div>
+	<script type="text/javascript" src="./Установка XDebug на Ubuntu 9.10 _ Xdebug_files/googleanalytics.js"></script>
+<script type="text/javascript">var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));</script><script src="./Установка XDebug на Ubuntu 9.10 _ Xdebug_files/ga.js" type="text/javascript"></script>
+<script type="text/javascript">var pageTracker = _gat._getTracker("UA-3269925-3");pageTracker._trackPageview();</script>
+<script type="text/javascript" language="JavaScript" src="./Установка XDebug на Ubuntu 9.10 _ Xdebug_files/tab.js"></script><style type="text/css">.tdsfh{background: url('http://widget.reformal.ru/tmpl/images/feedback_tab.png');}* html .tdsfh{background-image: none; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://widget.reformal.ru/tmpl/images/feedback_tab.png');}.widsnjx {margin:0 auto; position:relative;}.widsnjx fieldset {padding:0; border:none; border:0px solid #000; margin:0;}.furjbqy {position:fixed; left:0; top:263px; z-index:5; width:22px; height:151px;}* html .furjbqy {position:absolute;}.furjbqy a {display:block; width:22px; height:151px; background:#0066ff;}.furjbqy a:hover {background:#0066ff;}.furjbqy img {border:0;}.furrghtd {position:fixed; right:1px; top:263px; z-index:5; width:22px; height:151px;}* html .furrghtd {position:absolute;}.furrghtd a {display:block; width:22px; height:151px; background:#0066ff;}.furrghtd a:hover {background:#0066ff;}.furrghtd img {border:0;}#poxupih {position:absolute; z-index:1001; width:689px;  top:0px; left:0px; font-size:11px; color:#3F4543; font-family: "Segoe UI", Arial, Tahoma, sans-serif;}.poxupih_top {width:689px; height:28px; background:transparent url(http://widget.reformal.ru/tmpl/images/popup_idea_top.png) 0 0 no-repeat;}.poxupih_bt {width:689px; height:28px; background:transparent url(http://widget.reformal.ru/tmpl/images/popup_idea_bt.png) 0 0 no-repeat;}.poxupih_center {width:689px; background:transparent url(http://widget.reformal.ru/tmpl/images/popup_idea_bg.png) 0 0 repeat-y;}.poxupih1 {margin: 0 20px; overflow:hidden; background:#efefef; padding:0px;}.fdsrrel {float:right; margin:-2px 5px 0 0;}.bvnmrte {padding: 15px 20px 20px 12px; _padding-left:1px; font-family: "Segoe UI", Arial, Tahoma, sans-serif; font-size:11px; color:#3F4543; }.poxupih1 .bvnmrte {padding-bottom:10px; padding-top:0px; background:none;}.gertuik {padding:0 8px 0 20px;}#poxupih #hretge {margin:8px 0px; height:96px; background: #fba11f url(http://widget.reformal.ru/tmpl/images/search_bg.gif) 0 0px no-repeat; position:relative;}#hretge form {padding: 10px 19px 0 18px; display:block !important;}#poxupih #bulbulh {width:462px; float:left;}#adihet {float:right;background: transparent url(http://widget.reformal.ru/tmpl/images/add_idea_go.gif) 0 0px no-repeat; border:none medium; width:132px; height:27px; float:right; margin-right:-3px; cursor:pointer;}#adihet:hover {background-position: 0 -27px;}.drop_right {background: transparent url(http://widget.reformal.ru/tmpl/images/q_right1.gif) 0% 0px no-repeat; float:right; display:block; width:8px; height:11px; margin-top:1px; font-size:0;}.drop_left {background: transparent url(http://widget.reformal.ru/tmpl/images/q_left1.gif) 0% 0px no-repeat; float:right; display:block; width:8px; height:11px; margin-top:1px;}.status_right {left:15px !important;  text-align:left; float:right; margin:0 -15px 0 0;}#poxupih  a {position:relative; z-index:10;}#poxupih .idea_green_top {height:1%;}.poxupih_top {_background-image:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://widget.reformal.ru/tmpl/images/popup_idea_top.png');}.poxupih_bt {_background-image:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://widget.reformal.ru/tmpl/images/popup_idea_bt.png');}.poxupih_center {_background-image:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://widget.reformal.ru/tmpl/images/popup_idea_bg.png',sizingmethod='scale');}a.pokusijy {display:block; width:16px; height:16px; background: transparent url(http://widget.reformal.ru/tmpl/images/cancel.gif) 100% 0px no-repeat; float:right; position:relative; z-index:101;}a.pokusijy:hover {background-position: 100% 100%; cursor:pointer;}.i_prop {font-size:18px; color:#fff; padding: 0 0 5px 0;}#bulbulh {width:600px; padding: 2px 4px; color:#3F4543; font-family: "Segoe UI", Arial; font-size:16px; margin-bottom:5px;}#hdsfjfsr {background: transparent url(http://widget.reformal.ru/tmpl/images/search_go.gif) 0 0px no-repeat; border:none medium; width:97px; height:27px; float:right; margin-right:-3px; cursor:pointer;}#hdsfjfsr:hover {background-position: 0 -27px;}#poxupih .fdsrrel a {z-index:0;}</style><div class="furrghtd"><a href="javascript:MyOtziv.mo_show_box();" id="reformal_tab"><img src="./Установка XDebug на Ubuntu 9.10 _ Xdebug_files/transp.gif" width="22" height="151" alt="" style="border: 0;" class="tdsfh"></a></div><div style="position:absolute; display: none; top: 0px; left: 0px;" id="myotziv_box"><div class="widsnjx"><div id="poxupih"><div class="poxupih_top"></div><div class="poxupih_center"><div class="poxupih1"><div class="gertuik"><a class="pokusijy" title="закрыть" onclick="MyOtziv.mo_hide_box();"></a><div class="fdsrrel"><a href="http://reformal.ru/" id="reformal_logo" target="_blank"><img src="./Установка XDebug на Ubuntu 9.10 _ Xdebug_files/widget_logo.jpg" width="109" height="23" alt="" border="0"></a></div>Xdebug php отладчик</div><div id="hretge"><form target="_blank" action="http://xdebug.reformal.ru/proj/" method="get"><input type="hidden" name="charset" value="utf-8"><fieldset><div class="i_prop">Я предлагаю вам...</div><input id="bulbulh" name="idea" type="text"><input type="submit" value="" id="adihet"></fieldset></form></div><div class="bvnmrte" style="height: 250px;" id="fthere"></div></div></div><div class="poxupih_bt"></div></div></div></div>
+</body></html>

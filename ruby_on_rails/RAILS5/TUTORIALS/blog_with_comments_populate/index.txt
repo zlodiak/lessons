@@ -1,0 +1,101 @@
+создадим блог с комментриями для каждого поста
+
+=======================
+models blog_articla.rb:
+class BlogArticle < ApplicationRecord
+  has_many    :blog_comments, dependent: :destroy
+end
+
+
+model blog_comment.rb:
+class BlogComment < ApplicationRecord
+  belongs_to  :blog_article
+end
+
+
+
+=======================
+blog_articles_controller:
+
+class BlogArticlesController < ApplicationController
+  before_action :set_blog_article, only: [:show]
+
+  def index
+    @blog_articles = BlogArticle.all
+  end
+
+  def show
+    @comments = @blog_article.blog_comments
+  end
+
+...
+...
+....  
+  private
+    def set_blog_article
+      @blog_article = BlogArticle.find(params[:id])
+    end
+
+    def blog_article_params
+      params.require(:blog_article).permit(:title, :intro, :content)
+    end
+end
+
+=======================
+ActiveRecord::Schema.define(version: 20160807174141) do
+
+  create_table "blog_articles", force: :cascade do |t|
+    t.string   "title"
+    t.string   "intro"
+    t.text     "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "blog_comments", force: :cascade do |t|
+    t.string   "name"
+    t.text     "comment"
+    t.integer  "blog_article_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+end
+
+
+=======================
+seeds.rb:
+[BlogArticle].each(&:delete_all)
+
+BlogArticle.populate 34 do |article|
+  article.title =   Faker::Name.title
+  article.intro =   Faker::Lorem.paragraph(3)
+  article.content = Faker::Lorem.paragraph(12)
+
+  BlogComment.populate 2..5 do |comment|
+    comment.blog_article_id = article.id
+    comment.name =            Faker::Name.name
+    comment.comment =         Faker::Lorem.paragraph(5)
+  end
+end
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================

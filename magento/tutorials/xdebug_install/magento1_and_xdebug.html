@@ -1,0 +1,1316 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0034)http://magento-forum.ru/topic/909/ -->
+<html xml:lang="ru" lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<title>Глава 12. Отладка и тестирование модулей - Российская сборка Magento</title>
+
+		
+	
+	<meta name="description" content="">
+	
+
+
+
+		<link rel="shortcut icon" href="http://magento-forum.ru/favicon.ico">
+		<script type="text/javascript" async="" src="./magento1_and_xdebug_files/ga.js"></script><script type="text/javascript">
+			jsDebug = 0; /* Must come before JS includes */
+			USE_RTE = 0;
+			inACP   = false;
+		</script>
+		
+	
+				
+			<link rel="stylesheet" type="text/css" href="./magento1_and_xdebug_files/ipb_mlist_addon.css">
+		
+	
+
+				
+			<link rel="stylesheet" type="text/css" title="Main" media="screen" href="./magento1_and_xdebug_files/calendar_select.css">
+		
+	
+
+				
+			<link rel="stylesheet" type="text/css" title="Main" media="screen" href="./magento1_and_xdebug_files/ipb_editor.css">
+		
+	
+
+				
+			<link rel="stylesheet" type="text/css" title="Main" media="screen" href="./magento1_and_xdebug_files/ipb_styles.css">
+		
+	
+
+				
+			<link rel="stylesheet" type="text/css" title="Main" media="screen" href="./magento1_and_xdebug_files/ipb_common.css">
+		
+	
+
+				
+			<link rel="stylesheet" type="text/css" media="print" href="./magento1_and_xdebug_files/ipb_print.css">
+		
+	
+
+				
+			<link rel="stylesheet" type="text/css" href="./magento1_and_xdebug_files/prettify.css">
+		
+	
+	
+
+<!--[if lte IE 7]>
+	<link rel="stylesheet" type="text/css" title='Main' media="screen" href="http://magento-forum.ru/public/style_css/css_4/ipb_ie.css" />
+<![endif]-->
+		<!--<meta http-equiv="X-UA-Compatible" content="IE=7" />-->
+
+		
+		<script type="text/javascript" src="./magento1_and_xdebug_files/prototype.js"></script>
+	
+	<script type="text/javascript" src="./magento1_and_xdebug_files/ipb.js"></script>
+	
+		<script type="text/javascript" src="./magento1_and_xdebug_files/scriptaculous-cache.js"></script>
+	
+	<script type="text/javascript" src="./magento1_and_xdebug_files/ipb.lang.js" charset="UTF-8"></script><script type="text/javascript" src="./magento1_and_xdebug_files/ritsu_hide_text.js" charset="UTF-8"></script>
+	
+		
+			
+			
+			
+			
+				<link rel="canonical" href="http://magento-forum.ru/topic/909/">
+			
+		
+
+			
+			
+			
+			
+				<link rel="up" href="http://magento-forum.ru/forum/103/">
+			
+		
+
+			
+			
+			
+			
+				<link rel="author" href="http://magento-forum.ru/user/319/">
+			
+		
+	
+
+	
+
+<script type="text/javascript">
+	var isRTL	= false;
+	var rtlIe	= '';
+	var rtlFull	= '';
+</script>
+
+<script type="text/javascript">
+	//<![CDATA[
+		/* ---- URLs ---- */
+		ipb.vars['base_url'] 			= 'http://magento-forum.ru/index.php?s=83f9423c83dd0dd9d4443ce4a0cb9eb3&';
+		ipb.vars['board_url']			= 'http://magento-forum.ru';
+		ipb.vars['loading_img'] 		= 'http://magento-forum.ru/public/style_images/light/loading.gif';
+		ipb.vars['active_app']			= 'forums';
+		ipb.vars['upload_url']			= 'http://magento-forum.ru/uploads';
+		/* ---- Member ---- */
+		ipb.vars['member_id']			= parseInt( 0 );
+		ipb.vars['is_supmod']			= parseInt( 0 );
+		ipb.vars['is_admin']			= parseInt( 0 );
+		ipb.vars['secure_hash'] 		= '880ea6a14ea49e853634fbdc5015a024';
+		ipb.vars['session_id']			= '83f9423c83dd0dd9d4443ce4a0cb9eb3';
+		ipb.vars['can_befriend']		= false;
+		ipb.vars['twitter_id']			= 0;
+		ipb.vars['fb_uid']				= 0;
+		/* ---- cookies ----- */
+		ipb.vars['cookie_id'] 			= '';
+		ipb.vars['cookie_domain'] 		= '';
+		ipb.vars['cookie_path']			= '/';
+		/* ---- Rate imgs ---- */
+		ipb.vars['rate_img_on']			= 'http://magento-forum.ru/public/style_images/light/bullet_star.png';
+		ipb.vars['rate_img_off']		= 'http://magento-forum.ru/public/style_images/light/bullet_star_off.png';
+		ipb.vars['rate_img_rated']		= 'http://magento-forum.ru/public/style_images/light/bullet_star_rated.png';
+		/* ---- Uploads ---- */
+		ipb.vars['swfupload_swf']		= 'http://magento-forum.ru/public/js/3rd_party/swfupload/swfupload.swf';
+		ipb.vars['swfupload_enabled']	= true;
+		ipb.vars['use_swf_upload']		= ( '' == 'flash' ) ? true : false;
+		ipb.vars['swfupload_debug']		= false; /* SKINNOTE: Turn off for production */
+		/* ---- other ---- */
+		ipb.vars['live_search_limit'] 	= 4;
+		ipb.vars['highlight_color']		= "#ade57a";
+		ipb.vars['charset']				= "UTF-8";
+		ipb.vars['use_rte']				= 1;
+		ipb.vars['image_resize']		= 0;
+		ipb.vars['image_resize_force']  = 0;
+		ipb.vars['seo_enabled']			= 1;
+		
+		ipb.vars['seo_params']			= {"start":"\/","end":"\/","varBlock":"\/page__","varSep":"__"};
+		
+		/* Templates/Language */
+		ipb.templates['ajax_loading'] 	= "<div id='ajax_loading'>" + ipb.lang['loading'] + "</div>";
+		ipb.templates['close_popup']	= "<img src='http://magento-forum.ru/public/style_images/light/close_popup.png' alt='x' />";
+		ipb.templates['rss_shell']		= new Template("<ul id='rss_menu'>#{items}</ul>");
+		ipb.templates['rss_item']		= new Template("<li><a href='#{url}' title='#{title}'>#{title}</a></li>");
+		ipb.templates['resized_img']	= new Template("<span>Уменьшено на #{percent}% (#{width} x #{height}) - Нажмите для увеличения</span>");
+		ipb.templates['m_add_friend']	= new Template("<a href='http://magento-forum.ru/index.php?app=members&amp;module=profile&amp;section=friends&amp;do=add&amp;member_id=#{id}' title='Добавить в друзья'><img src='http://magento-forum.ru/public/style_images/light/user_add.png' alt='Добавить в друзья' /></a>");
+		ipb.templates['m_rem_friend']	= new Template("<a href='http://magento-forum.ru/index.php?app=members&amp;module=profile&amp;section=friends&amp;do=remove&amp;member_id=#{id}' title='Удалить из друзей'><img src='http://magento-forum.ru/public/style_images/light/user_delete.png' alt='Удалить из друзей' /></a>");
+		ipb.templates['autocomplete_wrap'] = new Template("<ul id='#{id}' class='ipb_autocomplete' style='width: 250px;'></ul>");
+		ipb.templates['autocomplete_item'] = new Template("<li id='#{id}'><img src='#{img}' alt='' width='#{img_w}' height='#{img_h}' />&nbsp;&nbsp;#{itemvalue}</li>");
+		ipb.templates['page_jump']		= new Template("<div id='#{id}_wrap' class='ipbmenu_content'><h3 class='bar'>Перейти к странице</h3><input type='text' class='input_text' id='#{id}_input' size='8' /> <input type='submit' value='ОК' class='input_submit add_folder' id='#{id}_submit' /></div>");
+	//]]>
+	</script>
+		<script type="text/javascript">
+			Loader.boot();
+		</script><script type="text/javascript" src="./magento1_and_xdebug_files/ips.quickpm.js"></script><script type="text/javascript" src="./magento1_and_xdebug_files/ips.sharelinks.js"></script><script type="text/javascript" src="./magento1_and_xdebug_files/ips.editor.js"></script><script type="text/javascript" src="./magento1_and_xdebug_files/ips.topic.js"></script>
+	<script type="text/javascript" src="./magento1_and_xdebug_files/xdmHelper.js"></script><style type="text/css">.yandexform{display:none}</style><style type="text/css">.yaform,.yaform .yaform__form,.yaform .yaform__input,.yaform .yaform__input-text,.yaform .yaform__submit,.yaform .yaform__search-precise{font-size:12px!important;color:#000!important}.yaform .yaform__form{display:block}.yaform,.yaform .yaform__form,.yaform .yaform__input,.yaform .yaform__search-precise,.yaform .yaform__search-precise__radio,.yaform .yaform__gap,.yaform .yaform__gap-i{margin:0;padding:0}.yaform-holster{margin:0!important;padding:0!important}.yaform .yaform__gap-i{width:9em}.yaform .yaform__logo{width:52px;margin:0;padding:0 6px 0 0;text-decoration:none}.yaform .yaform__logo-img{width:52px;height:21px;margin:0;padding:0;border:0!important}.yaform .yaform__search{font-size:12px!important;width:100%}.yaform .yaform__search-input,.yaform .yaform__search-precise,.yaform .yaform__gap{border:0}.yaform .yaform__search-image{padding:0}.yaform .yaform__search-input{padding:6px}.yaform .yaform__search-input-layout,.yaform .yaform__search-input-layout-l,.yaform .yaform__search-input-layout-r{font-size:12px!important;padding:0;vertical-align:middle;border:0;border-collapse:collapse}.yaform .yaform__search-input-layout,.yaform .yaform__search-input-layout-l{width:100%}.yaform .yaform__search-precise{font-size:12px!important;padding:0 18px 5px 6px;text-align:left;vertical-align:top;color:#000}.yaform .yaform__search-precise-i{white-space:nowrap}.yaform .yaform__search-precise__radio{width:auto;margin:0 .3em 0 0;vertical-align:middle;background:none}.yaform .yaform__search-precise__label{margin:0 .4em 0 0;padding:0;vertical-align:middle}body .yaform .yaform__input-text{width:100%;margin:0!important;cursor:text;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;background-color:#fff;border:1px solid #7f9db9}.yaform .yaform__submit{display:block;width:auto;margin:0 0 0 5px}.yaform_arr{background-repeat:no-repeat;background-position:100% 50%}.yaform_arr .yaform__form{padding-right:24px}.yaform_arr .yaform__search-input{padding-right:3px}.yaform_default{position:relative;margin:0 0 0 65px!important;padding:0!important}.yaform_default .yaform__logo{position:absolute;top:4px;left:-60px}.yaform_simple{margin:0!important;padding:0!important}.yaform_simple .yaform__logo{display:block;margin:6px 0 0 6px}.yaform_hint{margin:0!important;padding:0!important}.yaform_hint .yaform__input-text_hint{background-repeat:no-repeat;background-position:.2em 50%}.yaform .yaform__submit_image{width:19px;height:15px;outline:none;cursor:pointer;border:0}.yaform .b-suggest{position:relative;margin:0;padding:0}.yaform .b-suggest-holster{position:absolute;width:100%;height:20em;margin:0;padding:0}.yaform .b-suggest-popup{margin:0;padding:0}.yaform .b-suggest-list{position:absolute;z-index:9999;overflow:hidden;min-width:10em;max-width:100%;margin:-1px 0 0 0;padding:0;list-style:none;background:#fff;border:1px solid #999;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px}.yaform .b-suggest-list{box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box}.yaform .b-suggest-list iframe{position:absolute;z-index:-1;width:100%;height:100%;background:#fff}.yaform .b-suggest-items{min-width:10em;margin:0;padding:0;list-style:none;background:#fff}.yaform .b-suggest-elem{display:block;margin:0;padding:.2em .5em;cursor:pointer;text-decoration:none;background:url()}html body .yaform .b-suggest-elem,html body .yaform .b-suggest-elem:link{color:#000!important}.yaform .b-suggest-elem:hover,html body .yaform .b-suggest-elem_state_hover{color:#f00!important;text-decoration:underline}.yaform .b-suggest-elem_nav:hover{color:#000;text-decoration:none}.yaform .b-suggest-elem_nav .link{color:#1a3dc1;text-decoration:underline}.yaform .b-suggest-elem_nav:hover .link{color:#f00}.yaform .b-suggest-elem_nav .info{color:#666;white-space:nowrap}.yaform .b-suggest-elem_num,.yaform .b-suggest-elem_num:hover{font-family:"Courier New",monospace;font-weight:bold;color:#060!important;text-decoration:none}.yaform .b-suggest-elem_num .info{border-bottom:1px dotted}.yaform .b-suggest-elem_selected{background:#fdedaf}.yaform .b-suggest-close{font:85% Verdana,sans-serif;margin:0;padding:0 .5em;text-align:right;line-height:1.5em;color:#fff;background:#999}#yandexform0 .yaform__submit_image{background:url(http://site.yandex.net/i/form/search.png) no-repeat}#yandexform0 .yaform__input-text_hint{background-image:url(http://site.yandex.net/i/form/yandex-hint.png)}#yandexform0 .yaform__form * { font-size:16px !important }#yandexform0 .yaform__search, #yandexform0 .yaform__search td, #yandexform0 .yaform__precise-i { background-color: #800000 !important }#yandexform0 .yaform__search-precise__label { color:#000000 !important }#yandexform0 { background-image: url(http://site.yandex.ru/arrow.xml?color=%23800000); }</style></head>
+	<body id="ipboard_body" cz-shortcut-listen="true">
+		<div id="ipbwrapper">
+
+			<!--noindex-->
+
+				
+
+			<!--/noindex-->
+
+			<div id="header">
+
+				<!--noindex-->
+
+					<div id="branding">
+						
+							<a href="http://magento-forum.ru/" title="Перейти к списку форумов" rel="home" accesskey="1"><img src="./magento1_and_xdebug_files/logo.png" alt="Логотип"></a>
+						
+					</div>
+
+					
+						<div id="user_navigation" class="not_logged_in">
+			<!--<a href="/index.php?app=core&module=global&section=login">
+		<img src="/public/style_images/master/vkontakte_login.png" width="154" height="22" alt="">
+	</a>-->
+							<a href="http://magento-forum.ru/index.php?app=core&amp;module=global&amp;section=login" title="Вход"><img src="./magento1_and_xdebug_files/key.png" alt=""> Вход</a>
+							<a href="http://magento-forum.ru/index.php?app=core&amp;module=global&amp;section=register" title="Регистрация"><img src="./magento1_and_xdebug_files/paste_plain.png" alt=""> Регистрация</a>
+							<a href="http://magento-forum.ru/index.php?app=core&amp;module=help" title="Перейти к помощи" rel="help" accesskey="6"><img src="./magento1_and_xdebug_files/help.png" alt=""> Помощь</a>
+						</div>
+
+					
+
+				<!--/noindex-->
+
+				<div id="primary_nav">
+
+
+					<!--noindex-->
+
+						<div class="df-search">
+							<div class="yaform-holster"><div class="yandexform yaform yaform_hint yaform_arr" onclick="return {type: 2, logo: &#39;rb&#39;, arrow: true, webopt: false, websearch: false, bg: &#39;#800000&#39;, fg: &#39;#000000&#39;, fontsize: 16, suggest: true, site_suggest: true, encoding: &#39;utf-8&#39;}" id="yandexform0" style="display: block;"><form class="yaform__form" method="get" action="http://magento-forum.ru/"><table class="yaform__search" cellpadding="0" cellspacing="0"><tbody><tr><td class="yaform__search-input"><table class="yaform__search-input-layout"><tbody><tr><td class="yaform__search-input-layout-l"><div class="yaform__input"><input name="text" value="" class="yaform__input-text yaform__input-text_hint" autocomplete="off"><div class="b-suggest" onclick="return {url: &#39;http://sitesuggest.yandex.ru/suggest-ya.cgi?v=2&amp;callback=?&#39;, adjust: &#39;true&#39;}"><div class="b-suggest-holster" style="display: none;"><div class="b-suggest-popup"><div class="b-suggest-list"><iframe frameborder="0" src="javascript:&#39;&lt;body style=\&#39;background:none;overflow:hidden\&#39;&gt;&#39;"></iframe><ul class="b-suggest-items"></ul></div></div></div></div></div></td><td class="yaform__search-input-layout-r"><input type="hidden" name="searchid" value="777268"><input type="hidden" name="reqenc" value="utf-8"><input type="hidden" name="l10n" value="ru"><input type="hidden" name="web" value="0"><input class="yaform__submit" type="submit" value="Найти"></td></tr></tbody></table></td></tr><tr><td class="yaform__gap"><div class="yaform__gap-i"></div></td></tr></tbody></table></form></div></div>
+						</div>
+
+
+					<!--/noindex-->
+
+
+
+					<ul>
+						
+																								<li id="nav_discussion" class="left active"><a href="http://magento-forum.ru/" title="Перейти к списку форумов">Обсуждения</a></li><li id="nav_members" class="left "><a href="http://magento-forum.ru/index.php?app=members&amp;section=view&amp;module=list" title="Перейти к списку пользователей">Пользователи</a></li>
+						
+							
+								
+							
+
+								
+							
+
+								
+							
+						
+						<li id="nav_services" class="left"><a href="http://magento-forum.ru/topic/365/" title="Услуги для клиентов Российской сборки Magento">УСЛУГИ</a></li>
+					</ul>
+				</div>
+
+
+				<!--noindex-->
+
+					
+
+				<!--/noindex-->
+
+
+
+				<div id="secondary_nav">
+
+					<ul id="breadcrumb" class="left">
+														<li class="first"><a href="http://magento-forum.ru/">Российская сборка Magento</a></li>
+								
+							
+								<li><span class="nav_sep">&gt;</span> <a href="http://magento-forum.ru/forum/117/" title="Вернуться к Обучение Magento">Обучение Magento</a></li>
+								
+							
+
+								<li><span class="nav_sep">&gt;</span> <a href="http://magento-forum.ru/forum/124/" title="Вернуться к КНИГИ на РУССКОМ ЯЗЫКЕ по Magento">КНИГИ на РУССКОМ ЯЗЫКЕ по Magento</a></li>
+								
+							
+
+								<li><span class="nav_sep">&gt;</span> <a href="http://magento-forum.ru/forum/103/" title="Вернуться к Руководство для программистов («Magento 1.4 Development Cookbook»)">Руководство для программистов («Magento 1.4 Development Cookbook»)</a></li>
+								
+							
+						</ul>
+				</div>
+			</div>
+
+			<div id="yandex-results-outer" onclick="return {encoding: &#39;utf-8&#39;}"></div>
+
+
+			<div id="content" class="clear">
+
+
+				<!--noindex-->
+					<a id="j_content"></a>
+				<!--/noindex-->
+
+				<div class="df-topic-heading">
+	<div class="df-textual df-left">
+
+		<h1 class="df-topic">Глава 12. Отладка и тестирование модулей</h1>
+
+		
+
+
+		<div class="df">
+			<div class="df-messages">
+				<div class="df-message">
+					[28 июня 2016 г.]&nbsp;&nbsp;&nbsp;&nbsp;<a class="df-notification" href="http://magento-forum.ru/topic/1464/">Российская сборка Magento 2.49.8</a> 
+                                           
+				</div>
+				<div class="df-message">
+НОВАЯ УСЛУГА: <a class="df-notification" href="http://magento-forum.ru/topic/5283/">установка заплатки SUPEE-6788</a>
+</div>
+<div class="df-message">
+НОВАЯ УСЛУГА: <a class="df-notification" href="http://magento-forum.ru/topic/5305/">перевод стандартного сервера на PHP 7 и адаптация магазина к PHP 7</a>
+</div>
+<div class="df-message">
+<a class="df-notification" href="http://magento-forum.ru/topic/365/">все услуги</a>
+</div>
+
+
+			</div>
+		</div>
+	</div>
+
+	<div class="df-buttons">
+		<ul class="topic_buttons">
+			
+			
+			
+		</ul>
+		<script type="text/javascript" src="./magento1_and_xdebug_files/openapi.js"></script>
+
+<script type="text/javascript">
+  VK.init({apiId: 1966821, onlyWidgets: true});
+</script>
+
+<div class="df-vkontakte-like">
+    <div id="vk_like" style="height: 22px; width: 350px; position: relative; clear: both; background: none;"><iframe name="fXD15884" frameborder="0" src="./magento1_and_xdebug_files/widget_like.html" width="100%" height="23" scrolling="no" id="vkwidget1" style="overflow: hidden; height: 22px; width: 350px; z-index: 150;"></iframe></div>
+</div>
+
+<script type="text/javascript">
+VK.Widgets.Like("vk_like", {type: "full"});
+</script>
+		
+	</div>
+
+	
+</div>
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+//<![CDATA[
+	ipb.topic.inSection = 'topicview';
+	ipb.topic.topic_id  = 909;
+	ipb.topic.forum_id  = 103;
+	ipb.topic.start_id  = 0;
+	// Editor JS: Only needs to be done once per page
+	ipb.editor_values.get('templates')['link'] = new Template("<label for='#{id}_url'>URL</label><input type='text' class='input_text' id='#{id}_url' value='http://' tabindex='10' /><label for='#{id}_urltext'>Текст ссылки</label><input type='text' class='input_text _select' id='#{id}_urltext' value='Моя ссылка' tabindex='11' /><input type='submit' class='input_submit' value='Вставить ссылку' tabindex='12' />");
+ipb.editor_values.get('templates')['image'] = new Template("<label for='#{id}_img'>URL для изображения</label><input type='text' class='input_text' id='#{id}_img' value='http://' tabindex='10' /><input type='submit' class='input_submit' value='Вставить изображение' tabindex='11' />");
+ipb.editor_values.get('templates')['email'] = new Template("<label for='#{id}_email'>Адрес электронной почты</label><input type='text' class='input_text' id='#{id}_email' tabindex='10' /><label for='#{id}_emailtext'>Текст ссылки</label><input type='text' class='input_text _select' id='#{id}_emailtext' value='Пишите мне' tabindex='11' /><input type='submit' class='input_submit' value='Вставить e-mail' tabindex='12' />");
+ipb.editor_values.get('templates')['media'] = new Template("<label for='#{id}_media'>Медиа URL</label><input type='text' class='input_text' id='#{id}_media' value='http://' tabindex='10' /><input type='submit' class='input_submit' value='добавить медиа' tabindex='11' />");
+ipb.editor_values.get('templates')['generic'] = new Template("<div class='rte_title'>#{title}</div><strong>Пример</strong><pre>#{example}</pre><label for='#{id}_option' class='optional'>#{option_text}</label><input type='text' class='input_text optional' id='#{id}_option' tabindex='10' /><label for='#{id}_text'>#{value_text}</label><input type='text' class='input_text _select' id='#{id}_text' tabindex='11' /><input type='submit' class='input_submit' value='Добавить' tabindex='12' />");
+ipb.editor_values.get('templates')['togglesource'] = new Template("<fieldset id='#{id}_ts_controls' class='submit' style='text-align: left'><input type='button' class='input_submit' value='Обновить' id='#{id}_ts_update' />&nbsp;&nbsp;&nbsp; <a href='#' id='#{id}_ts_cancel' class='cancel'>Отключить редактирование кода</a></fieldset>");
+	
+ipb.editor_values.get('templates')['toolbar'] = new Template("<ul id='#{id}_toolbar_#{toolbarid}' class='toolbar' style='display: none'>#{content}</ul>");
+ipb.editor_values.get('templates')['button'] = new Template("<li><span id='#{id}_cmd_custom_#{cmd}' class='rte_control rte_button specialitem' title='#{title}'><img src='http://magento-forum.ru/public/style_images/light/rte_icons/#{img}' alt='' /></span></li>");
+ipb.editor_values.get('templates')['menu_item'] = new Template("<li id='#{id}_cmd_custom_#{cmd}' class='specialitem clickable'>#{title}</li>");
+ipb.editor_values.get('templates')['togglesource'] = new Template("<fieldset id='#{id}_ts_controls' class='submit' style='text-align: left'><input type='button' class='input_submit' value='Обновить' id='#{id}_ts_update' />&nbsp;&nbsp;&nbsp; <a href='#' id='#{id}_ts_cancel' class='cancel'>Отключить редактирование кода</a></fieldset>");
+ipb.editor_values.get('templates')['emoticons_showall'] = new Template("<input class='input_submit emoticons' type='button' id='#{id}_all_emoticons' value='Показать все смайлики' />");
+ipb.editor_values.get('templates')['emoticon_wrapper'] = new Template("<h4><span>Смайлики</span></h4><div id='#{id}_emoticon_holder' class='emoticon_holder'></div>");
+
+// Add smilies into the mix
+ipb.editor_values.set( 'show_emoticon_link', false );
+
+ipb.editor_values.set( 'bbcodes', $H({"anchor":{"id":"52","title":"anchor","desc":"","tag":"anchor","useoption":"1","example":"","switch_option":"0","menu_option_text":"","menu_content_text":"","single_tag":"1","optional_option":"0","image":""},"html":{"id":"18","title":"HTML код","desc":"Отображение HTML разметки с форматированием и подсветкой синтаксиса","tag":"html","useoption":"0","example":"[html]<div class='outer'>\n  <p>Привет, Мир!</p>\n </div>[/html]","switch_option":"0","menu_option_text":"","menu_content_text":"","single_tag":"0","optional_option":"0","image":""},"optional":{"id":"40","title":"Optional","desc":"","tag":"optional","useoption":"0","example":"","switch_option":"0","menu_option_text":"","menu_content_text":"","single_tag":"0","optional_option":"1","image":""},"php":{"id":"17","title":"PHP код","desc":"Отображение PHP кода с форматированием и подсветкой синтаксиса","tag":"php","useoption":"0","example":"[php]$variable = true;\n\nprint_r($variable);[/php]","switch_option":"0","menu_option_text":"","menu_content_text":"","single_tag":"0","optional_option":"0","image":""},"ref":{"id":"53","title":"ref","desc":"","tag":"ref","useoption":"1","example":"","switch_option":"0","menu_option_text":"","menu_content_text":"","single_tag":"1","optional_option":"0","image":""},"sql":{"id":"19","title":"SQL код","desc":"Отображение SQL кода с форматированием и подсветкой синтаксиса","tag":"sql","useoption":"0","example":"[sql]SELECT p.*, t.* FROM posts p LEFT JOIN topics t ON t.tid=p.topic_id WHERE t.tid=7[/sql]","switch_option":"0","menu_option_text":"","menu_content_text":"","single_tag":"0","optional_option":"0","image":""},"table":{"id":"42","title":"TABLE","desc":"","tag":"table","useoption":"0","example":"","switch_option":"0","menu_option_text":"","menu_content_text":"","single_tag":"0","optional_option":"0","image":""},"table_with_custom_class":{"id":"49","title":"table_with_custom_class","desc":"","tag":"table_with_custom_class","useoption":"1","example":"","switch_option":"0","menu_option_text":"","menu_content_text":"","single_tag":"0","optional_option":"1","image":""},"tbody":{"id":"48","title":"TBODY","desc":"","tag":"tbody","useoption":"0","example":"","switch_option":"0","menu_option_text":"","menu_content_text":"","single_tag":"0","optional_option":"0","image":""},"td":{"id":"44","title":"TD","desc":"","tag":"td","useoption":"0","example":"","switch_option":"0","menu_option_text":"","menu_content_text":"","single_tag":"0","optional_option":"0","image":""},"tdc":{"id":"54","title":"tdc","desc":"","tag":"tdc","useoption":"0","example":"","switch_option":"0","menu_option_text":"","menu_content_text":"","single_tag":"0","optional_option":"0","image":""},"th":{"id":"45","title":"TH","desc":"","tag":"th","useoption":"0","example":"","switch_option":"0","menu_option_text":"","menu_content_text":"","single_tag":"0","optional_option":"0","image":""},"thead":{"id":"47","title":"THEAD","desc":"","tag":"thead","useoption":"0","example":"","switch_option":"0","menu_option_text":"","menu_content_text":"","single_tag":"0","optional_option":"0","image":""},"tr":{"id":"43","title":"TR","desc":"","tag":"tr","useoption":"0","example":"","switch_option":"0","menu_option_text":"","menu_content_text":"","single_tag":"0","optional_option":"0","image":""},"twitter":{"id":"39","title":"Twitter","desc":"A tag to link to a user's twitter account","tag":"twitter","useoption":"0","example":"[twitter]userName[/twitter]","switch_option":"0","menu_option_text":"","menu_content_text":"","single_tag":"0","optional_option":"0","image":"twitter.png"},"xml":{"id":"20","title":"XML код","desc":"Отображение XML разметки с форматированием и подсветкой синтаксиса","tag":"xml","useoption":"0","example":"[xml]<outer>\n <inner>\n  <tag param='1'>Test</tag>\n </inner>\n</outer>[/xml]","switch_option":"0","menu_option_text":"","menu_content_text":"","single_tag":"0","optional_option":"0","image":""},"snapback":{"id":"1","title":"Возврат к сообщению","desc":"Данный тег отображает маленький ярлычок ссылки, с помощью которого можно перейти непосредственно к сообщению - используется при цитировании сообщений форума. По умолчанию открывается в том же самом окне.","tag":"snapback","useoption":"0","example":"[snapback]100[/snapback]","switch_option":"0","menu_option_text":"","menu_content_text":"","single_tag":"0","optional_option":"0","image":""},"extract":{"id":"36","title":"Выдержка из записи блога","desc":"Текст заключенный в данный тег будет выводится вместо всей записи на главной странице блога, а так же в  RSS ленте блога.","tag":"extract","useoption":"0","example":"[extract]Пример текста[/extract]","switch_option":"0","menu_option_text":"","menu_content_text":"","single_tag":"0","optional_option":"0","image":""},"hr":{"id":"15","title":"Горизонтальная черта","desc":"Добавляет горизонтальную черту для разделения текста","tag":"hr","useoption":"0","example":"[hr]","switch_option":"0","menu_option_text":"","menu_content_text":"","single_tag":"1","optional_option":"0","image":""},"code":{"id":"16","title":"Код","desc":"Используйте данный ВВ-код для отображения поля с кодом","tag":"code","useoption":"0","example":"[code]$text = 'Some long code here';[/code]","switch_option":"0","menu_option_text":"","menu_content_text":"","single_tag":"0","optional_option":"0","image":""},"acronym":{"id":"8","title":"Сокращение","desc":"Позволяет ввести сокращение, описание которого будет отображаться при наведении указателя мыши на сокращение","tag":"acronym","useoption":"1","example":"[acronym='Laugh Out Loud']lol[/acronym]","switch_option":"0","menu_option_text":"Введите описание сокращения (напр.: Laugh Out Loud)","menu_content_text":"Введите сокращение (напр.: lol)","single_tag":"0","optional_option":"0","image":""},"blog":{"id":"37","title":"Ссылка на блог","desc":"Создание ссылки на конкретный блог в системе.","tag":"blog","useoption":"1","example":"[blog=100]Блог[/blog]","switch_option":"0","menu_option_text":"","menu_content_text":"","single_tag":"0","optional_option":"0","image":""},"entry":{"id":"38","title":"Ссылка на запись в блоге","desc":"Создание ссылки на запись в блоге.","tag":"entry","useoption":"1","example":"[entry=100]Запись[/entry]","switch_option":"0","menu_option_text":"","menu_content_text":"","single_tag":"0","optional_option":"0","image":""},"member":{"id":"34","title":"Ссылка на пользователя","desc":"По данному имени создает ссылку на профиль пользователя","tag":"member","useoption":"1","example":"[member=admin] заведует этим сайтом.","switch_option":"0","menu_option_text":"","menu_content_text":"","single_tag":"1","optional_option":"0","image":""},"post":{"id":"6","title":"Ссылка на сообщение","desc":"Данный тег позволяет легко создать ссылку на сообщение","tag":"post","useoption":"1","example":"[post=1]Жми сюда![/post]","switch_option":"0","menu_option_text":"Введите ID сообщения","menu_content_text":"Введите название для данной ссылки","single_tag":"0","optional_option":"0","image":""},"topic":{"id":"5","title":"Ссылка на тему","desc":"Данный тег позволяет легко создать ссылку на тему","tag":"topic","useoption":"1","example":"[topic=1]Жми сюда![/topic]","switch_option":"0","menu_option_text":"Введите ID темы","menu_content_text":"Введите название для данной ссылки","single_tag":"0","optional_option":"0","image":""}}) );
+	ipb.vars['emoticon_url'] = "http://magento-forum.ru/public/style_emoticons/default";
+	//Search Setup
+	ipb.vars['search_type']			= 'forum';
+	ipb.vars['search_type_id']		= 103;
+	ipb.vars['search_type_2']		= 'topic';
+	ipb.vars['search_type_id_2']	= 909;
+
+	
+	// Delete stuff set up
+	ipb.topic.deleteUrls['hardDelete'] = new Template("http://magento-forum.ru/index.php?app=forums&amp;module=moderate&section=moderate&do=04&f=103&t=909&st=&auth_key=880ea6a14ea49e853634fbdc5015a024&p=#{pid}");
+	ipb.topic.deleteUrls['softDelete'] = new Template("http://magento-forum.ru/index.php?app=forums&module=moderate&section=moderate&do=postchoice&tact=sdelete&t=909&f=103&auth_key=880ea6a14ea49e853634fbdc5015a024&selectedpids[#{pid}]=#{pid}&pid=#{pid}");
+	
+//]]>
+</script>
+
+
+
+
+
+
+
+
+
+
+<div class="topic hfeed">
+
+
+
+	
+
+	
+
+
+<!-- skinnote: Posts by ignored users are not hidden, check _ignored -->
+	
+		<!--Begin Msg Number 4064-->
+		
+		<div class="post_block hentry clear  with_rep" id="post_id_4064">
+			<a id="entry4064"></a>
+			
+
+			
+			<div class="post_wrap">
+
+
+				
+					<div class="df-post-heading">
+				
+
+					<!--noindex-->
+						<span class="post_id">
+							<a rel="nofollow" href="http://magento-forum.ru/topic/909/page__view__findpost__p__4064" title="Ссылка на это сообщение #1">#1</a>
+						</span>
+					<!--/noindex-->
+
+
+						
+
+
+
+
+							<span class="author vcard">
+								<a class="url fn" href="http://magento-forum.ru/user/319/">Надежда А</a>
+							</span>
+
+
+						
+					</div>
+
+				<!--noindex-->
+					<div class="author_info">
+						<ul class="user_details">
+		
+               <li class="avatar"><img src="./magento1_and_xdebug_files/noavatar.png" alt=""></li>
+          
+		
+		<li class="group_icon">
+			
+				<img src="./magento1_and_xdebug_files/admin.png" alt="Иконка">
+			
+			</li>
+	</ul>
+	<div style="margin: 0 auto;">
+		<ul class="user_controls clear">
+				
+				
+				
+				
+			</ul>
+	</div>
+	<ul class="user_fields">
+		<li>
+			<span class="ft">Группа:</span>
+			<span class="fc"><span style="color:red;">Администратор</span></span>
+		</li>
+		
+			<li>
+				<span class="ft">Сообщений: </span>
+				<span class="fc">50</span>
+			</li>
+			<li>
+				<span class="ft">Регистрация:</span>
+				<span class="fc">12.12.2010</span>
+			</li>
+		
+		
+			
+				
+					
+				
+			
+		
+	</ul>
+	
+					</div>
+				<!--/noindex-->
+
+
+				<div class="post_body">
+					<p class="posted_info">
+						
+						
+						<abbr class="published" title="2011-04-12T08:15:56+00:00">12.04.2011 11:15</abbr>
+					</p>
+					
+					<div class="post entry-content ">
+						<!--cached-Thu, 19 May 2016 01:48:52 +0000-->В этой главе мы рассмотрим:<br>
+<ul class="bbc"><li>Установка и настройка Xdebug</li></ul><br>
+<ul class="bbc"><li>Использование FirePHP с Zend Wildfire плагином</li></ul><br>
+<ul class="bbc"><li>Установка PHPUnit и необходимые PHP CLI двоичные коды (PHP CLI binaries)</li></ul><br>
+<ul class="bbc"><li>Напишите ваш первый Magento тестовый пример</li></ul><br>
+<br>
+<br>
+<span style="font-size: 17px;">Введение</span><br>
+<br>
+Отладка (и модульное тестирование) является очень важной частью PHP разработчика, как в настоящее время сайт это не просто набор некоторых страниц HTML. Мы осуществляем некоторые из самых сложных бизнес-логик в наших приложениях. Мы можем минимизировать время отладки и доставлять приложение коренной науки (rock solid application) с помощью некоторых дополнительных инструментов, таких как Xdebug, Zend Wildfire plugin, PHPUnit и т.д. Эта глава поможет вам в установке, настройке и использовании Xdebug, Zend Wildfire и PHPUnit любым легким способом<br>
+<br>
+<br>
+<span style="font-size: 17px;">Установка и настройка Xdebug</span><br>
+<br>
+PHP эхо-отчет (PHP statement echo) и функции var_dump (), debug_zval_dump () и print_r () являются общими и популярные средствами отладки, которые могут помочь в решении различных вопросов. Однако, эти отчеты и еще более надежные приборы – это то, что называется Xdebug, который является очень популярным инструментом для разработчиков PHP по всему миру. Создатель этого инструмента, Дерик Резенс, назвал этот инструмент, как швейцарский армейский нож разработчиков PHP. Основные функции Xdebug включают отображение стека на ошибкочных условиях, максимальной защите уровня вложения (maximum nesting level protection) и учете рабочего времени.<br>
+Отладка путем вычета является подходом грубой силы. Вы собираете данные и сдвигаете через него, пытаясь определить, что случилось. При отсутствии необходимой информации, вы должны перестроить свой код, повторить шаги, и перезагрузить исследование. Гораздо более эффективная стратегия - зондировать приложение, пока оно выполняется. Вы можете параметры запроса каталога сдвинуть в порядке стека вызовов и запросить любую переменную или объект, который хотите. Вы можете временно прервать приложение и быть внимательным, пока переменная меняет значение. В некоторых случаях, вы можете влиять на переменные в интерактивном режиме, чтобы задать вопросы типа: "Что если?". В этом рецепте мы установим и настроим для отладки наш Magento скрипт как в IDE или в браузере с данной точки останова.<br>
+<br>
+<br>
+<span style="font-size: 17px;">Как это сделать…</span><br>
+<br>
+Установка Xdebug:<br>
+1. Xdebug может быть установлено различными способами в зависимости от вашей операционной системы. Вы можете скачать бинарный модуль Xdebug для последних версий PHP с сайта <a href="http://www.xdebug.org/files/" class="bbc_url" title="Ссылка">http://www.xdebug.org/files/</a> Xdebug. Мы построим Xdebug от источника и установим его, что является довольно общим для Unix-подобных операционных систем. Нам понадобятся некоторые основные инструменты, чтобы это произошло, такие как: Wget, phpize и некоторые другие предметы.<br>
+2. Чтобы продолжить, возьмем последний исходный код в archive/tarball формате из раздела загрузки Xdebug (wget команда может сделать работу легкой):<br>
+<br>
+<strong class="bbc">wget <a href="http://www.xdebug.org/files/xdebug-2.1.0.tgz" class="bbc_url" title="Ссылка">http://www.xdebug.or...debug-2.1.0.tgz</a></strong><br>
+<br>
+3. Распакуйте архив и измените рабочую папку на извлеченное место (to the extracted location):<br>
+<br>
+<strong class="bbc">tar -xzvf xdebug-2.1.0.tgz<br>
+cd xdebug-2.1.0</strong><br>
+<br>
+4. Выполните phpize, чтобы подготовить Xdebug код для вашей версии PHP:<br>
+<br>
+<strong class="bbc">phpize<br>
+<br>
+Configuring for:<br>
+PHP Api Version:                20090626<br>
+Zend Module Api No:         20090626<br>
+Zend Extension Api No:     220090626</strong><br>
+5. Давайте теперь запустим скрипт конфигурации; это будет проверять некоторые необходимые заголовки и двоичные файлы:<br>
+<br>
+<strong class="bbc">./configure<br>
+<br>
+checking for grep that handles long lines and -e... /bin/grep<br>
+checking for egrep... /bin/grep -E<br>
+checking for a sed that does not truncate output... /bin/sed<br>
+checking for cc... cc<br>
+checking whether the C compiler works... yes<br>
+checking for C compiler default output file name... a.out<br>
+checking for suffix of executables...<br>
+checking whether we are cross compiling... no<br>
+checking for suffix of object files... o<br>
+checking whether we are using the GNU C compiler... yes<br>
+checking whether cc accepts -g... yes<br>
+checking for cc option to accept ISO C89... none needed<br>
+checking how to run the C preprocessor... cc -E<br>
+checking for icc... no<br>
+checking for suncc... no<br>
+checking whether cc understands -c and -o together... yes<br>
+checking for system library directory... lib<br>
+checking if compiler supports -R... no<br>
+checking if compiler supports -Wl,-rpath,... yes<br>
+checking build system type... i686-pc-linux-gnu<br>
+checking host system type... i686-pc-linux-gnu<br>
+checking target system type... i686-pc-linux-gnu<br>
+checking for PHP prefix... /usr<br>
+checking for PHP includes... -I/usr/include/php5 -I/usr/include/<br>
+php5/main -I/usr/include/php5/TSRM -I/usr/include/php5/Zend<br>
+-I/usr/include/php5/ext -I/usr/include/php5/ext/date/lib -D_<br>
+LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64<br>
+checking for PHP extension directory... /usr/lib/php5/20090626+lfs<br>
+checking for PHP installed headers prefix... /usr/include/php5<br>
+checking if debug is enabled... no<br>
+checking if zts is enabled... no<br>
+….</strong><br>
+<br>
+6.	Постройте его, выполнив команду make:<br>
+<strong class="bbc">make<br>
+<br>
+/bin/bash /home/dynamicguy/Desktop/xdebug-2.1.0/libtool<br>
+--mode=compile cc -I. -I/home/dynamicguy/Desktop/xdebug-2.1.0<br>
+-DPHP_ATOM_INC -I/home/dynamicguy/Desktop/xdebug-2.1.0/include<br>
+-I/home/dynamicguy/Desktop/xdebug-2.1.0/main -I/home/dynamicguy/<br>
+Desktop/xdebug-2.1.0 -I/usr/include/php5 -I/usr/include/php5/<br>
+main -I/usr/include/php5/TSRM -I/usr/include/php5/Zend -I/usr/<br>
+include/php5/ext -I/usr/include/php5/ext/date/lib -D_LARGEFILE_<br>
+SOURCE -D_FILE_OFFSET_BITS=64 -DHAVE_CONFIG_H -g -O0 -c /home/<br>
+dynamicguy/Desktop/xdebug-2.1.0/xdebug.c -o xdebug.lo<br>
+<br>
+…....</strong><br>
+<br>
+Постройка завершена. <br>
+<br>
+Не забывайте запускать 'make test'.<br>
+7. Установите теперь расширение, выполнив эту команду:<br>
+<strong class="bbc">sudo make install<br>
+Installing shared extensions: /usr/lib/php5/20090626+lfs/</strong><br>
+8. Теперь откройте / etc/php5/cli/conf.d/xdebug.ini и замените содержание следующим:<br>
+zend_extension=/usr/lib/php5/20090626+lfs/xdebug.so<br>
+xdebug.remote_enable=on<br>
+xdebug.remote_log="/var/log/xdebug.log"<br>
+xdebug.remote_host=localhost<br>
+xdebug.remote_handler=dbgp<br>
+xdebug.remote_port=9000<br>
+xdebug.remote_mode=req<br>
+xdebug.default_enable = On<br>
+xdebug.show_exception_trace = On<br>
+xdebug.show_local_vars = 1<br>
+xdebug.max_nesting_level = 50<br>
+xdebug.var_display_max_depth = 6<br>
+xdebug.dump_once = On<br>
+xdebug.dump_globals = O<br>
+xdebug.dump_undefined = On<br>
+xdebug.dump.REQUEST = *<br>
+xdebug.dump.SERVER = REQUEST_METHOD,REQUEST_URI,HTTP_USER_AGENT<br>
+<br>
+9. Повторите предыдущий шаг для файла / etc/php5/apache2/conf.d/xdebug.ini.<br>
+10. Сохраните файл xdebug.ini и перезагрузите Apache:<br>
+<br>
+<strong class="bbc">sudo /etc/init.d/apache2 restart</strong><br>
+<br>
+11. Вы можете теперь проверить Xdebug статус из терминала страницы phpinfo ().<br>
+<strong class="bbc">php -i | grep xdebug<br>
+<br>
+/etc/php5/cli/conf.d/xdebug.ini,<br>
+xdebug<br>
+xdebug support =&gt; enabled<br>
+xdebug.auto_trace =&gt; Off =&gt; Off<br>
+xdebug.collect_assignments =&gt; Off =&gt; Off<br>
+xdebug.collect_includes =&gt; On =&gt; On<br>
+xdebug.collect_params =&gt; 0 =&gt; 0<br>
+xdebug.collect_return =&gt; Off =&gt; Off<br>
+xdebug.collect_vars =&gt; Off =&gt; Off<br>
+xdebug.default_enable =&gt; On =&gt; On<br>
+xdebug.dump.COOKIE =&gt; no value =&gt; no value<br>
+xdebug.dump.ENV =&gt; no value =&gt; no value<br>
+xdebug.dump.FILES =&gt; no value =&gt; no value<br>
+xdebug.dump.GET =&gt; no value =&gt; no value<br>
+xdebug.dump.POST =&gt; no value =&gt; no value<br>
+xdebug.dump.REQUEST =&gt; * =&gt; *<br>
+xdebug.dump.SERVER =&gt; REQUEST_METHOD,REQUEST_URI,HTTP_USER_AGENT<br>
+=&gt; REQUEST_METHOD,REQUEST_URI,HTTP_USER_AGENT<br>
+xdebug.dump.SESSION =&gt; no value =&gt; no value<br>
+xdebug.dump_globals =&gt; On =&gt; On<br>
+xdebug.dump_once =&gt; On =&gt; On<br>
+xdebug.dump_undefined =&gt; On =&gt; On<br>
+xdebug.extended_info =&gt; On =&gt; On<br>
+xdebug.file_link_format =&gt; no value =&gt; no value<br>
+xdebug.idekey =&gt; dynamicguy =&gt; no value<br>
+xdebug.manual_url =&gt; <a href="http://www.php.net/" class="bbc_url" title="Ссылка">http://www.php.net</a> =&gt; <a href="http://www.php.net/" class="bbc_url" title="Ссылка">http://www.php.net</a><br>
+xdebug.max_nesting_level =&gt; 50 =&gt; 50<br>
+xdebug.overload_var_dump =&gt; On =&gt; On<br>
+xdebug.profiler_aggregate =&gt; Off =&gt; Off<br>
+xdebug.profiler_append =&gt; Off =&gt; Off<br>
+xdebug.profiler_enable =&gt; Off =&gt; Off<br>
+xdebug.profiler_enable_trigger =&gt; Off =&gt; Off<br>
+xdebug.profiler_output_dir =&gt; /tmp =&gt; /tmp<br>
+xdebug.profiler_output_name =&gt; cachegrind.out.%p =&gt; cachegrind.<br>
+out.%p<br>
+xdebug.remote_autostart =&gt; Off =&gt; Off<br>
+xdebug.remote_connect_back =&gt; Off =&gt; Off<br>
+xdebug.remote_cookie_expire_time =&gt; 3600 =&gt; 3600<br>
+xdebug.remote_enable =&gt; On =&gt; On<br>
+xdebug.remote_handler =&gt; dbgp =&gt; dbgp<br>
+xdebug.remote_host =&gt; localhost =&gt; localhost<br>
+xdebug.remote_log =&gt; /var/log/xdebug.log =&gt; /var/log/xdebug.log<br>
+xdebug.remote_mode =&gt; req =&gt; req<br>
+xdebug.remote_port =&gt; 9000 =&gt; 9000<br>
+xdebug.scream =&gt; Off =&gt; Off<br>
+xdebug.show_exception_trace =&gt; On =&gt; On<br>
+xdebug.show_local_vars =&gt; On =&gt; On<br>
+xdebug.show_mem_delta =&gt; Off =&gt; Off<br>
+xdebug.trace_format =&gt; 0 =&gt; 0<br>
+xdebug.trace_options =&gt; 0 =&gt; 0<br>
+xdebug.trace_output_dir =&gt; /tmp =&gt; /tmp<br>
+xdebug.trace_output_name =&gt; trace.%c =&gt; trace.%c<br>
+xdebug.var_display_max_children =&gt; 128 =&gt; 128<br>
+xdebug.var_display_max_data =&gt; 512 =&gt; 512<br>
+xdebug.var_display_max_depth =&gt; 6 =&gt; 6<br>
+PWD =&gt; /home/dynamicguy/Desktop/xdebug-2.1.0<br>
+_SERVER["PWD"] =&gt; /home/dynamicguy/Desktop/xdebug-2.1.0</strong><br>
+12. Кроме того, вы можете проверить это на странице ошибок PHP.<br>
+13. Последний шаг этого рецепта состоит в изменении основного кода Magento так, что мы можем видеть ошибки в Magento с Xdebug. Откройте файл Mage.php из app директории и замените run метод этим:<br>
+/**<br>
+* Front end main entry point<br>
+*<br>
+* @param string $code<br>
+* @param string $type<br>
+* @param string|array $options<br>
+*/<br>
+public static function run($code = '', $type = 'store',<br>
+$options=array())<br>
+{<br>
+if (!self::getIsDeveloperMode()) {<br>
+try {<br>
+Varien_Profiler::start('mage');<br>
+self::setRoot();<br>
+self::$_app = new Mage_Core_Model_App();<br>
+self::$_events = new Varien_Event_Collection();<br>
+self::$_config = new Mage_Core_Model_Config();<br>
+self::$_app-&gt;run(array(<br>
+'scope_code' =&gt; $code,<br>
+'scope_type' =&gt; $type,<br>
+'options' =&gt; $options,<br>
+));<br>
+Varien_Profiler::stop('mage');<br>
+} catch (Mage_Core_Model_Session_Exception $e) {<br>
+header('Location: ' . self::getBaseUrl());<br>
+die();<br>
+} catch (Mage_Core_Model_Store_Exception $e) {<br>
+require_once(self::getBaseDir() . DS . 'errors' . DS .<br>
+'404.php');<br>
+die();<br>
+} catch (Exception $e) {<br>
+if (self::isInstalled() || self::$_isDownloader) {<br>
+self::printException($e);<br>
+exit();<br>
+}<br>
+try {<br>
+self::dispatchEvent('mage_run_exception',<br>
+array('exception' =&gt; $e));<br>
+if (!headers_sent()) {<br>
+header('Location:' . self::getUrl('install'));<br>
+} else {<br>
+self::printException($e);<br>
+}<br>
+} catch (Exception $ne) {<br>
+self::printException($ne, $e-&gt;getMessage());<br>
+}<br>
+}<br>
+} else {<br>
+Varien_Profiler::start('mage');<br>
+self::setRoot();<br>
+self::$_app = new Mage_Core_Model_App();<br>
+self::$_events = new Varien_Event_Collection();<br>
+self::$_config = new Mage_Core_Model_Config();<br>
+self::$_app-&gt;run(array(<br>
+'scope_code' =&gt; $code,<br>
+'scope_type' =&gt; $type,<br>
+'options' =&gt; $options,<br>
+));<br>
+Varien_Profiler::stop('mage');<br>
+}<br>
+}<br>
+<br>
+14. Теперь, если мы изменим код файла app/design/frontend/base/default/template/catalog/product/view.phtml и положим какой-то код ошибки PHP (error prone code ) (попробуйте это: &lt;?php echo ?&gt;)сознательно, мы должны увидеть страницу вроде этой:<br>
+<br>
+<a class="resized_img" rel="lightbox[4064]" id="ipb-attach-url-853-0-21591600-1468691756" href="http://magento-forum.ru/index.php?app=core&amp;module=attach&amp;section=attach&amp;attach_rel_module=post&amp;attach_id=853" title="1.png - Размер: 52.62К, Загружен: 456"><img src="./magento1_and_xdebug_files/post-319-0-62236100-1302595340_thumb.png" id="ipb-attach-img-853-0-21591600-1468691756" style="width:628;height:440" class="attach" width="628" height="440" alt="Прикрепленное изображение: 1.png"></a><br>
+<br>
+Если вы хотите, чтобы ваши ошибки были яркими, не забудьте установить html_errors = On в файле php.ini. В ОС Unix это должно быть в / etc/php5/apache2/php.ini.<br>
+<br>
+<br>
+<span style="font-size: 17px;">Как это работает...</span><br>
+<br>
+В этом рецепте мы установили Xdebug из источника. Мы взяли исходный код Xdebug из его онлайн хранилища. Затем мы компилировали его. Это очень похоже на какое-либо типичное PHP расширение - <strong class="bbc">phpize | configure | make | make install</strong>. После установки мы настроили Xdebug ini конфигурацию как для CLI, так и для Apache. Параметры конфигурации могут быть различными, как вам будет угодно. Вы можете видеть больше опций конфигурации на <a href="http://xdebug.org/docs/all_settings." class="bbc_url" title="Ссылка">http://xdebug.org/docs/all_settings.</a><br>
+Наконец, мы настроили условие в методе run() Mage.php, чтобы печатать исключения только в режиме разработчика. Мы проверили это с методом self::getIsDeveloperMode().<br>
+Если Вам интересно посмотреть, как режим разработчика установлен, посмотрите на файл index.php и найдите следующие строки:<br>
+<br>
+if (isset($_SERVER['MAGE_IS_DEVELOPER_MODE'])) {<br>
+Mage::setIsDeveloperMode(true);<br>
+}<br>
+<br>
+Вы можете установить режим разработчика через htaccess или Apache концигурацию сайта. Для htaccess, поместите следующую строку в ваш htaccess:<br>
+<br>
+setEnv MAGE_IS_DEVELOPER_MODE true<br>
+<br>
+<br>
+<span style="font-size: 17px;">Больше...</span><br>
+<br>
+Скажем, для вычисления числа Фибоначчи ваши условия терминала являются неверными, приложение может работать в течение очень долгого времени, прежде чем он выбегает из памяти или времени. Вы можете установить xdebug.max_nesting_level параметр для ограничения глубины рекурсии. Например, xdebug.max_nesting_level = 50 ограничивает рекурсию на глубину 50 вложенных вызовов до того, как приложение вынуждено ограничить. Чтобы продемонстрировать, запустите код с включенным Xdebug. Это, как мы создали некоторые директивы конфигурации для отладки нашего Magento скрипта.<br>
+<br>
+<br>
+<span style="font-size: 17px;">Использование FirePHP с Zend Wildfire плагином</span><br>
+<br>
+FirePHP - это Firebug дополнение для браузера Firefox, которое полезно для отладки сценария PHP. FirePHP может быть использовано с помощью установки его из репозитория PEAR или из библиотеки Zend Framework. Magento CMS построен на вершине Zend Framework, который имеет богатые PHP библиотеки и плагины. Zend Wildfire plugin FirePHP является одним из них. Этот рецепт поможет вам использовать этот плагин в Magento.<br>
+<br>
+<br>
+<span style="font-size: 17px;">Подготовка</span><br>
+<br>
+Мы будем использовать Firebug и FirePHP консоли, таким образом, мы добрались до установки этих двух дополнений и, конечно, самого Firefox.<br>
+<ul class="bbc"><li><a href="https://addons.mozilla.org/en-US/firefox/addon/1843/" class="bbc_url" title="Ссылка">https://addons.mozil...fox/addon/1843/</a></li></ul><br>
+<ul class="bbc"><li><a href="https://addons.mozilla.org/en-US/firefox/addon/6149/" class="bbc_url" title="Ссылка">https://addons.mozil...fox/addon/6149/</a></li></ul><br>
+<br>
+<br>
+<span style="font-size: 17px;">Как это сделать…</span><br>
+<br>
+1. Запустите ваш Magento проект в вашем любимом PHP IDE.<br>
+2. Добавьте следующий фрагмент кода на 70 строку index.php:<br>
+// ---------------------------------------------------------------<br>
+// wildfire plugin calling function<br>
+// ---------------------------------------------------------------<br>
+<br>
+/**<br>
+* Logs variables to the Firebug Console<br>
+* via HTTP response headers and the FirePHP Firefox Extension.<br>
+*<br>
+* @param mixed $var The variable to log.<br>
+* @param string $label OPTIONAL Label to prepend to the log<br>
+event.<br>
+* @param string $style OPTIONAL Style of the log event.<br>
+* @param array $options OPTIONAL Options to change how messages<br>
+are processed and sent<br>
+* @return boolean Returns TRUE if the variable was added to the<br>
+response headers or buffered.<br>
+* @throws Zend_Wildfire_Exception<br>
+*/<br>
+function toFirePHP($var, $label = 'Magento vars', $style = 'INFO',<br>
+$options=array())<br>
+{<br>
+if (Mage::getIsDeveloperMode()) {<br>
+$httpRequest = new Zend_Controller_Request_Http();<br>
+$httpResponse = new Zend_Controller_Response_Http();<br>
+$channel = Zend_Wildfire_Channel_HttpHeaders::getInstance();<br>
+$channel-&gt;setRequest($httpRequest);<br>
+$channel-&gt;setResponse($httpResponse);<br>
+ob_start();<br>
+Zend_Wildfire_Plugin_FirePhp::send($var, $label, $style,<br>
+$options);<br>
+$channel-&gt;flush();<br>
+$httpResponse-&gt;sendHeaders();<br>
+} else {<br>
+return null;<br>
+}<br>
+}<br>
+<br>
+// ---------------------------------------------------------------<br>
+--------------<br>
+// wildfire plugin calling function ends<br>
+// ---------------------------------------------------------------<br>
+3. Сохраните и закройте index.php.<br>
+4. Убедитесь, что Magento profiler и режим разработчика (developer's mode ) включены (ON).<br>
+5. Вы можете вызвать toFirePHP функцию из любой точки Magento CMS. Давайте попробуем это с view.phtml из каталога app/design/frontend/base/default/template/catalog/product/.<br>
+6. Добавьте эту строку в view.phtml на линии № 38 и запустить его:<br>
+<br>
+&lt;?php toFirePHP($_product-&gt;debug());?&gt;<br>
+<br>
+7. Вы должны увидеть страницу что-то вроде следующего скриншота, если у вас Firebug и FirePHP консоли включены:<br>
+<br>
+<a class="resized_img" rel="lightbox[4064]" id="ipb-attach-url-854-0-21603700-1468691756" href="http://magento-forum.ru/index.php?app=core&amp;module=attach&amp;section=attach&amp;attach_rel_module=post&amp;attach_id=854" title="2.png - Размер: 40.21К, Загружен: 429"><img src="./magento1_and_xdebug_files/post-319-0-15105700-1302595346_thumb.png" id="ipb-attach-img-854-0-21603700-1468691756" style="width:628;height:394" class="attach" width="628" height="394" alt="Прикрепленное изображение: 2.png"></a><br>
+<br>
+<br>
+<span style="font-size: 17px;">Как это работает...</span><br>
+<br>
+Мы написали toFirePHP(), чтобы передать переменную FirePHP консоли с различными опциями. Мы можем передать ее как LOG, INFO, WARN, ERROR, EXCEPTION, TRACE, TABLE, DUMP, GROUP_START или GROUP_END через третий параметр toFirePHP () функции. Хотя первый – это placeholder («заполнитель») для сброса переменной, который будет показан в консоли, а второй предназначен для лейбла в консоли.<br>
+<br>
+<br>
+Убедитесь, что добавили свой Magento домен в FirePHP<br>
+<br>
+Чтобы заставить его работать с FirePHP, вы должны добавить свой домен в FirePHP, как белый список. Вы можете добавит /блокировать домен, нажав на иконку <strong class="bbc">FirePHP</strong>, а затем ссылку <strong class="bbc">Allowed Sites...</strong><br>
+<br>
+<br>
+<span style="font-size: 17px;">Установка PHPUnit и необходимых двоичных кодов PHP CLI</span><br>
+<br>
+PHPUnit - это инструмент, который мы будем использовать для unit тестирования. Установка PHPUnit довольно проста, т.к. мы будем использовать PEAR инсталлятор. Рекомендуется установить его через PEAR. PEAR поставляется вместе с каждым выпуском PHP, начиная с версии 4.3.0. В Unix-подобных операционных системах PEAR добавлен в каталог исполняемых файлов, например, /usr/bin, /usr/local/bin и т.д. Таким образом, PEAR команда доступна из любого места. Пакет pear может быть установлен с помощью следующей команды:<br>
+<br>
+<strong class="bbc">apt-get install php-pear</strong><br>
+<br>
+Если вы находитесь в Windows и используете XAMPP, вы должны увидеть exe файл с именем pear.exe в папке \xampp\php. Если вы не видите pear.exe, вы должны запустить pear.bat файл, чтобы установить его. Вы можете видеть больше инструкций: <a href="http://pear.php.net/manual/en/installation.getting.php." class="bbc_url" title="Ссылка">http://pear.php.net/...on.getting.php.</a> После установки PEAR вы должны перейти к (cd C:\\xampp\php) каталогу php до выдачи команды, показанной в следующем <em class="bbc">ow to do it...</em> разделе.<br>
+<br>
+<br>
+<span style="font-size: 17px;">Как это сделать…</span><br>
+<br>
+1. PEAR канал (pear.phpunit.de) используется для распространения PHPUnit. Этот канал должен быть зарегистрирован с локальной PEAR средой. Выполните следующую команду в терминале, чтобы обнаружить ее:<br>
+<br>
+<strong class="bbc">pear channel-discover pear.phpunit.de</strong><br>
+<br>
+2. Есть некоторые компоненты в (components.ez.no) канале, от которых PHPUnit<br>
+зависит. Таким образом, наш следующий канал, чтобы обнаружить, это:<br>
+<br>
+<strong class="bbc">pear channel-discover components.ez.no</strong><br>
+<br>
+3. Компонент, от которого PHPUnit зависит, размещен на Symfony Components PEAR канале (pear.symfony-project.com). Это последний канал, чтобы обнаружить:<br>
+<br>
+<strong class="bbc">pear channel-discover pear.symfony-project.com</strong><br>
+<br>
+4. Пора установить сам PHPUnit:<br>
+<br>
+<strong class="bbc">pear install phpunit/PHPUnit</strong><br>
+<br>
+5. При этом будут установлены все необходимые зависимости и PHPUnit из интернета.<br>
+6. Следующий инструмент для установки - PHP5-CLI. Вы можете установить его через терминал с помощью следующей команды:<br>
+<br>
+<strong class="bbc">sudo apt-get install php5-cli</strong><br>
+<br>
+<br>
+<span style="font-size: 17px;">Как это работает...</span><br>
+<br>
+PHPUnit является членом семейства XUnit для PHP. Он предшественник популярного блока тестирования для Java JUnit. <br>
+PEAR каналы – это репозиторий для различных PEAR пакетов. Эти каналы используются для распределения пакетов PEAR. Мы обнаружили каналы с командой channel-discover.<br>
+Наконец, мы выдали команду для установки PHPUnit установки через PEAR установщика. Вы можете проверить свою PHPUnit инсталляцию в терминале, выполнив следующую команду:<br>
+<br>
+<strong class="bbc">phpunit –version</strong><br>
+<br>
+Предыдущая команда должна возвратить текст, подобный follPHPUnit 3.5.5 от Себастьяна Бергмана.<br>
+<br>
+<br>
+<span style="font-size: 17px;">Больше…</span><br>
+<br>
+Кроме того, вы можете установить его из архива:<br>
+1. Скачайте архив новинок из <a href="http://pear.phpunit.de/get/" class="bbc_url" title="Ссылка">http://pear.phpunit.de/get/</a> и распакуйте его в каталог, который указан в include_path вашего php.ini файла конфигурации.<br>
+2. Подготовьте phpunit скрипт:<br>
+<ul class="bbc"><li>Переименуйте phpunit.php сценарий на phpunit.</li></ul><br>
+<ul class="bbc"><li>Замените строку @php_bin@ в нем на путь к вашему PHP интерпретатору командной строки (как правило, /usr/bin/php).</li></ul><br>
+<ul class="bbc"><li>Скопируйте его в каталог, который находится в вашем пути, и сделайте его исполняемым (chmod +x phpunit).</li></ul><br>
+3. Подготовьте PHPUnit / Util / PHP.php скрипт:<br>
+<ul class="bbc"><li>Замените строку @php_bin@ в нем на путь к вашему PHP интерпретатору командной строки (как правило, /usr/bin/php).</li></ul><br>
+<br>
+<br>
+<span style="font-size: 17px;">Создание первого тестового примера Magento</span><br>
+<br>
+Test Driven Development (TDD) стала популярной и широко принятой практикой сегодня. Она связана с тест-первыми концепциями программирования экстремального программирования. В TDD контрольных примерах должны быть написаны первыми, хотя в этом рецепте мы будем писать тестовые примеры для унаследованных кодов.<br>
+Magento построена на вершине Zend Framework, которая сама по себе пртестирована и поддерживает Test Driven Development. В Magento мы можем написать юнит-тесты с помощью PHPUnit для нашего собственного модуля или любых других существующих модулей для лучшего принятия. Этот рецепт поможет вам написать первый тестовый пример для Magento. В этом рецепте мы будем писать тесты для News модели модуля новостей.<br>
+<br>
+<br>
+<span style="font-size: 17px;">Подготовка</span><br>
+<br>
+Установите PHPUnit, Xdebug и PHP5-CLI двоичные коды. Убедитесь, что вы создали свой News модуль, как у нас было описано в главе 8 (Creating a Module) этой книги.<br>
+<br>
+<br>
+<span style="font-size: 17px;">Как это сделать…</span><br>
+<br>
+1. Создайте новую папку в вашем корне Magento и назовите ее как tests . <br>
+2. Создайте новый PHP файл в папке tests с именем autoload.php.<br>
+3. Ниже приводится содержание autoload.php. Этот файл содержит некоторые ini параметры и экземпляр (реализации) (instantiation) Magento ,который будет использоваться в unit тестах:<br>
+<pre class="prettyprint"><span class="pun">&lt;?</span><span class="pln">php<br><br>ini_set</span><span class="pun">(</span><span class="str">'include_path'</span><span class="pun">,</span><span class="pln"> ini_get</span><span class="pun">(</span><span class="str">'include_path'</span><span class="pun">)</span><span class="pln"> </span><span class="pun">.</span><span class="pln"> PATH_SEPARATOR<br></span><span class="pun">.</span><span class="pln"> dirname</span><span class="pun">(</span><span class="pln">__FILE__</span><span class="pun">)</span><span class="pln"> </span><span class="pun">.</span><span class="pln"> </span><span class="str">'/../app'</span><span class="pln"> </span><span class="pun">.</span><span class="pln"> PATH_SEPARATOR </span><span class="pun">.</span><span class="pln"> dirname</span><span class="pun">(</span><span class="pln">__<br>FILE__</span><span class="pun">));</span><span class="pln"><br><br></span><span class="com">//code coverage generation requires lots of memory</span><span class="pln"><br>ini_set</span><span class="pun">(</span><span class="str">'memory_limit'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'512M'</span><span class="pun">);</span><span class="pln"><br><br></span><span class="com">//autoloading will work as we set the inlcude path earlier</span><span class="pln"><br>require_once </span><span class="str">'Mage.php'</span><span class="pun">;</span><span class="pln"><br><br></span><span class="com">//creating the Magento application instance</span><span class="pln"><br></span><span class="typ">Mage</span><span class="pun">::</span><span class="pln">app</span><span class="pun">(</span><span class="str">'default'</span><span class="pun">);</span><span class="pln"><br><br></span><span class="com">//so we don't get "Headers already sent message" in case of error,</span><span class="pln"><br>can also var_dump now</span><span class="pun">...</span><span class="pln"><br>session_start</span><span class="pun">();</span></pre><br>
+4. Создайте новый XML файл в tests папке и назовите его phpunit.xml.<br>
+5. Теперь положите следующие данные в него. Данные для создания тестового комплекта для Magento:<br>
+<pre class="prettyprint"><span class="pun">&lt;?</span><span class="pln">xml version</span><span class="pun">=</span><span class="str">"1.0"</span><span class="pln"> encoding</span><span class="pun">=</span><span class="str">"UTF-8"</span><span class="pln"> </span><span class="pun">?&gt;</span><span class="pln"><br><br></span><span class="tag">&lt;phpunit</span><span class="pln"> </span><span class="atn">backupGlobals</span><span class="pun">=</span><span class="atv">"false"</span><span class="pln"><br></span><span class="atn">backupStaticAttributes</span><span class="pun">=</span><span class="atv">"false"</span><span class="pln"><br></span><span class="atn">colors</span><span class="pun">=</span><span class="atv">"true"</span><span class="pln"><br></span><span class="atn">convertErrorsToExceptions</span><span class="pun">=</span><span class="atv">"true"</span><span class="pln"><br></span><span class="atn">convertNoticesToExceptions</span><span class="pun">=</span><span class="atv">"true"</span><span class="pln"><br></span><span class="atn">convertWarningsToExceptions</span><span class="pun">=</span><span class="atv">"true"</span><span class="pln"><br></span><span class="atn">processIsolation</span><span class="pun">=</span><span class="atv">"true"</span><span class="pln"><br></span><span class="atn">stopOnFailure</span><span class="pun">=</span><span class="atv">"false"</span><span class="pln"><br></span><span class="atn">syntaxCheck</span><span class="pun">=</span><span class="atv">"true"</span><span class="pln"><br></span><span class="atn">bootstrap</span><span class="pun">=</span><span class="atv">"./autoload.php"</span><span class="pln"><br></span><span class="tag">&gt;</span><span class="pln"><br><br></span><span class="tag">&lt;testsuite</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"Magento Test Suite"</span><span class="tag">&gt;</span><span class="pln"><br></span><span class="tag">&lt;directory&gt;</span><span class="pln">./</span><span class="tag">&lt;/directory&gt;</span><span class="pln"><br></span><span class="tag">&lt;/testsuite&gt;</span><span class="pln"><br><br></span><span class="tag">&lt;filter&gt;</span><span class="pln"><br></span><span class="tag">&lt;whitelist&gt;</span><span class="pln"><br></span><span class="tag">&lt;directory&gt;</span><span class="pln">../app/code/local</span><span class="tag">&lt;/directory&gt;</span><span class="pln"><br></span><span class="tag">&lt;/whitelist&gt;</span><span class="pln"><br></span><span class="tag">&lt;/filter&gt;</span><span class="pln"><br><br></span><span class="tag">&lt;/phpunit&gt;</span></pre><br>
+6. Создайте необходимые папки, как на следующем скриншоте показано:<br>
+<br>
+<a class="resized_img" rel="lightbox[4064]" id="ipb-attach-url-855-0-21609900-1468691756" href="http://magento-forum.ru/index.php?app=core&amp;module=attach&amp;section=attach&amp;attach_rel_module=post&amp;attach_id=855" title="3.png - Размер: 25.58К, Загружен: 379"><img src="./magento1_and_xdebug_files/post-319-0-19890400-1302595351_thumb.png" id="ipb-attach-img-855-0-21609900-1468691756" style="width:603;height:367" class="attach" width="603" height="367" alt="Прикрепленное изображение: 3.png"></a><br>
+<br>
+Если вы в окне Linux, вы можете создать все каталоги через одну команду (если вы находитесь в каталоге тестов): mkdir -p app/code/local/Packt/News/Model/.<br>
+7. Теперь создайте новый файл PHP в tests/app/code/local/Packt/News/Model/ папке и назовите его как NewsTest.php.<br>
+8. Вложим содержание NewsTest.php следующим образом:<br>
+<pre class="prettyprint"><span class="pun">&lt;?</span><span class="pln">php<br><br>require_once </span><span class="str">'PHPUnit/Framework.php'</span><span class="pun">;</span><span class="pln"><br><br></span><span class="kwd">class</span><span class="pln"> </span><span class="typ">NewsTest</span><span class="pln"> </span><span class="kwd">extends</span><span class="pln"> </span><span class="typ">PHPUnit_Framework_TestCase</span><span class="pln"><br></span><span class="pun">{</span><span class="pln"><br><br></span><span class="kwd">protected</span><span class="pln"> $_newsModel</span><span class="pun">;</span><span class="pln"><br><br></span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> setUp</span><span class="pun">()</span><span class="pln"><br></span><span class="pun">{</span><span class="pln"><br>echo </span><span class="str">'Starting test for '</span><span class="pun">,</span><span class="pln"> $this</span><span class="pun">-&gt;</span><span class="pln">getName</span><span class="pun">(),</span><span class="pln"> </span><span class="str">'() method'</span><span class="pun">;</span><span class="pln"><br></span><span class="typ">Mage</span><span class="pun">::</span><span class="pln">app</span><span class="pun">(</span><span class="str">'default'</span><span class="pun">);</span><span class="pln"><br>$this</span><span class="pun">-&gt;</span><span class="pln">_newsModel </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Mage</span><span class="pun">::</span><span class="pln">getModel</span><span class="pun">(</span><span class="str">'news/news'</span><span class="pun">);</span><span class="pln"><br></span><span class="pun">}</span><span class="pln"><br><br></span><span class="kwd">protected</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> tearDown</span><span class="pun">()</span><span class="pln"><br></span><span class="pun">{</span><span class="pln"><br><br></span><span class="pun">}</span><span class="pln"><br><br></span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> testGetAllNews</span><span class="pun">()</span><span class="pln"><br></span><span class="pun">{</span><span class="pln"><br>$newses </span><span class="pun">=</span><span class="pln"> $this</span><span class="pun">-&gt;</span><span class="pln">_newsModel</span><span class="pun">-&gt;</span><span class="pln">getCollection</span><span class="pun">();</span><span class="pln"><br>$this</span><span class="pun">-&gt;</span><span class="pln">assertEquals</span><span class="pun">(</span><span class="lit">2</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">sizeof</span><span class="pun">(</span><span class="pln">$newses</span><span class="pun">));</span><span class="pln"><br></span><span class="pun">}</span><span class="pln"><br><br></span><span class="pun">}</span></pre><br>
+9. Теперь откройте терминал и перейдите в каталог tests. Напишите phpunit в терминале и нажмите ввод.<br>
+<br>
+<strong class="bbc">phpunit</strong><br>
+<br>
+10. Вы должны увидеть скрин, похожий на следующий:<br>
+<br>
+<a class="resized_img" rel="lightbox[4064]" id="ipb-attach-url-856-0-21615200-1468691756" href="http://magento-forum.ru/index.php?app=core&amp;module=attach&amp;section=attach&amp;attach_rel_module=post&amp;attach_id=856" title="4.png - Размер: 20.67К, Загружен: 401"><img src="./magento1_and_xdebug_files/post-319-0-63656500-1302595356_thumb.png" id="ipb-attach-img-856-0-21615200-1468691756" style="width:628;height:255" class="attach" width="628" height="255" alt="Прикрепленное изображение: 4.png"></a><br>
+<br>
+<br>
+<span style="font-size: 17px;">Как это работает...</span><br>
+<br>
+Самое первое задание для выполнения в этом рецепте – это создание необходимой файловой структуры и экземпляра приложения Magento. Мы сделали это, как в данном скриншоте, и создали новый autoload.php файл. Большинство работы мы здесь сделали, потому что все необходимые Mage функции изначально загружены. Вы можете использовать любой контроллер, модель, вызов Mage основных (центральных) функций, помощников и другие, которые приходят в соответствии с определенным каталогом в phpunit.xml.<br>
+phpunit конфигурации тестового набора находятся в файле phpunit.xml. Мы указали тестовый каталог, белый списочный фильтр для источников, предназначенных для тестирования, и некоторые PHPUnit атрибуты, такие как цвета, загрузочный файл, syntaxCheck и т.д.<br>
+Последним шагом было написание самого тестового примера. Мы включили PHPUnit основу (framework ) в начале. Мы написали класс с именем NewsTest, который продлил PHPUnit_Framework_TestCase. Методы setUp() и tearDown() вызываются перед запуском каждого теста. Мы назначили News модель через Mage в методе setUp(). testGetAllNews () – это тестовый пример для модели News, который проверяет, возвращает или нет News модель две строки. Мы считаем, что наша таблица news имеет два входа (entries). Если модель News возвращает две строки, то она пройдет тест или иначе провалит его. Вы можете и вам настоятельно рекомендуется написать больше тестов таким способом.<br>
+<br>
+<br>
+<span style="font-size: 17px;">Больше...</span><br>
+<br>
+Вы можете полностью автоматизировать тестирование с помощью методов setUp и tearDown. Скажем, мы в первую очередь очистили  таблицу и добавили в нее две строки через модель News в setUp().<br>
+После проверки этих двух строк в тестовых примерах мы удаляем эти две вставленные строки в tearDown методе, чтобы сделать базу данных такой, какой она была раньше.<br>
+<br>
+<br>
+<span style="font-size: 17px;">См. также</span><br>
+<br>
+<ul class="bbc"><li>Установка PHPUnit и необходимых PHP CLI двоичных файлов</li></ul><br>
+<ul class="bbc"><li>Установка и настройка Xdebug</li></ul>
+						
+						<br>
+						
+					</div>
+					
+				</div>
+
+
+			
+
+
+
+
+
+				<ul class="post_controls">
+					
+					
+
+					
+					<!--
+					
+					
+					
+					-->
+					
+					
+					
+					<!-- Matt: Approve / unapprove post button -->
+					
+				</ul>
+				<script type="text/javascript">
+					// Show multiquote for JS browsers
+					if ( $('multiq_4064') )
+					{
+						$('multiq_4064').show();
+					}
+
+					if( $('toggle_post_4064') )
+					{
+						$('toggle_post_4064').show();
+					}
+
+					// Add perm data
+					ipb.topic.deletePerms[4064] = { 'canDelete' : 0, 'canSoftDelete' : 0 };
+				</script>
+				
+			</div>
+		</div>
+
+		
+		<hr>
+
+		
+		
+	
+
+		<!--Begin Msg Number 4344-->
+		
+		<div class="post_block hentry clear  with_rep" id="post_id_4344">
+			<a id="entry4344"></a>
+			
+
+			
+			<div class="post_wrap">
+
+
+				
+					<div class="df-post-heading">
+				
+
+					<!--noindex-->
+						<span class="post_id">
+							<a rel="nofollow" href="http://magento-forum.ru/topic/909/page__view__findpost__p__4344" title="Ссылка на это сообщение #2">#2</a>
+						</span>
+					<!--/noindex-->
+
+
+						
+
+
+
+
+							<span class="author vcard">
+								<a class="url fn" href="http://magento-forum.ru/user/1/">Дмитрий Федюк</a>
+							</span>
+
+
+						
+					</div>
+
+				<!--noindex-->
+					<div class="author_info">
+						<ul class="user_details">
+		
+               <li class="avatar"><a href="http://magento-forum.ru/user/1/" title="Просмотр профиля"><img src="./magento1_and_xdebug_files/Woof.gif" alt=""></a></li>
+          
+		
+			<li class="title">Администратор</li>
+		
+		<li class="group_icon">
+			
+				<img src="./magento1_and_xdebug_files/admin.png" alt="Иконка">
+			
+			</li>
+	</ul>
+	<div style="margin: 0 auto;">
+		<ul class="user_controls clear">
+				
+				
+				
+				
+			</ul>
+	</div>
+	<ul class="user_fields">
+		<li>
+			<span class="ft">Группа:</span>
+			<span class="fc"><span style="color:red;">Администратор</span></span>
+		</li>
+		
+			<li>
+				<span class="ft">Сообщений: </span>
+				<span class="fc">8817</span>
+			</li>
+			<li>
+				<span class="ft">Регистрация:</span>
+				<span class="fc">20.02.2010</span>
+			</li>
+		
+		
+			
+				
+					
+				
+			
+		
+	</ul>
+	
+					</div>
+				<!--/noindex-->
+
+
+				<div class="post_body">
+					<p class="posted_info">
+						
+						
+						<abbr class="published" title="2011-04-22T07:08:11+00:00">22.04.2011 10:08</abbr>
+					</p>
+					
+					<div class="post entry-content ">
+						<!--cached-Thu, 19 May 2016 01:48:52 +0000--><a href="http://magento-forum.ru/topic/955/" class="bbc_url" title="Ссылка">Отладка Magento посредством Xdebug и IntelliJ IDEA</a><br>
+<a href="http://magento-forum.ru/topic/954/" class="bbc_url" title="Ссылка">Как добавить XDebug к Zend Server</a>
+						
+						<br>
+						
+					</div>
+					
+				</div>
+
+
+			
+
+
+
+
+
+				<ul class="post_controls">
+					
+					
+
+					
+					<!--
+					
+					
+					
+					-->
+					
+					
+					
+					<!-- Matt: Approve / unapprove post button -->
+					
+				</ul>
+				<script type="text/javascript">
+					// Show multiquote for JS browsers
+					if ( $('multiq_4344') )
+					{
+						$('multiq_4344').show();
+					}
+
+					if( $('toggle_post_4344') )
+					{
+						$('toggle_post_4344').show();
+					}
+
+					// Add perm data
+					ipb.topic.deletePerms[4344] = { 'canDelete' : 0, 'canSoftDelete' : 0 };
+				</script>
+				
+			</div>
+		</div>
+
+		
+		<hr>
+
+		
+		
+	
+
+<!-- MOD LINKS -->
+
+<!-- REPUTATION FILTERS -->
+
+<div class="moderation_bar rounded" id="topic_search_jump">
+
+		
+
+
+
+	</div>
+<!-- THREADED MODE -->
+
+<ul class="topic_jump right clear">
+	<li class="previous"><a href="http://magento-forum.ru/topic/909/page__view__old">← Предыдущая тема</a></li>
+	<li><strong><a href="http://magento-forum.ru/forum/103/" title="Вернуться к  Руководство для программистов («Magento 1.4 Development Cookbook»)">Руководство для программистов («Magento 1.4 Development Cookbook»)</a></strong></li>
+	<li class="next"><a href="http://magento-forum.ru/topic/909/page__view__new">Следующая тема →</a></li>
+</ul>
+
+<h3 class="topic_share left">Поделиться темой:</h3>
+
+
+	<ul class="topic_share left shareButtons">
+	
+		<li><a href="http://magento-forum.ru/index.php?sharelink=vkontakte;aHR0cDovL21hZ2VudG8tZm9ydW0ucnUvdG9waWMvOTA5Lw,,;0JPQu9Cw0LLQsCAxMi4g0J7RgtC70LDQtNC60LAg0Lgg0YLQtdGB0YLQuNGA0L7QstCw0L3QuNC1INC80L7QtNGD0LvQtdC5" rel="nofollow" target="_blank" title="Поделиться ссылкой через Вконтакте" class="_slink" id="slink_vkontakte"><img src="./magento1_and_xdebug_files/vkontakte.png"></a></li>
+	
+
+		<li><a href="http://magento-forum.ru/index.php?sharelink=facebook;aHR0cDovL21hZ2VudG8tZm9ydW0ucnUvdG9waWMvOTA5Lw,,;0JPQu9Cw0LLQsCAxMi4g0J7RgtC70LDQtNC60LAg0Lgg0YLQtdGB0YLQuNGA0L7QstCw0L3QuNC1INC80L7QtNGD0LvQtdC5" rel="nofollow" target="_blank" title="Поделиться ссылкой через Facebook" class="_slink" id="slink_facebook"><img src="./magento1_and_xdebug_files/facebook.png"></a></li>
+	
+
+		<li><a href="http://magento-forum.ru/index.php?sharelink=twitter;aHR0cDovL21hZ2VudG8tZm9ydW0ucnUvdG9waWMvOTA5Lw,,;0JPQu9Cw0LLQsCAxMi4g0J7RgtC70LDQtNC60LAg0Lgg0YLQtdGB0YLQuNGA0L7QstCw0L3QuNC1INC80L7QtNGD0LvQtdC5" rel="nofollow" target="_blank" title="Поделиться ссылкой через Twitter" class="_slink" id="slink_twitter"><img src="./magento1_and_xdebug_files/twitter.png"></a></li>
+	
+
+		
+	
+
+		
+	
+
+		
+	
+
+		
+	
+
+		
+	
+
+		
+	
+
+		
+	
+
+		
+	
+	</ul>
+	<script type="text/javascript">
+		ipb.sharelinks.url   = "http://magento-forum.ru/topic/909/";
+		ipb.sharelinks.title = "Глава 12. Отладка и тестирование модулей";
+		ipb.sharelinks.bname = "Российская сборка Magento";
+	</script>
+
+<br>
+
+<!-- BOTTOM BUTTONS -->
+<div class="topic_controls clear">
+	
+
+	
+
+</div>
+<hr>
+<script type="text/javascript">
+	ipb.editor_values.set( 'emoticons', $H({ ':rolleyes:' : "1,rolleyes.gif",
+'&lt;_&lt;' : "2,dry.gif",
+':mellow:' : "3,mellow.gif",
+':unsure:' : "4,unsure.gif",
+':angry:' : "5,angry.gif",
+':blink:' : "6,blink.gif",
+':huh:' : "7,huh.gif",
+':lol:' : "8,laugh.gif",
+';)' : "9,wink.gif",
+':o' : "10,ohmy.gif",
+':P' : "11,tongue.gif",
+':(' : "12,sad.gif",
+'B)' : "13,cool.gif",
+':D' : "14,biggrin.gif",
+':)' : "15,smile.gif" }) );
+	ipb.vars['emoticon_url'] = "http://magento-forum.ru/public/style_emoticons/default";
+</script>
+
+
+
+
+
+
+
+<!-- Close topic -->
+</div>
+
+
+
+
+
+
+
+	<script type="text/javascript" src="./magento1_and_xdebug_files/prettify.js"></script>
+	<script type="text/javascript" src="./magento1_and_xdebug_files/lang-sql.js"></script>
+	<!-- By default we load generic code, php, css, sql and xml/html; load others here if desired -->
+	<script type="text/javascript">
+	//<![CDATA[
+		Event.observe( window, 'load', function(e){ prettyPrint() });
+	//]]>
+	</script>
+				<br class="clear">
+			</div>
+
+		</div>
+
+
+		
+
+				<script type="text/javascript">
+
+				  var _gaq = _gaq || [];
+				  _gaq.push(['_setAccount', 'UA-4963515-5']);
+  _gaq.push(['_addOrganic', 'images.google.ru', 'q', true]);
+  _gaq.push(['_addOrganic', 'images.yandex.ru', 'text', true]);
+  _gaq.push(['_addOrganic', 'blogs.yandex.ru', 'text', true]);
+  _gaq.push(['_addOrganic', 'blogsearch.google.ru', 'q', true]);
+  _gaq.push(['_addOrganic', 'go.mail.ru', 'q']);
+  _gaq.push(['_addOrganic', 'win.mail.ru', 'q']);
+  _gaq.push(['_addOrganic', 'gogo.ru', 'q']);
+  _gaq.push(['_addOrganic', 'nova.rambler.ru', 'query']);
+  _gaq.push(['_addOrganic', 'nigma.ru', 's']);
+  _gaq.push(['_addOrganic', 'google.com.ua', 'q']);
+  _gaq.push(['_addOrganic', 'affiliates.quintura.com', 'request']);
+  _gaq.push(['_addOrganic', 'search.qip.ru', 'query']);
+  _gaq.push(['_addOrganic', 'ru.yahoo.com', 'p']);
+  //_gaq.push(['_addOrganic', 'market.yandex.ru', 'test', true]);
+  //_gaq.push(['_addOrganic', 'video.yandex.ru', 'text']);
+  //_gaq.push(['_addOrganic', 'price.ru', 'pnam']);
+  //_gaq.push(['_addOrganic', 'torg.mail.ru', 'q']);
+  _gaq.push(['_addOrganic', 'maps.google.ru', 'q']);
+_gaq.push(['_addOrganic', "meta.ua","q"]);
+_gaq.push(['_addOrganic', "bigmir.net","q"]);
+_gaq.push(['_addOrganic', "search.ukr.net","search_query"]);
+_gaq.push(['_addOrganic', "gogle.com.ua","q"]);
+_gaq.push(['_addOrganic', "google.com.ua","q"]);
+_gaq.push(['_addOrganic', "images.google.com.ua","q"]);
+
+				  _gaq.push(['_trackPageview']);
+
+				  (function() {
+					var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+					ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+					var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+				  })();
+				</script>
+			
+
+
+<script type="text/javascript" src="./magento1_and_xdebug_files/form.js" charset="utf-8"></script>
+<script type="text/javascript" src="./magento1_and_xdebug_files/site.js" charset="utf-8"></script>
+	
+</body></html>

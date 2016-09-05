@@ -1,0 +1,166 @@
+через отправку формы добавим модель в коллекцию. при этом используем валидацию данных
+
+==================
+выводим модальное окно с формой добавления:
+
+APP.AddGraphModalView = Backbone.View.extend({
+
+  initialize: function() {
+    this.graphSimpleKeys = APP.helper.getSimpleKeys(APP.Graph.prototype.defaults); 
+  },  
+
+  tagName: 'div',
+
+  template: _.template($('#addGraphModalTemplate').html()), 
+
+  events:{
+    'click #createGraphSubmit' : 'createGraph'
+  },  
+
+  render: function() {  
+    this.$el.html(this.template());
+
+    for (var key in this.graphSimpleKeys) { this.renderField(this.graphSimpleKeys[key]) };
+      
+    return this;
+  }, 
+
+  renderField: function(key) {      
+    var addGraphModalFieldView = new APP.AddGraphModalFieldView();
+
+    this.$el.find('#addGraphModalFields').append(addGraphModalFieldView.render(key).el);
+  }, 
+
+  createGraph: function(e) {
+    e.preventDefault();
+
+    var newGraphData = {
+      title: this.$el.find('#fld_title').val(),
+      yMax: this.$el.find('#fld_yMax').val(),
+      yMin: this.$el.find('#fld_yMin').val(),
+      yPeriod: this.$el.find('#fld_yPeriod').val(),
+      xMax: this.$el.find('#fld_xMax').val(),
+      xMin: this.$el.find('#fld_xMin').val(),
+      xPeriod: this.$el.find('#fld_xPeriod').val(),
+      dots: {}
+    };
+
+    var newGraph = new APP.Graph(newGraphData);
+
+    if (newGraph.isValid()) {
+      APP.graphCollection.add(newGraph);      
+      this.$el.find('#addGraphModal').modal('hide');      
+      this.$el.find('#addGraphModal input.form-control').val('');   
+      APP.helper.changeBorderColorElem('#addGraphModal input.form-control', '#ccc');   
+    } else {
+      var errorsFeildsArr = newGraph.validationError;
+
+      APP.helper.changeBorderColorElem('#addGraphModal input.form-control', '#ccc');
+      for(var i in errorsFeildsArr) { APP.helper.changeBorderColorElem('#fld_' + errorsFeildsArr[i], '#f00') };
+    };   
+  }
+
+});
+
+
+
+
+
+здесь: 
+
+#addGraphModalTemplate шаблон модального окна
+
+'click #createGraphSubmit' : 'createGraph' значит как только нажимаем кнопку добавить, запускается процедура валидации и добавления:
+
+  createGraph: function(e) {
+    e.preventDefault();
+
+    var newGraphData = {
+      title: this.$el.find('#fld_title').val(),
+      yMax: this.$el.find('#fld_yMax').val(),
+      yMin: this.$el.find('#fld_yMin').val(),
+      yPeriod: this.$el.find('#fld_yPeriod').val(),
+      xMax: this.$el.find('#fld_xMax').val(),
+      xMin: this.$el.find('#fld_xMin').val(),
+      xPeriod: this.$el.find('#fld_xPeriod').val(),
+      dots: {}
+    };
+
+    var newGraph = new APP.Graph(newGraphData);
+
+    if (newGraph.isValid()) {
+      APP.graphCollection.add(newGraph);      
+      this.$el.find('#addGraphModal').modal('hide');      
+      this.$el.find('#addGraphModal input.form-control').val('');   
+      APP.helper.changeBorderColorElem('#addGraphModal input.form-control', '#ccc');   
+    } else {
+      var errorsFeildsArr = newGraph.validationError;
+
+      APP.helper.changeBorderColorElem('#addGraphModal input.form-control', '#ccc');
+      for(var i in errorsFeildsArr) { APP.helper.changeBorderColorElem('#fld_' + errorsFeildsArr[i], '#f00') };
+    };      
+  }
+
+
+
+
+
+==================
+правила валидации находятся в самой модели:
+APP.Graph = Backbone.Model.extend({
+  defaults: {
+    title: undefined,
+    yMax: undefined,
+    yMin: undefined,
+    yPeriod: undefined,
+    xMax: undefined,
+    xMin: undefined,
+    xPeriod: undefined,
+    dots: {}
+  }, 
+
+  validate: function(attrs) {
+    var errorsArr = [],
+        title = $.trim(attrs.title),
+        yMax = $.trim(attrs.yMax);
+        yMin = $.trim(attrs.yMin);
+        yPeriod = $.trim(attrs.yPeriod);
+        xMax = $.trim(attrs.xMax);
+        xMin = $.trim(attrs.xMin);
+        xPeriod = $.trim(attrs.xPeriod);
+
+    // check type and length
+    if(title.length == 0) { errorsArr.push('title'); };
+    if(isNaN(yMax) == true || yMax.length == 0) { errorsArr.push('yMax') };
+    if(isNaN(yMin) == true || yMin.length == 0) { errorsArr.push('yMin') };
+    if(isNaN(yPeriod) == true || yPeriod.length == 0) { errorsArr.push('yPeriod') };
+    if(isNaN(xMax) == true || xMax.length == 0) { errorsArr.push('xMax') };
+    if(isNaN(xMin) == true || xMin.length == 0) { errorsArr.push('xMin') };
+    if(isNaN(xPeriod) == true || xPeriod.length == 0) { errorsArr.push('xPeriod') };   
+
+    // check range 
+    if(parseInt(yMax, 10) <= parseInt(yMin, 10) ) { errorsArr.push('yMax', 'yMin') };
+    if(parseInt(xMax, 10) <= parseInt(xMin, 10) ) { errorsArr.push('xMax', 'xMin') };
+
+    // check period
+    if(parseInt(yPeriod, 10) <= 0 ) { errorsArr.push('yPeriod') };
+    if(parseInt(xPeriod, 10) <= 0 ) { errorsArr.push('xPeriod') };
+
+    if(errorsArr.length != 0) { return errorsArr };
+  }  
+});
+
+
+
+если не возвращается ничего, то валидация успешна.
+если возваращается любая фраза, то валидация не успешна.
+возвращаемую фразу можно найти в var errorsFeildsArr = newGraph.validationError;
+==================
+==================
+==================
+==================
+==================
+==================
+==================
+==================
+==================

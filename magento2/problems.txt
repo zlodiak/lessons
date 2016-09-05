@@ -1,0 +1,105 @@
+Enable XSL on Ubuntu 12.04. это расширение php требуется перед установкой composer
+
+sudo apt-get install php5-xsl
+sudo php5enmod xsl
+sudo service apache2 restart
+
+
+http://stackoverflow.com/questions/23676127/enable-xsl-on-ubuntu-12-04
+
+==============================
+при установке нужно изменить права на все каталоги(777), а так же раскомментировать в php.ini строку:
+always_populate_raw_post_data = -1
+
+php.ini существует 2:
+/etc/php5/cli 
+/etc/php5/apache2
+
+после всего нужно перезапустить apache: sudo service apache2 restart
+
+
+==============================
+обновить версию mysql до 5.6:
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install mysql-server-5.6
+
+==============================
+если после успешной установки не грузится страница админки и во фронтэнде нет картинок, то:
+First of all, apply proper permissions, enable apache rewrite_module and refresh apache server.
+
+chmod -R 777 /var/www/html/MAGENTO_2_ROOT_DIRECTORY/
+
+sudo a2enmod rewrite
+
+sudo service apache2 restart
+For messy frontend, run following command from Magento root:
+
+php bin/magento setup:static-content:deploy
+Now clear var directory except .htaccess file and check admin. If you get 404 page, there may be an issue of Symlink. Fot this, Edit apache config file
+
+sudo gedit /etc/apache2/apache2.conf
+and replace this code :
+
+<Directory /var/www/>
+Options Indexes FollowSymLinks
+AllowOverride none
+Require all granted
+with
+
+<Directory /var/www/>
+Options Indexes FollowSymLinks
+AllowOverride All
+Require all granted
+Note: changed AllowOverride none to AllowOverride All
+
+Now restart apache sudo service apache2 restart and check admin. This should fix admin 404 issue.
+
+Also make sure, you don't leave /app/etc/ directory writeable
+
+
+
+http://magento.stackexchange.com/questions/91087/magento-2-admin-url-not-working-and-loaded-frontend-is-all-messy
+
+
+==============================
+чтобы включить вывод сообщений об ошибках на экран нужно:
+It's similar to Magento 1, but local.xml.sample is located in pub/errors.
+Just rename local.xml.sample to local.xml within pub/errors directory.
+
+
+http://magento.stackexchange.com/questions/62405/enable-exception-printing-on-the-webpage-in-magento2
+
+==============================
+чтобы установить модуль в систему
+
+==============================
+main.CRITICAL: Broken reference: No element found with ID ‘before.body.end’. 
+You need to specify the layout for the page.
+So add this layout=”2columns-left” on the <page> node in mymodule_mycontroller_myaction.xml
+You can also use 1column, 2columns-right, 3columns or empty.
+Note: Should not give any empty line from beginning of the code.
+
+
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================
+==============================

@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<!-- saved from url=(0080)https://thoughtsimproved.wordpress.com/2015/07/06/configure-php-xdebug-netbeans/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Configure Xdebug on Netbeans 8 for PHP CLI | Thoughts Improved</title>
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://thoughtsimproved.wordpress.com/xmlrpc.php">
+
+<link rel="alternate" type="application/rss+xml" title="Thoughts Improved » Feed" href="https://thoughtsimproved.wordpress.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Thoughts Improved » Comments Feed" href="https://thoughtsimproved.wordpress.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Thoughts Improved » Configure Xdebug on Netbeans 8 for PHP CLI Comments Feed" href="https://thoughtsimproved.wordpress.com/2015/07/06/configure-php-xdebug-netbeans/feed/">
+	<script async="" src="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/beacon.js"></script><script type="text/javascript">
+		/* <![CDATA[ */
+		function addLoadEvent(func) {
+			var oldonload = window.onload;
+			if (typeof window.onload != 'function') {
+				window.onload = func;
+			} else {
+				window.onload = function () {
+					oldonload();
+					func();
+				}
+			}
+		}
+		/* ]]> */
+	</script>
+	<link rel="stylesheet" id="all-css-0" href="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/saved_resource" type="text/css" media="all">
+<link rel="stylesheet" id="sorbet-source-sans-pro-css" href="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/css" type="text/css" media="all">
+<link rel="stylesheet" id="sorbet-pt-serif-css" href="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/css(1)" type="text/css" media="all">
+<link rel="stylesheet" id="all-css-4" href="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/saved_resource(1)" type="text/css" media="all">
+<link rel="stylesheet" id="print-css-5" href="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/global-print.css" type="text/css" media="print">
+<link rel="stylesheet" id="all-css-6" href="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/saved_resource(2)" type="text/css" media="all">
+<script type="text/javascript">
+/* <![CDATA[ */
+var LoggedOutFollow = {"invalid_email":"Your subscription did not succeed, please try again with a valid email address."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/saved_resource(3)"></script>
+<link rel="stylesheet" id="all-css-0" href="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/style.css" type="text/css" media="all">
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='https://s1.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563h&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://thoughtsimproved.wordpress.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://s1.wp.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Parellel processing in Bash" href="https://thoughtsimproved.wordpress.com/2015/05/18/parellel-processing-in-bash/">
+<link rel="next" title="Self Updating Git Repos" href="https://thoughtsimproved.wordpress.com/2015/08/17/self-updating-git-repos/">
+<meta name="generator" content="WordPress.com">
+<link rel="canonical" href="https://thoughtsimproved.wordpress.com/2015/07/06/configure-php-xdebug-netbeans/">
+<link rel="shortlink" href="http://wp.me/p1tWQm-32">
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=json&amp;url=https%3A%2F%2Fthoughtsimproved.wordpress.com%2F2015%2F07%2F06%2Fconfigure-php-xdebug-netbeans%2F&amp;for=wpcom-auto-discovery"><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=xml&amp;url=https%3A%2F%2Fthoughtsimproved.wordpress.com%2F2015%2F07%2F06%2Fconfigure-php-xdebug-netbeans%2F&amp;for=wpcom-auto-discovery">
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Configure Xdebug on Netbeans 8 for PHP CLI">
+<meta property="og:url" content="https://thoughtsimproved.wordpress.com/2015/07/06/configure-php-xdebug-netbeans/">
+<meta property="og:description" content="XDebug integration with Netbeans has always been flaky for me. It works one minute, and not the next time round. In this post, I’ve outlined some simple and robust steps to get XDebug working…">
+<meta property="article:published_time" content="2015-07-06T19:59:27+00:00">
+<meta property="article:modified_time" content="2015-07-06T20:01:35+00:00">
+<meta property="og:site_name" content="Thoughts Improved">
+<meta property="og:image" content="https://thoughtsimproved.files.wordpress.com/2015/07/screenshot-from-2015-07-07-005200.png">
+<meta property="og:image:width" content="927">
+<meta property="og:image:height" content="688">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:site" content="@aidezigns">
+<meta name="twitter:image" content="https://thoughtsimproved.files.wordpress.com/2015/07/screenshot-from-2015-07-07-005200.png?w=240">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@aidezigns">
+<meta property="fb:app_id" content="249643311490">
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom">
+<link rel="shortcut icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="apple-touch-icon-precomposed" href="https://s0.wp.com/i/webclip.png">
+<link rel="openid.server" href="https://thoughtsimproved.wordpress.com/?openidserver=1">
+<link rel="openid.delegate" href="https://thoughtsimproved.wordpress.com/">
+<link rel="search" type="application/opensearchdescription+xml" href="https://thoughtsimproved.wordpress.com/osd.xml" title="Thoughts Improved">
+<link rel="search" type="application/opensearchdescription+xml" href="https://s1.wp.com/opensearch.xml" title="WordPress.com">
+		<style type="text/css">
+			.recentcomments a {
+				display: inline !important;
+				padding: 0 !important;
+				margin: 0 !important;
+			}
+
+			table.recentcommentsavatartop img.avatar, table.recentcommentsavatarend img.avatar {
+				border: 0px;
+				margin: 0;
+			}
+
+			table.recentcommentsavatartop a, table.recentcommentsavatarend a {
+				border: 0px !important;
+				background-color: transparent !important;
+			}
+
+			td.recentcommentsavatarend, td.recentcommentsavatartop {
+				padding: 0px 0px 1px 0px;
+				margin: 0px;
+			}
+
+			td.recentcommentstextend {
+				border: none !important;
+				padding: 0px 0px 2px 10px;
+			}
+
+			.rtl td.recentcommentstextend {
+				padding: 0px 10px 2px 0px;
+			}
+
+			td.recentcommentstexttop {
+				border: none;
+				padding: 0px 0px 0px 10px;
+			}
+
+			.rtl td.recentcommentstexttop {
+				padding: 0px 10px 0px 0px;
+			}
+		</style>
+		<meta name="application-name" content="Thoughts Improved"><meta name="msapplication-window" content="width=device-width;height=device-height"><meta name="msapplication-tooltip" content="Thoughts, inklings of tech and some mild humor"><meta name="msapplication-task" content="name=Subscribe;action-uri=https://thoughtsimproved.wordpress.com/feed/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="title" content="Configure Xdebug on Netbeans 8 for PHP CLI | Thoughts Improved on WordPress.com">
+<meta name="description" content="XDebug integration with Netbeans has always been flaky for me. It works one minute, and not the next time round. In this post, I&#39;ve outlined some simple and robust steps to get XDebug working with Netbeans 8 on Ubuntu 14.04. Install XDebug There are 3 steps to this : Install the Xdebug extension. Configure it.…">
+		<script type="text/javascript" src="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/amzn_ads.js"></script>
+		<script type="text/javascript">
+		try { amznads.getAds("3033"); } catch(e) { /* ignore */ }
+		</script><script type="text/javascript" src="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/bid"></script>
+		<script type="text/javascript">
+		try {
+			var a9_p = amznads.getKeys(),
+			_ipw_custom = {
+				wordAds: '0',
+				adSafe: '0',
+				domain: 'thoughtsimproved.wordpress.com',
+				pageURL: 'https://thoughtsimproved.wordpress.com/2015/07/06/configure-php-xdebug-netbeans/'
+			};
+			if("undefined"!=typeof a9_p&&""!=a9_p&&null!==a9_p&&"[object Array]"===Object.prototype.toString.call(a9_p)){var a="",b=0,c=a9_p.length;a9_p.sort();for(var d=0;d<c;d++){a9_p[d-b]=a9_p[d-b].replace(/a1x6p/,"a160x600p");var e=a9_p[d-b].split("p");e[0]==a&&(a9_p.splice(d-b,1),b++);a=e[0]}_ipw_custom.amznPay=a9_p};document.close();
+		} catch(e) {}
+		</script>		<!-- IPONWEB header script -->
+		<script type="text/javascript">
+			window.__ATA = {
+				scriptSrc: '//s.pubmine.com/showad.js',
+				slotPrefix: 'automattic-id-',
+				initAd: function(o) {
+					var o = o || {},
+						g = window,
+						d = g.document,
+						wr = d.write,
+						id = g.__ATA.id();
+					wr.call(d, '<div id="' + id + '" data-section="' + (o.sectionId || 0) + '"' + (o.type ? ('data-type="' + o.type + '"') : '') + ' ' + (o.forcedUrl ? ('data-forcedurl="' + o.forcedUrl + '"') : '') + ' style="width:' + (o.width || 0) + 'px; height:' + (o.height || 0) + 'px;">');
+					g.__ATA.displayAd(id);
+					wr.call(d, '</div>');
+				},
+				displayAd: function(id) {
+					window.__ATA.ids = window.__ATA.ids || {};
+					window.__ATA.ids[id] = 1;
+				},
+				customParams: _ipw_custom,
+				id: function() {
+					return window.__ATA.slotPrefix + (parseInt(Math.random() * 10000, 10) + 1 + (new Date()).getMilliseconds());
+				}
+			};
+			(function(d, ata) {
+				var pr = "https:" === d.location.protocol ? "https:" : "http:",
+					src = pr + ata.scriptSrc,
+					st = "text/javascript";
+				d.write('<scr' + 'ipt type="' + st + '" src="' + src + '"><\/scr' + 'ipt>');
+			})(window.document, window.__ATA);
+		</script><script type="text/javascript" src="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/showad.js"></script>
+		<script type="text/javascript">
+		jQuery(window).ready(function () {
+			jQuery("a.wpa-about").text("About these ads");
+		});
+		</script><link rel="amphtml" href="https://thoughtsimproved.wordpress.com/2015/07/06/configure-php-xdebug-netbeans/amp/"><style type="text/css" id="syntaxhighlighteranchor"></style>
+<script type="text/javascript">
+	window.google_analytics_uacct = "UA-52447-2";
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-52447-2']);
+	_gaq.push(['_setDomainName', 'wordpress.com']);
+	_gaq.push(['_initData']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})();
+</script><script type="text/javascript" async="" src="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/ga.js"></script>
+<script type="text/javascript" async="" src="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/saved_resource(4)"></script><link rel="stylesheet" type="text/css" id="gravatar-card-css" href="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/services.css"><script type="text/javascript" async="" src="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/saved_resource(5)"></script></head>
+
+<body class="single single-post postid-188 single-format-standard mp6 customizer-styles-applied right-sidebar highlander-enabled highlander-light" cz-shortcut-listen="true">
+<div id="page" class="hfeed site">
+		<header id="masthead" class="site-header" role="banner">
+				<div class="site-header-wrapper">
+			<div class="site-branding">
+				<h1 class="site-title"><a href="https://thoughtsimproved.wordpress.com/" rel="home">Thoughts Improved</a></h1>
+				<h2 class="site-description">Thoughts, inklings of tech and some mild humor</h2>
+			</div>
+
+			<div class="toggles">
+				<div id="menu-toggle" class="toggle" title="Menu"><span class="screen-reader-text">Menu</span></div>
+												<div id="search-toggle" class="toggle" title="Search"><span class="screen-reader-text">Search</span></div>
+			</div>
+		</div>
+	</header><!-- #masthead -->
+	<div id="menu-toggle-nav" class="panel">
+		<nav id="site-navigation" class="main-navigation" role="navigation">
+			<a class="skip-link screen-reader-text" href="https://thoughtsimproved.wordpress.com/2015/07/06/configure-php-xdebug-netbeans/#content">Skip to content</a>
+
+			<div class="menu"><ul><li><a href="https://thoughtsimproved.wordpress.com/">Home</a></li><li class="page_item page-item-2"><a href="https://thoughtsimproved.wordpress.com/about/">About</a></li></ul></div>
+		</nav><!-- #site-navigation -->
+	</div>
+			<div id="search-toggle-nav" class="panel">
+		<div class="search-wrapper">
+			<form role="search" method="get" class="search-form" action="https://thoughtsimproved.wordpress.com/">
+	<label>
+		<span class="screen-reader-text">Search for:</span>
+		<input type="search" class="search-field" placeholder="Search …" value="" name="s">
+	</label>
+	<input type="submit" class="search-submit" value="Search">
+</form>
+		</div>
+	</div>
+	<div id="content" class="site-content">
+
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-188" class="post-188 post type-post status-publish format-standard hentry category-netbeans category-php category-xdebug tag-netbeans tag-php tag-xdebug">
+	<header class="entry-header">
+				<h1 class="entry-title">Configure Xdebug on Netbeans 8 for PHP&nbsp;CLI</h1>	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<p><a href="http://xdebug.org/">XDebug</a> integration with Netbeans has always been flaky for me. It works one minute, and not the next time round. In this post, I’ve outlined some simple and robust steps to get XDebug working with <a href="https://netbeans.org/downloads/">Netbeans 8</a> on Ubuntu 14.04.<br>
+<span id="more-188"></span></p>
+<h2>Install XDebug</h2>
+<p>There are 3 steps to this :</p>
+<ol>
+<li>Install the Xdebug extension.</li>
+<li>Configure it.</li>
+<li>Verify.</li>
+</ol>
+<p>To install, run this in your shell : <code>sudo apt-get install php5-xdebug</code></p>
+<p>Modify the `<span class="skimlinks-unlinked">xdebug.ini</span>` file. This is usually in `<code>/etc/php5/mods-available/xdebug.ini</code>`. Set it to :</p>
+<pre class="examplecode">[xdebug]
+zend_extension=<span class="skimlinks-unlinked">xdebug.so</span> 
+xdebug.default_enable=1
+xdebug.remote_enable=1
+xdebug.remote_handler=dbgp
+xdebug.remote_host=localhost
+xdebug.remote_port=9000
+xdebug.remote_autostart=1</pre>
+<p>Verify that Xdebug has been installed. Run the <code>php -v</code> command and look for the ‘<strong>with Xdebug</strong>‘ line. Like here:</p>
+<pre>php -v
+PHP 5.5.9-1ubuntu4.9 (cli) (built: Apr 17 2015 11:44:57) 
+Copyright (c) 1997-2014 The PHP Group
+Zend Engine v2.5.0, Copyright (c) 1998-2014 Zend Technologies
+ with Zend OPcache v7.0.3, Copyright (c) 1999-2014, by Zend Technologies
+ with Xdebug v2.2.3, Copyright (c) 2002-2013, by Derick Rethans</pre>
+<p>Make sure you see it, or Xdebug has not been installed and the rest of this tutorial won’t work for you!</p>
+<p>Here everything so far in copy-paste form :</p>
+<pre class="examplecode">sudo apt-get install php5-xdebug;
+sudo sh -c "echo '[xdebug]
+zend_extension=<span class="skimlinks-unlinked">xdebug.so</span> 
+xdebug.default_enable=1
+xdebug.remote_enable=1
+xdebug.remote_handler=dbgp
+xdebug.remote_host=localhost
+xdebug.remote_port=9000
+xdebug.remote_autostart=1' &gt; /etc/php5/mods-available/<span class="skimlinks-unlinked">xdebug.ini</span>" ;
+php -v | grep Xdebug
+</pre>
+<h2>Configure Netbeans</h2>
+<p>Now configure Netbeans :</p>
+<ol>
+<li>Click on <span style="color:#808000;">Tools</span> &gt; <span style="color:#808000;">Options</span> &gt; <span style="color:#808000;">PHP</span> &gt; <span style="color:#808000;">Debugging</span></li>
+<li>Check ‘<span style="color:#808000;">Stop at&nbsp;First Line</span>‘ and ‘<span style="color:#808000;">Show Debugger Console</span>‘</li>
+</ol>
+<p><a href="https://thoughtsimproved.files.wordpress.com/2015/07/screenshot-from-2015-07-07-005200.png"><img class=" size-medium wp-image-191 aligncenter" src="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/screenshot-from-2015-07-07-005200.png" alt="Screenshot of Debuggig Tab" width="300" height="223"></a></p>
+<p>The&nbsp;‘Stop at&nbsp;First Line’ option provides us quick feedback on whether the hook up worked. Otherwise you need to set a breakpoint in your code for it to actually stop there. Once the setup has been verified&nbsp;you can uncheck this option.</p>
+<h2>Setup a Debug Session</h2>
+<p>To run a debug session you need to create a ‘Run Project’. This is just a configuration setting that tells Netbeans how to start your code properly with&nbsp;the debugger. I’m using a <a href="https://symfony.com/">Symfony</a> project, so I’m going to demonstrate debugging a test case with PHPUnit&nbsp;:</p>
+<ol>
+<li>Click on <span style="color:#808000;">Run</span> &gt; <span style="color:#808000;">Set Project Configuration</span> &gt; <span style="color:#808000;">Customize</span></li>
+<li>Click ‘<span style="color:#808000;">New</span>‘. Give a name, say ‘PHPUnit’</li>
+<li><span style="color:#808000;">Run As</span> : Set it to ‘<span style="color:#808000;">Script (run in command line)</span>‘</li>
+<li><span style="color:#808000;">PHP Interpreter</span> : Use the default, this is usually&nbsp;`<code>/usr/bin/php5</code>` on Ubuntu.</li>
+<li>In <span style="color:#808000;">Index File</span>, set the full path to your <span class="skimlinks-unlinked">phpunit.phar</span> file.</li>
+<li>Press <span style="color:#808000;">Ok</span>.</li>
+</ol>
+<h2>Debug!</h2>
+<p>This is the easiest part. If you’ve done the above correctly you will be able to see Netbeans stop at&nbsp;the first line it finds.&nbsp;To debug a&nbsp;file :</p>
+<ol>
+<li>Click on the file and press ‘Ctrl + Shift + F5’. Or Right-click and click ‘Debug’</li>
+<li>[If Netbeans complains the <span class="skimlinks-unlinked">phpunit.phar</span> file is too large, press ‘No’.]</li>
+</ol>
+<p>That’s it! From here you can :</p>
+<ol>
+<li>Create a breakpoint in your file.</li>
+<li>If your breakpoint is in the run&nbsp;path, Netbeans will&nbsp;now stop at your breakpoint.</li>
+<li>You can watch all the variables declared until that point in the ‘Variables’ tab, and inspect their values at that point. You can&nbsp;also see the stack trace so far. Really useful stuff!</li>
+</ol>
+<p>Happy debugging!</p>
+		<div class="wpcnt">
+			<div class="wpa wpmrec">
+				<a class="wpa-about" href="https://wordpress.com/about-these-ads/" rel="nofollow">About these ads</a>
+				<div class="u">
+					<script type="text/javascript">
+					(function(g){g.__ATA.initAd({sectionId:26942, width:300, height:250});})(window);
+					</script><div id="automattic-id-3991" data-section="26942" style="width:300px; height:250px;"><iframe width="300" height="250" style="border:none;width:300px;height:250px;" frameborder="0" scrolling="no" name="fif_slot_automattic-id-_automattic-id-3991" id="fif_slot_automattic-id-_automattic-id-3991" src="javascript:&quot;&lt;html&gt;&lt;body style=&#39;background:transparent;margin:0%;&#39;&gt;&lt;/body&gt;&lt;/html&gt;&quot;" src="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/saved_resource.html"></iframe></div>
+				</div>
+			</div>
+		</div><div id="jp-post-flair" class="sharedaddy sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-twitter"><a rel="nofollow" data-shared="sharing-twitter-188" class="share-twitter sd-button share-icon no-text" href="https://thoughtsimproved.wordpress.com/2015/07/06/configure-php-xdebug-netbeans/?share=twitter&amp;nb=1" target="_blank" title="Click to share on Twitter"><span></span><span class="sharing-screen-reader-text">Click to share on Twitter (Opens in new window)</span></a></li><li class="share-linkedin"><a rel="nofollow" data-shared="sharing-linkedin-188" class="share-linkedin sd-button share-icon no-text" href="https://thoughtsimproved.wordpress.com/2015/07/06/configure-php-xdebug-netbeans/?share=linkedin&amp;nb=1" target="_blank" title="Click to share on LinkedIn"><span></span><span class="sharing-screen-reader-text">Click to share on LinkedIn (Opens in new window)</span></a></li><li class="share-facebook"><a rel="nofollow" data-shared="sharing-facebook-188" class="share-facebook sd-button share-icon no-text" href="https://thoughtsimproved.wordpress.com/2015/07/06/configure-php-xdebug-netbeans/?share=facebook&amp;nb=1" target="_blank" title="Share on Facebook"><span></span><span class="sharing-screen-reader-text">Share on Facebook (Opens in new window)</span></a></li><li class="share-google-plus-1"><a rel="nofollow" data-shared="sharing-google-188" class="share-google-plus-1 sd-button share-icon no-text" href="https://thoughtsimproved.wordpress.com/2015/07/06/configure-php-xdebug-netbeans/?share=google-plus-1&amp;nb=1" target="_blank" title="Click to share on Google+"><span></span><span class="sharing-screen-reader-text">Click to share on Google+ (Opens in new window)</span></a></li><li class="share-reddit"><a rel="nofollow" data-shared="" class="share-reddit sd-button share-icon no-text" href="https://thoughtsimproved.wordpress.com/2015/07/06/configure-php-xdebug-netbeans/?share=reddit&amp;nb=1" target="_blank" title="Click to share on Reddit"><span></span><span class="sharing-screen-reader-text">Click to share on Reddit (Opens in new window)</span></a></li><li class="share-pocket"><a rel="nofollow" data-shared="" class="share-pocket sd-button share-icon no-text" href="https://thoughtsimproved.wordpress.com/2015/07/06/configure-php-xdebug-netbeans/?share=pocket&amp;nb=1" target="_blank" title="Click to share on Pocket"><span></span><span class="sharing-screen-reader-text">Click to share on Pocket (Opens in new window)</span></a></li><li class="share-pinterest"><a rel="nofollow" data-shared="sharing-pinterest-188" class="share-pinterest sd-button share-icon no-text" href="https://thoughtsimproved.wordpress.com/2015/07/06/configure-php-xdebug-netbeans/?share=pinterest&amp;nb=1" target="_blank" title="Click to share on Pinterest"><span></span><span class="sharing-screen-reader-text">Click to share on Pinterest (Opens in new window)</span></a></li><li class="share-end"></li></ul></div></div></div><div class="sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-loaded" id="like-post-wrapper-21914046-188-57921a6a71b5d" data-src="//widgets.wp.com/likes/#blog_id=21914046&amp;post_id=188&amp;origin=thoughtsimproved.wordpress.com&amp;obj_id=21914046-188-57921a6a71b5d" data-name="like-post-frame-21914046-188-57921a6a71b5d"><h3 class="sd-title">Like this:</h3><div class="likes-widget-placeholder post-likes-widget-placeholder" style="height: 55px; display: none;"><span class="button"><span>Like</span></span> <span class="loading">Loading...</span></div><iframe class="post-likes-widget jetpack-likes-widget" name="like-post-frame-21914046-188-57921a6a71b5d" height="55px" width="100%" frameborder="0" src="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/saved_resource(10).html"></iframe><span class="sd-text-color"></span><a class="sd-link-color"></a></div>
+<div id="jp-relatedposts" class="jp-relatedposts" style="display: block;">
+	<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+<div class="jp-relatedposts-items jp-relatedposts-items-minimal"><p class="jp-relatedposts-post jp-relatedposts-post0" data-post-id="20" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://thoughtsimproved.wordpress.com/2012/11/15/quick-tech-recipe-installing-the-technical-analysis-php-pecl-extension/" title="Tech Recipe - Installing the Technical Analysis PHP PECL Extension
+
+For those of you who have the unenviable task of building a technical analysis library in PHP, Anatoliy Belsky has ported the comprehensive Technical Analysis Library to PHP as a PECL extension. It is a work in progress, and during my trial the pecl extension broke during install. Here&#39;s the bug report  that…" rel="nofollow" data-origin="188" data-position="0">Tech Recipe - Installing the Technical Analysis PHP PECL Extension</a></span><span class="jp-relatedposts-post-context">In "recipe"</span></p><p class="jp-relatedposts-post jp-relatedposts-post1" data-post-id="9" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://thoughtsimproved.wordpress.com/2012/11/08/quick-tech-recipe-installing-sphinx-and-the-pecl-extension/" title="Tech Recipe - Installing Sphinx and the PECL extension
+
+Installing sphinx and the PECL extension has confused me a couple of times. The installation is arcane and buggy, so I&#39;ve written down the steps to automate it. I&#39;ve used this on Ubuntu 11.10+ . If you know of how to make this work on CentOS or another Linux, let me…" rel="nofollow" data-origin="188" data-position="1">Tech Recipe - Installing Sphinx and the PECL extension</a></span><span class="jp-relatedposts-post-context">In "recipe"</span></p><p class="jp-relatedposts-post jp-relatedposts-post2" data-post-id="135" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://thoughtsimproved.wordpress.com/2015/01/03/tech-recipe-setup-a-rabbitmq-cluster-on-ubuntu/" title="Tech Recipe : Setup a RabbitMQ cluster on Ubuntu
+
+RabbitMQ is an implementation of AMQP, the emerging standard for high performance enterprise messaging. The RabbitMQ server is a robust and scalable implementation of an AMQP broker. I recently had to setup a RabbitMQ cluster from scratch on a brand new Ubuntu 14.04 server. This is easy. It turns out…" rel="nofollow" data-origin="188" data-position="2">Tech Recipe : Setup a RabbitMQ cluster on Ubuntu</a></span><span class="jp-relatedposts-post-context">In "bash"</span></p></div></div></div>			</div><!-- .entry-content -->
+
+	<footer class="entry-meta">
+		<span class="post-date"><a href="https://thoughtsimproved.wordpress.com/2015/07/06/configure-php-xdebug-netbeans/" title="11:59 pm" rel="bookmark"><time class="entry-date" datetime="2015-07-06T23:59:27+00:00">July 6, 2015</time></a></span><span class="byline"><span class="author vcard"><a class="url fn n" href="https://thoughtsimproved.wordpress.com/author/thoughtsimproved/" title="View all posts by thoughtsimproved" rel="author">thoughtsimproved</a></span></span>				<span class="tags-links">
+			<a href="https://thoughtsimproved.wordpress.com/tag/netbeans/" rel="tag">netbeans</a>, <a href="https://thoughtsimproved.wordpress.com/tag/php/" rel="tag">php</a>, <a href="https://thoughtsimproved.wordpress.com/tag/xdebug/" rel="tag">xdebug</a>		</span>
+					</footer><!-- .entry-meta -->
+</article><!-- #post-## -->
+
+				<nav class="navigation post-navigation" role="navigation">
+		<h1 class="screen-reader-text">Post navigation</h1>
+		<div class="nav-links">
+			<div class="nav-previous"><a href="https://thoughtsimproved.wordpress.com/2015/05/18/parellel-processing-in-bash/" rel="prev"><span class="meta-nav screen-reader-text">←</span></a></div><div class="nav-next"><a href="https://thoughtsimproved.wordpress.com/2015/08/17/self-updating-git-repos/" rel="next"><span class="meta-nav screen-reader-text">→</span></a></div>		</div><!-- .nav-links -->
+	</nav><!-- .navigation -->
+	
+			
+<div id="comments" class="comments-area">
+
+	
+			<h2 class="comments-title">
+			2 thoughts on “<span>Configure Xdebug on Netbeans 8 for PHP&nbsp;CLI</span>”		</h2>
+
+		
+		<ol class="comment-list">
+			
+	<li id="comment-66" class="comment byuser comment-author-dineshramitc even thread-even depth-1 highlander-comment">
+		<article id="div-comment-66" class="comment-body">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<span class="avatar-wrapper"><img alt="" src="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/3aa0042fb795a0caf49efa94fa6152cc" class="avatar avatar-80 grav-hashed grav-hijack" height="80" width="80" id="grav-3aa0042fb795a0caf49efa94fa6152cc-0"></span>					<cite class="fn"><a href="http://dineshramkali.wordpress.com/" rel="external nofollow" class="url">dineshramitc</a></cite> <span class="says">says:</span>				</div><!-- .comment-author -->
+
+							</footer><!-- .comment-meta -->
+
+			<div class="comment-content">
+				<p>Reblogged this on <a href="https://dineshramitc.wordpress.com/2015/07/12/configure-xdebug-on-netbeans-8-for-php-cli/" rel="nofollow">Dinesh Ram Kali.</a>.</p>
+			</div><!-- .comment-content -->
+
+			<div class="comment-metadata">
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="https://thoughtsimproved.wordpress.com/2015/07/06/configure-php-xdebug-netbeans/?replytocom=66#respond" onclick="return addComment.moveForm( &quot;div-comment-66&quot;, &quot;66&quot;, &quot;respond&quot;, &quot;188&quot; )" aria-label="Reply to dineshramitc">Reply</a></div>				<a href="https://thoughtsimproved.wordpress.com/2015/07/06/configure-php-xdebug-netbeans/#comment-66">
+					<time datetime="2015-07-12T22:09:35+00:00">
+						<span class="post-date">July 12, 2015 at 10:09 pm</span>
+					</time>
+				</a>
+							</div><!-- .comment-metadata -->
+		</article><!-- .comment-body -->
+
+	</li><!-- #comment-## -->
+
+	<li id="comment-71" class="pingback odd alt thread-odd thread-alt depth-1 highlander-comment">
+		<div class="comment-body">
+			Pingback: <a href="https://dineshramitc.wordpress.com/2015/09/02/configure-xdebug-on-netbeans-8-for-php-cli-2/" rel="external nofollow" class="url">Configure Xdebug on Netbeans 8 for PHP CLI | Dinesh Ram Kali.</a> 		</div>
+
+	</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+		
+	
+	
+					<div id="respond" class="comment-respond js">
+			<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="https://thoughtsimproved.wordpress.com/2015/07/06/configure-php-xdebug-netbeans/#respond" style="display:none;">Cancel reply</a></small></h3>				<form action="https://thoughtsimproved.wordpress.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+					<input type="hidden" id="highlander_comment_nonce" name="highlander_comment_nonce" value="612756afaa"><input type="hidden" name="_wp_http_referer" value="/2015/07/06/configure-php-xdebug-netbeans/">
+<input type="hidden" name="hc_post_as" id="hc_post_as" value="guest">
+
+<div class="comment-form-field comment-textarea">
+	
+	<div id="comment-form-comment"><textarea tabindex="-1" style="position: absolute; top: -999px; left: 0px; right: auto; bottom: auto; border: 0px; padding: 0px; box-sizing: content-box; word-wrap: break-word; overflow: hidden; transition: none; height: 0px !important; min-height: 0px !important; font-family: Arial, Helvetica, Tahoma, Verdana, sans-serif; font-size: 14px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; text-decoration: none; word-spacing: 0px; text-indent: 0px; line-height: normal; width: 624px;" class="autosizejs "></textarea><textarea id="comment" name="comment" title="Enter your comment here..." placeholder="Enter your comment here..." style="height: 36px; overflow: hidden; word-wrap: break-word; resize: none;"></textarea></div>
+</div>
+
+<div id="comment-form-identity" style="display: none;">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="https://thoughtsimproved.wordpress.com/2015/07/06/configure-php-xdebug-netbeans/#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://thoughtsimproved.wordpress.com/2015/07/06/configure-php-xdebug-netbeans/#comment-form-load-service:WordPress.com" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://thoughtsimproved.wordpress.com/2015/07/06/configure-php-xdebug-netbeans/#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://thoughtsimproved.wordpress.com/2015/07/06/configure-php-xdebug-netbeans/#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+			<li>
+			<iframe id="googleplus-sign-in" name="googleplus-sign-in" src="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/saved_resource(11).html" width="24" height="24" scrolling="no" allowtransparency="true" seamless="seamless" frameborder="0"></iframe>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a href="https://gravatar.com/site/signup/" target="_blank">				<img src="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/ad516503a11cd5ca435acc9bb6523536" alt="Gravatar" width="25" class="no-grav">
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text" value=""></div>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/ad516503a11cd5ca435acc9bb6523536" alt="WordPress.com Logo" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="">
+				<p class="comment-form-posting-as pa-wordpress"><strong></strong> You are commenting using your <span class="skimlinks-unlinked">WordPress.com</span> account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( &#39;wordpress&#39; );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://thoughtsimproved.wordpress.com/2015/07/06/configure-php-xdebug-netbeans/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/ad516503a11cd5ca435acc9bb6523536" alt="Twitter picture" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="">
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( &#39;twitter&#39; );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://thoughtsimproved.wordpress.com/2015/07/06/configure-php-xdebug-netbeans/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/ad516503a11cd5ca435acc9bb6523536" alt="Facebook photo" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="">
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( &#39;facebook&#39; );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://thoughtsimproved.wordpress.com/2015/07/06/configure-php-xdebug-netbeans/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-googleplus" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/ad516503a11cd5ca435acc9bb6523536" alt="Google+ photo" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="googleplus_avatar" id="googleplus-avatar" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_user_id" id="googleplus-user_id" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_access_token" id="googleplus-access_token" class="comment-meta-googleplus" value="">
+				<p class="comment-form-posting-as pa-googleplus"><strong></strong> You are commenting using your Google+ account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( &#39;googleplus&#39; );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://thoughtsimproved.wordpress.com/2015/07/06/configure-php-xdebug-netbeans/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+var highlander_expando_javascript = function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+}
+jQuery(document).ready( highlander_expando_javascript );
+</script>
+
+<div id="comment-form-subscribe" style="display: none;">
+	<p class="comment-subscription-form"><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;"> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of new comments via email.</label></p></div>
+
+
+
+
+<p class="form-submit" style="display: none;"><input name="submit" type="submit" id="comment-submit" class="submit" value="Post Comment"> <input type="hidden" name="comment_post_ID" value="188" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="5d008ec1ab"></p>
+<input type="hidden" name="genseq" value="1469192810">
+<p style="display: none;"></p>				<input type="hidden" id="ak_js" name="ak_js" value="1469192801173"></form>
+					</div><!-- #respond -->
+		<div style="clear: both"></div>
+</div><!-- #comments -->
+
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+	<div id="secondary" class="widget-area" role="complementary">
+						<aside id="recent-posts-2" class="widget widget_recent_entries">		<h1 class="widget-title">Recent Posts</h1>		<ul>
+					<li>
+				<a href="https://thoughtsimproved.wordpress.com/2016/03/09/tech-recipe-install-python-pandas-on-fedora-23/">Tech Recipe : Install Python Pandas on Fedora&nbsp;23</a>
+						</li>
+					<li>
+				<a href="https://thoughtsimproved.wordpress.com/2015/12/16/new-and-improved-compression-formats-for-linux/">New and Improved Compression Formats for&nbsp;Linux</a>
+						</li>
+					<li>
+				<a href="https://thoughtsimproved.wordpress.com/2015/12/15/tech-recipe-deleting-lots-of-keys-in-redis-fast/">Tech Recipe : Deleting lots of keys in Redis,&nbsp;fast</a>
+						</li>
+					<li>
+				<a href="https://thoughtsimproved.wordpress.com/2015/08/17/self-updating-git-repos/">Self Updating Git&nbsp;Repos</a>
+						</li>
+					<li>
+				<a href="https://thoughtsimproved.wordpress.com/2015/07/06/configure-php-xdebug-netbeans/">Configure Xdebug on Netbeans 8 for PHP&nbsp;CLI</a>
+						</li>
+				</ul>
+		</aside>		<aside id="archives-2" class="widget widget_archive"><h1 class="widget-title">Archives</h1>		<ul>
+			<li><a href="https://thoughtsimproved.wordpress.com/2016/03/">March 2016</a></li>
+	<li><a href="https://thoughtsimproved.wordpress.com/2015/12/">December 2015</a></li>
+	<li><a href="https://thoughtsimproved.wordpress.com/2015/08/">August 2015</a></li>
+	<li><a href="https://thoughtsimproved.wordpress.com/2015/07/">July 2015</a></li>
+	<li><a href="https://thoughtsimproved.wordpress.com/2015/05/">May 2015</a></li>
+	<li><a href="https://thoughtsimproved.wordpress.com/2015/03/">March 2015</a></li>
+	<li><a href="https://thoughtsimproved.wordpress.com/2015/01/">January 2015</a></li>
+	<li><a href="https://thoughtsimproved.wordpress.com/2014/12/">December 2014</a></li>
+	<li><a href="https://thoughtsimproved.wordpress.com/2014/03/">March 2014</a></li>
+	<li><a href="https://thoughtsimproved.wordpress.com/2014/02/">February 2014</a></li>
+	<li><a href="https://thoughtsimproved.wordpress.com/2013/08/">August 2013</a></li>
+	<li><a href="https://thoughtsimproved.wordpress.com/2012/11/">November 2012</a></li>
+		</ul>
+		</aside><aside id="categories-2" class="widget widget_categories"><h1 class="widget-title">Categories</h1>		<ul>
+	<li class="cat-item cat-item-2674"><a href="https://thoughtsimproved.wordpress.com/category/bash/">bash</a>
+</li>
+	<li class="cat-item cat-item-611"><a href="https://thoughtsimproved.wordpress.com/category/linux/fedora/">fedora</a>
+</li>
+	<li class="cat-item cat-item-209196"><a href="https://thoughtsimproved.wordpress.com/category/git/">git</a>
+</li>
+	<li class="cat-item cat-item-6987670"><a href="https://thoughtsimproved.wordpress.com/category/haproxy/">haproxy</a>
+</li>
+	<li class="cat-item cat-item-457"><a href="https://thoughtsimproved.wordpress.com/category/javascript/">javascript</a>
+</li>
+	<li class="cat-item cat-item-610"><a href="https://thoughtsimproved.wordpress.com/category/linux/">linux</a>
+</li>
+	<li class="cat-item cat-item-12962"><a href="https://thoughtsimproved.wordpress.com/category/netbeans/">netbeans</a>
+</li>
+	<li class="cat-item cat-item-458"><a href="https://thoughtsimproved.wordpress.com/category/php/">php</a>
+</li>
+	<li class="cat-item cat-item-832"><a href="https://thoughtsimproved.wordpress.com/category/python/">python</a>
+</li>
+	<li class="cat-item cat-item-8662793"><a href="https://thoughtsimproved.wordpress.com/category/rabbitmq/">rabbitmq</a>
+</li>
+	<li class="cat-item cat-item-8845"><a href="https://thoughtsimproved.wordpress.com/category/recipe/">recipe</a>
+</li>
+	<li class="cat-item cat-item-5307557"><a href="https://thoughtsimproved.wordpress.com/category/redis/">redis</a>
+</li>
+	<li class="cat-item cat-item-255"><a href="https://thoughtsimproved.wordpress.com/category/ubuntu/">ubuntu</a>
+</li>
+	<li class="cat-item cat-item-2935843"><a href="https://thoughtsimproved.wordpress.com/category/xdebug/">xdebug</a>
+</li>
+		</ul>
+</aside><aside id="meta-2" class="widget widget_meta"><h1 class="widget-title">Meta</h1>			<ul>
+			<li><a href="https://wordpress.com/start?ref=wplogin">Register</a></li>			<li><a href="https://thoughtsimproved.wordpress.com/wp-login.php">Log in</a></li>
+			<li><a href="https://thoughtsimproved.wordpress.com/feed/">Entries <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="https://thoughtsimproved.wordpress.com/comments/feed/">Comments <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="https://wordpress.com/" title="Powered by WordPress, state-of-the-art semantic personal publishing platform.">WordPress.com</a></li>			</ul>
+			</aside>	</div><!-- #secondary -->
+
+	</div><!-- #content -->
+		<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info">
+						<a href="https://wordpress.com/?ref=footer_website">Create a free website or blog at WordPress.com.</a>
+			<span class="sep"> | </span>
+			<a href="https://wordpress.com/themes/sorbet/" title="Learn more about this theme">The Sorbet Theme</a>.		</div><!-- .site-info -->
+	</footer><!-- #colophon -->
+</div><!-- #page -->
+
+<!-- wpcom_wp_footer -->
+<script type="text/javascript" src="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/wpgroho.js"></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+
+			if (typeof Gravatar === "undefined"){
+				return;
+			}
+
+			if ( typeof Gravatar.init !== "function" ) {
+				return;
+			}			
+
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	<div class="grofile-hash-map-3aa0042fb795a0caf49efa94fa6152cc">
+	</div>
+	</div>
+<script type="text/javascript">
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"https:\/\/thoughtsimproved.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"https:\/\/thoughtsimproved.wordpress.com\/wp-login.php?action=logout&_wpnonce=42c770d22a","homeURL":"https:\/\/thoughtsimproved.wordpress.com\/","postID":"188","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"0","userIsLoggedIn":"","isJetpack":"0","text_direction":"ltr"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/saved_resource(6)"></script>
+
+	<div id="bit" class="loggedout-follow-normal" style="bottom: -320px;">
+		<a class="bsub" href="javascript:void(0)"><span id="bsub-text">Follow</span></a>
+		<div id="bitsubscribe">
+
+					<h3><label for="loggedout-follow-field">Follow “Thoughts Improved”</label></h3>
+
+			<form action="https://subscribe.wordpress.com/" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+			<p id="loggedout-follow-error" style="display: none;"></p>
+
+						<p class="bit-follow-count">Join 64 other followers</p>
+			<p><input type="email" name="email" placeholder="Enter your email address" id="loggedout-follow-field"></p>
+
+			<input type="hidden" name="action" value="subscribe">
+			<input type="hidden" name="blog_id" value="21914046">
+			<input type="hidden" name="source" value="https://thoughtsimproved.wordpress.com/2015/07/06/configure-php-xdebug-netbeans/">
+			<input type="hidden" name="sub-type" value="loggedout-follow">
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="b0d8984361"><input type="hidden" name="_wp_http_referer" value="/2015/07/06/configure-php-xdebug-netbeans/">
+			<p id="bsub-subscribe-button"><input type="submit" value="Sign me up"></p>
+			</form>
+					<div id="bsub-credit"><a href="https://wordpress.com/?ref=lof">Build a website with WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"https:\/\/thoughtsimproved.wordpress.com\/2015\/07\/06\/configure-php-xdebug-netbeans\/":188};
+	</script>
+		<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-linkedin' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomlinkedin', 'menubar=1,resizable=1,width=580,height=450' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-google-plus-1' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomgoogle-plus-1', 'menubar=1,resizable=1,width=480,height=550' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-pocket' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcompocket', 'menubar=1,resizable=1,width=450,height=450' );
+				return false;
+			});
+		});
+		</script>
+							<script type="text/javascript">
+				jQuery(document).on('ready', function(){
+					jQuery('body').on('click', 'a.share-pinterest', function(e){
+						e.preventDefault();
+						// Load Pinterest Bookmarklet code
+						var s = document.createElement("script");
+						s.type = "text/javascript";
+						s.src = window.location.protocol + "//assets.pinterest.com/js/pinmarklet.js?r=" + ( Math.random() * 99999999 );
+						var x = document.getElementsByTagName("script")[0];
+						x.parentNode.insertBefore(s, x);
+						// Trigger Stats
+						var s = document.createElement("script");
+						s.type = "text/javascript";
+						s.src = this + ( this.toString().indexOf( '?' ) ? '&' : '?' ) + 'js_only=1';
+						var x = document.getElementsByTagName("script")[0];
+						x.parentNode.insertBefore(s, x);
+					});
+				});
+			</script>
+		<script type="text/javascript" src="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/form.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var JetpackEmojiSettings = {"base_url":"https:\/\/s0.wp.com\/wp-content\/mu-plugins\/emoji\/twemoji\/"};
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/saved_resource(7)"></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script>	<script type="text/javascript">
+	var skimlinks_pub_id = "725X584219"
+	var skimlinks_sitename = "thoughtsimproved.wordpress.com";
+	</script>
+	<script type="text/javascript" src="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/725X1342.skimlinks.js"></script>		<iframe src="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/master.html" scrolling="no" id="likes-master" name="likes-master" style="display:none;"></iframe>
+		<div id="likes-other-gravatars"><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script>
+			var _comscore = _comscore || [];
+			_comscore.push({
+				c1: "2",
+				c2: "7518284"
+			});
+			(function() {
+				var s = document.createElement("script"),
+					el = document.getElementsByTagName("script")[0];
+				s.async = true;
+				s.src = (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js";
+				el.parentNode.insertBefore(s, el);
+			})();
+		</script>
+		<noscript>
+			&lt;p class="robots-nocontent"&gt;&lt;img src="https://sb.scorecardresearch.com/p?c1=2&amp;c2=7518284&amp;c3=&amp;c4=&amp;c5=&amp;c6=&amp;c15=&amp;cv=2.0&amp;cj=1" alt="" style="display:none;" width="1" height="1" /&gt;&lt;/p&gt;
+		</noscript><script src="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/w.js" type="text/javascript" async="" defer=""></script>
+<script type="text/javascript">
+_tkq = window._tkq || [];
+_stq = window._stq || [];
+_tkq.push(['storeContext', {'blog_id':'21914046','blog_tz':'5','user_lang':'en','blog_lang':'en','user_id':'0'}]);
+_stq.push(['view', {'blog':'21914046','v':'wpcom','tz':'5','user_id':'0','post':'188','subd':'thoughtsimproved'}]);
+_stq.push(['extra', {'crypt':'UE5XaGUuOTlwaD85flAmcm1mcmZsaDhkV11YdTdvUG14Q2VDQTR4LlUsLi82dU1mai9BMkZHfFZwVGpsL1FOTFBsXzArNy5NeUtRT1AlP2doRm1sb1haMCZfJU15NjhHZV1kcV1RMVEveVg5Nyt8LTJ1MFZ3MnFuMHx2ai1+TzIrTzh0S3Y2czV3RCtsSzNtajdZcjhnVDRONW5OaEc/eTI9clpJTXpCVldSOWIyVnxJcGRpbGZ+Z18wdFtfR0xoMFs1Nz9+VUR8cFhVdVp6YzEmWVgrZ3AtOHVUPXZ3V1MsLVZKLj9ERDN4W2pnN1R5LTgzSlotLVhick16JUxjcVcyd2IvfDcyMWVwajFJTVZMSG5oTlpBOWU='}]);
+_stq.push([ 'clickTrackerInit', '21914046', '188' ]);
+	</script>
+<noscript>&lt;img src="https://pixel.wp.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /&gt;</noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//pixel.wp.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script>
+
+<img src="./Configure Xdebug on Netbeans 8 for PHP CLI _ Thoughts Improved_files/g.gif" alt=":)" id="wpstats"></body></html>

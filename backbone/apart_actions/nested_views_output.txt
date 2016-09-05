@@ -1,0 +1,85 @@
+выведем список ссылок. при этом контейнер списка бужет в одном представлении, а сами ссылка в другом. то есть реализуем вложенные представления
+
+
+=====================
+из роута создаём экземпляр коллекции с тестовыми данными и выхываем рендер:
+var graphCollection = new APP.GraphCollection(APP.helper.getInitialGraphs());
+this.indexView = new APP.IndexView({collection: graphCollection});
+
+this.indexView.render(); 
+
+
+=====================
+шаблон странички:
+<script type="text/template" id="index">
+  <div class="index">
+    <div class="list-group graphs" id="graphsList">
+      <button type="button" class="btn btn-default btn-add pull-right" aria-label="Left Align" data-toggle="modal" data-target="#addGraphModal">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+      </button>      
+    </div>      
+  </div>
+</script>
+
+
+
+=====================
+представление с ним связанное:
+APP.IndexView = Backbone.View.extend({  
+  el: $('#contentContainer'), 
+
+  template: _.template($('#index').html()), // компилируем шаблон
+
+  render: function () {  console.dir(this.collection);
+    $(this.el).html(this.template()); // вставляем шаблон в dom
+
+    this.collection.each(function(model) { // перебираем коллекцию моделей
+      this.renderGraphLink(model);  // вызываем метод создания ссылки
+    }, this );    
+
+    return this;
+  }, 
+
+  renderGraphLink: function(model) { console.log(model);
+    var graphLink = new APP.GraphLinkView({ //создаём экземпляр класса представления ссылки
+      model: model
+    });
+
+    this.$el.find('#graphsList').prepend(graphLink.render().el);  // добавляем в dom 
+  }  
+});
+
+
+
+=====================
+конструктор представления дял ссылки:
+APP.GraphLinkView = Backbone.View.extend({
+
+  tagName: 'a',
+
+  className: 'list-group-item',
+
+  render: function() {  
+    this.$el.html(this.model.attributes.title);
+    this.$el.attr('href', this.model.attributes.title);
+    return this;
+  }
+
+});
+
+
+
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================

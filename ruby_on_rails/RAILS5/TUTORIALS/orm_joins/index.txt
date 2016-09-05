@@ -1,0 +1,49 @@
+как использовать joins
+
+ActiveRecord::Schema.define(version: 20160807174141) do
+
+  create_table "blog_articles", force: :cascade do |t|
+    t.string   "title"
+    t.string   "intro"
+    t.text     "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "blog_comments", force: :cascade do |t|
+    t.string   "name"
+    t.text     "comment"
+    t.integer  "blog_article_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+end
+
+
+=====================
+helper:
+
+  def get_most_commentable_articles
+    BlogArticle.joins(:blog_comments).group(:blog_article_id).order('COUNT(blog_comments.blog_article_id) DESC').limit(5)
+  end
+
+=====================
+view:
+
+<% get_most_commentable_articles.each do |article| %>
+  <li><%= link_to truncate(article.title, length: 40, omission: '...'), blog_article_path(article.id) %></li>
+<% end %>
+
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================

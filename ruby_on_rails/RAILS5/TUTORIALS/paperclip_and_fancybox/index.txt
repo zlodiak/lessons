@@ -1,0 +1,134 @@
+допустим, нужно добавить картинки к блогу и сделать их кликабельными черех фэнсибокс
+
+===============================
+gem 'paperclip'
+gem 'fancybox2-rails'  # ВНИМАНИЕ! ВЕРСИЮ НЕ УКАЗЫВАТЬ
+
+bundle install
+
+https://github.com/kyparn/fancybox2-rails
+
+===============================
+сначала добавить 3 поля в таблицу:
+
+  create_table "blog_articles", force: :cascade do |t|
+    t.string   "title"
+    t.string   "intro"
+    t.text     "content"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+  end
+
+эти:
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+
+===============================
+в модель:
+  has_attached_file :image, :styles => { :medium => "500x500>", :thumb => "240x140>" }
+  validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
+  validates_attachment_file_name :image, :matches => [/png\Z/, /jpe?g\Z/, /gif\Z/]  
+
+===============================
+контроллер:
+
+class BlogArticlesController < ApplicationController
+  before_action :set_blog_article, only: [:show]
+
+  def index
+    @blog_articles = BlogArticle.all.paginate(page: params[:page], :per_page => 10).order(updated_at: :DESC) 
+  end
+
+  def show        
+    @blog_comments = @blog_article.blog_comments.paginate(page: params[:page], :per_page => 10).order(updated_at: :DESC) 
+    @show_link = true  if @blog_article.image_file_name
+  end
+
+.....
+...
+..
+
+  private
+    def set_blog_article
+      @blog_article = BlogArticle.find(params[:id])
+    end
+
+    def blog_article_params
+      params.require(:blog_article).permit(:title, :intro, :content, :image)
+    end
+end
+
+ВНИМАНИЕ!! не забыть разрешить принимать параметр :image
+
+===============================
+_form:
+
+  <div class="field">
+      <%= f.label :image %>
+      <%= f.file_field  :image %>
+  </div>   
+===============================
+view show:
+<div class="image">     
+  <% if @show_link %><a class="fancybox" href="<%= @blog_article.image.url(:original) %>"><% end %>
+    <%= image_tag(@blog_article.image.url(:thumb) , class: "thumb") %>
+  <% if @show_link %></a><% end %>
+</div>
+
+===============================
+view index:
+<td><%= image_tag(blog_article.image.url(:thumb) , class: "thumb") %></td>
+
+===============================
+при этом заглушка хранится в public/images/thumb/missing.png
+
+===============================
+в application.js:
+//= require jquery
+//= require fancybox
+
+
+var fancybox = function(){
+  $('.fancybox').fancybox({ parent: "body"});
+};
+$(document).on("page:load ready", fancybox);
+
+
+
+
+===============================
+в application.css:
+/*
+ *= require_self
+ *= require fancybox
+ *= require_tree .
+ */
+
+===============================
+===============================
+===============================
+===============================
+===============================
+===============================
+===============================
+===============================
+===============================
+===============================
+===============================
+===============================
+===============================
+===============================
+===============================
+===============================
+===============================
+===============================
+===============================
+===============================
+===============================
+===============================
+===============================

@@ -170,6 +170,16 @@ sudo /etc/init.d/apache2 reload
 -------------
 
 ================================================================
+если забыл как из браузера загрузить phpmyadmin, то можно сделать симлинк
+
+You just need to make a symbolic link to the installation in your server root. Mine is in /var/www/ (though check your DocumentRoot as default is often /var/www/html) so:
+
+sudo ln -s /usr/share/phpmyadmin/ /var/www/phpmyadmin
+After that, you'll be able to access trough localhost:
+
+http://localhost/phpmyadmin
+As for why is not installed by default in its right location, or the installer creates a symbolic link itself, I have no idea...
+
 ================================================================
 ================================================================
 ================================================================

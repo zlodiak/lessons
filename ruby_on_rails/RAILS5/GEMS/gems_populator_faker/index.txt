@@ -1,0 +1,48 @@
+
+gem 'faker'
+gem 'populator'
+
+bundle install
+
+=======================
+если есть модель BlogArticle
+
+db/seeds.rb:
+[BlogArticle].each(&:delete_all)
+
+BlogArticle.populate 34 do |article|
+  article.title = Faker::Name.title
+  article.intro = Faker::Lorem.paragraph(3)
+  article.content = Faker::Lorem.paragraph(12)
+end
+
+=======================
+rails db:seed
+
+=======================
+=======================
+или для вложенных структур. например комментариев к записи блока
+
+[BlogArticle].each(&:delete_all)
+
+BlogArticle.populate 34 do |article|
+  article.title =   Faker::Name.title
+  article.intro =   Faker::Lorem.paragraph(3)
+  article.content = Faker::Lorem.paragraph(12)
+
+  BlogComment.populate 2..5 do |comment|
+    comment.blog_article_id = article.id
+    comment.name =            Faker::Name.name
+    comment.comment =         Faker::Lorem.paragraph(5)
+  end
+end
+
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================
+=======================

@@ -1,0 +1,42 @@
+передадим переменные в шаблон и представления
+
+======================
+шаблон: 
+<script type="text/template" id="graphsListItemTemplate">
+  <a class="graph_title" href="#<%= title %>"><%= title %></a>
+  <div class="action glyphicon glyphicon-remove pull-right"></div>
+  <div class="action glyphicon glyphicon-edit pull-right"></div>
+</script>
+
+======================
+представление:
+APP.GraphLinkView = Backbone.View.extend({
+
+  template: _.template($('#graphsListItemTemplate').html()),  // компилируем шаблон в функцию
+
+  tagName: 'div',
+
+  className: 'list-group-item',
+
+  render: function() {  
+    var title = this.model.attributes.title;  // вычисляем значение
+
+    this.$el.html(this.template({title: title})); встраиваем функцию. при этом функции в виде аргумента передаём объект с переменными
+    return this;
+  }
+
+})  
+
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================
+======================

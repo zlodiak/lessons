@@ -1,0 +1,153 @@
+Структура адреса страницы (URL) в Magento
+
+http://example.com/frontName/controller/action?param1=value1&param2=value2
+
+
+frontName - название интерфейса.
+В своем модуле вы можете, если надо, добавить свой интерфейс через config.xml
+Делается это так:
+<config>    
+    ...
+    <frontend>
+        <routers>
+            <модуль>
+                <use>standard</use>
+                <args>
+                    <module>Компания_Модуль</module>
+                    <frontName>название интерфейса</frontName>
+                </args>
+            </модуль>
+        </routers>  
+    </frontend>
+    ...
+</config>
+
+
+
+
+controller - название контроллера (смотрите паттерн MVC)
+action - название метода контроллера
+
+Всё после вопросительного знака - параметры.
+Если у вас не включен mod_rewrite, то перед названием интерфейса будет стоять промежуточное index.php
+
+Более подробное объяснение смотрите в статье "Magento Controller Dispatch and Hello World". 
+
+----------------
+
+Пояснение к структуре адресов страниц Magento
+
+Адреса страниц в Magento подчиняются структуре route/controller/action
+
+route - название вашего маршрутизатора.
+Вы определяете маршрутизаторы в файле config.xml вашего модуля.
+Например, в модуле Mage_Adminhtml марщрутизатор описан так:
+
+<config>
+    <admin>
+        <routers>
+            <adminhtml>
+                <use>admin</use>
+                <args>
+                    <module>Mage_Adminhtml</module>
+                    <frontName>admin</frontName>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>
+
+
+
+Эта запись означает, что адреса страниц Magento, начинающиеся с admin, будут обрабатываться контроллерами модуля Mage_Adminhtml.
+
+Какой конкретно контроллер будет обрабатывать конкретный адрес - определяется второй структурной частью адреса - controller.
+Например, адрес /admin/catalog_product/index/ будет обрабатывать контроллер Mage_Adminhtml_Catalog_ProductController, потому что вторая структурная часть адреса - catalog_product.
+
+Третья структурная часть адреса определяет вызываемый метод контроллера.
+Например: для обработки адреса /admin/catalog_product/new/ вызовется метод newAction класса Mage_Adminhtml_Catalog_ProductController
+
+Третья часть может отсутствовать, тогда Magento считает её равной index.
+
+================================
+как добавить кнопку в меню админки?
+
+нужно править config.xml:
+Конфигурация обычно состоит из 2 секций: menu и acl, но также можно указывать и другие директивы (например, events, layout-update и т.д.). Первая отвечает за добавление новых элементов в меню административной части, а вторая - за права доступа, т.е. ACL. Рассмотрим секцию menu
+
+<cms translate="title" module="cms">
+    <title>CMS</title>
+    <sort_order>70</sort_order>
+    <children>
+        <page translate="title" module="cms">
+            <title>Pages</title>
+            <action>adminhtml/cms_page</action>
+            <sort_order>0</sort_order>
+        </page>
+        <block translate="title" module="cms">
+            <title>Static Blocks</title>
+            <action>adminhtml/cms_block</action>
+            <sort_order>10</sort_order>
+        </block>
+    </children>
+</cms>
+Чтобы добавить новый элемент меню нужно указать: title, action и sort_order. Атрибут translate указывает, содержимое какого тега нужно переводить, нужно указывать для каждого элемента меню. Атрибут module указывает используемый модуль, не смотря на то, что он указан для каждого тега, его можно задать только для верхнего родительского элемента (в данном случае cms), для остальных он пронаследуется.
+
+Тег action указывает на модель контроллера. Например, adminhtml/cms_page - Mage_Adminhtml_Cms_PageController.
+
+
+минимальный пример:
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <freaks_quotes translate="title" module="freaks_quotes">
+            <title>Quotes</title>
+            <sort_order>55</sort_order>
+            <action>adminhtml/quotes</action>
+        </freaks_quotes>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <freaks_quotes translate="title" module="freaks_quotes">
+                        <title>Quotes</title>
+                        <sort_order>0</sort_order>
+                    </freaks_quotes>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>
+
+
+================================
+установить netbeans-php 
+https://netbeans.org/downloads/index.html 
+
+поместить файл в каталог, изменить права и выполнить ./netbeans-8.1-php-linux-x64.sh
+
+
+================================
+================================
+================================
+================================
+================================
+================================
+================================
+================================
+================================
+================================
+================================
+================================
+================================
+================================
+================================
+================================
+================================
+================================
+================================
+================================
+================================
+================================
+================================

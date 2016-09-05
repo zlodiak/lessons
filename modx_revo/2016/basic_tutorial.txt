@@ -1,0 +1,301 @@
+это туториал для типового сайта:
+
+==================================
+скачать дитрибутив, установить.
+
+если после установки в админке красные сообщения
+
+возможная проблема: не отображается страница. 503 ошибка:
+
+1. Переименовать «ht.access» в ".htaccess".
+
+2. Заменить содержимое ".htaccess" на:
+IndexIgnore */*
+<Files *.*>
+    Order Deny,Allow
+    Deny from all
+</Files>
+3. Очистить кеш (почему то аж несколько раз).
+
+4. Проверить доступ к error.log
+mysite.ru/core/cache/logs/error.log
+При проверке я получил:
+Forbidden
+
+You don't have permission to access /core/cache/logs/error.log on this server.
+
+При этом changelog.txt открывается:
+mysite.ru/core/docs/changelog.txt
+5. Удалить changelog.txt
+core/docs/changelog.txt
+Ошибка исчезла
+
+==================================
+создать шаблоны:
+basic
+feedbackpage
+newscollectionpage
+
+по желанию вынести в чанки head, footer, etc
+
+чанк это кусок кода, который можно использовать много раз
+
+==================================
+создать ресурсы:
+главная
+постетителям
+новости
+  новость1
+  новость2
+  новость3
+документы
+обратная связь
+гостевая
+
+==================================
+создадим меню:
+
+скчаем и установим модуль wayfinder
+
+создадим чанк navigationMainTpl:
+[[!Wayfinder? &startId=`0` ]]
+
+здесь 0 это id ресурса, с которого начнётся сканирование
+
+поместим чанк navigationMainTpl в шаблоны
+
+меню готово
+
+
+
+--------------
+
+интергация с bootatrap:
+
+чанки:
+
+wayfinderNavigationMainTpl:
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Project name</a>
+        </div>
+
+        <div id="navbar" class="navbar-collapse collapse">
+            [[!Wayfinder? 
+                &startId=`0` 
+                &outerTpl=`wayfinderOuterTpl` 
+                &rowTpl=`wayfinderRowTpl` 
+            ]]
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="../navbar/">Default</a></li>
+                <li><a href="../navbar-static-top/">Static top</a></li>
+                <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+wayfinderOuterTpl:
+<ul class="nav navbar-nav" id="top_nav"[[+wf.classes]]>[[+wf.wrapper]]</ul>
+
+
+
+wayfinderRowTpl:
+<li[[+wf.id]][[+wf.classes]]>
+<a href="[[+wf.link]]" title="[[+wf.title]]" [[+wf.attributes]]>[[+wf.linktext]]</a>[[+wf.wrapper]]
+</li>
+
+
+
+
+==================================
+создадим обычную страничку:
+
+в ресурсах откроем "посетителям" и в поле для текста добавим текст
+
+страничка готова
+
+==================================
+создадим ленту новостей:
+
+создадим чанк newsUnitTpl:
+<div class="post-[[+id]] post hentry category-latest-news tag-tag3 tag-tag5 tag-tag7" id="post-[[+id]]">
+<div class="post-top">
+<div class="post-date">
+<span class="day">[[+publishedon:strtotime:date=`%d`]]</span>
+<span class="month">[[+publishedon:strtotime:date=`%b`]]</span>
+<span class="year">[[+publishedon:strtotime:date=`%Y`]]</span>
+</div>
+<h2><a href="[[~[[+id]]]]" rel="bookmark" title="Permanent Link to [[+pagetitle]]">[[+pagetitle]]</a></h2>
+</div>
+<div class="entry">
+<p><a href="[[~[[+id]]]]"><img class="alignleft" title="[[+tv.article_image_title]]" src="[[+tv.article_image]]" alt="" width="618" height="197" /></a>
+[[+content:ellipsis=`350`]]</p>
+
+<a href="[[~[[+id]]]]" class="more-link">Read the rest of this entry &raquo;</a></p>
+</div>
+<div class="postmetadata">Tags: <a href="#" rel="tag">tag3</a>, <a href="#" rel="tag">tag5</a>, <a href="#" rel="tag">tag7</a><br />
+Posted in <a href="#" title="View all posts in Latest News" rel="category">Latest News</a> | <a href="single.html#comments" title="Comment on Blog Post 5">6 Comments &#187;</a></div>
+</div>
+
+
+в текстовом поле ресурса "новости" пропишем:
+[[!getResources?
+&showHidden=`1`
+&tpl=`newsUnitTpl`
+]]
+
+так же для новостей зазадим шаблон newscollectionpage
+
+для ресурса конкретной новости тоже зададим шаблон
+
+лента новостей готовв
+
+==================================
+создадим страницу со списком документов, которые можно скачать:
+
+на вкладке files создадим каталог manager/docs 
+
+закачаем в него документы
+
+в текстовом поле ресурса "документы" захардкодим:
+<ul>
+<li><a href="manager/docs/n.txt" target="_blank">n.txt</li>
+<li><a href="manager/docs/json_single.tar" target="_blank">json_single.tar</li>
+<li><a href="manager/docs/Prikaz_o_prieme_na_rabotu.pdf" target="_blank">Prikaz_o_prieme_na_rabotu.pdf</li>
+</ul>
+
+или можно использовать модуль getResources
+
+готово
+
+==================================
+создадим форму отратной связи:
+
+установим formIt
+
+в текстовом поле ресурса "обратная связь" пропишем:
+[[!FormIt?
+&hooks=`email`
+&emailTpl=`sentEmailTpl`
+&emailSubject=`Message from Learn MODx Revo Website`
+&emailTo=`me@myemailaddress.com`
+&validate=`contact_name:required:minLength=`2`,
+contact_email:email:required,
+contact_message:required`
+]]
+
+<form id="contactForm" method="post" action="[[~[[*id]]]]">
+
+[[!+fi.validation_error_message]]
+<hr>
+[[!+fi.validation_error]]
+<hr>
+
+<hr>
+
+<hr>
+
+<strong>Please use the form below to send us an email:</strong>
+<div>
+<label for="contact_name">Name </label>
+<em>(required, at least 2 characters)</em>
+<br />
+<input id="contact_name" name="contact_name" size="30" minlength="2" value="[[!+fi.contact_name]]" />
+<span class="error">[[!+fi.error.contact_name]]</span>
+</div>
+<div>
+<label for="contact_email">E-Mail </label><em>(required)</em><br />
+<input id="contact_email" name="contact_email" size="30"  value="[[!+fi.contact_email]]" />
+<span class="error">[[!+fi.error.contact_email]]</span>
+</div>
+
+<div>
+<label for="contact_phone">Phone </label>
+<em>(optional)</em><br />
+<input id="contact_phone_NA_format" name="contact_phone_NA_format" size="14" value="[[!+fi.contact_phone_NA_format]]" maxlength="14" />
+<label for="contact_ext">ext. </label>
+<input id="contact_ext_NA_format" name="contact_ext_NA_format" size="5" value="[[!+fi.contact_ext_NA_format]]" maxlength="5" />
+</div>
+<div>
+<label for="contact_message">Your comment </label>
+<em>(required)</em><br />
+<textarea id="contact_message" name="contact_message" cols="70" rows="7">[[!+fi.contact_message]]</textarea>
+<span class="error">[[!+fi.error.contact_message]]</span>
+</div>
+<div>
+<input name="submit" type="submit" value="Submit"/>
+</div>
+</form>
+
+
+готово
+
+==================================
+создадим комментарии в форме гостевой книги:
+
+установим quip
+
+в текстовом поле ресурса "гостевая" пропишем:
+[[!Quip? 
+&thread=`guestbook-10` 
+&dateFormat=`%d %b %Yг. в %H:%M` 
+&threading=`0`
+]]
+<br />
+[[!QuipReply? 
+&thread=`guestbook-10` 
+&moderate=`1` 
+]]
+
+здесь guestbook-10 это alias и id ресурса "гостевая"
+
+готово
+
+
+==================================
+подключение кастомных css-стилей необходимо делать так:
+<!-- custom CSS -->     
+<link href="manager/css/styles.css" rel="stylesheet">  
+
+rel="stylesheet" - это важно. без него не заработает
+
+
+
+==================================
+==================================
+==================================
+==================================
+==================================
+==================================
+==================================
+==================================
+==================================
+==================================
+==================================
+==================================
+==================================
+==================================
+==================================
+==================================
+==================================
+==================================
+==================================
+==================================
+==================================
+==================================
+==================================
+==================================
+==================================
+==================================
+==================================

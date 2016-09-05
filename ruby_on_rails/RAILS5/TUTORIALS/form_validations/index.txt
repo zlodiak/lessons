@@ -1,0 +1,123 @@
+создадим форму и повеим на неё валидацию
+
+==================
+есть ресурс contact_message
+
+==================
+routes:
+resources :contact_messages, only: [:create, :new]
+
+==================
+<div class="contact_form" id="contact_form">
+  <%= form_for(contact_message) do |f| %>
+    <% if contact_message.errors.any? %>
+      <div class="error_explanation" id="error_explanation">
+        <div class="head_errors">Форма содержит следующие ошибки:</div>
+
+        <ul>
+          <% contact_message.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field float_l">
+      <%= f.label :name, 'Имя' %>
+      <%= f.text_field :name, class: 'required input_field' %>
+    </div>
+
+    <div class="field float_r">
+      <%= f.label :email %>
+      <%= f.text_field :email, class: 'validate-email required input_field' %>
+    </div>
+
+    <div class="cleaner h20"></div>
+
+    <div class="field">
+      <%= f.label :message, 'Сообщение' %>
+      <%= f.text_area :message, class: 'required' %>
+    </div>
+
+    <div class="cleaner h20"></div>
+
+    <div class="actions">
+      <%= f.submit class: 'submit_btn float_r', value: 'Отправить' %>
+    </div> 
+  <% end %> 
+</div>  
+
+
+==================
+в контроллере
+
+  def create
+    @contact_message = ContactMessage.new(contact_message_params)
+
+    respond_to do |format|
+      if @contact_message.save
+        ContactMessagesMailer.contact_messages_email(@contact_message).deliver_now
+        format.html { redirect_to new_contact_message_path, notice: 'Contact message was successfully created.' }
+        format.json { render :show, status: :created, location: @contact_message }
+      else
+        format.html { render :new }
+        format.json { render json: @contact_message.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+
+==================
+в модели
+
+class ContactMessage < ApplicationRecord
+  validates :name, presence: true
+  validates :message, presence: true, length: { maximum:  600, minimum: 10 }  
+end
+
+
+==================
+config/locales/ru.yml:
+ru:
+  activerecord:
+    attributes:
+      contact_message:
+        name: "Поле 'Имя'"
+        message: "Поле 'Сообщение'"
+    errors:
+      models:
+        contact_message:
+          attributes:
+            name:
+              blank: "Должно быть заполнено"
+            message:
+              blank: "Не может быть пустым"              
+
+при этом, если установлен gem russian, то можно не писать:
+            name:
+              blank: "Должно быть заполнено"
+            message:
+              blank: "Не может быть пустым"    
+
+
+==================
+==================
+http://stackoverflow.com/questions/808547/fully-custom-validation-error-message-with-rails
+
+==================
+==================
+==================
+==================
+==================
+==================
+==================
+==================
+==================
+==================
+==================
+==================
+==================
+==================
+==================
+==================
+==================

@@ -1,0 +1,19 @@
+The simplest way is to use "idAttribute" option of Backbone Model to let Backbone know the that you want to use "name" as your Model Id.
+
+ Friend = Backbone.Model.extend({
+      //Create a model to hold friend attribute
+      name: null,
+      idAttribute: 'name'
+ });
+Now you can directly use Collection.get() method to retrieve a friend using his name. This way Backbone does not loop through all of your Friend models in the Collection but can directly fetch a model based on its "name".
+
+var lee = friends.get('Lee');
+
+
+
+========
+http://stackoverflow.com/questions/14420599/backbone-how-to-find-a-model-from-a-collection-according-to-some-other-attribu
+
+========
+========
+========

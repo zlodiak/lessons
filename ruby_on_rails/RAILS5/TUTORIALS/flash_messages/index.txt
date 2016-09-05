@@ -1,0 +1,85 @@
+допустим, есть форма и нужно выводить информационные сообщения 
+
+=====================
+в layout создаём партиал:
+<div class="flash_area">
+  <% flash.each do |message_type,  message| %>
+    <div class="alert  alert-<%= message_type %>"><%= message %></div>
+  <% end %>
+</div>
+
+встраиваем его
+
+=====================
+
+
+/* flash_area */
+.flash_area{
+  
+}
+
+  .flash_area .alert{
+    margin-bottom: 34px;
+    padding: 15px;
+  }
+
+.flash_area .alert-error {
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #a94442;
+}
+
+.flash_area .alert-error hr {
+  border-top-color: #e4b9c0;
+}
+
+.flash_area .alert-error .alert-link {
+  color: #843534;
+}
+
+.flash_area .alert-notice {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #31708f;
+}
+.flash_area .alert-notice hr {
+  border-top-color: #a6e1ec;
+}
+.flash_area .alert-notice .alert-link {
+  color: #245269;
+}
+
+
+
+
+=====================
+в контроллере в условном блоке отправляем соответствующее сообщение(с css-классом)
+  def create
+    @contact_message = ContactMessage.new(contact_message_params)
+
+    if @contact_message.save
+      ContactMessagesMailer.contact_messages_email(@contact_message).deliver_now
+      redirect_to new_contact_message_path, notice: 'Сообщение отправлено'
+    else
+      flash[:error] = 'Сообщение не отправлено'
+      render :new
+    end
+
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================
+=====================

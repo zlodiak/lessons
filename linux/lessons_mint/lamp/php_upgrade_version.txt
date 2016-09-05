@@ -1,0 +1,19 @@
+PHP 5.6 is finally here and if you’re on Ubuntu 14.04 LTS you’re stuck with an older version of PHP. If you want to take advantage of the new awesomeness, you can do so very easily thanks to a PPA.
+
+If you’ve never added a PPA before, you will want to make sure that you have python-software-properties installed so you have the command available. To install it, you just need to run:
+
+sudo apt-get update && sudo apt-get install python-software-properties
+Once that’s installed we can add the new PPA:
+
+sudo add-apt-repository ppa:ondrej/php5-5.6
+After the PPA is added you will need to update and upgrade. This will upgrade your current version of PHP to 5.6 along with any modules you have installed:
+
+sudo apt-get update && sudo apt-get upgrade
+If you don’t happen to have PHP installed already, you can do so now and you will be installing the latest and greatest:
+
+sudo apt-get install php5
+Once this is done, you will want to restart your web server software and/or fast process manager. I personally use nginx with php5-fpm and have run into issues in the past with configurations changing slightly but this particular release doesn’t seem to have the same caveats as I’ve previous run into.
+
+Also, please note that this process will install Apache and may throw off your configuration. I’m unsure why Apache is a dependency of PHP but it is, it’s extremely easy to work around. I highly recommend installing on a staging server first, upgrades like that are too risky to attempt on a live production server without a safety net!
+
+I’m hoping to get a similar tutorial up for Ubuntu 12.04 LTS but I ran into some issues with it today.

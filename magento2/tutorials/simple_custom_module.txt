@@ -1,0 +1,116 @@
+app/code/Magento/Hello
+  Block
+    Hello.php
+  Controller
+    Index
+      Index.php
+  etc
+    frontend
+      routes.xml
+    module.xml
+  view
+    frontend
+      layout
+        hello_index_index.xml
+      templates
+        success.phtml
+  registration.php
+
+====================================
+registration.php:
+
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+\Magento\Framework\Component\ComponentRegistrar::register(
+    \Magento\Framework\Component\ComponentRegistrar::MODULE,
+    'Magento_Hello',
+    __DIR__
+);
+
+====================================
+success.phtml
+<?php echo ‘Successful! This is a simple module in Magento 2.0′; ?>
+
+====================================
+hello_index_index.xml
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+<body>
+    <referenceContainer name="content">
+        <block class="Magento\Hello\Block\Hello" name="hello" template="success.phtml">
+        </block>
+    </referenceContainer>
+</body>
+</page>
+
+====================================
+module.xml
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/Module/etc/module.xsd">
+   <module name="Magento_Hello" schema_version="0.0.1" setup_version="0.0.1"  />
+</config>
+
+
+====================================
+routes.xml
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../lib/internal/Magento/Framework/App/etc/routes.xsd">
+<router id="standard">
+    <route id="hello" frontName="hello">
+        <module name="Magento_Hello" />
+    </route>
+</router>
+</config>
+====================================
+Index.php
+<?php
+
+namespace Magento\Hello\Controller\Index;
+class Index extends \Magento\Framework\App\Action\Action
+{
+  public function execute()
+{
+     $this->_view->loadLayout();
+       $this->_view->getLayout()->initMessages();
+    $this->_view->renderLayout();
+}
+}
+
+====================================
+Hello.php
+<?php
+
+namespace Magento\Hello\Block;
+class Hello extends \Magento\Framework\View\Element\Template
+{
+public function _prepareLayout()
+{
+    return parent::_prepareLayout();
+}
+}
+====================================
+enable custom module: 
+$ sudo ./bin/magento module:enable Magento_Hello -v
+
+====================================
+$ php -f bin/magento setup:upgrade
+не уверен, что нужно
+====================================
+$ php bin/magento setup:di:compile
+
+====================================
+====================================
+====================================
+====================================
+====================================
+====================================
+====================================
+====================================
+====================================
+====================================
+====================================
+====================================
+====================================
+====================================
+====================================

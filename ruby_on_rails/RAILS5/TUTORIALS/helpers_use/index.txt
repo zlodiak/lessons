@@ -1,0 +1,34 @@
+допустим у нас в подвале есть блок, который показывает последние посты блога. 
+и он должен показываться на всех страрницах сайта. 
+его можно сделать при помощи хелпера application_helper.rb
+
+================
+application_helper.rb:
+
+module ApplicationHelper
+  def get_recent_blog_articles
+    BlogArticle.limit(5).order(created_at: :DESC)
+  end
+end
+
+
+================
+view:
+<% get_recent_blog_articles.each do |article| %>
+  <li><%= link_to truncate(article.title, length: 40, omission: '...'), blog_article_path(article.id) %></li>
+<% end %>
+
+================
+================
+так же возможно встроить хелпер в applicationController.rb:
+include BlogArticlesHelper
+
+================
+================
+================
+================
+================
+================
+================
+================
+================

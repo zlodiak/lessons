@@ -1,0 +1,1747 @@
+<!DOCTYPE xhtml PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0058)http://freaksidea.com/show-5-magento-sozdanie-crud-modulia -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      
+   <meta name="title" content="Cвежачок">
+<meta name="keywords" content="magento, crud, модуль, linux, bash, shell, сервер, php, magento, symfony, doctrine, javascript, jQuery, jsHttpRequest, sjFilemanager, Prototype">
+<meta name="description" content="Magento - создание CRUD модуля; Magento - это одна из самых сложных для программиста платформ. Но это только на первый взгляд. В следующих нескольких статьях я опровергну это на примере создания CRUD модуля цитат! Итак поехали :)
+Начало
+Создадим структуру директорий и файлов для нашего модуля
+|-app|---code|-----local|-------Fre; Полезные и интересные статьи из серии программирования в WEB">
+   <title>Cвежачок</title>
+   <link type="image/x-icon" rel="shortcut icon" href="http://freaksidea.com/images/favicon.png">
+   <link rel="stylesheet" type="text/css" media="screen" href="./module_quotes_only_front_files/styles.css">
+   <!--[if lte IE 7]>
+      <link type="text/css" rel="stylesheet" href="/css/ie.css" />
+   <![endif]-->
+   <script src="./module_quotes_only_front_files/cb=gapi.loaded_1" async=""></script><script src="./module_quotes_only_front_files/cb=gapi.loaded_0" async=""></script><script src="./module_quotes_only_front_files/ca-pub-5129274777209544.js"></script><script id="facebook-jssdk" src="./module_quotes_only_front_files/all.js"></script><script type="text/javascript" async="" src="./module_quotes_only_front_files/plusone.js" gapi_processed="true"></script><script type="text/javascript" async="" src="./module_quotes_only_front_files/ga.js"></script><script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-19088556-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}@keyframes fb_transform{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(https://static.xx.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(https://static.xx.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(https://static.xx.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f6f7f9;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #365899;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{width:auto;height:auto;min-height:initial;min-width:initial;background:none}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{color:#fff;display:block;padding-top:20px;clear:both;font-size:18px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;bottom:0;left:0;right:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #29487d;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f6f7f9;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(https://static.xx.fbcdn.net/rsrc.php/v2/yD/r/t-wz8gw1xG1.png);background-repeat:no-repeat;background-position:50% 50%;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}</style></head>
+<body cz-shortcut-listen="true">
+        <div id="wrapper">
+                <div id="top-menu">
+    <a href="http://freaksidea.com/format-rss" class="s-item">RSS</a>
+        <a href="http://freaksidea.com/friends">Мои друзья</a>
+        <a href="http://freaksidea.com/writeme">Контакты</a>
+    </div>
+<div id="header">
+    <a href="http://freaksidea.com/" id="slogan"></a>
+    <a href="http://freaksidea.com/" id="logo"></a>
+    <div id="menu">
+<a href="http://freaksidea.com/main" class="act">Свежачок</a><a href="http://freaksidea.com/javascript">Любимый JavaScript</a><a href="http://freaksidea.com/php_and_somethings">PHP и еще Кое-Что</a><a href="http://freaksidea.com/ruby">Ruby.respond_to?</a><a href="http://freaksidea.com/linux">Linux для Всех</a></div>
+</div>
+        <div id="content">
+            <div class="container">
+                <div class="cwrap">
+                                          <h1><span class="idea"></span><span class="txt"></span>Magento - создание CRUD модуля</h1>
+<div class="dscr">
+        <div class="page-dscr"><p>Magento - это одна из самых сложных для программиста платформ. Но это только на первый взгляд. В следующих нескольких статьях я опровергну это на примере создания CRUD модуля цитат! Итак поехали :)</p>
+<h2>Начало</h2>
+<p>Создадим структуру директорий и файлов для нашего модуля</p>
+<pre><code class="bash">|-app<br>|---code<br>|-----local<br>|-------Freaks<br>|---------Quotes<br>|-----------Block<br>|-------------Content.php<br>|-----------controllers<br>|-------------IndexController.php<br>|-----------etc<br>|-------------config.xml<br>|-----------Model<br>|---design<br>|-----frontend<br>|-------base<br>|---------default<br>|-----------layout<br>|-------------freaks<br>|---------------quotes.xml<br>|---etc<br>|-----modules<br>|-------Freaks_All.xml</code></pre>
+<p>Создаем файл <strong>config.xml</strong></p>
+<p><strong> </strong></p>
+<pre><code class="xml"><span class="pi">&lt;?xml version="1.0"?&gt;</span>
+<span class="tag">&lt;<span class="title">config</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">modules</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">Freaks_Quotes</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">version</span>&gt;</span>0.1.0<span class="tag">&lt;/<span class="title">version</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">Freaks_Quotes</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">modules</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">global</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">blocks</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">freaks_quotes</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">class</span>&gt;</span>Freaks_Quotes_Block<span class="tag">&lt;/<span class="title">class</span>&gt;</span>
+            <span class="tag">&lt;/<span class="title">freaks_quotes</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">blocks</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">global</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">frontend</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">routers</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">Freaks_Quotes</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">use</span>&gt;</span>standard<span class="tag">&lt;/<span class="title">use</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">args</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">module</span>&gt;</span>Freaks_Quotes<span class="tag">&lt;/<span class="title">module</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">frontName</span>&gt;</span>quotes<span class="tag">&lt;/<span class="title">frontName</span>&gt;</span>
+                <span class="tag">&lt;/<span class="title">args</span>&gt;</span>
+            <span class="tag">&lt;/<span class="title">Freaks_Quotes</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">routers</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">layout</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">updates</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">freaks_quotes</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">file</span>&gt;</span>freaks/quotes.xml<span class="tag">&lt;/<span class="title">file</span>&gt;</span>
+                <span class="tag">&lt;/<span class="title">freaks_quotes</span>&gt;</span>
+            <span class="tag">&lt;/<span class="title">updates</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">layout</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">frontend</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">config</span>&gt;</span></code></pre>
+<p><strong> <strong> </strong></strong>Немного объясню что это все значит:</p>
+<ul>
+<li>секция <em>modules</em> отвечают за версию вашего модуля. Это нужно, чтобы потом можно было обновить модуль, когда будет выпущена новая версия</li>
+<li><em>blocks</em> - указывает движку, где находятся блоки для отображения (по своей сути Magento отображает весь контент у виде вложеных блоков, что-то похожее на <a href="http://drupal.org/"><em>Drupal</em></a>, если кто-то сталкивался)</li>
+<li><em>frontend/routes</em> - указываем <em>routing</em>, наш модуль на frontend-е будет доступен по адресу "/quotes"</li>
+<li><em>frontend/layout/updates</em> - указывает, какой файл отвечает за изменение макета, когда наш модуль включен</li>
+</ul>
+<p>Чтобы модуль можно было начать тестировать, нужно для начала его включить. Открываем файл <strong>app/etc/modules/Freaks_All.xml</strong></p>
+<pre><code class="xml"><span class="pi">&lt;?xml version="1.0"?&gt;</span><br><span class="tag">&lt;<span class="title">config</span>&gt;</span><br>    <span class="tag">&lt;<span class="title">modules</span>&gt;</span><br>        <span class="tag">&lt;<span class="title">Freaks_Quotes</span>&gt;</span><br>            <span class="tag">&lt;<span class="title">active</span>&gt;</span>true<span class="tag">&lt;/<span class="title">active</span>&gt;</span><br>            <span class="tag">&lt;<span class="title">codePool</span>&gt;</span>local<span class="tag">&lt;/<span class="title">codePool</span>&gt;</span><br>        <span class="tag">&lt;/<span class="title">Freaks_Quotes</span>&gt;</span><br>    <span class="tag">&lt;/<span class="title">modules</span>&gt;</span><br><span class="tag">&lt;/<span class="title">config</span>&gt;</span><br></code></pre>
+<p>Открываем файл <strong>app/design/frontend/base/default/layout/freaks/quotes.xml</strong>. Это layout-файл, который отвечает за отображение блоков при запросе пользователя.</p>
+<pre><code class="xml"><span class="pi">&lt;?xml version="1.0"?&gt;</span><br><span class="tag">&lt;<span class="title">layout</span> <span class="attribute">version</span>=<span class="value">"0.1.0"</span>&gt;</span><br>    <span class="tag">&lt;<span class="title">freaks_quotes_index_index</span>&gt;</span><span class="tag"><span class="title"> </span></span><span class="tag"><span class="title"> </span></span><br>        <span class="tag">&lt;<span class="title">reference</span> <span class="attribute">name</span>=<span class="value">"content"</span>&gt;</span><br>            <span class="tag">&lt;<span class="title">block</span> <span class="attribute">type</span>=<span class="value">"freaks_quotes/content"</span> <span class="attribute">name</span>=<span class="value">"quotes.all"</span> /&gt;</span><br>        <span class="tag">&lt;/<span class="title">reference</span>&gt;</span><br>    <span class="tag">&lt;/<span class="title">freaks_quotes_index_index</span>&gt;</span><br><span class="tag">&lt;/<span class="title">layout</span>&gt;</span><br></code></pre>
+<p><em>freaks_quotes_index_index</em> - это один из <em>handle</em>-ов, которые генерирует Magento, когда открывается страница. В нашем случае мы говорим, что когда в нас модуль = freaks_quotes, контроллер = index и действие = index, тогда обращаемся к блоку контент посредством директивы <em>reference</em> и добавляем в него новый блок, который мы создали.</p>
+<p>Теперь создаем контроллер, в нашем случае он очень простой, так как все что нужно сделать описано в layout файле.</p>
+<pre><code class="php"><span class="preprocessor">&lt;?php</span><br><span class="keyword">class</span> Freaks_Quotes_IndexController <span class="keyword">extends</span> Mage_Core_Controller_Front_Action<br>{<br>    <span class="keyword">public</span> <span class="keyword">function</span> indexAction()<br>    {<br>        <span class="variable">$this</span>-&gt;loadLayout()<br>            -&gt;renderLayout();<br>    }<br>}</code></pre>
+<p>Создадим блок, который будет выводит наш контент. Для тестирования просто выведем название нашего модуля</p>
+<pre><code class="php"><span class="preprocessor">&lt;?php</span><br><span class="keyword">class</span> Freaks_Quotes_Block_Content <span class="keyword">extends</span> Mage_Core_Block_Template<br>{<br>    <span class="keyword">protected</span> <span class="keyword">function</span> _toHtml()<br>    {<br>        <span class="keyword">return</span> <span class="string">'Freaks_Quotes'</span>;<br>    }<br>}<br></code></pre>
+<p>И последнее - заходим в панель администратора и там <strong>System </strong>&gt; <strong>Configuration </strong>&gt; <strong>Advanced </strong>&gt; <strong>Advanced</strong><code><strong> </strong><strong> </strong></code>. Нажимаем кнопку <strong>Save Config</strong> (это нужно, чтобы разрешить выводить контент на сайте для нашего модуля.). Чистим кэш и заходим на нашу страничку цитат. На моем локальном компьютере - это http://mage.linux/quotes.</p>
+<p>Если все работает я Вас поздравляю, если нет можете написать мне на почту, я с удовольствием Вам помогу.</p>
+<h2>База данных и модели</h2>
+<p>Изменим структуру директорий следующим образом</p>
+<pre><code class="bash">|-app<br>|---code<br>|-----local<br>|-------Freaks<br>|---------Quotes<br>|-----------Block<br>|-----------controllers<br>|-----------etc<br>|-----------Helper<br>|-------------Data.php<br>|-----------Model<br>|-------------Resource<br>|---------------Quote<br>|-----------------Collection.php<br>|---------------Quote.php<br>|-------------Quote.php<br>|-----------sql<br>|-------------freaks_quotes_setup<br>|---------------mysql4-install-0.2.0.php</code></pre>
+<p>Для управлением данными в Magento используются модели. Для одной таблицы нужно создать 3 модели, одна для управления бизнес логикой, вторая - называется <em>resource</em> модель, используется для непосредственной работы с базой данных и третья - для управления обновлениями. Вся информация о связях моделей находится в <strong>config.xml</strong>. Изменим его с учетом этого</p>
+<pre><code class="xml"><span class="pi">&lt;?xml version="1.0"?&gt;</span>
+<span class="tag">&lt;<span class="title">config</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">modules</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">Freaks_Quotes</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">version</span>&gt;</span>0.2.0<span class="tag">&lt;/<span class="title">version</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">Freaks_Quotes</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">modules</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">global</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">blocks</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">freaks_quotes</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">class</span>&gt;</span>Freaks_Quotes_Block<span class="tag">&lt;/<span class="title">class</span>&gt;</span>
+            <span class="tag">&lt;/<span class="title">freaks_quotes</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">blocks</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">helpers</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">freaks_quotes</span>&gt;</span><span class="tag">&lt;<span class="title">class</span>&gt;</span>Freaks_Quotes_Helper<span class="tag">&lt;/<span class="title">class</span>&gt;</span><span class="tag">&lt;/<span class="title">freaks_quotes</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">helpers</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">models</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">freaks_quotes</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">class</span>&gt;</span>Freaks_Quotes_Model<span class="tag">&lt;/<span class="title">class</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">resourceModel</span>&gt;</span>quotes_resource<span class="tag">&lt;/<span class="title">resourceModel</span>&gt;</span>
+            <span class="tag">&lt;/<span class="title">freaks_quotes</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">quotes_resource</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">class</span>&gt;</span>Freaks_Quotes_Model_Resource<span class="tag">&lt;/<span class="title">class</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">entities</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">quote</span>&gt;</span>
+                        <span class="tag">&lt;<span class="title">table</span>&gt;</span>freaks_quotes<span class="tag">&lt;/<span class="title">table</span>&gt;</span>
+                    <span class="tag">&lt;/<span class="title">quote</span>&gt;</span>
+                <span class="tag">&lt;/<span class="title">entities</span>&gt;</span>
+            <span class="tag">&lt;/<span class="title">quotes_resource</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">models</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">resources</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">freaks_quotes_setup</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">setup</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">module</span>&gt;</span>Freaks_Quotes<span class="tag">&lt;/<span class="title">module</span>&gt;</span>
+                <span class="tag">&lt;/<span class="title">setup</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">connection</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">use</span>&gt;</span>core_setup<span class="tag">&lt;/<span class="title">use</span>&gt;</span>
+                <span class="tag">&lt;/<span class="title">connection</span>&gt;</span>
+            <span class="tag">&lt;/<span class="title">freaks_quotes_setup</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">freaks_quotes_write</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">connection</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">use</span>&gt;</span>core_write<span class="tag">&lt;/<span class="title">use</span>&gt;</span>
+                <span class="tag">&lt;/<span class="title">connection</span>&gt;</span>
+            <span class="tag">&lt;/<span class="title">freaks_quotes_write</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">freaks_quotes_read</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">connection</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">use</span>&gt;</span>core_read<span class="tag">&lt;/<span class="title">use</span>&gt;</span>
+                <span class="tag">&lt;/<span class="title">connection</span>&gt;</span>
+            <span class="tag">&lt;/<span class="title">freaks_quotes_read</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">resources</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">global</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">frontend</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">routers</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">freaks_quotes</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">use</span>&gt;</span>standard<span class="tag">&lt;/<span class="title">use</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">args</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">module</span>&gt;</span>Freaks_Quotes<span class="tag">&lt;/<span class="title">module</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">frontName</span>&gt;</span>quotes<span class="tag">&lt;/<span class="title">frontName</span>&gt;</span>
+                <span class="tag">&lt;/<span class="title">args</span>&gt;</span>
+            <span class="tag">&lt;/<span class="title">freaks_quotes</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">routers</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">layout</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">updates</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">freaks_quotes</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">file</span>&gt;</span>freaks/quotes.xml<span class="tag">&lt;/<span class="title">file</span>&gt;</span>
+                <span class="tag">&lt;/<span class="title">freaks_quotes</span>&gt;</span>
+            <span class="tag">&lt;/<span class="title">updates</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">layout</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">frontend</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">config</span>&gt;</span></code></pre>
+<p>Теперь посмотрим, что и зачем было добавлено в конфигурацию</p>
+<ul>
+<li><em>helpers</em> - указывает суфикс класса-помощника, который понадобится в дальнейшем в шаблонах і блоках</li>
+<li><em>models</em> - модели для работы с базой данных и связь ресурс-модели и бизнес модели. <em>resourceModel</em> - это имя элемента xml-конфигурации, в котором описывается ресурс-модель</li>
+<li><em>resources</em> - указывает, модели для работы с данными для записи, чтения и обновления (или установки модуля)</li>
+</ul>
+<p>Будьте внимательны и не забудьте поменять версию модуля в настройках, иначе файли установки модуля не будут выполнены!</p>
+<ul>
+</ul>
+<p>Создадим модели. Открываем <strong>app/code/local/Freaks/Quotes/Model/Quote.php</strong></p>
+<pre><code class="php"><span class="preprocessor">&lt;?php</span><br><span class="keyword">class</span> Freaks_Quotes_Model_Quote <span class="keyword">extends</span> Mage_Core_Model_Abstract<br>{<br>    <span class="keyword">protected</span> <span class="keyword">function</span> _construct()<br>    {<br>        <span class="variable">$this</span>-&gt;_init(<span class="string">'freaks_quotes/quote'</span>);<br>    }<br>}</code></pre>
+<p>этот код на самом деле почти ничего не делает :). Он всего лишь привязывает ресурс-модель к бизнес-модели. Создадим же теперь ресурс-модель в <strong>app/code/local/Freaks/Quotes/Model/Resource/Quote.php </strong></p>
+<pre><code class="php"><span class="preprocessor">&lt;?php</span><br><span class="keyword">class</span> Freaks_Quotes_Model_Resource_Quote <span class="keyword">extends</span> Mage_Core_Model_Mysql4_Abstract<br>{<br>    <span class="keyword">protected</span> <span class="keyword">function</span> _construct()<br>    {<br>        <span class="variable">$this</span>-&gt;_init(<span class="string">'freaks_quotes/quote'</span>, <span class="string">'id'</span>);<br>    }<br>}</code></pre>
+<p>На удивление код почти идентичен :), но делает он совсем другое... Эти строки значат, что нужно обратится в xml-конфигурацию по пути <code><strong>config</strong> &gt; <strong>global</strong> &gt; <strong>models</strong> &gt; <strong>quotes_resource</strong> &gt; <strong>entities</strong> &gt; <strong>quote</strong></code>, чтобы узнать имя таблицы.</p>
+<p>Теперь создадим модель-коллекции ресурс-модели. На самом деле, это обычный класс, который отвечает за работу с набором моделей, поэтому я не упоминал об этом классе, как об отдельной модели. Редактируем <strong>app/code/local/Freaks/Quotes/Model/Resource/Quote/Collection.php</strong></p>
+<pre><code class="php"><span class="preprocessor">&lt;?php</span><br><span class="keyword">class</span> Freaks_Quotes_Model_Resource_Quote_Collection <span class="keyword">extends</span> Mage_Core_Model_Mysql4_Collection_Abstract<br>{<br>    <span class="keyword">protected</span> <span class="keyword">function</span> _construct()<br>    {<br>        <span class="variable">$this</span>-&gt;_init(<span class="string">'freaks_quotes/quote'</span>);<br>    }<br>}</code></pre>
+<p>В конструкторе задаем набор каких моделей будет содержать наша коллекция.</p>
+<p>На конец осталось создать только файли установки модуля. Открываем <strong>app/code/local/Freaks/Quotes/sql/quotes_setup</strong><strong>/mysql4-install-0.2.0.php</strong></p>
+<pre><code class="php"><span class="preprocessor">&lt;?php</span><br><span class="variable">$installer</span> = <span class="variable">$this</span>;<br><span class="variable">$installer</span>-&gt;startSetup();<br> <br><span class="variable">$installer</span>-&gt;run(<span class="string">"<br>CREATE TABLE `{$this-&gt;getTable('freaks_quotes/quote')}` (<br> `id` int(10) unsigned NOT NULL AUTO_INCREMENT,<br> `name` varchar(255) NOT NULL,<br> `dscr` mediumtext NOT NULL,<br> PRIMARY KEY (`id`)<br>) ENGINE=InnoDB DEFAULT CHARSET=utf8<br>"</span>);<br> <br><span class="variable">$installer</span>-&gt;endSetup();</code></pre>
+<p>После первого запроса на сайт, этот файл будет выполнен. Пробуем и смотрим, что же получилось. Добавим несколько строк тестовых данных в базу через любой удобный для вас UI (я, например, использую <a href="http://www.phpmyadmin.net/home_page/downloads.php">phpMyAdmin</a>).</p>
+<h2>Блоки и шаблоны</h2>
+<p>По сколько модели созданы теперь можно работать с данными через очень простой интерфейс. Отредактируем наш блок (<strong>app/code/local/Freaks/Quotes/Block/Content.php</strong>)</p>
+<pre><code class="php"><span class="preprocessor">&lt;?php</span><br><span class="keyword">class</span> Freaks_Quotes_Block_Content <span class="keyword">extends</span> Mage_Core_Block_Template<br>{<br>    <span class="keyword">protected</span> <span class="keyword">function</span> _construct()<br>    {<br>        <span class="variable">$this</span>-&gt;setTemplate(<span class="string">'freaks/quotes/view.phtml'</span>);<br>    }<br>    <br>    <span class="keyword">public</span> <span class="keyword">function</span> getRowUrl(Freaks_Quotes_Model_Quote <span class="variable">$quote</span>)<br>    {<br>        <span class="keyword">return</span> <span class="variable">$this</span>-&gt;getUrl(<span class="string">'*/*/view'</span>, <span class="keyword">array</span>(<br>            <span class="string">'id'</span> =&gt; <span class="variable">$quote</span>-&gt;getId()<br>        ));<br>    }<br>    <br>    <span class="keyword">public</span> <span class="keyword">function</span> getCollection()<br>    {<br>        <span class="keyword">return</span> Mage::getModel(<span class="string">'freaks_quotes/quote'</span>)-&gt;getCollection();<br>    }<br>}</code></pre>
+<p>В конструкторе блока устанавливаем ему шаблон, который будет отображать список цитат. Давайте создадим же этот файл (<strong>app/design/frontend/base/default/template/freaks/quotes/view.phtml</strong>)</p>
+<pre><code class="php"><span class="preprocessor">&lt;?php</span> <span class="keyword">foreach</span> (<span class="variable">$this</span>-&gt;getCollection() <span class="keyword">as</span> <span class="variable">$quote</span>): <span class="preprocessor">?&gt;</span><br>&lt;div <span class="keyword">class</span>=<span class="string">"quote-item"</span>&gt;<br>    &lt;h4&gt;&lt;a href=<span class="string">"&lt;?php echo $this-&gt;getRowUrl($quote) ?&gt;"</span>&gt;<span class="preprocessor">&lt;?php</span> <span class="keyword">echo</span> <span class="variable">$quote</span>-&gt;getName() <span class="preprocessor">?&gt;</span>&lt;/a&gt;&lt;/h4&gt;<br>    &lt;p&gt;<span class="preprocessor">&lt;?php</span> <span class="keyword">echo</span> <span class="variable">$quote</span>-&gt;getDscr() <span class="preprocessor">?&gt;</span>&lt;/p&gt;<br>&lt;/div&gt;<br><span class="preprocessor">&lt;?php</span> <span class="keyword">endforeach</span> <span class="preprocessor">?&gt;</span></code></pre>
+<p>У меня он очень простой, вы же можете пофантазировать и поработать творчески ;) Обновим нашу страничку и смотрим результат</p>
+<p><img src="./module_quotes_only_front_files/magento-custom-module.png" border="0" alt="Свой модуль на Magento - результат" title="Свой модуль на Magento - результат" width="600" height="332" style="display: block; margin-left: auto; margin-right: auto; border: 0pt none;">Чтобы просматривать цытаты нужно создать <em>viewAction</em> в контроллере, блок и еще один шаблон. Приступим, редактируем <strong>app/code/local/Freaks/Quotes/controllers/indexController.php</strong></p>
+<pre><code class="php"><span class="preprocessor">&lt;?php</span><br><span class="keyword">class</span> Freaks_Quotes_IndexController <span class="keyword">extends</span> Mage_Core_Controller_Front_Action<br>{<br>     <span class="keyword">public</span> <span class="keyword">function</span> indexAction()<br>     {<br>        <span class="variable">$this</span>-&gt;loadLayout()<br>            -&gt;renderLayout();<br>     }<br><br>     <span class="keyword">public</span> <span class="keyword">function</span> viewAction()<br>     {<br>         <span class="variable">$quote_id</span> = (int)<span class="variable">$this</span>-&gt;getRequest()-&gt;getParam(<span class="string">'id'</span>);<br>         <span class="keyword">if</span> (!<span class="variable">$quote_id</span>) {<br>             <span class="variable">$this</span>-&gt;_forward(<span class="string">'noRoute'</span>);<br>         }<br>         <span class="variable">$this</span>-&gt;loadLayout();<br>         <span class="variable">$this</span>-&gt;getLayout()<br>            -&gt;getBlock(<span class="string">'quote.item'</span>)<br>            -&gt;setQuoteId(<span class="variable">$quote_id</span>);<br>         <span class="variable">$this</span>-&gt;renderLayout();<br>     }<br>}</code></pre>
+<p>Поскольку блоки наследуются от <em>Varien_Object</em> класса, то в него можно передать любое значение посредством сеттеров и геттеров. Именно таким образом передаем идентификатор цитаты в блок.</p>
+<p>Создадим <em>helper</em> для модуля, так как в шаблонах нам нужно будет переводить строки. Открываем <strong>app/code/local/Freaks/Quotes/Helper/Data.php</strong></p>
+<pre><code class="php"><span class="preprocessor">&lt;?php</span><br><span class="keyword">class</span> Freaks_Quotes_Helper_Data <span class="keyword">extends</span> Mage_Core_Helper_Abstract<br>{<br>}<br></code></pre>
+<p>Да вот такой у нас "сложный" <em>helper</em> :)</p>
+<p>В <em>layout</em>-конфигурации создадим <em>handle</em> для <em>viewAction</em>-а, в котором в контент подключим блок для отображения одной цитаты (<strong>app/design/frontend/base/default/layout/freaks/quotes.xml</strong>)</p>
+<pre><code class="xml"><span class="pi">&lt;?xml version="1.0"?&gt;</span><br><span class="tag">&lt;<span class="title">layout</span> <span class="attribute">version</span>=<span class="value">"0.1.0"</span>&gt;</span><br>    <span class="tag">&lt;<span class="title">freaks_quotes_index_index</span>&gt;</span><br>        <span class="tag">&lt;<span class="title">reference</span> <span class="attribute">name</span>=<span class="value">"content"</span>&gt;</span><br>            <span class="tag">&lt;<span class="title">block</span> <span class="attribute">type</span>=<span class="value">"freaks_quotes/content"</span> <span class="attribute">name</span>=<span class="value">"quotes.all"</span> /&gt;</span><br>        <span class="tag">&lt;/<span class="title">reference</span>&gt;</span><br>    <span class="tag">&lt;/<span class="title">freaks_quotes_index_index</span>&gt;</span><br>    <br>    <span class="tag">&lt;<span class="title">freaks_quotes_index_view</span>&gt;</span><br>        <span class="tag">&lt;<span class="title">reference</span> <span class="attribute">name</span>=<span class="value">"content"</span>&gt;</span><br>            <span class="tag">&lt;<span class="title">block</span> <span class="attribute">type</span>=<span class="value">"freaks_quotes/quote_content"</span> <span class="attribute">name</span>=<span class="value">"quote.item"</span> /&gt;</span><br>        <span class="tag">&lt;/<span class="title">reference</span>&gt;</span><br>    <span class="tag">&lt;/<span class="title">freaks_quotes_index_view</span>&gt;</span><br><span class="tag">&lt;/<span class="title">layout</span>&gt;</span></code></pre>
+<p>Создаем блок <strong>app/code/local/Freaks/Quotes/Block/Quote/Content.php</strong></p>
+<pre><code class="php"><span class="preprocessor">&lt;?php</span><br><span class="keyword">class</span> Freaks_Quotes_Block_Quote_Content <span class="keyword">extends</span> Mage_Core_Block_Template<br>{<br>    <span class="keyword">protected</span> <span class="keyword">function</span> _construct()<br>    {<br>        <span class="variable">$this</span>-&gt;setTemplate(<span class="string">'freaks/quotes/quote/view.phtml'</span>);<br>    }<br>    <br>    <span class="keyword">public</span> <span class="keyword">function</span> getQuote()<br>    {<br>        <span class="keyword">return</span> Mage::getModel(<span class="string">'freaks_quotes/quote'</span>)-&gt;load(<span class="variable">$this</span>-&gt;getQuoteId());<br>    }<br>}</code></pre>
+<p>Ну и последнее - шаблон <strong>app/design/frontend/base/default/template/freaks/quotes/quote/view.phtml</strong></p>
+<pre><code class="php"><span class="preprocessor">&lt;?php</span> <span class="variable">$quote</span> = <span class="variable">$this</span>-&gt;getQuote() <span class="preprocessor">?&gt;</span><br>&lt;h1&gt;<span class="preprocessor">&lt;?php</span> <span class="keyword">echo</span> Mage::helper(<span class="string">'freaks_quotes'</span>)-&gt;__(<span class="string">'View quote "%s"'</span>, <span class="variable">$quote</span>-&gt;getName()) <span class="preprocessor">?&gt;</span>&lt;/h1&gt;<br>&lt;p&gt;<span class="preprocessor">&lt;?php</span> <span class="keyword">echo</span> <span class="variable">$quote</span>-&gt;getDscr() <span class="preprocessor">?&gt;</span>&lt;/p&gt;</code></pre>
+<p>Проверяем результат :)</p>
+<p><img src="./module_quotes_only_front_files/magento-view-quote.png" border="0" alt="Свой модуль на Magento - просмотр цытата" title="Свой модуль на Magento - просмотр цытата" width="600" height="327" style="display: block; margin-left: auto; margin-right: auto; border: 0pt none;"></p>
+<p>Вот и все. В следующей статье создадим модуль для редактирования цитат в административной панели.</p>
+<p>Этот модуль можно скачать <a href="http://freaksidea.com/uploads/php/magento/crud/FreaksQuotes.tar.bz2">ЗДЕСЬ</a>.</p></div>
+
+    <div class="public-footer">
+        <div class="f-left">
+            29 января 2011 г.            <span>Теги:</span> <a href="http://freaksidea.com/search/tag-33-magento">magento</a>&nbsp;<a href="http://freaksidea.com/search/tag-34-crud">crud</a>&nbsp;<a href="http://freaksidea.com/search/tag-35-modul">модуль</a>&nbsp;        </div>
+        <div class="f-right">
+            <div class="f-left">
+                <!-- G+ -->
+<div class="social_item">
+    <div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px; background: transparent;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1468516893528" name="I0_1468516893528" src="./module_quotes_only_front_files/fastbutton.html" data-gapiattached="true" title="+1"></iframe></div>
+
+    <script type="text/javascript">
+      window.___gcfg = {lang: 'ru'};
+
+      (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+      })();
+    </script>
+</div>
+
+<!-- Facebook I Like -->
+<div class="social_item">
+    <div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="Facebook Cross Domain Communication Frame" aria-hidden="true" tabindex="-1" id="fb_xdm_frame_http" src="./module_quotes_only_front_files/bz-D0tzmBsw.html" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="Facebook Cross Domain Communication Frame" aria-hidden="true" tabindex="-1" id="fb_xdm_frame_https" src="./module_quotes_only_front_files/bz-D0tzmBsw(1).html" style="border: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="f205bb1dbc" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" src="./module_quotes_only_front_files/ping.html" style="display: none;"></iframe></div></div></div>
+    <script type="text/javascript">(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#appId=152417101503637&xfbml=1";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+    <div class="fb-like fb_iframe_widget" data-href="http://freaksidea.com/php_and_somethings/show-5-magento-sozdanie-crud-modulia" data-send="false" data-layout="button_count" data-width="70" data-show-faces="false" data-font="tahoma" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=152417101503637&amp;container_width=0&amp;font=tahoma&amp;href=http%3A%2F%2Ffreaksidea.com%2Fphp_and_somethings%2Fshow-5-magento-sozdanie-crud-modulia&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;send=false&amp;show_faces=false&amp;width=70"><span style="vertical-align: bottom; width: 61px; height: 20px;"><iframe name="f2ddc583c" width="70px" height="1000px" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="fb:like Facebook Social Plugin" src="./module_quotes_only_front_files/like.html" style="border: none; visibility: visible; width: 61px; height: 20px;" class=""></iframe></span></div>
+</div>
+
+<div class="clear"></div>
+            </div>
+            <div class="f-left">
+                                <a target="_blank" href="http://www.facebook.com/sharer.php?src=sp&amp;u=http://freaksidea.com/show-5-magento-sozdanie-crud-modulia&amp;t=Magento+-+%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5+CRUD+%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D1%8F&amp;description=&amp;picture=" class="fb" rel="nofollow"></a>
+                                <a target="_blank" href="http://twitter.com/intent/tweet?status=Magento+-+%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5+CRUD+%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D1%8F+http://freaksidea.com/show-5-magento-sozdanie-crud-modulia" class="tw" rel="nofollow"></a>
+                                <a target="_blank" href="http://vkontakte.ru/share.php?url=http://freaksidea.com/show-5-magento-sozdanie-crud-modulia&amp;title=Magento+-+%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5+CRUD+%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D1%8F&amp;description=&amp;image=" class="vk" rel="nofollow"></a>
+                            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+            <div class="similar">
+        <h3>Читайте также:</h3>
+        <ul>
+                                    <li><a href="http://freaksidea.com/php_and_somethings/show-24-internatsionalizatsiia-v-magento">Интернационализация в Magento</a><span class="date">[7 июля 2012 г.]</span></li>
+                                    <li><a href="http://freaksidea.com/php_and_somethings/show-64-upravlenie-prostranstvom-i-vremenem-magento-cron-esli-prosto">Управление пространством и временем. Magento Cron, если просто</a><span class="date">[12 марта 2012 г.]</span></li>
+                                    <li><a href="http://freaksidea.com/php_and_somethings/show-63-magento-modeli-ot-a-do-ia-sobytiia-i-rewrite-klassov">Magento модели от А до Я: события и rewrite классов</a><span class="date">[26 февраля 2012 г.]</span></li>
+                    </ul>
+    </div>
+    </div>
+      <div class="cmt-wrap dscr">
+        <div id="cmt-form" class="w-440">
+    <h3><a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#">Добавить комментарий</a></h3>
+    <form action="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia/#cmt-form" method="post" name="comments">
+        <input type="hidden" name="force" value="comment">
+        <input type="hidden" name="comment[reply]" id="comment_reply"><input type="hidden" name="comment[record_id]" value="5" id="comment_record_id"><input type="hidden" name="comment[record_model]" value="CmsContent" id="comment_record_model"><input type="hidden" name="comment[user_name]" id="comment_user_name"><input type="hidden" name="comment[_csrf_token]" value="b13cd14ec4e4b2970ea230b4f0306c4b" id="comment__csrf_token">                <div class="bfield mfield f-left mr-10">
+                        <label for="comment_author_name">Ваше имя</label>            <input type="text" name="comment[author_name]" id="comment_author_name">        </div>
+        <div class="bfield mfield f-left">
+                        <label for="comment_author_email">Ваш e-mail</label>            <input type="text" name="comment[author_email]" id="comment_author_email">        </div>
+        <div class="clear"></div>
+                <div class="bfield mfield f-big" style="visibility: hidden; position: absolute;">
+            <label for="comment_lastname">Lastname</label><input type="text" name="comment[lastname]" id="comment_lastname"><script type="text/javascript">var e = document.getElementById("comment_lastname").parentNode;e.style.visibility = "hidden";e.style.position = "absolute";</script><div></div><label for="comment_company">Company</label><input type="text" name="comment[company]" id="comment_company"><script type="text/javascript">var e = document.getElementById("comment_company").parentNode;e.style.visibility = "hidden";e.style.position = "absolute";</script><div></div>        </div>
+        <div class="bfield mfield">
+            <textarea rows="4" cols="30" name="comment[body]" id="comment_body"></textarea>                    </div>
+        <div align="right">
+            <button class="button" type="submit">Опубликовать</button>
+        </div>
+    </form>
+</div>
+        <div id="comments">
+    <h3>Комментариев: 66</h3>
+                            <ul>
+                        <li id="comment-10">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">romahaos</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#10" class="small-btn">Ответить</a>
+                        25 августа 2011 г., 12:28                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            Спасибо за замечательную статью. Скажем так открыла глаза , но блин сложно.                                    </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-20">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">XRumer</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#20" class="small-btn">Ответить</a>
+                        28 августа 2011 г., 9:11                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            Это прям в точку!!! Другими словами и не скажешь! :) Ресурс Ваш почему-то слабо продвинутый и плохопосещаем. Советуем раскрутить его с помощью софта XRumer 7 Elite (ХРумер 7 Элите) скачать можно тут http://x-rumer.ru/ слышал убойная программа для оптимизации блог порталов.                                    </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-18">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">Elena</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#18" class="small-btn">Ответить</a>
+                        12 октября 2011 г., 11:59                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            У меня не создается таблица в БД.
+Поясните, пожалуйста, более подробно фразу "Будьте внимательны и не забудьте поменять версию модуля в настройках, иначе файлы установки модуля не будут выполнены!"
+Мне кажется где-то именно здесь у меня путаница, так как однажды такая таблица уже создавалась.                                    </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-19">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">Elena</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#19" class="small-btn">Ответить</a>
+                        12 октября 2011 г., 16:39                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            Огромная благодарность автору! Все так доступно описано.
+Если бы Вы еще подсказали, как можно вставить где-нибудь на сайте, например в меню, ссылку на этот самый список цитат - Вам бы цены не было!                                    </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-53">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">snovyda</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#53" class="small-btn">Ответить</a>
+                        19 октября 2011 г., 3:35                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            Огроменное Вам спасибо!<br>
+Пока нашел ваш блог, чуть спать не пошел :)<br>
+Теперь наверно уже и ложиться не буду... :)))<br>
+Но ведь тут все понятно написано!                                    </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-72">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">IrininaSviridova</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#72" class="small-btn">Ответить</a>
+                        23 октября 2011 г., 16:27                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            Заманчиво спс автору! Об таком уже читала, а на том блоге немного по-другому написано...                                    </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-204">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">annalustikova</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#204" class="small-btn">Ответить</a>
+                        17 ноября 2011 г., 4:08                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            Благодарю публикатору это на мое усмотрение так же важно знать.                                    </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-231">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">dengimiraorg</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#231" class="small-btn">Ответить</a>
+                        21 ноября 2011 г., 23:27                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            Спасибо за пост. Что-нибудь еще о похожем интересно почитать. :)                                    </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-448">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">Anton</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#448" class="small-btn">Ответить</a>
+                        13 января 2012 г., 15:18                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            У меня почему-то не работает модуль. Взял уже тупо архив и распаковал. Не создает таблицу почему-то:<br>
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'experiment.freaks_quotes' doesn't exist                                    </div>
+                                                <ul>
+                    
+<li id="comment-449">
+    <div class="heading">
+        <div class="f-left">
+            <span class="image">
+                <img src="./module_quotes_only_front_files/avatar.jpg">
+            </span>
+            <span class="name">Сергей (Администратор)</span>
+        </div>
+        <div class="f-right actions">
+            <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#449" class="small-btn">Ответить</a>
+            13 января 2012 г., 15:33        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+                    Видимо не запустился апгрейд файл. Попробуйте почистить кэш            </div>
+            <ul>
+        
+<li id="comment-450">
+    <div class="heading">
+        <div class="f-left">
+            <span class="image">
+                <img src="./module_quotes_only_front_files/avatar.jpg">
+            </span>
+            <span class="name">Anton</span>
+        </div>
+        <div class="f-right actions">
+            <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#450" class="small-btn">Ответить</a>
+            13 января 2012 г., 15:51        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+                    Я это сразу исключил, т.к. у меня весь кеш отключен. Даже вручную папку кеша почистил. К сожалению, в чем-то еще проблема.            </div>
+            <ul>
+        
+    </ul>
+    </li>
+<li id="comment-451">
+    <div class="heading">
+        <div class="f-left">
+            <span class="image">
+                <img src="./module_quotes_only_front_files/avatar.jpg">
+            </span>
+            <span class="name">Anton</span>
+        </div>
+        <div class="f-right actions">
+            <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#451" class="small-btn">Ответить</a>
+            13 января 2012 г., 16:20        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+                    Попробовал маженту переустановить. Все заработало. Так и не понял в чем причина была. Прошу прощения что поднял шум на ровном месте)) Статья офигенная, побольше б таких!            </div>
+            <ul>
+        
+    </ul>
+    </li>
+    </ul>
+    </li>
+                </ul>
+                            </li>
+                        <li id="comment-489">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">Varan</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#489" class="small-btn">Ответить</a>
+                        25 февраля 2012 г., 14:18                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            О круто! Хороших рускоязычных статей по дев для мадженты мало. В основном недополненные, обрываются, или не выходят продолжения уроков. На вашем блоге вроде как все статьи заканчиваются:) Сейчас приступим к изучению)                                    </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-490">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">Varan</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#490" class="small-btn">Ответить</a>
+                        25 февраля 2012 г., 17:21                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            Прочел, сделал. Все отлично работает:) Спасибо за грамотную статью!)                                     </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-525">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">Дмитрий</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#525" class="small-btn">Ответить</a>
+                        13 марта 2012 г., 15:36                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            Спасибо за статьи, прекрасный блог. <br>
+Не могли бы помочь с проблемой:<br>
+Перед созданием viewAction в контроллере, когда нужно было обновить страничку и увидеть результат, я увидел ошибку: <br>
+dbModel read resource does not implement Zend_Db_Adapter_Abstract                                    </div>
+                                                <ul>
+                    
+<li id="comment-529">
+    <div class="heading">
+        <div class="f-left">
+            <span class="image">
+                <img src="./module_quotes_only_front_files/avatar.jpg">
+            </span>
+            <span class="name">Сергей (Администратор)</span>
+        </div>
+        <div class="f-right actions">
+            <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#529" class="small-btn">Ответить</a>
+            14 марта 2012 г., 10:21        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+                    Наверно в конфигах, что-то неправильно указали. У меня такого не было, но эксепшен пробрасывает класс Varien_Data_Collection_Db метод setConnection            </div>
+            <ul>
+        
+    </ul>
+    </li>
+<li id="comment-531">
+    <div class="heading">
+        <div class="f-left">
+            <span class="image">
+                <img src="./module_quotes_only_front_files/avatar.jpg">
+            </span>
+            <span class="name">Сергей (Администратор)</span>
+        </div>
+        <div class="f-right actions">
+            <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#531" class="small-btn">Ответить</a>
+            14 марта 2012 г., 16:52        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+                    Может также быть отсутствие связи с базой            </div>
+            <ul>
+        
+<li id="comment-573">
+    <div class="heading">
+        <div class="f-left">
+            <span class="image">
+                <img src="./module_quotes_only_front_files/avatar.jpg">
+            </span>
+            <span class="name">Дмитрий</span>
+        </div>
+        <div class="f-right actions">
+            <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#573" class="small-btn">Ответить</a>
+            30 марта 2012 г., 13:22        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+                    Конфиги смотрел. В отчете действительно setConnection(false). Таблица freaks_quote в базе создается. Загвоздка получается, в return Mage::getModel('freaks_quotes/quote')-&gt;getCollection(); Пробовал print_r(Mage::getModel('freaks_quotes/quote')), выдает инфо об объекте. Причем через getSingleton() в этом же методе все получается, результаты возвращаются. Но хотелось бы через модели(            </div>
+            <ul>
+        
+<li id="comment-574">
+    <div class="heading">
+        <div class="f-left">
+            <span class="image">
+                <img src="./module_quotes_only_front_files/avatar.jpg">
+            </span>
+            <span class="name">Дмитрий</span>
+        </div>
+        <div class="f-right actions">
+            <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#574" class="small-btn">Ответить</a>
+            30 марта 2012 г., 14:39        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+                    Спасибо за внимание, таки разобрался. Если у кого такая ошибка, у меня заработало только после того, как я поменял $this-&gt;init('quotes/quote') и в связи с этим изменением внес соответствующие правки. Я не уверен, конечно, но почему то при описании ресурс модели используется &lt;quotes_read&gt;, &lt;quotes_write&gt;, а в URI модели freaks_quotes, а должно быть quotes.             </div>
+            <ul>
+        
+<li id="comment-575">
+    <div class="heading">
+        <div class="f-left">
+            <span class="image">
+                <img src="./module_quotes_only_front_files/avatar.jpg">
+            </span>
+            <span class="name">Сергей (Администратор)</span>
+        </div>
+        <div class="f-right actions">
+            <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#575" class="small-btn">Ответить</a>
+            30 марта 2012 г., 20:00        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+                    Да Вы правы там ошибка в конфигах должно быть freaks_quotes_read и write. Директивы read и write можно не указывать, тогда будут браться коровские по умолчанию.             </div>
+            <ul>
+        
+    </ul>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+                </ul>
+                            </li>
+                        <li id="comment-586">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">Finaashkina</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#586" class="small-btn">Ответить</a>
+                        4 апреля 2012 г., 9:32                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            Тема конечно интересная,только вот почему-то комментариев мало. видимо большинсто коментов фильтруются как спам. Вам бы вручную модерировать Ваш форум freaksidea.com  уважаемый администратор                                    </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-679">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">Сергей</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#679" class="small-btn">Ответить</a>
+                        16 мая 2012 г., 15:07                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            Не создаются таблицы, коменты не помогли, обидно что никаких ошибок не показывает...                                    </div>
+                                                <ul>
+                    
+<li id="comment-680">
+    <div class="heading">
+        <div class="f-left">
+            <span class="image">
+                <img src="./module_quotes_only_front_files/avatar.jpg">
+            </span>
+            <span class="name">Сергей (Администратор)</span>
+        </div>
+        <div class="f-right actions">
+            <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#680" class="small-btn">Ответить</a>
+            16 мая 2012 г., 23:21        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+                    Если Вы брали исходники, то там ошибка. Исправил, протестировал и перезалил сейчас все работает нормально. Не забывайте кэш почистить.            </div>
+            <ul>
+        
+    </ul>
+    </li>
+<li id="comment-681">
+    <div class="heading">
+        <div class="f-left">
+            <span class="image">
+                <img src="./module_quotes_only_front_files/avatar.jpg">
+            </span>
+            <span class="name">Сергей (Администратор)</span>
+        </div>
+        <div class="f-right actions">
+            <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#681" class="small-btn">Ответить</a>
+            16 мая 2012 г., 23:39        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+                    Если будете использовать ту же базу, то нужно сначала выполнить запрос:<br>
+&gt; DELETE FROM  `core_resource` WHERE  `code` =  'freaks_quotes';<br>
+<br>
+Потом скопировать содержимое модуля в корень Мадженто, заменить все файлы при запросе. Потом ОБЯЗАТЕЛЬНО не забываем почистить кэш (кстати нужно удалить руками все содержимое var/cache или почистить кэш через админку, НО потом нужно проверить таблицу core_resouce и если там модуль уже есть, тогда придется создать еще один файл в директории модуля sql/freaks_quotes_setup/mysql4-upgrade-0.2.0-0.3.0.php, а в config.xml изменить версию модуля на 0.3.0). Обновляем страницу и все должно работать. Все это зависит от того как настроен кэш            </div>
+            <ul>
+        
+<li id="comment-702">
+    <div class="heading">
+        <div class="f-left">
+            <span class="image">
+                <img src="./module_quotes_only_front_files/avatar.jpg">
+            </span>
+            <span class="name">Сергей</span>
+        </div>
+        <div class="f-right actions">
+            <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#702" class="small-btn">Ответить</a>
+            22 мая 2012 г., 14:26        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+                    Извините - не понял фразу "Потом скопировать содержимое модуля в корень Мадженто, заменить все файлы при запросе" <br>
+тоесть нужно из папки 'Quotes' скопировать все содержимое и вставить его в корень 'magento' тоесть туда где находится 'index.php'?            </div>
+            <ul>
+        
+<li id="comment-703">
+    <div class="heading">
+        <div class="f-left">
+            <span class="image">
+                <img src="./module_quotes_only_front_files/avatar.jpg">
+            </span>
+            <span class="name">Сергей (Администратор)</span>
+        </div>
+        <div class="f-right actions">
+            <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#703" class="small-btn">Ответить</a>
+            22 мая 2012 г., 18:11        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+                    Нет, под модулем имелось введу то, что в архиве лежит            </div>
+            <ul>
+        
+<li id="comment-705">
+    <div class="heading">
+        <div class="f-left">
+            <span class="image">
+                <img src="./module_quotes_only_front_files/avatar.jpg">
+            </span>
+            <span class="name">Сергей</span>
+        </div>
+        <div class="f-right actions">
+            <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#705" class="small-btn">Ответить</a>
+            23 мая 2012 г., 12:28        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+                    Заменил все файлы на скачанные, включил отображение всех ошибок, увидел то что и предполагалось - весь затык на этапе создания таблицы. Скажите, а где можно почитать поболее про то почему именно так создаются таблицы - не проще ли их просто вручную в том же phpmyadmin сделать?             </div>
+            <ul>
+        
+<li id="comment-706">
+    <div class="heading">
+        <div class="f-left">
+            <span class="image">
+                <img src="./module_quotes_only_front_files/avatar.jpg">
+            </span>
+            <span class="name">Сергей (Администратор)</span>
+        </div>
+        <div class="f-right actions">
+            <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#706" class="small-btn">Ответить</a>
+            23 мая 2012 г., 14:48        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+                    Сделайте в ручную, никаких проблем            </div>
+            <ul>
+        
+<li id="comment-708">
+    <div class="heading">
+        <div class="f-left">
+            <span class="image">
+                <img src="./module_quotes_only_front_files/avatar.jpg">
+            </span>
+            <span class="name">Сергей</span>
+        </div>
+        <div class="f-right actions">
+            <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#708" class="small-btn">Ответить</a>
+            24 мая 2012 г., 14:38        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+                    Спасибо - все работает, только непонятно почему в magento таким образом создаются таблицы, и почему иногда этот метод может не работать...            </div>
+            <ul>
+        
+<li id="comment-709">
+    <div class="heading">
+        <div class="f-left">
+            <span class="image">
+                <img src="./module_quotes_only_front_files/avatar.jpg">
+            </span>
+            <span class="name">Сергей (Админ)</span>
+        </div>
+        <div class="f-right actions">
+            <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#709" class="small-btn">Ответить</a>
+            24 мая 2012 г., 17:22        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+                    Это один из стандартных способов апгрейдов и создания модулей. Если "я" простой пользователь (не знаю ничего о SQL) хочу установить модуль то просто качаю его, чищу кэш, обновляю страничку и все работает.<br>
+<br>
+Magento при каждой загрузке страницы проверяет нужно ли установить какой-нибудь модуль или проапргрейдить (позже были добавлены 2 настройки global/skip_process_modules_updates и global/skip_process_modules_updates_ignore_dev_mode чтобы это можно было отключить ибо много времени занимает). Установленные модули и их версии она хранит в таблице core_resource. При запросе пользователя собираются все модули и их версии из файлов app/etc/modules/*.xml. Потом вызывается Mage_Core_Model_Resource_Setup::applyAllDataUpdates(), в котором проверяется, есть ли модуль в базе, если нету, то запускаем install скрипт, если есть проверяется версия, если версия выше той которая в базе запускается upgrade скрипт, если ниже - rollback скрипт.            </div>
+            <ul>
+        
+    </ul>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+                </ul>
+                            </li>
+                        <li id="comment-748">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">Gr1g0ry</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#748" class="small-btn">Ответить</a>
+                        18 июня 2012 г., 10:48                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            Статья действительно замечательная! <br>
+Но не совсем понятно наличие как задается расположение файлов отображения "Content.php" <br>
+в xml задано<br>
+&lt;blocks&gt;<br>
+    &lt;freaks_quotes&gt;<br>
+      &lt;class&gt;Freaks_Quotes_Block&lt;/class&gt;<br>
+    &lt;/freaks_quotes&gt;<br>
+&lt;/blocks&gt;<br>
+а структура каталогов<br>
+local/Freaks/Quotes/Block/Quote/Content.php<br>
+<br>
+Почему произошло добавление папки /Quote/ при описании модели?                                    </div>
+                                                <ul>
+                    
+<li id="comment-749">
+    <div class="heading">
+        <div class="f-left">
+            <span class="image">
+                <img src="./module_quotes_only_front_files/avatar.jpg">
+            </span>
+            <span class="name">Gr1g0ry</span>
+        </div>
+        <div class="f-right actions">
+            <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#749" class="small-btn">Ответить</a>
+            18 июня 2012 г., 11:21        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+                    Прошу прощения, нужно было дочитать до конца прежде чем задавать вопросы. <br>
+Я понял, что в Quotes/Block/Quote/Content.php формируется блок для вывода одной цитаты, <br>
+а в Quotes/Block/Content.php - для списка цитат.            </div>
+            <ul>
+        
+    </ul>
+    </li>
+                </ul>
+                            </li>
+                        <li id="comment-801">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">maxst</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#801" class="small-btn">Ответить</a>
+                        16 июля 2012 г., 17:03                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            у меня вопрос по исходному коду - почему во всех конструкторах вы пишите _construct() вместо __construct() - 1 символ нижнего подчеркивания вместо двух                                    </div>
+                                                <ul>
+                    
+<li id="comment-803">
+    <div class="heading">
+        <div class="f-left">
+            <span class="image">
+                <img src="./module_quotes_only_front_files/avatar.jpg">
+            </span>
+            <span class="name">Сергей (Администратор)</span>
+        </div>
+        <div class="f-right actions">
+            <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#803" class="small-btn">Ответить</a>
+            16 июля 2012 г., 21:27        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+                    Потому что это защищенный (а не публичный) метод, который нужно использовать для инициализации блоков и моделей. Что-то вроде договоренности, а кроме того в стандартном конструкторе Magento сама что-то инициализирует и потом вызывает метод _construct().            </div>
+            <ul>
+        
+    </ul>
+    </li>
+                </ul>
+                            </li>
+                        <li id="comment-804">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">Игорь</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#804" class="small-btn">Ответить</a>
+                        16 июля 2012 г., 22:37                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            выкидивает еррор Call to a member function setQuoteId() on a non-object все это происходит методе viewAction() контроллера...                                     </div>
+                                                <ul>
+                    
+<li id="comment-806">
+    <div class="heading">
+        <div class="f-left">
+            <span class="image">
+                <img src="./module_quotes_only_front_files/avatar.jpg">
+            </span>
+            <span class="name">Сергей (Администратор)</span>
+        </div>
+        <div class="f-right actions">
+            <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#806" class="small-btn">Ответить</a>
+            17 июля 2012 г., 20:26        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+                    Видно у Вас layout update не применился. Попробуйте почистить кэш и посмотрите есть ли у вас файл app/design/frontend/base/default/layout/freaks/quotes.xml            </div>
+            <ul>
+        
+<li id="comment-811">
+    <div class="heading">
+        <div class="f-left">
+            <span class="image">
+                <img src="./module_quotes_only_front_files/avatar.jpg">
+            </span>
+            <span class="name">Игорь</span>
+        </div>
+        <div class="f-right actions">
+            <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#811" class="small-btn">Ответить</a>
+            18 июля 2012 г., 22:43        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+                    да, все верно, пасибо за совет. Именно в этом файле была ошибка.             </div>
+            <ul>
+        
+    </ul>
+    </li>
+    </ul>
+    </li>
+                </ul>
+                            </li>
+                        <li id="comment-895">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">globian</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#895" class="small-btn">Ответить</a>
+                        21 августа 2012 г., 15:09                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            Сергей спасибо за статью, у вас ошибка .../etc/config.xml так и не исправлена, в  должно стоять<br>
+<br>
+            &lt;quotes_resource&gt;<br>
+                &lt;class&gt;Freaks_Quotes_Model_Resource&lt;/class&gt;<br>
+                &lt;entities&gt;<br>
+                    &lt;quote&gt;<br>
+                        &lt;table&gt;quote&lt;/table&gt;<br>
+                    &lt;/quote&gt;<br>
+                &lt;/entities&gt;<br>
+            &lt;/quotes_resource&gt;                                    </div>
+                                                <ul>
+                    
+<li id="comment-899">
+    <div class="heading">
+        <div class="f-left">
+            <span class="image">
+                <img src="./module_quotes_only_front_files/avatar.jpg">
+            </span>
+            <span class="name">Сергей (Администратор)</span>
+        </div>
+        <div class="f-right actions">
+            <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#899" class="small-btn">Ответить</a>
+            21 августа 2012 г., 21:48        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+                    А ошибка где? В теге &lt;table&gt; можно указать любое имя для таблицы. Это именно имя таблицы в базе данных            </div>
+            <ul>
+        
+    </ul>
+    </li>
+                </ul>
+                            </li>
+                        <li id="comment-955">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">Hosh</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#955" class="small-btn">Ответить</a>
+                        5 сентября 2012 г., 0:17                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            Да, статья действительно здоровская. Единственная, из тех что я нашел, по которой можно мне, как новичку, что-нибудь наглядное сделать так, чтоб работало :) спасибо.<br>
+Только у меня ошибка получилась под конец:<br>
+Fatal error: Class 'Freaks_Quotes_Block_Content' not found in Z:\home\localhost\magento\app\code\core\Mage\Core\Model\Layout.php on line 491<br>
+<br>
+Почему он ссылается на коровский лэйаут?<br>
+Как-то я пока не совсем понял принцип, по которому core код меняется на наш.                                    </div>
+                                                <ul>
+                    
+<li id="comment-3307">
+    <div class="heading">
+        <div class="f-left">
+            <span class="image">
+                <img src="./module_quotes_only_front_files/avatar.jpg">
+            </span>
+            <span class="name">Dmitrik</span>
+        </div>
+        <div class="f-right actions">
+            <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#3307" class="small-btn">Ответить</a>
+            14 апреля 2014 г., 21:29        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+                    Он не меняется, а расширяет имеющийся класс. Изучили бы ООП для начала.<br>
+<br>
+Ошибка связана либо с отсутствием блока Content.php, либо с ошибкой его написания при расширении (extends).            </div>
+            <ul>
+        
+    </ul>
+    </li>
+                </ul>
+                            </li>
+                        <li id="comment-1186">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">Дмитрий</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#1186" class="small-btn">Ответить</a>
+                        1 декабря 2012 г., 9:59                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            А где-же продолжение, про редактирование в админке?..                                    </div>
+                                                <ul>
+                    
+<li id="comment-1187">
+    <div class="heading">
+        <div class="f-left">
+            <span class="image">
+                <img src="./module_quotes_only_front_files/avatar.jpg">
+            </span>
+            <span class="name">Сергей (Администратор)</span>
+        </div>
+        <div class="f-right actions">
+            <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#1187" class="small-btn">Ответить</a>
+            1 декабря 2012 г., 14:46        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+                    http://freaksidea.com/php_and_somethings/show-6-magento-backend-sozdanie-crud-modulia            </div>
+            <ul>
+        
+    </ul>
+    </li>
+                </ul>
+                            </li>
+                        <li id="comment-1774">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">k1cker</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#1774" class="small-btn">Ответить</a>
+                        27 марта 2013 г., 15:11                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            кеш я отключил + почистил кеш вручную и все равно одно и тоже! И в чем дело? При чем, QUOTES добавляется в админпанель а при нажатии на нее выбивается<br>
+<br>
+<br>
+There has been an error processing your request<br>
+<br>
+Exception printing is disabled by default for security reasons.<br>
+<br>
+Error log record number: 282011510<br>
+                                    </div>
+                                                <ul>
+                    
+<li id="comment-1777">
+    <div class="heading">
+        <div class="f-left">
+            <span class="image">
+                <img src="./module_quotes_only_front_files/avatar.jpg">
+            </span>
+            <span class="name">Сергей (Администратор)</span>
+        </div>
+        <div class="f-right actions">
+            <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#1777" class="small-btn">Ответить</a>
+            27 марта 2013 г., 22:31        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+                    посмотрите содержимое файла: var/report/282011510            </div>
+            <ul>
+        
+    </ul>
+    </li>
+                </ul>
+                            </li>
+                        <li id="comment-2549">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">Денис</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#2549" class="small-btn">Ответить</a>
+                        17 июля 2013 г., 16:15                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            Приветствую, Сергей.<br>
+Отличная статья, спасибо! У меня назрел вопрос который поа не понимаю как решить. Вот есть кусок в locale.xml :<br>
+<br>
+&lt;reference name="content"&gt;<br>
+            &lt;block type="freaks_quotes/content" name="quotes.all" /&gt;<br>
+        &lt;/reference&gt;<br>
+Этим мы говорим что созданный нами блок референсим в контент. А как например референсить в кастомный структурный блок? Например:<br>
+&lt;reference name="mynewcusblock"&gt;<br>
+            &lt;block type="freaks_quotes/content" name="quotes.all" /&gt;<br>
+        &lt;/reference&gt;<br>
+Пока ничего не выходит.                                    </div>
+                                                <ul>
+                    
+<li id="comment-2553">
+    <div class="heading">
+        <div class="f-left">
+            <span class="image">
+                <img src="./module_quotes_only_front_files/avatar.jpg">
+            </span>
+            <span class="name">Сергей (Администратор)</span>
+        </div>
+        <div class="f-right actions">
+            <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#2553" class="small-btn">Ответить</a>
+            19 июля 2013 г., 10:49        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+                    Layout xml определяет только структуру блоков, а за их вывод отвечает метод _toHtml внутри класса блока. Есть блоки которые только и делают что выводят все дочерние блоки, а есть блоки в которых есть свои темплейты и чтобы вывести в них дочерний блок нужно написать: &lt;?php echo $this-&gt;getChildHtml('child_block_alias') ?&gt;            </div>
+            <ul>
+        
+<li id="comment-2554">
+    <div class="heading">
+        <div class="f-left">
+            <span class="image">
+                <img src="./module_quotes_only_front_files/avatar.jpg">
+            </span>
+            <span class="name">Денис</span>
+        </div>
+        <div class="f-right actions">
+            <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#2554" class="small-btn">Ответить</a>
+            19 июля 2013 г., 11:15        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+                    Примерно понял. Спасибо. Решил обойтись пока без создания кастомного структурного блока а сделал референс в header и в шаблонк хедера уже указал &lt;?php echo $this-&gt;getChildHtml('quotes.all') ?&gt; <br>
+            </div>
+            <ul>
+        
+    </ul>
+    </li>
+    </ul>
+    </li>
+                </ul>
+                            </li>
+                        <li id="comment-2758">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">Руслан</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#2758" class="small-btn">Ответить</a>
+                        9 августа 2013 г., 12:11                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            Благодарочка за статью. Хоть чуть чуть получается систематизировать знания и определить хоть какую то последовательность. Еще и на русском языке.                                     </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-5207">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">Denikus2015</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#5207" class="small-btn">Ответить</a>
+                        21 июня 2015 г., 16:09                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            <div class="msg-del">Плохие идеи удаляются</div>
+                                    </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-5238">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">DanilMast</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#5238" class="small-btn">Ответить</a>
+                        10 февраля 2016 г., 10:28                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            <div class="msg-del">Плохие идеи удаляются</div>
+                                    </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-5338">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">iqaaliyezia</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#5338" class="small-btn">Ответить</a>
+                        9 марта 2016 г., 1:13                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            <div class="msg-del">Плохие идеи удаляются</div>
+                                    </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-5347">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">aposeno</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#5347" class="small-btn">Ответить</a>
+                        10 марта 2016 г., 23:17                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            <div class="msg-del">Плохие идеи удаляются</div>
+                                    </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-5348">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">ewqixoribuxi</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#5348" class="small-btn">Ответить</a>
+                        11 марта 2016 г., 1:31                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            <div class="msg-del">Плохие идеи удаляются</div>
+                                    </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-5384">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">Cleatryatrola</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#5384" class="small-btn">Ответить</a>
+                        19 марта 2016 г., 15:53                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            <div class="msg-del">Плохие идеи удаляются</div>
+                                    </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-5463">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">SpoorkibLok</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#5463" class="small-btn">Ответить</a>
+                        8 апреля 2016 г., 13:35                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            <div class="msg-del">Плохие идеи удаляются</div>
+                                    </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-5464">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">SpoorkibLok</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#5464" class="small-btn">Ответить</a>
+                        8 апреля 2016 г., 15:47                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            <div class="msg-del">Плохие идеи удаляются</div>
+                                    </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-5466">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">LilmLield</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#5466" class="small-btn">Ответить</a>
+                        9 апреля 2016 г., 8:48                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            <div class="msg-del">Плохие идеи удаляются</div>
+                                    </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-5482">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">RostFond</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#5482" class="small-btn">Ответить</a>
+                        13 апреля 2016 г., 18:58                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                             RostFond-Все про Банки, Финансы, Кредиты, Инвестиции,Форекс,Акции,Бонусы,Аналитика                                    </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-5588">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">StockPhoto</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#5588" class="small-btn">Ответить</a>
+                        16 мая 2016 г., 8:45                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            Привет всем, здесь  есть возможность иметь пассивный доход на продаже фотографий. Если есть фотоаппарат, то Ваше благосостояние в Ваших руках, потому что не зарабатывает только ленивый.                                    </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-5590">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">StockPhoto</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#5590" class="small-btn">Ответить</a>
+                        17 мая 2016 г., 17:49                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            Привет всем, здесь  есть возможность иметь пассивный доход на продаже фотографий. Если есть фотоаппарат, то Ваше благосостояние в Ваших руках, потому что не зарабатывает только ленивый.                                    </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-5594">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">PlayPorn.ru</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#5594" class="small-btn">Ответить</a>
+                        17 мая 2016 г., 23:21                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            <div class="msg-del">Плохие идеи удаляются</div>
+                                    </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-5605">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">PlayPorn.ru</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#5605" class="small-btn">Ответить</a>
+                        20 мая 2016 г., 0:59                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            <div class="msg-del">Плохие идеи удаляются</div>
+                                    </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-5683">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">mamud1980</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#5683" class="small-btn">Ответить</a>
+                        11 июня 2016 г., 22:21                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            <div class="msg-del">Плохие идеи удаляются</div>
+                                    </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-5769">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">NikitaDag</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#5769" class="small-btn">Ответить</a>
+                        6 июля 2016 г., 20:33                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                            <div class="msg-del">Плохие идеи удаляются</div>
+                                    </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                        <li id="comment-5776">
+                <div class="heading">
+                    <div class="f-left">
+                        <span class="image">
+                            <img src="./module_quotes_only_front_files/avatar.jpg">
+                        </span>
+                        <span class="name">Robertkl</span>
+                    </div>
+                    <div class="f-right actions">
+                        <a href="http://freaksidea.com/show-5-magento-sozdanie-crud-modulia#5776" class="small-btn">Ответить</a>
+                        7 июля 2016 г., 22:59                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="body">
+                                             <br>
+Проблема с открытием файла <br>
+Переустановил винду 7 64бит. Предварительно сохранил файл с моими записями (тот, который с расширением *.FDB) <br>
+При попытке его открыть в программе Family 11 Pro (версия 11.5.2.0) никаких записей нет. Пытаюсь посмотреть счёт - счёта нет. Предлагается "Шаг 1. Выберите тип счёта, который желаете создать в программе:" <br>
+ <br>
+Как открыть  . <br>
+ <br>
+Может, я вообще не тот файл сохранил?                                     </div>
+                                                <ul>
+                    
+                </ul>
+                            </li>
+                    </ul>
+    </div>
+    </div>
+                                      </div>
+            </div>
+            <div class="sidebar">
+                <div class="box" id="search">
+    <form action="http://freaksidea.com/search" name="search">
+        <div class="mfield">
+            <label for="s-i">Поиск идей</label>
+            <input type="text" name="form_prepare[txt]" id="s-i">
+        </div>
+    </form>
+</div>
+<div class="banner-block box">
+    <h3>0 Step Checkout</h3>
+    <div class="box-content" style="padding-left:10px">
+        <p>Хотите упростить процесс оформления заказа в Magento? <a href="https://www.magentocommerce.com/magento-connect/0-step-checkout.html" target="_blank">0 Step Checkout</a> поможет Вам решить эту проблему!</p>
+<div align="center">
+<a href="https://www.magentocommerce.com/magento-connect/0-step-checkout.html" target="_blank"><img src="./module_quotes_only_front_files/BOX-icon.jpg"></a>
+</div>    </div>
+</div>
+<div class="box">
+    <h3>Популярные посты</h3>
+    <div class="box-content">
+                    <h4><a href="http://freaksidea.com/javascript/show-75-best-practises-v-knockout-uproshchaem-vew"><span class="s-idea"></span><span class="txt">Best practisies в Knockout: упрощаем view</span></a></h4>
+                    <h4><a href="http://freaksidea.com/ruby/show-74-vvedenie-ruby-rack"><span class="s-idea"></span><span class="txt">Введение Ruby::Rack</span></a></h4>
+                    <h4><a href="http://freaksidea.com/php_and_somethings/show-24-internatsionalizatsiia-v-magento"><span class="s-idea"></span><span class="txt">Интернационализация в Magento</span></a></h4>
+                    <h4><a href="http://freaksidea.com/javascript/show-71-obrabotka-sobytii-i-rabota-s-poliami-form-v-knockout"><span class="s-idea"></span><span class="txt">Обработка событий и работа с полями форм в Knockout </span></a></h4>
+                    <h4><a href="http://freaksidea.com/javascript/show-69-baindinghi-v-knockout-upravlenie-vidimostiu-i-soderzhimym"><span class="s-idea"></span><span class="txt">Байндинги в KnockOut: управление видимостью и содержимым</span></a></h4>
+                    <h4><a href="http://freaksidea.com/javascript/show-66-knockout-nabliudaem-za-vsem-i-vezde"><span class="s-idea"></span><span class="txt">KnockOut - наблюдаем за всем и везде</span></a></h4>
+                    <h4><a href="http://freaksidea.com/javascript/show-65-vvedenie-v-knockout-novyi-vzghliad-na-postroenie-javascript-prilozhenii"><span class="s-idea"></span><span class="txt">Введение в KnockOut - новый взгляд на построение JavaScript приложений</span></a></h4>
+                    <h4><a href="http://freaksidea.com/php_and_somethings/show-64-upravlenie-prostranstvom-i-vremenem-magento-cron-esli-prosto"><span class="s-idea"></span><span class="txt">Управление пространством и временем. Magento Cron, если просто</span></a></h4>
+                    <h4><a href="http://freaksidea.com/php_and_somethings/show-63-magento-modeli-ot-a-do-ia-sobytiia-i-rewrite-klassov"><span class="s-idea"></span><span class="txt">Magento модели от А до Я: события и rewrite классов</span></a></h4>
+                    <h4><a href="http://freaksidea.com/php_and_somethings/show-62-magento-modeli-ot-a-do-ia-modeli-iadra"><span class="s-idea"></span><span class="txt">Magento модели от А до Я: модели ядра</span></a></h4>
+        </div>
+</div>
+<div class="box">
+   <h3>Теги</h3>
+   <div class="box-content">
+                    <a style="font-size: 90%" href="http://freaksidea.com/search/tag-66-skript">скрипт</a>&nbsp;
+                    <a style="font-size: 108%" href="http://freaksidea.com/search/tag-35-modul">модуль</a>&nbsp;
+                    <a style="font-size: 96%" href="http://freaksidea.com/search/tag-48-novinki">новинки</a>&nbsp;
+                    <a style="font-size: 114%" href="http://freaksidea.com/search/tag-27-ajax">ajax</a>&nbsp;
+                    <a style="font-size: 90%" href="http://freaksidea.com/search/tag-91-vew">view</a>&nbsp;
+                    <a style="font-size: 96%" href="http://freaksidea.com/search/tag-36-backend">backend</a>&nbsp;
+                    <a style="font-size: 96%" href="http://freaksidea.com/search/tag-52-faily">файлы</a>&nbsp;
+                    <a style="font-size: 96%" href="http://freaksidea.com/search/tag-39-doctrine">Doctrine</a>&nbsp;
+                    <a style="font-size: 108%" href="http://freaksidea.com/search/tag-79-modeli">модели</a>&nbsp;
+                    <a style="font-size: 139%" href="http://freaksidea.com/search/tag-59-bash">Bash</a>&nbsp;
+                    <a style="font-size: 200%" href="http://freaksidea.com/search/tag-33-magento">magento</a>&nbsp;
+                    <a style="font-size: 139%" href="http://freaksidea.com/search/tag-82-knockout">knockout</a>&nbsp;
+                    <a style="font-size: 90%" href="http://freaksidea.com/search/tag-55-stranitsy">страницы</a>&nbsp;
+                    <a style="font-size: 96%" href="http://freaksidea.com/search/tag-64-i18n">I18n</a>&nbsp;
+                    <a style="font-size: 102%" href="http://freaksidea.com/search/tag-26-failovyi-menedzher">файловый менеджер</a>&nbsp;
+                    <a style="font-size: 96%" href="http://freaksidea.com/search/tag-54-output">output</a>&nbsp;
+                    <a style="font-size: 102%" href="http://freaksidea.com/search/tag-84-mvvm">MVVM</a>&nbsp;
+                    <a style="font-size: 96%" href="http://freaksidea.com/search/tag-45-novichok">новичок</a>&nbsp;
+                    <a style="font-size: 96%" href="http://freaksidea.com/search/tag-62-import">import</a>&nbsp;
+                    <a style="font-size: 96%" href="http://freaksidea.com/search/tag-41-xml">XML</a>&nbsp;
+                    <a style="font-size: 96%" href="http://freaksidea.com/search/tag-53-input">input</a>&nbsp;
+                    <a style="font-size: 96%" href="http://freaksidea.com/search/tag-63-symfony">symfony</a>&nbsp;
+                    <a style="font-size: 102%" href="http://freaksidea.com/search/tag-67-konfighuratsiia">конфигурация</a>&nbsp;
+                    <a style="font-size: 108%" href="http://freaksidea.com/search/tag-85-observables">observables</a>&nbsp;
+                    <a style="font-size: 102%" href="http://freaksidea.com/search/tag-87-bind">bind</a>&nbsp;
+                    <a style="font-size: 176%" href="http://freaksidea.com/search/tag-44-linux">linux</a>&nbsp;
+                    <a style="font-size: 121%" href="http://freaksidea.com/search/tag-81-javascript">javascript</a>&nbsp;
+                    <a style="font-size: 90%" href="http://freaksidea.com/search/tag-34-crud">crud</a>&nbsp;
+                    <a style="font-size: 96%" href="http://freaksidea.com/search/tag-65-poisk">поиск</a>&nbsp;
+                    <a style="font-size: 102%" href="http://freaksidea.com/search/tag-57-upravlenie">управление</a>&nbsp;
+            </div>
+</div>
+<div class="banne-block box banner-fixed" style="position: fixed; top: 5px;">
+    <h3>Реклама</h3>
+    <div class="box-content" style="padding-left:10px">
+        <script type="text/javascript"><!--
+google_ad_client = "ca-pub-5129274777209544";
+/* Баннер справа */
+google_ad_slot = "8551486343";
+google_ad_width = 300;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript" src="./module_quotes_only_front_files/show_ads.js"></script><ins id="aswift_0_expand" style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><iframe width="300" height="250" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;"></iframe></ins></ins>    </div>
+</div>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div id="footer">
+    <span class="txt">© 2011-2015 Sergiy Stotskiy</span>
+    <div class="counters"><div class="banner-block" id="sj_banner_place_5">
+                        <!-- I.UA counter --><a href="http://www.i.ua/" target="_blank" onclick="this.href=&#39;http://i.ua/r.php?105188&#39;;" title="Rated by I.UA">
+<script type="text/javascript" language="javascript"><!--
+iS='<img src="http://r.i.ua/s?u105188&p62&n'+Math.random();
+iD=document;if(!iD.cookie)iD.cookie="b=b; path=/";if(iD.cookie)iS+='&c1';
+iS+='&d'+(screen.colorDepth?screen.colorDepth:screen.pixelDepth)
++"&w"+screen.width+'&h'+screen.height;
+iT=iD.referrer.slice(7);iH=window.location.href.slice(7);
+((iI=iT.indexOf('/'))!=-1)?(iT=iT.substring(0,iI)):(iI=iT.length);
+if(iT!=iH.substring(0,iI))iS+='&f'+escape(iD.referrer.slice(7));
+iS+='&r'+escape(iH);
+iD.write(iS+'" border="0" width="88" height="31" />');
+//--></script><img src="./module_quotes_only_front_files/s" border="0" width="88" height="31"></a><!-- End of I.UA counter -->            </div>
+</div>
+</div><!-- #footer -->
+    <script type="text/javascript" src="./module_quotes_only_front_files/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="./module_quotes_only_front_files/front.js"></script>
+
+<iframe name="oauth2relay422745749" id="oauth2relay422745749" src="./module_quotes_only_front_files/postmessageRelay.html" tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe></body></html>

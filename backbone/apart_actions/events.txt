@@ -1,0 +1,79 @@
+добавим обработчики событий к представление
+
+================
+допустим формируем элемент:
+
+APP.AddGraphModalView = Backbone.View.extend({
+
+  initialize: function() {
+    this.graphSimpleKeys = APP.helper.getSimpleKeys(APP.Graph.prototype.defaults); 
+  },  
+
+  tagName: 'div',
+
+  template: _.template($('#addGraphModalTemplate').html()), 
+
+  events:{
+    'click #createGraphSubmit' : 'createGraph'
+  },  
+
+  render: function() {  
+    this.$el.html(this.template());
+
+    for (var key in this.graphSimpleKeys) { this.renderField(this.graphSimpleKeys[key]) };
+      
+    return this;
+  }, 
+
+  renderField: function(key) {      
+    var addGraphModalFieldView = new APP.AddGraphModalFieldView();
+
+    $('#addGraphModalFields').prepend(addGraphModalFieldView.render(key).el);
+  }, 
+
+  createGraph: function(e) {
+    e.preventDefault();
+    console.log('sdf');
+  }  
+
+});
+
+
+
+
+здесь важно, что темплейт добавляется не сразу в dom . например так $(body).html(this.template())
+а важно то, что сначала темплейт отрисовывается в пределах el. 
+и только уже потом из другого места(например представления) el встраивается в dom. на пример так: 
+$(this.el).append(this.addGraphModalView.render().el);
+
+
+
+
+================
+если вышеуказанное не сделать, то невозможно будет делегировать события. например так:
+  events:{
+    'click #createGraphSubmit' : 'createGraph'
+  },  
+
+  потому что блока с id=createGraphSubmit не будет в элементе. хотя пользователь ег оможет и видеть на экранет(потому что оно есть в dom. но обработчик слушает только в пределах el)
+
+
+================
+если события делегировать не надо, то обработчик устанавливается так: 
+  events:{
+    'click' : 'createGraph'
+  },  
+
+то есть при клике на элемент вообще сработает обработчик  
+
+================
+http://jsfiddle.net/ZrYYy/27/
+
+================
+================
+================
+================
+================
+================
+================
+================

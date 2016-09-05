@@ -1,0 +1,100 @@
+создадим коллекцию и заполним её из массива. это бывает полезно когда нужно заполнить приложение тестовыми рыбными данными:
+
+
+==========================
+пространиство имён: 
+window.APP = window.APP || {};
+
+
+==========================
+конструктор модели: 
+APP.Graph = Backbone.Model.extend({
+  defaults: {
+    title: undefined,
+    yMax: undefined,
+    yMin: undefined,
+    yPeriod: undefined,
+    xMax: undefined,
+    xMin: undefined,
+    xPeriod: undefined,
+    dots: {}
+  }
+});
+
+
+
+
+==========================
+в конструкторе коллекции укажем тип модели: 
+APP.GraphCollection = Backbone.Collection.extend({
+
+  model: APP.Graph//,
+
+  //localStorage: new Backbone.LocalStorage('GraphList')
+
+});
+
+
+
+
+
+
+==========================
+в условном блоке роутера созадем экземпляр класса коллекции, в качестве аргумента передавая массив вида:
+[
+  {title: 'sdfsf', ready: true},
+  {title: 'sdfsf', ready: true},
+  {title: 'sdfsf', ready: true}
+]
+
+и затем сразу создаём экземляр вида, передавая в качестве аргумента: {collection: graphCollection}
+
+в общем это выглядит так:
+
+APP.NavigationRouter = Backbone.Router.extend({
+  routes: {
+    "": "index", 
+    "!/": "index", 
+    "!/index": "index", 
+    "!/page1": "page1", 
+    "!/page2": "page2", 
+    "!/page3": "page3", 
+    "!/page4": "page4", 
+    "!/page5": "page5"
+  },
+
+  initialize: function() { console.log('ini r');    
+    Backbone.history.start();     
+  },  
+
+  index: function () {     
+    if(!this.indexView) {
+      var graphCollection = new APP.GraphCollection(APP.helper.getInitialGraphs());
+      this.indexView = new APP.IndexView({collection: graphCollection});
+    }
+    
+    this.indexView.render();         
+
+    var graphSimpleKeys = APP.helper.getSimpleKeys(APP.Graph.prototype.defaults);     
+    new APP.AddGraphModalView(graphSimpleKeys);      
+  },
+
+
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================

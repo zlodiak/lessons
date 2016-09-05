@@ -1,0 +1,144 @@
+отправка писем через контактную форму
+
+================
+сначала создадим ресурс contact_messages
+
+routes:
+resources :contact_messages, only: [:create, :new]
+
+controller:
+class ContactMessagesController < ApplicationController
+  before_action :set_contact_message, only: [:show, :edit, :update, :destroy]
+
+  def index
+    @contact_messages = ContactMessage.all
+  end
+
+  def show
+  end
+
+  def new
+    @contact_message = ContactMessage.new
+  end
+
+  def edit
+  end
+
+  def create
+    @contact_message = ContactMessage.new(contact_message_params)
+
+    respond_to do |format|
+      if @contact_message.save
+        puts 'MAIL=============='
+        ContactMessagesMailer.contact_messages_email(@contact_message).deliver_now
+        format.html { redirect_to new_contact_message_path, notice: 'Contact message was successfully created.' }
+        format.json { render :show, status: :created, location: @contact_message }
+      else
+        format.html { render :new }
+        format.json { render json: @contact_message.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+.....
+
+
+form:
+<div id="contact_form">
+  <%= form_for(contact_message) do |f| %>
+    <% if contact_message.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(contact_message.errors.count, "error") %> prohibited this contact_message from being saved:</h2>
+
+        <ul>
+          <% contact_message.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field float_l">
+      <%= f.label :name, 'Имя' %>
+      <%= f.text_field :name, class: 'required input_field' %>
+    </div>
+
+    <div class="field float_r">
+      <%= f.label :email %>
+      <%= f.text_field :email, class: 'validate-email required input_field' %>
+    </div>
+
+    <div class="cleaner h20"></div>
+
+    <div class="field">
+      <%= f.label :message, 'Сообщение' %>
+      <%= f.text_area :message, class: 'required' %>
+    </div>
+
+    <div class="cleaner h20"></div>
+
+    <div class="actions">
+      <%= f.submit class: 'submit_btn float_r', value: 'Отправить' %>
+    </div> 
+  <% end %> 
+</div>  
+
+
+================
+development.rb:
+config.action_mailer.raise_delivery_errors = false
+config.action_mailer.delivery_method = :sendmail
+
+
+================
+sudo apt-get install postfix
+убедиться, что он запущен (sudo service postfix start). 
+
+================
+rails g mailer contact_messages_mailer 
+
+================
+views/contact_messages_mailer/contact_messages_email.html.erb:
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>email <%= @message.email %></h1>
+    <p>
+      name: <%= @message.name %>.<br>
+    </p>
+    <p>
+      message: <%= @message.message %>.
+    </p>
+    <p>Thanks for joining and have a great day!</p>
+  </body>
+</html>
+
+================
+app/mailers/contact_messages_mailer.rb:
+class ContactMessagesMailer < ApplicationMailer
+  default from: 'no-reply@kalinin.ru'
+ 
+  def contact_messages_email(message)
+    @message = message
+    mail(to: 'prozaik81-2@yandex.ru', subject: 'New message create')
+  end    
+end
+
+================
+непосредственная отправка происходит в контроллере. в экшене create
+
+================
+================
+================
+================
+================
+================
+================
+================
+================
+================
+================
+================
