@@ -1,0 +1,20 @@
+Use n module from npm in order to upgrade node
+
+sudo npm cache clean -f
+sudo npm install -g n
+sudo n stable
+
+sudo ln -sf /usr/local/n/versions/node/<VERSION>/bin/node /usr/bin/node 
+To upgrade to latest version (and not current stable) version, you can use
+
+sudo n latest
+To undo:
+
+sudo apt-get install --reinstall nodejs-legacy     # fix /usr/bin/node
+sudo n rm 6.0.0     # replace number with version of Node that was installed
+sudo npm uninstall -g n
+Found in David Walsh blog http://davidwalsh.name/upgrade-nodejs
+
+
+
+http://askubuntu.com/questions/426750/how-can-i-update-my-nodejs-to-the-latest-version
